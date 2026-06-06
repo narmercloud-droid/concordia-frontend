@@ -1,61 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Concordia Restaurant">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Concordia">
   <defs>
-    <linearGradient id="cloche-dome" x1="60" y1="28" x2="60" y2="78" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#c41e3a"/>
-      <stop offset="1" stop-color="#8b1428"/>
+    <linearGradient id="gold" x1="60" y1="16" x2="60" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8c547"/>
+      <stop offset="1" stop-color="#a67c00"/>
     </linearGradient>
-    <linearGradient id="cloche-shine" x1="48" y1="40" x2="72" y2="70" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffffff" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    <linearGradient id="wine" x1="60" y1="20" x2="60" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c42a42"/>
+      <stop offset="1" stop-color="#7a1224"/>
     </linearGradient>
-    <linearGradient id="plate-ring" x1="30" y1="82" x2="90" y2="82" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#d4af37"/>
-      <stop offset="0.5" stop-color="#f0c96e"/>
-      <stop offset="1" stop-color="#d4af37"/>
+    <linearGradient id="stone" x1="60" y1="44" x2="60" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5c5048"/>
+      <stop offset="1" stop-color="#2e2722"/>
     </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 74) scale(24 16)">
+      <stop stop-color="#f5d76e" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#f5d76e" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-
-  <!-- Outer seal ring -->
-  <circle cx="60" cy="60" r="54" stroke="#d4af37" stroke-width="2" opacity="0.5"/>
-  <circle cx="60" cy="60" r="48" stroke="#a31830" stroke-width="1" opacity="0.15"/>
-
-  <!-- Steam — fresh from the kitchen -->
-  <path
-    d="M48 24c0-6 3-10 6-10s6 4 6 10M60 18c0-7 3-11 6-11s6 4 6 11M72 24c0-6 3-10 6-10s6 4 6 10"
-    stroke="#a31830"
-    stroke-width="2"
-    stroke-linecap="round"
-    opacity="0.4"
-  />
-
-  <!-- Cloche dome — classic restaurant service -->
-  <path
-    d="M34 72 C34 48 46 34 60 34 C74 34 86 48 86 72"
-    stroke="url(#cloche-dome)"
-    stroke-width="4.5"
-    stroke-linecap="round"
-    fill="url(#cloche-shine)"
-  />
-
-  <!-- Cloche handle -->
-  <path
-    d="M56 34 C56 28 58 24 60 24 C62 24 64 28 64 34"
-    stroke="url(#cloche-dome)"
-    stroke-width="3"
-    stroke-linecap="round"
-  />
-
-  <!-- Plate -->
-  <ellipse cx="60" cy="78" rx="30" ry="8" fill="#faf8f5" stroke="url(#plate-ring)" stroke-width="2.5"/>
-  <ellipse cx="60" cy="76" rx="22" ry="5" stroke="#a31830" stroke-width="1" opacity="0.2"/>
-
-  <!-- C monogram on the dome — brand mark -->
-  <path
-    d="M72 50 C58 46 50 56 50 66 C50 74 56 80 66 78"
-    stroke="#ffffff"
-    stroke-width="3.5"
-    stroke-linecap="round"
-    fill="none"
-    opacity="0.92"
-  />
+  <circle cx="60" cy="62" r="50" stroke="url(#gold)" stroke-width="1.6" opacity="0.9"/>
+  <circle cx="60" cy="62" r="46" stroke="#a31830" stroke-width="0.8" opacity="0.14"/>
+  <ellipse cx="60" cy="76" rx="24" ry="15" fill="url(#glow)"/>
+  <path d="M17 80 C27 44, 46 30, 60 27" stroke="url(#wine)" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M103 80 C93 44, 74 30, 60 27" stroke="url(#wine)" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="60" cy="27" r="3.8" fill="url(#gold)"/>
+  <path d="M38 90 L38 74 C38 57, 60 45, 82 57 L82 90 Z" fill="url(#stone)"/>
+  <path d="M44 90 L44 73 C44 62, 60 55, 76 62 L76 90 Z" fill="#151311" opacity="0.22"/>
+  <path d="M47 90 L47 74 C47 65, 60 59, 73 65 L73 90 Z" fill="#0f0d0c"/>
+  <path d="M41 82 H79" stroke="#6b5f56" stroke-width="0.9" opacity="0.45"/>
+  <path d="M42 86 H78" stroke="#6b5f56" stroke-width="0.9" opacity="0.35"/>
+  <path d="M60 83 C56.5 77, 53.5 72.5, 56.5 68 C57.8 71.5, 59.2 73, 60 69.5 C60.8 73, 62.2 71.5, 63.5 68 C66.5 72.5, 63.5 77, 60 83Z" fill="url(#gold)"/>
+  <path d="M60 81 C58.8 76.5, 58.5 73.5, 60 71 C61.5 73.5, 61.2 76.5, 60 81Z" fill="#fff8e7" opacity="0.55"/>
 </svg>

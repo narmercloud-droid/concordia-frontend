@@ -13,21 +13,14 @@ export default function BranchOwnerWelcome({ branding, branchName }: Props) {
   return (
     <section className="branch-owner">
       <div className="branch-owner__card">
-        <div className="branch-owner__visual">
-          <img
-            src={branding.cartoonImage}
-            alt={t("branchOwner.cartoonAlt")}
-            className="branch-owner__cartoon"
-            width={96}
-            height={96}
-          />
+        <div className="branch-owner__photo-wrap">
           <img
             src={branding.photoImage}
             alt={t("branchOwner.photoAlt", { branch: branchName })}
             className="branch-owner__photo"
-            width={72}
-            height={72}
-            loading="lazy"
+            width={112}
+            height={112}
+            loading="eager"
           />
         </div>
         <div className="branch-owner__copy">

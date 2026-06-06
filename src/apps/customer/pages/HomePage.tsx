@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
+import ConcordiaHomeLogo from "@/apps/customer/components/ConcordiaHomeLogo"
 import HomeHeroArt from "@/apps/customer/components/HomeHeroArt"
 import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { branchPath } from "@/lib/customerPaths"
@@ -133,7 +134,7 @@ export default function HomePage() {
         <p className="home-eyebrow">{t("home.eyebrow")}</p>
 
         <div className="home-hero__brand">
-          <ConcordiaLogo size="hero" className="home-hero__logo" />
+          <ConcordiaHomeLogo />
         </div>
 
         <p className="home-slogan">{t("home.slogan")}</p>
