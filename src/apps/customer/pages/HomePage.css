@@ -351,24 +351,27 @@
 
 .home-hero {
   position: relative;
-  text-align: center;
-  padding: 36px 24px 48px;
   margin-bottom: 36px;
   border-radius: 24px;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(163, 24, 48, 0.1), transparent 65%),
-    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(201, 162, 39, 0.06), transparent 60%),
-    linear-gradient(165deg, #fff 0%, #fffaf7 45%, var(--home-bg) 100%);
   border: 1px solid var(--home-line);
-  box-shadow: 0 20px 50px rgba(26, 24, 22, 0.05);
+  box-shadow: 0 20px 50px rgba(26, 24, 22, 0.08);
 }
 
-.home-hero--photo {
+.home-hero__logo-stage {
+  text-align: center;
+  padding: 28px 24px 22px;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(163, 24, 48, 0.06), transparent 65%),
+    linear-gradient(180deg, #fff 0%, #fffaf7 100%);
+}
+
+.home-hero__intro {
+  position: relative;
+  text-align: center;
+  padding: 32px 24px 44px;
   background-size: cover;
   background-position: center 40%;
-  border: none;
-  box-shadow: 0 24px 60px rgba(26, 24, 22, 0.18);
 }
 
 .home-hero__overlay {
@@ -381,86 +384,39 @@
   z-index: 0;
 }
 
-.home-hero--photo .home-hero__kicker,
-.home-hero--photo .home-slogan,
-.home-hero--photo .home-lead,
-.home-hero--photo .home-location-hint {
+.home-hero__intro .home-slogan,
+.home-hero__intro .home-lead,
+.home-hero__intro .home-location-hint {
   color: rgba(255, 255, 255, 0.92);
 }
 
-.home-hero--photo .home-hero__kicker {
-  color: #f0c96e;
-}
-
-.home-hero--photo .home-slogan {
+.home-hero__intro .home-slogan {
   color: #fff;
 }
 
-.home-hero--photo .home-lead {
-  color: rgba(255, 255, 255, 0.82);
+.home-hero__intro .home-lead {
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.home-hero--photo .home-perk {
+.home-hero__intro .home-perk {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(6px);
 }
 
-.home-hero--photo .home-perk--accent {
+.home-hero__intro .home-perk--accent {
   background: rgba(163, 24, 48, 0.35);
   border-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-.home-hero--photo .home-nearest-banner,
-.home-hero--photo .home-location-prompt {
+.home-hero__intro .home-nearest-banner,
+.home-hero__intro .home-location-prompt {
   background: rgba(255, 255, 255, 0.95);
 }
 
-.home-hero--photo .concordia-home-logo__svg {
-  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.45));
-}
-
-.home-hero--photo::before {
-  opacity: 0.15;
-}
-
-.home-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(26, 24, 22, 0.035) 1px, transparent 0);
-  background-size: 28px 28px;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.home-hero__glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(48px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.home-hero__glow--left {
-  width: 180px;
-  height: 180px;
-  top: -40px;
-  left: -60px;
-  background: rgba(163, 24, 48, 0.12);
-}
-
-.home-hero__glow--right {
-  width: 140px;
-  height: 140px;
-  bottom: 20px;
-  right: -40px;
-  background: rgba(201, 162, 39, 0.1);
-}
-
-.home-hero > *:not(.home-hero__glow):not(.home-hero-art) {
+.home-hero__intro > *:not(.home-hero__overlay) {
   position: relative;
   z-index: 1;
 }
@@ -517,9 +473,9 @@
   animation: home-logo-in 0.7s ease-out both;
 }
 
-.concordia-home-logo__svg {
+.concordia-home-logo__image {
   display: block;
-  width: min(440px, 92vw);
+  width: min(380px, 86vw);
   height: auto;
   margin: 0 auto;
 }

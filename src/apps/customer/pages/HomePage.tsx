@@ -123,19 +123,17 @@ export default function HomePage() {
 
   return (
     <div className="home">
-      <section
-        className="home-hero home-hero--photo"
-        style={{ backgroundImage: `url(${FOOD_IMAGES.hero})` }}
-      >
-        <div className="home-hero__overlay" aria-hidden="true" />
-        <div className="home-hero__glow home-hero__glow--left" aria-hidden="true" />
-        <div className="home-hero__glow home-hero__glow--right" aria-hidden="true" />
-
-        <p className="home-hero__kicker">{t("home.orderTitle")}</p>
-
-        <div className="home-hero__brand">
+      <section className="home-hero">
+        <div className="home-hero__logo-stage">
+          <p className="home-hero__kicker">{t("home.orderTitle")}</p>
           <ConcordiaHomeLogo />
         </div>
+
+        <div
+          className="home-hero__intro"
+          style={{ backgroundImage: `url(${FOOD_IMAGES.hero})` }}
+        >
+          <div className="home-hero__overlay" aria-hidden="true" />
 
         <p className="home-slogan">{t("home.slogan")}</p>
         <div className="home-divider" aria-hidden="true" />
@@ -195,6 +193,7 @@ export default function HomePage() {
             </button>
           </div>
         )}
+        </div>
       </section>
 
       <HomePostcodeBar branchId={nearestId} />

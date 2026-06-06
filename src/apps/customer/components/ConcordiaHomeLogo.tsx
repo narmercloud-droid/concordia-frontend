@@ -1,11 +1,17 @@
 import React from "react"
-import ConcordiaArtisanLogo from "@/apps/customer/components/ConcordiaArtisanLogo"
+import { BRAND_LOGO_IMAGE } from "@/lib/branchBranding"
 
-/** Homepage hero — transparent artisan logo. */
 export default function ConcordiaHomeLogo() {
   return (
     <h1 className="concordia-home-logo">
-      <ConcordiaArtisanLogo className="concordia-home-logo__svg" width={440} />
+      <img
+        src={BRAND_LOGO_IMAGE}
+        alt="Concordia Restaurant — Pizza, Pasta, Grill"
+        className="concordia-home-logo__image"
+        width={720}
+        height={360}
+        fetchPriority="high"
+      />
     </h1>
   )
 }

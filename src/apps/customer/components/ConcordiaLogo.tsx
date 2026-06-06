@@ -1,5 +1,5 @@
 import React from "react"
-import ConcordiaArtisanLogo from "@/apps/customer/components/ConcordiaArtisanLogo"
+import { BRAND_LOGO_IMAGE } from "@/lib/branchBranding"
 
 type Props = {
   size?: "sm" | "md" | "lg"
@@ -7,15 +7,24 @@ type Props = {
 }
 
 const widths = {
-  sm: 128,
-  md: 156,
-  lg: 200
+  sm: 120,
+  md: 148,
+  lg: 196
 }
 
 export default function ConcordiaLogo({ size = "md", className = "" }: Props) {
+  const width = widths[size]
+
   return (
     <span className={`concordia-logo concordia-logo--${size} ${className}`.trim()}>
-      <ConcordiaArtisanLogo width={widths[size]} className="concordia-logo__svg" />
+      <img
+        src={BRAND_LOGO_IMAGE}
+        alt="Concordia Restaurant"
+        className="concordia-logo__image"
+        width={width * 2}
+        height={width}
+        loading="lazy"
+      />
     </span>
   )
 }
