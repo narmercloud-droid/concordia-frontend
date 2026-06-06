@@ -122,10 +122,10 @@
 
 .concordia-home-logo__image {
   display: block;
-  width: min(440px, 90vw);
+  width: min(480px, 92vw);
   height: auto;
   margin: 0 auto;
-  filter: drop-shadow(0 10px 24px rgba(26, 24, 22, 0.07));
+  filter: drop-shadow(0 10px 24px rgba(26, 24, 22, 0.06));
 }
 
 @keyframes home-logo-in {

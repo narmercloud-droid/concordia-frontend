@@ -41,26 +41,24 @@
 .concordia-logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  line-height: 0;
 }
 
-.concordia-logo__mark {
+.concordia-logo__image {
   display: block;
-  flex-shrink: 0;
+  height: auto;
 }
 
-.concordia-logo__restaurant {
-  margin-top: 2px;
-  font-family: var(--c-sans);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--c-muted);
+.concordia-logo--sm .concordia-logo__image {
+  width: 132px;
 }
 
-.concordia-logo--hero .concordia-logo__restaurant {
-  font-size: 11px;
+.concordia-logo--md .concordia-logo__image {
+  width: 168px;
+}
+
+.concordia-logo--lg .concordia-logo__image {
+  width: 220px;
 }
 
 .branch-owner {
