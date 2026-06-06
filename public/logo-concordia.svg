@@ -1,33 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Concordia">
-  <defs>
-    <linearGradient id="gold" x1="60" y1="16" x2="60" y2="104" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#e8c547"/>
-      <stop offset="1" stop-color="#a67c00"/>
-    </linearGradient>
-    <linearGradient id="wine" x1="60" y1="20" x2="60" y2="92" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#c42a42"/>
-      <stop offset="1" stop-color="#7a1224"/>
-    </linearGradient>
-    <linearGradient id="stone" x1="60" y1="44" x2="60" y2="92" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5c5048"/>
-      <stop offset="1" stop-color="#2e2722"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 74) scale(24 16)">
-      <stop stop-color="#f5d76e" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#f5d76e" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <circle cx="60" cy="62" r="50" stroke="url(#gold)" stroke-width="1.6" opacity="0.9"/>
-  <circle cx="60" cy="62" r="46" stroke="#a31830" stroke-width="0.8" opacity="0.14"/>
-  <ellipse cx="60" cy="76" rx="24" ry="15" fill="url(#glow)"/>
-  <path d="M17 80 C27 44, 46 30, 60 27" stroke="url(#wine)" stroke-width="2.6" stroke-linecap="round"/>
-  <path d="M103 80 C93 44, 74 30, 60 27" stroke="url(#wine)" stroke-width="2.6" stroke-linecap="round"/>
-  <circle cx="60" cy="27" r="3.8" fill="url(#gold)"/>
-  <path d="M38 90 L38 74 C38 57, 60 45, 82 57 L82 90 Z" fill="url(#stone)"/>
-  <path d="M44 90 L44 73 C44 62, 60 55, 76 62 L76 90 Z" fill="#151311" opacity="0.22"/>
-  <path d="M47 90 L47 74 C47 65, 60 59, 73 65 L73 90 Z" fill="#0f0d0c"/>
-  <path d="M41 82 H79" stroke="#6b5f56" stroke-width="0.9" opacity="0.45"/>
-  <path d="M42 86 H78" stroke="#6b5f56" stroke-width="0.9" opacity="0.35"/>
-  <path d="M60 83 C56.5 77, 53.5 72.5, 56.5 68 C57.8 71.5, 59.2 73, 60 69.5 C60.8 73, 62.2 71.5, 63.5 68 C66.5 72.5, 63.5 77, 60 83Z" fill="url(#gold)"/>
-  <path d="M60 81 C58.8 76.5, 58.5 73.5, 60 71 C61.5 73.5, 61.2 76.5, 60 81Z" fill="#fff8e7" opacity="0.55"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" fill="none" role="img" aria-label="Concordia Restaurant">
+  <g transform="translate(118 18)" stroke="#8B1A2B" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 38 L34 6 A38 38 0 0 1 72 38 Z"/>
+    <circle cx="22" cy="28" r="3.5" fill="#8B1A2B" stroke="none"/>
+    <circle cx="38" cy="22" r="3" fill="#8B1A2B" stroke="none"/>
+    <path d="M30 14 C32 10 36 8 40 10" stroke-width="1.8"/>
+  </g>
+  <g transform="translate(188 20)" stroke="#d4a82a" stroke-width="2" fill="none" stroke-linecap="round">
+    <ellipse cx="22" cy="30" rx="24" ry="10"/>
+    <path d="M6 24 C10 10 18 4 22 4 C26 4 34 10 38 24"/>
+    <path d="M10 20 C14 12 18 8 22 8"/>
+    <path d="M14 16 C17 11 20 9 22 9"/>
+    <path d="M22 2 C24 0 27 2 26 5" stroke="#2d5a3d" stroke-width="1.6"/>
+  </g>
+  <g transform="translate(278 18)" stroke="#2d5a3d" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 38 L8 22 C8 10 22 4 34 10 C46 4 60 10 60 22 L60 38 Z"/>
+    <path d="M14 38 L14 24 C14 16 24 12 34 14 C44 12 54 16 54 24 L54 38"/>
+    <path d="M30 30 C28 24 28 20 30 18 C32 20 32 24 30 30Z" fill="#d4a82a" stroke="none"/>
+  </g>
+  <text x="210" y="118" text-anchor="middle" fill="#8B1A2B" font-family="Georgia, serif" font-size="58" font-style="italic" font-weight="600">Concordia</text>
+  <text x="210" y="142" text-anchor="middle" fill="#2d5a3d" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="6">RESTAURANT</text>
+  <path d="M118 168 C150 162 178 174 210 166 C242 158 270 172 302 166" stroke="#2d5a3d" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+  <path d="M168 168 C188 164 198 170 210 166" stroke="#f5f5f0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M228 166 C248 170 268 162 288 168" stroke="#8B1A2B" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
 </svg>

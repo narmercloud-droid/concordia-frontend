@@ -44,21 +44,9 @@
   line-height: 0;
 }
 
-.concordia-logo__image {
+.concordia-logo__svg {
   display: block;
   height: auto;
-}
-
-.concordia-logo--sm .concordia-logo__image {
-  width: 132px;
-}
-
-.concordia-logo--md .concordia-logo__image {
-  width: 168px;
-}
-
-.concordia-logo--lg .concordia-logo__image {
-  width: 220px;
 }
 
 .branch-owner {

@@ -418,17 +418,8 @@
   background: rgba(255, 255, 255, 0.95);
 }
 
-.home-hero--photo .concordia-home-logo {
-  display: inline-block;
-  padding: 14px 22px 10px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
-}
-
-.home-hero--photo .concordia-home-logo__image {
-  filter: none;
+.home-hero--photo .concordia-home-logo__svg {
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.45));
 }
 
 .home-hero--photo::before {
@@ -526,12 +517,11 @@
   animation: home-logo-in 0.7s ease-out both;
 }
 
-.concordia-home-logo__image {
+.concordia-home-logo__svg {
   display: block;
-  width: min(480px, 92vw);
+  width: min(440px, 92vw);
   height: auto;
   margin: 0 auto;
-  filter: drop-shadow(0 10px 24px rgba(26, 24, 22, 0.06));
 }
 
 @keyframes home-logo-in {
