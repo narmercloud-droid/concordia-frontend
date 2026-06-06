@@ -1,11 +1,11 @@
 ﻿import React, { useState } from "react"
 import { login } from "@/api/auth"
 import { useAuthStore } from "@/context/authStore"
-import Button from "@/components/ui/Button"
-import Input from "@/components/ui/Input"
 import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 export default function LoginPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const setToken = useAuthStore((s) => s.setToken)
   const setUser = useAuthStore((s) => s.setUser)
@@ -24,31 +24,44 @@ export default function LoginPage() {
 
       navigate("/customer/menu")
     } catch (err: any) {
-      setError(err.response?.data?.message || "Login failed")
+      setError(err.response?.data?.message || t("auth.loginFailed"))
     }
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChange={(e: any) => setEmail(e.target.value)}
-      />
-      <Input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e: any) => setPassword(e.target.value)}
-      />
-
-      {error && <div style={{ color: "red" }}>{error}</div>}
-
-      <Button onClick={handleLogin}>Login</Button>
-
-      <div style={{ marginTop: 10 }}>
-        No account? <Link to="/customer/register">Register</Link>
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="customer-field">
+        <label className="customer-label">{t("auth.email")}</label>
+        <input
+          className="customer-input"
+          placeholder={t("auth.email")}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
+      <div className="customer-field">
+        <label className="customer-label">{t("auth.password")}</label>
+        <input
+          className="customer-input"
+          type="password"
+          placeholder={t("auth.password")}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+
+      {error && <div className="customer-alert customer-alert--error">{error}</div>}
+
+      <button type="button" className="customer-btn customer-btn--primary" onClick={handleLogin}>
+        {t("auth.login")}
+      </button>
+
+      <p className="customer-hint" style={{ textAlign: "center" }}>
+        {t("auth.noAccount")}{" "}
+        <Link to="/customer/register" style={{ color: "var(--c-accent)" }}>
+          {t("auth.register")}
+        </Link>
+      </p>
     </div>
   )
 }

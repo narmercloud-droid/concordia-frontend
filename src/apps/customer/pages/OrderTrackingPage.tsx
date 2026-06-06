@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { getOrderStatus } from "@/api/customer"
 import { socket } from "@/lib/socket"
+import { formatDateTime, formatTime } from "@/utils/format"
+import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
 
 export default function OrderTrackingPage() {
+  const { t } = useTranslation()
   const { orderId } = useParams()
   const queryClient = useQueryClient()
   const [courierLocation, setCourierLocation] = useState<CourierLocation | null>(null)
@@ -66,7 +70,7 @@ export default function OrderTrackingPage() {
     }
   }, [order?.trackingToken, orderId, queryClient])
 
-  if (!order) return <p style={{ padding: 16 }}>Loading...</p>
+  if (!order) return <p className="customer-loading">{t("order.loading")}</p>
 
   const mapLat = courierLocation?.lat ?? order.deliveryLat
   const mapLng = courierLocation?.lng ?? order.deliveryLng
@@ -78,46 +82,52 @@ export default function OrderTrackingPage() {
         : null
 
   return (
-    <div style={{ maxWidth: 520, margin: "0 auto", padding: 16 }}>
-      <h2>Order tracking</h2>
-      <p>Order #{orderId?.slice(0, 8)}</p>
+    <div className="customer-page">
+      <h2 className="customer-title">{t("order.tracking")}</h2>
+      <p>{t("order.orderNumber", { id: orderId?.slice(0, 8) })}</p>
       <p>
-        <strong>Status:</strong> {order.status}
+        <strong>{t("order.status")}:</strong> {translateOrderStatus(order.status, t)}
       </p>
       {order.courierStatus && (
         <p>
-          <strong>Driver:</strong> {order.courierStatus}
+          <strong>{t("order.driver")}:</strong> {order.courierStatus}
         </p>
       )}
-      {order.fulfillmentType && <p>Type: {order.fulfillmentType}</p>}
+      {order.fulfillmentType && (
+        <p>
+          {t("order.type")}: {translateFulfillmentType(order.fulfillmentType, t)}
+        </p>
+      )}
       {order.scheduledFor && (
-        <p>Scheduled for: {new Date(order.scheduledFor).toLocaleString()}</p>
+        <p>
+          {t("order.scheduledFor")}: {formatDateTime(order.scheduledFor)}
+        </p>
       )}
       {order.etaReadyAt && (
-        <p>Ready at: {new Date(order.etaReadyAt).toLocaleString()}</p>
+        <p>
+          {t("order.readyAt")}: {formatDateTime(order.etaReadyAt)}
+        </p>
       )}
-      {order.estimatedPrepTime && <p>Prep time: {order.estimatedPrepTime} min</p>}
+      {order.estimatedPrepTime && (
+        <p>{t("order.prepTime", { min: order.estimatedPrepTime })}</p>
+      )}
 
       {order.fulfillmentType === "delivery" && mapUrl && (
         <div style={{ marginTop: 20 }}>
-          <h3>Delivery map</h3>
+          <h3 className="customer-subtitle">{t("order.deliveryMap")}</h3>
           {courierLocation && order.driverAccepted && (
-            <p style={{ fontSize: 14, color: "#2e7d32" }}>
-              Driver location live
+            <p className="customer-hint" style={{ color: "var(--c-success)" }}>
+              {t("order.driverLive")}
               {courierLocation.updatedAt &&
-                ` — updated ${new Date(courierLocation.updatedAt).toLocaleTimeString()}`}
+                t("order.driverUpdated", { time: formatTime(courierLocation.updatedAt) })}
             </p>
           )}
           {!order.driverAccepted && (
-            <p style={{ fontSize: 14, color: "#666" }}>
-              Driver has not accepted yet — showing delivery address
-            </p>
+            <p className="customer-hint">{t("order.driverPending")}</p>
           )}
           <iframe
-            title="Delivery map"
-            width="100%"
-            height="300"
-            style={{ border: 0, borderRadius: 8, marginTop: 8 }}
+            title={t("order.deliveryMap")}
+            className="customer-map"
             loading="lazy"
             src={mapUrl}
           />
@@ -126,11 +136,11 @@ export default function OrderTrackingPage() {
 
       {order.timeline && (
         <div style={{ marginTop: 24 }}>
-          <h3>Timeline</h3>
-          <ul>
-            {order.timeline.map((t: any, idx: number) => (
+          <h3 className="customer-subtitle">{t("order.timeline")}</h3>
+          <ul className="customer-timeline">
+            {order.timeline.map((entry: { status: string; timestamp: string }, idx: number) => (
               <li key={idx}>
-                {t.status} — {new Date(t.timestamp).toLocaleString()}
+                {translateOrderStatus(entry.status, t)} — {formatDateTime(entry.timestamp)}
               </li>
             ))}
           </ul>

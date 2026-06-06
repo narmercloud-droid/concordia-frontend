@@ -15,6 +15,7 @@ const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
 const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
 const OrderHistoryPage = React.lazy(() => import("./pages/OrderHistoryPage.js"))
+import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
 import {
   RedirectCustomerBranch,
@@ -22,7 +23,7 @@ import {
 } from "./branchRedirects.js"
 
 const lazySection = (element: React.ReactElement) => (
-  <Suspense fallback={<div>Loading…</div>}>{element}</Suspense>
+  <Suspense fallback={<LoadingFallback />}>{element}</Suspense>
 )
 
 export const branchRoutes = {

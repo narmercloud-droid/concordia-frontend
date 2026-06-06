@@ -1,5 +1,21 @@
-﻿export const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-US", {
+﻿import i18n from "@/i18n"
+import { localeForLanguage } from "@/i18n/languages"
+
+export const formatCurrency = (value: number, lang?: string) =>
+  new Intl.NumberFormat(localeForLanguage(lang ?? i18n.language), {
     style: "currency",
-    currency: "USD"
+    currency: "EUR"
   }).format(value)
+
+export function formatDateTime(value: string | Date, lang?: string) {
+  const date = typeof value === "string" ? new Date(value) : value
+  return date.toLocaleString(localeForLanguage(lang ?? i18n.language))
+}
+
+export function formatTime(value: string | Date, lang?: string) {
+  const date = typeof value === "string" ? new Date(value) : value
+  return date.toLocaleTimeString(localeForLanguage(lang ?? i18n.language), {
+    hour: "2-digit",
+    minute: "2-digit"
+  })
+}

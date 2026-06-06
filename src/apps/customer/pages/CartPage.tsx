@@ -1,83 +1,70 @@
-﻿import React from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useCartStore } from "@/store/cartStore"
+import { formatCurrency } from "@/utils/format"
 
 export default function CartPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
   const total = useCartStore((s) => s.total())
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
 
-  if (items.length === 0)
+  if (items.length === 0) {
     return (
-      <div style={{ padding: 16 }}>
-        <h2>Your Cart</h2>
-        <p>Your cart is empty.</p>
+      <div className="customer-page">
+        <h2 className="customer-title">{t("cart.title")}</h2>
+        <p className="customer-text">{t("cart.empty")}</p>
       </div>
     )
+  }
 
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto", padding: 16 }}>
-      <h2>Your Cart</h2>
+    <div className="customer-page">
+      <h2 className="customer-title">{t("cart.title")}</h2>
 
       {items.map((i) => (
-        <div
-          key={i.cartKey}
-          style={{
-            padding: 14,
-            border: "1px solid #ddd",
-            borderRadius: 8,
-            marginBottom: 12
-          }}
-        >
-          <h4 style={{ margin: "0 0 6px" }}>{i.name}</h4>
+        <div key={i.cartKey} className="customer-card">
+          <h4 className="customer-card__title">{i.name}</h4>
           {i.variants.length > 0 && (
-            <p style={{ margin: "4px 0", fontSize: 14, color: "#555" }}>
-              {i.variants.map((v) => v.name).join(", ")}
-            </p>
+            <p className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</p>
           )}
           {i.addOns.length > 0 && (
-            <p style={{ margin: "4px 0", fontSize: 14, color: "#555" }}>
-              Extras: {i.addOns.map((a) => `${a.name} (+${a.price.toFixed(2)} €)`).join(", ")}
+            <p className="customer-card__meta">
+              {t("common.extras")}:{" "}
+              {i.addOns.map((a) => `${a.name} (+${formatCurrency(a.price)})`).join(", ")}
             </p>
           )}
           {i.notes && (
-            <p style={{ margin: "4px 0", fontSize: 14, fontStyle: "italic", color: "#666" }}>
-              Note: {i.notes}
+            <p className="customer-card__meta">
+              {t("common.note")}: {i.notes}
             </p>
           )}
-          <p style={{ margin: "8px 0 0" }}>
-            {i.quantity} × {i.unitPrice.toFixed(2)} € ={" "}
-            {(i.quantity * i.unitPrice).toFixed(2)} €
+          <p className="customer-card__price">
+            {i.quantity} × {formatCurrency(i.unitPrice)} = {formatCurrency(i.quantity * i.unitPrice)}
           </p>
-          <button
-            onClick={() => removeItem(i.cartKey)}
-            style={{ marginTop: 8, fontSize: 14 }}
-          >
-            Remove
+          <button type="button" className="customer-btn" onClick={() => removeItem(i.cartKey)}>
+            {t("common.remove")}
           </button>
         </div>
       ))}
 
-      <h3>Subtotal: {total.toFixed(2)} €</h3>
+      <p className="customer-total-line">
+        {t("common.subtotal")}: {formatCurrency(total)}
+      </p>
 
-      <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
-        <button onClick={clearCart}>Clear Cart</button>
+      <div className="customer-btn-row">
+        <button type="button" className="customer-btn" onClick={clearCart}>
+          {t("cart.clear")}
+        </button>
         <button
+          type="button"
+          className="customer-btn customer-btn--primary"
           onClick={() => navigate("/customer/checkout")}
-          style={{
-            flex: 1,
-            padding: "12px 20px",
-            background: "#c41e3a",
-            color: "#fff",
-            border: "none",
-            borderRadius: 8,
-            fontSize: 16,
-            cursor: "pointer"
-          }}
         >
-          Checkout
+          {t("cart.checkout")}
         </button>
       </div>
     </div>

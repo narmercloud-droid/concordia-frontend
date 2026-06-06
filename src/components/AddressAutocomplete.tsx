@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { suggestAddresses } from "@/api/customer"
 
 export type AddressSuggestion = {
@@ -23,6 +24,7 @@ export default function AddressAutocomplete({
   onSelect,
   placeholder
 }: Props) {
+  const { t } = useTranslation()
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -65,23 +67,14 @@ export default function AddressAutocomplete({
   return (
     <div ref={containerRef} style={{ position: "relative" }}>
       <input
+        className="customer-input"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={() => suggestions.length > 0 && setOpen(true)}
         autoComplete="street-address"
-        style={{
-          display: "block",
-          width: "100%",
-          padding: 10,
-          marginTop: 4,
-          borderRadius: 8,
-          border: "1px solid #ccc"
-        }}
       />
-      {loading && (
-        <p style={{ fontSize: 12, color: "#666", marginTop: 4 }}>Searching addresses...</p>
-      )}
+      {loading && <p className="customer-hint">{t("checkout.searchingAddresses")}</p>}
       {open && suggestions.length > 0 && (
         <ul
           style={{
@@ -94,9 +87,9 @@ export default function AddressAutocomplete({
             padding: 0,
             listStyle: "none",
             background: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: 8,
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            border: "1px solid #e8e2da",
+            borderRadius: 10,
+            boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
             maxHeight: 220,
             overflowY: "auto"
           }}

@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { getItemDetails } from "@/api/customer"
 import { useCartStore, type CartSelection } from "@/store/cartStore"
 import { findSizeVariantName, getAddOnDisplayPrice } from "@/utils/extraPricing"
+import { formatCurrency } from "@/utils/format"
 
 type Option = {
   id: string
@@ -23,12 +25,8 @@ type OptionGroup = {
   options: Option[]
 }
 
-function formatPrice(price: number, included?: boolean) {
-  if (included) return "Free"
-  return `${price.toFixed(2)} €`
-}
-
 export default function ItemDetailsPage() {
+  const { t } = useTranslation()
   const { branchId, itemId } = useParams()
   const navigate = useNavigate()
   const [qty, setQty] = useState(1)
@@ -102,7 +100,7 @@ export default function ItemDetailsPage() {
 
   const extrasBlocked = sizeBasedExtras && !selectedSizeName
 
-  if (!item) return <p>Loading...</p>
+  if (!item) return <p className="customer-loading">{t("item.loading")}</p>
 
   const toggleAddOn = (group: OptionGroup, optionId: string) => {
     if (extrasBlocked) return
@@ -126,19 +124,19 @@ export default function ItemDetailsPage() {
   const validate = () => {
     for (const group of variantGroups) {
       if (group.required && !variantChoices[group.id]) {
-        return `Please choose: ${group.name}`
+        return t("item.chooseRequired", { name: group.name })
       }
     }
     if (sizeBasedExtras && !selectedSizeName) {
-      return "Please choose a pizza size before adding extras"
+      return t("item.chooseSizeFirst")
     }
     for (const group of addOnGroups) {
       const count = (addOnChoices[group.id] ?? []).length
       if (group.required && count < Math.max(1, group.minSelect)) {
-        return `Please choose: ${group.name}`
+        return t("item.chooseRequired", { name: group.name })
       }
       if (group.minSelect > 0 && count < group.minSelect) {
-        return `Please select at least ${group.minSelect} for ${group.name}`
+        return t("item.chooseMin", { count: group.minSelect, name: group.name })
       }
     }
     return ""
@@ -166,47 +164,30 @@ export default function ItemDetailsPage() {
     navigate("/customer/cart")
   }
 
+  const formatOptionPrice = (price: number, included?: boolean) =>
+    included ? t("common.free") : formatCurrency(price)
+
   return (
-    <div style={{ maxWidth: 560, margin: "0 auto", padding: 16 }}>
-      <h2>{item.name}</h2>
-      {item.description && <p style={{ color: "#555" }}>{item.description}</p>}
+    <div className="customer-page">
+      <h2 className="customer-title">{item.name}</h2>
+      {item.description && <p className="customer-text">{item.description}</p>}
 
       {includedGroups.length > 0 && (
-        <div
-          style={{
-            margin: "16px 0",
-            padding: 12,
-            background: "#f0f7f0",
-            borderRadius: 8,
-            border: "1px solid #c8e6c9"
-          }}
-        >
-          <p style={{ margin: "0 0 12px", fontWeight: 600, color: "#2e7d32" }}>
-            Included with your order — choose one (free)
-          </p>
+        <div className="customer-included-box">
+          <p className="customer-included-box__title">{t("item.includedTitle")}</p>
           {includedGroups.map((group) => (
-            <div key={group.id} style={{ marginBottom: 12 }}>
+            <div key={group.id} className="customer-section">
               <h4 style={{ margin: "0 0 8px" }}>
                 {group.name}
-                {group.required && <span style={{ color: "#c41e3a" }}> *</span>}
+                {group.required && <span style={{ color: "var(--c-accent)" }}> *</span>}
               </h4>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {group.options.map((opt) => (
                   <label
                     key={opt.id}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: 10,
-                      border:
-                        variantChoices[group.id] === opt.id
-                          ? "2px solid #2e7d32"
-                          : "1px solid #ddd",
-                      borderRadius: 8,
-                      cursor: "pointer",
-                      background: "#fff"
-                    }}
+                    className={`customer-option customer-option--free${
+                      variantChoices[group.id] === opt.id ? " customer-option--selected" : ""
+                    }`}
                   >
                     <input
                       type="radio"
@@ -216,8 +197,10 @@ export default function ItemDetailsPage() {
                         setVariantChoices((prev) => ({ ...prev, [group.id]: opt.id }))
                       }
                     />
-                    <span style={{ flex: 1 }}>{opt.name}</span>
-                    <span style={{ color: "#2e7d32", fontWeight: 600 }}>Free</span>
+                    <span className="customer-option__name">{opt.name}</span>
+                    <span className="customer-option__price customer-option__price--free">
+                      {t("common.free")}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -227,27 +210,18 @@ export default function ItemDetailsPage() {
       )}
 
       {paidVariantGroups.map((group) => (
-        <div key={group.id} style={{ margin: "20px 0" }}>
+        <div key={group.id} className="customer-section">
           <h4 style={{ marginBottom: 8 }}>
             {group.name}
-            {group.required && <span style={{ color: "#c41e3a" }}> *</span>}
+            {group.required && <span style={{ color: "var(--c-accent)" }}> *</span>}
           </h4>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {group.options.map((opt) => (
               <label
                 key={opt.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: 10,
-                  border:
-                    variantChoices[group.id] === opt.id
-                      ? "2px solid #c41e3a"
-                      : "1px solid #ddd",
-                  borderRadius: 8,
-                  cursor: "pointer"
-                }}
+                className={`customer-option${
+                  variantChoices[group.id] === opt.id ? " customer-option--selected" : ""
+                }`}
               >
                 <input
                   type="radio"
@@ -257,8 +231,8 @@ export default function ItemDetailsPage() {
                     setVariantChoices((prev) => ({ ...prev, [group.id]: opt.id }))
                   }
                 />
-                <span style={{ flex: 1 }}>{opt.name}</span>
-                <span>{formatPrice(opt.price)}</span>
+                <span className="customer-option__name">{opt.name}</span>
+                <span className="customer-option__price">{formatOptionPrice(opt.price)}</span>
               </label>
             ))}
           </div>
@@ -266,14 +240,16 @@ export default function ItemDetailsPage() {
       ))}
 
       {addOnGroups.length > 0 && (
-        <div style={{ margin: "24px 0 8px" }}>
-          <h3 style={{ margin: 0 }}>Paid extras</h3>
-          <p style={{ margin: "4px 0 0", fontSize: 14, color: "#666" }}>
+        <div className="customer-section">
+          <h3 className="customer-subtitle" style={{ marginBottom: 4 }}>
+            {t("item.paidExtras")}
+          </h3>
+          <p className="customer-hint">
             {sizeBasedExtras
               ? selectedSizeName
-                ? `Prices for ${selectedSizeName}`
-                : "Choose your size first — extra prices depend on klein / groß"
-              : "Optional add-ons — pick from any category below"}
+                ? t("item.extrasSizeSelected", { size: selectedSizeName })
+                : t("item.extrasSizeHint")
+              : t("item.extrasOptional")}
           </p>
         </div>
       )}
@@ -281,13 +257,13 @@ export default function ItemDetailsPage() {
       {addOnGroups.map((group) => (
         <div
           key={group.id}
+          className="customer-section"
           style={{
-            margin: "16px 0",
             opacity: extrasBlocked ? 0.55 : 1,
             pointerEvents: extrasBlocked ? "none" : "auto"
           }}
         >
-          <h4 style={{ marginBottom: 4, color: "#c41e3a" }}>{group.name}</h4>
+          <h4 style={{ marginBottom: 8, color: "var(--c-accent)" }}>{group.name}</h4>
           <div style={{ display: "grid", gap: 8 }}>
             {group.options.map((opt) => {
               const checked = (addOnChoices[group.id] ?? []).includes(opt.id)
@@ -295,15 +271,7 @@ export default function ItemDetailsPage() {
               return (
                 <label
                   key={opt.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    padding: 10,
-                    border: checked ? "2px solid #c41e3a" : "1px solid #ddd",
-                    borderRadius: 8,
-                    cursor: extrasBlocked ? "not-allowed" : "pointer"
-                  }}
+                  className={`customer-option${checked ? " customer-option--selected" : ""}`}
                 >
                   <input
                     type="checkbox"
@@ -311,8 +279,8 @@ export default function ItemDetailsPage() {
                     disabled={extrasBlocked}
                     onChange={() => toggleAddOn(group, opt.id)}
                   />
-                  <span style={{ flex: 1 }}>{opt.name}</span>
-                  <span>+{displayPrice.toFixed(2)} €</span>
+                  <span className="customer-option__name">{opt.name}</span>
+                  <span className="customer-option__price">+{formatCurrency(displayPrice)}</span>
                 </label>
               )
             })}
@@ -320,64 +288,47 @@ export default function ItemDetailsPage() {
         </div>
       ))}
 
-      <div style={{ margin: "20px 0" }}>
-        <label style={{ fontWeight: 600, display: "block", marginBottom: 6 }}>
-          Special instructions (optional)
+      <div className="customer-field">
+        <label className="customer-label">
+          {t("item.instructions")} ({t("common.optional")})
         </label>
         <textarea
+          className="customer-textarea"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="e.g. no onions, extra crispy..."
+          placeholder={t("item.instructionsPlaceholder")}
           rows={3}
           maxLength={200}
-          style={{
-            width: "100%",
-            padding: 10,
-            borderRadius: 8,
-            border: "1px solid #ccc",
-            fontFamily: "inherit"
-          }}
         />
       </div>
 
-      <div style={{ margin: "20px 0" }}>
-        <label>Quantity: </label>
+      <div className="customer-field">
+        <label className="customer-label">{t("common.quantity")}</label>
         <input
+          className="customer-input"
           type="number"
           value={qty}
           min={1}
           max={20}
           onChange={(e) => setQty(Math.max(1, Number(e.target.value)))}
-          style={{ width: 60, padding: 5, marginLeft: 8 }}
+          style={{ width: 80 }}
         />
       </div>
 
-      <p style={{ fontSize: 22, fontWeight: 600, margin: "16px 0" }}>
-        {unitPrice.toFixed(2)} €
+      <p className="customer-price-lg">
+        {formatCurrency(unitPrice)}
         {qty > 1 && (
-          <span style={{ fontSize: 16, fontWeight: 400, color: "#555" }}>
+          <span>
             {" "}
-            ({(unitPrice * qty).toFixed(2)} € total)
+            {t("item.totalForQty", { total: formatCurrency(unitPrice * qty) })}
           </span>
         )}
       </p>
 
-      {error && <p style={{ color: "#b00020", marginBottom: 12 }}>{error}</p>}
+      {error && <p className="customer-error">{error}</p>}
 
-      <button
-        onClick={addToCart}
-        style={{
-          padding: "12px 24px",
-          fontSize: 16,
-          background: "#c41e3a",
-          color: "#fff",
-          border: "none",
-          borderRadius: 8,
-          cursor: "pointer",
-          width: "100%"
-        }}
-      >
-        Add to Cart
+      <button type="button" onClick={addToCart} className="customer-btn customer-btn--primary">
+        {t("item.addToCart")}
       </button>
     </div>
   )

@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import {
   createOrder,
   getBranches,
@@ -9,6 +10,7 @@ import {
 } from "@/api/customer"
 import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useCartStore } from "@/store/cartStore"
+import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
@@ -19,6 +21,7 @@ function extractPostalCode(address: string): string | null {
 }
 
 export default function CheckoutPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
   const total = useCartStore((s) => s.total())
@@ -100,14 +103,18 @@ export default function CheckoutPage() {
       return
     }
 
-    const branches = new Set(items.map((item) => item.branchId))
-    if (branches.size > 1) {
+    const branchSet = new Set(items.map((item) => item.branchId))
+    if (branchSet.size > 1) {
       clearCart()
       navigate("/customer")
     }
   }, [items, navigate, clearCart])
 
   if (items.length === 0) return null
+
+  const deliveryFee =
+    fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
+  const grandTotal = total + deliveryFee
 
   const deliveryBlocked =
     fulfillmentType === "delivery" &&
@@ -124,28 +131,28 @@ export default function CheckoutPage() {
     setScheduleError("")
 
     if (!name.trim()) {
-      setNameError("Name is required.")
+      setNameError(t("checkout.nameRequired"))
       return
     }
 
     if (!phone.trim()) {
-      setPhoneError("Phone number is required.")
+      setPhoneError(t("checkout.phoneRequired"))
       return
     }
 
     if (fulfillmentType === "delivery") {
       if (address.trim().length < 8) {
-        setAddressError("Please enter your full delivery address.")
+        setAddressError(t("checkout.addressRequired"))
         return
       }
       if (!postalCode) {
-        setAddressError("Please include your postcode in the address.")
+        setAddressError(t("checkout.postcodeRequired"))
         return
       }
     }
 
     if (timingMode === "scheduled" && !scheduledFor) {
-      setScheduleError("Please choose a scheduled time.")
+      setScheduleError(t("checkout.scheduleRequired"))
       return
     }
 
@@ -164,7 +171,7 @@ export default function CheckoutPage() {
 
       const orderId = res?.id
       if (!orderId) {
-        setError("Order failed. Please try again.")
+        setError(t("checkout.orderFailed"))
         return
       }
 
@@ -174,253 +181,201 @@ export default function CheckoutPage() {
       const message =
         err?.response?.data?.error?.message ??
         err?.response?.data?.message ??
-        "Order failed. Please try again."
+        t("checkout.orderFailed")
       setError(message)
     }
   }
 
+  const paymentMethod =
+    fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
+
   return (
-    <div style={{ maxWidth: 520, margin: "0 auto", padding: 16 }}>
-      <h2>Checkout</h2>
+    <div className="customer-page">
+      <h2 className="customer-title">{t("checkout.title")}</h2>
 
-      {error && (
-        <div style={{ color: "#b00020", marginBottom: 16, padding: 12, background: "#ffeaea", borderRadius: 8 }}>
-          {error}
-        </div>
-      )}
+      {error && <div className="customer-alert customer-alert--error">{error}</div>}
 
-      <div style={{ marginBottom: 20 }}>
-        <h3>Order Summary</h3>
+      <div className="customer-card">
+        <h3 className="customer-subtitle">{t("checkout.summary")}</h3>
         {items.map((i) => (
-          <div key={i.cartKey} style={{ marginBottom: 8, fontSize: 14 }}>
+          <div key={i.cartKey} className="customer-summary-line">
             <div>
-              {i.name} × {i.quantity} = {(i.quantity * i.unitPrice).toFixed(2)} €
+              {i.name} × {i.quantity} = {formatCurrency(i.quantity * i.unitPrice)}
             </div>
             {i.variants.length > 0 && (
-              <div style={{ color: "#666" }}>{i.variants.map((v) => v.name).join(", ")}</div>
+              <div className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</div>
             )}
             {i.addOns.length > 0 && (
-              <div style={{ color: "#666" }}>
+              <div className="customer-card__meta">
                 + {i.addOns.map((a) => a.name).join(", ")}
               </div>
             )}
-            {i.notes && <div style={{ color: "#666", fontStyle: "italic" }}>{i.notes}</div>}
+            {i.notes && <div className="customer-card__meta">{i.notes}</div>}
           </div>
         ))}
+
         {qualifiesForFreeDrink && (
-          <p
-            style={{
-              marginTop: 10,
-              padding: 10,
-              background: "#e8f5e9",
-              borderRadius: 8,
-              color: "#2e7d32",
-              fontSize: 14
-            }}
-          >
+          <p className="customer-alert customer-alert--success" style={{ marginTop: 12 }}>
             {branchPromo?.freeDrinkMessage ??
-              `You qualify for a free drink (orders from €${freeDrinkMin}).`}
+              t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
           </p>
         )}
         {freeDrinkMin > 0 && !qualifiesForFreeDrink && (
-          <p style={{ fontSize: 13, color: "#666", marginTop: 8 }}>
-            Order €{(freeDrinkMin - total).toFixed(2)} more for a free drink.
+          <p className="customer-hint">
+            {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
           </p>
         )}
         {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
-          <p style={{ fontSize: 14, color: deliveryQuote.freeDelivery ? "#2e7d32" : "#555" }}>
-            Delivery:{" "}
+          <p className="customer-hint">
             {deliveryQuote.freeDelivery
-              ? "Free (minimum order reached)"
-              : `${deliveryQuote.deliveryFee.toFixed(2)} €`}
+              ? t("checkout.deliveryFree")
+              : t("checkout.deliveryFee", {
+                  amount: formatCurrency(deliveryQuote.deliveryFee)
+                })}
           </p>
         )}
-        <p style={{ fontSize: 18, fontWeight: 600 }}>
-          Total:{" "}
-          {(total + (fulfillmentType === "delivery" && deliveryQuote?.allowed
-            ? deliveryQuote.deliveryFee
-            : 0)).toFixed(2)}{" "}
-          €
+        <p className="customer-total-line">
+          {t("common.total")}: {formatCurrency(grandTotal)}
         </p>
-        <p style={{ fontSize: 14, color: "#555" }}>
-          Payment: Cash on {fulfillmentType === "pickup" ? "pickup" : "delivery"}
-        </p>
+        <p className="customer-hint">{t("checkout.payment", { method: paymentMethod })}</p>
       </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <label style={{ fontWeight: 600 }}>Order type</label>
-        <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.orderType")}</label>
+        <div className="customer-toggle-group">
           {(["delivery", "pickup"] as FulfillmentType[]).map((type) => (
             <button
               key={type}
               type="button"
               onClick={() => setFulfillmentType(type)}
-              style={{
-                flex: 1,
-                padding: 12,
-                borderRadius: 8,
-                border: fulfillmentType === type ? "2px solid #c41e3a" : "1px solid #ccc",
-                background: fulfillmentType === type ? "#fff5f5" : "#fff",
-                fontWeight: fulfillmentType === type ? 600 : 400,
-                textTransform: "capitalize"
-              }}
+              className={`customer-toggle${fulfillmentType === type ? " customer-toggle--active" : ""}`}
             >
-              {type}
+              {t(`checkout.${type}`)}
             </button>
           ))}
         </div>
       </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <label style={{ fontWeight: 600 }}>When do you want it?</label>
-        <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.when")}</label>
+        <div className="customer-toggle-group">
           <button
             type="button"
             onClick={() => setTimingMode("asap")}
-            style={{
-              flex: 1,
-              padding: 12,
-              borderRadius: 8,
-              border: timingMode === "asap" ? "2px solid #c41e3a" : "1px solid #ccc",
-              background: timingMode === "asap" ? "#fff5f5" : "#fff",
-              fontWeight: timingMode === "asap" ? 600 : 400
-            }}
+            className={`customer-toggle${timingMode === "asap" ? " customer-toggle--active" : ""}`}
           >
-            As soon as possible
+            {t("checkout.asap")}
           </button>
           <button
             type="button"
             onClick={() => setTimingMode("scheduled")}
-            style={{
-              flex: 1,
-              padding: 12,
-              borderRadius: 8,
-              border: timingMode === "scheduled" ? "2px solid #c41e3a" : "1px solid #ccc",
-              background: timingMode === "scheduled" ? "#fff5f5" : "#fff",
-              fontWeight: timingMode === "scheduled" ? 600 : 400
-            }}
+            className={`customer-toggle${timingMode === "scheduled" ? " customer-toggle--active" : ""}`}
           >
-            Schedule
+            {t("checkout.scheduled")}
           </button>
         </div>
 
         {timingMode === "scheduled" && (
           <div style={{ marginTop: 12 }}>
             <select
+              className="customer-select"
               value={scheduledFor}
               onChange={(e) => setScheduledFor(e.target.value)}
-              style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
             >
-              <option value="">Choose a time...</option>
+              <option value="">{t("checkout.chooseTime")}</option>
               {timeSlots.map((slot) => (
                 <option key={slot.value} value={slot.value}>
                   {slot.label}
                 </option>
               ))}
             </select>
-            {scheduleError && <p style={{ color: "#b00020", marginTop: 4 }}>{scheduleError}</p>}
+            {scheduleError && <p className="customer-error">{scheduleError}</p>}
           </div>
         )}
       </div>
 
-      <div style={{ marginBottom: 12 }}>
-        <label>Your Name</label>
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.name")}</label>
         <input
-          placeholder="Your Name"
+          className="customer-input"
+          placeholder={t("checkout.namePlaceholder")}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ display: "block", width: "100%", padding: 10, marginTop: 4, borderRadius: 8, border: "1px solid #ccc" }}
         />
-        {nameError && <p style={{ color: "#b00020", marginTop: 4 }}>{nameError}</p>}
+        {nameError && <p className="customer-error">{nameError}</p>}
       </div>
 
-      <div style={{ marginBottom: 12 }}>
-        <label>Phone Number</label>
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.phone")}</label>
         <input
-          placeholder="e.g. 0171 1234567"
+          className="customer-input"
+          placeholder={t("checkout.phonePlaceholder")}
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          style={{ display: "block", width: "100%", padding: 10, marginTop: 4, borderRadius: 8, border: "1px solid #ccc" }}
         />
-        {phoneError && <p style={{ color: "#b00020", marginTop: 4 }}>{phoneError}</p>}
+        {phoneError && <p className="customer-error">{phoneError}</p>}
       </div>
 
       {fulfillmentType === "delivery" && (
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ fontWeight: 600 }}>Delivery address</label>
+        <div className="customer-field">
+          <label className="customer-label">{t("checkout.address")}</label>
           <AddressAutocomplete
             branchId={branchId!}
             value={address}
             onChange={setAddress}
             onSelect={(s) => setAddress(s.label)}
-            placeholder="Start typing your address, e.g. Straelener Str. 5, 47906 Kempen"
+            placeholder={t("checkout.addressPlaceholder")}
           />
-          <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>
-            Pick a suggestion or type your full address including postcode.
-          </p>
-          {addressError && <p style={{ color: "#b00020", marginTop: 4 }}>{addressError}</p>}
-          {quoteLoading && (
-            <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>Checking delivery...</p>
-          )}
+          <p className="customer-hint">{t("checkout.addressHint")}</p>
+          {addressError && <p className="customer-error">{addressError}</p>}
+          {quoteLoading && <p className="customer-hint">{t("checkout.checkingDelivery")}</p>}
           {deliveryQuote && !deliveryQuote.allowed && (
-            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>{deliveryQuote.message}</p>
+            <p className="customer-error">{deliveryQuote.message}</p>
           )}
-          {deliveryQuote?.allowed && deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder && (
-            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>
-              Minimum order: €{deliveryQuote.minimumOrder.toFixed(2)}
-            </p>
-          )}
+          {deliveryQuote?.allowed &&
+            deliveryQuote.minimumOrder != null &&
+            total < deliveryQuote.minimumOrder && (
+              <p className="customer-error">
+                {t("checkout.minimumOrder", {
+                  amount: formatCurrency(deliveryQuote.minimumOrder)
+                })}
+              </p>
+            )}
           {deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
-            <p style={{ color: "#2e7d32", marginTop: 6, fontSize: 13 }}>
-              You qualify for free delivery!
+            <p className="customer-hint" style={{ color: "var(--c-success)" }}>
+              {t("checkout.freeDeliveryQualify")}
             </p>
           )}
         </div>
       )}
 
-      <div style={{ marginBottom: 16 }}>
-        <label>Order notes (optional)</label>
+      <div className="customer-field">
+        <label className="customer-label">
+          {t("checkout.notes")} ({t("common.optional")})
+        </label>
         <textarea
-          placeholder="e.g. ring the doorbell, contactless handover..."
+          className="customer-textarea"
+          placeholder={t("checkout.notesPlaceholder")}
           value={orderNotes}
           onChange={(e) => setOrderNotes(e.target.value)}
           rows={2}
           maxLength={300}
-          style={{
-            display: "block",
-            width: "100%",
-            padding: 10,
-            marginTop: 4,
-            borderRadius: 8,
-            border: "1px solid #ccc",
-            fontFamily: "inherit"
-          }}
         />
       </div>
 
       <button
+        type="button"
         onClick={handleSubmit}
         disabled={createMutation.isPending || deliveryBlocked}
-        style={{
-          width: "100%",
-          padding: "14px 20px",
-          fontSize: 16,
-          fontWeight: 600,
-          background: deliveryBlocked ? "#ccc" : "#c41e3a",
-          color: "#fff",
-          border: "none",
-          borderRadius: 8,
-          cursor: createMutation.isPending || deliveryBlocked ? "not-allowed" : "pointer",
-          opacity: deliveryBlocked ? 0.85 : 1
-        }}
+        className="customer-btn customer-btn--primary"
       >
         {createMutation.isPending
-          ? "Processing..."
+          ? t("common.processing")
           : deliveryBlocked && fulfillmentType === "delivery"
             ? quoteLoading
-              ? "Checking delivery..."
-              : "Complete delivery address"
-            : "Place Order (Cash)"}
+              ? t("checkout.checkingDelivery")
+              : t("checkout.completeAddress")
+            : t("checkout.placeOrder")}
       </button>
     </div>
   )

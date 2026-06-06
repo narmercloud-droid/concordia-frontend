@@ -1,4 +1,4 @@
-﻿import React, { Suspense } from "react"
+import React, { Suspense } from "react"
 import { Navigate } from "react-router-dom"
 import AdminLayout from "./layouts/AdminLayout.js"
 import AdminAuthLayout from "./layouts/AdminAuthLayout.js"

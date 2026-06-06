@@ -1,4 +1,4 @@
-﻿import React from "react"
+import React from "react"
 import { Outlet } from "react-router-dom"
 import AdminNav from "../components/AdminNav.js"
 
@@ -16,8 +16,7 @@ export default function AdminLayout() {
         <h2 style={{ marginBottom: 20 }}>Admin Panel</h2>
         <AdminNav />
       </aside>
-
-      <main style={{ flex: 1, padding: 20 }}>
+      <main style={{ flex: 1, padding: 24 }}>
         <Outlet />
       </main>
     </div>

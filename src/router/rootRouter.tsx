@@ -1,15 +1,17 @@
 ﻿import React, { Suspense } from "react"
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom"
+import { createBrowserRouter, Outlet } from "react-router-dom"
 import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
 import adminRoutes from "../apps/admin/routes.js"
 import { courierRoutes } from "@/apps/courier/routes"
+import LoadingFallback from "@/apps/customer/components/LoadingFallback"
+import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading…</div>}>
+      <Suspense fallback={<LoadingFallback />}>
         <Outlet />
       </Suspense>
     ),
@@ -21,7 +23,7 @@ export const router = createBrowserRouter([
       courierRoutes,
       {
         path: "*",
-        element: <div>Page Not Found</div>
+        element: <NotFoundPage />
       }
     ]
   }
