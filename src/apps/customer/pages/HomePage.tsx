@@ -6,9 +6,11 @@ import { getBranches } from "@/api/customer"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import ConcordiaHomeLogo from "@/apps/customer/components/ConcordiaHomeLogo"
 import HomeFeaturedMenu from "@/apps/customer/components/HomeFeaturedMenu"
+import HomeGallery from "@/apps/customer/components/HomeGallery"
 import HomeOrderHub from "@/apps/customer/components/HomeOrderHub"
 import HomePostcodeBar from "@/apps/customer/components/HomePostcodeBar"
 import MenuShowcase from "@/apps/customer/components/MenuShowcase"
+import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { branchPath } from "@/lib/customerPaths"
 import "./HomePage.css"
 
@@ -121,7 +123,11 @@ export default function HomePage() {
 
   return (
     <div className="home">
-      <section className="home-hero">
+      <section
+        className="home-hero home-hero--photo"
+        style={{ backgroundImage: `url(${FOOD_IMAGES.hero})` }}
+      >
+        <div className="home-hero__overlay" aria-hidden="true" />
         <div className="home-hero__glow home-hero__glow--left" aria-hidden="true" />
         <div className="home-hero__glow home-hero__glow--right" aria-hidden="true" />
 
@@ -196,6 +202,8 @@ export default function HomePage() {
       <HomeFeaturedMenu branchId={nearestId} />
 
       <MenuShowcase />
+
+      <HomeGallery />
 
       <HomeOrderHub
         branches={liveBranches}

@@ -31,6 +31,15 @@
     "lead": "Italiaanse keuken uit onze steenoven — van knapperige pizza en huisgemaakte pasta tot geliefde klassiekers. Bestel online voor afhalen of bezorgen.",
     "showcaseLabel": "Onze keuken",
     "showcaseTitle": "Van de oven naar uw tafel",
+    "galleryLabel": "In onze keuken",
+    "galleryTitle": "Smaak in beelden",
+    "galleryLead": "Vers uit de steenoven — elke dag met passie bereid.",
+    "gallery": {
+      "oven": "Uit de steenoven",
+      "pizza": "Knapperige pizza",
+      "pasta": "Huisgemaakte pasta",
+      "kitchen": "Onze keuken"
+    },
     "showcase": {
       "pizza": "Pizza",
       "pizzaDesc": "Knapperig uit de steenoven, vers belegd",

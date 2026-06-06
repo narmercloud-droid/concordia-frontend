@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next"
 import { useQuery } from "@tanstack/react-query"
 import { getBranchMenu } from "@/api/customer"
 import { branchItemPath, branchPath, KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
+import { dishImageForName } from "@/lib/foodImagery"
 import { formatCurrency } from "@/utils/format"
 
 type MenuItem = {
@@ -54,10 +55,10 @@ export default function HomeFeaturedMenu({ branchId }: Props) {
           <article key={item.id} className="home-featured__card">
             <div
               className="home-featured__visual"
-              style={item.imageUrl ? { backgroundImage: `url(${item.imageUrl})` } : undefined}
-            >
-              {!item.imageUrl && <span className="home-featured__glyph" aria-hidden="true" />}
-            </div>
+              style={{
+                backgroundImage: `url(${dishImageForName(item.name, item.imageUrl)})`
+              }}
+            />
             <div className="home-featured__body">
               <h3>{item.name}</h3>
               <p className="home-featured__price">{formatCurrency(item.price)}</p>

@@ -31,6 +31,15 @@
     "lead": "Italian cuisine from our stone oven — from crisp pizza and homemade pasta to beloved classics. Order online for pickup or delivery.",
     "showcaseLabel": "Our kitchen",
     "showcaseTitle": "From the oven to your table",
+    "galleryLabel": "Inside our kitchen",
+    "galleryTitle": "Taste in pictures",
+    "galleryLead": "Fresh from the stone oven — prepared with passion, every day.",
+    "gallery": {
+      "oven": "From the stone oven",
+      "pizza": "Crispy pizza",
+      "pasta": "Homemade pasta",
+      "kitchen": "Our kitchen"
+    },
     "showcase": {
       "pizza": "Pizza",
       "pizzaDesc": "Crisp from the stone oven, freshly topped",

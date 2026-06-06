@@ -31,6 +31,15 @@
     "lead": "Kuchnia włoska z naszego pieca kamiennego — od chrupiącej pizzy i domowego makaronu po ulubione klasyki. Zamów online z odbiorem lub dostawą.",
     "showcaseLabel": "Nasza kuchnia",
     "showcaseTitle": "Z pieca prosto na stół",
+    "galleryLabel": "W naszej kuchni",
+    "galleryTitle": "Smak w obrazach",
+    "galleryLead": "Świeżo z pieca kamiennego — przygotowane z pasją każdego dnia.",
+    "gallery": {
+      "oven": "Z pieca kamiennego",
+      "pizza": "Chrupiąca pizza",
+      "pasta": "Domowy makaron",
+      "kitchen": "Nasza kuchnia"
+    },
     "showcase": {
       "pizza": "Pizza",
       "pizzaDesc": "Chrupiąca z pieca kamiennego, świeżo przygotowana",

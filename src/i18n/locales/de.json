@@ -31,6 +31,15 @@
     "lead": "Italienische Küche aus unserem Steinofen — von knuspriger Pizza über hausgemachte Pasta bis zu beliebten Klassikern. Bestellen Sie bequem online zur Abholung oder Lieferung.",
     "showcaseLabel": "Unsere Küche",
     "showcaseTitle": "Vom Steinofen auf Ihren Tisch",
+    "galleryLabel": "Einblick in unsere Küche",
+    "galleryTitle": "Geschmack in Bildern",
+    "galleryLead": "Frisch aus dem Steinofen — mit Leidenschaft zubereitet, jeden Tag.",
+    "gallery": {
+      "oven": "Aus dem Steinofen",
+      "pizza": "Knusprige Pizza",
+      "pasta": "Hausgemachte Pasta",
+      "kitchen": "Unsere Küche"
+    },
     "showcase": {
       "pizza": "Pizza",
       "pizzaDesc": "Knusprig aus dem Steinofen, frisch belegt",

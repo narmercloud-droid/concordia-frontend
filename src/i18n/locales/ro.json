@@ -31,6 +31,15 @@
     "lead": "Bucătărie italiană din cuptorul nostru cu piatră — de la pizza crocantă și paste de casă la clasice îndrăgite. Comandați online pentru ridicare sau livrare.",
     "showcaseLabel": "Bucătăria noastră",
     "showcaseTitle": "Din cuptor pe masa dvs.",
+    "galleryLabel": "În bucătăria noastră",
+    "galleryTitle": "Gust în imagini",
+    "galleryLead": "Proaspăt din cuptorul cu piatră — pregătit cu pasiune în fiecare zi.",
+    "gallery": {
+      "oven": "Din cuptorul cu piatră",
+      "pizza": "Pizza crocantă",
+      "pasta": "Paste de casă",
+      "kitchen": "Bucătăria noastră"
+    },
     "showcase": {
       "pizza": "Pizza",
       "pizzaDesc": "Crocantă din cuptorul cu piatră, proaspăt preparată",
