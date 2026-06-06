@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { suggestAddresses } from "@/api/customer"
 
-type Suggestion = {
+export type AddressSuggestion = {
   label: string
   street: string
   postalCode: string
@@ -11,21 +11,19 @@ type Suggestion = {
 type Props = {
   branchId: string
   value: string
-  postalCode?: string
-  onChange: (street: string) => void
-  onSelect: (suggestion: Suggestion) => void
+  onChange: (address: string) => void
+  onSelect: (suggestion: AddressSuggestion) => void
   placeholder?: string
 }
 
 export default function AddressAutocomplete({
   branchId,
   value,
-  postalCode,
   onChange,
   onSelect,
   placeholder
 }: Props) {
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+  const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -40,7 +38,7 @@ export default function AddressAutocomplete({
     const timer = setTimeout(async () => {
       setLoading(true)
       try {
-        const res = await suggestAddresses(branchId, value.trim(), postalCode)
+        const res = await suggestAddresses(branchId, value.trim())
         setSuggestions(res.suggestions ?? [])
         setOpen((res.suggestions ?? []).length > 0)
       } catch {
@@ -52,7 +50,7 @@ export default function AddressAutocomplete({
     }, 400)
 
     return () => clearTimeout(timer)
-  }, [branchId, value, postalCode])
+  }, [branchId, value])
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -76,6 +74,7 @@ export default function AddressAutocomplete({
           display: "block",
           width: "100%",
           padding: 10,
+          marginTop: 4,
           borderRadius: 8,
           border: "1px solid #ccc"
         }}
@@ -108,6 +107,7 @@ export default function AddressAutocomplete({
                 type="button"
                 onClick={() => {
                   onSelect(s)
+                  onChange(s.label)
                   setOpen(false)
                 }}
                 style={{

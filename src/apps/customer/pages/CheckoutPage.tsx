@@ -1,10 +1,9 @@
-﻿import React, { useEffect, useMemo, useState } from "react"
+﻿import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
   createOrder,
   getBranches,
-  getBranchDeliveryAreas,
   getBranchTimeSlots,
   getDeliveryQuote
 } from "@/api/customer"
@@ -14,6 +13,11 @@ import { useCartStore } from "@/store/cartStore"
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
 
+function extractPostalCode(address: string): string | null {
+  const match = address.match(/\b(\d{5})\b/)
+  return match ? match[1] : null
+}
+
 export default function CheckoutPage() {
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
@@ -21,9 +25,7 @@ export default function CheckoutPage() {
   const clearCart = useCartStore((s) => s.clearCart)
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
-  const [street, setStreet] = useState("")
-  const [postalCode, setPostalCode] = useState("")
-  const [city, setCity] = useState("Kempen")
+  const [address, setAddress] = useState("")
   const [fulfillmentType, setFulfillmentType] = useState<FulfillmentType>("delivery")
   const [timingMode, setTimingMode] = useState<TimingMode>("asap")
   const [scheduledFor, setScheduledFor] = useState("")
@@ -43,24 +45,12 @@ export default function CheckoutPage() {
   const [orderNotes, setOrderNotes] = useState("")
 
   const branchId = items[0]?.branchId
-
-  const fullAddress = useMemo(() => {
-    const parts = [street.trim(), `${postalCode.trim()} ${city.trim()}`.trim()].filter(Boolean)
-    return parts.join(", ")
-  }, [street, postalCode, city])
+  const postalCode = extractPostalCode(address)
 
   const { data: branches } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches
   })
-
-  const { data: deliveryAreasData } = useQuery({
-    queryKey: ["deliveryAreas", branchId],
-    queryFn: () => getBranchDeliveryAreas(branchId!),
-    enabled: !!branchId && fulfillmentType === "delivery"
-  })
-
-  const deliveryAreas = deliveryAreasData?.areas ?? []
 
   const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
@@ -79,14 +69,7 @@ export default function CheckoutPage() {
   })
 
   useEffect(() => {
-    if (fulfillmentType !== "delivery" || !branchId) {
-      setDeliveryQuote(null)
-      return
-    }
-
-    const postcodeReady = /^\d{5}$/.test(postalCode.trim())
-    const streetReady = street.trim().length >= 3
-    if (!postcodeReady && !streetReady) {
+    if (fulfillmentType !== "delivery" || !branchId || address.trim().length < 5) {
       setDeliveryQuote(null)
       return
     }
@@ -96,9 +79,9 @@ export default function CheckoutPage() {
       try {
         const quote = await getDeliveryQuote(
           branchId,
-          fullAddress || `${postalCode.trim()} Kempen`,
+          address.trim(),
           total,
-          postalCode.trim() || undefined
+          postalCode ?? undefined
         )
         setDeliveryQuote(quote)
       } catch {
@@ -109,7 +92,7 @@ export default function CheckoutPage() {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [branchId, fulfillmentType, fullAddress, postalCode, street, total])
+  }, [address, branchId, fulfillmentType, postalCode, total])
 
   useEffect(() => {
     if (items.length === 0) {
@@ -129,16 +112,9 @@ export default function CheckoutPage() {
   const deliveryBlocked =
     fulfillmentType === "delivery" &&
     (quoteLoading ||
-      !postalCode.trim() ||
-      !street.trim() ||
+      address.trim().length < 8 ||
       !deliveryQuote?.allowed ||
       (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder))
-
-  const handlePostcodeChange = (value: string) => {
-    setPostalCode(value)
-    const area = deliveryAreas.find((a) => a.postalCode === value)
-    if (area?.city) setCity(area.city)
-  }
 
   const handleSubmit = async () => {
     setError("")
@@ -158,12 +134,12 @@ export default function CheckoutPage() {
     }
 
     if (fulfillmentType === "delivery") {
-      if (!street.trim()) {
-        setAddressError("Street and house number are required.")
+      if (address.trim().length < 8) {
+        setAddressError("Please enter your full delivery address.")
         return
       }
-      if (!/^\d{5}$/.test(postalCode.trim())) {
-        setAddressError("Please choose a valid postcode.")
+      if (!postalCode) {
+        setAddressError("Please include your postcode in the address.")
         return
       }
     }
@@ -180,7 +156,7 @@ export default function CheckoutPage() {
         customerName: name.trim(),
         customerPhone: phone.trim(),
         fulfillmentType,
-        deliveryAddress: fulfillmentType === "delivery" ? fullAddress : undefined,
+        deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: "cash",
         notes: orderNotes.trim() || undefined
@@ -369,6 +345,39 @@ export default function CheckoutPage() {
         {phoneError && <p style={{ color: "#b00020", marginTop: 4 }}>{phoneError}</p>}
       </div>
 
+      {fulfillmentType === "delivery" && (
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontWeight: 600 }}>Delivery address</label>
+          <AddressAutocomplete
+            branchId={branchId!}
+            value={address}
+            onChange={setAddress}
+            onSelect={(s) => setAddress(s.label)}
+            placeholder="Start typing your address, e.g. Straelener Str. 5, 47906 Kempen"
+          />
+          <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>
+            Pick a suggestion or type your full address including postcode.
+          </p>
+          {addressError && <p style={{ color: "#b00020", marginTop: 4 }}>{addressError}</p>}
+          {quoteLoading && (
+            <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>Checking delivery...</p>
+          )}
+          {deliveryQuote && !deliveryQuote.allowed && (
+            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>{deliveryQuote.message}</p>
+          )}
+          {deliveryQuote?.allowed && deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder && (
+            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>
+              Minimum order: €{deliveryQuote.minimumOrder.toFixed(2)}
+            </p>
+          )}
+          {deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
+            <p style={{ color: "#2e7d32", marginTop: 6, fontSize: 13 }}>
+              You qualify for free delivery!
+            </p>
+          )}
+        </div>
+      )}
+
       <div style={{ marginBottom: 16 }}>
         <label>Order notes (optional)</label>
         <textarea
@@ -388,92 +397,6 @@ export default function CheckoutPage() {
           }}
         />
       </div>
-
-      {fulfillmentType === "delivery" && (
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ fontWeight: 600 }}>Delivery address</label>
-
-          <div style={{ marginTop: 8 }}>
-            <label style={{ fontSize: 13, color: "#555" }}>Postcode</label>
-            <select
-              value={postalCode}
-              onChange={(e) => handlePostcodeChange(e.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                padding: 10,
-                marginTop: 4,
-                borderRadius: 8,
-                border: "1px solid #ccc"
-              }}
-            >
-              <option value="">Choose your postcode...</option>
-              {deliveryAreas.map((area) => (
-                <option key={area.postalCode} value={area.postalCode}>
-                  {area.postalCode} {area.city ?? "Kempen"} (min. €{area.minimumOrder.toFixed(0)})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div style={{ marginTop: 12 }}>
-            <label style={{ fontSize: 13, color: "#555" }}>Street & house number</label>
-            <div style={{ marginTop: 4 }}>
-              <AddressAutocomplete
-                branchId={branchId!}
-                value={street}
-                postalCode={postalCode || undefined}
-                onChange={setStreet}
-                onSelect={(s) => {
-                  setStreet(s.street)
-                  setPostalCode(s.postalCode)
-                  setCity(s.city)
-                }}
-                placeholder="Start typing your street..."
-              />
-            </div>
-          </div>
-
-          <div style={{ marginTop: 12 }}>
-            <label style={{ fontSize: 13, color: "#555" }}>City</label>
-            <input
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                padding: 10,
-                marginTop: 4,
-                borderRadius: 8,
-                border: "1px solid #ccc"
-              }}
-            />
-          </div>
-
-          {addressError && <p style={{ color: "#b00020", marginTop: 4 }}>{addressError}</p>}
-          {quoteLoading && (
-            <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>Checking delivery...</p>
-          )}
-          {deliveryQuote && !deliveryQuote.allowed && (
-            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>{deliveryQuote.message}</p>
-          )}
-          {deliveryQuote?.allowed && deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder && (
-            <p style={{ color: "#b00020", marginTop: 6, fontSize: 13 }}>
-              Minimum order: €{deliveryQuote.minimumOrder.toFixed(2)}
-            </p>
-          )}
-          {deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
-            <p style={{ color: "#2e7d32", marginTop: 6, fontSize: 13 }}>
-              You qualify for free delivery!
-            </p>
-          )}
-          {deliveryAreas.length === 0 && (
-            <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>
-              Delivery areas are loading...
-            </p>
-          )}
-        </div>
-      )}
 
       <button
         onClick={handleSubmit}
