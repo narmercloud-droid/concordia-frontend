@@ -24,7 +24,7 @@ type OptionGroup = {
 }
 
 function formatPrice(price: number, included?: boolean) {
-  if (included || price === 0) return "Free"
+  if (included) return "Free"
   return `${price.toFixed(2)} €`
 }
 

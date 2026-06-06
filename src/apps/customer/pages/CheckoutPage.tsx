@@ -1,7 +1,14 @@
-﻿import React, { useEffect, useState } from "react"
+﻿import React, { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { createOrder, getBranches, getBranchTimeSlots, getDeliveryQuote } from "@/api/customer"
+import {
+  createOrder,
+  getBranches,
+  getBranchDeliveryAreas,
+  getBranchTimeSlots,
+  getDeliveryQuote
+} from "@/api/customer"
+import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useCartStore } from "@/store/cartStore"
 
 type FulfillmentType = "pickup" | "delivery"
@@ -14,7 +21,9 @@ export default function CheckoutPage() {
   const clearCart = useCartStore((s) => s.clearCart)
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
+  const [street, setStreet] = useState("")
+  const [postalCode, setPostalCode] = useState("")
+  const [city, setCity] = useState("Kempen")
   const [fulfillmentType, setFulfillmentType] = useState<FulfillmentType>("delivery")
   const [timingMode, setTimingMode] = useState<TimingMode>("asap")
   const [scheduledFor, setScheduledFor] = useState("")
@@ -35,10 +44,23 @@ export default function CheckoutPage() {
 
   const branchId = items[0]?.branchId
 
+  const fullAddress = useMemo(() => {
+    const parts = [street.trim(), `${postalCode.trim()} ${city.trim()}`.trim()].filter(Boolean)
+    return parts.join(", ")
+  }, [street, postalCode, city])
+
   const { data: branches } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches
   })
+
+  const { data: deliveryAreasData } = useQuery({
+    queryKey: ["deliveryAreas", branchId],
+    queryFn: () => getBranchDeliveryAreas(branchId!),
+    enabled: !!branchId && fulfillmentType === "delivery"
+  })
+
+  const deliveryAreas = deliveryAreasData?.areas ?? []
 
   const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
@@ -57,7 +79,14 @@ export default function CheckoutPage() {
   })
 
   useEffect(() => {
-    if (fulfillmentType !== "delivery" || !branchId || address.trim().length < 8) {
+    if (fulfillmentType !== "delivery" || !branchId) {
+      setDeliveryQuote(null)
+      return
+    }
+
+    const postcodeReady = /^\d{5}$/.test(postalCode.trim())
+    const streetReady = street.trim().length >= 3
+    if (!postcodeReady && !streetReady) {
       setDeliveryQuote(null)
       return
     }
@@ -65,17 +94,22 @@ export default function CheckoutPage() {
     const timer = setTimeout(async () => {
       setQuoteLoading(true)
       try {
-        const quote = await getDeliveryQuote(branchId, address.trim(), total)
+        const quote = await getDeliveryQuote(
+          branchId,
+          fullAddress || `${postalCode.trim()} Kempen`,
+          total,
+          postalCode.trim() || undefined
+        )
         setDeliveryQuote(quote)
       } catch {
         setDeliveryQuote(null)
       } finally {
         setQuoteLoading(false)
       }
-    }, 600)
+    }, 500)
 
     return () => clearTimeout(timer)
-  }, [address, branchId, fulfillmentType, total])
+  }, [branchId, fulfillmentType, fullAddress, postalCode, street, total])
 
   useEffect(() => {
     if (items.length === 0) {
@@ -91,6 +125,20 @@ export default function CheckoutPage() {
   }, [items, navigate, clearCart])
 
   if (items.length === 0) return null
+
+  const deliveryBlocked =
+    fulfillmentType === "delivery" &&
+    (quoteLoading ||
+      !postalCode.trim() ||
+      !street.trim() ||
+      !deliveryQuote?.allowed ||
+      (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder))
+
+  const handlePostcodeChange = (value: string) => {
+    setPostalCode(value)
+    const area = deliveryAreas.find((a) => a.postalCode === value)
+    if (area?.city) setCity(area.city)
+  }
 
   const handleSubmit = async () => {
     setError("")
@@ -109,9 +157,15 @@ export default function CheckoutPage() {
       return
     }
 
-    if (fulfillmentType === "delivery" && !address.trim()) {
-      setAddressError("Delivery address is required (include your postcode).")
-      return
+    if (fulfillmentType === "delivery") {
+      if (!street.trim()) {
+        setAddressError("Street and house number are required.")
+        return
+      }
+      if (!/^\d{5}$/.test(postalCode.trim())) {
+        setAddressError("Please choose a valid postcode.")
+        return
+      }
     }
 
     if (timingMode === "scheduled" && !scheduledFor) {
@@ -126,7 +180,7 @@ export default function CheckoutPage() {
         customerName: name.trim(),
         customerPhone: phone.trim(),
         fulfillmentType,
-        deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
+        deliveryAddress: fulfillmentType === "delivery" ? fullAddress : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: "cash",
         notes: orderNotes.trim() || undefined
@@ -337,13 +391,65 @@ export default function CheckoutPage() {
 
       {fulfillmentType === "delivery" && (
         <div style={{ marginBottom: 16 }}>
-          <label>Delivery Address</label>
-          <input
-            placeholder="Street, house number, 47906 Kempen"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            style={{ display: "block", width: "100%", padding: 10, marginTop: 4, borderRadius: 8, border: "1px solid #ccc" }}
-          />
+          <label style={{ fontWeight: 600 }}>Delivery address</label>
+
+          <div style={{ marginTop: 8 }}>
+            <label style={{ fontSize: 13, color: "#555" }}>Postcode</label>
+            <select
+              value={postalCode}
+              onChange={(e) => handlePostcodeChange(e.target.value)}
+              style={{
+                display: "block",
+                width: "100%",
+                padding: 10,
+                marginTop: 4,
+                borderRadius: 8,
+                border: "1px solid #ccc"
+              }}
+            >
+              <option value="">Choose your postcode...</option>
+              {deliveryAreas.map((area) => (
+                <option key={area.postalCode} value={area.postalCode}>
+                  {area.postalCode} {area.city ?? "Kempen"} (min. €{area.minimumOrder.toFixed(0)})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ marginTop: 12 }}>
+            <label style={{ fontSize: 13, color: "#555" }}>Street & house number</label>
+            <div style={{ marginTop: 4 }}>
+              <AddressAutocomplete
+                branchId={branchId!}
+                value={street}
+                postalCode={postalCode || undefined}
+                onChange={setStreet}
+                onSelect={(s) => {
+                  setStreet(s.street)
+                  setPostalCode(s.postalCode)
+                  setCity(s.city)
+                }}
+                placeholder="Start typing your street..."
+              />
+            </div>
+          </div>
+
+          <div style={{ marginTop: 12 }}>
+            <label style={{ fontSize: 13, color: "#555" }}>City</label>
+            <input
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              style={{
+                display: "block",
+                width: "100%",
+                padding: 10,
+                marginTop: 4,
+                borderRadius: 8,
+                border: "1px solid #ccc"
+              }}
+            />
+          </div>
+
           {addressError && <p style={{ color: "#b00020", marginTop: 4 }}>{addressError}</p>}
           {quoteLoading && (
             <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>Checking delivery...</p>
@@ -361,28 +467,37 @@ export default function CheckoutPage() {
               You qualify for free delivery!
             </p>
           )}
-          <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>
-            Include your postcode. Rules depend on your zone or distance from the restaurant.
-          </p>
+          {deliveryAreas.length === 0 && (
+            <p style={{ fontSize: 13, color: "#666", marginTop: 6 }}>
+              Delivery areas are loading...
+            </p>
+          )}
         </div>
       )}
 
       <button
         onClick={handleSubmit}
-        disabled={createMutation.isPending}
+        disabled={createMutation.isPending || deliveryBlocked}
         style={{
           width: "100%",
           padding: "14px 20px",
           fontSize: 16,
           fontWeight: 600,
-          background: "#c41e3a",
+          background: deliveryBlocked ? "#ccc" : "#c41e3a",
           color: "#fff",
           border: "none",
           borderRadius: 8,
-          cursor: createMutation.isPending ? "wait" : "pointer"
+          cursor: createMutation.isPending || deliveryBlocked ? "not-allowed" : "pointer",
+          opacity: deliveryBlocked ? 0.85 : 1
         }}
       >
-        {createMutation.isPending ? "Processing..." : "Place Order (Cash)"}
+        {createMutation.isPending
+          ? "Processing..."
+          : deliveryBlocked && fulfillmentType === "delivery"
+            ? quoteLoading
+              ? "Checking delivery..."
+              : "Complete delivery address"
+            : "Place Order (Cash)"}
       </button>
     </div>
   )

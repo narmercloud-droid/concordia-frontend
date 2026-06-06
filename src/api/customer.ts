@@ -81,14 +81,48 @@ export const getOrderHistory = async (customerId: string) => {
   return unwrap<any[]>(res)
 }
 
+export const getBranchDeliveryAreas = async (branchId: string) => {
+  const res = await api.get(`/api/branches/${branchId}/delivery-areas`)
+  return unwrap<{
+    areas: Array<{
+      postalCode: string
+      city?: string
+      minimumOrder: number
+      deliveryFee: number
+    }>
+  }>(res)
+}
+
+export const suggestAddresses = async (
+  branchId: string,
+  query: string,
+  postalCode?: string
+) => {
+  const res = await api.get(`/api/branches/${branchId}/address-suggest`, {
+    params: { q: query, postalCode }
+  })
+  return unwrap<{
+    suggestions: Array<{
+      label: string
+      street: string
+      postalCode: string
+      city: string
+      lat: number
+      lng: number
+    }>
+  }>(res)
+}
+
 export const getDeliveryQuote = async (
   branchId: string,
   address: string,
-  orderTotal: number
+  orderTotal: number,
+  postalCode?: string
 ) => {
   const res = await api.post(`/api/branches/${branchId}/delivery-quote`, {
     address,
-    orderTotal
+    orderTotal,
+    postalCode
   })
   return unwrap<{
     allowed: boolean

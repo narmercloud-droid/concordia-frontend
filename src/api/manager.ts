@@ -57,5 +57,11 @@ export const updateManagerMenuItem = (
   branchId?: string
 ) => api.patch(`/api/v1/manager/menu/items/${id}`, { ...data, branchId })
 
+export const updateManagerVariantGroup = (
+  groupId: string,
+  data: { includedChoice: boolean },
+  branchId?: string
+) => api.patch(`/api/v1/manager/menu/variant-groups/${groupId}`, { ...data, branchId })
+
 export const getManagerOrders = (branchId?: string) =>
   api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
