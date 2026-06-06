@@ -1,6 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
+import { scrollToBranchChoice } from "@/lib/scrollToBranchChoice"
 
 const ITEMS = [
   { key: "pizza", image: FOOD_IMAGES.pizza },
@@ -19,7 +20,12 @@ export default function MenuShowcase() {
       <h2 className="home-section-title">{t("home.showcaseTitle")}</h2>
       <div className="home-showcase__grid">
         {ITEMS.map((item) => (
-          <article key={item.key} className="home-showcase__card">
+          <button
+            key={item.key}
+            type="button"
+            className="home-showcase__card"
+            onClick={scrollToBranchChoice}
+          >
             <div
               className="home-showcase__photo"
               style={{ backgroundImage: `url(${item.image})` }}
@@ -30,7 +36,7 @@ export default function MenuShowcase() {
               <h3>{t(`home.showcase.${item.key}`)}</h3>
               <p>{t(`home.showcase.${item.key}Desc`)}</p>
             </div>
-          </article>
+          </button>
         ))}
       </div>
     </section>

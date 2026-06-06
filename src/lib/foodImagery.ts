@@ -4,19 +4,44 @@ export const FOOD_IMAGES = {
   pasta: "/images/food/pasta.jpg",
   salads: "/images/food/salad.jpg",
   alforno: "/images/food/alforno.jpg",
-  classics: "/images/food/pizza.jpg",
+  classics: "/images/food/classics.jpg",
   kitchen: "/images/food/kitchen.jpg"
 } as const
 
-export function dishImageForName(name: string, imageUrl?: string | null) {
+export type DishKind = keyof typeof FOOD_IMAGES
+
+function normalize(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+}
+
+export function dishKindForName(name: string, categoryName = ""): DishKind {
+  const n = normalize(name)
+  const c = normalize(categoryName)
+
+  if (/salat|insalata|caprese/.test(n) || /salat/.test(c)) return "salads"
+  if (/al forno|auflauf|lasagne|uberbacken|gratin/.test(n) || /al forno/.test(c)) return "alforno"
+  if (/schnitzel|baguette|burger|grill|cordon|hawaii(?!.*pizza)/.test(n) || /schnitzel|baguette/.test(c)) {
+    return "classics"
+  }
+  if (/pizzabrotchen|pizzabrot/.test(n) || /pizzabrotchen/.test(c)) return "pizza"
+  if (/^pizza| pizza /.test(n) || (/pizza/.test(c) && !/pizzabrotchen/.test(c))) return "pizza"
+  if (
+    /pasta|spaghetti|penne|tagliatelle|carbonara|bolognese|napoli|panna|gorgonzola|salmone|toscana/.test(n) ||
+    /pasta/.test(c)
+  ) {
+    return "pasta"
+  }
+
+  return "pizza"
+}
+
+export function dishImageForName(name: string, imageUrl?: string | null, categoryName = "") {
   if (imageUrl) return imageUrl
-  const n = name.toLowerCase()
-  if (/pizza/.test(n)) return FOOD_IMAGES.pizza
-  if (/pasta|spaghetti|penne|tagliatelle|lasagne|carbonara|bolognese/.test(n)) return FOOD_IMAGES.pasta
-  if (/salat|insalata|caprese/.test(n)) return FOOD_IMAGES.salads
-  if (/al forno|auflauf|lasagne|überbacken/.test(n)) return FOOD_IMAGES.alforno
-  if (/schnitzel|burger|grill|baguette/.test(n)) return FOOD_IMAGES.classics
-  return FOOD_IMAGES.pizza
+  const kind = dishKindForName(name, categoryName)
+  return FOOD_IMAGES[kind]
 }
 
 export const GALLERY_IMAGES = [
