@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useCartStore } from "@/store/cartStore"
 import { subscribeToPush } from "@/utils/pushNotifications"
@@ -28,7 +29,7 @@ export default function CustomerLayout() {
     <div className="customer-shell" style={{ maxWidth: 720, margin: "0 auto", padding: "24px 20px 48px" }}>
       <header className="customer-header">
         <Link to="/" className="customer-header__brand">
-          {t("common.brand")}
+          <ConcordiaLogo size="sm" />
         </Link>
         <div className="customer-header__actions">
           <LanguageSwitcher />

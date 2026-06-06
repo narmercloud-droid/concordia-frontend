@@ -38,6 +38,58 @@
   text-decoration: none;
 }
 
+.concordia-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.concordia-logo__mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.concordia-logo__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+}
+
+.concordia-logo__name {
+  font-family: var(--c-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--c-ink);
+}
+
+.concordia-logo__tagline {
+  margin-top: 4px;
+  font-family: var(--c-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.concordia-logo--hero {
+  flex-direction: column;
+  gap: 14px;
+}
+
+.concordia-logo--hero .concordia-logo__text {
+  align-items: center;
+}
+
+.concordia-logo--hero .concordia-logo__name {
+  font-size: clamp(2.2rem, 7vw, 3.25rem);
+}
+
+.concordia-logo--hero .concordia-logo__tagline {
+  font-size: 12px;
+}
+
 .customer-header__actions {
   display: flex;
   align-items: center;
