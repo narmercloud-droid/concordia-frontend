@@ -1,13 +1,17 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { LANGUAGES, type AppLanguage } from "@/i18n/languages"
+import { getLanguage, LANGUAGES, type AppLanguage } from "@/i18n/languages"
 
 export default function LanguageSwitcher() {
   const { i18n, t } = useTranslation()
   const current = (i18n.language?.split("-")[0] ?? "de") as AppLanguage
+  const active = getLanguage(current)
 
   return (
     <label className="lang-switcher">
+      <span className="lang-switcher__flag" aria-hidden="true">
+        {active.flag}
+      </span>
       <span className="lang-switcher__label">{t("lang.label")}</span>
       <select
         className="lang-switcher__select"

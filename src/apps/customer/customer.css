@@ -47,9 +47,16 @@
 .lang-switcher {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 13px;
   color: var(--c-muted);
+  position: relative;
+}
+
+.lang-switcher__flag {
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .lang-switcher__label {
@@ -64,7 +71,7 @@
 
 .lang-switcher__select {
   appearance: none;
-  padding: 8px 32px 8px 12px;
+  padding: 8px 32px 8px 10px;
   border: 1px solid var(--c-line);
   border-radius: 999px;
   background: var(--c-card)
@@ -74,6 +81,7 @@
   font-size: 13px;
   color: var(--c-ink);
   cursor: pointer;
+  min-width: 7.5rem;
 }
 
 .lang-switcher__select:focus {
