@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+﻿import React, { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
@@ -13,6 +13,7 @@ export default function CustomerLayout() {
   const [pushDenied, setPushDenied] = useState(false)
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
   const onCartPage = location.pathname === "/customer/cart"
+  const onHomePage = location.pathname === "/"
 
   useEffect(() => {
     if (!("Notification" in window)) return
@@ -26,7 +27,10 @@ export default function CustomerLayout() {
   }, [])
 
   return (
-    <div className="customer-shell" style={{ maxWidth: 720, margin: "0 auto", padding: "24px 20px 48px" }}>
+    <div
+      className={`customer-shell${onHomePage ? " customer-shell--home" : ""}`}
+      style={{ maxWidth: onHomePage ? 980 : 720, margin: "0 auto", padding: "24px 20px 48px" }}
+    >
       <header className="customer-header">
         <Link to="/" className="customer-header__brand">
           <ConcordiaLogo size="sm" />

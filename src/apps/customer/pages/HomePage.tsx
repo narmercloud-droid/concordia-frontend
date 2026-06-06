@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import ConcordiaHomeLogo from "@/apps/customer/components/ConcordiaHomeLogo"
-import HomeHeroArt from "@/apps/customer/components/HomeHeroArt"
+import HomeFeaturedMenu from "@/apps/customer/components/HomeFeaturedMenu"
+import HomeOrderHub from "@/apps/customer/components/HomeOrderHub"
+import HomePostcodeBar from "@/apps/customer/components/HomePostcodeBar"
 import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { branchPath } from "@/lib/customerPaths"
 import "./HomePage.css"
@@ -18,6 +20,8 @@ type Branch = {
   postalCode?: string
   comingSoon?: boolean
   isOpen?: boolean
+  supportsPickup?: boolean
+  supportsDelivery?: boolean
   lat?: number
   lng?: number
 }
@@ -104,15 +108,6 @@ export default function HomePage() {
     detectNearest()
   }, [data])
 
-  const sortedLiveBranches = [...liveBranches].sort((a, b) => {
-    const da = distances[a.id]
-    const db = distances[b.id]
-    if (da == null && db == null) return 0
-    if (da == null) return 1
-    if (db == null) return -1
-    return da - db
-  })
-
   const nearestBranch = liveBranches.find((b) => b.id === nearestId)
 
   if (isLoading) {
@@ -127,9 +122,10 @@ export default function HomePage() {
   return (
     <div className="home">
       <section className="home-hero">
-        <HomeHeroArt />
         <div className="home-hero__glow home-hero__glow--left" aria-hidden="true" />
         <div className="home-hero__glow home-hero__glow--right" aria-hidden="true" />
+
+        <p className="home-hero__kicker">{t("home.orderTitle")}</p>
 
         <div className="home-hero__brand">
           <ConcordiaHomeLogo />
@@ -170,13 +166,18 @@ export default function HomePage() {
                 </span>
               )}
             </p>
-            <button
-              type="button"
-              className="home-cta"
-              onClick={() => navigate(branchPath(nearestId))}
-            >
-              {t("home.orderHere")}
-            </button>
+            <div className="home-hero__ctas">
+              <button
+                type="button"
+                className="home-cta"
+                onClick={() => navigate(branchPath(nearestId))}
+              >
+                {t("home.orderHere")}
+              </button>
+              <a className="home-cta home-cta--ghost" href="#order">
+                {t("home.allLocations")}
+              </a>
+            </div>
           </div>
         )}
 
@@ -190,55 +191,17 @@ export default function HomePage() {
         )}
       </section>
 
+      <HomePostcodeBar branchId={nearestId} />
+
+      <HomeFeaturedMenu branchId={nearestId} />
+
       <MenuShowcase />
 
-      <section className="home-locations">
-        <p className="home-section-label">{t("home.locationsLabel")}</p>
-        <h2 className="home-section-title">{t("home.chooseRestaurant")}</h2>
-
-        <div className="home-branches">
-          {sortedLiveBranches.map((b: Branch) => (
-            <article
-              key={b.id}
-              className={`home-branch-card${b.id === nearestId ? " home-branch-card--nearest" : ""}`}
-            >
-              <div className="home-branch-accent" aria-hidden="true" />
-              <div className="home-branch-body">
-                <div>
-                  <div className="home-branch-name-row">
-                    <h3 className="home-branch-name">{branchDisplayName(b.name)}</h3>
-                    {b.id === nearestId && distances[b.id] != null && (
-                      <span className="home-nearest-badge">
-                        {t("home.nearestBadge")} · {formatDistance(distances[b.id])}
-                      </span>
-                    )}
-                  </div>
-                  {(b.address || b.city) && (
-                    <p className="home-branch-address">
-                      {[b.address, [b.postalCode, b.city].filter(Boolean).join(" ")]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </p>
-                  )}
-                  <p
-                    className={`home-status ${b.isOpen ? "home-status--open" : "home-status--closed"}`}
-                  >
-                    <span className="home-status-dot" aria-hidden="true" />
-                    {b.isOpen ? t("home.openNow") : t("home.closed")}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="home-branch-btn"
-                  onClick={() => navigate(branchPath(b.id))}
-                >
-                  {t("home.viewMenu")}
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <HomeOrderHub
+        branches={liveBranches}
+        nearestId={nearestId}
+        distances={distances}
+      />
 
       {comingSoon.length > 0 && (
         <section className="home-coming">
