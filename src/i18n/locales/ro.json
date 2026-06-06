@@ -59,6 +59,13 @@
     "footerCash": "Plată cash la ridicare sau livrare",
     "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €"
   },
+  "branchOwner": {
+    "eyebrow": "Bucătarul dumneavoastră",
+    "welcome": "Bun venit la Concordia {{branch}}",
+    "message": "Proaspăt din cuptorul nostru cu piatră — pregătit cu pasiune și suflet. Ne bucurăm că comandați la noi.",
+    "cartoonAlt": "Logo caricatură bucătar Concordia",
+    "photoAlt": "Bucătar la Concordia {{branch}}"
+  },
   "menu": {
     "title": "Meniul",
     "loading": "Se încarcă meniul…"

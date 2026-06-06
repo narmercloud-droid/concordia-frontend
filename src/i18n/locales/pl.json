@@ -59,6 +59,13 @@
     "footerCash": "Gotówka przy odbiorze lub dostawie",
     "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €"
   },
+  "branchOwner": {
+    "eyebrow": "Wasz szef kuchni",
+    "welcome": "Witamy w Concordia {{branch}}",
+    "message": "Świeżo z naszego pieca kamiennego — przygotowane z pasją i sercem. Cieszymy się, że u nas zamawiasz.",
+    "cartoonAlt": "Kreskówkowe logo szefa kuchni Concordia",
+    "photoAlt": "Szef kuchni w Concordia {{branch}}"
+  },
   "menu": {
     "title": "Menu",
     "loading": "Ładowanie menu…"

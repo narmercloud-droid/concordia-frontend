@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { OWNER_LOGO_IMAGE } from "@/lib/branchBranding"
 
 type Props = {
   variant?: "mark" | "full"
@@ -27,9 +28,8 @@ export default function ConcordiaLogo({
   return (
     <span className={`concordia-logo concordia-logo--${size} ${className}`.trim()}>
       <img
-        src="/logo-concordia.svg"
-        alt=""
-        aria-hidden="true"
+        src={OWNER_LOGO_IMAGE}
+        alt="Concordia Restaurant"
         className="concordia-logo__mark"
         width={dim}
         height={dim}

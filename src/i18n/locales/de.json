@@ -59,6 +59,13 @@
     "footerCash": "Barzahlung bei Abholung oder Lieferung",
     "footerFreeDrink": "Gratisgetränk ab Bestellwert von 35 €"
   },
+  "branchOwner": {
+    "eyebrow": "Ihr Küchenchef",
+    "welcome": "Willkommen bei Concordia {{branch}}",
+    "message": "Frisch aus unserem Steinofen — mit Leidenschaft und Herz zubereitet. Schön, dass Sie bei uns bestellen.",
+    "cartoonAlt": "Concordia Küchenchef — Cartoon-Logo",
+    "photoAlt": "Küchenchef bei Concordia {{branch}}"
+  },
   "menu": {
     "title": "Speisekarte",
     "loading": "Speisekarte wird geladen…"

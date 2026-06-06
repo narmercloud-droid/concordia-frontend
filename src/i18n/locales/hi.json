@@ -59,6 +59,13 @@
     "footerCash": "पिकअप या डिलीवरी पर नकद",
     "footerFreeDrink": "35 € से ऑर्डर पर मुफ़्त पेय"
   },
+  "branchOwner": {
+    "eyebrow": "आपके हेड शेफ",
+    "welcome": "Concordia {{branch}} में स्वागत है",
+    "message": "हमारे स्टोन ओवन से ताज़ा — दिल से बनाया। खुशी है कि आप हमारे पास ऑर्डर कर रहे हैं।",
+    "cartoonAlt": "Concordia हेड शेफ कार्टून लोगो",
+    "photoAlt": "Concordia {{branch}} में हेड शेफ"
+  },
   "menu": {
     "title": "मेनू",
     "loading": "मेनू लोड हो रहा है…"

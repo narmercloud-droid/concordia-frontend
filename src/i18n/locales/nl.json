@@ -59,6 +59,13 @@
     "footerCash": "Contant bij afhalen of bezorgen",
     "footerFreeDrink": "Gratis drankje vanaf €35 bestelwaarde"
   },
+  "branchOwner": {
+    "eyebrow": "Uw chef-kok",
+    "welcome": "Welkom bij Concordia {{branch}}",
+    "message": "Vers uit onze steenoven — met passie en hart bereid. Fijn dat u bij ons bestelt.",
+    "cartoonAlt": "Concordia chef-kok cartoonlogo",
+    "photoAlt": "Chef-kok bij Concordia {{branch}}"
+  },
   "menu": {
     "title": "Menu",
     "loading": "Menu laden…"
