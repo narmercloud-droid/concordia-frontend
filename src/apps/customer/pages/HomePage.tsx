@@ -8,7 +8,6 @@ import ConcordiaHomeLogo from "@/apps/customer/components/ConcordiaHomeLogo"
 import HomeFeaturedMenu from "@/apps/customer/components/HomeFeaturedMenu"
 import HomeGallery from "@/apps/customer/components/HomeGallery"
 import HomeOrderHub from "@/apps/customer/components/HomeOrderHub"
-import HomePostcodeBar from "@/apps/customer/components/HomePostcodeBar"
 import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { branchPath } from "@/lib/customerPaths"
@@ -195,8 +194,6 @@ export default function HomePage() {
         )}
         </div>
       </section>
-
-      <HomePostcodeBar branchId={nearestId} />
 
       <HomeFeaturedMenu branchId={nearestId} />
 

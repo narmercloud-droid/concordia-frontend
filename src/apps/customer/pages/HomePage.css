@@ -51,69 +51,6 @@
   background: var(--home-accent-soft);
 }
 
-.home-postcode {
-  margin-bottom: 48px;
-  padding: 22px 24px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #fff 0%, #fffaf7 100%);
-  border: 1px solid var(--home-line);
-  text-align: center;
-}
-
-.home-postcode__label {
-  margin: 0 0 14px;
-  font-family: var(--home-serif);
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: var(--home-ink);
-}
-
-.home-postcode__form {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 380px;
-  margin: 0 auto;
-}
-
-.home-postcode__input {
-  flex: 1 1 140px;
-  min-width: 120px;
-  padding: 12px 16px;
-  font-size: 15px;
-  border: 1px solid var(--home-line);
-  border-radius: 12px;
-  background: #fff;
-}
-
-.home-postcode__btn {
-  padding: 12px 22px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--home-accent);
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.home-postcode__result {
-  margin: 14px 0 0;
-  font-size: 14px;
-}
-
-.home-postcode__result--ok {
-  color: #2d6a4f;
-  font-weight: 500;
-}
-
-.home-postcode__result--no {
-  color: var(--home-muted);
-}
-
 .home-featured {
   margin-bottom: 52px;
 }

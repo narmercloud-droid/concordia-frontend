@@ -1,11 +1,11 @@
 export const FOOD_IMAGES = {
-  hero: "/images/food/hero-oven-pizza.jpg",
+  hero: "/images/food/hero-dining.jpg",
   pizza: "/images/food/pizza.jpg",
   pasta: "/images/food/pasta.jpg",
   salads: "/images/food/salad.jpg",
   alforno: "/images/food/alforno.jpg",
   classics: "/images/food/classics.jpg",
-  kitchen: "/images/food/kitchen.jpg"
+  dining: "/images/food/gallery-dining.jpg"
 } as const
 
 export type DishKind = keyof typeof FOOD_IMAGES
@@ -45,8 +45,8 @@ export function dishImageForName(name: string, imageUrl?: string | null, categor
 }
 
 export const GALLERY_IMAGES = [
-  { src: FOOD_IMAGES.hero, key: "oven" },
-  { src: FOOD_IMAGES.pizza, key: "pizza" },
   { src: FOOD_IMAGES.pasta, key: "pasta" },
-  { src: FOOD_IMAGES.kitchen, key: "kitchen" }
+  { src: FOOD_IMAGES.pizza, key: "pizza" },
+  { src: FOOD_IMAGES.salads, key: "salads" },
+  { src: FOOD_IMAGES.dining, key: "dining" }
 ] as const

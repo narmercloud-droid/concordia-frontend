@@ -172,7 +172,7 @@ export default function HomeOrderHub({ branches, nearestId, distances }: Props) 
                     className="home-branch-btn home-branch-btn--primary"
                     onClick={() => navigate(branchPath(b.id))}
                   >
-                    {t("home.viewMenu")}
+                    {t("home.orderNow")}
                   </button>
                 </div>
               </div>
