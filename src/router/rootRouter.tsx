@@ -1,4 +1,4 @@
-﻿import React, { Suspense } from "react"
+import React, { Suspense } from "react"
 import { createBrowserRouter, Outlet } from "react-router-dom"
 import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"

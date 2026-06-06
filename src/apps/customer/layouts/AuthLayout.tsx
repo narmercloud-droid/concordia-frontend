@@ -1,4 +1,4 @@
-﻿import React from "react"
+import React from "react"
 import { Outlet } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"

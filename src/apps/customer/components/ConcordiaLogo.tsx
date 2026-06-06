@@ -1,23 +1,27 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 
 type Props = {
   variant?: "mark" | "full"
   size?: "sm" | "md" | "lg" | "hero"
   className?: string
+  showSlogan?: boolean
 }
 
 const sizes = {
-  sm: { mark: 28, word: "1rem" },
-  md: { mark: 36, word: "1.15rem" },
-  lg: { mark: 48, word: "1.35rem" },
-  hero: { mark: 88, word: "clamp(2rem, 6vw, 2.75rem)" }
+  sm: { mark: 32, word: "1.05rem" },
+  md: { mark: 38, word: "1.2rem" },
+  lg: { mark: 52, word: "1.4rem" },
+  hero: { mark: 76, word: "clamp(2.1rem, 7vw, 3.1rem)" }
 }
 
 export default function ConcordiaLogo({
   variant = "full",
   size = "md",
-  className = ""
+  className = "",
+  showSlogan = false
 }: Props) {
+  const { t } = useTranslation()
   const dim = sizes[size].mark
 
   return (
@@ -35,7 +39,9 @@ export default function ConcordiaLogo({
           <span className="concordia-logo__name" style={{ fontSize: sizes[size].word }}>
             Concordia
           </span>
-          {size === "hero" && <span className="concordia-logo__tagline">Restaurant</span>}
+          {showSlogan && (
+            <span className="concordia-logo__tagline">{t("home.slogan")}</span>
+          )}
         </span>
       )}
     </span>

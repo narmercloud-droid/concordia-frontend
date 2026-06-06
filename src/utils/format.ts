@@ -1,4 +1,4 @@
-﻿import i18n from "@/i18n"
+import i18n from "@/i18n"
 import { localeForLanguage } from "@/i18n/languages"
 
 export const formatCurrency = (value: number, lang?: string) =>

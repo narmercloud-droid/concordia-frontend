@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
+import HomeHeroArt from "@/apps/customer/components/HomeHeroArt"
+import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { branchPath } from "@/lib/customerPaths"
 import "./HomePage.css"
 
@@ -18,8 +20,6 @@ type Branch = {
   lat?: number
   lng?: number
 }
-
-const MENU_HIGHLIGHTS = ["Pizza", "Pasta", "Salate", "Al Forno", "Schnitzel"]
 
 function branchDisplayName(name: string) {
   return name.replace(/^Concordia\s+/i, "")
@@ -126,29 +126,33 @@ export default function HomePage() {
   return (
     <div className="home">
       <section className="home-hero">
+        <HomeHeroArt />
         <div className="home-hero__glow home-hero__glow--left" aria-hidden="true" />
         <div className="home-hero__glow home-hero__glow--right" aria-hidden="true" />
+
+        <p className="home-eyebrow">{t("home.eyebrow")}</p>
 
         <div className="home-hero__brand">
           <ConcordiaLogo size="hero" className="home-hero__logo" />
         </div>
 
-        <p className="home-eyebrow">{t("home.eyebrow")}</p>
+        <p className="home-slogan">{t("home.slogan")}</p>
         <div className="home-divider" aria-hidden="true" />
         <p className="home-lead">{t("home.lead")}</p>
 
-        <ul className="home-highlights" aria-label="Menu highlights">
-          {MENU_HIGHLIGHTS.map((item) => (
-            <li key={item} className="home-highlight">
-              {item}
-            </li>
-          ))}
-        </ul>
-
         <div className="home-perks">
-          <span className="home-perk">{t("checkout.delivery")}</span>
-          <span className="home-perk">{t("checkout.pickup")}</span>
-          <span className="home-perk home-perk--accent">{t("home.footerFreeDrink")}</span>
+          <span className="home-perk">
+            <span className="home-perk__dot" aria-hidden="true" />
+            {t("checkout.delivery")}
+          </span>
+          <span className="home-perk">
+            <span className="home-perk__dot" aria-hidden="true" />
+            {t("checkout.pickup")}
+          </span>
+          <span className="home-perk home-perk--accent">
+            <span className="home-perk__dot" aria-hidden="true" />
+            {t("home.footerFreeDrink")}
+          </span>
         </div>
 
         {locationState === "loading" && (
@@ -186,6 +190,8 @@ export default function HomePage() {
           </div>
         )}
       </section>
+
+      <MenuShowcase />
 
       <section className="home-locations">
         <p className="home-section-label">{t("home.locationsLabel")}</p>
@@ -252,6 +258,7 @@ export default function HomePage() {
 
       <footer className="home-footer">
         <ConcordiaLogo size="sm" className="home-footer__logo" />
+        <p className="home-footer__slogan">{t("home.slogan")}</p>
         <p>{t("home.footerCash")}</p>
         <p>{t("home.footerFreeDrink")}</p>
       </footer>

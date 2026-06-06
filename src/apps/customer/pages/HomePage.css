@@ -63,9 +63,50 @@
   background: rgba(201, 162, 39, 0.1);
 }
 
-.home-hero > *:not(.home-hero__glow) {
+.home-hero > *:not(.home-hero__glow):not(.home-hero-art) {
   position: relative;
   z-index: 1;
+}
+
+.home-hero-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--home-accent);
+}
+
+.home-hero-art svg {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  opacity: 0.14;
+}
+
+.home-hero-art__pizza {
+  top: 12%;
+  left: 4%;
+  transform: rotate(-12deg);
+}
+
+.home-hero-art__pasta {
+  top: 18%;
+  right: 5%;
+  transform: rotate(8deg);
+}
+
+.home-hero-art__herbs {
+  bottom: 22%;
+  left: 8%;
+  transform: rotate(-6deg);
+  color: #2d6a4f;
+}
+
+.home-hero-art__wine {
+  bottom: 18%;
+  right: 7%;
+  transform: rotate(10deg);
+  color: var(--home-gold);
 }
 
 .home-hero__brand {
@@ -90,12 +131,24 @@
 }
 
 .home-eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   font-size: 11px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--home-accent);
   font-weight: 600;
+}
+
+.home-slogan {
+  margin: 10px auto 0;
+  max-width: 420px;
+  font-family: var(--home-serif);
+  font-size: clamp(1.25rem, 4vw, 1.65rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--home-ink);
+  letter-spacing: 0.01em;
 }
 
 .home-divider {
@@ -115,28 +168,56 @@
   font-weight: 400;
 }
 
-.home-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin: 28px auto 0;
-  padding: 0;
-  list-style: none;
-  max-width: 420px;
+.home-showcase {
+  margin-bottom: 52px;
 }
 
-.home-highlight {
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--home-ink);
-  background: rgba(255, 255, 255, 0.75);
+.home-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+.home-showcase__card {
+  padding: 20px 16px;
+  text-align: center;
+  background: var(--home-card);
   border: 1px solid var(--home-line);
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(26, 24, 22, 0.04);
+  border-radius: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.home-showcase__card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(163, 24, 48, 0.18);
+  box-shadow: 0 12px 28px rgba(26, 24, 22, 0.07);
+}
+
+.home-showcase__icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--home-accent);
+}
+
+.home-showcase__icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.home-showcase__card h3 {
+  margin: 0 0 6px;
+  font-family: var(--home-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--home-ink);
+}
+
+.home-showcase__card p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--home-muted);
 }
 
 .home-perks {
@@ -144,17 +225,32 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .home-perk {
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
   font-size: 12px;
   font-weight: 500;
   color: var(--home-muted);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(232, 226, 218, 0.8);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(232, 226, 218, 0.9);
+  border-radius: 999px;
+}
+
+.home-perk__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--home-gold);
+  flex-shrink: 0;
+}
+
+.home-perk--accent .home-perk__dot {
+  background: var(--home-accent);
 }
 
 .home-perk--accent {
@@ -463,8 +559,16 @@
 
 .home-footer__logo {
   justify-content: center;
-  margin-bottom: 14px;
-  opacity: 0.85;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.home-footer__slogan {
+  margin: 0 0 12px !important;
+  font-family: var(--home-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--home-muted) !important;
 }
 
 .home-footer p {
@@ -515,12 +619,18 @@
     border-radius: 20px;
   }
 
-  .home-highlights {
-    gap: 6px;
+  .home-hero-art svg {
+    width: 52px;
+    height: 52px;
+    opacity: 0.1;
   }
 
-  .home-highlight {
-    font-size: 11px;
-    padding: 6px 11px;
+  .home-showcase__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .home-showcase__card {
+    padding: 16px 12px;
   }
 }

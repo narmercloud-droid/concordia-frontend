@@ -1,4 +1,4 @@
-﻿import React, { Suspense } from "react"
+import React, { Suspense } from "react"
 import { Navigate } from "react-router-dom"
 import CustomerLayout from "./layouts/CustomerLayout.js"
 import AuthLayout from "./layouts/AuthLayout.js"
