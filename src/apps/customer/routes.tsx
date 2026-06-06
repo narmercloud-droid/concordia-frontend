@@ -16,10 +16,23 @@ const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
 const OrderHistoryPage = React.lazy(() => import("./pages/OrderHistoryPage.js"))
 import ProtectedRoute from "@/router/ProtectedRoute"
+import {
+  RedirectCustomerBranch,
+  RedirectCustomerBranchItem
+} from "./branchRedirects.js"
 
 const lazySection = (element: React.ReactElement) => (
   <Suspense fallback={<div>Loading…</div>}>{element}</Suspense>
 )
+
+export const branchRoutes = {
+  path: "/branch",
+  element: <CustomerLayout />,
+  children: [
+    { path: ":branchId", element: lazySection(<BranchMenuPage />) },
+    { path: ":branchId/item/:itemId", element: lazySection(<ItemDetailsPage />) }
+  ]
+}
 
 export const customerRoutes = {
   path: "/customer",
@@ -39,8 +52,11 @@ export const customerRoutes = {
       element: <CustomerLayout />,
       children: [
         { path: "", element: lazySection(<BranchListPage />) },
-        { path: "branch/:branchId", element: lazySection(<BranchMenuPage />) },
-        { path: "branch/:branchId/item/:itemId", element: lazySection(<ItemDetailsPage />) },
+        { path: "branch/:branchId", element: <RedirectCustomerBranch /> },
+        {
+          path: "branch/:branchId/item/:itemId",
+          element: <RedirectCustomerBranchItem />
+        },
         { path: "cart", element: lazySection(<CartPage />) },
         { path: "checkout", element: lazySection(<CheckoutPage />) },
         { path: "order/:orderId", element: lazySection(<OrderTrackingPage />) },

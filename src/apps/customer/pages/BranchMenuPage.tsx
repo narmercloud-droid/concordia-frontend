@@ -2,6 +2,7 @@ import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { getBranchMenu } from "@/api/customer"
+import { branchItemPath } from "@/lib/customerPaths"
 
 export default function BranchMenuPage() {
   const { branchId } = useParams()
@@ -36,7 +37,7 @@ export default function BranchMenuPage() {
               <p>{i.price} €</p>
               <button
                 onClick={() =>
-                  navigate(`/customer/branch/${branchId}/item/${i.id}`)
+                  navigate(branchItemPath(branchId!, i.id))
                 }
               >
                 View

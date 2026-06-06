@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getBranches } from "@/api/customer"
 import { useNavigate } from "react-router-dom"
+import { branchPath } from "@/lib/customerPaths"
 
 export default function BranchListPage() {
   const navigate = useNavigate()
@@ -59,7 +60,7 @@ export default function BranchListPage() {
       {nearest && (
         <div style={{ marginBottom: 20 }}>
           <button
-            onClick={() => navigate(`/customer/branch/${nearest}`)}
+            onClick={() => navigate(branchPath(nearest))}
             style={{ padding: "10px 20px", fontSize: 16 }}
           >
             Go to Nearest Branch
@@ -81,7 +82,7 @@ export default function BranchListPage() {
           )}
           <button
             disabled={b.comingSoon}
-            onClick={() => navigate(`/customer/branch/${b.id}`)}
+            onClick={() => navigate(branchPath(b.id))}
           >
             {b.comingSoon ? "Coming Soon" : "View Menu"}
           </button>
