@@ -131,8 +131,6 @@ export default function HomePage() {
         <div className="home-hero__glow home-hero__glow--left" aria-hidden="true" />
         <div className="home-hero__glow home-hero__glow--right" aria-hidden="true" />
 
-        <p className="home-eyebrow">{t("home.eyebrow")}</p>
-
         <div className="home-hero__brand">
           <ConcordiaHomeLogo />
         </div>

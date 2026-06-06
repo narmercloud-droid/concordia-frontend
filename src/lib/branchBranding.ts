@@ -1,6 +1,7 @@
 import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
 
 export const BRAND_LOGO_IMAGE = "/logo-concordia.svg"
+export const HOMEPAGE_LOGO_IMAGE = "/images/concordia-home-logo.png"
 
 export type BranchOwnerBranding = {
   photoImage: string

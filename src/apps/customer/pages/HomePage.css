@@ -116,71 +116,16 @@
 }
 
 .concordia-home-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  margin: 0;
   animation: home-logo-in 0.7s ease-out both;
 }
 
-.concordia-home-logo__mark {
-  filter: drop-shadow(0 8px 20px rgba(163, 24, 48, 0.12));
-}
-
-.concordia-home-logo__wordmark {
-  text-align: center;
-}
-
-.concordia-home-logo__name {
-  margin: 0;
-  font-family: var(--home-serif);
-  font-size: clamp(2.6rem, 8.5vw, 3.85rem);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  color: var(--home-ink);
-}
-
-.concordia-home-logo__c {
-  color: var(--home-accent);
-  font-weight: 600;
-}
-
-.concordia-home-logo__sub {
-  margin: 10px 0 0;
-  font-family: var(--home-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  color: var(--home-muted);
-}
-
-.concordia-home-logo__ornament {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.concordia-home-logo__ornament span:nth-child(1),
-.concordia-home-logo__ornament span:nth-child(3) {
-  width: 28px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--home-gold));
-}
-
-.concordia-home-logo__ornament span:nth-child(3) {
-  background: linear-gradient(90deg, var(--home-gold), transparent);
-}
-
-.concordia-home-logo__ornament span:nth-child(2) {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--home-gold), var(--home-accent));
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
+.concordia-home-logo__image {
+  display: block;
+  width: min(440px, 90vw);
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 24px rgba(26, 24, 22, 0.07));
 }
 
 @keyframes home-logo-in {
