@@ -23,10 +23,26 @@ export default function CustomerLayout() {
   }, [])
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: 20 }}>
-      <header style={{ padding: "10px 0", fontSize: 24, fontWeight: 600 }}>
-        <Link to="/" style={{ color: "#c41e3a", textDecoration: "none" }}>
-          Concordia Restaurant
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "24px 20px 48px" }}>
+      <header
+        style={{
+          padding: "8px 0 28px",
+          borderBottom: "1px solid #e8e2da",
+          marginBottom: 8
+        }}
+      >
+        <Link
+          to="/"
+          style={{
+            fontFamily: '"Cormorant Garamond", Georgia, serif',
+            fontSize: 26,
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            color: "#1a1816",
+            textDecoration: "none"
+          }}
+        >
+          Concordia
         </Link>
       </header>
 
