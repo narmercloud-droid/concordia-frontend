@@ -81,7 +81,7 @@ export default function HomeOrderHub({ branches, nearestId, distances }: Props) 
 
   return (
     <section className="home-order-hub" id="order">
-      <p className="home-order-hub__eyebrow">{t("home.orderTitle")}</p>
+      <p className="home-order-hub__eyebrow">{t("home.eyebrow")}</p>
       <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
       <p className="home-order-hub__lead">{t("home.orderLead")}</p>
 

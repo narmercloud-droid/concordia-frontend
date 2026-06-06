@@ -1,5 +1,5 @@
 export const FOOD_IMAGES = {
-  hero: "/images/food/hero-dining.jpg",
+  hero: "/images/food/hero-pizzeria.jpg",
   pizza: "/images/food/pizza.jpg",
   pasta: "/images/food/pasta.jpg",
   salads: "/images/food/salad.jpg",

@@ -31,10 +31,14 @@ export default function CustomerLayout() {
       className={`customer-shell${onHomePage ? " customer-shell--home" : ""}`}
       style={{ maxWidth: onHomePage ? 980 : 720, margin: "0 auto", padding: "24px 20px 48px" }}
     >
-      <header className="customer-header">
-        <Link to="/" className="customer-header__brand">
-          <ConcordiaLogo size="sm" />
-        </Link>
+      <header
+        className={`customer-header${onHomePage ? " customer-header--home" : ""}`}
+      >
+        {!onHomePage && (
+          <Link to="/" className="customer-header__brand">
+            <ConcordiaLogo size="sm" />
+          </Link>
+        )}
         <div className="customer-header__actions">
           <LanguageSwitcher />
           <Link
