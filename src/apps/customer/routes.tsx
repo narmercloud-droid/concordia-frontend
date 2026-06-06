@@ -1,0 +1,79 @@
+﻿import React, { Suspense } from "react"
+import CustomerLayout from "./layouts/CustomerLayout.js"
+import AuthLayout from "./layouts/AuthLayout.js"
+const BranchListPage = React.lazy(() => import("./pages/BranchListPage.js"))
+const BranchMenuPage = React.lazy(() => import("./pages/BranchMenuPage.js"))
+const ItemDetailsPage = React.lazy(() => import("./pages/ItemDetailsPage.js"))
+const CartPage = React.lazy(() => import("./pages/CartPage.js"))
+const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
+const OrderTrackingPage = React.lazy(() => import("./pages/OrderTrackingPage.js"))
+const OrdersPage = React.lazy(() => import("./pages/OrdersPage.js"))
+const LoginPage = React.lazy(() => import("./pages/LoginPage.js"))
+const RegisterPage = React.lazy(() => import("./pages/RegisterPage.js"))
+const MenuCategoriesPage = React.lazy(() => import("./pages/MenuCategoriesPage.js"))
+const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
+const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
+const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
+const OrderHistoryPage = React.lazy(() => import("./pages/OrderHistoryPage.js"))
+import ProtectedRoute from "@/router/ProtectedRoute"
+
+const lazySection = (element: React.ReactElement) => (
+  <Suspense fallback={<div>Loading…</div>}>{element}</Suspense>
+)
+
+export const customerRoutes = {
+  path: "/customer",
+  children: [
+    {
+      path: "login",
+      element: <AuthLayout />,
+      children: [{ path: "", element: lazySection(<LoginPage />) }]
+    },
+    {
+      path: "register",
+      element: <AuthLayout />,
+      children: [{ path: "", element: lazySection(<RegisterPage />) }]
+    },
+    {
+      path: "",
+      element: <CustomerLayout />,
+      children: [
+        { path: "", element: lazySection(<BranchListPage />) },
+        { path: "branch/:branchId", element: lazySection(<BranchMenuPage />) },
+        { path: "branch/:branchId/item/:itemId", element: lazySection(<ItemDetailsPage />) },
+        { path: "cart", element: lazySection(<CartPage />) },
+        { path: "checkout", element: lazySection(<CheckoutPage />) },
+        { path: "order/:orderId", element: lazySection(<OrderTrackingPage />) },
+        { path: "menu", element: lazySection(<MenuCategoriesPage />) },
+        { path: "menu/:categoryId", element: lazySection(<MenuItemsPage />) },
+        { path: "menu/item/:itemId", element: lazySection(<MenuItemDetailsPage />) },
+        {
+          path: "orders/:orderId",
+          element: (
+            <ProtectedRoute>
+              {lazySection(<OrderDetailsPage />)}
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "orders/history",
+          element: (
+            <ProtectedRoute>
+              {lazySection(<OrderHistoryPage />)}
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "orders",
+          element: (
+            <ProtectedRoute>
+              {lazySection(<OrdersPage />)}
+            </ProtectedRoute>
+          )
+        }
+      ]
+    }
+  ]
+}
+
+export default customerRoutes
