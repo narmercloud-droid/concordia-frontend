@@ -22,6 +22,16 @@ export function getLanguage(code: string) {
 
 export const DEFAULT_LANGUAGE: AppLanguage = "de"
 
+export const SUPPORTED_LANGUAGE_CODES = LANGUAGES.map((lang) => lang.code)
+
+/** Map browser/device locale to a supported app language, else German. */
+export function resolveAppLanguage(code: string | undefined): AppLanguage {
+  const short = (code ?? "").split("-")[0].toLowerCase()
+  return SUPPORTED_LANGUAGE_CODES.includes(short as AppLanguage)
+    ? (short as AppLanguage)
+    : DEFAULT_LANGUAGE
+}
+
 export function localeForLanguage(lang: string): string {
   const map: Record<AppLanguage, string> = {
     de: "de-DE",

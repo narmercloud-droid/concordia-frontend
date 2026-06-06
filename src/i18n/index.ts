@@ -1,7 +1,7 @@
 import i18n from "i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import { initReactI18next } from "react-i18next"
-import { DEFAULT_LANGUAGE } from "./languages"
+import { DEFAULT_LANGUAGE, resolveAppLanguage, SUPPORTED_LANGUAGE_CODES } from "./languages"
 import de from "./locales/de.json"
 import en from "./locales/en.json"
 import nl from "./locales/nl.json"
@@ -28,12 +28,14 @@ i18n
       hi: { translation: hi }
     },
     fallbackLng: DEFAULT_LANGUAGE,
-    supportedLngs: ["de", "en", "nl", "pl", "ru", "ro", "hi"],
-    lng: DEFAULT_LANGUAGE,
+    supportedLngs: SUPPORTED_LANGUAGE_CODES,
+    load: "languageOnly",
+    nonExplicitSupportedLngs: true,
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
-      lookupLocalStorage: "concordia-lang"
+      lookupLocalStorage: "concordia-lang-v2",
+      convertDetectedLanguage: (lng) => resolveAppLanguage(lng)
     },
     interpolation: { escapeValue: false }
   })
