@@ -1,7 +1,7 @@
 ﻿import React, { Suspense } from "react"
+import { Navigate } from "react-router-dom"
 import CustomerLayout from "./layouts/CustomerLayout.js"
 import AuthLayout from "./layouts/AuthLayout.js"
-const BranchListPage = React.lazy(() => import("./pages/BranchListPage.js"))
 const BranchMenuPage = React.lazy(() => import("./pages/BranchMenuPage.js"))
 const ItemDetailsPage = React.lazy(() => import("./pages/ItemDetailsPage.js"))
 const CartPage = React.lazy(() => import("./pages/CartPage.js"))
@@ -51,7 +51,7 @@ export const customerRoutes = {
       path: "",
       element: <CustomerLayout />,
       children: [
-        { path: "", element: lazySection(<BranchListPage />) },
+        { path: "", element: <Navigate to="/" replace /> },
         { path: "branch/:branchId", element: <RedirectCustomerBranch /> },
         {
           path: "branch/:branchId/item/:itemId",
