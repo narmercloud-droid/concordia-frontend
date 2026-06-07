@@ -79,6 +79,7 @@
     "comingSoonLabel": "În curând",
     "moreLocations": "Mai multe locații în curând",
     "footerCash": "Plată cash la ridicare sau livrare",
+    "websiteDiscount": "Reducere {{percent}}% — aplicată automat la checkout",
     "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €"
   },
   "branchOwner": {

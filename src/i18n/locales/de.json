@@ -79,6 +79,7 @@
     "comingSoonLabel": "Bald verfügbar",
     "moreLocations": "Weitere Standorte folgen",
     "footerCash": "Barzahlung bei Abholung oder Lieferung",
+    "websiteDiscount": "{{percent}} % Rabatt — automatisch an der Kasse",
     "footerFreeDrink": "Gratisgetränk ab Bestellwert von 35 €"
   },
   "branchOwner": {

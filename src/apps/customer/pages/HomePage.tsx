@@ -10,6 +10,7 @@ import HomeGallery from "@/apps/customer/components/HomeGallery"
 import HomeOrderHub from "@/apps/customer/components/HomeOrderHub"
 import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
+import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import { branchPath } from "@/lib/customerPaths"
 import "./HomePage.css"
 
@@ -149,6 +150,10 @@ export default function HomePage() {
           </span>
           <span className="home-perk home-perk--accent">
             <span className="home-perk__dot" aria-hidden="true" />
+            {t("home.websiteDiscount", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}
+          </span>
+          <span className="home-perk home-perk--accent">
+            <span className="home-perk__dot" aria-hidden="true" />
             {t("home.footerFreeDrink")}
           </span>
         </div>
@@ -226,6 +231,7 @@ export default function HomePage() {
         <ConcordiaLogo size="sm" className="home-footer__logo" />
         <p className="home-footer__slogan">{t("home.slogan")}</p>
         <p>{t("home.footerCash")}</p>
+        <p>{t("home.websiteDiscount", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}</p>
         <p>{t("home.footerFreeDrink")}</p>
       </footer>
     </div>

@@ -79,6 +79,7 @@
     "comingSoonLabel": "Wkrótce",
     "moreLocations": "Więcej lokalizacji wkrótce",
     "footerCash": "Gotówka przy odbiorze lub dostawie",
+    "websiteDiscount": "{{percent}}% rabatu — automatycznie przy kasie",
     "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €"
   },
   "branchOwner": {

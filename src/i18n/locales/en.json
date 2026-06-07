@@ -79,6 +79,7 @@
     "comingSoonLabel": "Coming soon",
     "moreLocations": "More locations on the way",
     "footerCash": "Cash on pickup or delivery",
+    "websiteDiscount": "{{percent}}% discount applied automatically at checkout",
     "footerFreeDrink": "Free drink on orders from €35"
   },
   "branchOwner": {

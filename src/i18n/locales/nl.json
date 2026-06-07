@@ -79,6 +79,7 @@
     "comingSoonLabel": "Binnenkort",
     "moreLocations": "Meer vestigingen volgen",
     "footerCash": "Contant bij afhalen of bezorgen",
+    "websiteDiscount": "{{percent}}% korting — automatisch bij het afrekenen",
     "footerFreeDrink": "Gratis drankje vanaf €35 bestelwaarde"
   },
   "branchOwner": {
