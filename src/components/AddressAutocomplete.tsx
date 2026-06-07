@@ -28,28 +28,39 @@ export default function AddressAutocomplete({
   const [suggestions, setSuggestions] = useState<AddressSuggestion[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(-1)
   const containerRef = useRef<HTMLDivElement>(null)
+  const requestId = useRef(0)
 
   useEffect(() => {
-    if (value.trim().length < 3) {
+    const trimmed = value.trim()
+    if (!trimmed) {
       setSuggestions([])
       setOpen(false)
+      setActiveIndex(-1)
       return
     }
 
+    const currentRequest = ++requestId.current
     const timer = setTimeout(async () => {
       setLoading(true)
       try {
-        const res = await suggestAddresses(branchId, value.trim())
-        setSuggestions(res.suggestions ?? [])
-        setOpen((res.suggestions ?? []).length > 0)
+        const res = await suggestAddresses(branchId, trimmed)
+        if (currentRequest !== requestId.current) return
+        const next = res.suggestions ?? []
+        setSuggestions(next)
+        setOpen(next.length > 0)
+        setActiveIndex(-1)
       } catch {
+        if (currentRequest !== requestId.current) return
         setSuggestions([])
         setOpen(false)
       } finally {
-        setLoading(false)
+        if (currentRequest === requestId.current) {
+          setLoading(false)
+        }
       }
-    }, 400)
+    }, 200)
 
     return () => clearTimeout(timer)
   }, [branchId, value])
@@ -64,56 +75,72 @@ export default function AddressAutocomplete({
     return () => document.removeEventListener("mousedown", handleClick)
   }, [])
 
+  const pickSuggestion = (suggestion: AddressSuggestion) => {
+    onSelect(suggestion)
+    onChange(suggestion.label)
+    setOpen(false)
+    setActiveIndex(-1)
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!open || suggestions.length === 0) return
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault()
+      setActiveIndex((prev) => (prev + 1) % suggestions.length)
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault()
+      setActiveIndex((prev) => (prev <= 0 ? suggestions.length - 1 : prev - 1))
+    } else if (event.key === "Enter" && activeIndex >= 0) {
+      event.preventDefault()
+      pickSuggestion(suggestions[activeIndex])
+    } else if (event.key === "Escape") {
+      setOpen(false)
+      setActiveIndex(-1)
+    }
+  }
+
+  const showDropdown = open && (loading || suggestions.length > 0)
+
   return (
-    <div ref={containerRef} style={{ position: "relative" }}>
+    <div ref={containerRef} className="address-autocomplete">
       <input
         className="customer-input"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onFocus={() => suggestions.length > 0 && setOpen(true)}
+        onFocus={() => {
+          if (value.trim() && (loading || suggestions.length > 0)) {
+            setOpen(true)
+          }
+        }}
+        onKeyDown={handleKeyDown}
         autoComplete="street-address"
+        role="combobox"
+        aria-expanded={showDropdown}
+        aria-autocomplete="list"
       />
-      {loading && <p className="customer-hint">{t("checkout.searchingAddresses")}</p>}
-      {open && suggestions.length > 0 && (
-        <ul
-          style={{
-            position: "absolute",
-            zIndex: 20,
-            top: "100%",
-            left: 0,
-            right: 0,
-            margin: "4px 0 0",
-            padding: 0,
-            listStyle: "none",
-            background: "#fff",
-            border: "1px solid #e8e2da",
-            borderRadius: 10,
-            boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-            maxHeight: 220,
-            overflowY: "auto"
-          }}
-        >
-          {suggestions.map((s) => (
+      {showDropdown && (
+        <ul className="address-autocomplete__list" role="listbox">
+          {loading && suggestions.length === 0 && (
+            <li className="address-autocomplete__status">{t("checkout.searchingAddresses")}</li>
+          )}
+          {suggestions.map((s, index) => (
             <li key={s.label}>
               <button
                 type="button"
-                onClick={() => {
-                  onSelect(s)
-                  onChange(s.label)
-                  setOpen(false)
-                }}
-                style={{
-                  width: "100%",
-                  textAlign: "left",
-                  padding: "10px 12px",
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: 14
-                }}
+                role="option"
+                aria-selected={index === activeIndex}
+                className={`address-autocomplete__option${
+                  index === activeIndex ? " address-autocomplete__option--active" : ""
+                }`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => pickSuggestion(s)}
               >
-                {s.label}
+                <span className="address-autocomplete__street">{s.street}</span>
+                <span className="address-autocomplete__meta">
+                  {s.postalCode} {s.city}
+                </span>
               </button>
             </li>
           ))}

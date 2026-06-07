@@ -75,6 +75,7 @@ export const createOrder = (data: {
   deliveryAddress?: string
   scheduledFor?: string | null
   paymentMethod?: string
+  promoCode?: string
   notes?: string
 }) =>
   api
@@ -88,6 +89,7 @@ export const createOrder = (data: {
       scheduledFor: data.scheduledFor ?? undefined,
       paymentMethod: data.paymentMethod ?? "cash",
       paymentStatus: "pending",
+      promoCode: data.promoCode,
       notes: data.notes,
       items: data.items.map((item) => ({
         itemId: item.id,
@@ -141,6 +143,16 @@ export const suggestAddresses = async (
       lat: number
       lng: number
     }>
+  }>(res)
+}
+
+export const validatePromoCode = async (code: string, orderTotal: number) => {
+  const res = await api.post("/api/promo/validate", { code, orderTotal })
+  return unwrap<{
+    code: string
+    type: string
+    discountAmount: number
+    promoCodeId: string
   }>(res)
 }
 

@@ -6,15 +6,19 @@ import {
   createOrder,
   getBranches,
   getBranchTimeSlots,
-  getDeliveryQuote
+  getDeliveryQuote,
+  validatePromoCode
 } from "@/api/customer"
+import { getPaymentConfig } from "@/api/payments"
+import PayPalCardCheckout from "@/apps/customer/components/PayPalCardCheckout"
 import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useCartStore } from "@/store/cartStore"
-import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
+import { calcWebsiteDiscount } from "@/lib/websitePromo"
 import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
+type PaymentChoice = "cash" | "card"
 
 function extractPostalCode(address: string): string | null {
   const match = address.match(/\b(\d{5})\b/)
@@ -47,6 +51,15 @@ export default function CheckoutPage() {
   } | null>(null)
   const [quoteLoading, setQuoteLoading] = useState(false)
   const [orderNotes, setOrderNotes] = useState("")
+  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>("cash")
+  const [pendingCardOrderId, setPendingCardOrderId] = useState<string | null>(null)
+  const [voucherInput, setVoucherInput] = useState("")
+  const [appliedVoucher, setAppliedVoucher] = useState<{
+    code: string
+    discountAmount: number
+  } | null>(null)
+  const [voucherError, setVoucherError] = useState("")
+  const [voucherLoading, setVoucherLoading] = useState(false)
 
   const branchId = items[0]?.branchId
   const postalCode = extractPostalCode(address)
@@ -67,6 +80,14 @@ export default function CheckoutPage() {
   })
 
   const timeSlots: Array<{ label: string; value: string }> = slotsData?.slots ?? []
+
+  const { data: paymentConfig } = useQuery({
+    queryKey: ["paymentConfig"],
+    queryFn: getPaymentConfig,
+    staleTime: 5 * 60_000
+  })
+
+  const cardPaymentsEnabled = paymentConfig?.cardPaymentsEnabled ?? false
 
   const createMutation = useMutation({
     mutationFn: createOrder
@@ -99,6 +120,30 @@ export default function CheckoutPage() {
   }, [address, branchId, fulfillmentType, postalCode, total])
 
   useEffect(() => {
+    if (!appliedVoucher) return
+
+    const timer = setTimeout(async () => {
+      try {
+        const result = await validatePromoCode(appliedVoucher.code, total)
+        setAppliedVoucher({
+          code: result.code,
+          discountAmount: result.discountAmount
+        })
+        setVoucherError("")
+      } catch (err: any) {
+        const message =
+          err?.response?.data?.error?.message ??
+          err?.response?.data?.message ??
+          t("checkout.voucherInvalid")
+        setVoucherError(message)
+        setAppliedVoucher(null)
+      }
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [total, appliedVoucher?.code, t])
+
+  useEffect(() => {
     if (items.length === 0) {
       navigate("/customer/cart")
       return
@@ -115,10 +160,42 @@ export default function CheckoutPage() {
 
   const subtotal = total
   const websiteDiscount = calcWebsiteDiscount(subtotal)
-  const discountedSubtotal = calcDiscountedSubtotal(subtotal)
+  const voucherDiscount = appliedVoucher?.discountAmount ?? 0
+  const discountedSubtotal = Math.max(0, subtotal - websiteDiscount - voucherDiscount)
   const deliveryFee =
     fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
   const grandTotal = discountedSubtotal + deliveryFee
+
+  const handleApplyVoucher = async () => {
+    const code = voucherInput.trim()
+    if (!code) return
+
+    setVoucherError("")
+    setVoucherLoading(true)
+    try {
+      const result = await validatePromoCode(code, subtotal)
+      setAppliedVoucher({
+        code: result.code,
+        discountAmount: result.discountAmount
+      })
+      setVoucherInput(result.code)
+    } catch (err: any) {
+      setAppliedVoucher(null)
+      const message =
+        err?.response?.data?.error?.message ??
+        err?.response?.data?.message ??
+        t("checkout.voucherInvalid")
+      setVoucherError(message)
+    } finally {
+      setVoucherLoading(false)
+    }
+  }
+
+  const handleRemoveVoucher = () => {
+    setAppliedVoucher(null)
+    setVoucherInput("")
+    setVoucherError("")
+  }
 
   const deliveryBlocked =
     fulfillmentType === "delivery" &&
@@ -127,7 +204,7 @@ export default function CheckoutPage() {
       !deliveryQuote?.allowed ||
       (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder))
 
-  const handleSubmit = async () => {
+  const validateCheckout = () => {
     setError("")
     setNameError("")
     setPhoneError("")
@@ -136,29 +213,35 @@ export default function CheckoutPage() {
 
     if (!name.trim()) {
       setNameError(t("checkout.nameRequired"))
-      return
+      return false
     }
 
     if (!phone.trim()) {
       setPhoneError(t("checkout.phoneRequired"))
-      return
+      return false
     }
 
     if (fulfillmentType === "delivery") {
       if (address.trim().length < 8) {
         setAddressError(t("checkout.addressRequired"))
-        return
+        return false
       }
       if (!postalCode) {
         setAddressError(t("checkout.postcodeRequired"))
-        return
+        return false
       }
     }
 
     if (timingMode === "scheduled" && !scheduledFor) {
       setScheduleError(t("checkout.scheduleRequired"))
-      return
+      return false
     }
+
+    return true
+  }
+
+  const handleSubmit = async () => {
+    if (!validateCheckout()) return
 
     try {
       const res = await createMutation.mutateAsync({
@@ -169,13 +252,19 @@ export default function CheckoutPage() {
         fulfillmentType,
         deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
-        paymentMethod: "cash",
+        paymentMethod: paymentChoice === "card" ? "card" : "cash",
+        promoCode: appliedVoucher?.code,
         notes: orderNotes.trim() || undefined
       })
 
       const orderId = res?.id
       if (!orderId) {
         setError(t("checkout.orderFailed"))
+        return
+      }
+
+      if (paymentChoice === "card") {
+        setPendingCardOrderId(orderId)
         return
       }
 
@@ -190,7 +279,14 @@ export default function CheckoutPage() {
     }
   }
 
-  const paymentMethod =
+  const handleCardPaymentSuccess = () => {
+    const orderId = pendingCardOrderId
+    clearCart()
+    setPendingCardOrderId(null)
+    if (orderId) navigate(`/customer/order/${orderId}`)
+  }
+
+  const cashPaymentLabel =
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
 
   return (
@@ -240,6 +336,14 @@ export default function CheckoutPage() {
             })}
           </p>
         )}
+        {voucherDiscount > 0 && appliedVoucher && (
+          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
+            {t("checkout.voucherApplied", {
+              code: appliedVoucher.code,
+              amount: formatCurrency(voucherDiscount)
+            })}
+          </p>
+        )}
         {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
           <p className="customer-hint">
             {deliveryQuote.freeDelivery
@@ -252,8 +356,89 @@ export default function CheckoutPage() {
         <p className="customer-total-line">
           {t("common.total")}: {formatCurrency(grandTotal)}
         </p>
-        <p className="customer-hint">{t("checkout.payment", { method: paymentMethod })}</p>
+        <p className="customer-hint">
+          {paymentChoice === "cash"
+            ? t("checkout.payment", { method: cashPaymentLabel })
+            : t("checkout.paymentCard")}
+        </p>
       </div>
+
+      <div className="customer-field">
+        <label className="customer-label" htmlFor="checkout-voucher">
+          {t("checkout.voucherLabel")}
+        </label>
+        <div className="checkout-voucher">
+          <input
+            id="checkout-voucher"
+            className="customer-input checkout-voucher__input"
+            placeholder={t("checkout.voucherPlaceholder")}
+            value={voucherInput}
+            onChange={(e) => {
+              setVoucherInput(e.target.value.toUpperCase())
+              if (appliedVoucher) setAppliedVoucher(null)
+              setVoucherError("")
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                void handleApplyVoucher()
+              }
+            }}
+            disabled={voucherLoading}
+          />
+          <button
+            type="button"
+            className="checkout-voucher__btn"
+            onClick={() => void handleApplyVoucher()}
+            disabled={voucherLoading || !voucherInput.trim()}
+          >
+            {voucherLoading ? t("common.processing") : t("checkout.voucherApply")}
+          </button>
+        </div>
+        {voucherError && <p className="customer-error">{voucherError}</p>}
+        {appliedVoucher && (
+          <div className="checkout-voucher__applied">
+            <span>
+              {t("checkout.voucherActive", {
+                code: appliedVoucher.code,
+                amount: formatCurrency(appliedVoucher.discountAmount)
+              })}
+            </span>
+            <button
+              type="button"
+              className="checkout-voucher__remove"
+              onClick={handleRemoveVoucher}
+            >
+              {t("checkout.voucherRemove")}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {cardPaymentsEnabled && (
+        <div className="customer-field">
+          <label className="customer-label">{t("checkout.paymentMethod")}</label>
+          <div className="customer-toggle-group">
+            <button
+              type="button"
+              onClick={() => {
+                setPaymentChoice("cash")
+                setPendingCardOrderId(null)
+              }}
+              className={`customer-toggle${paymentChoice === "cash" ? " customer-toggle--active" : ""}`}
+            >
+              {t("checkout.payCash")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setPaymentChoice("card")}
+              className={`customer-toggle${paymentChoice === "card" ? " customer-toggle--active" : ""}`}
+            >
+              {t("checkout.payCard")}
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="customer-field">
         <label className="customer-label">{t("checkout.orderType")}</label>
@@ -341,7 +526,7 @@ export default function CheckoutPage() {
             onSelect={(s) => setAddress(s.label)}
             placeholder={t("checkout.addressPlaceholder")}
           />
-          <p className="customer-hint">{t("checkout.addressHint")}</p>
+          <p className="customer-hint">{t("checkout.addressHintLive")}</p>
           {addressError && <p className="customer-error">{addressError}</p>}
           {quoteLoading && <p className="customer-hint">{t("checkout.checkingDelivery")}</p>}
           {deliveryQuote && !deliveryQuote.allowed && (
@@ -378,20 +563,34 @@ export default function CheckoutPage() {
         />
       </div>
 
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={createMutation.isPending || deliveryBlocked}
-        className="customer-btn customer-btn--primary"
-      >
-        {createMutation.isPending
-          ? t("common.processing")
-          : deliveryBlocked && fulfillmentType === "delivery"
-            ? quoteLoading
-              ? t("checkout.checkingDelivery")
-              : t("checkout.completeAddress")
-            : t("checkout.placeOrder")}
-      </button>
+      {!pendingCardOrderId && (
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={createMutation.isPending || deliveryBlocked}
+          className="customer-btn customer-btn--primary"
+        >
+          {createMutation.isPending
+            ? t("common.processing")
+            : deliveryBlocked && fulfillmentType === "delivery"
+              ? quoteLoading
+                ? t("checkout.checkingDelivery")
+                : t("checkout.completeAddress")
+              : paymentChoice === "card"
+                ? t("checkout.continueToPayment")
+                : t("checkout.placeOrder")}
+        </button>
+      )}
+
+      {pendingCardOrderId && paymentConfig?.paypalClientId && (
+        <PayPalCardCheckout
+          orderId={pendingCardOrderId}
+          paypalClientId={paymentConfig.paypalClientId}
+          currency={paymentConfig.currency}
+          onSuccess={handleCardPaymentSuccess}
+          onError={(message) => setError(message)}
+        />
+      )}
     </div>
   )
 }
