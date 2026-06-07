@@ -123,6 +123,10 @@ export default function HomePage() {
   return (
     <div className="home">
       <section className="home-hero">
+        <div className="home-hero__logo-stage">
+          <ConcordiaHomeLogo />
+        </div>
+
         <div
           className="home-hero__intro"
           style={{ backgroundImage: `url(${FOOD_IMAGES.hero})` }}
@@ -188,10 +192,6 @@ export default function HomePage() {
             </button>
           </div>
         )}
-        </div>
-
-        <div className="home-hero__logo-stage">
-          <ConcordiaHomeLogo />
         </div>
       </section>
 
