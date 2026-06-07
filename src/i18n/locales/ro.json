@@ -13,7 +13,8 @@
     "subtotal": "Subtotal",
     "note": "Notă",
     "extras": "Extra",
-    "processing": "Se procesează…"
+    "processing": "Se procesează…",
+    "close": "Închide"
   },
   "lang": {
     "label": "Limbă"
@@ -159,7 +160,13 @@
     "chooseRequired": "Alegeți: {{name}}",
     "chooseSizeFirst": "Alegeți mărimea pizza înainte de a adăuga extra",
     "chooseMin": "Selectați cel puțin {{count}} pentru {{name}}",
-    "totalForQty": "({{total}} total)"
+    "totalForQty": "({{total}} total)",
+    "total": "Total",
+    "each": "buc.",
+    "decreaseQty": "Mai puțin",
+    "increaseQty": "Mai mult",
+    "addedToCart": "{{name}} adăugat în coș",
+    "viewCart": "Coș"
   },
   "order": {
     "tracking": "Urmărire comandă",

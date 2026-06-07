@@ -13,7 +13,8 @@
     "subtotal": "Subtotal",
     "note": "Note",
     "extras": "Extras",
-    "processing": "Processing…"
+    "processing": "Processing…",
+    "close": "Close"
   },
   "lang": {
     "label": "Language"
@@ -159,7 +160,13 @@
     "chooseRequired": "Please choose: {{name}}",
     "chooseSizeFirst": "Please choose a pizza size before adding extras",
     "chooseMin": "Please select at least {{count}} for {{name}}",
-    "totalForQty": "({{total}} total)"
+    "totalForQty": "({{total}} total)",
+    "total": "Total",
+    "each": "each",
+    "decreaseQty": "Decrease quantity",
+    "increaseQty": "Increase quantity",
+    "addedToCart": "{{name}} added to cart",
+    "viewCart": "View cart"
   },
   "order": {
     "tracking": "Order tracking",

@@ -87,7 +87,7 @@
 
 .branch-menu__card {
   display: grid;
-  grid-template-columns: 88px 1fr auto;
+  grid-template-columns: 1fr auto;
   gap: 14px;
   align-items: center;
   padding: 14px;
@@ -95,6 +95,20 @@
   border-radius: 16px;
   background: var(--c-card);
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.branch-menu__card-main {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 
 .branch-menu__card:hover {
@@ -180,22 +194,59 @@
   box-shadow: 0 10px 22px rgba(163, 24, 48, 0.26);
 }
 
+.branch-menu__toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: var(--c-ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 12px 32px rgba(26, 24, 22, 0.25);
+  animation: branch-menu-toast-in 0.3s ease-out;
+}
+
+.branch-menu__toast-link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes branch-menu-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 @media (max-width: 720px) {
   .branch-menu__card {
-    grid-template-columns: 72px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "thumb body"
-      "btn btn";
+      "main"
+      "btn";
+  }
+
+  .branch-menu__card-main {
+    grid-area: main;
+    grid-template-columns: 72px 1fr;
   }
 
   .branch-menu__thumb {
-    grid-area: thumb;
     width: 72px;
     height: 72px;
-  }
-
-  .branch-menu__card-body {
-    grid-area: body;
   }
 
   .branch-menu__order-btn {

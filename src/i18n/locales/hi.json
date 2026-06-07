@@ -13,7 +13,8 @@
     "subtotal": "उप-योग",
     "note": "नोट",
     "extras": "अतिरिक्त",
-    "processing": "प्रोसेस हो रहा है…"
+    "processing": "प्रोसेस हो रहा है…",
+    "close": "बंद करें"
   },
   "lang": {
     "label": "भाषा"
@@ -159,7 +160,13 @@
     "chooseRequired": "कृपया चुनें: {{name}}",
     "chooseSizeFirst": "अतिरिक्त जोड़ने से पहले पिज़्ज़ा साइज़ चुनें",
     "chooseMin": "{{name}} के लिए कम से कम {{count}} चुनें",
-    "totalForQty": "({{total}} कुल)"
+    "totalForQty": "({{total}} कुल)",
+    "total": "कुल",
+    "each": "प्रति",
+    "decreaseQty": "कम करें",
+    "increaseQty": "बढ़ाएँ",
+    "addedToCart": "{{name}} कार्ट में जोड़ा गया",
+    "viewCart": "कार्ट देखें"
   },
   "order": {
     "tracking": "ऑर्डर ट्रैकिंग",

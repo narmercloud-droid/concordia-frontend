@@ -13,7 +13,8 @@
     "subtotal": "Subtotaal",
     "note": "Opmerking",
     "extras": "Extra's",
-    "processing": "Bezig…"
+    "processing": "Bezig…",
+    "close": "Sluiten"
   },
   "lang": {
     "label": "Taal"
@@ -159,7 +160,13 @@
     "chooseRequired": "Kies alstublieft: {{name}}",
     "chooseSizeFirst": "Kies eerst een pizzamaat voordat u extra's toevoegt",
     "chooseMin": "Selecteer minstens {{count}} voor {{name}}",
-    "totalForQty": "({{total}} totaal)"
+    "totalForQty": "({{total}} totaal)",
+    "total": "Totaal",
+    "each": "per stuk",
+    "decreaseQty": "Minder",
+    "increaseQty": "Meer",
+    "addedToCart": "{{name}} toegevoegd",
+    "viewCart": "Winkelwagen"
   },
   "order": {
     "tracking": "Bestelling volgen",

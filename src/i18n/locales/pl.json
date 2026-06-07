@@ -13,7 +13,8 @@
     "subtotal": "Suma częściowa",
     "note": "Uwaga",
     "extras": "Dodatki",
-    "processing": "Przetwarzanie…"
+    "processing": "Przetwarzanie…",
+    "close": "Zamknij"
   },
   "lang": {
     "label": "Język"
@@ -159,7 +160,13 @@
     "chooseRequired": "Wybierz: {{name}}",
     "chooseSizeFirst": "Wybierz rozmiar pizzy przed dodaniem dodatków",
     "chooseMin": "Wybierz co najmniej {{count}} dla {{name}}",
-    "totalForQty": "({{total}} razem)"
+    "totalForQty": "({{total}} razem)",
+    "total": "Razem",
+    "each": "za szt.",
+    "decreaseQty": "Zmniejsz ilość",
+    "increaseQty": "Zwiększ ilość",
+    "addedToCart": "{{name}} dodano do koszyka",
+    "viewCart": "Koszyk"
   },
   "order": {
     "tracking": "Śledzenie zamówienia",

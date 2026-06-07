@@ -13,7 +13,8 @@
     "subtotal": "Промежуточный итог",
     "note": "Примечание",
     "extras": "Дополнения",
-    "processing": "Обработка…"
+    "processing": "Обработка…",
+    "close": "Закрыть"
   },
   "lang": {
     "label": "Язык"
@@ -159,7 +160,13 @@
     "chooseRequired": "Выберите: {{name}}",
     "chooseSizeFirst": "Сначала выберите размер пиццы, затем добавляйте дополнения",
     "chooseMin": "Выберите минимум {{count}} для {{name}}",
-    "totalForQty": "({{total}} всего)"
+    "totalForQty": "({{total}} всего)",
+    "total": "Итого",
+    "each": "за шт.",
+    "decreaseQty": "Уменьшить",
+    "increaseQty": "Увеличить",
+    "addedToCart": "{{name}} добавлено в корзину",
+    "viewCart": "Корзина"
   },
   "order": {
     "tracking": "Отслеживание заказа",
