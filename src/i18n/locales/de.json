@@ -216,12 +216,27 @@
     "about": {
       "eyebrow": "Unsere Geschichte",
       "title": "Über Concordia",
-      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant, in dem Wärme, Qualität und Harmonie auf jedem Teller zusammentreffen. Von Pizza aus dem Steinofen über hausgemachte Pasta bis zu beliebten Klassikern — wir kochen jeden Tag mit Leidenschaft.",
-      "p2": "Was in Kempen begann, wächst weiter. Wir freuen uns, unsere Gäste vor Ort und online mit derselben Sorgfalt zu bedienen.",
+      "quote": "Gutes Essen bringt Menschen zusammen — genau darum geht es bei Concordia.",
+      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant in Kempen. Harmonie ist für uns nicht nur ein Name — sie steht für unseren Umgang mit Gästen, für die Arbeit in der Küche und für jeden Teller, der unsere Theke verlässt.",
+      "p2": "Am Concordienplatz haben wir mit einer einfachen Idee geöffnet: ehrliche italienische Küche, großzügige Portionen und das Gefühl, bei jemandem zu essen — nicht in einer Kette.",
+      "p3": "Heute können Sie uns besuchen oder online bestellen. In beiden Fällen bereitet dasselbe Team Ihr Essen frisch zu, wenn Sie bestellen. Kein Aufwärmen, keine Abkürzungen — nur das, womit wir uns vor unseren Nachbarn und Familien sehen lassen.",
+      "originTitle": "Verwurzelt in Kempen",
+      "originText": "Kempen ist unsere Heimat. Unsere Gäste kennen uns von Geburtstagen, Freitag-Pizza-Abenden und ruhigen Mittagessen am Platz. Dieses Vertrauen bedeutet uns alles — deshalb behandeln wir jede Online-Bestellung mit derselben Sorgfalt wie einen Tisch am Fenster.",
       "chefsTitle": "Ihre Küchenchefs",
-      "chefsText": "Chef Alaan und Chef Jiuan führen unsere Küche mit Herz und Erfahrung. Ihre Handschrift: Frische, Beständigkeit und die Freude, gutes Essen zu teilen.",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan prägt unsere Karte und den Rhythmus der Küche — vom Teig und den Saucen bis zu den Gerichten, die Stammgäste beim Namen bestellen. Ihm liegt Beständigkeit am Herzen: Die Pizza soll jedes Mal nach Concordia schmecken.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan bringt Ruhe und Konzentration in einen vollen Service — Pasta, Grill, Timing an der Theke. Gäste spüren oft zuerst die Wärme; in der Küche ist es seine ruhige Hand, die alles im Fluss hält.",
+      "valuesTitle": "Wofür wir stehen",
+      "values": {
+        "fresh": { "title": "Immer frisch", "text": "Zubereitet, wenn Sie bestellen — nicht unter der Wärmelampe." },
+        "family": { "title": "Familientisch", "text": "Ein kleines Team, das viele Gäste beim Namen kennt." },
+        "oven": { "title": "Steinofen-Seele", "text": "Pizza und Klassiker mit echtem italienischem Herz." },
+        "care": { "title": "Jede Bestellung zählt", "text": "Abholung, Lieferung oder vor Ort — gleicher Stolz auf dem Teller." }
+      },
       "kitchenTitle": "Vom Ofen auf Ihren Tisch",
-      "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch zubereitet, zur Abholung oder Lieferung."
+      "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch für Abholung oder Lieferung.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
       "eyebrow": "Kontakt",
@@ -245,14 +260,19 @@
     "offers": {
       "eyebrow": "Sparen bei uns",
       "title": "Angebote & Aktionen",
+      "lead": "Bestellen Sie direkt auf unserer Website und profitieren Sie von eingebauten Vorteilen — ohne Codes, ohne Umwege.",
       "discountTitle": "Rabatt auf Ihre Online-Bestellung",
       "discountText": "Bestellen Sie über unsere Website und erhalten Sie 10 % Rabatt automatisch an der Kasse. Kein Gutscheincode nötig.",
       "drinkTitle": "Gratisgetränk ab 35 €",
       "drinkText": "Ab einem Bestellwert von 35 € gibt es ein kostenloses Softgetränk — unser Dank, dass Sie Concordia wählen.",
       "howTitle": "So funktioniert's",
-      "how1": "Filiale wählen und Gerichte in den Warenkorb legen.",
-      "how2": "Rabatte werden automatisch an der Kasse abgezogen.",
-      "how3": "Barzahlung bei Abholung oder Lieferung."
+      "step1Title": "Filiale wählen",
+      "step1Text": "Kempen auswählen und die volle Karte mit Fotos und Optionen durchstöbern.",
+      "step2Title": "Warenkorb füllen",
+      "step2Text": "10 % Website-Rabatt und Gratisgetränk (ab 35 €) werden automatisch angewendet.",
+      "step3Title": "Bestellen & genießen",
+      "step3Text": "Barzahlung bei Abholung oder Lieferung — wir bereiten alles frisch für Sie zu.",
+      "promoNote": "Hunger? Ihr Tisch — oder Ihre Haustür — ist nur wenige Klicks entfernt."
     },
     "delivery": {
       "eyebrow": "Bis vor Ihre Tür",

@@ -337,6 +337,463 @@
   text-decoration: none;
 }
 
+/* —— About page —— */
+
+.about-hero {
+  display: grid;
+  gap: 20px;
+  padding: 22px;
+  border-radius: 20px;
+  border: 1px solid var(--c-line);
+  background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
+}
+
+.about-hero__media {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 14px;
+  align-items: end;
+}
+
+.about-hero__chefs {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #faf8f5;
+  border: 3px solid #fff;
+  box-shadow: 0 8px 24px rgba(107, 44, 62, 0.12);
+}
+
+.about-hero__kitchen {
+  height: 120px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.about-hero__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.about-hero__quote p {
+  margin: 0 0 10px;
+  font-family: var(--c-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--c-ink);
+}
+
+.about-hero__quote footer {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+.about-story p + p {
+  margin-top: 12px;
+}
+
+.about-section-title {
+  margin: 8px 0 14px;
+  font-family: var(--c-serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.about-chefs {
+  display: grid;
+  gap: 14px;
+}
+
+.about-chef-card {
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line);
+  background: var(--c-card);
+}
+
+.about-chef-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-accent) 0%, var(--c-accent-hover) 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.about-chef-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--c-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.about-chef-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-muted);
+}
+
+.about-values {
+  display: grid;
+  gap: 12px;
+}
+
+.about-value {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--c-line);
+}
+
+.about-value__icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: var(--c-accent-soft);
+}
+
+.about-value--fresh .about-value__icon {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+
+.about-value--family .about-value__icon {
+  background: linear-gradient(135deg, var(--c-accent-soft), #f3e5d0);
+}
+
+.about-value--oven .about-value__icon {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+}
+
+.about-value--care .about-value__icon {
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+}
+
+.about-value h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.about-value p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-muted);
+}
+
+.about-kitchen-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  min-height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+
+.about-kitchen-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(43, 39, 36, 0.82) 0%,
+    rgba(107, 44, 62, 0.55) 100%
+  );
+}
+
+.about-kitchen-banner__copy {
+  position: relative;
+  z-index: 1;
+  padding: 28px 24px;
+  color: #fff;
+}
+
+.about-kitchen-banner__copy h2 {
+  margin: 0 0 10px;
+  font-family: var(--c-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.about-kitchen-banner__copy p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-kitchen-banner__address {
+  margin-top: 14px !important;
+  font-weight: 600;
+  color: var(--c-gold, #b08d57) !important;
+}
+
+/* —— Offers page —— */
+
+.offers-lead {
+  margin: 0 0 8px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-muted);
+}
+
+.offers-showcase {
+  display: grid;
+  gap: 16px;
+}
+
+.offers-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--c-line);
+  min-height: 240px;
+}
+
+.offers-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.offers-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(107, 44, 62, 0.88) 0%,
+    rgba(43, 39, 36, 0.75) 55%,
+    rgba(43, 39, 36, 0.4) 100%
+  );
+}
+
+.offers-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 240px;
+  padding: 24px;
+  color: #fff;
+}
+
+.offers-card__body--plain {
+  color: var(--c-ink);
+  min-height: auto;
+  padding: 20px 22px 22px;
+}
+
+.offers-card--drink {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
+  min-height: auto;
+}
+
+.offers-card__visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(176, 141, 87, 0.15) 0%, transparent 100%);
+}
+
+.offers-card__drink-icon {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.offers-card__drink-tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--c-gold, #b08d57);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.offers-card__badge {
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+.offers-card__badge--gold {
+  background: var(--c-gold, #b08d57);
+  color: #fff;
+}
+
+.offers-card__percent {
+  margin: 0 0 4px;
+  font-family: var(--c-serif);
+  font-size: clamp(3.5rem, 12vw, 5rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.offers-card__title {
+  margin: 0 0 8px;
+  font-family: var(--c-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.offers-card__body p,
+.offers-card__body--plain p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.offers-card__body--plain p {
+  color: var(--c-muted);
+  opacity: 1;
+}
+
+.offers-steps {
+  display: grid;
+  gap: 12px;
+}
+
+.offers-step {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--c-line);
+}
+
+.offers-step__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-accent) 0%, var(--c-accent-hover) 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: var(--c-serif);
+}
+
+.offers-step h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.offers-step p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-muted);
+}
+
+.offers-cta-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  min-height: 180px;
+  background-size: cover;
+  background-position: center;
+}
+
+.offers-cta-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43, 39, 36, 0.5) 0%, rgba(107, 44, 62, 0.82) 100%);
+}
+
+.offers-cta-banner__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 28px 24px;
+}
+
+.offers-cta-banner__note {
+  margin: 0;
+  max-width: 420px;
+  font-family: var(--c-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.4;
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .about-hero__media {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .about-hero__chefs {
+    width: 140px;
+    height: 140px;
+  }
+
+  .about-chefs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-values {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .offers-showcase {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: stretch;
+  }
+
+  .offers-card--discount {
+    min-height: 280px;
+  }
+
+  .offers-card__body {
+    min-height: 280px;
+  }
+}
+
 @media (min-width: 720px) {
   .site-nav__scroll {
     justify-content: center;

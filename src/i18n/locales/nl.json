@@ -227,14 +227,41 @@
       "faq": "FAQ"
     },
     "about": {
-      "eyebrow": "Unsere Geschichte",
-      "title": "Über Concordia",
-      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant, in dem Wärme, Qualität und Harmonie auf jedem Teller zusammentreffen. Von Pizza aus dem Steinofen über hausgemachte Pasta bis zu beliebten Klassikern — wir kochen jeden Tag mit Leidenschaft.",
-      "p2": "Was in Kempen begann, wächst weiter. Wir freuen uns, unsere Gäste vor Ort und online mit derselben Sorgfalt zu bedienen.",
-      "chefsTitle": "Ihre Küchenchefs",
-      "chefsText": "Chef Alaan und Chef Jiuan führen unsere Küche mit Herz und Erfahrung. Ihre Handschrift: Frische, Beständigkeit und die Freude, gutes Essen zu teilen.",
-      "kitchenTitle": "Vom Ofen auf Ihren Tisch",
-      "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch zubereitet, zur Abholung oder Lieferung."
+      "eyebrow": "Our story",
+      "title": "About Concordia",
+      "quote": "Good food brings people together — that is what Concordia has always been about.",
+      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
+      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
+      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
+      "originTitle": "Rooted in Kempen",
+      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
+      "chefsTitle": "Meet your head chefs",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
+      "valuesTitle": "What we stand for",
+      "values": {
+        "fresh": {
+          "title": "Fresh, always",
+          "text": "Prepared when you order — not sitting under a heat lamp."
+        },
+        "family": {
+          "title": "Family table",
+          "text": "A small team that knows many guests by name."
+        },
+        "oven": {
+          "title": "Stone-oven soul",
+          "text": "Pizza and classics with real Italian heart."
+        },
+        "care": {
+          "title": "Every order matters",
+          "text": "Pickup, delivery or dine-in — same pride on the plate."
+        }
+      },
+      "kitchenTitle": "From our oven to your table",
+      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
       "eyebrow": "Kontakt",
@@ -271,16 +298,21 @@
       }
     },
     "offers": {
-      "eyebrow": "Sparen bei uns",
-      "title": "Angebote & Aktionen",
-      "discountTitle": "Rabatt auf Ihre Online-Bestellung",
-      "discountText": "Bestellen Sie über unsere Website und erhalten Sie 10 % Rabatt automatisch an der Kasse. Kein Gutscheincode nötig.",
-      "drinkTitle": "Gratisgetränk ab 35 €",
-      "drinkText": "Ab einem Bestellwert von 35 € gibt es ein kostenloses Softgetränk — unser Dank, dass Sie Concordia wählen.",
-      "howTitle": "So funktioniert's",
-      "how1": "Filiale wählen und Gerichte in den Warenkorb legen.",
-      "how2": "Rabatte werden automatisch an der Kasse abgezogen.",
-      "how3": "Barzahlung bei Abholung oder Lieferung."
+      "eyebrow": "Save with us",
+      "title": "Offers & promotions",
+      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
+      "discountTitle": "off your online order",
+      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
+      "drinkTitle": "Free drink from €35",
+      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
+      "howTitle": "How it works",
+      "step1Title": "Pick your branch",
+      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
+      "step2Title": "Build your cart",
+      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
+      "step3Title": "Checkout & enjoy",
+      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
+      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away."
     },
     "delivery": {
       "eyebrow": "Bis vor Ihre Tür",

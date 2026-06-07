@@ -229,12 +229,39 @@
     "about": {
       "eyebrow": "Our story",
       "title": "About Concordia",
-      "p1": "Concordia is a family-run Italian restaurant where warmth, quality and harmony meet on every plate. From stone-oven pizza to homemade pasta and beloved classics — we cook with passion, every day.",
-      "p2": "What started in Kempen continues to grow. We are proud to serve our guests in person and online, with the same care behind every order.",
-      "chefsTitle": "Your head chefs",
-      "chefsText": "Chef Alaan and Chef Jiuan lead our kitchen with heart and experience. Their signature is freshness, consistency and the joy of sharing good food.",
+      "quote": "Good food brings people together — that is what Concordia has always been about.",
+      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
+      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
+      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
+      "originTitle": "Rooted in Kempen",
+      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
+      "chefsTitle": "Meet your head chefs",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
+      "valuesTitle": "What we stand for",
+      "values": {
+        "fresh": {
+          "title": "Fresh, always",
+          "text": "Prepared when you order — not sitting under a heat lamp."
+        },
+        "family": {
+          "title": "Family table",
+          "text": "A small team that knows many guests by name."
+        },
+        "oven": {
+          "title": "Stone-oven soul",
+          "text": "Pizza and classics with real Italian heart."
+        },
+        "care": {
+          "title": "Every order matters",
+          "text": "Pickup, delivery or dine-in — same pride on the plate."
+        }
+      },
       "kitchenTitle": "From our oven to your table",
-      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — prepared fresh when you order, for pickup or delivery."
+      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
       "eyebrow": "Get in touch",
@@ -273,14 +300,19 @@
     "offers": {
       "eyebrow": "Save with us",
       "title": "Offers & promotions",
+      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
       "discountTitle": "off your online order",
       "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
       "drinkTitle": "Free drink from €35",
       "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
       "howTitle": "How it works",
-      "how1": "Choose your branch and add dishes to your cart.",
-      "how2": "Discounts apply automatically at checkout.",
-      "how3": "Pay cash on pickup or delivery."
+      "step1Title": "Pick your branch",
+      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
+      "step2Title": "Build your cart",
+      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
+      "step3Title": "Checkout & enjoy",
+      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
+      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away."
     },
     "delivery": {
       "eyebrow": "To your door",
