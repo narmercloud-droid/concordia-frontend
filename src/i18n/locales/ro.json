@@ -94,7 +94,10 @@
   },
   "menu": {
     "title": "Meniul",
-    "loading": "Se încarcă meniul…"
+    "loading": "Se încarcă meniul…",
+    "categories": "Categorii",
+    "dishes": "feluri",
+    "from": "de la"
   },
   "cart": {
     "title": "Coșul dvs.",

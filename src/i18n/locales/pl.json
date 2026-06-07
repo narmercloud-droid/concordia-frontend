@@ -94,7 +94,10 @@
   },
   "menu": {
     "title": "Menu",
-    "loading": "Ładowanie menu…"
+    "loading": "Ładowanie menu…",
+    "categories": "Kategorie",
+    "dishes": "dań",
+    "from": "od"
   },
   "cart": {
     "title": "Twój koszyk",

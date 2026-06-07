@@ -301,6 +301,20 @@
   letter-spacing: -0.02em;
 }
 
+.item-details__number {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+  font-family: var(--c-sans);
+  font-size: 0.55em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
+
 .customer-subtitle {
   margin: 0 0 16px;
   font-size: 1.05rem;

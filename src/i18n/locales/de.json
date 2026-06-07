@@ -94,7 +94,10 @@
   },
   "menu": {
     "title": "Speisekarte",
-    "loading": "Speisekarte wird geladen…"
+    "loading": "Speisekarte wird geladen…",
+    "categories": "Kategorien",
+    "dishes": "Gerichte",
+    "from": "ab"
   },
   "cart": {
     "title": "Ihr Warenkorb",

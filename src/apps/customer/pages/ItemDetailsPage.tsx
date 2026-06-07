@@ -169,7 +169,14 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="customer-page">
-      <h2 className="customer-title">{item.name}</h2>
+      <h2 className="customer-title">
+        {item.itemNumber ? (
+          <>
+            <span className="item-details__number">Nr. {item.itemNumber}</span>{" "}
+          </>
+        ) : null}
+        {item.name}
+      </h2>
       {item.description && <p className="customer-text">{item.description}</p>}
 
       {includedGroups.length > 0 && (

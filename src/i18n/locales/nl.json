@@ -94,7 +94,10 @@
   },
   "menu": {
     "title": "Menu",
-    "loading": "Menu laden…"
+    "loading": "Menu laden…",
+    "categories": "Categorieën",
+    "dishes": "gerechten",
+    "from": "vanaf"
   },
   "cart": {
     "title": "Uw winkelwagen",
