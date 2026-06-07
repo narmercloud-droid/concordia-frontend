@@ -666,3 +666,22 @@
   font-weight: 600;
   margin-top: 12px;
 }
+
+[dir="rtl"] .customer-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .customer-header__actions,
+[dir="rtl"] .lang-switcher,
+[dir="rtl"] .customer-option,
+[dir="rtl"] .item-options__footer-row--compact {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .customer-option__name {
+  text-align: right;
+}
+
+[dir="rtl"] .item-options__total {
+  text-align: left;
+}

@@ -1,4 +1,4 @@
-export type AppLanguage = "de" | "en" | "nl" | "pl" | "ru" | "ro" | "hi"
+export type AppLanguage = "de" | "en" | "nl" | "pl" | "ru" | "ro" | "hi" | "ar" | "ku"
 
 export const LANGUAGES: Array<{
   code: AppLanguage
@@ -12,7 +12,9 @@ export const LANGUAGES: Array<{
   { code: "pl", label: "Polish", native: "Polski", flag: "🇵🇱" },
   { code: "ru", label: "Russian", native: "Русский", flag: "🇷🇺" },
   { code: "ro", label: "Romanian", native: "Română", flag: "🇷🇴" },
-  { code: "hi", label: "Hindi", native: "हिन्दी", flag: "🇮🇳" }
+  { code: "hi", label: "Hindi", native: "हिन्दी", flag: "🇮🇳" },
+  { code: "ar", label: "Arabic", native: "العربية", flag: "🇸🇦" },
+  { code: "ku", label: "Kurdish", native: "Kurdî", flag: "🇮🇶" }
 ]
 
 export function getLanguage(code: string) {
@@ -40,7 +42,13 @@ export function localeForLanguage(lang: string): string {
     pl: "pl-PL",
     ru: "ru-RU",
     ro: "ro-RO",
-    hi: "hi-IN"
+    hi: "hi-IN",
+    ar: "ar-SA",
+    ku: "ku-IQ"
   }
   return map[lang as AppLanguage] ?? "de-DE"
+}
+
+export function isRtlLanguage(lang: string): boolean {
+  return lang.split("-")[0] === "ar"
 }
