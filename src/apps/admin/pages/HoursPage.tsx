@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getManagerHours, updateManagerHours } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import Button from "@/components/ui/Button"
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -9,8 +10,9 @@ const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frid
 type HourRow = { dayOfWeek: number; openTime: string; closeTime: string }
 
 export default function HoursPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const branchId = admin?.branchId ?? undefined
+  const { branchId } = useAdminBranch()
+  const { can } = useAdminPermissions()
+  const canEdit = can("hours_edit")
   const queryClient = useQueryClient()
   const [rows, setRows] = useState<HourRow[]>([])
   const [saved, setSaved] = useState(false)
@@ -95,7 +97,10 @@ export default function HoursPage() {
       </table>
 
       <div style={{ marginTop: 20, display: "flex", gap: 12, alignItems: "center" }}>
-        <Button onClick={() => saveMutation.mutate()} disabled={saveMutation.isPending}>
+        <Button
+          onClick={() => saveMutation.mutate()}
+          disabled={!canEdit || saveMutation.isPending}
+        >
           {saveMutation.isPending ? "Saving..." : "Save hours"}
         </Button>
         {saved && <span style={{ color: "#2e7d32" }}>Saved!</span>}

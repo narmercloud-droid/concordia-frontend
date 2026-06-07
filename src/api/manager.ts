@@ -96,3 +96,35 @@ export const getManagerCustomerOrders = async (phone: string, branchId?: string)
 
 export const runManagerAutomation = (branchId?: string) =>
   api.post("/api/v1/manager/customers/automation/run", { branchId })
+
+export const getManagerSession = async () => {
+  const res = await api.get("/api/v1/manager/session")
+  return unwrap<{
+    user: any
+    permissions: Record<string, boolean> | null
+    isSuperAdmin: boolean
+  }>(res)
+}
+
+export const getManagerPromotions = async (branchId?: string) => {
+  const res = await api.get("/api/v1/manager/promotions", {
+    params: branchId ? { branchId } : {}
+  })
+  return unwrap<{
+    freeDrinkMinOrder: number
+    freeDrinkMessage: string
+    websiteDiscountEnabled: boolean
+  }>(res)
+}
+
+export const updateManagerPromotions = async (
+  data: {
+    freeDrinkMinOrder?: number
+    freeDrinkMessage?: string
+    websiteDiscountEnabled?: boolean
+  },
+  branchId?: string
+) => {
+  const res = await api.patch("/api/v1/manager/promotions", { ...data, branchId })
+  return unwrap(res)
+}

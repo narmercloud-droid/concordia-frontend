@@ -1,8 +1,15 @@
-import api from "./client.js"
+import {
+  createSuperAdminStaff,
+  deleteSuperAdminStaff,
+  getSuperAdminStaff,
+  updateSuperAdminStaff
+} from "./superAdmin.js"
 
-export const getStaff = () => api.get("/admin/staff")
-export const createStaff = (data: any) => api.post("/admin/staff", data)
-export const updateStaff = (id: string, data: any) =>
-  api.put(`/admin/staff/${id}`, data)
-export const deleteStaff = (id: string) =>
-  api.delete(`/admin/staff/${id}`)
+export const getStaff = async () => {
+  const result = await getSuperAdminStaff()
+  return { data: result.staff }
+}
+
+export const createStaff = (data: any) => createSuperAdminStaff(data)
+export const updateStaff = (id: string, data: any) => updateSuperAdminStaff(id, data)
+export const deleteStaff = (id: string) => deleteSuperAdminStaff(id)

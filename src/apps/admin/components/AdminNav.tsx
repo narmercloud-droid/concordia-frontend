@@ -1,26 +1,41 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 
 const linkStyle = { color: "white", textDecoration: "none", padding: "4px 0" }
 
 export default function AdminNav() {
   const admin = useAdminAuthStore((s) => s.admin)
   const logout = useAdminAuthStore((s) => s.logout)
+  const { can, isSuperAdmin } = useAdminPermissions()
+
+  const items = [
+    { to: "/admin/dashboard", label: "Dashboard", show: can("dashboard") },
+    { to: "/admin/orders", label: "Orders", show: can("orders") },
+    { to: "/admin/menu", label: "Menu", show: can("menu_view") },
+    { to: "/admin/hours", label: "Opening hours", show: can("hours_view") },
+    { to: "/admin/delivery", label: "Delivery settings", show: can("delivery_view") },
+    { to: "/admin/offers", label: "Offers", show: can("offers_view") },
+    { to: "/admin/customers", label: "Customers", show: can("customers_view") },
+    { to: "/admin/staff", label: "Staff", show: isSuperAdmin },
+    { to: "/admin/permissions", label: "Manager permissions", show: isSuperAdmin }
+  ]
 
   return (
     <nav style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ color: "#aaa", fontSize: 12, marginBottom: 8 }}>
         {admin?.name}
         <br />
-        {admin?.role === "admin" ? "Super admin" : "Branch manager"}
+        {isSuperAdmin ? "Super admin" : "Branch manager"}
       </div>
-      <Link to="/admin/dashboard" style={linkStyle}>Dashboard</Link>
-      <Link to="/admin/orders" style={linkStyle}>Orders</Link>
-      <Link to="/admin/menu" style={linkStyle}>Menu</Link>
-      <Link to="/admin/hours" style={linkStyle}>Opening hours</Link>
-      <Link to="/admin/delivery" style={linkStyle}>Delivery settings</Link>
-      <Link to="/admin/customers" style={linkStyle}>Customers</Link>
+      {items
+        .filter((item) => item.show)
+        .map((item) => (
+          <Link key={item.to} to={item.to} style={linkStyle}>
+            {item.label}
+          </Link>
+        ))}
       <button
         onClick={logout}
         style={{

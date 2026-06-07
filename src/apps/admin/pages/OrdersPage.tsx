@@ -1,11 +1,10 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getManagerOrders } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
 
 export default function OrdersPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const branchId = admin?.branchId ?? undefined
+  const { branchId } = useAdminBranch()
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["managerOrders", branchId],

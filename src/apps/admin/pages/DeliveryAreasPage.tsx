@@ -4,7 +4,8 @@ import {
   getManagerDeliverySettings,
   updateManagerDeliverySettings
 } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import Button from "@/components/ui/Button"
 
 type DeliveryArea = {
@@ -24,8 +25,9 @@ type RadiusZone = {
 }
 
 export default function DeliveryAreasPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const branchId = admin?.branchId ?? undefined
+  const { branchId } = useAdminBranch()
+  const { can } = useAdminPermissions()
+  const canEdit = can("delivery_edit")
   const queryClient = useQueryClient()
 
   const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>("postcodes")
@@ -318,7 +320,10 @@ export default function DeliveryAreasPage() {
       )}
 
       <div style={{ marginTop: 24, display: "flex", gap: 12, alignItems: "center" }}>
-        <Button onClick={() => saveMutation.mutate()} disabled={saveMutation.isPending}>
+        <Button
+          onClick={() => saveMutation.mutate()}
+          disabled={!canEdit || saveMutation.isPending}
+        >
           {saveMutation.isPending ? "Saving..." : "Save delivery settings"}
         </Button>
         {saved && <span style={{ color: "#2e7d32" }}>Saved!</span>}

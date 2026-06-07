@@ -6,7 +6,7 @@ import {
   updateStaff,
   deleteStaff
 } from "@/api/staff"
-import { getBranches } from "@/api/branches"
+import { getBranches } from "@/api/customer"
 import AdminTable from "../components/AdminTable.js"
 import AdminModal from "../components/AdminModal.js"
 import AdminForm from "../components/AdminForm.js"
@@ -23,7 +23,8 @@ export default function StaffPage() {
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
-    role: "",
+    password: "",
+    role: "manager",
     branchId: ""
   })
 
@@ -38,7 +39,7 @@ export default function StaffPage() {
 
   const createMutation = useMutation({
     mutationFn: createStaff,
-    onSuccess: () => queryClient.invalidateQueries(["staff"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["staff"] })
   })
 
   const updateMutation = useMutation({
@@ -51,7 +52,7 @@ export default function StaffPage() {
 
   const deleteMutation = useMutation({
     mutationFn: deleteStaff,
-    onSuccess: () => queryClient.invalidateQueries(["staff"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["staff"] })
   })
 
   const columns = [
@@ -112,10 +113,18 @@ export default function StaffPage() {
             }
           >
             <option value="">Select Role</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="staff">Staff</option>
+            <option value="admin">Super admin (owner)</option>
+            <option value="manager">Branch manager</option>
           </select>
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={formValues.password}
+            onChange={(e) =>
+              setFormValues({ ...formValues, password: e.target.value })
+            }
+          />
 
           <select
             value={formValues.branchId}
@@ -124,7 +133,7 @@ export default function StaffPage() {
             }
           >
             <option value="">Select Branch</option>
-            {branches?.data?.map((b: any) => (
+            {(branches ?? []).map((b: any) => (
               <option key={b.id} value={b.id}>
                 {b.name}
               </option>
@@ -163,9 +172,8 @@ export default function StaffPage() {
           }
         >
           <option value="">Select Role</option>
-          <option value="admin">Admin</option>
-          <option value="manager">Manager</option>
-          <option value="staff">Staff</option>
+          <option value="admin">Super admin (owner)</option>
+          <option value="manager">Branch manager</option>
         </select>
 
         <select
@@ -175,7 +183,7 @@ export default function StaffPage() {
           }
         >
           <option value="">Select Branch</option>
-          {branches?.data?.map((b: any) => (
+          {(branches ?? []).map((b: any) => (
             <option key={b.id} value={b.id}>
               {b.name}
             </option>

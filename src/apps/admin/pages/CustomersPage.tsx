@@ -1,31 +1,21 @@
 import React, { useState } from "react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { getBranches } from "@/api/customer"
 import {
   exportManagerCustomers,
   getManagerCustomerOrders,
   getManagerCustomers,
   runManagerAutomation
 } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 
 export default function CustomersPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const isSuperAdmin = admin?.role === "admin"
-  const [selectedBranchId, setSelectedBranchId] = useState(
-    admin?.branchId ?? "concordia-kempen"
-  )
-  const branchId = isSuperAdmin ? selectedBranchId : admin?.branchId ?? undefined
+  const { branchId } = useAdminBranch()
+  const { can } = useAdminPermissions()
   const [search, setSearch] = useState("")
   const [marketingOnly, setMarketingOnly] = useState(false)
   const [selectedPhone, setSelectedPhone] = useState<string | null>(null)
   const queryClient = useQueryClient()
-
-  const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
-    enabled: isSuperAdmin
-  })
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["managerCustomers", branchId, search, marketingOnly],
@@ -64,10 +54,7 @@ export default function CustomersPage() {
     URL.revokeObjectURL(url)
   }
 
-  if (!branchId) {
-    return <p>No branch assigned to this account.</p>
-  }
-
+  if (!branchId) return <p>No branch selected.</p>
   if (isLoading) return <p>Loading customers…</p>
 
   return (
@@ -76,40 +63,19 @@ export default function CustomersPage() {
         <h2>Customers</h2>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button onClick={() => refetch()}>Refresh</button>
-          <button onClick={() => void handleExport()}>Export CSV</button>
-          <button
-            onClick={() => automationMutation.mutate()}
-            disabled={automationMutation.isPending}
-          >
-            {automationMutation.isPending ? "Running…" : "Run win-back & birthday"}
-          </button>
+          {can("customers_export") && (
+            <button onClick={() => void handleExport()}>Export CSV</button>
+          )}
+          {can("customers_automation") && (
+            <button
+              onClick={() => automationMutation.mutate()}
+              disabled={automationMutation.isPending}
+            >
+              {automationMutation.isPending ? "Running…" : "Run win-back & birthday"}
+            </button>
+          )}
         </div>
       </div>
-
-      {isSuperAdmin && (
-        <div style={{ marginTop: 12 }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span>Branch</span>
-            <select
-              value={selectedBranchId}
-              onChange={(e) => {
-                setSelectedBranchId(e.target.value)
-                setSelectedPhone(null)
-              }}
-              style={{ padding: 8, borderRadius: 6, border: "1px solid #ccc", minWidth: 220 }}
-            >
-              {(branches ?? []).map((b: { id: string; name?: string }) => (
-                <option key={b.id} value={b.id}>
-                  {b.name ?? b.id}
-                </option>
-              ))}
-            </select>
-          </label>
-          <p style={{ margin: "6px 0 0", fontSize: 13, color: "#666" }}>
-            Each branch has its own customer database — switch branch to view or export separately.
-          </p>
-        </div>
-      )}
 
       {stats && (
         <div style={{ display: "flex", gap: 16, marginTop: 16, flexWrap: "wrap" }}>
@@ -181,12 +147,6 @@ export default function CustomersPage() {
             ))}
           </ul>
         </div>
-      )}
-
-      {automationMutation.isSuccess && (
-        <p style={{ marginTop: 16, color: "#2d6a4f", fontSize: 14 }}>
-          Automation finished for this branch. Check logs for delivery details.
-        </p>
       )}
     </div>
   )

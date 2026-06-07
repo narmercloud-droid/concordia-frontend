@@ -1,24 +1,25 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getManagerDashboard, getManagerBranch } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
 
 export default function DashboardPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const branchId = admin?.branchId ?? undefined
+  const { admin, branchId } = useAdminBranch()
 
-  const { data: branchRes } = useQuery({
+  const { data: branch, isLoading: branchLoading } = useQuery({
     queryKey: ["managerBranch", branchId],
-    queryFn: () => getManagerBranch(branchId)
+    queryFn: () => getManagerBranch(branchId),
+    enabled: !!branchId
   })
 
-  const { data: statsRes, isLoading } = useQuery({
+  const { data: statsRes, isLoading: statsLoading } = useQuery({
     queryKey: ["managerDashboard", branchId],
-    queryFn: () => getManagerDashboard(branchId)
+    queryFn: () => getManagerDashboard(branchId),
+    enabled: !!branchId
   })
 
-  const branch = branchRes?.data?.data
   const stats = statsRes?.data?.data
+  const isLoading = branchLoading || statsLoading
 
   if (isLoading) return <p>Loading...</p>
 

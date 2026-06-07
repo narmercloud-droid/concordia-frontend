@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { getManagerMenu, updateManagerMenuItem } from "@/api/manager"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 
 export default function MenuPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const branchId = admin?.branchId ?? undefined
+  const { branchId } = useAdminBranch()
+  const { can } = useAdminPermissions()
+  const canEditPrices = can("menu_edit_prices")
+  const canEditAvailability = can("menu_edit_availability")
   const queryClient = useQueryClient()
   const [search, setSearch] = useState("")
 
@@ -76,7 +79,9 @@ export default function MenuPage() {
                       type="number"
                       step="0.1"
                       defaultValue={item.price}
+                      disabled={!canEditPrices}
                       onBlur={(e) => {
+                        if (!canEditPrices) return
                         const price = Number(e.target.value)
                         if (price !== item.price) {
                           updateMutation.mutate({ id: item.branchMenuItemId, price })
@@ -89,6 +94,7 @@ export default function MenuPage() {
                     <input
                       type="checkbox"
                       checked={item.isAvailable}
+                      disabled={!canEditAvailability}
                       onChange={(e) =>
                         updateMutation.mutate({
                           id: item.branchMenuItemId,
