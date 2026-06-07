@@ -10,6 +10,7 @@ import {
   updateManagerMenuItem
 } from "@/api/manager"
 import MenuItemEditor from "@/apps/admin/components/MenuItemEditor"
+import ExtraPresetsPanel from "@/apps/admin/components/ExtraPresetsPanel"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 
@@ -255,6 +256,12 @@ export default function MenuPage() {
           </table>
         </div>
       ))}
+
+      <ExtraPresetsPanel
+        branchId={branchId}
+        categories={categories.map((c: any) => ({ id: c.id, name: c.name }))}
+        canEdit={canEditStructure}
+      />
 
       {editingItem && (
         <MenuItemEditor

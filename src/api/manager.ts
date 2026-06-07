@@ -198,6 +198,71 @@ export const updateManagerAddOn = (
 export const deleteManagerAddOn = (addOnId: string, branchId?: string) =>
   api.delete(`/api/v1/manager/menu/addons/${addOnId}`, { params: withBranch(branchId) })
 
+export const getManagerExtraPresets = async (branchId?: string) => {
+  const res = await api.get("/api/v1/manager/menu/extra-presets", {
+    params: withBranch(branchId)
+  })
+  return unwrap<any[]>(res)
+}
+
+export const createManagerExtraPreset = (
+  data: {
+    name: string
+    required?: boolean
+    minSelect?: number
+    maxSelect?: number
+    categoryIds?: number[]
+    options?: Array<{ name: string; price: number }>
+  },
+  branchId?: string
+) => api.post("/api/v1/manager/menu/extra-presets", { ...data, ...withBranch(branchId) })
+
+export const updateManagerExtraPreset = (
+  presetId: string,
+  data: {
+    name?: string
+    required?: boolean
+    minSelect?: number
+    maxSelect?: number
+    categoryIds?: number[]
+  },
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/extra-presets/${presetId}`, { ...data, ...withBranch(branchId) })
+
+export const deleteManagerExtraPreset = (presetId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/extra-presets/${presetId}`, { params: withBranch(branchId) })
+
+export const addManagerPresetOption = (
+  presetId: string,
+  data: { name: string; price: number },
+  branchId?: string
+) =>
+  api.post(`/api/v1/manager/menu/extra-presets/${presetId}/options`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const updateManagerPresetOption = (
+  optionId: string,
+  data: { name?: string; price?: number },
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/extra-presets/options/${optionId}`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const deleteManagerPresetOption = (optionId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/extra-presets/options/${optionId}`, {
+    params: withBranch(branchId)
+  })
+
+export const importManagerDefaultPresets = async (branchId?: string) => {
+  const res = await api.post("/api/v1/manager/menu/extra-presets/import-defaults", withBranch(branchId))
+  return unwrap(res)
+}
+
 export const getManagerOrders = (branchId?: string) =>
   api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
 

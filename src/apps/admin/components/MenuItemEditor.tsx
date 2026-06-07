@@ -325,9 +325,32 @@ export default function MenuItemEditor({
           ))}
         </section>
 
+        {(data.presetAddOnGroups?.length ?? 0) > 0 && (
+          <section style={{ marginTop: 24 }}>
+            <h4 style={{ margin: "0 0 8px" }}>Shared extras (from category)</h4>
+            <p style={{ fontSize: 13, color: "#666", marginTop: 0 }}>
+              These come from shared topping groups on the Menu page. Edit them there — they
+              apply automatically to all items in linked categories.
+            </p>
+            {data.presetAddOnGroups.map((group: any) => (
+              <div key={group.id} style={{ ...groupBox, background: "#f8f9fa" }}>
+                <strong>{group.name}</strong>
+                <span style={{ fontSize: 12, color: "#888", marginLeft: 8 }}>(shared)</span>
+                <ul style={{ margin: "8px 0 0", paddingLeft: 18, fontSize: 13 }}>
+                  {group.addOns?.map((a: any) => (
+                    <li key={a.id}>
+                      {a.name} (+€{a.price})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+        )}
+
         <section style={{ marginTop: 24 }}>
           <div style={sectionHead}>
-            <h4 style={{ margin: 0 }}>Extras / add-ons</h4>
+            <h4 style={{ margin: 0 }}>Item-specific extras</h4>
             {canEdit && (
               <button
                 type="button"
