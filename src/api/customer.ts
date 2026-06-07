@@ -1,4 +1,5 @@
 import api from "./client.js"
+import { getMenuLang } from "@/lib/menuLang"
 
 function unwrap<T>(res: { data?: { data?: T; success?: boolean } & T }): T {
   if (res.data && "data" in res.data && res.data.data !== undefined) {
@@ -40,7 +41,9 @@ export const getBranchBestsellers = async (branchId: string, limit = 6) => {
 }
 
 export const getAlsoPopular = async (branchId: string, itemId: number) => {
-  const res = await api.get(`/api/branches/${branchId}/items/${itemId}/also-popular`)
+  const res = await api.get(`/api/branches/${branchId}/items/${itemId}/also-popular`, {
+    params: { lang: getMenuLang() }
+  })
   return unwrap<{
     items: Array<{
       id: number
@@ -59,7 +62,9 @@ export const getBranchTimeSlots = async (branchId: string) => {
 }
 
 export const getItemDetails = async (branchId: string, itemId: string) => {
-  const res = await api.get(`/api/branches/${branchId}/items/${itemId}`)
+  const res = await api.get(`/api/branches/${branchId}/items/${itemId}`, {
+    params: { lang: getMenuLang() }
+  })
   return unwrap<any>(res)
 }
 

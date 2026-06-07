@@ -29,20 +29,20 @@ type Props = {
 
 export default function HomeFeaturedMenu({ branchId }: Props) {
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const activeBranch = branchId ?? KEMPEN_BRANCH_ID
 
 
 
   const { data, isLoading } = useQuery({
-    queryKey: ["branchMenu", activeBranch, "featured"],
+    queryKey: ["branchMenu", activeBranch, "featured", i18n.language],
     queryFn: () => getBranchMenu(activeBranch),
     ...menuQueryOptions
   })
 
   const { data: bestsellersData } = useQuery({
-    queryKey: ["branchBestsellers", activeBranch],
+    queryKey: ["branchBestsellers", activeBranch, i18n.language],
     queryFn: () => getBranchBestsellers(activeBranch),
     ...bestsellersQueryOptions
   })

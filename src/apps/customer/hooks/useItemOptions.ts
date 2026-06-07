@@ -104,7 +104,7 @@ export function useItemOptions(
 
 ) {
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const editCartItem = useCartStore((s) =>
 
@@ -142,7 +142,7 @@ export function useItemOptions(
     isError,
     refetch
   } = useQuery({
-    queryKey: ["itemDetails", branchId, itemId],
+    queryKey: ["itemDetails", branchId, itemId, i18n.language],
     queryFn: () => getItemDetails(branchId, String(itemId)),
     enabled: !!branchId && !!itemId,
     retry: 3,

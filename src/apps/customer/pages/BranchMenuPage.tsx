@@ -45,7 +45,7 @@ function categoryAnchor(id: string | number) {
 }
 
 export default function BranchMenuPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { branchId } = useParams()
   const ownerBranding = branchId ? getBranchOwnerBranding(branchId) : null
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
@@ -61,7 +61,7 @@ export default function BranchMenuPage() {
   const branchName = branch ? branchDisplayName(branch.name) : ""
 
   const { data, isError: menuError, refetch: refetchMenu, isFetching: menuFetching } = useQuery({
-    queryKey: ["branchMenu", branchId],
+    queryKey: ["branchMenu", branchId, i18n.language],
     queryFn: async () => {
       await warmupApi()
       return getBranchMenu(branchId!)
@@ -71,7 +71,7 @@ export default function BranchMenuPage() {
   })
 
   const { data: bestsellersData } = useQuery({
-    queryKey: ["branchBestsellers", branchId],
+    queryKey: ["branchBestsellers", branchId, i18n.language],
     queryFn: () => getBranchBestsellers(branchId!),
     enabled: !!branchId,
     ...bestsellersQueryOptions
