@@ -65,7 +65,6 @@ export default function HomePage() {
 
   const branches = (data ?? []).filter((b: Branch) => b.id !== "branch-001")
   const liveBranches = branches.filter((b) => !b.comingSoon)
-  const comingSoon = branches.filter((b) => b.comingSoon)
 
   const detectNearest = () => {
     if (!navigator.geolocation) {
@@ -242,25 +241,10 @@ export default function HomePage() {
         </section>
       ) : (
         <HomeOrderHub
-          branches={liveBranches}
+          branches={branches}
           nearestId={nearestId}
           distances={distances}
         />
-      )}
-
-      {comingSoon.length > 0 && (
-        <section className="home-coming">
-          <p className="home-section-label">{t("home.comingSoonLabel")}</p>
-          <h2 className="home-section-title">{t("home.moreLocations")}</h2>
-          <div className="home-coming-grid">
-            {comingSoon.map((b: Branch) => (
-              <div key={b.id} className="home-coming-card">
-                <h3>{branchDisplayName(b.name)}</h3>
-                {b.city && <p>{b.city}</p>}
-              </div>
-            ))}
-          </div>
-        </section>
       )}
 
       <footer className="home-footer">
