@@ -1061,9 +1061,9 @@
   pointer-events: none;
 }
 
-.home-site-nav {
-  margin-top: 48px;
-  justify-content: center;
+.home-order-hub--loading .home-order-hub__empty,
+.home-order-hub--error .home-order-hub__empty {
+  font-style: italic;
 }
 
 .home-coming {

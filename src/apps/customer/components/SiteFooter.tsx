@@ -1,7 +1,8 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
-import SiteNav from "@/apps/customer/components/SiteNav"
+import { INFO_PAGES } from "@/lib/infoPages"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import "./InfoPages.css"
 
@@ -10,7 +11,14 @@ export default function SiteFooter() {
 
   return (
     <footer className="site-footer">
-      <SiteNav className="site-footer__nav" />
+      <nav className="site-footer__links" aria-label={t("pages.navLabel")}>
+        <Link to="/">{t("pages.nav.home")}</Link>
+        {INFO_PAGES.map((page) => (
+          <Link key={page.path} to={page.path}>
+            {t(`pages.nav.${page.key}`)}
+          </Link>
+        ))}
+      </nav>
       <ConcordiaLogo size="sm" className="site-footer__logo" />
       <p className="site-footer__slogan">{t("home.slogan")}</p>
       <p>{t("home.footerCash")}</p>

@@ -87,7 +87,8 @@
     "websiteDiscountDetail": "Aplicată automat la checkout — fără cod",
     "websiteDiscountStrip": "Comandați online și economisiți",
     "websiteDiscountFooter": "{{percent}}% reducere la comanda online — automat la checkout",
-    "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €"
+    "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €",
+    "branchesLoading": "Loading restaurants…"
   },
   "branchOwner": {
     "eyebrow": "Bucătarii dumneavoastră",

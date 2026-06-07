@@ -87,7 +87,8 @@
     "websiteDiscountDetail": "Bixweber di dema dravdanê de tê sepandin — koda pêwîst nîne",
     "websiteDiscountStrip": "Serhêl ferman bidin & rizgar bibin",
     "websiteDiscountFooter": "{{percent}}% erzanî dema fermana serhêl — bixweber di dema dravdanê de",
-    "footerFreeDrink": "Vexwarina belaş ji fermana 35 €"
+    "footerFreeDrink": "Vexwarina belaş ji fermana 35 €",
+    "branchesLoading": "Loading restaurants…"
   },
   "branchOwner": {
     "eyebrow": "Şefên we",

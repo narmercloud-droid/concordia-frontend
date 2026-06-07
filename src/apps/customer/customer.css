@@ -34,13 +34,6 @@
   margin-bottom: 8px;
 }
 
-.customer-header--home {
-  justify-content: flex-end;
-  border-bottom: none;
-  padding-bottom: 8px;
-  margin-bottom: 0;
-}
-
 .customer-header__brand {
   font-family: var(--c-serif);
   font-size: 26px;

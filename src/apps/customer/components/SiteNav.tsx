@@ -13,28 +13,35 @@ export default function SiteNav({ className = "" }: Props) {
   const location = useLocation()
 
   return (
-    <nav className={`site-nav ${className}`.trim()} aria-label={t("pages.navLabel")}>
-      <Link
-        to="/"
-        className={`site-nav__link${location.pathname === "/" ? " site-nav__link--active" : ""}`}
-      >
-        {t("pages.nav.home")}
-      </Link>
-      {INFO_PAGES.map((page) => (
+    <nav
+      className={`site-nav site-nav--bar ${className}`.trim()}
+      aria-label={t("pages.navLabel")}
+    >
+      <div className="site-nav__scroll">
         <Link
-          key={page.path}
-          to={page.path}
-          className={`site-nav__link${location.pathname === page.path ? " site-nav__link--active" : ""}`}
+          to="/"
+          className={`site-nav__link${location.pathname === "/" ? " site-nav__link--active" : ""}`}
         >
-          {t(`pages.nav.${page.key}`)}
+          {t("pages.nav.home")}
         </Link>
-      ))}
-      <a
-        href={location.pathname === "/" ? "#order" : "/#order"}
-        className="site-nav__link site-nav__link--cta"
-      >
-        {t("home.orderNow")}
-      </a>
+        {INFO_PAGES.map((page) => (
+          <Link
+            key={page.path}
+            to={page.path}
+            className={`site-nav__link${
+              location.pathname === page.path ? " site-nav__link--active" : ""
+            }`}
+          >
+            {t(`pages.nav.${page.key}`)}
+          </Link>
+        ))}
+        <a
+          href={location.pathname === "/" ? "#order" : "/#order"}
+          className="site-nav__link site-nav__link--cta"
+        >
+          {t("home.orderNow")}
+        </a>
+      </div>
     </nav>
   )
 }

@@ -87,7 +87,8 @@
     "websiteDiscountDetail": "Automatycznie przy kasie — bez kodu",
     "websiteDiscountStrip": "Zamów online i oszczędź",
     "websiteDiscountFooter": "{{percent}}% rabatu przy zamówieniu online — automatycznie przy kasie",
-    "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €"
+    "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €",
+    "branchesLoading": "Loading restaurants…"
   },
   "branchOwner": {
     "eyebrow": "Wasi szefowie kuchni",

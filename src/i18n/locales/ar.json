@@ -87,7 +87,8 @@
     "websiteDiscountDetail": "يُطبَّق تلقائياً عند الدفع — بدون رمز",
     "websiteDiscountStrip": "اطلب عبر الإنترنت ووفّر",
     "websiteDiscountFooter": "خصم {{percent}}% عند الطلب عبر الإنترنت — تلقائياً عند الدفع",
-    "footerFreeDrink": "مشروب مجاني للطلبات من 35 يورو"
+    "footerFreeDrink": "مشروب مجاني للطلبات من 35 يورو",
+    "branchesLoading": "Loading restaurants…"
   },
   "branchOwner": {
     "eyebrow": "شيفاكم",

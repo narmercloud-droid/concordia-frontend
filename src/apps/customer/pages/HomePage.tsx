@@ -13,7 +13,7 @@ import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import { branchPath } from "@/lib/customerPaths"
 import SiteFooter from "@/apps/customer/components/SiteFooter"
-import SiteNav from "@/apps/customer/components/SiteNav"
+import { branchesQueryOptions } from "@/lib/branchesQuery"
 import "./HomePage.css"
 
 type Branch = {
@@ -56,10 +56,10 @@ type LocationState = "idle" | "loading" | "ready" | "denied" | "unsupported"
 export default function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isLoading, isError, isFetching, refetch } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches,
-    retry: 2
+    ...branchesQueryOptions
   })
   const [nearestId, setNearestId] = useState<string | null>(null)
   const [distances, setDistances] = useState<Record<string, number>>({})
@@ -116,15 +116,6 @@ export default function HomePage() {
   }, [data])
 
   const nearestBranch = liveBranches.find((b) => b.id === nearestId)
-
-  if (isLoading) {
-    return (
-      <div className="home-loading">
-        <ConcordiaLogo size="lg" className="home-loading__logo" />
-        <p>{t("home.loading")}</p>
-      </div>
-    )
-  }
 
   return (
     <div className="home">
@@ -233,8 +224,14 @@ export default function HomePage() {
 
       <HomeGallery />
 
-      {isError ? (
-        <section className="home-order-hub" id="order">
+      {isLoading || (isFetching && !data) ? (
+        <section className="home-order-hub home-order-hub--loading" id="order">
+          <p className="home-order-hub__eyebrow">{t("home.eyebrow")}</p>
+          <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
+          <p className="home-order-hub__empty">{t("home.branchesLoading")}</p>
+        </section>
+      ) : isError ? (
+        <section className="home-order-hub home-order-hub--error" id="order">
           <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
           <p className="home-order-hub__empty">{t("home.branchesLoadError")}</p>
           <button type="button" className="home-cta" onClick={() => refetch()}>
@@ -249,7 +246,6 @@ export default function HomePage() {
         />
       )}
 
-      <SiteNav className="home-site-nav" />
       <SiteFooter />
     </div>
   )

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
+import { branchesQueryOptions } from "@/lib/branchesQuery"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import { branchPath } from "@/lib/customerPaths"
 
@@ -23,7 +24,8 @@ export default function ContactPage() {
   const { t } = useTranslation()
   const { data, isLoading } = useQuery({
     queryKey: ["branches"],
-    queryFn: getBranches
+    queryFn: getBranches,
+    ...branchesQueryOptions
   })
 
   const branches = ((data ?? []) as Branch[]).filter((b) => b.id !== "branch-001")
