@@ -90,7 +90,7 @@
     "footerFreeDrink": "Gratis drankje vanaf €35 bestelwaarde"
   },
   "branchOwner": {
-    "eyebrow": "Uw chef-kok",
+    "eyebrow": "Uw chef-koks",
     "welcome": "Welkom bij Concordia {{branch}}",
     "message": "Vers uit onze oven — met passie en hart bereid. Fijn dat u bij ons bestelt.",
     "photoAlt": "Chef-kok bij Concordia {{branch}}"
@@ -100,7 +100,9 @@
     "loading": "Menu laden…",
     "categories": "Categorieën",
     "dishes": "gerechten",
-    "from": "vanaf"
+    "from": "vanaf",
+    "bestSellers": "Bestsellers",
+    "bestSellersDesc": "Onze populairste gerechten — aanbevolen door de chef."
   },
   "cart": {
     "title": "Uw winkelwagen",

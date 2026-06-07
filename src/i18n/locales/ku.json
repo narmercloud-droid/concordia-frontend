@@ -90,7 +90,7 @@
     "footerFreeDrink": "Vexwarina belaş ji fermana 35 €"
   },
   "branchOwner": {
-    "eyebrow": "Şefê we",
+    "eyebrow": "Şefên we",
     "welcome": "Bi xêr hatine Concordia {{branch}}",
     "message": "Taze ji firina me — bi dilsozî û bi dil hatiye amadekirin. Kêfxweş in ku hûn bi me re ferman didin.",
     "photoAlt": "Şef li Concordia {{branch}}"
@@ -100,7 +100,9 @@
     "loading": "Menu tê barkirin…",
     "categories": "Kategorî",
     "dishes": "xwarin",
-    "from": "ji"
+    "from": "ji",
+    "bestSellers": "Herî firotin",
+    "bestSellersDesc": "Xwarinên me yên herî populer — pêşniyarên şef."
   },
   "cart": {
     "title": "Selika we",

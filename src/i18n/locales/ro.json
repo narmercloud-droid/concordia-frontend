@@ -90,7 +90,7 @@
     "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €"
   },
   "branchOwner": {
-    "eyebrow": "Bucătarul dumneavoastră",
+    "eyebrow": "Bucătarii dumneavoastră",
     "welcome": "Bun venit la Concordia {{branch}}",
     "message": "Proaspăt din cuptorul nostru — pregătit cu pasiune și suflet. Ne bucurăm că comandați la noi.",
     "photoAlt": "Bucătar la Concordia {{branch}}"
@@ -100,7 +100,9 @@
     "loading": "Se încarcă meniul…",
     "categories": "Categorii",
     "dishes": "feluri",
-    "from": "de la"
+    "from": "de la",
+    "bestSellers": "Cele mai vândute",
+    "bestSellersDesc": "Cele mai populare preparate — recomandate de bucătar."
   },
   "cart": {
     "title": "Coșul dvs.",

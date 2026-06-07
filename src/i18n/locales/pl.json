@@ -90,7 +90,7 @@
     "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €"
   },
   "branchOwner": {
-    "eyebrow": "Wasz szef kuchni",
+    "eyebrow": "Wasi szefowie kuchni",
     "welcome": "Witamy w Concordia {{branch}}",
     "message": "Świeżo z naszego pieca — przygotowane z pasją i sercem. Cieszymy się, że u nas zamawiasz.",
     "photoAlt": "Szef kuchni w Concordia {{branch}}"
@@ -100,7 +100,9 @@
     "loading": "Ładowanie menu…",
     "categories": "Kategorie",
     "dishes": "dań",
-    "from": "od"
+    "from": "od",
+    "bestSellers": "Bestsellery",
+    "bestSellersDesc": "Nasze najpopularniejsze dania — polecane przez szefa kuchni."
   },
   "cart": {
     "title": "Twój koszyk",

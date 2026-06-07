@@ -6,6 +6,11 @@ import { getBranchMenu, getBranches } from "@/api/customer"
 import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import { getBranchOwnerBranding } from "@/lib/branchBranding"
+import {
+  BEST_SELLERS_SECTION_ID,
+  categoryForItem,
+  pickFeatured
+} from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
 import { formatCurrency } from "@/utils/format"
 import "./BranchMenuPage.css"
@@ -59,6 +64,8 @@ export default function BranchMenuPage() {
 
   const categories = (data?.categories ?? []) as MenuCategory[]
 
+  const bestSellers = useMemo(() => pickFeatured(categories), [categories])
+
   const totalItems = useMemo(
     () => categories.reduce((sum, cat) => sum + cat.items.length, 0),
     [categories]
@@ -72,6 +79,46 @@ export default function BranchMenuPage() {
 
   const openItem = (item: MenuItem, categoryName: string) => {
     setSelectedItem({ ...item, categoryName })
+  }
+
+  const renderItemCard = (item: MenuItem, categoryName: string) => {
+    const image = dishImageForName(item.name, item.imageUrl, categoryName)
+    return (
+      <article key={item.id} className="branch-menu__card">
+        <button
+          type="button"
+          className="branch-menu__card-main"
+          onClick={() => openItem(item, categoryName)}
+        >
+          <div
+            className="branch-menu__thumb"
+            style={{ backgroundImage: `url(${image})` }}
+            aria-hidden="true"
+          />
+          <div className="branch-menu__card-body">
+            <div className="branch-menu__card-top">
+              {item.itemNumber && (
+                <span className="branch-menu__number">Nr. {item.itemNumber}</span>
+              )}
+              <h4 className="branch-menu__name">{item.name}</h4>
+            </div>
+            {item.description && (
+              <p className="branch-menu__desc">{item.description}</p>
+            )}
+            <p className="branch-menu__price">
+              {t("menu.from")} {formatCurrency(item.price)}
+            </p>
+          </div>
+        </button>
+        <button
+          type="button"
+          className="branch-menu__order-btn"
+          onClick={() => openItem(item, categoryName)}
+        >
+          {t("home.orderNow")}
+        </button>
+      </article>
+    )
   }
 
   if (!data?.categories) {
@@ -93,6 +140,15 @@ export default function BranchMenuPage() {
       </header>
 
       <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
+        {bestSellers.length > 0 && (
+          <a
+            className="branch-menu__nav-link branch-menu__nav-link--best"
+            href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
+          >
+            {t("menu.bestSellers")}
+            <span className="branch-menu__nav-count">{bestSellers.length}</span>
+          </a>
+        )}
         {categories.map((cat) => (
           <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
             {cat.name}
@@ -100,6 +156,24 @@ export default function BranchMenuPage() {
           </a>
         ))}
       </nav>
+
+      {bestSellers.length > 0 && (
+        <section
+          id={categoryAnchor(BEST_SELLERS_SECTION_ID)}
+          className="branch-menu__section branch-menu__section--best"
+        >
+          <div className="branch-menu__section-head">
+            <h3 className="branch-menu__section-title">{t("menu.bestSellers")}</h3>
+            <p className="branch-menu__section-desc">{t("menu.bestSellersDesc")}</p>
+          </div>
+
+          <div className="branch-menu__grid">
+            {bestSellers.map((item) =>
+              renderItemCard(item, categoryForItem(categories, item))
+            )}
+          </div>
+        </section>
+      )}
 
       {categories.map((cat) => (
         <section key={cat.id} id={categoryAnchor(cat.id)} className="branch-menu__section">
@@ -111,45 +185,7 @@ export default function BranchMenuPage() {
           </div>
 
           <div className="branch-menu__grid">
-            {cat.items.map((item) => {
-              const image = dishImageForName(item.name, item.imageUrl, cat.name)
-              return (
-                <article key={item.id} className="branch-menu__card">
-                  <button
-                    type="button"
-                    className="branch-menu__card-main"
-                    onClick={() => openItem(item, cat.name)}
-                  >
-                    <div
-                      className="branch-menu__thumb"
-                      style={{ backgroundImage: `url(${image})` }}
-                      aria-hidden="true"
-                    />
-                    <div className="branch-menu__card-body">
-                      <div className="branch-menu__card-top">
-                        {item.itemNumber && (
-                          <span className="branch-menu__number">Nr. {item.itemNumber}</span>
-                        )}
-                        <h4 className="branch-menu__name">{item.name}</h4>
-                      </div>
-                      {item.description && (
-                        <p className="branch-menu__desc">{item.description}</p>
-                      )}
-                      <p className="branch-menu__price">
-                        {t("menu.from")} {formatCurrency(item.price)}
-                      </p>
-                    </div>
-                  </button>
-                  <button
-                    type="button"
-                    className="branch-menu__order-btn"
-                    onClick={() => openItem(item, cat.name)}
-                  >
-                    {t("home.orderNow")}
-                  </button>
-                </article>
-              )
-            })}
+            {cat.items.map((item) => renderItemCard(item, cat.name))}
           </div>
         </section>
       ))}

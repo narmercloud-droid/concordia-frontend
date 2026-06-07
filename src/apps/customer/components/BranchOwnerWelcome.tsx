@@ -18,8 +18,8 @@ export default function BranchOwnerWelcome({ branding, branchName }: Props) {
             src={branding.photoImage}
             alt={t("branchOwner.photoAlt", { branch: branchName })}
             className="branch-owner__photo"
-            width={112}
-            height={112}
+            width={120}
+            height={120}
             loading="eager"
           />
         </div>

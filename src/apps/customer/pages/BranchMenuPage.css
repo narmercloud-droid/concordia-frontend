@@ -40,6 +40,20 @@
   background: var(--c-accent-soft);
 }
 
+.branch-menu__nav-link--best {
+  border-color: rgba(163, 24, 48, 0.35);
+  background: linear-gradient(135deg, rgba(163, 24, 48, 0.1) 0%, rgba(212, 175, 55, 0.12) 100%);
+}
+
+.branch-menu__nav-link--best .branch-menu__nav-count {
+  background: var(--c-accent);
+  color: #fff;
+}
+
+.branch-menu__section--best .branch-menu__section-head {
+  border-bottom-color: rgba(163, 24, 48, 0.22);
+}
+
 .branch-menu__nav-count {
   display: inline-flex;
   align-items: center;

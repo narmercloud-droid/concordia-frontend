@@ -8,7 +8,7 @@ export type BranchOwnerBranding = {
 
 const OWNER_BRANDING: Record<string, BranchOwnerBranding> = {
   [KEMPEN_BRANCH_ID]: {
-    photoImage: "/images/owner-kempen-photo.png"
+    photoImage: "/images/owner-chefs-duo-cartoon.png"
   }
 }
 

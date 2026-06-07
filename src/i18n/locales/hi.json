@@ -90,7 +90,7 @@
     "footerFreeDrink": "35 € से ऑर्डर पर मुफ़्त पेय"
   },
   "branchOwner": {
-    "eyebrow": "आपके हेड शेफ",
+    "eyebrow": "आपके हेड शेफ़",
     "welcome": "Concordia {{branch}} में स्वागत है",
     "message": "हमारे ओवन से ताज़ा — दिल से बनाया। खुशी है कि आप हमारे पास ऑर्डर कर रहे हैं।",
     "photoAlt": "Concordia {{branch}} में हेड शेफ"
@@ -100,7 +100,9 @@
     "loading": "मेनू लोड हो रहा है…",
     "categories": "श्रेणियाँ",
     "dishes": "व्यंजन",
-    "from": "से"
+    "from": "से",
+    "bestSellers": "बेस्ट सेलर",
+    "bestSellersDesc": "हमारे सबसे लोकप्रिय व्यंजन — शेफ की पसंद।"
   },
   "cart": {
     "title": "आपकी कार्ट",

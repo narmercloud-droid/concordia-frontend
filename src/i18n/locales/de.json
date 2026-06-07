@@ -90,17 +90,19 @@
     "footerFreeDrink": "Gratisgetränk ab Bestellwert von 35 €"
   },
   "branchOwner": {
-    "eyebrow": "Ihr Küchenchef",
+    "eyebrow": "Ihre Küchenchefs",
     "welcome": "Willkommen bei Concordia {{branch}}",
     "message": "Frisch aus unserem Ofen — mit Leidenschaft und Herz zubereitet. Schön, dass Sie bei uns bestellen.",
-    "photoAlt": "Küchenchef bei Concordia {{branch}}"
+    "photoAlt": "Küchenchefs bei Concordia {{branch}}"
   },
   "menu": {
     "title": "Speisekarte",
     "loading": "Speisekarte wird geladen…",
     "categories": "Kategorien",
     "dishes": "Gerichte",
-    "from": "ab"
+    "from": "ab",
+    "bestSellers": "Bestseller",
+    "bestSellersDesc": "Unsere beliebtesten Gerichte — vom Küchenchef empfohlen."
   },
   "cart": {
     "title": "Ihr Warenkorb",
