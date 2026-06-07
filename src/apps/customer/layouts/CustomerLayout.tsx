@@ -17,6 +17,10 @@ export default function CustomerLayout() {
   const location = useLocation()
   const [pushDenied, setPushDenied] = useState(false)
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
+  const authUser = useAuthStore((s) => s.user)
+  const authToken = useAuthStore((s) => s.token)
+  const logout = useAuthStore((s) => s.logout)
+  const isLoggedIn = !!authToken && !!authUser?.id
   const onCartPage = location.pathname === "/customer/cart"
   const isWidePage = WIDE_CUSTOMER_PATHS.has(location.pathname)
   const showSiteNav = !location.pathname.startsWith("/customer/checkout")
