@@ -39,7 +39,7 @@ export default function ConcordiaMark({ size = 120, className = "" }: Props) {
       </defs>
 
       <circle cx="60" cy="62" r="50" fill="none" stroke={`url(#${id}-gold)`} strokeWidth="1.6" opacity="0.9" />
-      <circle cx="60" cy="62" r="46" fill="none" stroke="#6b2c3e" strokeWidth="0.8" opacity="0.14" />
+      <circle cx="60" cy="62" r="46" fill="none" stroke="#1b7340" strokeWidth="0.8" opacity="0.18" />
 
       <ellipse cx="60" cy="76" rx="24" ry="15" fill={`url(#${id}-glow)`} />
 

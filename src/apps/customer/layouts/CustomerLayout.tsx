@@ -10,6 +10,7 @@ import SiteNav from "@/apps/customer/components/SiteNav"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
+import "../customer-mobile.css"
 import "@/apps/customer/components/InfoPages.css"
 
 export default function CustomerLayout() {
@@ -38,8 +39,9 @@ export default function CustomerLayout() {
 
   return (
     <div
-      className={`customer-shell${isWidePage ? " customer-shell--home" : ""}`}
-      style={{ maxWidth: isWidePage ? 980 : 720, margin: "0 auto", padding: "24px 20px 48px" }}
+      className={`customer-shell customer-shell--layout${
+        isWidePage ? " customer-shell--home customer-shell--wide" : ""
+      }`}
     >
       <header className="customer-header">
         <Link to="/" className="customer-header__brand">

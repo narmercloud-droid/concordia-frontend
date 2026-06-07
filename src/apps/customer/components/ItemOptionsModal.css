@@ -85,7 +85,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 520px;
-  max-height: 92vh;
+  max-height: min(92vh, calc(100dvh - env(safe-area-inset-top, 0px)));
   background: var(--c-bg);
   border-radius: 20px 20px 0 0;
   box-shadow: 0 -12px 40px rgba(26, 24, 22, 0.18);
@@ -119,7 +119,7 @@
   border-radius: 12px;
   background-size: cover;
   background-position: center;
-  background-color: #fff6f4;
+  background-color: #f0f9f4;
 }
 
 .item-modal__head-text {
@@ -160,7 +160,7 @@
 }
 
 .item-modal__close:hover {
-  border-color: rgba(107, 44, 62, 0.3);
+  border-color: rgb(var(--c-red-rgb) / 0.3);
   color: var(--c-ink);
 }
 
@@ -194,8 +194,8 @@
 }
 
 .item-options__qty-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--c-line);
   border-radius: 10px;
   background: var(--c-card);
@@ -206,7 +206,7 @@
 }
 
 .item-options__qty-btn:hover {
-  border-color: rgba(107, 44, 62, 0.3);
+  border-color: rgb(var(--c-red-rgb) / 0.3);
   background: var(--c-accent-soft);
 }
 
@@ -244,6 +244,26 @@
 
 .item-options__add-btn {
   width: 100%;
+  min-height: 52px;
+}
+
+.item-modal__close {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (max-width: 639px) {
+  .item-modal {
+    align-items: flex-end;
+  }
+
+  .item-modal__header {
+    padding-top: max(12px, env(safe-area-inset-top, 0px));
+  }
+
+  .item-modal__body {
+    overscroll-behavior: contain;
+  }
 }
 
 @media (min-width: 640px) {

@@ -14,7 +14,10 @@
     "note": "Note",
     "extras": "Extras",
     "processing": "Processing…",
-    "close": "Close"
+    "close": "Close",
+    "retry": "Try again",
+    "logoAlt": "Concordia Restaurant",
+    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
   },
   "lang": {
     "label": "Language"
@@ -109,7 +112,8 @@
     "bestSellers": "Best Sellers",
     "bestSellersDesc": "Our most popular dishes — chef's picks.",
     "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
-    "alsoPopular": "Also popular"
+    "alsoPopular": "Also popular",
+    "loadError": "Menu could not load. The server may be waking up — please try again."
   },
   "cart": {
     "title": "Your cart",
@@ -257,7 +261,8 @@
     "decreaseQty": "Decrease quantity",
     "increaseQty": "Increase quantity",
     "addedToCart": "{{name}} added to cart",
-    "viewCart": "View cart"
+    "viewCart": "View cart",
+    "loadError": "Could not load options. The server may be waking up — please try again."
   },
   "order": {
     "tracking": "Order tracking",
@@ -273,7 +278,10 @@
     "driverUpdated": " — updated {{time}}",
     "driverPending": "Driver has not accepted yet — showing delivery address",
     "timeline": "Timeline",
-    "loading": "Loading order…"
+    "loading": "Loading order…",
+    "etaMinutes": "ETA: {{min}} minutes",
+    "itemsTitle": "Items",
+    "reorder": "Reorder these items"
   },
   "status": {
     "pending": "Received",
@@ -314,10 +322,22 @@
       "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
       "valuesTitle": "What we stand for",
       "values": {
-        "fresh": { "title": "Fresh, always", "text": "Prepared when you order — not sitting under a heat lamp." },
-        "family": { "title": "Family table", "text": "A small team that knows many guests by name." },
-        "oven": { "title": "Stone-oven soul", "text": "Pizza and classics with real Italian heart." },
-        "care": { "title": "Every order matters", "text": "Pickup, delivery or dine-in — same pride on the plate." }
+        "fresh": {
+          "title": "Fresh, always",
+          "text": "Prepared when you order — not sitting under a heat lamp."
+        },
+        "family": {
+          "title": "Family table",
+          "text": "A small team that knows many guests by name."
+        },
+        "oven": {
+          "title": "Stone-oven soul",
+          "text": "Pizza and classics with real Italian heart."
+        },
+        "care": {
+          "title": "Every order matters",
+          "text": "Pickup, delivery or dine-in — same pride on the plate."
+        }
       },
       "kitchenTitle": "From our oven to your table",
       "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
@@ -335,11 +355,26 @@
       "title": "Reviews",
       "lead": "A few words from guests who order with us — thank you for your trust and kind feedback.",
       "items": {
-        "r1": { "text": "The best pizza in the area — always fresh, always friendly. We order every week.", "author": "Sandra M., Kempen" },
-        "r2": { "text": "Fast delivery, hot food, fair prices. The pasta is fantastic.", "author": "Thomas K., Willich" },
-        "r3": { "text": "You can taste the passion. Our family loves Concordia.", "author": "Elena R., Tönisvorst" },
-        "r4": { "text": "Great online ordering — easy to customise and the 10% discount is a nice bonus.", "author": "Markus B., Kempen" },
-        "r5": { "text": "Warm welcome, generous portions, true Italian flavour. Highly recommended.", "author": "Julia H., Geldern" }
+        "r1": {
+          "text": "The best pizza in the area — always fresh, always friendly. We order every week.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Fast delivery, hot food, fair prices. The pasta is fantastic.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "You can taste the passion. Our family loves Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Great online ordering — easy to customise and the 10% discount is a nice bonus.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Warm welcome, generous portions, true Italian flavour. Highly recommended.",
+          "author": "Julia H., Geldern"
+        }
       }
     },
     "offers": {
@@ -360,7 +395,8 @@
       "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
       "giftTitle": "Buy a gift voucher",
       "giftText": "Treat someone to Concordia — choose €10, €20, €30 or any amount. The code works only at the branch where you buy it (online or in person).",
-      "giftCta": "Buy voucher"
+      "giftCta": "Buy voucher",
+      "giftBadge": "Gift voucher"
     },
     "delivery": {
       "eyebrow": "To your door",
@@ -378,12 +414,30 @@
       "title": "Frequently asked questions",
       "lead": "Quick answers about ordering, payment and delivery.",
       "items": {
-        "q1": { "q": "How do I place an order?", "a": "Choose your branch on the homepage, browse the menu, customise your dishes and checkout online." },
-        "q2": { "q": "Which payment methods do you accept?", "a": "We currently accept cash on pickup and cash on delivery." },
-        "q3": { "q": "Can I schedule my order?", "a": "Yes — at checkout you can choose ASAP or a scheduled time slot where available." },
-        "q4": { "q": "How does the 10% online discount work?", "a": "It is applied automatically when you order through our website. No code is required." },
-        "q5": { "q": "Can I track my delivery?", "a": "Yes — after placing a delivery order you receive a tracking link to follow your driver on the map." },
-        "q6": { "q": "When will Straelen open?", "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live." }
+        "q1": {
+          "q": "How do I place an order?",
+          "a": "Choose your branch on the homepage, browse the menu, customise your dishes and checkout online."
+        },
+        "q2": {
+          "q": "Which payment methods do you accept?",
+          "a": "We currently accept cash on pickup and cash on delivery."
+        },
+        "q3": {
+          "q": "Can I schedule my order?",
+          "a": "Yes — at checkout you can choose ASAP or a scheduled time slot where available."
+        },
+        "q4": {
+          "q": "How does the 10% online discount work?",
+          "a": "It is applied automatically when you order through our website. No code is required."
+        },
+        "q5": {
+          "q": "Can I track my delivery?",
+          "a": "Yes — after placing a delivery order you receive a tracking link to follow your driver on the map."
+        },
+        "q6": {
+          "q": "When will Straelen open?",
+          "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live."
+        }
       }
     }
   },
@@ -400,5 +454,10 @@
     "noAccount": "No account yet?",
     "hasAccount": "Already have an account?",
     "loyaltyBenefits": "Register free and join our loyalty programme:"
+  },
+  "account": {
+    "ordersLoading": "Loading orders…",
+    "noOrders": "You have no past orders.",
+    "ordersTitle": "Orders"
   }
 }

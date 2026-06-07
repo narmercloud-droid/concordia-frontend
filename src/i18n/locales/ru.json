@@ -14,7 +14,10 @@
     "note": "Примечание",
     "extras": "Дополнения",
     "processing": "Обработка…",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "retry": "Повторить",
+    "logoAlt": "Ресторан Concordia",
+    "logoHomeAlt": "Ресторан Concordia — Пицца, Паста, Гриль"
   },
   "lang": {
     "label": "Язык"
@@ -22,7 +25,10 @@
   "layout": {
     "notificationsDisabled": "Уведомления отключены. Включите их в настройках браузера, чтобы получать обновления заказа.",
     "cart": "Корзина",
-    "cartWithCount": "Корзина ({{count}})"
+    "cartWithCount": "Корзина ({{count}})",
+    "login": "Войти",
+    "logout": "Выйти",
+    "account": "Аккаунт"
   },
   "home": {
     "loading": "Concordia",
@@ -105,15 +111,18 @@
     "from": "от",
     "bestSellers": "Хиты продаж",
     "bestSellersDesc": "Самые популярные блюда — выбор шеф-повара.",
-    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
-    "alsoPopular": "Also popular"
+    "bestSellersFromSales": "Хиты продаж за последние 30 дней — на основе реальных заказов.",
+    "alsoPopular": "Также популярно",
+    "loadError": "Не удалось загрузить меню. Сервер может запускаться — попробуйте снова."
   },
   "cart": {
     "title": "Ваша корзина",
     "empty": "Ваша корзина пуста.",
     "clear": "Очистить корзину",
     "checkout": "Оформить заказ",
-    "afterDiscount": "После скидки"
+    "afterDiscount": "После скидки",
+    "edit": "Изменить",
+    "editingItem": "Обновите выбор ниже и сохраните в корзине."
   },
   "checkout": {
     "title": "Оформление",
@@ -153,7 +162,59 @@
     "postcodeRequired": "Укажите почтовый индекс в адресе.",
     "scheduleRequired": "Выберите время.",
     "orderFailed": "Заказ не удался. Попробуйте снова.",
-    "searchingAddresses": "Поиск адресов…"
+    "searchingAddresses": "Поиск адресов…",
+    "addressHintLive": "Начните вводить улицу — подходящие адреса появятся при вводе.",
+    "voucherLabel": "Подарочный сертификат / код скидки",
+    "voucherPlaceholder": "напр. WELCOME10",
+    "voucherApply": "Применить",
+    "voucherApplied": "Сертификат {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} применён (−{{amount}})",
+    "giftCardActive": "{{code}} применён (−{{amount}}, остаток {{remaining}})",
+    "voucherRemove": "Удалить",
+    "voucherInvalid": "Недействительный или просроченный код.",
+    "paymentCard": "Оплата: карта (дебетовая или кредитная)",
+    "paymentMethod": "Способ оплаты",
+    "payCash": "Наличные",
+    "payCard": "Карта",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "Скоро",
+    "paymentPaypal": "Оплата: PayPal",
+    "paymentKlarna": "Оплата: Klarna (скоро)",
+    "paymentSepa": "Оплата: SEPA-списание (скоро)",
+    "onlinePaymentTitle": "Безопасная оплата",
+    "continueToPayment": "Перейти к оплате",
+    "cardPaymentTitle": "Безопасная оплата",
+    "cardPaymentHint": "Оплатите дебетовой, кредитной картой или PayPal. Заказ отправится на кухню после оплаты.",
+    "paymentFailed": "Оплата не прошла. Попробуйте снова или выберите наличные.",
+    "paymentCancelled": "Оплата отменена. Заказ не был оплачен.",
+    "freeDrinkTitle": "Ваш бесплатный напиток",
+    "freeDrinkHint": "Выберите один бесплатный напиток — 0,33 л газировка или 0,5 л Durstlöscher.",
+    "freeDrinkRequired": "Пожалуйста, выберите бесплатный напиток.",
+    "marketingTitle": "Предложения от Concordia (необязательно)",
+    "marketingHint": "Хотите узнавать об акциях, новых блюдах и сезонных предложениях?",
+    "marketingPerkBirthday": "Подарок на день рождения: бесплатный десерт с кодом BIRTHDAY",
+    "marketingPerkDeals": "Ранний доступ к недельным и сезонным акциям",
+    "marketingPerkWinback": "Эксклюзивные коды для постоянных гостей (напр. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "Эл. почта",
+    "emailPlaceholder": "ваш@email.ru",
+    "emailRequiredForOffers": "Укажите email для получения предложений по почте.",
+    "birthdayLabel": "День рождения (необязательно)",
+    "birthdayHint": "Для подарка от Concordia — бесплатный десерт с кодом BIRTHDAY.",
+    "birthdayInvalid": "Введите корректную дату рождения.",
+    "marketingLegal": "Только при согласии. Отписаться можно в любое время. Статус заказа отделён от рекламных сообщений.",
+    "howToOrder": "Как вы хотите заказать?",
+    "orderAsGuest": "Как гость",
+    "orderWithAccount": "С моим аккаунтом",
+    "accountBenefits": "Зарегистрируйтесь бесплатно и получайте баллы лояльности с каждым заказом.",
+    "accountLoginRequired": "Войдите или зарегистрируйтесь для заказа с аккаунтом, или выберите гостевой заказ.",
+    "welcomeBack": "С возвращением, {{name}}!",
+    "loyaltyBalance": "Программа лояльности: {{points}} баллов (уровень {{tier}})",
+    "loyaltyPerkPoints": "Получайте баллы с каждого доставленного заказа",
+    "loyaltyPerkTier": "Откройте бронзовые, серебряные и золотые привилегии"
   },
   "item": {
     "loading": "Загрузка блюда…",
@@ -174,7 +235,9 @@
     "decreaseQty": "Уменьшить",
     "increaseQty": "Увеличить",
     "addedToCart": "{{name}} добавлено в корзину",
-    "viewCart": "Корзина"
+    "viewCart": "Корзина",
+    "updateCart": "Обновить корзину",
+    "loadError": "Не удалось загрузить опции. Сервер может запускаться — попробуйте снова."
   },
   "order": {
     "tracking": "Отслеживание заказа",
@@ -190,7 +253,10 @@
     "driverUpdated": " — обновлено {{time}}",
     "driverPending": "Курьер ещё не принял — показан адрес доставки",
     "timeline": "Хронология",
-    "loading": "Загрузка заказа…"
+    "loading": "Загрузка заказа…",
+    "etaMinutes": "Ожидаемое время: {{min}} мин.",
+    "itemsTitle": "Позиции",
+    "reorder": "Заказать эти позиции снова"
   },
   "status": {
     "pending": "Получен",
@@ -214,7 +280,8 @@
     "loginFailed": "Ошибка входа",
     "registerFailed": "Ошибка регистрации",
     "noAccount": "Нет аккаунта?",
-    "hasAccount": "Уже есть аккаунт?"
+    "hasAccount": "Уже есть аккаунт?",
+    "loyaltyBenefits": "Зарегистрируйтесь бесплатно и присоединяйтесь к программе лояльности:"
   },
   "pages": {
     "navLabel": "Страницы",
@@ -314,7 +381,11 @@
       "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
       "step3Title": "Checkout & enjoy",
       "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away."
+      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
+      "giftTitle": "Купить подарочный сертификат",
+      "giftText": "Подарите Concordia — выберите 10 €, 20 €, 30 € или любую сумму. Код действует только в филиале покупки (онлайн или на месте).",
+      "giftCta": "Купить сертификат",
+      "giftBadge": "Подарочный сертификат"
     },
     "delivery": {
       "eyebrow": "To your door",
@@ -358,5 +429,35 @@
         }
       }
     }
+  },
+  "giftVoucher": {
+    "title": "Подарочный сертификат",
+    "lead": "Подарите радость — сертификат на выбранный филиал. Используйте онлайн или в ресторане.",
+    "chooseBranch": "Филиал",
+    "selectBranch": "Выберите филиал…",
+    "branchRequired": "Выберите филиал.",
+    "amount": "Номинал сертификата",
+    "customAmount": "Своя сумма",
+    "yourName": "Ваше имя",
+    "email": "Эл. почта",
+    "phone": "Телефон",
+    "recipient": "Для (имя получателя)",
+    "message": "Личное сообщение",
+    "continue": "Далее — {{amount}}",
+    "payOnline": "Оплатить сейчас",
+    "cashNote": "Наличные: сертификат активируется в филиале после оплаты.",
+    "cashPending": "Оплатите в филиале. Сертификат будет активирован после этого.",
+    "successTitle": "Ваш сертификат готов",
+    "successText": "Сохраните этот код. Он действителен только в выбранном филиале:",
+    "branchNote": "Действителен в {{branch}} — онлайн и на месте.",
+    "orderNow": "Заказать сейчас",
+    "nameRequired": "Имя обязательно.",
+    "amountInvalid": "Выберите сумму от 5 € до 500 €.",
+    "purchaseFailed": "Не удалось создать сертификат."
+  },
+  "account": {
+    "ordersLoading": "Загрузка заказов…",
+    "noOrders": "У вас нет прошлых заказов.",
+    "ordersTitle": "Заказы"
   }
 }

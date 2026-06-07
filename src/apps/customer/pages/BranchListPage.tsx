@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import { useNavigate } from "react-router-dom"
 import { branchPath } from "@/lib/customerPaths"
 
 export default function BranchListPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { data } = useQuery({ queryKey: ["branches"], queryFn: getBranches })
   const [nearest, setNearest] = useState<string | null | undefined>(undefined)
@@ -48,14 +50,14 @@ export default function BranchListPage() {
     )
   }, [data])
 
-  if (!data) return <p>Loading...</p>
+  if (!data) return <p className="customer-loading">{t("common.loading")}</p>
 
   return (
     <div>
-      <h2>Select a Branch</h2>
+      <h2>{t("home.chooseRestaurant")}</h2>
 
       {nearest === null && (
-        <p>Location unavailable — please select a branch manually.</p>
+        <p>{t("home.locationDenied")}</p>
       )}
       {nearest && (
         <div style={{ marginBottom: 20 }}>
@@ -63,12 +65,12 @@ export default function BranchListPage() {
             onClick={() => navigate(branchPath(nearest))}
             style={{ padding: "10px 20px", fontSize: 16 }}
           >
-            Go to Nearest Branch
+            {t("home.orderHere")}
           </button>
         </div>
       )}
 
-      {data.filter((b: any) => b.id !== "branch-001").map((b: any) => (
+      {data.map((b: any) => (
         <div
           key={b.id}
           style={{ padding: 12, border: "1px solid #ccc", marginBottom: 12, opacity: b.comingSoon ? 0.6 : 1 }}
@@ -76,15 +78,15 @@ export default function BranchListPage() {
           <h3>{b.name}</h3>
           {b.address && <p>{b.address}{b.city ? `, ${b.city}` : ""}</p>}
           {b.comingSoon ? (
-            <p>Coming soon</p>
+            <p>{t("home.comingSoonLabel")}</p>
           ) : (
-            <p>Status: {b.isOpen ? "Open now" : "Closed"}</p>
+            <p>{b.isOpen ? t("home.openNow") : t("home.closed")}</p>
           )}
           <button
             disabled={b.comingSoon}
             onClick={() => navigate(branchPath(b.id))}
           >
-            {b.comingSoon ? "Coming Soon" : "View Menu"}
+            {b.comingSoon ? t("home.comingSoonLabel") : t("home.featuredCta")}
           </button>
         </div>
       ))}

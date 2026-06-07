@@ -13,6 +13,7 @@ export default function HoursPage() {
   const { branchId } = useAdminBranch()
   const { can } = useAdminPermissions()
   const canEdit = can("hours_edit")
+  const readOnly = can("hours_view") && !canEdit
   const queryClient = useQueryClient()
   const [rows, setRows] = useState<HourRow[]>([])
   const [saved, setSaved] = useState(false)
@@ -64,6 +65,11 @@ export default function HoursPage() {
     <div>
       <h2>Opening hours</h2>
       <p style={{ color: "#666" }}>These hours control scheduled order time slots.</p>
+      {readOnly && (
+        <p style={{ color: "#b45309", background: "#fff8e1", padding: 12, borderRadius: 8 }}>
+          View only — editing is disabled until the super admin enables hours edit permission.
+        </p>
+      )}
 
       <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse" }}>
         <thead>
@@ -81,6 +87,7 @@ export default function HoursPage() {
                 <input
                   type="time"
                   value={row.openTime}
+                  disabled={!canEdit}
                   onChange={(e) => updateRow(index, "openTime", e.target.value)}
                 />
               </td>
@@ -88,6 +95,7 @@ export default function HoursPage() {
                 <input
                   type="time"
                   value={row.closeTime}
+                  disabled={!canEdit}
                   onChange={(e) => updateRow(index, "closeTime", e.target.value)}
                 />
               </td>

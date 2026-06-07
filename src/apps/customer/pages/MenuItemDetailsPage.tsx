@@ -1,12 +1,14 @@
 ﻿import React from "react"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { getItem } from "@/api/menu"
 import Button from "@/components/ui/Button"
 import { formatCurrency } from "@/utils/format"
 import { useCartStore } from "@/context/cartStore"
 
 export default function MenuItemDetailsPage() {
+  const { t } = useTranslation()
   const { itemId } = useParams()
 
   const addItem = useCartStore((s) => s.addItem)
@@ -16,7 +18,7 @@ export default function MenuItemDetailsPage() {
     queryFn: () => getItem(itemId!)
   })
 
-  if (isLoading) return <div>Loading item...</div>
+  if (isLoading) return <div>{t("item.loading")}</div>
 
   const item = data?.data
 
@@ -32,7 +34,7 @@ export default function MenuItemDetailsPage() {
       <p>{item.description}</p>
       <strong>{formatCurrency(item.price)}</strong>
 
-      <Button onClick={() => addItem(item)}>Add to Cart</Button>
+      <Button onClick={() => addItem(item)}>{t("item.addToCart")}</Button>
     </div>
   )
 }

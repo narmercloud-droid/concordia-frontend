@@ -36,13 +36,13 @@
 }
 
 .branch-menu__nav-link:hover {
-  border-color: rgba(107, 44, 62, 0.3);
+  border-color: rgb(var(--c-red-rgb) / 0.3);
   background: var(--c-accent-soft);
 }
 
 .branch-menu__nav-link--best {
-  border-color: rgba(107, 44, 62, 0.35);
-  background: linear-gradient(135deg, rgba(107, 44, 62, 0.1) 0%, rgba(212, 175, 55, 0.12) 100%);
+  border-color: rgb(var(--c-red-rgb) / 0.35);
+  background: linear-gradient(135deg, rgb(var(--c-green-rgb) / 0.14) 0%, rgb(var(--c-red-rgb) / 0.1) 100%);
 }
 
 .branch-menu__nav-link--best .branch-menu__nav-count {
@@ -51,7 +51,7 @@
 }
 
 .branch-menu__section--best .branch-menu__section-head {
-  border-bottom-color: rgba(107, 44, 62, 0.22);
+  border-bottom-color: rgb(var(--c-red-rgb) / 0.22);
 }
 
 .branch-menu__nav-count {
@@ -62,7 +62,7 @@
   height: 22px;
   padding: 0 6px;
   border-radius: 999px;
-  background: rgba(107, 44, 62, 0.1);
+  background: rgb(var(--c-red-rgb) / 0.1);
   color: var(--c-accent);
   font-size: 11px;
   font-weight: 700;
@@ -76,7 +76,7 @@
 .branch-menu__section-head {
   margin-bottom: 16px;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(107, 44, 62, 0.12);
+  border-bottom: 2px solid rgb(var(--c-red-rgb) / 0.12);
 }
 
 .branch-menu__section-title {
@@ -126,7 +126,7 @@
 }
 
 .branch-menu__card:hover {
-  border-color: rgba(107, 44, 62, 0.22);
+  border-color: rgb(var(--c-red-rgb) / 0.22);
   box-shadow: 0 8px 24px rgba(26, 24, 22, 0.05);
 }
 
@@ -136,7 +136,7 @@
   border-radius: 12px;
   background-size: cover;
   background-position: center;
-  background-color: #fff6f4;
+  background-color: #f0f9f4;
 }
 
 .branch-menu__card-body {
@@ -191,7 +191,7 @@
   padding: 11px 16px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--c-accent) 0%, var(--c-accent-hover) 100%);
+  background: linear-gradient(135deg, var(--c-red) 0%, var(--c-red-deep) 100%);
   color: #fff;
   font-family: inherit;
   font-size: 12px;
@@ -200,12 +200,12 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 6px 18px rgba(107, 44, 62, 0.2);
+  box-shadow: 0 6px 18px rgb(var(--c-red-rgb) / 0.2);
 }
 
 .branch-menu__order-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(107, 44, 62, 0.26);
+  box-shadow: 0 10px 22px rgb(var(--c-red-rgb) / 0.26);
 }
 
 .branch-menu__toast {
@@ -251,11 +251,14 @@
     grid-template-areas:
       "main"
       "btn";
+    gap: 12px;
+    padding: 12px;
   }
 
   .branch-menu__card-main {
     grid-area: main;
     grid-template-columns: 72px 1fr;
+    width: 100%;
   }
 
   .branch-menu__thumb {
@@ -266,5 +269,13 @@
   .branch-menu__order-btn {
     grid-area: btn;
     width: 100%;
+    min-height: 48px;
+    padding: 14px 16px;
+  }
+
+  .branch-menu__nav {
+    margin-left: -4px;
+    margin-right: -4px;
+    padding-bottom: 12px;
   }
 }

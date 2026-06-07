@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu, getBranches } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
+import { warmupApi } from "@/api/warmup"
 import { BRANCHES_QUERY_KEY } from "@/lib/branchesQuery"
 import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
@@ -59,9 +60,12 @@ export default function BranchMenuPage() {
   const branch = branches?.find((b: { id: string }) => b.id === branchId)
   const branchName = branch ? branchDisplayName(branch.name) : ""
 
-  const { data } = useQuery({
+  const { data, isError: menuError, refetch: refetchMenu, isFetching: menuFetching } = useQuery({
     queryKey: ["branchMenu", branchId],
-    queryFn: () => getBranchMenu(branchId!),
+    queryFn: async () => {
+      await warmupApi()
+      return getBranchMenu(branchId!)
+    },
     enabled: !!branchId,
     ...menuQueryOptions
   })
@@ -136,6 +140,18 @@ export default function BranchMenuPage() {
   }
 
   if (!data?.categories) {
+    if (menuError) {
+      return (
+        <div className="customer-page">
+          <p className="customer-hint" style={{ color: "#b45309" }}>
+            {t("menu.loadError")}
+          </p>
+          <button type="button" className="customer-btn" onClick={() => void refetchMenu()}>
+            {t("common.retry")}
+          </button>
+        </div>
+      )
+    }
     return <p className="customer-loading">{t("menu.loading")}</p>
   }
 

@@ -17,9 +17,11 @@ import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 export default function MenuPage() {
   const { branchId } = useAdminBranch()
   const { can } = useAdminPermissions()
+  const canView = can("menu_view")
   const canEditPrices = can("menu_edit_prices")
   const canEditAvailability = can("menu_edit_availability")
   const canEditStructure = can("menu_edit_structure")
+  const readOnly = canView && !canEditPrices && !canEditAvailability && !canEditStructure
   const queryClient = useQueryClient()
   const [search, setSearch] = useState("")
   const [newCategoryName, setNewCategoryName] = useState("")
@@ -94,6 +96,12 @@ export default function MenuPage() {
         Manage categories, items, variants and extras. Price and availability changes appear on the
         customer website immediately.
       </p>
+      {readOnly && (
+        <p style={{ color: "#b45309", background: "#fff8e1", padding: 12, borderRadius: 8 }}>
+          View only — editing is disabled. The super admin must enable menu edit permissions for
+          your account.
+        </p>
+      )}
 
       {canEditStructure && (
         <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
@@ -185,9 +193,7 @@ export default function MenuPage() {
                 <th style={{ textAlign: "left", padding: 8 }}>Kitchen</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Price (€)</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Available</th>
-                {(canEditStructure || canEditPrices || canEditAvailability) && (
-                  <th style={{ textAlign: "left", padding: 8 }}>Actions</th>
-                )}
+                <th style={{ textAlign: "left", padding: 8 }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -225,17 +231,19 @@ export default function MenuPage() {
                     />
                   </td>
                   <td style={{ padding: 8 }}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setEditingItem({
-                          menuItemId: item.menuItemId,
-                          branchMenuItemId: item.branchMenuItemId
-                        })
-                      }
-                    >
-                      Edit
-                    </button>
+                    {(canEditStructure || canEditPrices || canEditAvailability) && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setEditingItem({
+                            menuItemId: item.menuItemId,
+                            branchMenuItemId: item.branchMenuItemId
+                          })
+                        }
+                      >
+                        Edit
+                      </button>
+                    )}
                     {canEditStructure && (
                       <button
                         type="button"
@@ -269,7 +277,9 @@ export default function MenuPage() {
           branchMenuItemId={editingItem.branchMenuItemId}
           branchId={branchId}
           categories={categories.map((c: any) => ({ id: c.id, name: c.name }))}
-          canEdit={canEditStructure}
+          canEditStructure={canEditStructure}
+          canEditPrices={canEditPrices}
+          canEditAvailability={canEditAvailability}
           onClose={() => setEditingItem(null)}
         />
       )}

@@ -1,0 +1,125 @@
+{
+  "account": {
+    "ordersLoading": "Ładowanie zamówień…",
+    "noOrders": "Nie masz wcześniejszych zamówień.",
+    "ordersTitle": "Zamówienia"
+  },
+  "order": {
+    "etaMinutes": "Szacowany czas: {{min}} min",
+    "itemsTitle": "Pozycje",
+    "reorder": "Zamów te pozycje ponownie"
+  },
+  "common": {
+    "retry": "Spróbuj ponownie",
+    "logoAlt": "Restauracja Concordia",
+    "logoHomeAlt": "Restauracja Concordia — Pizza, Pasta, Grill"
+  },
+  "layout": {
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "account": "Konto"
+  },
+  "menu": {
+    "loadError": "Nie udało się załadować menu. Serwer może się uruchamiać — spróbuj ponownie.",
+    "bestSellersFromSales": "Bestsellery z ostatnich 30 dni — na podstawie rzeczywistych zamówień.",
+    "alsoPopular": "Również popularne"
+  },
+  "cart": {
+    "edit": "Edytuj",
+    "editingItem": "Zaktualizuj wybory poniżej, a następnie zapisz w koszyku."
+  },
+  "checkout": {
+    "addressHintLive": "Wpisz ulicę — pasujące adresy pojawią się podczas pisania.",
+    "voucherLabel": "Bon podarunkowy / kod rabatowy",
+    "voucherPlaceholder": "np. WELCOME10",
+    "voucherApply": "Zastosuj",
+    "voucherApplied": "Bon {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} zastosowany (−{{amount}})",
+    "giftCardActive": "{{code}} zastosowany (−{{amount}}, pozostało {{remaining}})",
+    "voucherRemove": "Usuń",
+    "voucherInvalid": "Nieprawidłowy lub wygasły kod rabatowy.",
+    "paymentCard": "Płatność: karta (debetowa lub kredytowa)",
+    "paymentMethod": "Metoda płatności",
+    "payCash": "Gotówka",
+    "payCard": "Karta",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "Wkrótce dostępne",
+    "paymentPaypal": "Płatność: PayPal",
+    "paymentKlarna": "Płatność: Klarna (wkrótce)",
+    "paymentSepa": "Płatność: polecenie zapłaty SEPA (wkrótce)",
+    "onlinePaymentTitle": "Bezpieczna płatność",
+    "continueToPayment": "Przejdź do płatności",
+    "cardPaymentTitle": "Bezpieczna płatność",
+    "cardPaymentHint": "Zapłać kartą debetową, kredytową lub PayPal. Zamówienie trafi do kuchni po opłaceniu.",
+    "paymentFailed": "Płatność nie powiodła się. Spróbuj ponownie lub wybierz gotówkę.",
+    "paymentCancelled": "Płatność anulowana. Zamówienie nie zostało opłacone.",
+    "freeDrinkTitle": "Twój darmowy napój",
+    "freeDrinkHint": "Wybierz jeden darmowy napój — 0,33 l napój gazowany lub 0,5 l Durstlöscher.",
+    "freeDrinkRequired": "Wybierz darmowy napój.",
+    "marketingTitle": "Oferty Concordia (opcjonalnie)",
+    "marketingHint": "Czy chcesz otrzymywać informacje o promocjach, nowych daniach i ofertach sezonowych?",
+    "marketingPerkBirthday": "Prezent urodzinowy: darmowy deser z kodem BIRTHDAY",
+    "marketingPerkDeals": "Wcześniejszy dostęp do tygodniowych i sezonowych promocji",
+    "marketingPerkWinback": "Ekskluzywne kody dla stałych klientów (np. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "E-mail",
+    "emailPlaceholder": "twoj@email.pl",
+    "emailRequiredForOffers": "Podaj adres e-mail, aby otrzymywać oferty mailem.",
+    "birthdayLabel": "Urodziny (opcjonalnie)",
+    "birthdayHint": "Na prezent urodzinowy od Concordia — darmowy deser z kodem BIRTHDAY.",
+    "birthdayInvalid": "Podaj prawidłową datę urodzenia.",
+    "marketingLegal": "Tylko po wyrażeniu zgody. Możesz zrezygnować w dowolnym momencie. Aktualizacje zamówień są oddzielone od wiadomości marketingowych.",
+    "howToOrder": "Jak chcesz zamówić?",
+    "orderAsGuest": "Jako gość",
+    "orderWithAccount": "Z moim kontem",
+    "accountBenefits": "Załóż darmowe konto i zbieraj punkty lojalnościowe przy każdym zamówieniu.",
+    "accountLoginRequired": "Zaloguj się lub zarejestruj, aby zamówić z kontem, lub wybierz zamówienie jako gość.",
+    "welcomeBack": "Witaj ponownie, {{name}}!",
+    "loyaltyBalance": "Program lojalnościowy: {{points}} punktów (poziom {{tier}})",
+    "loyaltyPerkPoints": "Zbieraj punkty przy każdym dostarczonym zamówieniu",
+    "loyaltyPerkTier": "Odblokuj nagrody brązowe, srebrne i złote"
+  },
+  "giftVoucher": {
+    "title": "Bon podarunkowy",
+    "lead": "Podaruj radość — bon na wybrany oddział. Do wykorzystania online lub w restauracji.",
+    "chooseBranch": "Oddział",
+    "selectBranch": "Wybierz oddział…",
+    "branchRequired": "Wybierz oddział.",
+    "amount": "Wartość bonu",
+    "customAmount": "Własna kwota",
+    "yourName": "Twoje imię",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "recipient": "Dla (imię odbiorcy)",
+    "message": "Osobista wiadomość",
+    "continue": "Dalej — {{amount}}",
+    "payOnline": "Zapłać teraz",
+    "cashNote": "Gotówka: bon zostanie aktywowany w oddziale po płatności.",
+    "cashPending": "Zapłać w oddziale. Bon zostanie aktywowany później.",
+    "successTitle": "Twój bon jest gotowy",
+    "successText": "Zachowaj ten kod. Jest ważny tylko w wybranym oddziale:",
+    "branchNote": "Ważny w {{branch}} — online i na miejscu.",
+    "orderNow": "Zamów teraz",
+    "nameRequired": "Imię jest wymagane.",
+    "amountInvalid": "Wybierz kwotę od 5 € do 500 €.",
+    "purchaseFailed": "Nie udało się utworzyć bonu."
+  },
+  "item": {
+    "updateCart": "Zaktualizuj koszyk",
+    "loadError": "Nie udało się załadować opcji. Serwer może się uruchamiać — spróbuj ponownie."
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "Bon podarunkowy",
+      "giftTitle": "Kup bon podarunkowy",
+      "giftText": "Podaruj komuś Concordia — wybierz 10 €, 20 €, 30 € lub dowolną kwotę. Kod działa tylko w oddziale, w którym go kupisz (online lub na miejscu).",
+      "giftCta": "Kup bon"
+    }
+  },
+  "auth": {
+    "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:"
+  }
+}

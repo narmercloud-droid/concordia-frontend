@@ -1,5 +1,4 @@
 import React, { Suspense } from "react"
-import { Navigate } from "react-router-dom"
 import AdminLayout from "./layouts/AdminLayout.js"
 import AdminAuthLayout from "./layouts/AdminAuthLayout.js"
 const AdminLoginPage = React.lazy(() => import("./pages/AdminLoginPage.js"))
@@ -13,10 +12,17 @@ const StaffPage = React.lazy(() => import("./pages/StaffPage.js"))
 const PermissionsPage = React.lazy(() => import("./pages/PermissionsPage.js"))
 const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
+import AdminPermissionRoute, { AdminHomeRedirect } from "@/router/AdminPermissionRoute"
 
 const lazySection = (element: React.ReactElement) => (
   <Suspense fallback={<div>Loading…</div>}>{element}</Suspense>
 )
+
+const guard = (permission: string, page: React.ReactElement) =>
+  lazySection(<AdminPermissionRoute permission={permission}>{page}</AdminPermissionRoute>)
+
+const guardSuper = (page: React.ReactElement) =>
+  lazySection(<AdminPermissionRoute superAdminOnly>{page}</AdminPermissionRoute>)
 
 export const adminRoutes = {
   path: "/admin",
@@ -34,16 +40,16 @@ export const adminRoutes = {
         </AdminProtectedRoute>
       ),
       children: [
-        { index: true, element: <Navigate to="dashboard" replace /> },
-        { path: "dashboard", element: lazySection(<DashboardPage />) },
-        { path: "menu", element: lazySection(<MenuPage />) },
-        { path: "orders", element: lazySection(<OrdersPage />) },
-        { path: "hours", element: lazySection(<HoursPage />) },
-        { path: "delivery", element: lazySection(<DeliveryAreasPage />) },
-        { path: "customers", element: lazySection(<CustomersPage />) },
-        { path: "offers", element: lazySection(<BranchOffersPage />) },
-        { path: "staff", element: lazySection(<StaffPage />) },
-        { path: "permissions", element: lazySection(<PermissionsPage />) }
+        { index: true, element: <AdminHomeRedirect /> },
+        { path: "dashboard", element: guard("dashboard", <DashboardPage />) },
+        { path: "menu", element: guard("menu_view", <MenuPage />) },
+        { path: "orders", element: guard("orders", <OrdersPage />) },
+        { path: "hours", element: guard("hours_view", <HoursPage />) },
+        { path: "delivery", element: guard("delivery_view", <DeliveryAreasPage />) },
+        { path: "customers", element: guard("customers_view", <CustomersPage />) },
+        { path: "offers", element: guard("offers_view", <BranchOffersPage />) },
+        { path: "staff", element: guardSuper(<StaffPage />) },
+        { path: "permissions", element: guardSuper(<PermissionsPage />) }
       ]
     }
   ]

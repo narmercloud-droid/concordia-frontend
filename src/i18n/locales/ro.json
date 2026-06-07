@@ -14,7 +14,10 @@
     "note": "Notă",
     "extras": "Extra",
     "processing": "Se procesează…",
-    "close": "Închide"
+    "close": "Închide",
+    "retry": "Încearcă din nou",
+    "logoAlt": "Restaurant Concordia",
+    "logoHomeAlt": "Restaurant Concordia — Pizza, Paste, Grătar"
   },
   "lang": {
     "label": "Limbă"
@@ -22,7 +25,10 @@
   "layout": {
     "notificationsDisabled": "Notificările sunt dezactivate. Activați-le în setările browserului pentru actualizări ale comenzii.",
     "cart": "Coș",
-    "cartWithCount": "Coș ({{count}})"
+    "cartWithCount": "Coș ({{count}})",
+    "login": "Autentificare",
+    "logout": "Deconectare",
+    "account": "Cont"
   },
   "home": {
     "loading": "Concordia",
@@ -105,15 +111,18 @@
     "from": "de la",
     "bestSellers": "Cele mai vândute",
     "bestSellersDesc": "Cele mai populare preparate — recomandate de bucătar.",
-    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
-    "alsoPopular": "Also popular"
+    "bestSellersFromSales": "Cele mai vândute din ultimele 30 de zile — pe baza comenzilor reale.",
+    "alsoPopular": "De asemenea populare",
+    "loadError": "Meniul nu a putut fi încărcat. Serverul se poate porni — încercați din nou."
   },
   "cart": {
     "title": "Coșul dvs.",
     "empty": "Coșul dvs. este gol.",
     "clear": "Golește coșul",
     "checkout": "Finalizează comanda",
-    "afterDiscount": "După reducere"
+    "afterDiscount": "După reducere",
+    "edit": "Editează",
+    "editingItem": "Actualizați alegerile de mai jos, apoi salvați în coș."
   },
   "checkout": {
     "title": "Finalizare",
@@ -153,7 +162,59 @@
     "postcodeRequired": "Includeți codul poștal în adresă.",
     "scheduleRequired": "Alegeți o oră.",
     "orderFailed": "Comanda a eșuat. Încercați din nou.",
-    "searchingAddresses": "Se caută adrese…"
+    "searchingAddresses": "Se caută adrese…",
+    "addressHintLive": "Introduceți strada — adresele potrivite apar pe măsură ce tastați.",
+    "voucherLabel": "Voucher cadou / cod reducere",
+    "voucherPlaceholder": "ex. WELCOME10",
+    "voucherApply": "Aplică",
+    "voucherApplied": "Voucher {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} aplicat (−{{amount}})",
+    "giftCardActive": "{{code}} aplicat (−{{amount}}, sold rămas {{remaining}})",
+    "voucherRemove": "Elimină",
+    "voucherInvalid": "Cod invalid sau expirat.",
+    "paymentCard": "Plată: card (debit sau credit)",
+    "paymentMethod": "Metodă de plată",
+    "payCash": "Numerar",
+    "payCard": "Card",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "În curând",
+    "paymentPaypal": "Plată: PayPal",
+    "paymentKlarna": "Plată: Klarna (în curând)",
+    "paymentSepa": "Plată: debit direct SEPA (în curând)",
+    "onlinePaymentTitle": "Plată securizată",
+    "continueToPayment": "Continuă la plată",
+    "cardPaymentTitle": "Plată securizată",
+    "cardPaymentHint": "Plătiți cu card de debit, credit sau PayPal. Comanda merge la bucătărie după plată.",
+    "paymentFailed": "Plata a eșuat. Încercați din nou sau alegeți numerar.",
+    "paymentCancelled": "Plata anulată. Comanda nu a fost plătită.",
+    "freeDrinkTitle": "Băutura gratuită",
+    "freeDrinkHint": "Alegeți o băutură gratuită — 0,33 l răcoritoare sau 0,5 l Durstlöscher.",
+    "freeDrinkRequired": "Alegeți băutura gratuită.",
+    "marketingTitle": "Oferte Concordia (opțional)",
+    "marketingHint": "Doriți să aflați despre promoții, preparate noi și oferte sezoniere?",
+    "marketingPerkBirthday": "Cadou de ziua de naștere: desert gratuit cu codul BIRTHDAY",
+    "marketingPerkDeals": "Acces timpuriu la oferte săptămânale și sezoniere",
+    "marketingPerkWinback": "Coduri exclusive pentru clienți fideli (ex. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "E-mail",
+    "emailPlaceholder": "email@exemplu.ro",
+    "emailRequiredForOffers": "Introduceți adresa de e-mail pentru oferte prin e-mail.",
+    "birthdayLabel": "Zi de naștere (opțional)",
+    "birthdayHint": "Pentru un cadou de la Concordia — desert gratuit cu codul BIRTHDAY.",
+    "birthdayInvalid": "Introduceți o dată de naștere validă.",
+    "marketingLegal": "Doar dacă vă înscrieți. Vă puteți dezabona oricând. Actualizările comenzii sunt separate de mesajele de marketing.",
+    "howToOrder": "Cum doriți să comandați?",
+    "orderAsGuest": "Ca oaspete",
+    "orderWithAccount": "Cu contul meu",
+    "accountBenefits": "Creați un cont gratuit pentru a câștiga puncte de loialitate la fiecare comandă.",
+    "accountLoginRequired": "Autentificați-vă sau înregistrați-vă pentru a comanda cu contul, sau alegeți comanda ca oaspete.",
+    "welcomeBack": "Bine ați revenit, {{name}}!",
+    "loyaltyBalance": "Loialitate: {{points}} puncte (nivel {{tier}})",
+    "loyaltyPerkPoints": "Câștigați puncte la fiecare comandă livrată",
+    "loyaltyPerkTier": "Deblocați recompense bronz, argint și aur"
   },
   "item": {
     "loading": "Se încarcă preparatul…",
@@ -174,7 +235,9 @@
     "decreaseQty": "Mai puțin",
     "increaseQty": "Mai mult",
     "addedToCart": "{{name}} adăugat în coș",
-    "viewCart": "Coș"
+    "viewCart": "Coș",
+    "updateCart": "Actualizează coșul",
+    "loadError": "Opțiunile nu au putut fi încărcate. Serverul se poate porni — încercați din nou."
   },
   "order": {
     "tracking": "Urmărire comandă",
@@ -190,7 +253,10 @@
     "driverUpdated": " — actualizat {{time}}",
     "driverPending": "Șoferul nu a acceptat încă — se afișează adresa de livrare",
     "timeline": "Cronologie",
-    "loading": "Se încarcă comanda…"
+    "loading": "Se încarcă comanda…",
+    "etaMinutes": "Timp estimat: {{min}} min.",
+    "itemsTitle": "Articole",
+    "reorder": "Comandă din nou aceste articole"
   },
   "status": {
     "pending": "Primită",
@@ -214,7 +280,8 @@
     "loginFailed": "Autentificare eșuată",
     "registerFailed": "Înregistrare eșuată",
     "noAccount": "Nu aveți cont?",
-    "hasAccount": "Aveți deja cont?"
+    "hasAccount": "Aveți deja cont?",
+    "loyaltyBenefits": "Înregistrează-te gratuit și alătură-te programului de loialitate:"
   },
   "pages": {
     "navLabel": "Pagini",
@@ -314,7 +381,11 @@
       "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
       "step3Title": "Checkout & enjoy",
       "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away."
+      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
+      "giftTitle": "Cumpără voucher cadou",
+      "giftText": "Oferă cuiva Concordia — alege 10 €, 20 €, 30 € sau orice sumă. Codul funcționează doar la filiala unde îl cumperi (online sau la fața locului).",
+      "giftCta": "Cumpără voucher",
+      "giftBadge": "Voucher cadou"
     },
     "delivery": {
       "eyebrow": "To your door",
@@ -358,5 +429,35 @@
         }
       }
     }
+  },
+  "giftVoucher": {
+    "title": "Voucher cadou",
+    "lead": "Oferiți bucurie — voucher pentru filiala aleasă. Valabil online sau în restaurant.",
+    "chooseBranch": "Filială",
+    "selectBranch": "Selectați filiala…",
+    "branchRequired": "Selectați o filială.",
+    "amount": "Valoarea voucherului",
+    "customAmount": "Sumă personalizată",
+    "yourName": "Numele dvs.",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "recipient": "Pentru (numele destinatarului)",
+    "message": "Mesaj personal",
+    "continue": "Continuă — {{amount}}",
+    "payOnline": "Plătește acum",
+    "cashNote": "Numerar: voucherul se activează la filială după plată.",
+    "cashPending": "Plătiți la filială. Voucherul va fi activat după aceea.",
+    "successTitle": "Voucherul este gata",
+    "successText": "Păstrați acest cod. Este valabil doar la filiala selectată:",
+    "branchNote": "Valabil la {{branch}} — online și la fața locului.",
+    "orderNow": "Comandă acum",
+    "nameRequired": "Numele este obligatoriu.",
+    "amountInvalid": "Alegeți o sumă între 5 € și 500 €.",
+    "purchaseFailed": "Voucherul nu a putut fi creat."
+  },
+  "account": {
+    "ordersLoading": "Se încarcă comenzile…",
+    "noOrders": "Nu aveți comenzi anterioare.",
+    "ordersTitle": "Comenzi"
   }
 }

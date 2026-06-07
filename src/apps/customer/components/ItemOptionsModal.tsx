@@ -151,6 +151,19 @@ export default function ItemOptionsModal({
 
           {options.isLoading ? (
             <p className="customer-loading">{t("item.loading")}</p>
+          ) : options.isError || !options.item ? (
+            <div>
+              <p className="customer-hint" style={{ color: "#b45309" }}>
+                {t("item.loadError")}
+              </p>
+              <button
+                type="button"
+                className="customer-btn"
+                onClick={() => void options.refetchItem()}
+              >
+                {t("common.retry")}
+              </button>
+            </div>
           ) : (
             <ItemOptionsFields options={options} compact showTitle={false} />
           )}

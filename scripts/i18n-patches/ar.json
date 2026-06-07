@@ -1,0 +1,125 @@
+{
+  "account": {
+    "ordersLoading": "جاري تحميل الطلبات…",
+    "noOrders": "ليس لديك طلبات سابقة.",
+    "ordersTitle": "الطلبات"
+  },
+  "order": {
+    "etaMinutes": "الوقت المتوقع: {{min}} دقيقة",
+    "itemsTitle": "الأصناف",
+    "reorder": "أعد طلب هذه الأصناف"
+  },
+  "common": {
+    "retry": "حاول مرة أخرى",
+    "logoAlt": "مطعم كونكورديا",
+    "logoHomeAlt": "مطعم كونكورديا — بيتزا، معكرونة، شواء"
+  },
+  "layout": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "account": "الحساب"
+  },
+  "menu": {
+    "loadError": "تعذّر تحميل القائمة. قد يكون الخادم قيد التشغيل — يرجى المحاولة مرة أخرى.",
+    "bestSellersFromSales": "الأكثر مبيعاً خلال آخر 30 يوماً — بناءً على طلبات حقيقية.",
+    "alsoPopular": "شائع أيضاً"
+  },
+  "cart": {
+    "edit": "تعديل",
+    "editingItem": "حدّث اختياراتك أدناه ثم احفظ في السلة."
+  },
+  "checkout": {
+    "addressHintLive": "ابدأ بكتابة الشارع — تظهر العناوين المطابقة أثناء الكتابة.",
+    "voucherLabel": "قسيمة هدية / رمز خصم",
+    "voucherPlaceholder": "مثال WELCOME10",
+    "voucherApply": "تطبيق",
+    "voucherApplied": "قسيمة {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} مُطبّق (−{{amount}})",
+    "giftCardActive": "{{code}} مُطبّق (−{{amount}}، الرصيد المتبقي {{remaining}})",
+    "voucherRemove": "إزالة",
+    "voucherInvalid": "رمز خصم غير صالح أو منتهٍ.",
+    "paymentCard": "الدفع: بطاقة (خصم أو ائتمان)",
+    "paymentMethod": "طريقة الدفع",
+    "payCash": "نقداً",
+    "payCard": "بطاقة",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "قريباً",
+    "paymentPaypal": "الدفع: PayPal",
+    "paymentKlarna": "الدفع: Klarna (قريباً)",
+    "paymentSepa": "الدفع: خصم مباشر SEPA (قريباً)",
+    "onlinePaymentTitle": "ادفع بأمان",
+    "continueToPayment": "متابعة إلى الدفع",
+    "cardPaymentTitle": "ادفع بأمان",
+    "cardPaymentHint": "ادفع ببطاقة الخصم أو الائتمان أو PayPal. يُرسل الطلب إلى المطبخ بعد الدفع.",
+    "paymentFailed": "فشل الدفع. حاول مرة أخرى أو اختر النقد.",
+    "paymentCancelled": "تم إلغاء الدفع. لم يُدفع طلبك.",
+    "freeDrinkTitle": "مشروبك المجاني",
+    "freeDrinkHint": "اختر مشروباً مجانياً واحداً — 0.33 ل مشروب غازي أو 0.5 ل Durstlöscher.",
+    "freeDrinkRequired": "يرجى اختيار المشروب المجاني.",
+    "marketingTitle": "عروض من كونكورديا (اختياري)",
+    "marketingHint": "هل تريد معرفة العروض الخاصة والأطباق الجديدة والعروض الموسمية؟",
+    "marketingPerkBirthday": "هدية عيد ميلاد: حلوى مجانية برمز BIRTHDAY",
+    "marketingPerkDeals": "وصول مبكر للعروض الأسبوعية والموسمية",
+    "marketingPerkWinback": "رموز حصرية للعملاء الدائمين (مثل WELCOME10)",
+    "marketingSMS": "رسائل SMS",
+    "marketingWhatsApp": "واتساب",
+    "marketingEmail": "البريد الإلكتروني",
+    "emailPlaceholder": "your@email.com",
+    "emailRequiredForOffers": "أدخل بريدك الإلكتروني لعروض البريد.",
+    "birthdayLabel": "تاريخ الميلاد (اختياري)",
+    "birthdayHint": "لهدية عيد ميلاد من كونكورديا — حلوى مجانية برمز BIRTHDAY.",
+    "birthdayInvalid": "يرجى إدخال تاريخ ميلاد صالح.",
+    "marketingLegal": "فقط عند الموافقة. يمكنك إلغاء الاشتراك في أي وقت. تحديثات الطلب منفصلة عن رسائل التسويق.",
+    "howToOrder": "كيف تريد الطلب؟",
+    "orderAsGuest": "كضيف",
+    "orderWithAccount": "بحسابي",
+    "accountBenefits": "أنشئ حساباً مجانياً لكسب نقاط الولاء مع كل طلب.",
+    "accountLoginRequired": "سجّل الدخول أو أنشئ حساباً للطلب بحسابك، أو اختر الطلب كضيف.",
+    "welcomeBack": "مرحباً بعودتك، {{name}}!",
+    "loyaltyBalance": "الولاء: {{points}} نقطة (مستوى {{tier}})",
+    "loyaltyPerkPoints": "اكسب نقاطاً مع كل طلب يُسلّم",
+    "loyaltyPerkTier": "افتح مزايا العضوية البرونزية والفضية والذهبية"
+  },
+  "giftVoucher": {
+    "title": "قسيمة هدية",
+    "lead": "شارك الفرح — قسيمة للفرع الذي تختاره. استخدمها أونلاين أو في المطعم.",
+    "chooseBranch": "الفرع",
+    "selectBranch": "اختر الفرع…",
+    "branchRequired": "يرجى اختيار فرع.",
+    "amount": "قيمة القسيمة",
+    "customAmount": "مبلغ مخصص",
+    "yourName": "اسمك",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "recipient": "لـ (اسم المستلم)",
+    "message": "رسالة شخصية",
+    "continue": "متابعة — {{amount}}",
+    "payOnline": "ادفع الآن",
+    "cashNote": "نقداً: تُفعّل القسيمة في الفرع بعد الدفع.",
+    "cashPending": "يرجى الدفع في الفرع. ستُفعّل قسيمتك بعد ذلك.",
+    "successTitle": "قسيمتك جاهزة",
+    "successText": "احفظ هذا الرمز. صالح فقط في الفرع المختار:",
+    "branchNote": "صالحة في {{branch}} — أونلاين وحضورياً.",
+    "orderNow": "اطلب الآن",
+    "nameRequired": "الاسم مطلوب.",
+    "amountInvalid": "اختر مبلغاً بين 5 € و 500 €.",
+    "purchaseFailed": "تعذّر إنشاء القسيمة."
+  },
+  "item": {
+    "updateCart": "تحديث السلة",
+    "loadError": "تعذّر تحميل الخيارات. قد يكون الخادم قيد التشغيل — يرجى المحاولة مرة أخرى."
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "قسيمة هدية",
+      "giftTitle": "شراء قسيمة هدية",
+      "giftText": "أهدِ أحداً كونكورديا — اختر 10 € أو 20 € أو 30 € أو أي مبلغ. الرمز يعمل فقط في الفرع الذي تشتري منه (أونلاين أو حضورياً).",
+      "giftCta": "شراء قسيمة"
+    }
+  },
+  "auth": {
+    "loyaltyBenefits": "سجّل مجاناً وانضم إلى برنامج الولاء:"
+  }
+}

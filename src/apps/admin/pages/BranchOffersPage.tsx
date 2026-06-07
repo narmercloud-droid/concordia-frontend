@@ -9,6 +9,7 @@ export default function BranchOffersPage() {
   const { can } = useAdminPermissions()
   const queryClient = useQueryClient()
   const canEdit = can("offers_edit")
+  const readOnly = can("offers_view") && !canEdit
 
   const { data, isLoading } = useQuery({
     queryKey: ["managerPromotions", branchId],
@@ -46,6 +47,11 @@ export default function BranchOffersPage() {
         Promotions for this branch only — free drink threshold and messaging shown at
         checkout.
       </p>
+      {readOnly && (
+        <p style={{ color: "#b45309", background: "#fff8e1", padding: 12, borderRadius: 8 }}>
+          View only — editing is disabled until the super admin enables offers edit permission.
+        </p>
+      )}
 
       <div style={{ marginTop: 20, display: "grid", gap: 16 }}>
         <label>

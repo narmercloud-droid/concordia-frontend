@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "i18n:sync": "node scripts/sync-locales.mjs"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^10.0.0",

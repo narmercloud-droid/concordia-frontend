@@ -67,7 +67,7 @@ export default function HomePage() {
   const [distances, setDistances] = useState<Record<string, number>>({})
   const [locationState, setLocationState] = useState<LocationState>("idle")
 
-  const branches = (data ?? []).filter((b: Branch) => b.id !== "branch-001")
+  const branches = data ?? []
   const liveBranches = branches.filter((b) => !b.comingSoon)
   const liveBranchIds = useMemo(
     () => liveBranches.map((b) => b.id).join("|"),

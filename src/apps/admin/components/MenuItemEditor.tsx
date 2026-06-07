@@ -12,6 +12,7 @@ import {
   getManagerMenuItemDetail,
   updateManagerAddOn,
   updateManagerAddOnGroup,
+  updateManagerMenuItem,
   updateManagerMenuItemFull,
   updateManagerVariant,
   updateManagerVariantGroupFull
@@ -24,7 +25,9 @@ type Props = {
   branchMenuItemId: number
   branchId: string
   categories: Category[]
-  canEdit: boolean
+  canEditStructure: boolean
+  canEditPrices: boolean
+  canEditAvailability: boolean
   onClose: () => void
 }
 
@@ -33,9 +36,13 @@ export default function MenuItemEditor({
   branchMenuItemId,
   branchId,
   categories,
-  canEdit,
+  canEditStructure,
+  canEditPrices,
+  canEditAvailability,
   onClose
 }: Props) {
+  const canEditPriceField = canEditStructure || canEditPrices
+  const canEditAvailabilityField = canEditStructure || canEditAvailability
   const queryClient = useQueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ["managerMenuItem", branchId, menuItemId],
@@ -91,8 +98,27 @@ export default function MenuItemEditor({
     }
   })
 
+  const partialSaveMutation = useMutation({
+    mutationFn: () =>
+      updateManagerMenuItem(
+        branchMenuItemId,
+        {
+          price: canEditPrices ? Number(price) : undefined,
+          isAvailable: canEditAvailability ? isAvailable : undefined
+        },
+        branchId
+      ),
+    onSuccess: () => {
+      invalidate()
+      setError("")
+    },
+    onError: (err: any) => {
+      setError(err?.response?.data?.error?.message ?? "Could not save item")
+    }
+  })
+
   const run = async (fn: () => Promise<unknown>) => {
-    if (!canEdit) return
+    if (!canEditStructure) return
     try {
       await fn()
       invalidate()
@@ -127,7 +153,12 @@ export default function MenuItemEditor({
         <div style={gridStyle}>
           <label>
             Name
-            <input value={name} disabled={!canEdit} onChange={(e) => setName(e.target.value)} style={inputStyle} />
+            <input
+              value={name}
+              disabled={!canEditStructure}
+              onChange={(e) => setName(e.target.value)}
+              style={inputStyle}
+            />
           </label>
           <label>
             Price (€)
@@ -135,14 +166,19 @@ export default function MenuItemEditor({
               type="number"
               step="0.1"
               value={price}
-              disabled={!canEdit}
+              disabled={!canEditPriceField}
               onChange={(e) => setPrice(e.target.value)}
               style={inputStyle}
             />
           </label>
           <label>
             Kitchen
-            <select value={kitchen} disabled={!canEdit} onChange={(e) => setKitchen(e.target.value)} style={inputStyle}>
+            <select
+              value={kitchen}
+              disabled={!canEditStructure}
+              onChange={(e) => setKitchen(e.target.value)}
+              style={inputStyle}
+            >
               <option value="B">Rest (Kitchen B)</option>
               <option value="A">Pizza (Kitchen A)</option>
             </select>
@@ -151,7 +187,7 @@ export default function MenuItemEditor({
             Category
             <select
               value={categoryId}
-              disabled={!canEdit}
+              disabled={!canEditStructure}
               onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : "")}
               style={inputStyle}
             >
@@ -168,7 +204,7 @@ export default function MenuItemEditor({
             <input
               type="number"
               value={sortOrder}
-              disabled={!canEdit}
+              disabled={!canEditStructure}
               onChange={(e) => setSortOrder(e.target.value)}
               style={inputStyle}
             />
@@ -177,7 +213,7 @@ export default function MenuItemEditor({
             <input
               type="checkbox"
               checked={isAvailable}
-              disabled={!canEdit}
+              disabled={!canEditAvailabilityField}
               onChange={(e) => setIsAvailable(e.target.checked)}
             />
             Available on website
@@ -189,13 +225,13 @@ export default function MenuItemEditor({
           <textarea
             rows={2}
             value={description}
-            disabled={!canEdit}
+            disabled={!canEditStructure}
             onChange={(e) => setDescription(e.target.value)}
             style={{ ...inputStyle, width: "100%" }}
           />
         </label>
 
-        {canEdit && (
+        {canEditStructure && (
           <button
             type="button"
             style={{ marginTop: 12 }}
@@ -205,11 +241,21 @@ export default function MenuItemEditor({
             {saveMutation.isPending ? "Saving…" : "Save item details"}
           </button>
         )}
+        {!canEditStructure && (canEditPrices || canEditAvailability) && (
+          <button
+            type="button"
+            style={{ marginTop: 12 }}
+            disabled={partialSaveMutation.isPending}
+            onClick={() => partialSaveMutation.mutate()}
+          >
+            {partialSaveMutation.isPending ? "Saving…" : "Save changes"}
+          </button>
+        )}
 
         <section style={{ marginTop: 24 }}>
           <div style={sectionHead}>
             <h4 style={{ margin: 0 }}>Variants (sizes, options)</h4>
-            {canEdit && (
+            {canEditStructure && (
               <button
                 type="button"
                 onClick={() =>
@@ -231,7 +277,7 @@ export default function MenuItemEditor({
               <div style={sectionHead}>
                 <input
                   defaultValue={group.name}
-                  disabled={!canEdit}
+                  disabled={!canEditStructure}
                   onBlur={(e) =>
                     void run(() =>
                       updateManagerVariantGroupFull(group.id, { name: e.target.value }, branchId)
@@ -239,7 +285,7 @@ export default function MenuItemEditor({
                   }
                   style={inputStyle}
                 />
-                {canEdit && (
+                {canEditStructure && (
                   <button
                     type="button"
                     onClick={() => void run(() => deleteManagerVariantGroup(group.id, branchId))}
@@ -252,7 +298,7 @@ export default function MenuItemEditor({
                 <input
                   type="checkbox"
                   defaultChecked={group.required}
-                  disabled={!canEdit}
+                  disabled={!canEditStructure}
                   onChange={(e) =>
                     void run(() =>
                       updateManagerVariantGroupFull(group.id, { required: e.target.checked }, branchId)
@@ -265,7 +311,7 @@ export default function MenuItemEditor({
                 <input
                   type="checkbox"
                   defaultChecked={group.includedChoice}
-                  disabled={!canEdit}
+                  disabled={!canEditStructure}
                   onChange={(e) =>
                     void run(() =>
                       updateManagerVariantGroupFull(
@@ -283,7 +329,7 @@ export default function MenuItemEditor({
                   <li key={v.id} style={{ display: "flex", gap: 8, marginBottom: 6 }}>
                     <input
                       defaultValue={v.name}
-                      disabled={!canEdit}
+                      disabled={!canEditStructure}
                       onBlur={(e) =>
                         void run(() => updateManagerVariant(v.id, { name: e.target.value }, branchId))
                       }
@@ -293,7 +339,7 @@ export default function MenuItemEditor({
                       type="number"
                       step="0.1"
                       defaultValue={v.price}
-                      disabled={!canEdit}
+                      disabled={!canEditStructure}
                       onBlur={(e) =>
                         void run(() =>
                           updateManagerVariant(v.id, { price: Number(e.target.value) }, branchId)
@@ -301,7 +347,7 @@ export default function MenuItemEditor({
                       }
                       style={{ ...inputStyle, width: 72 }}
                     />
-                    {canEdit && (
+                    {canEditStructure && (
                       <button type="button" onClick={() => void run(() => deleteManagerVariant(v.id, branchId))}>
                         ×
                       </button>
@@ -309,7 +355,7 @@ export default function MenuItemEditor({
                   </li>
                 ))}
               </ul>
-              {canEdit && (
+              {canEditStructure && (
                 <button
                   type="button"
                   onClick={() =>
@@ -351,7 +397,7 @@ export default function MenuItemEditor({
         <section style={{ marginTop: 24 }}>
           <div style={sectionHead}>
             <h4 style={{ margin: 0 }}>Item-specific extras</h4>
-            {canEdit && (
+            {canEditStructure && (
               <button
                 type="button"
                 onClick={() =>
@@ -369,13 +415,13 @@ export default function MenuItemEditor({
               <div style={sectionHead}>
                 <input
                   defaultValue={group.name}
-                  disabled={!canEdit}
+                  disabled={!canEditStructure}
                   onBlur={(e) =>
                     void run(() => updateManagerAddOnGroup(group.id, { name: e.target.value }, branchId))
                   }
                   style={inputStyle}
                 />
-                {canEdit && (
+                {canEditStructure && (
                   <button
                     type="button"
                     onClick={() => void run(() => deleteManagerAddOnGroup(group.id, branchId))}
@@ -389,7 +435,7 @@ export default function MenuItemEditor({
                   <li key={a.id} style={{ display: "flex", gap: 8, marginBottom: 6 }}>
                     <input
                       defaultValue={a.name}
-                      disabled={!canEdit}
+                      disabled={!canEditStructure}
                       onBlur={(e) =>
                         void run(() => updateManagerAddOn(a.id, { name: e.target.value }, branchId))
                       }
@@ -399,7 +445,7 @@ export default function MenuItemEditor({
                       type="number"
                       step="0.1"
                       defaultValue={a.price}
-                      disabled={!canEdit}
+                      disabled={!canEditStructure}
                       onBlur={(e) =>
                         void run(() =>
                           updateManagerAddOn(a.id, { price: Number(e.target.value) }, branchId)
@@ -407,7 +453,7 @@ export default function MenuItemEditor({
                       }
                       style={{ ...inputStyle, width: 72 }}
                     />
-                    {canEdit && (
+                    {canEditStructure && (
                       <button type="button" onClick={() => void run(() => deleteManagerAddOn(a.id, branchId))}>
                         ×
                       </button>
@@ -415,7 +461,7 @@ export default function MenuItemEditor({
                   </li>
                 ))}
               </ul>
-              {canEdit && (
+              {canEditStructure && (
                 <button
                   type="button"
                   onClick={() =>

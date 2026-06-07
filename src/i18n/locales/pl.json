@@ -14,7 +14,10 @@
     "note": "Uwaga",
     "extras": "Dodatki",
     "processing": "Przetwarzanie…",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "retry": "Spróbuj ponownie",
+    "logoAlt": "Restauracja Concordia",
+    "logoHomeAlt": "Restauracja Concordia — Pizza, Pasta, Grill"
   },
   "lang": {
     "label": "Język"
@@ -22,7 +25,10 @@
   "layout": {
     "notificationsDisabled": "Powiadomienia są wyłączone. Włącz je w ustawieniach przeglądarki, aby otrzymywać aktualizacje zamówień.",
     "cart": "Koszyk",
-    "cartWithCount": "Koszyk ({{count}})"
+    "cartWithCount": "Koszyk ({{count}})",
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się",
+    "account": "Konto"
   },
   "home": {
     "loading": "Concordia",
@@ -105,15 +111,18 @@
     "from": "od",
     "bestSellers": "Bestsellery",
     "bestSellersDesc": "Nasze najpopularniejsze dania — polecane przez szefa kuchni.",
-    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
-    "alsoPopular": "Also popular"
+    "bestSellersFromSales": "Bestsellery z ostatnich 30 dni — na podstawie rzeczywistych zamówień.",
+    "alsoPopular": "Również popularne",
+    "loadError": "Nie udało się załadować menu. Serwer może się uruchamiać — spróbuj ponownie."
   },
   "cart": {
     "title": "Twój koszyk",
     "empty": "Twój koszyk jest pusty.",
     "clear": "Wyczyść koszyk",
     "checkout": "Do kasy",
-    "afterDiscount": "Po rabacie"
+    "afterDiscount": "Po rabacie",
+    "edit": "Edytuj",
+    "editingItem": "Zaktualizuj wybory poniżej, a następnie zapisz w koszyku."
   },
   "checkout": {
     "title": "Kasa",
@@ -153,7 +162,59 @@
     "postcodeRequired": "Podaj kod pocztowy w adresie.",
     "scheduleRequired": "Wybierz godzinę.",
     "orderFailed": "Zamówienie nie powiodło się. Spróbuj ponownie.",
-    "searchingAddresses": "Wyszukiwanie adresów…"
+    "searchingAddresses": "Wyszukiwanie adresów…",
+    "addressHintLive": "Wpisz ulicę — pasujące adresy pojawią się podczas pisania.",
+    "voucherLabel": "Bon podarunkowy / kod rabatowy",
+    "voucherPlaceholder": "np. WELCOME10",
+    "voucherApply": "Zastosuj",
+    "voucherApplied": "Bon {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} zastosowany (−{{amount}})",
+    "giftCardActive": "{{code}} zastosowany (−{{amount}}, pozostało {{remaining}})",
+    "voucherRemove": "Usuń",
+    "voucherInvalid": "Nieprawidłowy lub wygasły kod rabatowy.",
+    "paymentCard": "Płatność: karta (debetowa lub kredytowa)",
+    "paymentMethod": "Metoda płatności",
+    "payCash": "Gotówka",
+    "payCard": "Karta",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "Wkrótce dostępne",
+    "paymentPaypal": "Płatność: PayPal",
+    "paymentKlarna": "Płatność: Klarna (wkrótce)",
+    "paymentSepa": "Płatność: polecenie zapłaty SEPA (wkrótce)",
+    "onlinePaymentTitle": "Bezpieczna płatność",
+    "continueToPayment": "Przejdź do płatności",
+    "cardPaymentTitle": "Bezpieczna płatność",
+    "cardPaymentHint": "Zapłać kartą debetową, kredytową lub PayPal. Zamówienie trafi do kuchni po opłaceniu.",
+    "paymentFailed": "Płatność nie powiodła się. Spróbuj ponownie lub wybierz gotówkę.",
+    "paymentCancelled": "Płatność anulowana. Zamówienie nie zostało opłacone.",
+    "freeDrinkTitle": "Twój darmowy napój",
+    "freeDrinkHint": "Wybierz jeden darmowy napój — 0,33 l napój gazowany lub 0,5 l Durstlöscher.",
+    "freeDrinkRequired": "Wybierz darmowy napój.",
+    "marketingTitle": "Oferty Concordia (opcjonalnie)",
+    "marketingHint": "Czy chcesz otrzymywać informacje o promocjach, nowych daniach i ofertach sezonowych?",
+    "marketingPerkBirthday": "Prezent urodzinowy: darmowy deser z kodem BIRTHDAY",
+    "marketingPerkDeals": "Wcześniejszy dostęp do tygodniowych i sezonowych promocji",
+    "marketingPerkWinback": "Ekskluzywne kody dla stałych klientów (np. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "E-mail",
+    "emailPlaceholder": "twoj@email.pl",
+    "emailRequiredForOffers": "Podaj adres e-mail, aby otrzymywać oferty mailem.",
+    "birthdayLabel": "Urodziny (opcjonalnie)",
+    "birthdayHint": "Na prezent urodzinowy od Concordia — darmowy deser z kodem BIRTHDAY.",
+    "birthdayInvalid": "Podaj prawidłową datę urodzenia.",
+    "marketingLegal": "Tylko po wyrażeniu zgody. Możesz zrezygnować w dowolnym momencie. Aktualizacje zamówień są oddzielone od wiadomości marketingowych.",
+    "howToOrder": "Jak chcesz zamówić?",
+    "orderAsGuest": "Jako gość",
+    "orderWithAccount": "Z moim kontem",
+    "accountBenefits": "Załóż darmowe konto i zbieraj punkty lojalnościowe przy każdym zamówieniu.",
+    "accountLoginRequired": "Zaloguj się lub zarejestruj, aby zamówić z kontem, lub wybierz zamówienie jako gość.",
+    "welcomeBack": "Witaj ponownie, {{name}}!",
+    "loyaltyBalance": "Program lojalnościowy: {{points}} punktów (poziom {{tier}})",
+    "loyaltyPerkPoints": "Zbieraj punkty przy każdym dostarczonym zamówieniu",
+    "loyaltyPerkTier": "Odblokuj nagrody brązowe, srebrne i złote"
   },
   "item": {
     "loading": "Ładowanie dania…",
@@ -174,7 +235,9 @@
     "decreaseQty": "Zmniejsz ilość",
     "increaseQty": "Zwiększ ilość",
     "addedToCart": "{{name}} dodano do koszyka",
-    "viewCart": "Koszyk"
+    "viewCart": "Koszyk",
+    "updateCart": "Zaktualizuj koszyk",
+    "loadError": "Nie udało się załadować opcji. Serwer może się uruchamiać — spróbuj ponownie."
   },
   "order": {
     "tracking": "Śledzenie zamówienia",
@@ -190,7 +253,10 @@
     "driverUpdated": " — zaktualizowano {{time}}",
     "driverPending": "Kierowca jeszcze nie przyjął — pokazujemy adres dostawy",
     "timeline": "Historia",
-    "loading": "Ładowanie zamówienia…"
+    "loading": "Ładowanie zamówienia…",
+    "etaMinutes": "Szacowany czas: {{min}} min",
+    "itemsTitle": "Pozycje",
+    "reorder": "Zamów te pozycje ponownie"
   },
   "status": {
     "pending": "Otrzymane",
@@ -214,7 +280,8 @@
     "loginFailed": "Logowanie nie powiodło się",
     "registerFailed": "Rejestracja nie powiodła się",
     "noAccount": "Nie masz konta?",
-    "hasAccount": "Masz już konto?"
+    "hasAccount": "Masz już konto?",
+    "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:"
   },
   "pages": {
     "navLabel": "Strony",
@@ -314,7 +381,11 @@
       "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
       "step3Title": "Checkout & enjoy",
       "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away."
+      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
+      "giftTitle": "Kup bon podarunkowy",
+      "giftText": "Podaruj komuś Concordia — wybierz 10 €, 20 €, 30 € lub dowolną kwotę. Kod działa tylko w oddziale, w którym go kupisz (online lub na miejscu).",
+      "giftCta": "Kup bon",
+      "giftBadge": "Bon podarunkowy"
     },
     "delivery": {
       "eyebrow": "Bis vor Ihre Tür",
@@ -358,5 +429,35 @@
         }
       }
     }
+  },
+  "giftVoucher": {
+    "title": "Bon podarunkowy",
+    "lead": "Podaruj radość — bon na wybrany oddział. Do wykorzystania online lub w restauracji.",
+    "chooseBranch": "Oddział",
+    "selectBranch": "Wybierz oddział…",
+    "branchRequired": "Wybierz oddział.",
+    "amount": "Wartość bonu",
+    "customAmount": "Własna kwota",
+    "yourName": "Twoje imię",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "recipient": "Dla (imię odbiorcy)",
+    "message": "Osobista wiadomość",
+    "continue": "Dalej — {{amount}}",
+    "payOnline": "Zapłać teraz",
+    "cashNote": "Gotówka: bon zostanie aktywowany w oddziale po płatności.",
+    "cashPending": "Zapłać w oddziale. Bon zostanie aktywowany później.",
+    "successTitle": "Twój bon jest gotowy",
+    "successText": "Zachowaj ten kod. Jest ważny tylko w wybranym oddziale:",
+    "branchNote": "Ważny w {{branch}} — online i na miejscu.",
+    "orderNow": "Zamów teraz",
+    "nameRequired": "Imię jest wymagane.",
+    "amountInvalid": "Wybierz kwotę od 5 € do 500 €.",
+    "purchaseFailed": "Nie udało się utworzyć bonu."
+  },
+  "account": {
+    "ordersLoading": "Ładowanie zamówień…",
+    "noOrders": "Nie masz wcześniejszych zamówień.",
+    "ordersTitle": "Zamówienia"
   }
 }

@@ -28,7 +28,7 @@ export default function ContactPage() {
     ...branchesQueryOptions
   })
 
-  const branches = ((data ?? []) as Branch[]).filter((b) => b.id !== "branch-001")
+  const branches = (data ?? []) as Branch[]
 
   return (
     <InfoPageShell eyebrow={t("pages.contact.eyebrow")} title={t("pages.contact.title")}>

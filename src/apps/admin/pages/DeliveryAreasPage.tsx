@@ -28,6 +28,7 @@ export default function DeliveryAreasPage() {
   const { branchId } = useAdminBranch()
   const { can } = useAdminPermissions()
   const canEdit = can("delivery_edit")
+  const readOnly = can("delivery_view") && !canEdit
   const queryClient = useQueryClient()
 
   const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>("postcodes")
@@ -112,6 +113,11 @@ export default function DeliveryAreasPage() {
       <p style={{ color: "#666" }}>
         Choose how you deliver: by postcode zones, by distance from the restaurant, or both.
       </p>
+      {readOnly && (
+        <p style={{ color: "#b45309", background: "#fff8e1", padding: 12, borderRadius: 8 }}>
+          View only — editing is disabled until the super admin enables delivery edit permission.
+        </p>
+      )}
 
       <section style={{ marginTop: 24, padding: 16, background: "#f9f9f9", borderRadius: 8 }}>
         <h3>How do you deliver?</h3>
@@ -128,6 +134,7 @@ export default function DeliveryAreasPage() {
                 type="radio"
                 name="deliveryMode"
                 checked={deliveryMode === value}
+                disabled={!canEdit}
                 onChange={() => setDeliveryMode(value)}
               />
               <span>
@@ -145,6 +152,7 @@ export default function DeliveryAreasPage() {
           <input
             type="checkbox"
             checked={freeDeliveryAtMinimum}
+            disabled={!canEdit}
             onChange={(e) => setFreeDeliveryAtMinimum(e.target.checked)}
           />
           <span>
@@ -175,6 +183,7 @@ export default function DeliveryAreasPage() {
                   <td style={{ padding: 8 }}>
                     <input
                       value={area.postalCode}
+                      disabled={!canEdit}
                       onChange={(e) => updateArea(index, "postalCode", e.target.value)}
                       placeholder="47906"
                       style={{ width: 80 }}
@@ -184,6 +193,7 @@ export default function DeliveryAreasPage() {
                     <input
                       type="number"
                       value={area.minimumOrder}
+                      disabled={!canEdit}
                       onChange={(e) => updateArea(index, "minimumOrder", Number(e.target.value))}
                       style={{ width: 80 }}
                     />
@@ -193,18 +203,21 @@ export default function DeliveryAreasPage() {
                       type="number"
                       step="0.5"
                       value={area.deliveryFee}
+                      disabled={!canEdit}
                       onChange={(e) => updateArea(index, "deliveryFee", Number(e.target.value))}
                       style={{ width: 80 }}
                     />
                   </td>
                   <td style={{ padding: 8 }}>
-                    <button onClick={() => removeArea(index)}>Remove</button>
+                    <button disabled={!canEdit} onClick={() => removeArea(index)}>
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <Button onClick={addArea} style={{ marginTop: 12 }}>
+          <Button onClick={addArea} disabled={!canEdit} style={{ marginTop: 12 }}>
             Add postcode
           </Button>
         </section>
@@ -233,6 +246,7 @@ export default function DeliveryAreasPage() {
                   <td style={{ padding: 8 }}>
                     <input
                       value={zone.label ?? ""}
+                      disabled={!canEdit}
                       onChange={(e) =>
                         setRadiusZones((prev) =>
                           prev.map((z, i) =>
@@ -249,6 +263,7 @@ export default function DeliveryAreasPage() {
                       type="number"
                       step="0.5"
                       value={zone.maxDistanceKm}
+                      disabled={!canEdit}
                       onChange={(e) =>
                         setRadiusZones((prev) =>
                           prev.map((z, i) =>
@@ -263,6 +278,7 @@ export default function DeliveryAreasPage() {
                     <input
                       type="number"
                       value={zone.minimumOrder}
+                      disabled={!canEdit}
                       onChange={(e) =>
                         setRadiusZones((prev) =>
                           prev.map((z, i) =>
@@ -278,6 +294,7 @@ export default function DeliveryAreasPage() {
                       type="number"
                       step="0.5"
                       value={zone.deliveryFee}
+                      disabled={!canEdit}
                       onChange={(e) =>
                         setRadiusZones((prev) =>
                           prev.map((z, i) =>
@@ -290,6 +307,7 @@ export default function DeliveryAreasPage() {
                   </td>
                   <td style={{ padding: 8 }}>
                     <button
+                      disabled={!canEdit}
                       onClick={() =>
                         setRadiusZones((prev) => prev.filter((_, i) => i !== index))
                       }
@@ -302,6 +320,7 @@ export default function DeliveryAreasPage() {
             </tbody>
           </table>
           <Button
+            disabled={!canEdit}
             onClick={() =>
               setRadiusZones((prev) => [
                 ...prev,

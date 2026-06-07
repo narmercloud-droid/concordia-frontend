@@ -1,0 +1,28 @@
+{
+  "account": {
+    "ordersLoading": "Bestellungen werden geladen…",
+    "noOrders": "Sie haben keine früheren Bestellungen.",
+    "ordersTitle": "Bestellungen"
+  },
+  "order": {
+    "etaMinutes": "Voraussichtliche Ankunft: {{min}} Min.",
+    "itemsTitle": "Artikel",
+    "reorder": "Diese Artikel erneut bestellen"
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "Gutschein"
+    }
+  },
+  "common": {
+    "retry": "Erneut versuchen",
+    "logoAlt": "Concordia Restaurant",
+    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+  },
+  "menu": {
+    "loadError": "Speisekarte konnte nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen."
+  },
+  "item": {
+    "loadError": "Optionen konnten nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen."
+  }
+}

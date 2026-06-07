@@ -14,7 +14,10 @@
     "note": "Hinweis",
     "extras": "Extras",
     "processing": "Wird bearbeitet…",
-    "close": "Schließen"
+    "close": "Schließen",
+    "retry": "Erneut versuchen",
+    "logoAlt": "Concordia Restaurant",
+    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
   },
   "lang": {
     "label": "Sprache"
@@ -109,7 +112,8 @@
     "bestSellers": "Bestseller",
     "bestSellersDesc": "Unsere beliebtesten Gerichte — vom Küchenchef empfohlen.",
     "bestSellersFromSales": "Top-Seller der letzten 30 Tage — basierend auf echten Bestellungen.",
-    "alsoPopular": "Auch beliebt"
+    "alsoPopular": "Auch beliebt",
+    "loadError": "Speisekarte konnte nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen."
   },
   "cart": {
     "title": "Ihr Warenkorb",
@@ -257,13 +261,22 @@
     "decreaseQty": "Menge verringern",
     "increaseQty": "Menge erhöhen",
     "addedToCart": "{{name}} wurde hinzugefügt",
-    "viewCart": "Warenkorb ansehen"
+    "viewCart": "Warenkorb ansehen",
+    "loadError": "Optionen konnten nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen."
+  },
+  "account": {
+    "ordersLoading": "Bestellungen werden geladen…",
+    "noOrders": "Sie haben keine früheren Bestellungen.",
+    "ordersTitle": "Bestellungen"
   },
   "order": {
     "tracking": "Bestellverfolgung",
     "orderNumber": "Bestellung #{{id}}",
     "status": "Status",
     "driver": "Fahrer",
+    "etaMinutes": "Voraussichtliche Ankunft: {{min}} Min.",
+    "itemsTitle": "Artikel",
+    "reorder": "Diese Artikel erneut bestellen",
     "type": "Art",
     "scheduledFor": "Geplant für",
     "readyAt": "Fertig um",
@@ -314,10 +327,22 @@
       "jiuanBio": "Jiuan bringt Ruhe und Konzentration in einen vollen Service — Pasta, Grill, Timing an der Theke. Gäste spüren oft zuerst die Wärme; in der Küche ist es seine ruhige Hand, die alles im Fluss hält.",
       "valuesTitle": "Wofür wir stehen",
       "values": {
-        "fresh": { "title": "Immer frisch", "text": "Zubereitet, wenn Sie bestellen — nicht unter der Wärmelampe." },
-        "family": { "title": "Familientisch", "text": "Ein kleines Team, das viele Gäste beim Namen kennt." },
-        "oven": { "title": "Steinofen-Seele", "text": "Pizza und Klassiker mit echtem italienischem Herz." },
-        "care": { "title": "Jede Bestellung zählt", "text": "Abholung, Lieferung oder vor Ort — gleicher Stolz auf dem Teller." }
+        "fresh": {
+          "title": "Immer frisch",
+          "text": "Zubereitet, wenn Sie bestellen — nicht unter der Wärmelampe."
+        },
+        "family": {
+          "title": "Familientisch",
+          "text": "Ein kleines Team, das viele Gäste beim Namen kennt."
+        },
+        "oven": {
+          "title": "Steinofen-Seele",
+          "text": "Pizza und Klassiker mit echtem italienischem Herz."
+        },
+        "care": {
+          "title": "Jede Bestellung zählt",
+          "text": "Abholung, Lieferung oder vor Ort — gleicher Stolz auf dem Teller."
+        }
       },
       "kitchenTitle": "Vom Ofen auf Ihren Tisch",
       "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch für Abholung oder Lieferung.",
@@ -335,11 +360,26 @@
       "title": "Bewertungen",
       "lead": "Einige Worte von Gästen, die bei uns bestellen — vielen Dank für Ihr Vertrauen.",
       "items": {
-        "r1": { "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.", "author": "Sandra M., Kempen" },
-        "r2": { "text": "Schnelle Lieferung, heißes Essen, faire Preise. Die Pasta ist fantastisch.", "author": "Thomas K., Willich" },
-        "r3": { "text": "Man schmeckt die Leidenschaft. Unsere Familie liebt Concordia.", "author": "Elena R., Tönisvorst" },
-        "r4": { "text": "Tolles Online-Bestellen — einfach anzupassen und der 10%-Rabatt ist ein schönes Extra.", "author": "Markus B., Kempen" },
-        "r5": { "text": "Herzlicher Empfang, großzügige Portionen, echter italienischer Geschmack. Sehr empfehlenswert.", "author": "Julia H., Geldern" }
+        "r1": {
+          "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Schnelle Lieferung, heißes Essen, faire Preise. Die Pasta ist fantastisch.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Man schmeckt die Leidenschaft. Unsere Familie liebt Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Tolles Online-Bestellen — einfach anzupassen und der 10%-Rabatt ist ein schönes Extra.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Herzlicher Empfang, großzügige Portionen, echter italienischer Geschmack. Sehr empfehlenswert.",
+          "author": "Julia H., Geldern"
+        }
       }
     },
     "offers": {
@@ -358,6 +398,7 @@
       "step3Title": "Bestellen & genießen",
       "step3Text": "Barzahlung bei Abholung oder Lieferung — wir bereiten alles frisch für Sie zu.",
       "promoNote": "Hunger? Ihr Tisch — oder Ihre Haustür — ist nur wenige Klicks entfernt.",
+      "giftBadge": "Gutschein",
       "giftTitle": "Geschenkgutschein kaufen",
       "giftText": "Verschenken Sie Concordia — wählen Sie 10 €, 20 €, 30 € oder einen eigenen Betrag. Der Code gilt nur in der Filiale, in der Sie kaufen (online oder vor Ort).",
       "giftCta": "Gutschein kaufen"
@@ -378,12 +419,30 @@
       "title": "Häufige Fragen",
       "lead": "Kurze Antworten zu Bestellung, Bezahlung und Lieferung.",
       "items": {
-        "q1": { "q": "Wie bestelle ich?", "a": "Wählen Sie auf der Startseite Ihre Filiale, stöbern Sie im Menü, passen Sie Gerichte an und schließen Sie die Bestellung online ab." },
-        "q2": { "q": "Welche Zahlungsarten akzeptieren Sie?", "a": "Aktuell akzeptieren wir Barzahlung bei Abholung und Barzahlung bei Lieferung." },
-        "q3": { "q": "Kann ich eine Bestellung vorbestellen?", "a": "Ja — an der Kasse können Sie ASAP oder einen Wunschtermin wählen, sofern verfügbar." },
-        "q4": { "q": "Wie funktioniert der 10%-Online-Rabatt?", "a": "Er wird automatisch angewendet, wenn Sie über unsere Website bestellen. Kein Code erforderlich." },
-        "q5": { "q": "Kann ich meine Lieferung verfolgen?", "a": "Ja — nach einer Lieferbestellung erhalten Sie einen Tracking-Link und sehen den Fahrer auf der Karte." },
-        "q6": { "q": "Wann öffnet Straelen?", "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste." }
+        "q1": {
+          "q": "Wie bestelle ich?",
+          "a": "Wählen Sie auf der Startseite Ihre Filiale, stöbern Sie im Menü, passen Sie Gerichte an und schließen Sie die Bestellung online ab."
+        },
+        "q2": {
+          "q": "Welche Zahlungsarten akzeptieren Sie?",
+          "a": "Aktuell akzeptieren wir Barzahlung bei Abholung und Barzahlung bei Lieferung."
+        },
+        "q3": {
+          "q": "Kann ich eine Bestellung vorbestellen?",
+          "a": "Ja — an der Kasse können Sie ASAP oder einen Wunschtermin wählen, sofern verfügbar."
+        },
+        "q4": {
+          "q": "Wie funktioniert der 10%-Online-Rabatt?",
+          "a": "Er wird automatisch angewendet, wenn Sie über unsere Website bestellen. Kein Code erforderlich."
+        },
+        "q5": {
+          "q": "Kann ich meine Lieferung verfolgen?",
+          "a": "Ja — nach einer Lieferbestellung erhalten Sie einen Tracking-Link und sehen den Fahrer auf der Karte."
+        },
+        "q6": {
+          "q": "Wann öffnet Straelen?",
+          "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
+        }
       }
     }
   },

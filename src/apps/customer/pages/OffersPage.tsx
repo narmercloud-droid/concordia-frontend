@@ -47,7 +47,7 @@ export default function OffersPage() {
         </article>
         <article className="offers-card offers-card--gift">
           <div className="offers-card__body offers-card__body--plain">
-            <span className="offers-card__badge offers-card__badge--gold">Gutschein</span>
+            <span className="offers-card__badge offers-card__badge--gold">{t("pages.offers.giftBadge")}</span>
             <h2 className="offers-card__title">{t("pages.offers.giftTitle")}</h2>
             <p>{t("pages.offers.giftText")}</p>
             <Link to="/gutschein" className="info-cta" style={{ marginTop: 12, display: "inline-block" }}>

@@ -4,6 +4,30 @@ import { useAdminAuthStore } from "@/context/adminAuthStore"
 
 export type ManagerPermissions = Record<string, boolean>
 
+/** Edit permissions require their matching view permission */
+export const PERMISSION_DEPENDENCIES: Record<string, string> = {
+  menu_edit_prices: "menu_view",
+  menu_edit_availability: "menu_view",
+  menu_edit_structure: "menu_view",
+  hours_edit: "hours_view",
+  delivery_edit: "delivery_view",
+  customers_export: "customers_view",
+  customers_automation: "customers_view",
+  offers_edit: "offers_view"
+}
+
+export function permissionAllowed(
+  permissions: ManagerPermissions,
+  key: string,
+  isSuperAdmin: boolean
+) {
+  if (isSuperAdmin) return true
+  if (!permissions[key]) return false
+  const dep = PERMISSION_DEPENDENCIES[key]
+  if (dep && !permissions[dep]) return false
+  return true
+}
+
 export function useAdminPermissions() {
   const admin = useAdminAuthStore((s) => s.admin)
   const isSuperAdmin = admin?.role === "admin"
@@ -16,10 +40,9 @@ export function useAdminPermissions() {
 
   const permissions = (data?.permissions ?? {}) as ManagerPermissions
 
-  const can = (key: string) => {
-    if (isSuperAdmin) return true
-    return Boolean(permissions[key])
-  }
+  const can = (key: string) => permissionAllowed(permissions, key, isSuperAdmin)
 
-  return { can, permissions, isLoading, isSuperAdmin }
+  const canAny = (keys: string[]) => keys.some((k) => can(k))
+
+  return { can, canAny, permissions, isLoading, isSuperAdmin }
 }

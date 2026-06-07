@@ -1,19 +1,32 @@
 .customer-shell {
-  --c-bg: #f4efe6;
-  --c-ink: #2b2724;
-  --c-muted: #756d64;
-  --c-line: #ddd5c8;
-  --c-accent: #6b2c3e;
-  --c-accent-hover: #4f212f;
-  --c-accent-soft: #f7f0f3;
-  --c-gold: #b08d57;
-  --c-card: #fffcf7;
+  --shell-pad-x: 20px;
+  --shell-pad-top: max(20px, env(safe-area-inset-top, 0px));
+  --shell-pad-bottom: max(40px, env(safe-area-inset-bottom, 0px));
+  /* Italian tricolor — verde, bianco, rosso */
+  --c-red: #c8102e;
+  --c-red-deep: #9e0c24;
+  --c-red-soft: #fdecef;
+  --c-red-rgb: 200 16 46;
+  --c-green: #1b7340;
+  --c-green-deep: #145a32;
+  --c-green-soft: #e6f4eb;
+  --c-green-rgb: 27 115 64;
+  --c-bg: #f6faf7;
+  --c-ink: #1a1f1c;
+  --c-muted: #5c6b62;
+  --c-line: #d8e4dc;
+  --c-accent: var(--c-red);
+  --c-accent-hover: var(--c-red-deep);
+  --c-accent-soft: var(--c-red-soft);
+  --c-gold: var(--c-green);
+  --c-card: #ffffff;
   background:
-    radial-gradient(ellipse 120% 70% at 50% -15%, rgba(176, 141, 87, 0.1), transparent 55%),
-    var(--c-bg);
+    radial-gradient(ellipse 120% 70% at 0% -10%, rgb(var(--c-green-rgb) / 0.1), transparent 55%),
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgb(var(--c-red-rgb) / 0.06), transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, var(--c-bg) 100%);
   min-height: 100vh;
-  --c-success: #2e7d32;
-  --c-success-bg: #e8f5e9;
+  --c-success: var(--c-green);
+  --c-success-bg: var(--c-green-soft);
   --c-error: #b00020;
   --c-error-bg: #ffeaea;
   --c-warn-bg: #fff4e5;
@@ -22,6 +35,31 @@
   --c-sans: "DM Sans", system-ui, -apple-system, sans-serif;
   color: var(--c-ink);
   font-family: var(--c-sans);
+  overflow-x: hidden;
+}
+
+.customer-shell--layout {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--shell-pad-top) var(--shell-pad-x) var(--shell-pad-bottom);
+}
+
+.customer-shell--layout.customer-shell--wide {
+  max-width: 980px;
+}
+
+.customer-shell--auth {
+  max-width: 420px;
+}
+
+.customer-auth__top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.customer-auth__title {
+  text-align: center;
 }
 
 .customer-header {
@@ -29,9 +67,30 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 8px 0 24px;
-  border-bottom: 1px solid var(--c-line);
+  padding: 8px 0 20px;
   margin-bottom: 8px;
+  position: relative;
+  border-bottom: none;
+}
+
+.customer-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--c-green) 0%,
+    var(--c-green) 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    var(--c-red) 66.66%,
+    var(--c-red) 100%
+  );
+  box-shadow: 0 1px 0 var(--c-line);
 }
 
 .customer-header__brand {
@@ -78,8 +137,8 @@
   border-radius: 18px;
   border: 1px solid var(--c-line);
   background:
-    radial-gradient(ellipse 80% 80% at 0% 0%, rgba(107, 44, 62, 0.06), transparent 60%),
-    linear-gradient(135deg, #fff 0%, #fffaf7 100%);
+    radial-gradient(ellipse 80% 80% at 0% 0%, rgb(var(--c-green-rgb) / 0.08), transparent 60%),
+    linear-gradient(135deg, #ffffff 0%, var(--c-green-soft) 100%);
   box-shadow: 0 10px 28px rgba(26, 24, 22, 0.05);
 }
 
@@ -87,8 +146,8 @@
   flex-shrink: 0;
   padding: 4px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--c-gold), var(--c-accent));
-  box-shadow: 0 6px 20px rgba(107, 44, 62, 0.15);
+  background: linear-gradient(135deg, var(--c-green), var(--c-red));
+  box-shadow: 0 6px 20px rgb(var(--c-red-rgb) / 0.18);
 }
 
 .branch-owner__photo {
@@ -238,7 +297,7 @@
 }
 
 .lang-switcher__trigger:focus-visible {
-  outline: 2px solid rgba(107, 44, 62, 0.25);
+  outline: 2px solid rgb(var(--c-red-rgb) / 0.25);
   outline-offset: 2px;
 }
 
@@ -422,7 +481,7 @@
 .customer-textarea:focus {
   outline: none;
   border-color: var(--c-accent);
-  box-shadow: 0 0 0 3px rgba(107, 44, 62, 0.1);
+  box-shadow: 0 0 0 3px rgb(var(--c-green-rgb) / 0.15);
 }
 
 .customer-field {
@@ -922,7 +981,7 @@
 }
 
 .menu-item:hover {
-  border-color: rgba(107, 44, 62, 0.25);
+  border-color: rgb(var(--c-red-rgb) / 0.22);
   box-shadow: 0 4px 16px rgba(26, 24, 22, 0.04);
 }
 

@@ -1,0 +1,125 @@
+{
+  "account": {
+    "ordersLoading": "Bestellingen laden…",
+    "noOrders": "U heeft geen eerdere bestellingen.",
+    "ordersTitle": "Bestellingen"
+  },
+  "order": {
+    "etaMinutes": "Verwachte aankomst: {{min}} min.",
+    "itemsTitle": "Artikelen",
+    "reorder": "Deze artikelen opnieuw bestellen"
+  },
+  "common": {
+    "retry": "Opnieuw proberen",
+    "logoAlt": "Concordia Restaurant",
+    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+  },
+  "layout": {
+    "login": "Inloggen",
+    "logout": "Uitloggen",
+    "account": "Account"
+  },
+  "menu": {
+    "loadError": "Menu kon niet worden geladen. De server start mogelijk op — probeer het opnieuw.",
+    "bestSellersFromSales": "Topverkopers van de afgelopen 30 dagen — op basis van echte bestellingen.",
+    "alsoPopular": "Ook populair"
+  },
+  "cart": {
+    "edit": "Bewerken",
+    "editingItem": "Pas uw keuzes hieronder aan en sla daarna op in de winkelwagen."
+  },
+  "checkout": {
+    "addressHintLive": "Typ uw straat — passende adressen verschijnen terwijl u typt.",
+    "voucherLabel": "Cadeaubon / kortingscode",
+    "voucherPlaceholder": "bijv. WELCOME10",
+    "voucherApply": "Toepassen",
+    "voucherApplied": "Bon {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} toegepast (−{{amount}})",
+    "giftCardActive": "{{code}} toegepast (−{{amount}}, resterend saldo {{remaining}})",
+    "voucherRemove": "Verwijderen",
+    "voucherInvalid": "Ongeldige of verlopen kortingscode.",
+    "paymentCard": "Betaling: kaart (debet- of creditcard)",
+    "paymentMethod": "Betaalmethode",
+    "payCash": "Contant",
+    "payCard": "Kaart",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "Binnenkort beschikbaar",
+    "paymentPaypal": "Betaling: PayPal",
+    "paymentKlarna": "Betaling: Klarna (binnenkort)",
+    "paymentSepa": "Betaling: SEPA-incasso (binnenkort)",
+    "onlinePaymentTitle": "Veilig betalen",
+    "continueToPayment": "Doorgaan naar betaling",
+    "cardPaymentTitle": "Veilig betalen",
+    "cardPaymentHint": "Betaal met debetkaart, creditcard of PayPal. Uw bestelling gaat na betaling naar de keuken.",
+    "paymentFailed": "Betaling mislukt. Probeer opnieuw of kies contant.",
+    "paymentCancelled": "Betaling geannuleerd. Uw bestelling is niet betaald.",
+    "freeDrinkTitle": "Uw gratis drankje",
+    "freeDrinkHint": "Kies één gratis drankje — 0,33 l frisdrank of 0,5 l Durstlöscher.",
+    "freeDrinkRequired": "Kies alstublieft uw gratis drankje.",
+    "marketingTitle": "Aanbiedingen van Concordia (optioneel)",
+    "marketingHint": "Wilt u horen over acties, nieuwe gerechten en seizoensaanbiedingen?",
+    "marketingPerkBirthday": "Verjaardagscadeau: gratis dessert met code BIRTHDAY",
+    "marketingPerkDeals": "Vroege toegang tot week- en seizoensacties",
+    "marketingPerkWinback": "Exclusieve codes voor vaste klanten (bijv. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "E-mail",
+    "emailPlaceholder": "uw@email.nl",
+    "emailRequiredForOffers": "Voer uw e-mailadres in voor aanbiedingen per e-mail.",
+    "birthdayLabel": "Verjaardag (optioneel)",
+    "birthdayHint": "Voor een verjaardagscadeau van Concordia — gratis dessert met code BIRTHDAY.",
+    "birthdayInvalid": "Voer een geldige geboortedatum in.",
+    "marketingLegal": "Alleen als u zich aanmeldt. U kunt zich altijd afmelden. Bestelupdates zijn gescheiden van marketingberichten.",
+    "howToOrder": "Hoe wilt u bestellen?",
+    "orderAsGuest": "Als gast",
+    "orderWithAccount": "Met mijn account",
+    "accountBenefits": "Maak gratis een account aan om spaarpunten te verdienen bij elke bestelling.",
+    "accountLoginRequired": "Log in of registreer om met uw account te bestellen, of kies gastafrekenen.",
+    "welcomeBack": "Welkom terug, {{name}}!",
+    "loyaltyBalance": "Spaarprogramma: {{points}} punten ({{tier}})",
+    "loyaltyPerkPoints": "Verdien punten bij elke bezorgde bestelling",
+    "loyaltyPerkTier": "Ontgrendel bronze-, zilver- en gouden voordelen"
+  },
+  "giftVoucher": {
+    "title": "Cadeaubon",
+    "lead": "Deel de vreugde — bon voor de vestiging van uw keuze. Online inwisselbaar of tonen in het restaurant.",
+    "chooseBranch": "Vestiging",
+    "selectBranch": "Vestiging kiezen…",
+    "branchRequired": "Selecteer een vestiging.",
+    "amount": "Bonwaarde",
+    "customAmount": "Eigen bedrag",
+    "yourName": "Uw naam",
+    "email": "E-mail",
+    "phone": "Telefoon",
+    "recipient": "Voor (naam ontvanger)",
+    "message": "Persoonlijk bericht",
+    "continue": "Verder — {{amount}}",
+    "payOnline": "Nu betalen",
+    "cashNote": "Contant: bon wordt na betaling bij de vestiging geactiveerd.",
+    "cashPending": "Betaal bij de vestiging. Uw bon wordt daarna geactiveerd.",
+    "successTitle": "Uw bon is klaar",
+    "successText": "Bewaar deze code. Hij is alleen geldig bij de gekozen vestiging:",
+    "branchNote": "Geldig bij {{branch}} — online en ter plaatse.",
+    "orderNow": "Nu bestellen",
+    "nameRequired": "Naam is verplicht.",
+    "amountInvalid": "Kies een bedrag tussen €5 en €500.",
+    "purchaseFailed": "Bon kon niet worden aangemaakt."
+  },
+  "item": {
+    "updateCart": "Winkelwagen bijwerken",
+    "loadError": "Opties konden niet worden geladen. De server start mogelijk op — probeer het opnieuw."
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "Cadeaubon",
+      "giftTitle": "Cadeaubon kopen",
+      "giftText": "Trakteer iemand op Concordia — kies €10, €20, €30 of elk bedrag. De code werkt alleen bij de vestiging waar u hem koopt (online of ter plaatse).",
+      "giftCta": "Bon kopen"
+    }
+  },
+  "auth": {
+    "loyaltyBenefits": "Gratis registreren en deelnemen aan ons spaarprogramma:"
+  }
+}

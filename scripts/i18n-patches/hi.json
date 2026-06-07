@@ -1,0 +1,125 @@
+{
+  "account": {
+    "ordersLoading": "ऑर्डर लोड हो रहे हैं…",
+    "noOrders": "आपके कोई पिछले ऑर्डर नहीं हैं।",
+    "ordersTitle": "ऑर्डर"
+  },
+  "order": {
+    "etaMinutes": "अनुमानित समय: {{min}} मिनट",
+    "itemsTitle": "आइटम",
+    "reorder": "ये आइटम फिर से ऑर्डर करें"
+  },
+  "common": {
+    "retry": "फिर से कोशिश करें",
+    "logoAlt": "Concordia रेस्तरां",
+    "logoHomeAlt": "Concordia रेस्तरां — पिज़्ज़ा, पास्ता, ग्रिल"
+  },
+  "layout": {
+    "login": "लॉग इन",
+    "logout": "लॉग आउट",
+    "account": "खाता"
+  },
+  "menu": {
+    "loadError": "मेनू लोड नहीं हो सका। सर्वर शायद शुरू हो रहा है — कृपया फिर से कोशिश करें।",
+    "bestSellersFromSales": "पिछले 30 दिनों के टॉप सेलर — वास्तविक ऑर्डर के आधार पर।",
+    "alsoPopular": "यह भी लोकप्रिय"
+  },
+  "cart": {
+    "edit": "संपादित करें",
+    "editingItem": "नीचे अपनी पसंद अपडेट करें, फिर कार्ट में सहेजें।"
+  },
+  "checkout": {
+    "addressHintLive": "अपनी गली टाइप करें — टाइप करते समय मिलते-जुलते पते दिखाई देंगे।",
+    "voucherLabel": "गिफ्ट वाउचर / छूट कोड",
+    "voucherPlaceholder": "जैसे WELCOME10",
+    "voucherApply": "लागू करें",
+    "voucherApplied": "वाउचर {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} लागू (−{{amount}})",
+    "giftCardActive": "{{code}} लागू (−{{amount}}, शेष {{remaining}})",
+    "voucherRemove": "हटाएं",
+    "voucherInvalid": "अमान्य या समाप्त छूट कोड।",
+    "paymentCard": "भुगतान: कार्ड (डेबिट या क्रेडिट)",
+    "paymentMethod": "भुगतान का तरीका",
+    "payCash": "नकद",
+    "payCard": "कार्ड",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "जल्द आ रहा है",
+    "paymentPaypal": "भुगतान: PayPal",
+    "paymentKlarna": "भुगतान: Klarna (जल्द)",
+    "paymentSepa": "भुगतान: SEPA डायरेक्ट डेबिट (जल्द)",
+    "onlinePaymentTitle": "सुरक्षित भुगतान",
+    "continueToPayment": "भुगतान पर जाएं",
+    "cardPaymentTitle": "सुरक्षित भुगतान",
+    "cardPaymentHint": "डेबिट, क्रेडिट कार्ड या PayPal से भुगतान करें। भुगतान के बाद ऑर्डर रसोई में जाएगा।",
+    "paymentFailed": "भुगतान विफल। फिर से कोशिश करें या नकद चुनें।",
+    "paymentCancelled": "भुगतान रद्द। आपका ऑर्डर भुगतान नहीं हुआ।",
+    "freeDrinkTitle": "आपका मुफ्त पेय",
+    "freeDrinkHint": "एक मुफ्त पेय चुनें — 0.33 लीटर सॉफ्ट ड्रिंक या 0.5 लीटर Durstlöscher।",
+    "freeDrinkRequired": "कृपया अपना मुफ्त पेय चुनें।",
+    "marketingTitle": "Concordia से ऑफर (वैकल्पिक)",
+    "marketingHint": "क्या आप विशेष ऑफर, नए व्यंजन और मौसमी ऑफर के बारे में सुनना चाहते हैं?",
+    "marketingPerkBirthday": "जन्मदिन उपहार: BIRTHDAY कोड के साथ मुफ्त मिठाई",
+    "marketingPerkDeals": "साप्ताहिक और मौसमी ऑफर की पहले पहुंच",
+    "marketingPerkWinback": "नियमित ग्राहकों के लिए विशेष कोड (जैसे WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "ईमेल",
+    "emailPlaceholder": "aap@email.com",
+    "emailRequiredForOffers": "ईमेल ऑफर के लिए अपना ईमेल पता दर्ज करें।",
+    "birthdayLabel": "जन्मदिन (वैकल्पिक)",
+    "birthdayHint": "Concordia से जन्मदिन उपहार — BIRTHDAY कोड के साथ मुफ्त मिठाई।",
+    "birthdayInvalid": "कृपया वैध जन्मतिथि दर्ज करें।",
+    "marketingLegal": "केवल सहमति पर। आप कभी भी सदस्यता समाप्त कर सकते हैं। ऑर्डर अपडेट मार्केटिंग से अलग हैं।",
+    "howToOrder": "आप कैसे ऑर्डर करना चाहते हैं?",
+    "orderAsGuest": "अतिथि के रूप में",
+    "orderWithAccount": "मेरे खाते से",
+    "accountBenefits": "मुफ्त खाता बनाएं और हर ऑर्डर पर लॉयल्टी पॉइंट कमाएं।",
+    "accountLoginRequired": "खाते से ऑर्डर के लिए लॉग इन या रजिस्टर करें, या अतिथि चेकआउट चुनें।",
+    "welcomeBack": "वापसी पर स्वागत है, {{name}}!",
+    "loyaltyBalance": "लॉयल्टी: {{points}} पॉइंट ({{tier}} स्तर)",
+    "loyaltyPerkPoints": "हर डिलीवर ऑर्डर पर पॉइंट कमाएं",
+    "loyaltyPerkTier": "कांस्य, चांदी और सोने के सदस्य लाभ अनलॉक करें"
+  },
+  "giftVoucher": {
+    "title": "गिफ्ट वाउचर",
+    "lead": "खुशी साझा करें — अपनी पसंद की शाखा के लिए वाउचर। ऑनलाइन या रेस्तरां में उपयोग करें।",
+    "chooseBranch": "शाखा",
+    "selectBranch": "शाखा चुनें…",
+    "branchRequired": "कृपया शाखा चुनें।",
+    "amount": "वाउचर राशि",
+    "customAmount": "कस्टम राशि",
+    "yourName": "आपका नाम",
+    "email": "ईमेल",
+    "phone": "फोन",
+    "recipient": "किसके लिए (प्राप्तकर्ता का नाम)",
+    "message": "व्यक्तिगत संदेश",
+    "continue": "आगे — {{amount}}",
+    "payOnline": "अभी भुगतान करें",
+    "cashNote": "नकद: भुगतान के बाद शाखा पर वाउचर सक्रिय होगा।",
+    "cashPending": "कृपया शाखा पर भुगतान करें। वाउचर बाद में सक्रिय होगा।",
+    "successTitle": "आपका वाउचर तैयार है",
+    "successText": "इस कोड को सुरक्षित रखें। यह केवल चुनी गई शाखा पर मान्य है:",
+    "branchNote": "{{branch}} पर मान्य — ऑनलाइन और व्यक्तिगत रूप से।",
+    "orderNow": "अभी ऑर्डर करें",
+    "nameRequired": "नाम आवश्यक है।",
+    "amountInvalid": "कृपया €5 से €500 के बीच राशि चुनें।",
+    "purchaseFailed": "वाउचर नहीं बनाया जा सका।"
+  },
+  "item": {
+    "updateCart": "कार्ट अपडेट करें",
+    "loadError": "विकल्प लोड नहीं हो सके। सर्वर शायद शुरू हो रहा है — कृपया फिर से कोशिश करें।"
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "गिफ्ट वाउचर",
+      "giftTitle": "गिफ्ट वाउचर खरीदें",
+      "giftText": "किसी को Concordia उपहार दें — €10, €20, €30 या कोई भी राशि चुनें। कोड केवल खरीद की शाखा पर काम करता है (ऑनलाइन या व्यक्तिगत रूप से)।",
+      "giftCta": "वाउचर खरीदें"
+    }
+  },
+  "auth": {
+    "loyaltyBenefits": "मुफ्त रजिस्टर करें और हमारे लॉयल्टी प्रोग्राम में शामिल हों:"
+  }
+}

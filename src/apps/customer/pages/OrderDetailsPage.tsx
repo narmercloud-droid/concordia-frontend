@@ -1,12 +1,14 @@
 ﻿import React from "react"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { getOrder } from "@/api/order"
 import { useOrderTracking } from "@/hooks/useOrderTracking"
 import Button from "@/components/ui/Button"
 import { useCartStore } from "@/context/cartStore"
 
 export default function OrderDetailsPage() {
+  const { t } = useTranslation()
   const { orderId } = useParams()
 
   useOrderTracking(orderId!)
@@ -18,31 +20,31 @@ export default function OrderDetailsPage() {
     queryFn: () => getOrder(orderId!)
   })
 
-  if (isLoading) return <div>Loading order...</div>
+  if (isLoading) return <div>{t("order.loading")}</div>
 
   const order = data?.data
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <h2>Order #{order.id}</h2>
+      <h2>{t("order.orderNumber", { id: order.id })}</h2>
 
       <div>
-        <strong>Status:</strong> {order.status}
+        <strong>{t("order.status")}:</strong> {order.status}
       </div>
 
       {order.eta && (
         <div>
-          <strong>ETA:</strong> {order.eta} minutes
+          <strong>{t("order.etaMinutes", { min: order.eta })}</strong>
         </div>
       )}
 
       {order.courier && (
         <div>
-          <strong>Courier:</strong> {order.courier.name}
+          <strong>{t("order.driver")}:</strong> {order.courier.name}
         </div>
       )}
 
-      <h3>Items</h3>
+      <h3>{t("order.itemsTitle")}</h3>
       <ul>
         {order.items.map((i: any) => (
           <li key={i.itemId}>
@@ -65,7 +67,7 @@ export default function OrderDetailsPage() {
           })
         }}
       >
-        Reorder These Items
+        {t("order.reorder")}
       </Button>
     </div>
   )

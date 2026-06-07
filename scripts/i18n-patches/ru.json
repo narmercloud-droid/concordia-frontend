@@ -1,0 +1,125 @@
+{
+  "account": {
+    "ordersLoading": "Загрузка заказов…",
+    "noOrders": "У вас нет прошлых заказов.",
+    "ordersTitle": "Заказы"
+  },
+  "order": {
+    "etaMinutes": "Ожидаемое время: {{min}} мин.",
+    "itemsTitle": "Позиции",
+    "reorder": "Заказать эти позиции снова"
+  },
+  "common": {
+    "retry": "Повторить",
+    "logoAlt": "Ресторан Concordia",
+    "logoHomeAlt": "Ресторан Concordia — Пицца, Паста, Гриль"
+  },
+  "layout": {
+    "login": "Войти",
+    "logout": "Выйти",
+    "account": "Аккаунт"
+  },
+  "menu": {
+    "loadError": "Не удалось загрузить меню. Сервер может запускаться — попробуйте снова.",
+    "bestSellersFromSales": "Хиты продаж за последние 30 дней — на основе реальных заказов.",
+    "alsoPopular": "Также популярно"
+  },
+  "cart": {
+    "edit": "Изменить",
+    "editingItem": "Обновите выбор ниже и сохраните в корзине."
+  },
+  "checkout": {
+    "addressHintLive": "Начните вводить улицу — подходящие адреса появятся при вводе.",
+    "voucherLabel": "Подарочный сертификат / код скидки",
+    "voucherPlaceholder": "напр. WELCOME10",
+    "voucherApply": "Применить",
+    "voucherApplied": "Сертификат {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} применён (−{{amount}})",
+    "giftCardActive": "{{code}} применён (−{{amount}}, остаток {{remaining}})",
+    "voucherRemove": "Удалить",
+    "voucherInvalid": "Недействительный или просроченный код.",
+    "paymentCard": "Оплата: карта (дебетовая или кредитная)",
+    "paymentMethod": "Способ оплаты",
+    "payCash": "Наличные",
+    "payCard": "Карта",
+    "payPayPal": "PayPal",
+    "payKlarna": "Klarna",
+    "paySepa": "SEPA",
+    "comingSoon": "Скоро",
+    "paymentPaypal": "Оплата: PayPal",
+    "paymentKlarna": "Оплата: Klarna (скоро)",
+    "paymentSepa": "Оплата: SEPA-списание (скоро)",
+    "onlinePaymentTitle": "Безопасная оплата",
+    "continueToPayment": "Перейти к оплате",
+    "cardPaymentTitle": "Безопасная оплата",
+    "cardPaymentHint": "Оплатите дебетовой, кредитной картой или PayPal. Заказ отправится на кухню после оплаты.",
+    "paymentFailed": "Оплата не прошла. Попробуйте снова или выберите наличные.",
+    "paymentCancelled": "Оплата отменена. Заказ не был оплачен.",
+    "freeDrinkTitle": "Ваш бесплатный напиток",
+    "freeDrinkHint": "Выберите один бесплатный напиток — 0,33 л газировка или 0,5 л Durstlöscher.",
+    "freeDrinkRequired": "Пожалуйста, выберите бесплатный напиток.",
+    "marketingTitle": "Предложения от Concordia (необязательно)",
+    "marketingHint": "Хотите узнавать об акциях, новых блюдах и сезонных предложениях?",
+    "marketingPerkBirthday": "Подарок на день рождения: бесплатный десерт с кодом BIRTHDAY",
+    "marketingPerkDeals": "Ранний доступ к недельным и сезонным акциям",
+    "marketingPerkWinback": "Эксклюзивные коды для постоянных гостей (напр. WELCOME10)",
+    "marketingSMS": "SMS",
+    "marketingWhatsApp": "WhatsApp",
+    "marketingEmail": "Эл. почта",
+    "emailPlaceholder": "ваш@email.ru",
+    "emailRequiredForOffers": "Укажите email для получения предложений по почте.",
+    "birthdayLabel": "День рождения (необязательно)",
+    "birthdayHint": "Для подарка от Concordia — бесплатный десерт с кодом BIRTHDAY.",
+    "birthdayInvalid": "Введите корректную дату рождения.",
+    "marketingLegal": "Только при согласии. Отписаться можно в любое время. Статус заказа отделён от рекламных сообщений.",
+    "howToOrder": "Как вы хотите заказать?",
+    "orderAsGuest": "Как гость",
+    "orderWithAccount": "С моим аккаунтом",
+    "accountBenefits": "Зарегистрируйтесь бесплатно и получайте баллы лояльности с каждым заказом.",
+    "accountLoginRequired": "Войдите или зарегистрируйтесь для заказа с аккаунтом, или выберите гостевой заказ.",
+    "welcomeBack": "С возвращением, {{name}}!",
+    "loyaltyBalance": "Программа лояльности: {{points}} баллов (уровень {{tier}})",
+    "loyaltyPerkPoints": "Получайте баллы с каждого доставленного заказа",
+    "loyaltyPerkTier": "Откройте бронзовые, серебряные и золотые привилегии"
+  },
+  "giftVoucher": {
+    "title": "Подарочный сертификат",
+    "lead": "Подарите радость — сертификат на выбранный филиал. Используйте онлайн или в ресторане.",
+    "chooseBranch": "Филиал",
+    "selectBranch": "Выберите филиал…",
+    "branchRequired": "Выберите филиал.",
+    "amount": "Номинал сертификата",
+    "customAmount": "Своя сумма",
+    "yourName": "Ваше имя",
+    "email": "Эл. почта",
+    "phone": "Телефон",
+    "recipient": "Для (имя получателя)",
+    "message": "Личное сообщение",
+    "continue": "Далее — {{amount}}",
+    "payOnline": "Оплатить сейчас",
+    "cashNote": "Наличные: сертификат активируется в филиале после оплаты.",
+    "cashPending": "Оплатите в филиале. Сертификат будет активирован после этого.",
+    "successTitle": "Ваш сертификат готов",
+    "successText": "Сохраните этот код. Он действителен только в выбранном филиале:",
+    "branchNote": "Действителен в {{branch}} — онлайн и на месте.",
+    "orderNow": "Заказать сейчас",
+    "nameRequired": "Имя обязательно.",
+    "amountInvalid": "Выберите сумму от 5 € до 500 €.",
+    "purchaseFailed": "Не удалось создать сертификат."
+  },
+  "item": {
+    "updateCart": "Обновить корзину",
+    "loadError": "Не удалось загрузить опции. Сервер может запускаться — попробуйте снова."
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "Подарочный сертификат",
+      "giftTitle": "Купить подарочный сертификат",
+      "giftText": "Подарите Concordia — выберите 10 €, 20 €, 30 € или любую сумму. Код действует только в филиале покупки (онлайн или на месте).",
+      "giftCta": "Купить сертификат"
+    }
+  },
+  "auth": {
+    "loyaltyBenefits": "Зарегистрируйтесь бесплатно и присоединяйтесь к программе лояльности:"
+  }
+}

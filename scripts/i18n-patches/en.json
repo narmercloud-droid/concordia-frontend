@@ -1,0 +1,28 @@
+{
+  "account": {
+    "ordersLoading": "Loading orders…",
+    "noOrders": "You have no past orders.",
+    "ordersTitle": "Orders"
+  },
+  "order": {
+    "etaMinutes": "ETA: {{min}} minutes",
+    "itemsTitle": "Items",
+    "reorder": "Reorder these items"
+  },
+  "pages": {
+    "offers": {
+      "giftBadge": "Gift voucher"
+    }
+  },
+  "common": {
+    "retry": "Try again",
+    "logoAlt": "Concordia Restaurant",
+    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+  },
+  "menu": {
+    "loadError": "Menu could not load. The server may be waking up — please try again."
+  },
+  "item": {
+    "loadError": "Could not load options. The server may be waking up — please try again."
+  }
+}

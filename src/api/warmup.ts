@@ -10,13 +10,21 @@ export function warmupApi(): Promise<void> {
     return warmupPromise
   }
 
-  warmupPromise = fetch(`${base.replace(/\/$/, "")}/health`, {
-    method: "GET",
-    credentials: "omit",
-    signal: AbortSignal.timeout(12_000)
-  })
-    .then(() => undefined)
-    .catch(() => undefined)
+  const root = base.replace(/\/$/, "")
+  const timeoutMs = 25_000
+
+  warmupPromise = Promise.allSettled([
+    fetch(`${root}/health`, {
+      method: "GET",
+      credentials: "omit",
+      signal: AbortSignal.timeout(timeoutMs)
+    }),
+    fetch(`${root}/api/branches`, {
+      method: "GET",
+      credentials: "omit",
+      signal: AbortSignal.timeout(timeoutMs)
+    })
+  ]).then(() => undefined)
 
   return warmupPromise
 }

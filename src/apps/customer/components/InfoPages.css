@@ -52,10 +52,10 @@
 }
 
 .site-nav__link--active {
-  color: var(--c-accent);
+  color: var(--c-green);
   background: var(--c-card);
-  border-color: rgba(107, 44, 62, 0.22);
-  box-shadow: 0 2px 8px rgba(107, 44, 62, 0.08);
+  border-color: rgb(var(--c-green-rgb) / 0.28);
+  box-shadow: 0 2px 8px rgb(var(--c-green-rgb) / 0.1);
 }
 
 .site-nav__link--cta {
@@ -63,9 +63,9 @@
   padding-left: 16px;
   padding-right: 16px;
   border-color: transparent;
-  background: linear-gradient(135deg, var(--c-accent) 0%, var(--c-accent-hover) 100%);
+  background: linear-gradient(135deg, var(--c-red) 0%, var(--c-red-deep) 100%);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(107, 44, 62, 0.22);
+  box-shadow: 0 4px 14px rgb(var(--c-red-rgb) / 0.22);
 }
 
 .site-nav__link--cta:hover {
@@ -190,7 +190,7 @@
 .info-highlight {
   padding: 18px 20px;
   border-radius: 16px;
-  border: 1px solid rgba(107, 44, 62, 0.18);
+  border: 1px solid rgb(var(--c-red-rgb) / 0.18);
   background: linear-gradient(135deg, var(--c-accent-soft) 0%, #fff 100%);
 }
 
@@ -231,7 +231,7 @@
 
 .info-review__stars {
   margin: 0 0 8px;
-  color: var(--c-gold, #b08d57);
+  color: var(--c-gold, #1b7340);
   font-size: 14px;
   letter-spacing: 0.08em;
 }
@@ -362,7 +362,7 @@
   object-fit: contain;
   background: #faf8f5;
   border: 3px solid #fff;
-  box-shadow: 0 8px 24px rgba(107, 44, 62, 0.12);
+  box-shadow: 0 8px 24px rgb(var(--c-red-rgb) / 0.12);
 }
 
 .about-hero__kitchen {
@@ -511,8 +511,8 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(43, 39, 36, 0.82) 0%,
-    rgba(107, 44, 62, 0.55) 100%
+    rgb(var(--c-green-rgb) / 0.82) 0%,
+    rgb(var(--c-red-rgb) / 0.65) 100%
   );
 }
 
@@ -540,7 +540,7 @@
 .about-kitchen-banner__address {
   margin-top: 14px !important;
   font-weight: 600;
-  color: var(--c-gold, #b08d57) !important;
+  color: #ffffff !important;
 }
 
 /* —— Offers page —— */
@@ -577,9 +577,9 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(107, 44, 62, 0.88) 0%,
-    rgba(43, 39, 36, 0.75) 55%,
-    rgba(43, 39, 36, 0.4) 100%
+    rgb(var(--c-red-rgb) / 0.9) 0%,
+    rgb(var(--c-green-rgb) / 0.75) 55%,
+    rgba(26, 31, 28, 0.45) 100%
   );
 }
 
@@ -626,7 +626,7 @@
 .offers-card__drink-tag {
   padding: 6px 12px;
   border-radius: 999px;
-  background: var(--c-gold, #b08d57);
+  background: var(--c-gold, #1b7340);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -648,7 +648,7 @@
 }
 
 .offers-card__badge--gold {
-  background: var(--c-gold, #b08d57);
+  background: var(--c-gold, #1b7340);
   color: #fff;
 }
 
@@ -739,7 +739,11 @@
 .offers-cta-banner__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(43, 39, 36, 0.5) 0%, rgba(107, 44, 62, 0.82) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(var(--c-green-rgb) / 0.55) 0%,
+    rgb(var(--c-red-rgb) / 0.82) 100%
+  );
 }
 
 .offers-cta-banner__copy {

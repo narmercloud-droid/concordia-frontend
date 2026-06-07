@@ -16,8 +16,17 @@ export default function ItemOptionsForm({ branchId, itemId, editCartKey, onAdded
     return <p className="customer-loading">{options.t("item.loading")}</p>
   }
 
-  if (!options.item) {
-    return <p className="customer-loading">{options.t("item.loading")}</p>
+  if (options.isError || !options.item) {
+    return (
+      <div className="customer-page">
+        <p className="customer-hint" style={{ color: "#b45309" }}>
+          {options.t("item.loadError")}
+        </p>
+        <button type="button" className="customer-btn" onClick={() => void options.refetchItem()}>
+          {options.t("common.retry")}
+        </button>
+      </div>
+    )
   }
 
   const handleAdd = () => {
@@ -25,7 +34,7 @@ export default function ItemOptionsForm({ branchId, itemId, editCartKey, onAdded
   }
 
   return (
-    <div className="item-options">
+    <div className="item-options item-options--page">
       <ItemOptionsFields options={options} />
       <ItemOptionsFooter options={options} onAdd={handleAdd} editMode={options.isEditMode} />
     </div>
