@@ -63,6 +63,141 @@ export const updateManagerVariantGroup = (
   branchId?: string
 ) => api.patch(`/api/v1/manager/menu/variant-groups/${groupId}`, { ...data, branchId })
 
+const withBranch = (branchId?: string) => (branchId ? { branchId } : {})
+
+export const getManagerMenuItemDetail = async (menuItemId: number, branchId?: string) => {
+  const res = await api.get(`/api/v1/manager/menu/items/${menuItemId}/detail`, {
+    params: withBranch(branchId)
+  })
+  return unwrap(res)
+}
+
+export const createManagerCategory = (
+  data: { name: string; description?: string; sortOrder?: number },
+  branchId?: string
+) => api.post("/api/v1/manager/menu/categories", { ...data, ...withBranch(branchId) })
+
+export const updateManagerCategory = (
+  id: number,
+  data: { name?: string; description?: string; sortOrder?: number },
+  branchId?: string
+) => api.patch(`/api/v1/manager/menu/categories/${id}`, { ...data, ...withBranch(branchId) })
+
+export const deleteManagerCategory = (id: number, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/categories/${id}`, { params: withBranch(branchId) })
+
+export const createManagerMenuItem = (
+  data: {
+    categoryId: number
+    name: string
+    description?: string
+    price: number
+    kitchen?: string
+    itemNumber?: string
+    sortOrder?: number
+    isAvailable?: boolean
+  },
+  branchId?: string
+) => api.post("/api/v1/manager/menu/items", { ...data, ...withBranch(branchId) })
+
+export const updateManagerMenuItemFull = (
+  branchMenuItemId: number,
+  data: Record<string, unknown>,
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/items/${branchMenuItemId}/full`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const deleteManagerMenuItem = (branchMenuItemId: number, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/branch-items/${branchMenuItemId}`, {
+    params: withBranch(branchId)
+  })
+
+export const createManagerVariantGroup = (
+  menuItemId: number,
+  data: Record<string, unknown>,
+  branchId?: string
+) =>
+  api.post(`/api/v1/manager/menu/items/${menuItemId}/variant-groups`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const updateManagerVariantGroupFull = (
+  groupId: string,
+  data: Record<string, unknown>,
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/variant-groups/${groupId}/full`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const deleteManagerVariantGroup = (groupId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/variant-groups/${groupId}`, { params: withBranch(branchId) })
+
+export const createManagerVariant = (
+  groupId: string,
+  data: { name: string; price: number },
+  branchId?: string
+) =>
+  api.post(`/api/v1/manager/menu/variant-groups/${groupId}/variants`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const updateManagerVariant = (
+  variantId: string,
+  data: { name?: string; price?: number },
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/variants/${variantId}`, { ...data, ...withBranch(branchId) })
+
+export const deleteManagerVariant = (variantId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/variants/${variantId}`, { params: withBranch(branchId) })
+
+export const createManagerAddOnGroup = (
+  menuItemId: number,
+  data: Record<string, unknown>,
+  branchId?: string
+) =>
+  api.post(`/api/v1/manager/menu/items/${menuItemId}/addon-groups`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const updateManagerAddOnGroup = (
+  groupId: string,
+  data: Record<string, unknown>,
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/addon-groups/${groupId}`, { ...data, ...withBranch(branchId) })
+
+export const deleteManagerAddOnGroup = (groupId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/addon-groups/${groupId}`, { params: withBranch(branchId) })
+
+export const createManagerAddOn = (
+  groupId: string,
+  data: { name: string; price: number },
+  branchId?: string
+) =>
+  api.post(`/api/v1/manager/menu/addon-groups/${groupId}/addons`, {
+    ...data,
+    ...withBranch(branchId)
+  })
+
+export const updateManagerAddOn = (
+  addOnId: string,
+  data: { name?: string; price?: number },
+  branchId?: string
+) =>
+  api.patch(`/api/v1/manager/menu/addons/${addOnId}`, { ...data, ...withBranch(branchId) })
+
+export const deleteManagerAddOn = (addOnId: string, branchId?: string) =>
+  api.delete(`/api/v1/manager/menu/addons/${addOnId}`, { params: withBranch(branchId) })
+
 export const getManagerOrders = (branchId?: string) =>
   api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
 

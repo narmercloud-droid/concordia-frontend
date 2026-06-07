@@ -13,7 +13,7 @@ export default function AdminNav() {
   const items = [
     { to: "/admin/dashboard", label: "Dashboard", show: can("dashboard") },
     { to: "/admin/orders", label: "Orders", show: can("orders") },
-    { to: "/admin/menu", label: "Menu", show: can("menu_view") },
+    { to: "/admin/menu", label: "Menu", show: can("menu_view") || can("menu_edit_structure") },
     { to: "/admin/hours", label: "Opening hours", show: can("hours_view") },
     { to: "/admin/delivery", label: "Delivery settings", show: can("delivery_view") },
     { to: "/admin/offers", label: "Offers", show: can("offers_view") },

@@ -11,6 +11,7 @@ const LABELS: Record<string, string> = {
   menu_view: "View menu",
   menu_edit_prices: "Edit menu prices",
   menu_edit_availability: "Toggle item availability",
+  menu_edit_structure: "Add/edit categories, items, variants & extras",
   hours_view: "View opening hours",
   hours_edit: "Edit opening hours",
   delivery_view: "View delivery settings",
