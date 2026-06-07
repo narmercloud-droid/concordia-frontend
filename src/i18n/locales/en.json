@@ -27,7 +27,7 @@
     "loading": "Concordia",
     "eyebrow": "Welcome to",
     "title": "Concordia Restaurant",
-    "slogan": "Where harmony meets the plate.",
+    "slogan": "When harmony is served on a plate",
     "lead": "Italian cuisine from our oven — from crisp pizza and homemade pasta to beloved classics. Order online for pickup or delivery.",
     "showcaseLabel": "Our kitchen",
     "showcaseTitle": "From Concordia to your table",
@@ -95,7 +95,8 @@
     "title": "Your cart",
     "empty": "Your cart is empty.",
     "clear": "Clear cart",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "afterDiscount": "After discount"
   },
   "checkout": {
     "title": "Checkout",
@@ -119,6 +120,7 @@
     "payment": "Payment: Cash on {{method}}",
     "paymentPickup": "pickup",
     "paymentDelivery": "delivery",
+    "websiteDiscountApplied": "{{percent}}% website discount: −{{amount}}",
     "deliveryFee": "Delivery: {{amount}}",
     "deliveryFree": "Delivery: Free (minimum order reached)",
     "freeDrinkQualify": "You qualify for a free drink (orders from €{{amount}}).",

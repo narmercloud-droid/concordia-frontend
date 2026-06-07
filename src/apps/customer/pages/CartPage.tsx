@@ -2,13 +2,16 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useCartStore } from "@/store/cartStore"
+import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { formatCurrency } from "@/utils/format"
 
 export default function CartPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
-  const total = useCartStore((s) => s.total())
+  const subtotal = useCartStore((s) => s.total())
+  const websiteDiscount = calcWebsiteDiscount(subtotal)
+  const discountedSubtotal = calcDiscountedSubtotal(subtotal)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
 
@@ -52,8 +55,21 @@ export default function CartPage() {
       ))}
 
       <p className="customer-total-line">
-        {t("common.subtotal")}: {formatCurrency(total)}
+        {t("common.subtotal")}: {formatCurrency(subtotal)}
       </p>
+      {websiteDiscount > 0 && (
+        <p className="customer-hint" style={{ color: "var(--c-success)" }}>
+          {t("checkout.websiteDiscountApplied", {
+            percent: 10,
+            amount: formatCurrency(websiteDiscount)
+          })}
+        </p>
+      )}
+      {websiteDiscount > 0 && (
+        <p className="customer-total-line">
+          {t("cart.afterDiscount")}: {formatCurrency(discountedSubtotal)}
+        </p>
+      )}
 
       <div className="customer-btn-row">
         <button type="button" className="customer-btn" onClick={clearCart}>

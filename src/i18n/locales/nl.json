@@ -95,7 +95,8 @@
     "title": "Uw winkelwagen",
     "empty": "Uw winkelwagen is leeg.",
     "clear": "Winkelwagen legen",
-    "checkout": "Afrekenen"
+    "checkout": "Afrekenen",
+    "afterDiscount": "Na korting"
   },
   "checkout": {
     "title": "Afrekenen",
@@ -119,6 +120,7 @@
     "payment": "Betaling: contant bij {{method}}",
     "paymentPickup": "afhalen",
     "paymentDelivery": "bezorgen",
+    "websiteDiscountApplied": "{{percent}}% onlinekorting: −{{amount}}",
     "deliveryFee": "Bezorging: {{amount}}",
     "deliveryFree": "Bezorging: gratis (minimumbedrag bereikt)",
     "freeDrinkQualify": "U krijgt een gratis drankje (vanaf €{{amount}} bestelwaarde).",

@@ -95,7 +95,8 @@
     "title": "Twój koszyk",
     "empty": "Twój koszyk jest pusty.",
     "clear": "Wyczyść koszyk",
-    "checkout": "Do kasy"
+    "checkout": "Do kasy",
+    "afterDiscount": "Po rabacie"
   },
   "checkout": {
     "title": "Kasa",
@@ -119,6 +120,7 @@
     "payment": "Płatność: gotówka przy {{method}}",
     "paymentPickup": "odbiorze",
     "paymentDelivery": "dostawie",
+    "websiteDiscountApplied": "{{percent}}% rabatu online: −{{amount}}",
     "deliveryFee": "Dostawa: {{amount}}",
     "deliveryFree": "Dostawa: gratis (osiągnięto minimum)",
     "freeDrinkQualify": "Otrzymujesz darmowy napój (od {{amount}} € zamówienia).",

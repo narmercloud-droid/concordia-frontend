@@ -95,7 +95,8 @@
     "title": "Ваша корзина",
     "empty": "Ваша корзина пуста.",
     "clear": "Очистить корзину",
-    "checkout": "Оформить заказ"
+    "checkout": "Оформить заказ",
+    "afterDiscount": "После скидки"
   },
   "checkout": {
     "title": "Оформление",
@@ -119,6 +120,7 @@
     "payment": "Оплата: наличными при {{method}}",
     "paymentPickup": "самовывозе",
     "paymentDelivery": "доставке",
+    "websiteDiscountApplied": "Скидка {{percent}}% на сайте: −{{amount}}",
     "deliveryFee": "Доставка: {{amount}}",
     "deliveryFree": "Доставка: бесплатно (минимальная сумма достигнута)",
     "freeDrinkQualify": "Вы получаете бесплатный напиток (от {{amount}} €).",

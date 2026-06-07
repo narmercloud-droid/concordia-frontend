@@ -95,7 +95,8 @@
     "title": "Ihr Warenkorb",
     "empty": "Ihr Warenkorb ist leer.",
     "clear": "Warenkorb leeren",
-    "checkout": "Zur Kasse"
+    "checkout": "Zur Kasse",
+    "afterDiscount": "Nach Rabatt"
   },
   "checkout": {
     "title": "Kasse",
@@ -119,6 +120,7 @@
     "payment": "Zahlung: Bar bei {{method}}",
     "paymentPickup": "Abholung",
     "paymentDelivery": "Lieferung",
+    "websiteDiscountApplied": "{{percent}} % Online-Rabatt: −{{amount}}",
     "deliveryFee": "Lieferung: {{amount}}",
     "deliveryFree": "Lieferung: Kostenlos (Mindestbestellwert erreicht)",
     "freeDrinkQualify": "Sie erhalten ein Gratisgetränk (ab {{amount}} € Bestellwert).",

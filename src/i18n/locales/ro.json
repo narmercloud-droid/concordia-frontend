@@ -95,7 +95,8 @@
     "title": "Coșul dvs.",
     "empty": "Coșul dvs. este gol.",
     "clear": "Golește coșul",
-    "checkout": "Finalizează comanda"
+    "checkout": "Finalizează comanda",
+    "afterDiscount": "După reducere"
   },
   "checkout": {
     "title": "Finalizare",
@@ -119,6 +120,7 @@
     "payment": "Plată: cash la {{method}}",
     "paymentPickup": "ridicare",
     "paymentDelivery": "livrare",
+    "websiteDiscountApplied": "Reducere online {{percent}}%: −{{amount}}",
     "deliveryFee": "Livrare: {{amount}}",
     "deliveryFree": "Livrare: gratuită (comandă minimă atinsă)",
     "freeDrinkQualify": "Primiți o băutură gratuită (de la {{amount}} €).",

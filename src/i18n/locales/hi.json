@@ -95,7 +95,8 @@
     "title": "आपकी कार्ट",
     "empty": "आपकी कार्ट खाली है।",
     "clear": "कार्ट खाली करें",
-    "checkout": "चेकआउट"
+    "checkout": "चेकआउट",
+    "afterDiscount": "छूट के बाद"
   },
   "checkout": {
     "title": "चेकआउट",
@@ -119,6 +120,7 @@
     "payment": "भुगतान: {{method}} पर नकद",
     "paymentPickup": "पिकअप",
     "paymentDelivery": "डिलीवरी",
+    "websiteDiscountApplied": "वेबसाइट पर {{percent}}% छूट: −{{amount}}",
     "deliveryFee": "डिलीवरी: {{amount}}",
     "deliveryFree": "डिलीवरी: मुफ़्त (न्यूनतम ऑर्डर पूरा)",
     "freeDrinkQualify": "आप मुफ़्त पेय के पात्र हैं ({{amount}} € से)।",

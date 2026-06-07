@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+﻿import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
@@ -10,6 +10,7 @@ import {
 } from "@/api/customer"
 import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useCartStore } from "@/store/cartStore"
+import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
@@ -112,9 +113,12 @@ export default function CheckoutPage() {
 
   if (items.length === 0) return null
 
+  const subtotal = total
+  const websiteDiscount = calcWebsiteDiscount(subtotal)
+  const discountedSubtotal = calcDiscountedSubtotal(subtotal)
   const deliveryFee =
     fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
-  const grandTotal = total + deliveryFee
+  const grandTotal = discountedSubtotal + deliveryFee
 
   const deliveryBlocked =
     fulfillmentType === "delivery" &&
@@ -223,6 +227,17 @@ export default function CheckoutPage() {
         {freeDrinkMin > 0 && !qualifiesForFreeDrink && (
           <p className="customer-hint">
             {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
+          </p>
+        )}
+        <p className="customer-hint" style={{ marginTop: 12 }}>
+          {t("common.subtotal")}: {formatCurrency(subtotal)}
+        </p>
+        {websiteDiscount > 0 && (
+          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
+            {t("checkout.websiteDiscountApplied", {
+              percent: 10,
+              amount: formatCurrency(websiteDiscount)
+            })}
           </p>
         )}
         {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
