@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import {
@@ -12,7 +12,9 @@ import {
 } from "@/api/customer"
 import { getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
+import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
 import AddressAutocomplete from "@/components/AddressAutocomplete"
+import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { calcWebsiteDiscount } from "@/lib/websitePromo"
 import { formatCurrency } from "@/utils/format"
@@ -20,6 +22,7 @@ import { formatCurrency } from "@/utils/format"
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
 type PaymentChoice = "cash" | "card" | "paypal" | "klarna" | "sepa"
+type CheckoutMode = "guest" | "account"
 
 function extractPostalCode(address: string): string | null {
   const match = address.match(/\b(\d{5})\b/)
@@ -72,6 +75,11 @@ export default function CheckoutPage() {
   const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
   const [birthday, setBirthday] = useState("")
   const [birthdayError, setBirthdayError] = useState("")
+  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>("guest")
+
+  const authUser = useAuthStore((s) => s.user)
+  const authToken = useAuthStore((s) => s.token)
+  const isLoggedIn = !!authToken && !!authUser?.id
 
   const branchId = items[0]?.branchId
   const postalCode = extractPostalCode(address)
@@ -189,6 +197,14 @@ export default function CheckoutPage() {
     }
   }, [items, navigate, clearCart])
 
+  useEffect(() => {
+    if (!isLoggedIn || !authUser) return
+    setCheckoutMode("account")
+    if (!name && authUser.name) setName(authUser.name)
+    if (!customerEmail && authUser.email) setCustomerEmail(authUser.email)
+    if (!phone && authUser.phone) setPhone(authUser.phone)
+  }, [isLoggedIn, authUser])
+
   if (items.length === 0) return null
 
   const subtotal = total
@@ -298,10 +314,18 @@ export default function CheckoutPage() {
   const handleSubmit = async () => {
     if (!validateCheckout()) return
 
+    if (checkoutMode === "account" && !isLoggedIn) {
+      setError(t("checkout.accountLoginRequired"))
+      return
+    }
+
     try {
+      const useAccount = checkoutMode === "account" && isLoggedIn
       const res = await createMutation.mutateAsync({
         branchId,
         items,
+        isGuest: !useAccount,
+        customerId: useAccount ? authUser.id : undefined,
         customerName: name.trim(),
         customerPhone: phone.trim(),
         customerEmail: customerEmail.trim() || undefined,
@@ -356,8 +380,71 @@ export default function CheckoutPage() {
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
 
+      <div className="customer-card checkout-account">
+        <h3 className="customer-subtitle">{t("checkout.howToOrder")}</h3>
+        <div className="customer-toggle-group">
+          <button
+            type="button"
+            onClick={() => setCheckoutMode("guest")}
+            className={`customer-toggle${checkoutMode === "guest" ? " customer-toggle--active" : ""}`}
+          >
+            {t("checkout.orderAsGuest")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCheckoutMode("account")}
+            className={`customer-toggle${checkoutMode === "account" ? " customer-toggle--active" : ""}`}
+          >
+            {t("checkout.orderWithAccount")}
+          </button>
+        </div>
+
+        {checkoutMode === "account" && !isLoggedIn && (
+          <div className="checkout-account__prompt">
+            <p className="customer-hint">{t("checkout.accountBenefits")}</p>
+            <ul className="checkout-marketing__perks">
+              <li>{t("checkout.loyaltyPerkPoints")}</li>
+              <li>{t("checkout.loyaltyPerkTier")}</li>
+              <li>{t("checkout.marketingPerkBirthday")}</li>
+            </ul>
+            <div className="customer-btn-row">
+              <Link
+                to="/customer/login?redirect=%2Fcustomer%2Fcheckout"
+                className="customer-btn customer-btn--primary"
+              >
+                {t("auth.login")}
+              </Link>
+              <Link to="/customer/register?redirect=%2Fcustomer%2Fcheckout" className="customer-btn">
+                {t("auth.register")}
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {checkoutMode === "account" && isLoggedIn && authUser && (
+          <div className="checkout-account__logged-in">
+            <p className="customer-hint">
+              {t("checkout.welcomeBack", { name: authUser.name })}
+            </p>
+            <p className="customer-alert customer-alert--success">
+              {t("checkout.loyaltyBalance", {
+                points: authUser.loyaltyPoints ?? 0,
+                tier: authUser.loyaltyTier ?? "bronze"
+              })}
+            </p>
+          </div>
+        )}
+      </div>
+
       <div className="customer-card">
-        <h3 className="customer-subtitle">{t("checkout.summary")}</h3>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+          <h3 className="customer-subtitle" style={{ margin: 0 }}>
+            {t("checkout.summary")}
+          </h3>
+          <Link to="/customer/cart" className="customer-hint" style={{ color: "var(--c-accent)" }}>
+            {t("cart.edit")}
+          </Link>
+        </div>
         {items.map((i) => (
           <div key={i.cartKey} className="customer-summary-line">
             <div>
@@ -481,7 +568,8 @@ export default function CheckoutPage() {
       <div className="customer-field">
         <label className="customer-label">{t("checkout.paymentMethod")}</label>
         <div className="checkout-payment-grid">
-          <CheckoutPaymentOption
+          <PaymentMethodOption
+            method="cash"
             label={t("checkout.payCash")}
             active={paymentChoice === "cash"}
             enabled={paymentMethods.cash}
@@ -491,7 +579,8 @@ export default function CheckoutPage() {
               setPendingCardOrderId(null)
             }}
           />
-          <CheckoutPaymentOption
+          <PaymentMethodOption
+            method="card"
             label={t("checkout.payCard")}
             active={paymentChoice === "card"}
             enabled={paymentMethods.card}
@@ -501,7 +590,8 @@ export default function CheckoutPage() {
               setPendingCardOrderId(null)
             }}
           />
-          <CheckoutPaymentOption
+          <PaymentMethodOption
+            method="paypal"
             label={t("checkout.payPayPal")}
             active={paymentChoice === "paypal"}
             enabled={paymentMethods.paypal}
@@ -511,14 +601,16 @@ export default function CheckoutPage() {
               setPendingCardOrderId(null)
             }}
           />
-          <CheckoutPaymentOption
+          <PaymentMethodOption
+            method="klarna"
             label={t("checkout.payKlarna")}
             active={paymentChoice === "klarna"}
             enabled={paymentMethods.klarna}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => setPaymentChoice("klarna")}
           />
-          <CheckoutPaymentOption
+          <PaymentMethodOption
+            method="sepa"
             label={t("checkout.paySepa")}
             active={paymentChoice === "sepa"}
             enabled={paymentMethods.sepa}
@@ -801,31 +893,3 @@ function paymentSummaryLabel(
   return t(keys[choice])
 }
 
-function CheckoutPaymentOption({
-  label,
-  active,
-  enabled,
-  comingSoon,
-  onSelect
-}: {
-  label: string
-  active: boolean
-  enabled: boolean
-  comingSoon: string
-  onSelect: () => void
-}) {
-  return (
-    <button
-      type="button"
-      disabled={!enabled}
-      className={`checkout-payment-option${active ? " checkout-payment-option--active" : ""}${
-        !enabled ? " checkout-payment-option--disabled" : ""
-      }`}
-      onClick={onSelect}
-      title={!enabled ? comingSoon : undefined}
-    >
-      <span>{label}</span>
-      {!enabled && <small>{comingSoon}</small>}
-    </button>
-  )
-}

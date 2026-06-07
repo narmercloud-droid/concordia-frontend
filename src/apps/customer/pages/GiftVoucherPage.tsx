@@ -6,6 +6,7 @@ import { getBranches } from "@/api/customer"
 import { purchaseGiftCard } from "@/api/giftCards"
 import { getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
+import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
 import { formatCurrency } from "@/utils/format"
 
 const PRESET_AMOUNTS = [10, 20, 30, 50]
@@ -233,26 +234,29 @@ export default function GiftVoucherPage() {
       <div className="customer-field">
         <label className="customer-label">{t("checkout.paymentMethod")}</label>
         <div className="checkout-payment-grid">
-          <PaymentOption
+          <PaymentMethodOption
+            method="paypal"
             label={t("checkout.payPayPal")}
             active={paymentChoice === "paypal"}
             enabled={methods?.paypal ?? onlineEnabled}
-            comingSoonLabel={t("checkout.comingSoon")}
-            onClick={() => setPaymentChoice("paypal")}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("paypal")}
           />
-          <PaymentOption
+          <PaymentMethodOption
+            method="card"
             label={t("checkout.payCard")}
             active={paymentChoice === "card"}
             enabled={methods?.card ?? onlineEnabled}
-            comingSoonLabel={t("checkout.comingSoon")}
-            onClick={() => setPaymentChoice("card")}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("card")}
           />
-          <PaymentOption
+          <PaymentMethodOption
+            method="cash"
             label={t("checkout.payCash")}
             active={paymentChoice === "cash"}
             enabled
-            comingSoonLabel={t("checkout.comingSoon")}
-            onClick={() => setPaymentChoice("cash")}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("cash")}
           />
         </div>
         <p className="customer-hint">{t("giftVoucher.cashNote")}</p>
@@ -296,31 +300,3 @@ export default function GiftVoucherPage() {
   )
 }
 
-function PaymentOption({
-  label,
-  active,
-  enabled,
-  comingSoonLabel,
-  onClick
-}: {
-  label: string
-  active: boolean
-  enabled: boolean
-  comingSoonLabel: string
-  onClick: () => void
-}) {
-  return (
-    <button
-      type="button"
-      disabled={!enabled}
-      className={`checkout-payment-option${active ? " checkout-payment-option--active" : ""}${
-        !enabled ? " checkout-payment-option--disabled" : ""
-      }`}
-      onClick={onClick}
-      title={!enabled ? comingSoonLabel : undefined}
-    >
-      <span>{label}</span>
-      {!enabled && <small>{comingSoonLabel}</small>}
-    </button>
-  )
-}

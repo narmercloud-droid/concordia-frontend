@@ -8,9 +8,10 @@ type Props = {
   options: HookReturn
   onAdd: () => void
   compact?: boolean
+  editMode?: boolean
 }
 
-export default function ItemOptionsFooter({ options, onAdd, compact = false }: Props) {
+export default function ItemOptionsFooter({ options, onAdd, compact = false, editMode = false }: Props) {
   const { qty, setQty, unitPrice, error, t } = options
 
   return (
@@ -52,7 +53,7 @@ export default function ItemOptionsFooter({ options, onAdd, compact = false }: P
       {error && <p className="customer-error">{error}</p>}
 
       <button type="button" onClick={onAdd} className="customer-btn customer-btn--primary item-options__add-btn">
-        {t("item.addToCart")}
+        {editMode ? t("item.updateCart") : t("item.addToCart")}
       </button>
     </div>
   )

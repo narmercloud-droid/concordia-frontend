@@ -34,6 +34,8 @@ interface CartState {
   items: CartItem[];
 
   addItem: (item: Omit<CartItem, "cartKey">) => void;
+  updateQuantity: (cartKey: string, quantity: number) => void;
+  replaceItem: (oldCartKey: string, item: Omit<CartItem, "cartKey">) => void;
   removeItem: (cartKey: string) => void;
   clearCart: () => void;
   total: () => number;
@@ -58,6 +60,35 @@ export const useCartStore = create<CartState>((set, get) => ({
         };
       }
       return { items: [...state.items, line] };
+    });
+  },
+
+  updateQuantity: (cartKey, quantity) => {
+    if (quantity < 1) {
+      get().removeItem(cartKey);
+      return;
+    }
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.cartKey === cartKey ? { ...i, quantity: Math.min(20, quantity) } : i
+      )
+    }));
+  },
+
+  replaceItem: (oldCartKey, item) => {
+    const cartKey = buildCartKey(item);
+    const line = { ...item, cartKey };
+    set((state) => {
+      const items = state.items.filter((i) => i.cartKey !== oldCartKey);
+      const existing = items.find((i) => i.cartKey === cartKey);
+      if (existing) {
+        return {
+          items: items.map((i) =>
+            i.cartKey === cartKey ? { ...line, quantity: item.quantity } : i
+          )
+        };
+      }
+      return { items: [...items, line] };
     });
   },
 

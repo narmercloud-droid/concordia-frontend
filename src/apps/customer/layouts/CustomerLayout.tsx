@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
+import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { subscribeToPush } from "@/utils/pushNotifications"
 import SiteNav from "@/apps/customer/components/SiteNav"
@@ -42,6 +43,24 @@ export default function CustomerLayout() {
         </Link>
         <div className="customer-header__actions">
           <LanguageSwitcher />
+          {isLoggedIn ? (
+            <>
+              <Link to="/customer/orders" className="customer-header__account">
+                {authUser.name?.split(" ")[0] ?? t("layout.account")}
+              </Link>
+              <button
+                type="button"
+                className="customer-header__logout"
+                onClick={() => logout()}
+              >
+                {t("layout.logout")}
+              </button>
+            </>
+          ) : (
+            <Link to="/customer/login" className="customer-header__account">
+              {t("layout.login")}
+            </Link>
+          )}
           <Link
             to="/customer/cart"
             className={`customer-cart-link${onCartPage ? " customer-cart-link--active" : ""}`}

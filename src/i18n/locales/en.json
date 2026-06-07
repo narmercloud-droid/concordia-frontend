@@ -22,7 +22,10 @@
   "layout": {
     "notificationsDisabled": "Notifications are disabled. Enable them in your browser settings to receive order updates.",
     "cart": "Cart",
-    "cartWithCount": "Cart ({{count}})"
+    "cartWithCount": "Cart ({{count}})",
+    "login": "Log in",
+    "logout": "Log out",
+    "account": "Account"
   },
   "home": {
     "loading": "Concordia",
@@ -113,7 +116,9 @@
     "empty": "Your cart is empty.",
     "clear": "Clear cart",
     "checkout": "Checkout",
-    "afterDiscount": "After discount"
+    "afterDiscount": "After discount",
+    "edit": "Edit",
+    "editingItem": "Update your choices below, then save to cart."
   },
   "checkout": {
     "title": "Checkout",
@@ -196,7 +201,16 @@
     "postcodeRequired": "Please include your postcode in the address.",
     "scheduleRequired": "Please choose a scheduled time.",
     "orderFailed": "Order failed. Please try again.",
-    "searchingAddresses": "Searching addresses…"
+    "searchingAddresses": "Searching addresses…",
+    "howToOrder": "How would you like to order?",
+    "orderAsGuest": "Guest checkout",
+    "orderWithAccount": "With my account",
+    "accountBenefits": "Create a free account to earn loyalty points on every order and unlock member perks.",
+    "accountLoginRequired": "Please log in or register to order with your account, or choose guest checkout.",
+    "welcomeBack": "Welcome back, {{name}}!",
+    "loyaltyBalance": "Loyalty: {{points}} points ({{tier}} tier)",
+    "loyaltyPerkPoints": "Earn points on every delivered order",
+    "loyaltyPerkTier": "Unlock bronze, silver and gold member rewards"
   },
   "giftVoucher": {
     "title": "Gift voucher",
@@ -233,6 +247,7 @@
     "instructions": "Special instructions",
     "instructionsPlaceholder": "e.g. no onions, extra crispy…",
     "addToCart": "Add to cart",
+    "updateCart": "Update cart",
     "chooseRequired": "Please choose: {{name}}",
     "chooseSizeFirst": "Please choose a pizza size before adding extras",
     "chooseMin": "Please select at least {{count}} for {{name}}",
@@ -383,6 +398,7 @@
     "loginFailed": "Login failed",
     "registerFailed": "Registration failed",
     "noAccount": "No account yet?",
-    "hasAccount": "Already have an account?"
+    "hasAccount": "Already have an account?",
+    "loyaltyBenefits": "Register free and join our loyalty programme:"
   }
 }

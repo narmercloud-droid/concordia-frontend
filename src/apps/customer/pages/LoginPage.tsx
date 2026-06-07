@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import { login } from "@/api/auth"
+import { loginCustomer } from "@/api/customerAuth"
 import { useAuthStore } from "@/context/authStore"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 export default function LoginPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const setToken = useAuthStore((s) => s.setToken)
   const setUser = useAuthStore((s) => s.setUser)
 
@@ -16,15 +17,18 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await login({ email, password })
-      const { accessToken, user } = res.data
+      const result = await loginCustomer({ email, password })
+      setToken(result.accessToken)
+      setUser(result.user)
 
-      setToken(accessToken)
-      setUser(user)
-
-      navigate("/customer/menu")
+      const redirect = searchParams.get("redirect")
+      navigate(redirect || "/customer/checkout")
     } catch (err: any) {
-      setError(err.response?.data?.message || t("auth.loginFailed"))
+      const message =
+        err.response?.data?.error?.message ??
+        err.response?.data?.message ??
+        t("auth.loginFailed")
+      setError(message)
     }
   }
 
@@ -58,7 +62,10 @@ export default function LoginPage() {
 
       <p className="customer-hint" style={{ textAlign: "center" }}>
         {t("auth.noAccount")}{" "}
-        <Link to="/customer/register" style={{ color: "var(--c-accent)" }}>
+        <Link
+          to={`/customer/register${searchParams.get("redirect") ? `?redirect=${encodeURIComponent(searchParams.get("redirect")!)}` : ""}`}
+          style={{ color: "var(--c-accent)" }}
+        >
           {t("auth.register")}
         </Link>
       </p>

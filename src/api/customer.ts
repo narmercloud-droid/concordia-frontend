@@ -88,11 +88,14 @@ export const createOrder = (data: {
   paymentMethod?: string
   promoCode?: string
   notes?: string
+  isGuest?: boolean
+  customerId?: string
 }) =>
   api
     .post("/orders", {
       branchId: data.branchId,
-      isGuest: true,
+      isGuest: data.isGuest ?? true,
+      customerId: data.customerId,
       customerName: data.customerName,
       customerPhone: data.customerPhone,
       customerEmail: data.customerEmail,

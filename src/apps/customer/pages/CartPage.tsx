@@ -12,6 +12,7 @@ export default function CartPage() {
   const subtotal = useCartStore((s) => s.total())
   const websiteDiscount = calcWebsiteDiscount(subtotal)
   const discountedSubtotal = calcDiscountedSubtotal(subtotal)
+  const updateQuantity = useCartStore((s) => s.updateQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
 
@@ -29,7 +30,7 @@ export default function CartPage() {
       <h2 className="customer-title">{t("cart.title")}</h2>
 
       {items.map((i) => (
-        <div key={i.cartKey} className="customer-card">
+        <div key={i.cartKey} className="customer-card cart-line">
           <h4 className="customer-card__title">{i.name}</h4>
           {i.variants.length > 0 && (
             <p className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</p>
@@ -46,11 +47,52 @@ export default function CartPage() {
             </p>
           )}
           <p className="customer-card__price">
-            {i.quantity} × {formatCurrency(i.unitPrice)} = {formatCurrency(i.quantity * i.unitPrice)}
+            {formatCurrency(i.unitPrice)} {t("item.each")}
           </p>
-          <button type="button" className="customer-btn" onClick={() => removeItem(i.cartKey)}>
-            {t("common.remove")}
-          </button>
+
+          <div className="cart-line__actions">
+            <div className="item-options__qty">
+              <label className="customer-label">{t("common.quantity")}</label>
+              <div className="item-options__qty-controls">
+                <button
+                  type="button"
+                  className="item-options__qty-btn"
+                  onClick={() => updateQuantity(i.cartKey, i.quantity - 1)}
+                  aria-label={t("item.decreaseQty")}
+                >
+                  −
+                </button>
+                <span className="item-options__qty-value">{i.quantity}</span>
+                <button
+                  type="button"
+                  className="item-options__qty-btn"
+                  onClick={() => updateQuantity(i.cartKey, i.quantity + 1)}
+                  aria-label={t("item.increaseQty")}
+                  disabled={i.quantity >= 20}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <p className="cart-line__line-total">
+              {formatCurrency(i.quantity * i.unitPrice)}
+            </p>
+          </div>
+
+          <div className="customer-btn-row cart-line__buttons">
+            <button
+              type="button"
+              className="customer-btn"
+              onClick={() =>
+                navigate(`/branch/${i.branchId}/item/${i.id}?edit=${encodeURIComponent(i.cartKey)}`)
+              }
+            >
+              {t("cart.edit")}
+            </button>
+            <button type="button" className="customer-btn" onClick={() => removeItem(i.cartKey)}>
+              {t("common.remove")}
+            </button>
+          </div>
         </div>
       ))}
 

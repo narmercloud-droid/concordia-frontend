@@ -22,7 +22,10 @@
   "layout": {
     "notificationsDisabled": "Benachrichtigungen sind deaktiviert. Aktivieren Sie sie in den Browser-Einstellungen, um Bestellupdates zu erhalten.",
     "cart": "Warenkorb",
-    "cartWithCount": "Warenkorb ({{count}})"
+    "cartWithCount": "Warenkorb ({{count}})",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "account": "Konto"
   },
   "home": {
     "loading": "Concordia",
@@ -113,7 +116,9 @@
     "empty": "Ihr Warenkorb ist leer.",
     "clear": "Warenkorb leeren",
     "checkout": "Zur Kasse",
-    "afterDiscount": "Nach Rabatt"
+    "afterDiscount": "Nach Rabatt",
+    "edit": "Bearbeiten",
+    "editingItem": "Passen Sie Ihre Auswahl an und speichern Sie den Warenkorb."
   },
   "checkout": {
     "title": "Kasse",
@@ -196,7 +201,16 @@
     "postcodeRequired": "Bitte geben Sie die Postleitzahl in der Adresse an.",
     "scheduleRequired": "Bitte wählen Sie eine Uhrzeit.",
     "orderFailed": "Bestellung fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "searchingAddresses": "Adressen werden gesucht…"
+    "searchingAddresses": "Adressen werden gesucht…",
+    "howToOrder": "Wie möchten Sie bestellen?",
+    "orderAsGuest": "Als Gast",
+    "orderWithAccount": "Mit Konto",
+    "accountBenefits": "Kostenlos registrieren und bei jeder Bestellung Treuepunkte sammeln.",
+    "accountLoginRequired": "Bitte anmelden oder registrieren — oder als Gast fortfahren.",
+    "welcomeBack": "Willkommen zurück, {{name}}!",
+    "loyaltyBalance": "Treueprogramm: {{points}} Punkte ({{tier}})",
+    "loyaltyPerkPoints": "Punkte bei jeder gelieferten Bestellung",
+    "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten"
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",
@@ -233,6 +247,7 @@
     "instructions": "Besondere Wünsche",
     "instructionsPlaceholder": "z. B. ohne Zwiebeln, extra knusprig…",
     "addToCart": "In den Warenkorb",
+    "updateCart": "Warenkorb aktualisieren",
     "chooseRequired": "Bitte wählen: {{name}}",
     "chooseSizeFirst": "Bitte wählen Sie zuerst eine Pizzagröße, bevor Sie Extras hinzufügen",
     "chooseMin": "Bitte wählen Sie mindestens {{count}} für {{name}}",
@@ -383,6 +398,7 @@
     "loginFailed": "Anmeldung fehlgeschlagen",
     "registerFailed": "Registrierung fehlgeschlagen",
     "noAccount": "Noch kein Konto?",
-    "hasAccount": "Bereits ein Konto?"
+    "hasAccount": "Bereits ein Konto?",
+    "loyaltyBenefits": "Kostenlos registrieren und vom Treueprogramm profitieren:"
   }
 }
