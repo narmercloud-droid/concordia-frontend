@@ -27,6 +27,7 @@ export default function BranchOwnerWelcome({ branding, branchName }: Props) {
           <p className="branch-owner__eyebrow">{t("branchOwner.eyebrow")}</p>
           <h2 className="branch-owner__title">{t("branchOwner.welcome", { branch: branchName })}</h2>
           <p className="branch-owner__message">{t("branchOwner.message")}</p>
+          <p className="branch-owner__signature">{t("branchOwner.signature")}</p>
         </div>
       </div>
     </section>

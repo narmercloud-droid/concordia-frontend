@@ -93,6 +93,7 @@
     "eyebrow": "Wasi szefowie kuchni",
     "welcome": "Witamy w Concordia {{branch}}",
     "message": "Świeżo z naszego pieca — przygotowane z pasją i sercem. Cieszymy się, że u nas zamawiasz.",
+    "signature": "Chef Alaan & Chef Jiuan",
     "photoAlt": "Szef kuchni w Concordia {{branch}}"
   },
   "menu": {
@@ -211,5 +212,116 @@
     "registerFailed": "Rejestracja nie powiodła się",
     "noAccount": "Nie masz konta?",
     "hasAccount": "Masz już konto?"
+  },
+  "pages": {
+    "navLabel": "Strony",
+    "backHome": "Powrót do strony głównej",
+    "nav": {
+      "home": "Strona główna",
+      "about": "O nas",
+      "contact": "Kontakt",
+      "reviews": "Opinie",
+      "offers": "Oferty",
+      "delivery": "Dostawa",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Unsere Geschichte",
+      "title": "Über Concordia",
+      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant, in dem Wärme, Qualität und Harmonie auf jedem Teller zusammentreffen. Von Pizza aus dem Steinofen über hausgemachte Pasta bis zu beliebten Klassikern — wir kochen jeden Tag mit Leidenschaft.",
+      "p2": "Was in Kempen begann, wächst weiter. Wir freuen uns, unsere Gäste vor Ort und online mit derselben Sorgfalt zu bedienen.",
+      "chefsTitle": "Ihre Küchenchefs",
+      "chefsText": "Chef Alaan und Chef Jiuan führen unsere Küche mit Herz und Erfahrung. Ihre Handschrift: Frische, Beständigkeit und die Freude, gutes Essen zu teilen.",
+      "kitchenTitle": "Vom Ofen auf Ihren Tisch",
+      "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch zubereitet, zur Abholung oder Lieferung."
+    },
+    "contact": {
+      "eyebrow": "Kontakt",
+      "title": "Kontakt & Standorte",
+      "lead": "Besuchen Sie uns, bestellen Sie online oder schreiben Sie uns eine E-Mail. Wir freuen uns auf Sie.",
+      "emailTitle": "E-Mail",
+      "emailHint": "Für Bestellungen nutzen Sie bitte unser Online-Menü — auf allgemeine Anfragen antworten wir so schnell wie möglich."
+    },
+    "reviews": {
+      "eyebrow": "Stimmen unserer Gäste",
+      "title": "Bewertungen",
+      "lead": "Einige Worte von Gästen, die bei uns bestellen — vielen Dank für Ihr Vertrauen.",
+      "items": {
+        "r1": {
+          "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Schnelle Lieferung, heißes Essen, faire Preise. Die Pasta ist fantastisch.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Man schmeckt die Leidenschaft. Unsere Familie liebt Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Tolles Online-Bestellen — einfach anzupassen und der 10%-Rabatt ist ein schönes Extra.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Herzlicher Empfang, großzügige Portionen, echter italienischer Geschmack. Sehr empfehlenswert.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Sparen bei uns",
+      "title": "Angebote & Aktionen",
+      "discountTitle": "Rabatt auf Ihre Online-Bestellung",
+      "discountText": "Bestellen Sie über unsere Website und erhalten Sie 10 % Rabatt automatisch an der Kasse. Kein Gutscheincode nötig.",
+      "drinkTitle": "Gratisgetränk ab 35 €",
+      "drinkText": "Ab einem Bestellwert von 35 € gibt es ein kostenloses Softgetränk — unser Dank, dass Sie Concordia wählen.",
+      "howTitle": "So funktioniert's",
+      "how1": "Filiale wählen und Gerichte in den Warenkorb legen.",
+      "how2": "Rabatte werden automatisch an der Kasse abgezogen.",
+      "how3": "Barzahlung bei Abholung oder Lieferung."
+    },
+    "delivery": {
+      "eyebrow": "Bis vor Ihre Tür",
+      "title": "Lieferung & Abholung",
+      "lead": "Wir liefern in ausgewählte Postleitzahlen rund um Kempen. Mindestbestellwert und Liefergebühr hängen von Ihrer Region ab.",
+      "areasTitle": "Liefergebiete (Kempen)",
+      "colPostcode": "PLZ",
+      "colMin": "Mindestbestellwert",
+      "colFee": "Liefergebühr",
+      "pickupTitle": "Abholung",
+      "pickupText": "Lieber abholen? Online bestellen und an der Concordienplatz 1 in Kempen abholen — wir bereiten alles frisch für Sie vor."
+    },
+    "faq": {
+      "eyebrow": "Hilfe",
+      "title": "Häufige Fragen",
+      "lead": "Kurze Antworten zu Bestellung, Bezahlung und Lieferung.",
+      "items": {
+        "q1": {
+          "q": "Wie bestelle ich?",
+          "a": "Wählen Sie auf der Startseite Ihre Filiale, stöbern Sie im Menü, passen Sie Gerichte an und schließen Sie die Bestellung online ab."
+        },
+        "q2": {
+          "q": "Welche Zahlungsarten akzeptieren Sie?",
+          "a": "Aktuell akzeptieren wir Barzahlung bei Abholung und Barzahlung bei Lieferung."
+        },
+        "q3": {
+          "q": "Kann ich eine Bestellung vorbestellen?",
+          "a": "Ja — an der Kasse können Sie ASAP oder einen Wunschtermin wählen, sofern verfügbar."
+        },
+        "q4": {
+          "q": "Wie funktioniert der 10%-Online-Rabatt?",
+          "a": "Er wird automatisch angewendet, wenn Sie über unsere Website bestellen. Kein Code erforderlich."
+        },
+        "q5": {
+          "q": "Kann ich meine Lieferung verfolgen?",
+          "a": "Ja — nach einer Lieferbestellung erhalten Sie einen Tracking-Link und sehen den Fahrer auf der Karte."
+        },
+        "q6": {
+          "q": "Wann öffnet Straelen?",
+          "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
+        }
+      }
+    }
   }
 }

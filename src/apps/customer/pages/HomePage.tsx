@@ -12,6 +12,8 @@ import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import { branchPath } from "@/lib/customerPaths"
+import SiteFooter from "@/apps/customer/components/SiteFooter"
+import SiteNav from "@/apps/customer/components/SiteNav"
 import "./HomePage.css"
 
 type Branch = {
@@ -247,13 +249,8 @@ export default function HomePage() {
         />
       )}
 
-      <footer className="home-footer">
-        <ConcordiaLogo size="sm" className="home-footer__logo" />
-        <p className="home-footer__slogan">{t("home.slogan")}</p>
-        <p>{t("home.footerCash")}</p>
-        <p className="home-footer__promo">{t("home.websiteDiscountFooter", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}</p>
-        <p>{t("home.footerFreeDrink")}</p>
-      </footer>
+      <SiteNav className="home-site-nav" />
+      <SiteFooter />
     </div>
   )
 }

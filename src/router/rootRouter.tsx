@@ -2,6 +2,7 @@ import React, { Suspense } from "react"
 import { createBrowserRouter, Outlet } from "react-router-dom"
 import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
+import infoRoutes from "../apps/customer/infoRoutes.js"
 import adminRoutes from "../apps/admin/routes.js"
 import { courierRoutes } from "@/apps/courier/routes"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       homeRoutes,
+      infoRoutes,
       branchRoutes,
       customerRoutes,
       adminRoutes,

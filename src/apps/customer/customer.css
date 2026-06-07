@@ -134,6 +134,17 @@
   color: var(--c-muted);
 }
 
+.branch-owner__signature {
+  margin: 14px 0 0;
+  font-family: var(--c-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--c-accent);
+  letter-spacing: 0.02em;
+}
+
 @media (max-width: 520px) {
   .branch-owner__card {
     flex-direction: column;

@@ -5,6 +5,7 @@ import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useCartStore } from "@/store/cartStore"
 import { subscribeToPush } from "@/utils/pushNotifications"
+import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
 
 export default function CustomerLayout() {
@@ -14,6 +15,7 @@ export default function CustomerLayout() {
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
   const onCartPage = location.pathname === "/customer/cart"
   const onHomePage = location.pathname === "/"
+  const isWidePage = WIDE_CUSTOMER_PATHS.has(location.pathname)
 
   useEffect(() => {
     if (!("Notification" in window)) return
@@ -28,8 +30,8 @@ export default function CustomerLayout() {
 
   return (
     <div
-      className={`customer-shell${onHomePage ? " customer-shell--home" : ""}`}
-      style={{ maxWidth: onHomePage ? 980 : 720, margin: "0 auto", padding: "24px 20px 48px" }}
+      className={`customer-shell${isWidePage ? " customer-shell--home" : ""}`}
+      style={{ maxWidth: isWidePage ? 980 : 720, margin: "0 auto", padding: "24px 20px 48px" }}
     >
       <header
         className={`customer-header${onHomePage ? " customer-header--home" : ""}`}

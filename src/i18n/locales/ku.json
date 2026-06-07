@@ -93,6 +93,7 @@
     "eyebrow": "Şefên we",
     "welcome": "Bi xêr hatine Concordia {{branch}}",
     "message": "Taze ji firina me — bi dilsozî û bi dil hatiye amadekirin. Kêfxweş in ku hûn bi me re ferman didin.",
+    "signature": "Chef Alaan & Chef Jiuan",
     "photoAlt": "Şef li Concordia {{branch}}"
   },
   "menu": {
@@ -211,5 +212,116 @@
     "registerFailed": "Tomarkirin bi ser neket",
     "noAccount": "Hê hesabê we tune?",
     "hasAccount": "Jixwe hesabê we heye?"
+  },
+  "pages": {
+    "navLabel": "Rûpel",
+    "backHome": "Vegere serûpelê",
+    "nav": {
+      "home": "Serûpel",
+      "about": "Der barê me",
+      "contact": "Têkilî",
+      "reviews": "Nirxandin",
+      "offers": "Pêşniyar",
+      "delivery": "Radestkirin",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Our story",
+      "title": "About Concordia",
+      "p1": "Concordia is a family-run Italian restaurant where warmth, quality and harmony meet on every plate. From stone-oven pizza to homemade pasta and beloved classics — we cook with passion, every day.",
+      "p2": "What started in Kempen continues to grow. We are proud to serve our guests in person and online, with the same care behind every order.",
+      "chefsTitle": "Your head chefs",
+      "chefsText": "Chef Alaan and Chef Jiuan lead our kitchen with heart and experience. Their signature is freshness, consistency and the joy of sharing good food.",
+      "kitchenTitle": "From our oven to your table",
+      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — prepared fresh when you order, for pickup or delivery."
+    },
+    "contact": {
+      "eyebrow": "Get in touch",
+      "title": "Contact & locations",
+      "lead": "Visit us, order online, or reach out by email. We look forward to hearing from you.",
+      "emailTitle": "Email",
+      "emailHint": "For orders, please use our online menu — we reply to general enquiries as soon as we can."
+    },
+    "reviews": {
+      "eyebrow": "Guest voices",
+      "title": "Reviews",
+      "lead": "A few words from guests who order with us — thank you for your trust and kind feedback.",
+      "items": {
+        "r1": {
+          "text": "The best pizza in the area — always fresh, always friendly. We order every week.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Fast delivery, hot food, fair prices. The pasta is fantastic.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "You can taste the passion. Our family loves Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Great online ordering — easy to customise and the 10% discount is a nice bonus.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Warm welcome, generous portions, true Italian flavour. Highly recommended.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Save with us",
+      "title": "Offers & promotions",
+      "discountTitle": "off your online order",
+      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
+      "drinkTitle": "Free drink from €35",
+      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
+      "howTitle": "How it works",
+      "how1": "Choose your branch and add dishes to your cart.",
+      "how2": "Discounts apply automatically at checkout.",
+      "how3": "Pay cash on pickup or delivery."
+    },
+    "delivery": {
+      "eyebrow": "To your door",
+      "title": "Delivery & pickup",
+      "lead": "We deliver to selected postcodes around Kempen. Minimum order and delivery fee depend on your area.",
+      "areasTitle": "Delivery areas (Kempen)",
+      "colPostcode": "Postcode",
+      "colMin": "Min. order",
+      "colFee": "Delivery fee",
+      "pickupTitle": "Pickup",
+      "pickupText": "Prefer to collect? Order online and pick up at Concordienplatz 1, Kempen — we'll have it ready for you."
+    },
+    "faq": {
+      "eyebrow": "Help",
+      "title": "Frequently asked questions",
+      "lead": "Quick answers about ordering, payment and delivery.",
+      "items": {
+        "q1": {
+          "q": "How do I place an order?",
+          "a": "Choose your branch on the homepage, browse the menu, customise your dishes and checkout online."
+        },
+        "q2": {
+          "q": "Which payment methods do you accept?",
+          "a": "We currently accept cash on pickup and cash on delivery."
+        },
+        "q3": {
+          "q": "Can I schedule my order?",
+          "a": "Yes — at checkout you can choose ASAP or a scheduled time slot where available."
+        },
+        "q4": {
+          "q": "How does the 10% online discount work?",
+          "a": "It is applied automatically when you order through our website. No code is required."
+        },
+        "q5": {
+          "q": "Can I track my delivery?",
+          "a": "Yes — after placing a delivery order you receive a tracking link to follow your driver on the map."
+        },
+        "q6": {
+          "q": "When will Straelen open?",
+          "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live."
+        }
+      }
+    }
   }
 }
