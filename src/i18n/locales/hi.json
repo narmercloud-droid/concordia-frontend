@@ -79,7 +79,11 @@
     "comingSoonLabel": "जल्द आ रहा है",
     "moreLocations": "और शाखाएँ जल्द",
     "footerCash": "पिकअप या डिलीवरी पर नकद",
-    "websiteDiscount": "{{percent}}% छूट — चेकआउट पर स्वचालित रूप से",
+    "websiteDiscountBadge": "केवल वेबसाइट पर",
+    "websiteDiscountTitle": "आपके ऑर्डर पर छूट",
+    "websiteDiscountDetail": "चेकआउट पर स्वचालित — कोई कोड नहीं",
+    "websiteDiscountStrip": "ऑनलाइन ऑर्डर करें और बचाएं",
+    "websiteDiscountFooter": "ऑनलाइन ऑर्डर पर {{percent}}% छूट — चेकआउट पर स्वचालित",
     "footerFreeDrink": "35 € से ऑर्डर पर मुफ़्त पेय"
   },
   "branchOwner": {

@@ -79,7 +79,11 @@
     "comingSoonLabel": "Wkrótce",
     "moreLocations": "Więcej lokalizacji wkrótce",
     "footerCash": "Gotówka przy odbiorze lub dostawie",
-    "websiteDiscount": "{{percent}}% rabatu — automatycznie przy kasie",
+    "websiteDiscountBadge": "Tylko online",
+    "websiteDiscountTitle": "Rabatu na zamówienie",
+    "websiteDiscountDetail": "Automatycznie przy kasie — bez kodu",
+    "websiteDiscountStrip": "Zamów online i oszczędź",
+    "websiteDiscountFooter": "{{percent}}% rabatu przy zamówieniu online — automatycznie przy kasie",
     "footerFreeDrink": "Darmowy napój przy zamówieniu od 35 €"
   },
   "branchOwner": {

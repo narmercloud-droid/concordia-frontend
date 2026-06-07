@@ -79,7 +79,11 @@
     "comingSoonLabel": "Binnenkort",
     "moreLocations": "Meer vestigingen volgen",
     "footerCash": "Contant bij afhalen of bezorgen",
-    "websiteDiscount": "{{percent}}% korting — automatisch bij het afrekenen",
+    "websiteDiscountBadge": "Alleen online",
+    "websiteDiscountTitle": "Korting op uw bestelling",
+    "websiteDiscountDetail": "Automatisch bij het afrekenen — geen code nodig",
+    "websiteDiscountStrip": "Online bestellen & besparen",
+    "websiteDiscountFooter": "{{percent}}% korting bij online bestellen — automatisch bij afrekenen",
     "footerFreeDrink": "Gratis drankje vanaf €35 bestelwaarde"
   },
   "branchOwner": {

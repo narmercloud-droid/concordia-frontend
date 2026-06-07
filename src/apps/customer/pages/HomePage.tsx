@@ -139,6 +139,19 @@ export default function HomePage() {
         <div className="home-divider" aria-hidden="true" />
         <p className="home-lead">{t("home.lead")}</p>
 
+        <div className="home-promo-offer" role="note">
+          <span className="home-promo-offer__badge">{t("home.websiteDiscountBadge")}</span>
+          <div className="home-promo-offer__main">
+            <span className="home-promo-offer__percent" aria-hidden="true">
+              {WEBSITE_ORDER_DISCOUNT_PCT}%
+            </span>
+            <div className="home-promo-offer__copy">
+              <p className="home-promo-offer__title">{t("home.websiteDiscountTitle")}</p>
+              <p className="home-promo-offer__detail">{t("home.websiteDiscountDetail")}</p>
+            </div>
+          </div>
+        </div>
+
         <div className="home-perks">
           <span className="home-perk">
             <span className="home-perk__dot" aria-hidden="true" />
@@ -147,10 +160,6 @@ export default function HomePage() {
           <span className="home-perk">
             <span className="home-perk__dot" aria-hidden="true" />
             {t("checkout.pickup")}
-          </span>
-          <span className="home-perk home-perk--accent">
-            <span className="home-perk__dot" aria-hidden="true" />
-            {t("home.websiteDiscount", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}
           </span>
           <span className="home-perk home-perk--accent">
             <span className="home-perk__dot" aria-hidden="true" />
@@ -200,6 +209,19 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="home-promo-strip" aria-label={t("home.websiteDiscountBadge")}>
+        <div className="home-promo-strip__inner">
+          <span className="home-promo-strip__percent">{WEBSITE_ORDER_DISCOUNT_PCT}%</span>
+          <div className="home-promo-strip__copy">
+            <p className="home-promo-strip__title">{t("home.websiteDiscountStrip")}</p>
+            <p className="home-promo-strip__detail">{t("home.websiteDiscountDetail")}</p>
+          </div>
+          <a className="home-promo-strip__cta" href="#order">
+            {t("home.orderNow")}
+          </a>
+        </div>
+      </section>
+
       <HomeFeaturedMenu branchId={nearestId} />
 
       <MenuShowcase />
@@ -231,7 +253,7 @@ export default function HomePage() {
         <ConcordiaLogo size="sm" className="home-footer__logo" />
         <p className="home-footer__slogan">{t("home.slogan")}</p>
         <p>{t("home.footerCash")}</p>
-        <p>{t("home.websiteDiscount", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}</p>
+        <p className="home-footer__promo">{t("home.websiteDiscountFooter", { percent: WEBSITE_ORDER_DISCOUNT_PCT })}</p>
         <p>{t("home.footerFreeDrink")}</p>
       </footer>
     </div>

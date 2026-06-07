@@ -79,7 +79,11 @@
     "comingSoonLabel": "Скоро",
     "moreLocations": "Скоро откроются новые филиалы",
     "footerCash": "Оплата наличными при самовывозе или доставке",
-    "websiteDiscount": "Скидка {{percent}}% — автоматически при оформлении заказа",
+    "websiteDiscountBadge": "Только на сайте",
+    "websiteDiscountTitle": "Скидка на заказ",
+    "websiteDiscountDetail": "Автоматически при оформлении — код не нужен",
+    "websiteDiscountStrip": "Закажите онлайн и сэкономьте",
+    "websiteDiscountFooter": "Скидка {{percent}}% при заказе на сайте — автоматически при оформлении",
     "footerFreeDrink": "Бесплатный напиток при заказе от 35 €"
   },
   "branchOwner": {

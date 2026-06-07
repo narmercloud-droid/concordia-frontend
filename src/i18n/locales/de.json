@@ -79,7 +79,11 @@
     "comingSoonLabel": "Bald verfügbar",
     "moreLocations": "Weitere Standorte folgen",
     "footerCash": "Barzahlung bei Abholung oder Lieferung",
-    "websiteDiscount": "{{percent}} % Rabatt — automatisch an der Kasse",
+    "websiteDiscountBadge": "Nur online",
+    "websiteDiscountTitle": "Rabatt auf Ihre Bestellung",
+    "websiteDiscountDetail": "Wird automatisch an der Kasse abgezogen — kein Code nötig",
+    "websiteDiscountStrip": "Online bestellen & sparen",
+    "websiteDiscountFooter": "{{percent}} % Rabatt bei Online-Bestellung — automatisch an der Kasse",
     "footerFreeDrink": "Gratisgetränk ab Bestellwert von 35 €"
   },
   "branchOwner": {
