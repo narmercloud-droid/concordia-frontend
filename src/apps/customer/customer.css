@@ -546,6 +546,65 @@
   font-family: inherit;
 }
 
+.checkout-free-drink__options {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkout-free-drink__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+  background: var(--c-card);
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.checkout-free-drink__option--active {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+}
+
+.checkout-free-drink__option input {
+  accent-color: var(--c-accent);
+}
+
+.checkout-marketing {
+  margin-top: 8px;
+}
+
+.checkout-marketing__channels {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.checkout-marketing__channel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkout-marketing__channel input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--c-accent);
+}
+
+.checkout-marketing__legal {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .customer-hint {
   font-size: 13px;
   color: var(--c-muted);

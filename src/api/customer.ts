@@ -17,6 +17,11 @@ export const getBranchMenu = async (branchId: string) => {
   return unwrap<{ categories: any[] }>(res)
 }
 
+export const getFreeDrinkOptions = async (branchId: string) => {
+  const res = await api.get(`/api/branches/${branchId}/free-drink-options`)
+  return unwrap<{ options: Array<{ id: number; name: string; label: string }> }>(res)
+}
+
 export const getBranchBestsellers = async (branchId: string, limit = 6) => {
   const res = await api.get(`/api/branches/${branchId}/bestsellers`, { params: { limit } })
   return unwrap<{
@@ -71,6 +76,11 @@ export const createOrder = (data: {
   }>
   customerName: string
   customerPhone: string
+  customerEmail?: string
+  freeDrinkChoice?: number | string
+  marketingEmail?: boolean
+  marketingSMS?: boolean
+  marketingWhatsApp?: boolean
   fulfillmentType: "pickup" | "delivery"
   deliveryAddress?: string
   scheduledFor?: string | null
@@ -84,6 +94,11 @@ export const createOrder = (data: {
       isGuest: true,
       customerName: data.customerName,
       customerPhone: data.customerPhone,
+      customerEmail: data.customerEmail,
+      freeDrinkChoice: data.freeDrinkChoice,
+      marketingEmail: data.marketingEmail,
+      marketingSMS: data.marketingSMS,
+      marketingWhatsApp: data.marketingWhatsApp,
       fulfillmentType: data.fulfillmentType,
       deliveryAddress: data.fulfillmentType === "delivery" ? data.deliveryAddress : undefined,
       scheduledFor: data.scheduledFor ?? undefined,

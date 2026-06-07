@@ -7,6 +7,7 @@ import {
   getBranches,
   getBranchTimeSlots,
   getDeliveryQuote,
+  getFreeDrinkOptions,
   validatePromoCode
 } from "@/api/customer"
 import { getPaymentConfig } from "@/api/payments"
@@ -60,6 +61,13 @@ export default function CheckoutPage() {
   } | null>(null)
   const [voucherError, setVoucherError] = useState("")
   const [voucherLoading, setVoucherLoading] = useState(false)
+  const [freeDrinkChoice, setFreeDrinkChoice] = useState<number | "">("")
+  const [freeDrinkError, setFreeDrinkError] = useState("")
+  const [customerEmail, setCustomerEmail] = useState("")
+  const [emailError, setEmailError] = useState("")
+  const [marketingEmail, setMarketingEmail] = useState(false)
+  const [marketingSMS, setMarketingSMS] = useState(false)
+  const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
 
   const branchId = items[0]?.branchId
   const postalCode = extractPostalCode(address)
@@ -88,6 +96,15 @@ export default function CheckoutPage() {
   })
 
   const cardPaymentsEnabled = paymentConfig?.cardPaymentsEnabled ?? false
+
+  const { data: freeDrinkData } = useQuery({
+    queryKey: ["freeDrinkOptions", branchId],
+    queryFn: () => getFreeDrinkOptions(branchId!),
+    enabled: !!branchId && qualifiesForFreeDrink,
+    staleTime: 5 * 60_000
+  })
+
+  const freeDrinkOptions = freeDrinkData?.options ?? []
 
   const createMutation = useMutation({
     mutationFn: createOrder
@@ -210,6 +227,8 @@ export default function CheckoutPage() {
     setPhoneError("")
     setAddressError("")
     setScheduleError("")
+    setFreeDrinkError("")
+    setEmailError("")
 
     if (!name.trim()) {
       setNameError(t("checkout.nameRequired"))
@@ -237,6 +256,16 @@ export default function CheckoutPage() {
       return false
     }
 
+    if (qualifiesForFreeDrink && freeDrinkChoice === "") {
+      setFreeDrinkError(t("checkout.freeDrinkRequired"))
+      return false
+    }
+
+    if (marketingEmail && !customerEmail.trim()) {
+      setEmailError(t("checkout.emailRequiredForOffers"))
+      return false
+    }
+
     return true
   }
 
@@ -249,6 +278,11 @@ export default function CheckoutPage() {
         items,
         customerName: name.trim(),
         customerPhone: phone.trim(),
+        customerEmail: customerEmail.trim() || undefined,
+        freeDrinkChoice: qualifiesForFreeDrink ? freeDrinkChoice : undefined,
+        marketingEmail,
+        marketingSMS,
+        marketingWhatsApp,
         fulfillmentType,
         deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
@@ -549,6 +583,36 @@ export default function CheckoutPage() {
         </div>
       )}
 
+      {qualifiesForFreeDrink && (
+        <div className="customer-field checkout-free-drink">
+          <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
+          <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
+          <div className="checkout-free-drink__options" role="radiogroup">
+            {freeDrinkOptions.map((drink) => (
+              <label
+                key={drink.id}
+                className={`checkout-free-drink__option${
+                  freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="freeDrink"
+                  value={drink.id}
+                  checked={freeDrinkChoice === drink.id}
+                  onChange={() => {
+                    setFreeDrinkChoice(drink.id)
+                    setFreeDrinkError("")
+                  }}
+                />
+                <span>{drink.label}</span>
+              </label>
+            ))}
+          </div>
+          {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
+        </div>
+      )}
+
       <div className="customer-field">
         <label className="customer-label">
           {t("checkout.notes")} ({t("common.optional")})
@@ -561,6 +625,57 @@ export default function CheckoutPage() {
           rows={2}
           maxLength={300}
         />
+      </div>
+
+      <div className="customer-card checkout-marketing">
+        <h3 className="customer-subtitle">{t("checkout.marketingTitle")}</h3>
+        <p className="customer-hint">{t("checkout.marketingHint")}</p>
+        <div className="checkout-marketing__channels">
+          <label className="checkout-marketing__channel">
+            <input
+              type="checkbox"
+              checked={marketingSMS}
+              onChange={(e) => setMarketingSMS(e.target.checked)}
+            />
+            <span>{t("checkout.marketingSMS")}</span>
+          </label>
+          <label className="checkout-marketing__channel">
+            <input
+              type="checkbox"
+              checked={marketingWhatsApp}
+              onChange={(e) => setMarketingWhatsApp(e.target.checked)}
+            />
+            <span>{t("checkout.marketingWhatsApp")}</span>
+          </label>
+          <label className="checkout-marketing__channel">
+            <input
+              type="checkbox"
+              checked={marketingEmail}
+              onChange={(e) => {
+                setMarketingEmail(e.target.checked)
+                if (!e.target.checked) setEmailError("")
+              }}
+            />
+            <span>{t("checkout.marketingEmail")}</span>
+          </label>
+        </div>
+        {marketingEmail && (
+          <div style={{ marginTop: 12 }}>
+            <input
+              className="customer-input"
+              type="email"
+              placeholder={t("checkout.emailPlaceholder")}
+              value={customerEmail}
+              onChange={(e) => {
+                setCustomerEmail(e.target.value)
+                setEmailError("")
+              }}
+              autoComplete="email"
+            />
+            {emailError && <p className="customer-error">{emailError}</p>}
+          </div>
+        )}
+        <p className="customer-hint checkout-marketing__legal">{t("checkout.marketingLegal")}</p>
       </div>
 
       {!pendingCardOrderId && (
