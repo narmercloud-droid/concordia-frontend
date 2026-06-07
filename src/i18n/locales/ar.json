@@ -104,7 +104,9 @@
     "dishes": "أطباق",
     "from": "من",
     "bestSellers": "الأكثر مبيعاً",
-    "bestSellersDesc": "أشهر أطباقنا — اختيارات الشيف."
+    "bestSellersDesc": "أشهر أطباقنا — اختيارات الشيف.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "سلتك",

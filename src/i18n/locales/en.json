@@ -104,7 +104,9 @@
     "dishes": "dishes",
     "from": "from",
     "bestSellers": "Best Sellers",
-    "bestSellersDesc": "Our most popular dishes — chef's picks."
+    "bestSellersDesc": "Our most popular dishes — chef's picks.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "Your cart",

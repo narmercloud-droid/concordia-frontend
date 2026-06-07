@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchMenu, getBranches } from "@/api/customer"
+import { getBranchBestsellers, getBranchMenu, getBranches } from "@/api/customer"
+import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
+import { BRANCHES_QUERY_KEY } from "@/lib/branchesQuery"
 import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import { getBranchOwnerBranding } from "@/lib/branchBranding"
@@ -49,8 +51,9 @@ export default function BranchMenuPage() {
   const [toastName, setToastName] = useState<string | null>(null)
 
   const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches
+    queryKey: BRANCHES_QUERY_KEY,
+    queryFn: getBranches,
+    staleTime: 90_000
   })
 
   const branch = branches?.find((b: { id: string }) => b.id === branchId)
@@ -59,12 +62,23 @@ export default function BranchMenuPage() {
   const { data } = useQuery({
     queryKey: ["branchMenu", branchId],
     queryFn: () => getBranchMenu(branchId!),
-    enabled: !!branchId
+    enabled: !!branchId,
+    ...menuQueryOptions
+  })
+
+  const { data: bestsellersData } = useQuery({
+    queryKey: ["branchBestsellers", branchId],
+    queryFn: () => getBranchBestsellers(branchId!),
+    enabled: !!branchId,
+    ...bestsellersQueryOptions
   })
 
   const categories = (data?.categories ?? []) as MenuCategory[]
 
-  const bestSellers = useMemo(() => pickFeatured(categories), [categories])
+  const bestSellers = useMemo(
+    () => pickFeatured(categories, 6, { salesItemIds: bestsellersData?.itemIds }),
+    [categories, bestsellersData?.itemIds]
+  )
 
   const totalItems = useMemo(
     () => categories.reduce((sum, cat) => sum + cat.items.length, 0),
@@ -164,7 +178,11 @@ export default function BranchMenuPage() {
         >
           <div className="branch-menu__section-head">
             <h3 className="branch-menu__section-title">{t("menu.bestSellers")}</h3>
-            <p className="branch-menu__section-desc">{t("menu.bestSellersDesc")}</p>
+            <p className="branch-menu__section-desc">
+              {bestsellersData?.hasSalesData
+                ? t("menu.bestSellersFromSales")
+                : t("menu.bestSellersDesc")}
+            </p>
           </div>
 
           <div className="branch-menu__grid">
@@ -201,6 +219,16 @@ export default function BranchMenuPage() {
           imageUrl={selectedItem.imageUrl}
           onClose={() => setSelectedItem(null)}
           onAdded={(name) => setToastName(name)}
+          onSuggestItem={(item) =>
+            setSelectedItem({
+              id: item.id,
+              name: item.name,
+              itemNumber: item.itemNumber,
+              price: item.price,
+              imageUrl: item.imageUrl,
+              categoryName: categoryForItem(categories, item)
+            })
+          }
         />
       )}
 

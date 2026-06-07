@@ -104,7 +104,9 @@
     "dishes": "блюд",
     "from": "от",
     "bestSellers": "Хиты продаж",
-    "bestSellersDesc": "Самые популярные блюда — выбор шеф-повара."
+    "bestSellersDesc": "Самые популярные блюда — выбор шеф-повара.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "Ваша корзина",

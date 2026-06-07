@@ -104,7 +104,9 @@
     "dishes": "dań",
     "from": "od",
     "bestSellers": "Bestsellery",
-    "bestSellersDesc": "Nasze najpopularniejsze dania — polecane przez szefa kuchni."
+    "bestSellersDesc": "Nasze najpopularniejsze dania — polecane przez szefa kuchni.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "Twój koszyk",

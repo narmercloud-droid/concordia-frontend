@@ -17,6 +17,37 @@ export const getBranchMenu = async (branchId: string) => {
   return unwrap<{ categories: any[] }>(res)
 }
 
+export const getBranchBestsellers = async (branchId: string, limit = 6) => {
+  const res = await api.get(`/api/branches/${branchId}/bestsellers`, { params: { limit } })
+  return unwrap<{
+    periodDays: number
+    hasSalesData: boolean
+    itemIds: number[]
+    items: Array<{
+      id: number
+      itemNumber?: string | null
+      name: string
+      description?: string | null
+      price: number
+      imageUrl?: string | null
+    }>
+  }>(res)
+}
+
+export const getAlsoPopular = async (branchId: string, itemId: number) => {
+  const res = await api.get(`/api/branches/${branchId}/items/${itemId}/also-popular`)
+  return unwrap<{
+    items: Array<{
+      id: number
+      itemNumber?: string | null
+      name: string
+      description?: string | null
+      price: number
+      imageUrl?: string | null
+    }>
+  }>(res)
+}
+
 export const getBranchTimeSlots = async (branchId: string) => {
   const res = await api.get(`/api/branches/${branchId}/time-slots`)
   return unwrap<{ slots: Array<{ label: string; value: string }> }>(res)

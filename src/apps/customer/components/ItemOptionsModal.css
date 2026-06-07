@@ -1,3 +1,66 @@
+.item-modal__also-popular {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.item-modal__also-popular-label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.item-modal__also-popular-list {
+  display: grid;
+  gap: 8px;
+}
+
+.item-modal__also-popular-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  cursor: pointer;
+}
+
+.item-modal__also-popular-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.item-modal__also-popular-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.item-modal__also-popular-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-modal__also-popular-price {
+  font-size: 13px;
+  color: var(--c-muted);
+}
+
 .item-modal {
   position: fixed;
   inset: 0;

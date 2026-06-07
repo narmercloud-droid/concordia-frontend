@@ -45,7 +45,34 @@ function itemsByNumbers(categories: FeaturedMenuCategory[], numbers: string[]) {
     .filter((item): item is FeaturedMenuItem => item != null)
 }
 
-export function pickFeatured(categories: FeaturedMenuCategory[], limit = 6) {
+function itemsByIds(categories: FeaturedMenuCategory[], ids: number[]) {
+  return ids
+    .map((id) => {
+      for (const cat of categories) {
+        const item = cat.items.find((entry) => entry.id === id)
+        if (item) return item
+      }
+      return null
+    })
+    .filter((item): item is FeaturedMenuItem => item != null)
+}
+
+export type PickFeaturedOptions = {
+  salesItemIds?: number[]
+}
+
+export function pickFeatured(
+  categories: FeaturedMenuCategory[],
+  limit = 6,
+  options?: PickFeaturedOptions
+) {
+  if (options?.salesItemIds?.length) {
+    const fromSales = itemsByIds(categories, options.salesItemIds)
+    if (fromSales.length >= 3) {
+      return dedupeItems(fromSales, limit)
+    }
+  }
+
   const curated = itemsByNumbers(categories, KEMPEN_BEST_SELLER_NUMBERS)
   if (curated.length >= 3) {
     return dedupeItems(curated, limit)

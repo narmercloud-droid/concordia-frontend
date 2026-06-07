@@ -104,7 +104,9 @@
     "dishes": "gerechten",
     "from": "vanaf",
     "bestSellers": "Bestsellers",
-    "bestSellersDesc": "Onze populairste gerechten — aanbevolen door de chef."
+    "bestSellersDesc": "Onze populairste gerechten — aanbevolen door de chef.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "Uw winkelwagen",

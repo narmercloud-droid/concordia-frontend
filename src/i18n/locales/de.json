@@ -104,7 +104,9 @@
     "dishes": "Gerichte",
     "from": "ab",
     "bestSellers": "Bestseller",
-    "bestSellersDesc": "Unsere beliebtesten Gerichte — vom Küchenchef empfohlen."
+    "bestSellersDesc": "Unsere beliebtesten Gerichte — vom Küchenchef empfohlen.",
+    "bestSellersFromSales": "Top-Seller der letzten 30 Tage — basierend auf echten Bestellungen.",
+    "alsoPopular": "Auch beliebt"
   },
   "cart": {
     "title": "Ihr Warenkorb",

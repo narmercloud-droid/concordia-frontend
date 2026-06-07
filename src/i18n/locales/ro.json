@@ -104,7 +104,9 @@
     "dishes": "feluri",
     "from": "de la",
     "bestSellers": "Cele mai vândute",
-    "bestSellersDesc": "Cele mai populare preparate — recomandate de bucătar."
+    "bestSellersDesc": "Cele mai populare preparate — recomandate de bucătar.",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "Coșul dvs.",

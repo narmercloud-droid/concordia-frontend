@@ -1,10 +1,21 @@
 import React, { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
+import { useQuery } from "@tanstack/react-query"
+import { getAlsoPopular } from "@/api/customer"
 import { useItemOptions } from "@/apps/customer/hooks/useItemOptions"
 import { dishImageForName } from "@/lib/foodImagery"
+import { formatCurrency } from "@/utils/format"
 import ItemOptionsFields from "./ItemOptionsFields"
 import ItemOptionsFooter from "./ItemOptionsFooter"
 import "./ItemOptionsModal.css"
+
+type SuggestedItem = {
+  id: number
+  name: string
+  itemNumber?: string | null
+  price: number
+  imageUrl?: string | null
+}
 
 type Props = {
   open: boolean
@@ -16,6 +27,7 @@ type Props = {
   imageUrl?: string | null
   onClose: () => void
   onAdded: (itemName: string) => void
+  onSuggestItem?: (item: SuggestedItem) => void
 }
 
 export default function ItemOptionsModal({
@@ -27,11 +39,19 @@ export default function ItemOptionsModal({
   categoryName = "",
   imageUrl,
   onClose,
-  onAdded
+  onAdded,
+  onSuggestItem
 }: Props) {
   const { t } = useTranslation()
   const panelRef = useRef<HTMLDivElement>(null)
   const options = useItemOptions(branchId, itemId)
+
+  const { data: alsoPopularData } = useQuery({
+    queryKey: ["alsoPopular", branchId, itemId],
+    queryFn: () => getAlsoPopular(branchId, itemId),
+    enabled: open && !!branchId && !!itemId,
+    staleTime: 60_000
+  })
 
   useEffect(() => {
     if (open) options.reset()
@@ -99,6 +119,36 @@ export default function ItemOptionsModal({
         </header>
 
         <div className="item-modal__body">
+          {alsoPopularData?.items?.length ? (
+            <div className="item-modal__also-popular">
+              <p className="item-modal__also-popular-label">{t("menu.alsoPopular")}</p>
+              <div className="item-modal__also-popular-list">
+                {alsoPopularData.items.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="item-modal__also-popular-item"
+                    onClick={() => onSuggestItem?.(item)}
+                  >
+                    <span
+                      className="item-modal__also-popular-thumb"
+                      style={{
+                        backgroundImage: `url(${dishImageForName(item.name, item.imageUrl, categoryName)})`
+                      }}
+                      aria-hidden="true"
+                    />
+                    <span className="item-modal__also-popular-copy">
+                      <span className="item-modal__also-popular-name">{item.name}</span>
+                      <span className="item-modal__also-popular-price">
+                        {formatCurrency(item.price)}
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
           {options.isLoading ? (
             <p className="customer-loading">{t("item.loading")}</p>
           ) : (

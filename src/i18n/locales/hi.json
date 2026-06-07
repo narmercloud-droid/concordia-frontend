@@ -104,7 +104,9 @@
     "dishes": "व्यंजन",
     "from": "से",
     "bestSellers": "बेस्ट सेलर",
-    "bestSellersDesc": "हमारे सबसे लोकप्रिय व्यंजन — शेफ की पसंद।"
+    "bestSellersDesc": "हमारे सबसे लोकप्रिय व्यंजन — शेफ की पसंद।",
+    "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
+    "alsoPopular": "Also popular"
   },
   "cart": {
     "title": "आपकी कार्ट",

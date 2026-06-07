@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react"
+import React, { Suspense, useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import ConcordiaHomeLogo from "@/apps/customer/components/ConcordiaHomeLogo"
-import HomeFeaturedMenu from "@/apps/customer/components/HomeFeaturedMenu"
-import HomeGallery from "@/apps/customer/components/HomeGallery"
 import HomeOrderHub from "@/apps/customer/components/HomeOrderHub"
-import MenuShowcase from "@/apps/customer/components/MenuShowcase"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import { branchPath } from "@/lib/customerPaths"
 import SiteFooter from "@/apps/customer/components/SiteFooter"
-import { branchesQueryOptions } from "@/lib/branchesQuery"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import "./HomePage.css"
+
+const HomeFeaturedMenu = React.lazy(
+  () => import("@/apps/customer/components/HomeFeaturedMenu")
+)
+const MenuShowcase = React.lazy(() => import("@/apps/customer/components/MenuShowcase"))
+const HomeGallery = React.lazy(() => import("@/apps/customer/components/HomeGallery"))
 
 type Branch = {
   id: string
@@ -56,7 +59,7 @@ export default function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { data, isLoading, isError, isFetching, refetch } = useQuery({
-    queryKey: ["branches"],
+    queryKey: BRANCHES_QUERY_KEY,
     queryFn: getBranches,
     ...branchesQueryOptions
   })
@@ -66,6 +69,10 @@ export default function HomePage() {
 
   const branches = (data ?? []).filter((b: Branch) => b.id !== "branch-001")
   const liveBranches = branches.filter((b) => !b.comingSoon)
+  const liveBranchIds = useMemo(
+    () => liveBranches.map((b) => b.id).join("|"),
+    [liveBranches]
+  )
 
   const detectNearest = () => {
     if (!navigator.geolocation) {
@@ -112,7 +119,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!liveBranches.length) return
     detectNearest()
-  }, [data])
+  }, [liveBranchIds])
 
   const nearestBranch = liveBranches.find((b) => b.id === nearestId)
 
@@ -217,11 +224,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeFeaturedMenu branchId={nearestId} />
+      <Suspense fallback={null}>
+        <HomeFeaturedMenu branchId={nearestId} />
+      </Suspense>
 
-      <MenuShowcase />
+      <Suspense fallback={null}>
+        <MenuShowcase />
+      </Suspense>
 
-      <HomeGallery />
+      <Suspense fallback={null}>
+        <HomeGallery />
+      </Suspense>
 
       {isLoading || (isFetching && !data) ? (
         <section className="home-order-hub home-order-hub--loading" id="order">

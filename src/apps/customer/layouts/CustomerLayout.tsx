@@ -6,6 +6,7 @@ import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useCartStore } from "@/store/cartStore"
 import { subscribeToPush } from "@/utils/pushNotifications"
 import SiteNav from "@/apps/customer/components/SiteNav"
+import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
 import "@/apps/customer/components/InfoPages.css"
@@ -61,7 +62,9 @@ export default function CustomerLayout() {
       )}
 
       <main style={{ marginTop: 20 }}>
+        <CustomerErrorBoundary>
         <Outlet />
+      </CustomerErrorBoundary>
       </main>
     </div>
   )
