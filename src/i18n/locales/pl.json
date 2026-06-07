@@ -61,6 +61,8 @@
     "filterPickup": "Odbiór",
     "filterReset": "Resetuj",
     "noBranches": "Brak oddziału pasującego do wyszukiwania.",
+    "branchesLoadError": "Nie udało się załadować oddziałów. Spróbuj ponownie.",
+    "retry": "Spróbuj ponownie",
     "allLocations": "Wszystkie lokalizacje",
     "featuredLabel": "Ze stołu szefa kuchni",
     "featuredTitle": "Popularne dania",

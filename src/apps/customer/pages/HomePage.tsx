@@ -54,7 +54,11 @@ type LocationState = "idle" | "loading" | "ready" | "denied" | "unsupported"
 export default function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { data, isLoading } = useQuery({ queryKey: ["branches"], queryFn: getBranches })
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ["branches"],
+    queryFn: getBranches,
+    retry: 2
+  })
   const [nearestId, setNearestId] = useState<string | null>(null)
   const [distances, setDistances] = useState<Record<string, number>>({})
   const [locationState, setLocationState] = useState<LocationState>("idle")
@@ -228,11 +232,21 @@ export default function HomePage() {
 
       <HomeGallery />
 
-      <HomeOrderHub
-        branches={liveBranches}
-        nearestId={nearestId}
-        distances={distances}
-      />
+      {isError ? (
+        <section className="home-order-hub" id="order">
+          <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
+          <p className="home-order-hub__empty">{t("home.branchesLoadError")}</p>
+          <button type="button" className="home-cta" onClick={() => refetch()}>
+            {t("home.retry")}
+          </button>
+        </section>
+      ) : (
+        <HomeOrderHub
+          branches={liveBranches}
+          nearestId={nearestId}
+          distances={distances}
+        />
+      )}
 
       {comingSoon.length > 0 && (
         <section className="home-coming">

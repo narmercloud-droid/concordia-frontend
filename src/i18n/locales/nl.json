@@ -61,6 +61,8 @@
     "filterPickup": "Afhalen",
     "filterReset": "Reset",
     "noBranches": "Geen vestiging gevonden voor uw zoekopdracht.",
+    "branchesLoadError": "Vestigingen konden niet worden geladen. Probeer het opnieuw.",
+    "retry": "Opnieuw proberen",
     "allLocations": "Alle vestigingen",
     "featuredLabel": "Van de tafel van de chef",
     "featuredTitle": "Populaire gerechten",

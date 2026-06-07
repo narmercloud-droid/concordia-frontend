@@ -61,6 +61,8 @@
     "filterPickup": "Самовывоз",
     "filterReset": "Сбросить",
     "noBranches": "Нет филиала по вашему запросу.",
+    "branchesLoadError": "Не удалось загрузить филиалы. Попробуйте снова.",
+    "retry": "Повторить",
     "allLocations": "Все филиалы",
     "featuredLabel": "Со стола шеф-повара",
     "featuredTitle": "Популярные блюда",

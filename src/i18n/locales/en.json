@@ -61,6 +61,8 @@
     "filterPickup": "Pickup",
     "filterReset": "Reset",
     "noBranches": "No branch matches your search.",
+    "branchesLoadError": "Could not load branches. Please try again.",
+    "retry": "Try again",
     "allLocations": "All locations",
     "featuredLabel": "From the chef's table",
     "featuredTitle": "Popular dishes",

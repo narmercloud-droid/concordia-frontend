@@ -61,6 +61,8 @@
     "filterPickup": "Abholung",
     "filterReset": "Zurücksetzen",
     "noBranches": "Keine Filiale entspricht Ihrer Suche.",
+    "branchesLoadError": "Filialen konnten nicht geladen werden. Bitte erneut versuchen.",
+    "retry": "Erneut versuchen",
     "allLocations": "Alle Standorte",
     "featuredLabel": "Vom Tisch des Küchenchefs",
     "featuredTitle": "Beliebte Gerichte",

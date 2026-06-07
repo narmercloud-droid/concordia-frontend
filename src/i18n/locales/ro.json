@@ -61,6 +61,8 @@
     "filterPickup": "Ridicare",
     "filterReset": "Resetare",
     "noBranches": "Nicio filială nu corespunde căutării.",
+    "branchesLoadError": "Filialele nu au putut fi încărcate. Încercați din nou.",
+    "retry": "Încercați din nou",
     "allLocations": "Toate locațiile",
     "featuredLabel": "De la masa bucătarului",
     "featuredTitle": "Preparate populare",

@@ -61,6 +61,8 @@
     "filterPickup": "पिकअप",
     "filterReset": "रीसेट",
     "noBranches": "आपकी खोज से कोई शाखा मेल नहीं खाती।",
+    "branchesLoadError": "शाखाएँ लोड नहीं हो सकीं। कृपया पुनः प्रयास करें।",
+    "retry": "पुनः प्रयास करें",
     "allLocations": "सभी स्थान",
     "featuredLabel": "शेफ की मेज से",
     "featuredTitle": "लोकप्रिय व्यंजन",
