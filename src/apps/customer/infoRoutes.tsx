@@ -6,6 +6,7 @@ const AboutPage = React.lazy(() => import("./pages/AboutPage.js"))
 const ContactPage = React.lazy(() => import("./pages/ContactPage.js"))
 const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
 const OffersPage = React.lazy(() => import("./pages/OffersPage.js"))
+const GiftVoucherPage = React.lazy(() => import("./pages/GiftVoucherPage.js"))
 const DeliveryPage = React.lazy(() => import("./pages/DeliveryPage.js"))
 const FaqPage = React.lazy(() => import("./pages/FaqPage.js"))
 
@@ -20,6 +21,8 @@ export const infoRoutes = {
     { path: "contact", element: lazy(<ContactPage />) },
     { path: "reviews", element: lazy(<ReviewsPage />) },
     { path: "offers", element: lazy(<OffersPage />) },
+    { path: "gutschein", element: lazy(<GiftVoucherPage />) },
+    { path: "gutschein/:branchId", element: lazy(<GiftVoucherPage />) },
     { path: "delivery", element: lazy(<DeliveryPage />) },
     { path: "faq", element: lazy(<FaqPage />) }
   ]

@@ -605,6 +605,70 @@
   line-height: 1.5;
 }
 
+.checkout-marketing__perks {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.6;
+}
+
+.checkout-payment-grid,
+.gift-voucher-amounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkout-payment-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 10px 8px;
+  border: 1px solid var(--c-border, #ddd);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkout-payment-option--active {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+  font-weight: 600;
+}
+
+.checkout-payment-option--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.checkout-payment-option small {
+  font-size: 10px;
+  color: var(--c-muted);
+}
+
+.gift-voucher-page {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.gift-voucher-success {
+  text-align: center;
+}
+
+.gift-voucher-success__code {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 16px 0;
+  color: var(--c-accent);
+}
+
 .customer-hint {
   font-size: 13px;
   color: var(--c-muted);

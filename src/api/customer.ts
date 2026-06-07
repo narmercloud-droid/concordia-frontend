@@ -81,6 +81,7 @@ export const createOrder = (data: {
   marketingEmail?: boolean
   marketingSMS?: boolean
   marketingWhatsApp?: boolean
+  birthday?: string
   fulfillmentType: "pickup" | "delivery"
   deliveryAddress?: string
   scheduledFor?: string | null
@@ -99,6 +100,7 @@ export const createOrder = (data: {
       marketingEmail: data.marketingEmail,
       marketingSMS: data.marketingSMS,
       marketingWhatsApp: data.marketingWhatsApp,
+      birthday: data.birthday,
       fulfillmentType: data.fulfillmentType,
       deliveryAddress: data.fulfillmentType === "delivery" ? data.deliveryAddress : undefined,
       scheduledFor: data.scheduledFor ?? undefined,
@@ -161,13 +163,20 @@ export const suggestAddresses = async (
   }>(res)
 }
 
-export const validatePromoCode = async (code: string, orderTotal: number) => {
-  const res = await api.post("/api/promo/validate", { code, orderTotal })
+export const validatePromoCode = async (
+  code: string,
+  orderTotal: number,
+  branchId: string
+) => {
+  const res = await api.post("/api/promo/validate", { code, orderTotal, branchId })
   return unwrap<{
     code: string
-    type: string
+    kind: "promo" | "gift"
+    type?: string
     discountAmount: number
-    promoCodeId: string
+    promoCodeId?: string
+    giftCardId?: string
+    balanceRemaining?: number
   }>(res)
 }
 

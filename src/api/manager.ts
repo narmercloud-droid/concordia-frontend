@@ -65,3 +65,34 @@ export const updateManagerVariantGroup = (
 
 export const getManagerOrders = (branchId?: string) =>
   api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
+
+export const getManagerCustomers = async (
+  branchId?: string,
+  params?: { marketingOnly?: boolean; search?: string }
+) => {
+  const res = await api.get("/api/v1/manager/customers", {
+    params: { branchId, ...params }
+  })
+  return unwrap<{ customers: any[]; stats: any }>(res)
+}
+
+export const exportManagerCustomers = async (
+  branchId?: string,
+  marketingOnly = false
+) => {
+  const res = await api.get("/api/v1/manager/customers/export", {
+    params: { branchId, marketingOnly: marketingOnly ? "true" : undefined }
+  })
+  return unwrap<{ csv: string; filename: string }>(res)
+}
+
+export const getManagerCustomerOrders = async (phone: string, branchId?: string) => {
+  const res = await api.get(
+    `/api/v1/manager/customers/${encodeURIComponent(phone)}/orders`,
+    { params: branchId ? { branchId } : {} }
+  )
+  return unwrap<{ orders: any[] }>(res)
+}
+
+export const runManagerAutomation = (branchId?: string) =>
+  api.post("/api/v1/manager/customers/automation/run", { branchId })

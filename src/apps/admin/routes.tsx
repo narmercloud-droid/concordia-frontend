@@ -8,6 +8,7 @@ const MenuPage = React.lazy(() => import("./pages/MenuPage.js"))
 const OrdersPage = React.lazy(() => import("./pages/OrdersPage.js"))
 const HoursPage = React.lazy(() => import("./pages/HoursPage.js"))
 const DeliveryAreasPage = React.lazy(() => import("./pages/DeliveryAreasPage.js"))
+const CustomersPage = React.lazy(() => import("./pages/CustomersPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
 
 const lazySection = (element: React.ReactElement) => (
@@ -35,7 +36,8 @@ export const adminRoutes = {
         { path: "menu", element: lazySection(<MenuPage />) },
         { path: "orders", element: lazySection(<OrdersPage />) },
         { path: "hours", element: lazySection(<HoursPage />) },
-        { path: "delivery", element: lazySection(<DeliveryAreasPage />) }
+        { path: "delivery", element: lazySection(<DeliveryAreasPage />) },
+        { path: "customers", element: lazySection(<CustomersPage />) }
       ]
     }
   ]

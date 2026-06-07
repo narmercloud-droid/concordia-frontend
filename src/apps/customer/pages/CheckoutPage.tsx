@@ -11,7 +11,7 @@ import {
   validatePromoCode
 } from "@/api/customer"
 import { getPaymentConfig } from "@/api/payments"
-import PayPalCardCheckout from "@/apps/customer/components/PayPalCardCheckout"
+import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useCartStore } from "@/store/cartStore"
 import { calcWebsiteDiscount } from "@/lib/websitePromo"
@@ -19,7 +19,7 @@ import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
-type PaymentChoice = "cash" | "card"
+type PaymentChoice = "cash" | "card" | "paypal" | "klarna" | "sepa"
 
 function extractPostalCode(address: string): string | null {
   const match = address.match(/\b(\d{5})\b/)
@@ -58,6 +58,8 @@ export default function CheckoutPage() {
   const [appliedVoucher, setAppliedVoucher] = useState<{
     code: string
     discountAmount: number
+    kind?: "promo" | "gift"
+    balanceRemaining?: number
   } | null>(null)
   const [voucherError, setVoucherError] = useState("")
   const [voucherLoading, setVoucherLoading] = useState(false)
@@ -68,6 +70,8 @@ export default function CheckoutPage() {
   const [marketingEmail, setMarketingEmail] = useState(false)
   const [marketingSMS, setMarketingSMS] = useState(false)
   const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
+  const [birthday, setBirthday] = useState("")
+  const [birthdayError, setBirthdayError] = useState("")
 
   const branchId = items[0]?.branchId
   const postalCode = extractPostalCode(address)
@@ -95,7 +99,16 @@ export default function CheckoutPage() {
     staleTime: 5 * 60_000
   })
 
-  const cardPaymentsEnabled = paymentConfig?.cardPaymentsEnabled ?? false
+  const paymentMethods = paymentConfig?.methods ?? {
+    cash: true,
+    card: false,
+    paypal: false,
+    klarna: false,
+    sepa: false
+  }
+  const onlinePaymentChoice =
+    paymentChoice === "card" || paymentChoice === "paypal"
+  const needsOnlinePayment = onlinePaymentChoice && paymentMethods[paymentChoice]
 
   const { data: freeDrinkData } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
@@ -141,10 +154,13 @@ export default function CheckoutPage() {
 
     const timer = setTimeout(async () => {
       try {
-        const result = await validatePromoCode(appliedVoucher.code, total)
+        if (!branchId) return
+        const result = await validatePromoCode(appliedVoucher.code, total, branchId)
         setAppliedVoucher({
           code: result.code,
-          discountAmount: result.discountAmount
+          discountAmount: result.discountAmount,
+          kind: result.kind,
+          balanceRemaining: result.balanceRemaining
         })
         setVoucherError("")
       } catch (err: any) {
@@ -229,6 +245,7 @@ export default function CheckoutPage() {
     setScheduleError("")
     setFreeDrinkError("")
     setEmailError("")
+    setBirthdayError("")
 
     if (!name.trim()) {
       setNameError(t("checkout.nameRequired"))
@@ -266,6 +283,15 @@ export default function CheckoutPage() {
       return false
     }
 
+    const hasMarketing = marketingEmail || marketingSMS || marketingWhatsApp
+    if (hasMarketing && birthday) {
+      const parsed = new Date(birthday)
+      if (Number.isNaN(parsed.getTime())) {
+        setBirthdayError(t("checkout.birthdayInvalid"))
+        return false
+      }
+    }
+
     return true
   }
 
@@ -283,10 +309,11 @@ export default function CheckoutPage() {
         marketingEmail,
         marketingSMS,
         marketingWhatsApp,
+        birthday: birthday || undefined,
         fulfillmentType,
         deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
-        paymentMethod: paymentChoice === "card" ? "card" : "cash",
+        paymentMethod: paymentChoice,
         promoCode: appliedVoucher?.code,
         notes: orderNotes.trim() || undefined
       })
@@ -297,7 +324,7 @@ export default function CheckoutPage() {
         return
       }
 
-      if (paymentChoice === "card") {
+      if (needsOnlinePayment) {
         setPendingCardOrderId(orderId)
         return
       }
@@ -390,11 +417,7 @@ export default function CheckoutPage() {
         <p className="customer-total-line">
           {t("common.total")}: {formatCurrency(grandTotal)}
         </p>
-        <p className="customer-hint">
-          {paymentChoice === "cash"
-            ? t("checkout.payment", { method: cashPaymentLabel })
-            : t("checkout.paymentCard")}
-        </p>
+        <p className="customer-hint">{paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)}</p>
       </div>
 
       <div className="customer-field">
@@ -433,10 +456,16 @@ export default function CheckoutPage() {
         {appliedVoucher && (
           <div className="checkout-voucher__applied">
             <span>
-              {t("checkout.voucherActive", {
-                code: appliedVoucher.code,
-                amount: formatCurrency(appliedVoucher.discountAmount)
-              })}
+              {appliedVoucher.kind === "gift" && appliedVoucher.balanceRemaining != null
+                ? t("checkout.giftCardActive", {
+                    code: appliedVoucher.code,
+                    amount: formatCurrency(appliedVoucher.discountAmount),
+                    remaining: formatCurrency(appliedVoucher.balanceRemaining)
+                  })
+                : t("checkout.voucherActive", {
+                    code: appliedVoucher.code,
+                    amount: formatCurrency(appliedVoucher.discountAmount)
+                  })}
             </span>
             <button
               type="button"
@@ -449,30 +478,55 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      {cardPaymentsEnabled && (
-        <div className="customer-field">
-          <label className="customer-label">{t("checkout.paymentMethod")}</label>
-          <div className="customer-toggle-group">
-            <button
-              type="button"
-              onClick={() => {
-                setPaymentChoice("cash")
-                setPendingCardOrderId(null)
-              }}
-              className={`customer-toggle${paymentChoice === "cash" ? " customer-toggle--active" : ""}`}
-            >
-              {t("checkout.payCash")}
-            </button>
-            <button
-              type="button"
-              onClick={() => setPaymentChoice("card")}
-              className={`customer-toggle${paymentChoice === "card" ? " customer-toggle--active" : ""}`}
-            >
-              {t("checkout.payCard")}
-            </button>
-          </div>
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.paymentMethod")}</label>
+        <div className="checkout-payment-grid">
+          <CheckoutPaymentOption
+            label={t("checkout.payCash")}
+            active={paymentChoice === "cash"}
+            enabled={paymentMethods.cash}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => {
+              setPaymentChoice("cash")
+              setPendingCardOrderId(null)
+            }}
+          />
+          <CheckoutPaymentOption
+            label={t("checkout.payCard")}
+            active={paymentChoice === "card"}
+            enabled={paymentMethods.card}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => {
+              setPaymentChoice("card")
+              setPendingCardOrderId(null)
+            }}
+          />
+          <CheckoutPaymentOption
+            label={t("checkout.payPayPal")}
+            active={paymentChoice === "paypal"}
+            enabled={paymentMethods.paypal}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => {
+              setPaymentChoice("paypal")
+              setPendingCardOrderId(null)
+            }}
+          />
+          <CheckoutPaymentOption
+            label={t("checkout.payKlarna")}
+            active={paymentChoice === "klarna"}
+            enabled={paymentMethods.klarna}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("klarna")}
+          />
+          <CheckoutPaymentOption
+            label={t("checkout.paySepa")}
+            active={paymentChoice === "sepa"}
+            enabled={paymentMethods.sepa}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("sepa")}
+          />
         </div>
-      )}
+      </div>
 
       <div className="customer-field">
         <label className="customer-label">{t("checkout.orderType")}</label>
@@ -675,6 +729,23 @@ export default function CheckoutPage() {
             {emailError && <p className="customer-error">{emailError}</p>}
           </div>
         )}
+        {(marketingEmail || marketingSMS || marketingWhatsApp) && (
+          <div className="checkout-marketing__birthday" style={{ marginTop: 12 }}>
+            <label className="customer-label">{t("checkout.birthdayLabel")}</label>
+            <p className="customer-hint">{t("checkout.birthdayHint")}</p>
+            <input
+              className="customer-input"
+              type="date"
+              value={birthday}
+              onChange={(e) => {
+                setBirthday(e.target.value)
+                setBirthdayError("")
+              }}
+              max={new Date().toISOString().slice(0, 10)}
+            />
+            {birthdayError && <p className="customer-error">{birthdayError}</p>}
+          </div>
+        )}
         <p className="customer-hint checkout-marketing__legal">{t("checkout.marketingLegal")}</p>
       </div>
 
@@ -691,21 +762,70 @@ export default function CheckoutPage() {
               ? quoteLoading
                 ? t("checkout.checkingDelivery")
                 : t("checkout.completeAddress")
-              : paymentChoice === "card"
+              : needsOnlinePayment
                 ? t("checkout.continueToPayment")
                 : t("checkout.placeOrder")}
         </button>
       )}
 
-      {pendingCardOrderId && paymentConfig?.paypalClientId && (
-        <PayPalCardCheckout
-          orderId={pendingCardOrderId}
-          paypalClientId={paymentConfig.paypalClientId}
-          currency={paymentConfig.currency}
-          onSuccess={handleCardPaymentSuccess}
-          onError={(message) => setError(message)}
-        />
+      {pendingCardOrderId && paymentConfig?.paypalClientId && needsOnlinePayment && (
+        <div className="customer-card" style={{ marginTop: 16 }}>
+          <h3 className="customer-subtitle">{t("checkout.onlinePaymentTitle")}</h3>
+          <PayPalCheckout
+            orderId={pendingCardOrderId}
+            paypalClientId={paymentConfig.paypalClientId}
+            currency={paymentConfig.currency}
+            fundingSource={paymentChoice === "card" ? "card" : "paypal"}
+            onSuccess={handleCardPaymentSuccess}
+            onError={(message) => setError(message)}
+          />
+        </div>
       )}
     </div>
+  )
+}
+
+function paymentSummaryLabel(
+  t: (key: string, opts?: Record<string, string>) => string,
+  choice: PaymentChoice,
+  cashLabel: string
+) {
+  if (choice === "cash") return t("checkout.payment", { method: cashLabel })
+  const keys: Record<PaymentChoice, string> = {
+    cash: "checkout.payment",
+    card: "checkout.paymentCard",
+    paypal: "checkout.paymentPaypal",
+    klarna: "checkout.paymentKlarna",
+    sepa: "checkout.paymentSepa"
+  }
+  return t(keys[choice])
+}
+
+function CheckoutPaymentOption({
+  label,
+  active,
+  enabled,
+  comingSoon,
+  onSelect
+}: {
+  label: string
+  active: boolean
+  enabled: boolean
+  comingSoon: string
+  onSelect: () => void
+}) {
+  return (
+    <button
+      type="button"
+      disabled={!enabled}
+      className={`checkout-payment-option${active ? " checkout-payment-option--active" : ""}${
+        !enabled ? " checkout-payment-option--disabled" : ""
+      }`}
+      onClick={onSelect}
+      title={!enabled ? comingSoon : undefined}
+    >
+      <span>{label}</span>
+      {!enabled && <small>{comingSoon}</small>}
+    </button>
   )
 }

@@ -20,6 +20,7 @@ export default function AdminNav() {
       <Link to="/admin/menu" style={linkStyle}>Menu</Link>
       <Link to="/admin/hours" style={linkStyle}>Opening hours</Link>
       <Link to="/admin/delivery" style={linkStyle}>Delivery settings</Link>
+      <Link to="/admin/customers" style={linkStyle}>Customers</Link>
       <button
         onClick={logout}
         style={{
