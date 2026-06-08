@@ -30,7 +30,7 @@ const SECTIONS: Array<{ title: string; keys: string[] }> = [
   },
   {
     title: "Customers & CRM",
-    keys: ["customers_view", "customers_export", "customers_automation"]
+    keys: ["customers_view", "customers_export", "customers_automation", "reviews_view"]
   },
   {
     title: "Offers & promotions",
@@ -52,6 +52,7 @@ const LABELS: Record<string, string> = {
   customers_view: "View customers",
   customers_export: "Export customer CSV",
   customers_automation: "Run win-back & birthday automation",
+  reviews_view: "View website order feedback",
   offers_view: "View branch offers",
   offers_edit: "Edit branch offers"
 }

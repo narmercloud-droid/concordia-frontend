@@ -317,6 +317,49 @@ export const getManagerPromotions = async (branchId?: string) => {
   }>(res)
 }
 
+export type ManagerOrderReview = {
+  id: string
+  orderId: string
+  branchId: string
+  foodRating: number
+  deliveryRating: number | null
+  rating: number | null
+  comment: string | null
+  createdAt: string
+  customerName: string
+  customerEmail: string | null
+  order: {
+    id: string
+    customerName: string | null
+    fulfillmentType: string | null
+    createdAt: string
+    status: string
+  }
+}
+
+export type ManagerReviewsSummary = {
+  reviewCount: number
+  averageFoodRating: number | null
+  averageDeliveryRating: number | null
+  averageOverallRating: number | null
+  deliveryReviewCount: number
+}
+
+export const getManagerReviews = async (
+  branchId?: string,
+  filters?: { from?: string; to?: string; lowRatingsOnly?: boolean }
+) => {
+  const res = await api.get("/api/v1/manager/reviews", {
+    params: {
+      ...(branchId ? { branchId } : {}),
+      ...(filters?.from ? { from: filters.from } : {}),
+      ...(filters?.to ? { to: filters.to } : {}),
+      ...(filters?.lowRatingsOnly ? { lowRatingsOnly: true } : {})
+    }
+  })
+  return unwrap<{ reviews: ManagerOrderReview[]; summary: ManagerReviewsSummary }>(res)
+}
+
 export const updateManagerPromotions = async (
   data: {
     freeDrinkMinOrder?: number
