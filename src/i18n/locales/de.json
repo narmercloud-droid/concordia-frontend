@@ -370,6 +370,7 @@
       "loading": "Bewertungen werden geladen…",
       "loadError": "Google-Bewertungen konnten gerade nicht geladen werden.",
       "fallbackNotice": "Ausgewählte Gästestimmen für {{branch}}, während Google-Bewertungen geladen werden.",
+      "noReviewCards": "Weitere Bewertungen finden Sie auf Google Maps für {{branch}}.",
       "viewOnGoogle": "Alle Bewertungen auf Google Maps",
       "ratingLabel": "{{rating}} von 5 Sternen",
       "reviewCount": "{{count}} Google-Bewertungen",

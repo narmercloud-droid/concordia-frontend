@@ -39,7 +39,9 @@ export default function ReviewsPage() {
     staleTime: 60 * 60_000
   })
 
-  const showGoogle = (googleReviews?.reviews.length ?? 0) > 0
+  const hasReviewCards = (googleReviews?.reviews.length ?? 0) > 0
+  const hasGoogleSummary =
+    !!googleReviews && (googleReviews.rating != null || hasReviewCards || !!googleReviews.googleMapsUrl)
   const branchLabel = activeBranch ? branchDisplayName(activeBranch.name) : ""
 
   return (
@@ -72,7 +74,7 @@ export default function ReviewsPage() {
         <div className="info-reviews__summary">
           {isLoading ? (
             <p className="info-reviews__meta">{t("pages.reviews.loading")}</p>
-          ) : showGoogle && googleReviews ? (
+          ) : hasGoogleSummary && googleReviews ? (
             <>
               <p className="info-reviews__rating" aria-label={t("pages.reviews.ratingLabel", { rating: googleReviews.rating ?? 0 })}>
                 <span className="info-reviews__rating-stars" aria-hidden="true">
@@ -112,7 +114,7 @@ export default function ReviewsPage() {
         </div>
       )}
 
-      {showGoogle && googleReviews
+      {hasReviewCards && googleReviews
         ? googleReviews.reviews.map((review, index) => (
             <article key={`${review.author}-${index}`} className="info-review">
               <p className="info-review__stars" aria-label={t("pages.reviews.ratingLabel", { rating: review.rating })}>
