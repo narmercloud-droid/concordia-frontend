@@ -1,6 +1,6 @@
 let warmupPromise: Promise<void> | null = null
 
-/** Wake Render cold backend before critical customer requests. */
+/** Wake Render cold backend and prefetch hot public reads before customer navigation. */
 export function warmupApi(): Promise<void> {
   if (warmupPromise) return warmupPromise
 
@@ -12,14 +12,13 @@ export function warmupApi(): Promise<void> {
 
   const root = base.replace(/\/$/, "")
   const timeoutMs = 12_000
+  const signal = AbortSignal.timeout(timeoutMs)
+  const fetchOpts: RequestInit = { method: "GET", credentials: "omit", signal }
 
-  warmupPromise = fetch(`${root}/health`, {
-    method: "GET",
-    credentials: "omit",
-    signal: AbortSignal.timeout(timeoutMs)
-  })
-    .then(() => undefined)
-    .catch(() => undefined)
+  warmupPromise = Promise.allSettled([
+    fetch(`${root}/health`, fetchOpts),
+    fetch(`${root}/api/branches`, fetchOpts)
+  ]).then(() => undefined)
 
   return warmupPromise
 }

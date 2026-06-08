@@ -69,6 +69,10 @@ export async function bootstrapI18n() {
     void loadLocale(lng)
   })
 
+  const active = resolveAppLanguage(i18n.language)
+  if (active === DEFAULT_LANGUAGE) {
+    return
+  }
   await loadLocale(i18n.language)
 }
 

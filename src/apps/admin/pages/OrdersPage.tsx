@@ -2,14 +2,17 @@ import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getManagerOrders } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 
 export default function OrdersPage() {
   const { branchId } = useAdminBranch()
+  const tabVisible = useDocumentVisible()
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["managerOrders", branchId],
     queryFn: () => getManagerOrders(branchId),
-    refetchInterval: 15000
+    staleTime: 10_000,
+    refetchInterval: tabVisible ? 15_000 : false
   })
 
   const orders = data?.data?.data ?? []

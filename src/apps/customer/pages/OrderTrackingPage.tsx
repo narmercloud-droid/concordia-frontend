@@ -7,6 +7,7 @@ import { socket } from "@/lib/socket"
 import { formatDateTime, formatTime } from "@/utils/format"
 import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
 import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
+import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
 
@@ -14,13 +15,15 @@ export default function OrderTrackingPage() {
   const { t } = useTranslation()
   const { orderId } = useParams()
   const queryClient = useQueryClient()
+  const tabVisible = useDocumentVisible()
   const [courierLocation, setCourierLocation] = useState<CourierLocation | null>(null)
 
   const { data } = useQuery({
     queryKey: ["orderStatus", orderId],
     queryFn: () => getOrderStatus(orderId!),
     enabled: !!orderId,
-    refetchInterval: 30000
+    staleTime: 15_000,
+    refetchInterval: tabVisible ? 30_000 : false
   })
 
   const order = data

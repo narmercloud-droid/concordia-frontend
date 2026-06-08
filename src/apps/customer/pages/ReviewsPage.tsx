@@ -45,7 +45,7 @@ export default function ReviewsPage() {
   const { data: branches = [] } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches,
-    staleTime: 300_000
+    staleTime: 600_000
   })
 
   const reviewBranches = useMemo(

@@ -1,6 +1,10 @@
-import axios from "axios"
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 
 const isDev = import.meta.env.DEV
+const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
+const MAX_GET_RETRIES = 2
+
+type RetryConfig = InternalAxiosRequestConfig & { __retryCount?: number }
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -29,11 +33,27 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error: AxiosError) => {
+    const config = error.config as RetryConfig | undefined
+    const status = error.response?.status
+    const method = (config?.method ?? "get").toLowerCase()
+    const retryCount = config?.__retryCount ?? 0
+    const canRetry =
+      !!config &&
+      method === "get" &&
+      retryCount < MAX_GET_RETRIES &&
+      (!error.response || RETRYABLE_STATUS.has(status ?? 0))
+
+    if (canRetry && config) {
+      config.__retryCount = retryCount + 1
+      const delayMs = Math.min(1000 * 2 ** retryCount, 8000)
+      await new Promise((resolve) => setTimeout(resolve, delayMs))
+      return api(config)
+    }
+
     if (isDev) {
-      const status = error?.response?.status
-      const url = error?.config?.url
-      console.warn("[api]", status ?? "network", url ?? "unknown", error?.message)
+      const url = config?.url
+      console.warn("[api]", status ?? "network", url ?? "unknown", error.message)
     }
     return Promise.reject(error)
   }
