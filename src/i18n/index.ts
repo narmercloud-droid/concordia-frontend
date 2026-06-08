@@ -8,16 +8,22 @@ import {
   SUPPORTED_LANGUAGE_CODES
 } from "./languages"
 import de from "./locales/de.json"
-import en from "./locales/en.json"
-import nl from "./locales/nl.json"
-import pl from "./locales/pl.json"
-import ru from "./locales/ru.json"
-import ro from "./locales/ro.json"
-import hi from "./locales/hi.json"
-import ar from "./locales/ar.json"
-import ku from "./locales/ku.json"
-import tr from "./locales/tr.json"
-import ckb from "./locales/ckb.json"
+
+const LOCALE_LOADERS: Record<
+  string,
+  () => Promise<{ default: Record<string, unknown> }>
+> = {
+  en: () => import("./locales/en.json"),
+  nl: () => import("./locales/nl.json"),
+  pl: () => import("./locales/pl.json"),
+  ru: () => import("./locales/ru.json"),
+  ro: () => import("./locales/ro.json"),
+  hi: () => import("./locales/hi.json"),
+  ar: () => import("./locales/ar.json"),
+  ku: () => import("./locales/ku.json"),
+  tr: () => import("./locales/tr.json"),
+  ckb: () => import("./locales/ckb.json")
+}
 
 function syncDocumentLanguage(lng: string) {
   const short = lng.split("-")[0]
@@ -25,37 +31,45 @@ function syncDocumentLanguage(lng: string) {
   document.documentElement.dir = isRtlLanguage(short) ? "rtl" : "ltr"
 }
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {
-      de: { translation: de },
-      en: { translation: en },
-      nl: { translation: nl },
-      pl: { translation: pl },
-      ru: { translation: ru },
-      ro: { translation: ro },
-      hi: { translation: hi },
-      ar: { translation: ar },
-      ku: { translation: ku },
-      tr: { translation: tr },
-      ckb: { translation: ckb }
-    },
-    fallbackLng: DEFAULT_LANGUAGE,
-    supportedLngs: SUPPORTED_LANGUAGE_CODES,
-    load: "languageOnly",
-    nonExplicitSupportedLngs: true,
-    detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
-      lookupLocalStorage: "concordia-lang-v2",
-      convertDetectedLanguage: (lng) => resolveAppLanguage(lng)
-    },
-    interpolation: { escapeValue: false }
+async function loadLocale(lng: string) {
+  const code = resolveAppLanguage(lng)
+  if (code === DEFAULT_LANGUAGE || i18n.hasResourceBundle(code, "translation")) {
+    return
+  }
+  const loader = LOCALE_LOADERS[code]
+  if (!loader) return
+  const mod = await loader()
+  i18n.addResourceBundle(code, "translation", mod.default, true, true)
+}
+
+export async function bootstrapI18n() {
+  await i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      resources: {
+        de: { translation: de }
+      },
+      fallbackLng: DEFAULT_LANGUAGE,
+      supportedLngs: SUPPORTED_LANGUAGE_CODES,
+      load: "languageOnly",
+      nonExplicitSupportedLngs: true,
+      detection: {
+        order: ["localStorage", "navigator"],
+        caches: ["localStorage"],
+        lookupLocalStorage: "concordia-lang-v2",
+        convertDetectedLanguage: (lng) => resolveAppLanguage(lng)
+      },
+      interpolation: { escapeValue: false }
+    })
+
+  syncDocumentLanguage(i18n.language)
+  i18n.on("languageChanged", (lng) => {
+    syncDocumentLanguage(lng)
+    void loadLocale(lng)
   })
 
-syncDocumentLanguage(i18n.language)
-i18n.on("languageChanged", syncDocumentLanguage)
+  await loadLocale(i18n.language)
+}
 
 export default i18n

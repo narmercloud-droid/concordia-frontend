@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchBestsellers, getBranchMenu, getBranches } from "@/api/customer"
+import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
@@ -104,11 +104,9 @@ export default function BranchMenuPage() {
           className="branch-menu__card-main"
           onClick={() => openItem(item, categoryName)}
         >
-          <div
-            className="branch-menu__thumb"
-            style={{ backgroundImage: `url(${image})` }}
-            aria-hidden="true"
-          />
+          <div className="branch-menu__thumb" aria-hidden="true">
+            <img src={image} alt="" loading="lazy" decoding="async" />
+          </div>
           <div className="branch-menu__card-body">
             <div className="branch-menu__card-top">
               {item.itemNumber && (

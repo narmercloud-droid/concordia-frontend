@@ -130,13 +130,25 @@
   box-shadow: 0 8px 24px rgba(26, 24, 22, 0.05);
 }
 
+.branch-menu__section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+
 .branch-menu__thumb {
   width: 88px;
   height: 88px;
   border-radius: 12px;
-  background-size: cover;
-  background-position: center;
   background-color: #f0f9f4;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.branch-menu__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .branch-menu__card-body {

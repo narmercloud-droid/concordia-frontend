@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
@@ -11,7 +11,6 @@ import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBound
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
 import "../customer-mobile.css"
-import "@/apps/customer/components/InfoPages.css"
 
 export default function CustomerLayout() {
   const { t } = useTranslation()
@@ -34,7 +33,15 @@ export default function CustomerLayout() {
       return
     }
 
-    subscribeToPush().catch(() => {})
+    const run = () => {
+      subscribeToPush().catch(() => {})
+    }
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(run, { timeout: 5000 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const timer = window.setTimeout(run, 2500)
+    return () => window.clearTimeout(timer)
   }, [])
 
   return (

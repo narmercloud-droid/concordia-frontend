@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
 import { useTranslation } from "react-i18next"
 
@@ -32,18 +32,29 @@ export default function HomeFeaturedMenu({ branchId }: Props) {
   const { t, i18n } = useTranslation()
 
   const activeBranch = branchId ?? KEMPEN_BRANCH_ID
+  const [deferLoad, setDeferLoad] = useState(false)
 
-
+  useEffect(() => {
+    const run = () => setDeferLoad(true)
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(run, { timeout: 1200 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const timer = window.setTimeout(run, 300)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   const { data, isLoading } = useQuery({
-    queryKey: ["branchMenu", activeBranch, "featured", i18n.language],
+    queryKey: ["branchMenu", activeBranch, i18n.language],
     queryFn: () => getBranchMenu(activeBranch),
+    enabled: deferLoad,
     ...menuQueryOptions
   })
 
   const { data: bestsellersData } = useQuery({
     queryKey: ["branchBestsellers", activeBranch, i18n.language],
     queryFn: () => getBranchBestsellers(activeBranch),
+    enabled: deferLoad,
     ...bestsellersQueryOptions
   })
 

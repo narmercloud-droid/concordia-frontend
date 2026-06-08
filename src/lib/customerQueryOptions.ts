@@ -1,7 +1,7 @@
 export const menuQueryOptions = {
-  staleTime: 2 * 60_000,
-  gcTime: 15 * 60_000,
-  retry: 3,
+  staleTime: 5 * 60_000,
+  gcTime: 30 * 60_000,
+  retry: 2,
   retryDelay: (attempt: number) => Math.min(1200 * 2 ** attempt, 12_000)
 }
 

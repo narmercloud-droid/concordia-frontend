@@ -36,7 +36,9 @@ export const getBranchGoogleReviews = async (branchId: string) => {
 }
 
 export const getBranchMenu = async (branchId: string) => {
-  const res = await api.get(`/api/branches/${branchId}/menu`)
+  const res = await api.get(`/api/branches/${branchId}/menu`, {
+    params: { lang: getMenuLang() }
+  })
   return unwrap<{ categories: any[] }>(res)
 }
 
