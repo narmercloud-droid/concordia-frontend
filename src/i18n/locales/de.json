@@ -186,7 +186,7 @@
     "freeDrinkRequired": "Bitte wählen Sie Ihr Gratisgetränk.",
     "marketingTitle": "Angebote von Concordia (optional)",
     "marketingHint": "Möchten Sie über Aktionen, neue Gerichte und saisonale Angebote informiert werden?",
-    "marketingPerkBirthday": "Geburtstagsgeschenk: Gratis-Nachtisch mit Code BIRTHDAY",
+    "marketingPerkBirthday": "Geburtstagsangebot: Rabatt mit Code BIRTHDAY",
     "marketingPerkDeals": "Früher Zugang zu Wochen- und Saisonaktionen",
     "marketingPerkWinback": "Exklusive Codes für Stammgäste (z. B. WELCOME10)",
     "marketingSMS": "SMS",
@@ -195,7 +195,7 @@
     "emailPlaceholder": "ihre@email.de",
     "emailRequiredForOffers": "Bitte E-Mail-Adresse für Angebote per E-Mail angeben.",
     "birthdayLabel": "Geburtstag (optional)",
-    "birthdayHint": "Für ein Geburtstagsgeschenk von Concordia — Gratis-Nachtisch mit Code BIRTHDAY.",
+    "birthdayHint": "Für das Geburtstagsangebot von Concordia — Rabatt mit Code BIRTHDAY (Ausweis erforderlich).",
     "birthdayInvalid": "Bitte ein gültiges Geburtsdatum eingeben.",
     "marketingLegal": "Nur bei aktiver Auswahl. Abmeldung jederzeit möglich. Bestellstatus-Nachrichten sind von Werbung getrennt.",
     "freeDeliveryQualify": "Sie erhalten kostenlose Lieferung!",
@@ -218,7 +218,8 @@
     "welcomeBack": "Willkommen zurück, {{name}}!",
     "loyaltyBalance": "Treueprogramm: {{points}} Punkte ({{tier}})",
     "loyaltyPerkPoints": "Punkte bei jeder gelieferten Bestellung",
-    "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten"
+    "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten",
+    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB</termsLink> und die <loyaltyLink>Bedingungen des Treueprogramms</loyaltyLink>."
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",
@@ -313,7 +314,9 @@
       "reviews": "Bewertungen",
       "offers": "Angebote",
       "delivery": "Lieferung",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "terms": "AGB",
+      "loyaltyTerms": "Treueprogramm"
     },
     "about": {
       "eyebrow": "Unsere Geschichte",
@@ -448,6 +451,92 @@
           "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Rechtliches",
+      "title": "Allgemeine Geschäftsbedingungen",
+      "lead": "Diese Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung unserer Website sowie Online-Bestellungen bei Concordia Restaurant, einem familiengeführten italienischen Restaurant am Concordienplatz 1, 47906 Kempen, Deutschland. Die nachfolgenden Informationen dienen der Transparenz und stellen keine individuelle Rechtsberatung dar.",
+      "sections": {
+        "operator": {
+          "title": "1. Anbieter und Geltungsbereich",
+          "body": "Anbieter der Website und des Online-Bestellsystems ist Concordia Restaurant (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
+        },
+        "ordering": {
+          "title": "2. Vertragsschluss und Bestellablauf",
+          "body": "Die Darstellung von Speisen und Getränken auf unserer Website stellt kein rechtlich bindendes Angebot dar, sondern eine unverbindliche Aufforderung zur Bestellung. Mit Absenden einer Bestellung geben Sie ein verbindliches Angebot zum Kauf der ausgewählten Waren ab. Der Vertrag kommt zustande, wenn wir Ihre Bestellung per E-Mail oder in der Bestellbestätigung im System annehmen. Wir behalten uns vor, Bestellungen bei erkennbaren Fehlern, technischen Störungen, Lieferengpässen oder Verdacht auf Missbrauch abzulehnen."
+        },
+        "prices": {
+          "title": "3. Preise, Zahlung und Website-Rabatt",
+          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen über unsere Website kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser zum Zeitpunkt der Bestellung aktiv ist und die jeweiligen Aktionsbedingungen erfüllt sind. Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
+        },
+        "delivery": {
+          "title": "4. Abholung, Lieferung und Lieferzeiten",
+          "body": "Sie können Bestellungen zur Abholung im Restaurant oder zur Lieferung in die von uns angegebenen Liefergebiete aufgeben. Angezeigte Zeiten sind Richtwerte und können je nach Auslastung, Wetter oder Verkehrslage variieren. Bei Abholung liegt die Verfügbarkeit zum vereinbarten Zeitpunkt in unserer Verantwortung; bei Lieferung übernehmen wir die Zustellung bis zur Haustür, sofern Zugang und Adressangaben korrekt sind. Bitte prüfen Sie Ihre Bestellung bei Erhalt unverzüglich auf Vollständigkeit und melden Sie offensichtliche Mängel umgehend."
+        },
+        "cancellation": {
+          "title": "5. Stornierung, Änderungen und Rücktritt",
+          "body": "Kurzfristige Stornierungen oder Änderungen sind nur möglich, solange die Zubereitung noch nicht begonnen hat. Kontaktieren Sie uns dafür unverzüglich telefonisch oder über die in der Bestellbestätigung genannten Kanäle. Bei berechtigtem Rücktritt oder Stornierung erstatten wir bereits geleistete Zahlungen für nicht erbrachte Leistungen. Gesetzliche Widerrufsrechte für Fernabsatzverträge bleiben unberührt, soweit anwendbar; bei verderblichen Lebensmitteln können gesetzliche Ausnahmen gelten."
+        },
+        "promotions": {
+          "title": "6. Aktionen, Gutscheine und Marketing",
+          "body": "Aktionsangebote, Rabattcodes, Geschenkgutscheine und Treuevorteile unterliegen den jeweils veröffentlichten Bedingungen, Gültigkeitszeiträumen und Verfügbarkeiten. Gutscheine sind grundsätzlich nicht bar auszahlbar und können nur im Rahmen des angegebenen Wertes eingelöst werden. Mit freiwilliger Anmeldung zu Marketing-Mitteilungen (z. B. Newsletter) willigen Sie in den Erhalt von Informationen zu Angeboten und Neuigkeiten ein; Sie können diese Einwilligung jederzeit widerrufen."
+        },
+        "liability": {
+          "title": "7. Haftung",
+          "body": "Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper oder Gesundheit. Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten ist die Haftung auf den vorhersehbaren, vertragstypischen Schaden begrenzt. Eine weitergehende Haftung ist ausgeschlossen, soweit gesetzlich zulässig. Für Störungen, die außerhalb unseres Einflussbereichs liegen (z. B. höhere Gewalt, Ausfall von Zahlungs- oder Kommunikationssystemen), übernehmen wir keine Haftung."
+        },
+        "privacy": {
+          "title": "8. Datenschutz",
+          "body": "Zur Abwicklung von Bestellungen, Zahlungen, Lieferungen, Gutscheinen, Treuepunkten und optionalen Marketing-Mitteilungen verarbeiten wir personenbezogene Daten gemäß den geltenden Datenschutzvorschriften. Welche Daten erhoben werden, zu welchen Zwecken und welche Rechte Sie haben, entnehmen Sie bitte unserer Datenschutzerklärung auf der Website. Eine Bestellung ist auch ohne Marketing-Einwilligung möglich."
+        },
+        "law": {
+          "title": "9. Anwendbares Recht und Gerichtsstand",
+          "body": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG), soweit dem keine zwingenden verbraucherschutzrechtlichen Vorschriften des Staates entgegenstehen, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat. Ist der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle Streitigkeiten Kempen, sofern gesetzlich zulässig."
+        }
+      },
+      "updated": "Zuletzt aktualisiert: 8. Juni 2026",
+      "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Treueprogramm",
+      "title": "Bedingungen des Treueprogramms",
+      "lead": "Diese Bedingungen regeln die Teilnahme am Concordia-Treueprogramm für registrierte Kunden. Sie ergänzen unsere Allgemeinen Geschäftsbedingungen und stellen keine Rechtsberatung dar.",
+      "sections": {
+        "overview": {
+          "title": "1. Überblick",
+          "body": "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Concordia Restaurant, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
+        },
+        "membership": {
+          "title": "2. Mitgliedschaft und Konto",
+          "body": "Zur Teilnahme benötigen Sie ein persönliches Kundenkonto mit korrekten Kontaktdaten. Sie sind verpflichtet, Ihre Angaben aktuell zu halten. Ein Konto ist nicht übertragbar. Wir können Konten bei Verstößen gegen diese Bedingungen, bei Betrugsverdacht oder bei längerer Inaktivität sperren oder löschen."
+        },
+        "points": {
+          "title": "3. Punkte und Einlösung",
+          "body": "Punkte werden nach den jeweils gültigen Programmregeln für qualifizierte Bestellungen gutgeschrieben, in der Regel nach abgeschlossener und bezahlter Bestellung. Nicht eingelöste Punkte können verfallen, wenn dies in den Programmhinweisen angegeben ist. Punkte haben keinen Bargeldwert und sind nicht übertragbar, sofern nicht ausdrücklich anders kommuniziert."
+        },
+        "tiers": {
+          "title": "4. Stufen und Vorteile",
+          "body": "Je nach gesammelter Aktivität können Sie verschiedene Treuestufen erreichen, die mit zusätzlichen Vorteilen verbunden sein können. Stufen, Schwellenwerte und Vorteile werden in der App bzw. auf der Website dargestellt und können angepasst werden. Ein Anspruch auf bestimmte Vorteile besteht nur im Rahmen der jeweils aktiven Programmregeln."
+        },
+        "birthday": {
+          "title": "5. Geburtstagsvorteil",
+          "body": "Als Geburtstagsvorteil gewähren wir einmal pro Kalenderjahr einen Rabatt mit dem Code BIRTHDAY. Bei Abholung oder Lieferung ist ein gültiger Lichtbildausweis vorzuzeigen; das Geburtsdatum muss mit dem im Kundenkonto hinterlegten Datum übereinstimmen. Bei Missbrauch oder offensichtlichem Betrug behalten wir uns vor, den Vorteil zu verweigern. Der Geburtstagsrabatt ist nicht mit anderen Angeboten kombinierbar, sofern nicht ausdrücklich anders angegeben."
+        },
+        "promotions": {
+          "title": "6. Aktionen im Treueprogramm",
+          "body": "Zusätzliche Treueaktionen, Bonuspunkte oder zeitlich begrenzte Angebote können veröffentlicht werden und unterliegen den jeweiligen Aktionsbedingungen. Website-Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Geschenkgutscheine und Marketing-Angebote bleiben von den allgemeinen AGB unberührt."
+        },
+        "misuse": {
+          "title": "7. Missbrauch und Sanktionen",
+          "body": "Manipulation von Konten, mehrfache Konten für dieselbe Person, falsche Identitätsangaben oder der Versuch, Punkte oder Rabatte unrechtmäßig zu erlangen, sind untersagt. Bei Verstößen können wir Punkte entziehen, Vorteile sperren, Bestellungen ablehnen und Konten dauerhaft schließen. Bereits gewährte Vorteile können zurückgefordert werden, soweit gesetzlich zulässig."
+        },
+        "changes": {
+          "title": "8. Änderungen und Beendigung",
+          "body": "Wir können diese Programmbedingungen, Punkteregeln, Stufen und Vorteile mit Wirkung für die Zukunft ändern. Wesentliche Änderungen werden über die Website oder per E-Mail kommuniziert, soweit möglich. Die fortgesetzte Nutzung des Programms nach Inkrafttreten gilt als Zustimmung, sofern keine Widerspruchsmöglichkeit angeboten wird. Das Programm kann insgesamt beendet werden; in diesem Fall werden offene Punkte nach den dann geltenden Regeln behandelt."
+        }
+      },
+      "updated": "Zuletzt aktualisiert: 8. Juni 2026",
+      "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen."
     }
   },
   "auth": {
@@ -462,6 +551,8 @@
     "registerFailed": "Registrierung fehlgeschlagen",
     "noAccount": "Noch kein Konto?",
     "hasAccount": "Bereits ein Konto?",
-    "loyaltyBenefits": "Kostenlos registrieren und vom Treueprogramm profitieren:"
+    "loyaltyBenefits": "Kostenlos registrieren und vom Treueprogramm profitieren:",
+    "acceptTerms": "Ich akzeptiere die <termsLink>AGB</termsLink> und die <loyaltyLink>Bedingungen des Treueprogramms</loyaltyLink>.",
+    "acceptTermsRequired": "Bitte akzeptieren Sie die AGB und Treueprogramm-Bedingungen."
   }
 }

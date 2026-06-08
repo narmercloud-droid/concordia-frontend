@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import {
   createOrder,
   getBranches,
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
   const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
   const [birthday, setBirthday] = useState("")
   const [birthdayError, setBirthdayError] = useState("")
-  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>("guest")
+  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>("account")
 
   const authUser = useAuthStore((s) => s.user)
   const authToken = useAuthStore((s) => s.token)
@@ -385,17 +385,17 @@ export default function CheckoutPage() {
         <div className="customer-toggle-group">
           <button
             type="button"
-            onClick={() => setCheckoutMode("guest")}
-            className={`customer-toggle${checkoutMode === "guest" ? " customer-toggle--active" : ""}`}
-          >
-            {t("checkout.orderAsGuest")}
-          </button>
-          <button
-            type="button"
             onClick={() => setCheckoutMode("account")}
             className={`customer-toggle${checkoutMode === "account" ? " customer-toggle--active" : ""}`}
           >
             {t("checkout.orderWithAccount")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCheckoutMode("guest")}
+            className={`customer-toggle${checkoutMode === "guest" ? " customer-toggle--active" : ""}`}
+          >
+            {t("checkout.orderAsGuest")}
           </button>
         </div>
 
@@ -842,6 +842,16 @@ export default function CheckoutPage() {
       </div>
 
       {!pendingCardOrderId && (
+        <>
+        <p className="customer-hint checkout-terms-notice">
+          <Trans
+            i18nKey="checkout.termsNotice"
+            components={{
+              termsLink: <Link to="/terms" className="checkout-terms-link" />,
+              loyaltyLink: <Link to="/loyalty-terms" className="checkout-terms-link" />
+            }}
+          />
+        </p>
         <button
           type="button"
           onClick={handleSubmit}
@@ -858,6 +868,7 @@ export default function CheckoutPage() {
                 ? t("checkout.continueToPayment")
                 : t("checkout.placeOrder")}
         </button>
+        </>
       )}
 
       {pendingCardOrderId && paymentConfig?.paypalClientId && needsOnlinePayment && (

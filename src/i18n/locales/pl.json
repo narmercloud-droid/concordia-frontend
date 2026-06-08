@@ -198,7 +198,7 @@
     "freeDrinkRequired": "Wybierz darmowy napój.",
     "marketingTitle": "Oferty Concordia (opcjonalnie)",
     "marketingHint": "Czy chcesz otrzymywać informacje o promocjach, nowych daniach i ofertach sezonowych?",
-    "marketingPerkBirthday": "Prezent urodzinowy: darmowy deser z kodem BIRTHDAY",
+    "marketingPerkBirthday": "Oferta urodzinowa: rabat z kodem BIRTHDAY",
     "marketingPerkDeals": "Wcześniejszy dostęp do tygodniowych i sezonowych promocji",
     "marketingPerkWinback": "Ekskluzywne kody dla stałych klientów (np. WELCOME10)",
     "marketingSMS": "SMS",
@@ -207,7 +207,7 @@
     "emailPlaceholder": "twoj@email.pl",
     "emailRequiredForOffers": "Podaj adres e-mail, aby otrzymywać oferty mailem.",
     "birthdayLabel": "Urodziny (opcjonalnie)",
-    "birthdayHint": "Na prezent urodzinowy od Concordia — darmowy deser z kodem BIRTHDAY.",
+    "birthdayHint": "Oferta urodzinowa Concordia — rabat z kodem BIRTHDAY (wymagany dokument tożsamości).",
     "birthdayInvalid": "Podaj prawidłową datę urodzenia.",
     "marketingLegal": "Tylko po wyrażeniu zgody. Możesz zrezygnować w dowolnym momencie. Aktualizacje zamówień są oddzielone od wiadomości marketingowych.",
     "howToOrder": "Jak chcesz zamówić?",
@@ -218,7 +218,8 @@
     "welcomeBack": "Witaj ponownie, {{name}}!",
     "loyaltyBalance": "Program lojalnościowy: {{points}} punktów (poziom {{tier}})",
     "loyaltyPerkPoints": "Zbieraj punkty przy każdym dostarczonym zamówieniu",
-    "loyaltyPerkTier": "Odblokuj nagrody brązowe, srebrne i złote"
+    "loyaltyPerkTier": "Odblokuj nagrody brązowe, srebrne i złote",
+    "termsNotice": "Składając zamówienie akceptujesz <termsLink>regulamin</termsLink> oraz <loyaltyLink>warunki programu lojalnościowego</loyaltyLink>."
   },
   "item": {
     "loading": "Ładowanie dania…",
@@ -285,7 +286,9 @@
     "registerFailed": "Rejestracja nie powiodła się",
     "noAccount": "Nie masz konta?",
     "hasAccount": "Masz już konto?",
-    "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:"
+    "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:",
+    "acceptTerms": "Akceptuję <termsLink>regulamin</termsLink> oraz <loyaltyLink>warunki programu lojalnościowego</loyaltyLink>.",
+    "acceptTermsRequired": "Zaakceptuj regulamin i warunki programu lojalnościowego."
   },
   "pages": {
     "navLabel": "Strony serwisu",
@@ -297,7 +300,9 @@
       "reviews": "Opinie",
       "offers": "Oferty",
       "delivery": "Dostawa",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "terms": "Regulamin",
+      "loyaltyTerms": "Regulamin programu lojalnościowego"
     },
     "about": {
       "eyebrow": "Nasza historia",
@@ -432,6 +437,92 @@
           "a": "Concordia Straelen wkrótce. Zobaczysz go na liście oddziałów, gdy zamawianie będzie aktywne."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Informacje prawne",
+      "title": "Regulamin",
+      "lead": "Niniejszy regulamin określa zasady korzystania z naszej strony internetowej oraz składania zamówień online w restauracji Concordia — rodzinnej restauracji włoskiej przy Concordienplatz 1, 47906 Kempen, Niemcy. Poniższe informacje służą przejrzystości i nie stanowią indywidualnej porady prawnej.",
+      "sections": {
+        "operator": {
+          "title": "1. Usługodawca i zakres",
+          "body": "Stronę internetową i system zamówień online prowadzi Concordia Restaurant (firma rodzinna), Concordienplatz 1, 47906 Kempen, Niemcy. Regulamin dotyczy wszystkich zamówień przez naszą stronę oraz usług powiązanych, takich jak odbiór osobisty, dostawa, vouchery podarunkowe i program lojalnościowy, o ile nie uzgodniono inaczej. Sprzeczne warunki klienta nie są akceptowane, chyba że wyraźnie zgodzimy się na nie na piśmie."
+        },
+        "ordering": {
+          "title": "2. Zawarcie umowy i proces zamówienia",
+          "body": "Prezentacja dań i napojów na stronie nie stanowi wiążącej oferty, lecz zaproszenia do składania zamówień. Składając zamówienie, składasz wiążącą ofertę zakupu wybranych pozycji. Umowa zostaje zawarta, gdy zaakceptujemy zamówienie e-mailem lub w potwierdzeniu w systemie. Możemy odmówić realizacji zamówienia w przypadku oczywistych błędów, awarii technicznych, ograniczeń operacyjnych lub podejrzenia nadużycia."
+        },
+        "prices": {
+          "title": "3. Ceny, płatność i rabat na stronie",
+          "body": "Wszystkie ceny podane są w euro i zawierają ustawowy VAT, o ile nie wskazano inaczej. Dodatkowe koszty (np. opłata za dostawę) są wyświetlane przed finalizacją zamówienia. Uprawnione zamówienia online przez naszą stronę mogą otrzymać 10% rabatu na stronie, jeśli jest aktywny i spełnione są warunki promocji. Rabaty, vouchery i korzyści lojalnościowe zasadniczo nie łączą się, o ile nie wskazano inaczej."
+        },
+        "delivery": {
+          "title": "4. Odbiór, dostawa i terminy",
+          "body": "Możesz zamawiać z odbiorem w restauracji lub dostawą w naszych obszarach dostawy. Podane czasy są orientacyjne i mogą się zmieniać z powodu obłożenia, pogody lub ruchu. Przy odbiorze odpowiadamy za dostępność w uzgodnionym czasie; przy dostawie dostarczamy pod wskazane drzwi, jeśli dane adresowe są poprawne. Sprawdź zamówienie niezwłocznie po otrzymaniu i zgłoś oczywiste braki bez zwłoki."
+        },
+        "cancellation": {
+          "title": "5. Anulowanie, zmiany i odstąpienie",
+          "body": "Anulowanie lub zmiany w krótkim terminie są możliwe tylko, dopóki przygotowanie nie rozpoczęło się. Skontaktuj się natychmiast telefonicznie lub kanałami podanymi w potwierdzeniu. W przypadku uzasadnionego anulowania lub odstąpienia zwracamy płatności za niewykonane usługi. Ustawowe prawo odstąpienia od umowy zawartej na odległość pozostaje nienaruszone, gdzie ma zastosowanie; mogą obowiązywać wyjątki dla żywności łatwo psującej się."
+        },
+        "promotions": {
+          "title": "6. Promocje, vouchery i marketing",
+          "body": "Oferty promocyjne, kody rabatowe, vouchery podarunkowe i korzyści lojalnościowe podlegają opublikowanym warunkom, okresom ważności i dostępności. Vouchery zasadniczo nie podlegają wymianie na gotówkę i można je wykorzystać tylko do podanej wartości. Dobrowolna zgoda na komunikację marketingową (np. newsletter) oznacza zgodę na informacje o ofertach; zgodę można wycofać w dowolnym momencie."
+        },
+        "liability": {
+          "title": "7. Odpowiedzialność",
+          "body": "Odpowiadamy bez ograniczeń za umyślne działanie i rażące zaniedbanie oraz za szkody na życiu, zdrowiu i ciele. Przy lekkim niedbalstwie w naruszeniu istotnych obowiązków umownych odpowiedzialność ogranicza się do przewidywalnej, typowej szkody umownej. Dalsza odpowiedzialność jest wyłączona w zakresie dozwolonym prawem. Nie odpowiadamy za zakłócenia poza naszą kontrolą (np. siła wyższa, awarie systemów płatności lub komunikacji)."
+        },
+        "privacy": {
+          "title": "8. Ochrona danych",
+          "body": "W celu realizacji zamówień, płatności, dostaw, voucherów, punktów lojalnościowych i opcjonalnego marketingu przetwarzamy dane osobowe zgodnie z obowiązującymi przepisami. Szczegóły dotyczące danych, celów i Twoich praw znajdują się w polityce prywatności na stronie. Zamówienie jest możliwe bez zgody marketingowej."
+        },
+        "law": {
+          "title": "9. Prawo właściwe i sąd",
+          "body": "Stosuje się prawo Republiki Federalnej Niemiec z wyłączeniem Konwencji ONZ o umowach międzynarodowej sprzedaży towarów (CISG), z zastrzeżeniem bezwzględnie obowiązujących przepisów ochrony konsumentów w kraju zwykłego pobytu konsumenta. Jeśli klient jest przedsiębiorcą, osobą prawną podlegającą prawu publicznemu lub funduszem publicznym, wyłączną właściwością sądu dla sporów jest Kempen, o ile prawo na to pozwala."
+        }
+      },
+      "updated": "Ostatnia aktualizacja: 8 czerwca 2026",
+      "contact": "Pytania dotyczące tych warunków: skontaktuj się przez stronę kontaktową (/contact) lub odwiedź restaurację przy Concordienplatz 1, Kempen."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Program lojalnościowy",
+      "title": "Regulamin programu lojalnościowego",
+      "lead": "Niniejszy regulamin określa zasady uczestnictwa w programie lojalnościowym Concordia dla zarejestrowanych klientów. Uzupełnia nasz regulamin ogólny i nie stanowi porady prawnej.",
+      "sections": {
+        "overview": {
+          "title": "1. Przegląd",
+          "body": "Program lojalnościowy Concordia nagradza powtarzające się zamówienia punktami, korzyściami statusowymi i wybranymi promocjami. Uczestnictwo wymaga konta klienta. Program prowadzi Concordia Restaurant, Concordienplatz 1, 47906 Kempen, i może być zmieniany lub zakończony w dowolnym momencie, o ile prawo na to pozwala."
+        },
+        "membership": {
+          "title": "2. Członkostwo i konto",
+          "body": "Uczestnictwo wymaga osobistego konta klienta z prawidłowymi danymi kontaktowymi. Musisz utrzymywać dane w aktualności. Konta są niezbywalne. Możemy zawiesić lub usunąć konta przy naruszeniu warunków, podejrzeniu oszustwa lub długiej nieaktywności."
+        },
+        "points": {
+          "title": "3. Punkty i realizacja",
+          "body": "Punkty są przyznawane za kwalifikujące się zamówienia zgodnie z obowiązującymi zasadami programu, zazwyczaj po zakończeniu i opłaceniu zamówienia. Niewykorzystane punkty mogą wygasnąć, jeśli podano to w informacjach programu. Punkty nie mają wartości pieniężnej i nie podlegają przeniesieniu, o ile nie wskazano inaczej."
+        },
+        "tiers": {
+          "title": "4. Poziomy i korzyści",
+          "body": "W zależności od aktywności możesz osiągnąć poziomy lojalności z dodatkowymi korzyściami. Poziomy, progi i korzyści są pokazywane w aplikacji lub na stronie i mogą być aktualizowane. Prawo do określonych korzyści istnieje wyłącznie w ramach aktywnych zasad programu."
+        },
+        "birthday": {
+          "title": "5. Korzyść urodzinowa",
+          "body": "Jako korzyść urodzinową oferujemy raz w roku kalendarzowym rabat z kodem BIRTHDAY. Przy odbiorze lub dostawie należy okazać ważny dokument tożsamości ze zdjęciem; data urodzenia musi odpowiadać dacie w koncie. Oszustwo lub nadużycie może skutkować odmową korzyści. Rabat urodzinowy nie łączy się z innymi ofertami, o ile nie wskazano inaczej."
+        },
+        "promotions": {
+          "title": "6. Promocje lojalnościowe",
+          "body": "Dodatkowe promocje lojalnościowe, punkty bonusowe lub oferty czasowe mogą być publikowane i podlegają ich szczególnym warunkom. Rabaty na stronie, vouchery i korzyści lojalnościowe zasadniczo nie łączą się, o ile nie wskazano inaczej. Vouchery podarunkowe i oferty marketingowe pozostają objęte ogólnym regulaminem."
+        },
+        "misuse": {
+          "title": "7. Nadużycia i sankcje",
+          "body": "Manipulacja kontami, wiele kont dla tej samej osoby, fałszywe dane tożsamości lub próby nieuprawnionego uzyskania punktów lub rabatów są zabronione. Przy naruszeniach możemy odebrać punkty, zablokować korzyści, odmówić zamówień i trwale zamknąć konta. Już przyznane korzyści mogą zostać odzyskane w zakresie dozwolonym prawem."
+        },
+        "changes": {
+          "title": "8. Zmiany i zakończenie",
+          "body": "Możemy zmieniać warunki programu, zasady punktów, poziomy i korzyści ze skutkiem na przyszłość. Istotne zmiany będą komunikowane przez stronę lub e-mail, gdy to możliwe. Dalsze korzystanie po wejściu zmian w życie oznacza akceptację, o ile nie oferujemy możliwości rezygnacji. Program może zostać całkowicie zakończony; pozostałe punkty będą rozliczone według obowiązujących wówczas zasad."
+        }
+      },
+      "updated": "Ostatnia aktualizacja: 8 czerwca 2026",
+      "contact": "Pytania dotyczące tych warunków: skontaktuj się przez stronę kontaktową (/contact) lub odwiedź restaurację przy Concordienplatz 1, Kempen."
     }
   },
   "giftVoucher": {

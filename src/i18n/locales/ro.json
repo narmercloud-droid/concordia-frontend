@@ -198,7 +198,7 @@
     "freeDrinkRequired": "Alegeți băutura gratuită.",
     "marketingTitle": "Oferte Concordia (opțional)",
     "marketingHint": "Doriți să aflați despre promoții, preparate noi și oferte sezoniere?",
-    "marketingPerkBirthday": "Cadou de ziua de naștere: desert gratuit cu codul BIRTHDAY",
+    "marketingPerkBirthday": "Ofertă de ziua de naștere: reducere cu codul BIRTHDAY",
     "marketingPerkDeals": "Acces timpuriu la oferte săptămânale și sezoniere",
     "marketingPerkWinback": "Coduri exclusive pentru clienți fideli (ex. WELCOME10)",
     "marketingSMS": "SMS",
@@ -207,7 +207,7 @@
     "emailPlaceholder": "email@exemplu.ro",
     "emailRequiredForOffers": "Introduceți adresa de e-mail pentru oferte prin e-mail.",
     "birthdayLabel": "Zi de naștere (opțional)",
-    "birthdayHint": "Pentru un cadou de la Concordia — desert gratuit cu codul BIRTHDAY.",
+    "birthdayHint": "Ofertă de ziua de naștere de la Concordia — reducere cu codul BIRTHDAY (act de identitate obligatoriu).",
     "birthdayInvalid": "Introduceți o dată de naștere validă.",
     "marketingLegal": "Doar dacă vă înscrieți. Vă puteți dezabona oricând. Actualizările comenzii sunt separate de mesajele de marketing.",
     "howToOrder": "Cum doriți să comandați?",
@@ -218,7 +218,8 @@
     "welcomeBack": "Bine ați revenit, {{name}}!",
     "loyaltyBalance": "Loialitate: {{points}} puncte (nivel {{tier}})",
     "loyaltyPerkPoints": "Câștigați puncte la fiecare comandă livrată",
-    "loyaltyPerkTier": "Deblocați recompense bronz, argint și aur"
+    "loyaltyPerkTier": "Deblocați recompense bronz, argint și aur",
+    "termsNotice": "Plasând comanda acceptați <termsLink>termenii și condițiile</termsLink> și <loyaltyLink>regulamentul programului de loialitate</loyaltyLink>."
   },
   "item": {
     "loading": "Se încarcă preparatul…",
@@ -285,7 +286,9 @@
     "registerFailed": "Înregistrare eșuată",
     "noAccount": "Nu aveți cont?",
     "hasAccount": "Aveți deja cont?",
-    "loyaltyBenefits": "Înregistrează-te gratuit și alătură-te programului de loialitate:"
+    "loyaltyBenefits": "Înregistrează-te gratuit și alătură-te programului de loialitate:",
+    "acceptTerms": "Accept <termsLink>termenii și condițiile</termsLink> și <loyaltyLink>regulamentul programului de loialitate</loyaltyLink>.",
+    "acceptTermsRequired": "Acceptați termenii și regulamentul programului de loialitate."
   },
   "pages": {
     "navLabel": "Pagini site",
@@ -297,7 +300,9 @@
       "reviews": "Recenzii",
       "offers": "Oferte",
       "delivery": "Livrare",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "terms": "Termeni și condiții",
+      "loyaltyTerms": "Termeni program de fidelitate"
     },
     "about": {
       "eyebrow": "Povestea noastră",
@@ -432,6 +437,92 @@
           "a": "Concordia Straelen vine în curând. Îl vei vedea în lista de filiale când comanda devine activă."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Informații legale",
+      "title": "Termeni și condiții",
+      "lead": "Acești termeni reglementează utilizarea site-ului nostru și comenzile online la Concordia Restaurant, un restaurant italian de familie la Concordienplatz 1, 47906 Kempen, Germania. Informațiile de mai jos sunt oferite pentru transparență și nu constituie consultanță juridică individuală.",
+      "sections": {
+        "operator": {
+          "title": "1. Operator și domeniu de aplicare",
+          "body": "Site-ul și sistemul de comenzi online sunt operate de Concordia Restaurant (afacere de familie), Concordienplatz 1, 47906 Kempen, Germania. Termenii se aplică tuturor comenzilor prin site și serviciilor conexe, cum ar fi ridicarea, livrarea, voucherele cadou și programul de fidelitate, dacă nu se convine altfel. Condițiile contradictorii ale clientului nu sunt acceptate decât dacă le acceptăm explicit în scris."
+        },
+        "ordering": {
+          "title": "2. Încheierea contractului și procesul de comandă",
+          "body": "Prezentarea preparatelor și băuturilor pe site nu constituie o ofertă obligatorie, ci o invitație de a comanda. Prin trimiterea unei comenzi, faceți o ofertă obligatorie de cumpărare. Contractul se încheie când acceptăm comanda prin e-mail sau în confirmarea din sistem. Putem refuza comenzi în caz de erori evidente, defecțiuni tehnice, constrângeri de capacitate sau suspiciune de abuz."
+        },
+        "prices": {
+          "title": "3. Prețuri, plată și reducere pe site",
+          "body": "Toate prețurile sunt în euro și includ TVA-ul legal, dacă nu se precizează altfel. Costurile suplimentare (de ex. livrare) sunt afișate transparent înainte de finalizare. Comenzile online eligibile prin site pot beneficia de o reducere de 10% pe site când este activă și sunt îndeplinite condițiile promoției. Reducerile, voucherele și beneficiile de fidelitate nu se combină în general, decât dacă se precizează explicit."
+        },
+        "delivery": {
+          "title": "4. Ridicare, livrare și termene",
+          "body": "Puteți comanda pentru ridicare la restaurant sau livrare în zonele noastre de livrare. Timpii afișați sunt estimări și pot varia în funcție de cerere, vreme sau trafic. La ridicare, suntem responsabili pentru disponibilitatea la ora convenită; la livrare, livrăm la ușă dacă datele de acces și adresa sunt corecte. Verificați comanda imediat la primire și raportați neconcordanțele evidente fără întârziere."
+        },
+        "cancellation": {
+          "title": "5. Anulare, modificări și retragere",
+          "body": "Anulările sau modificările pe termen scurt sunt posibile doar înainte de începerea preparării. Contactați-ne imediat telefonic sau prin canalele din confirmare. La anulare sau retragere justificată, rambursăm plățile pentru servicii neprestate. Drepturile legale de retragere pentru contracte la distanță rămân neafectate unde se aplică; pot exista excepții pentru alimente perisabile."
+        },
+        "promotions": {
+          "title": "6. Promoții, vouchere și marketing",
+          "body": "Ofertele promoționale, codurile de reducere, voucherele cadou și beneficiile de fidelitate sunt supuse condițiilor publicate, perioadelor de valabilitate și disponibilității. Voucherele nu sunt în general rambursabile în numerar și pot fi folosite doar până la valoarea indicată. Prin optarea voluntară la comunicări de marketing (ex. newsletter) consimțiți la informații despre oferte; consimțământul poate fi retras oricând."
+        },
+        "liability": {
+          "title": "7. Răspundere",
+          "body": "Răspundem integral pentru intenție și neglijență gravă și pentru vătămări ale vieții, corpului sau sănătății. Pentru neglijență ușoară la încălcarea obligațiilor contractuale esențiale, răspunderea este limitată la prejudiciul previzibil, tipic contractual. Răspunderea suplimentară este exclusă în măsura permisă de lege. Nu răspundem pentru perturbări în afara controlului nostru (ex. forță majoră, defecțiuni ale sistemelor de plată sau comunicare)."
+        },
+        "privacy": {
+          "title": "8. Confidențialitate",
+          "body": "Pentru procesarea comenzilor, plăților, livrărilor, voucherelor, punctelor de fidelitate și marketingului opțional, prelucrăm date personale conform legislației aplicabile privind protecția datelor. Consultați politica de confidențialitate de pe site pentru detalii despre date, scopuri și drepturile dvs. Puteți comanda fără consimțământ de marketing."
+        },
+        "law": {
+          "title": "9. Lege aplicabilă și jurisdicție",
+          "body": "Se aplică dreptul Republicii Federale Germania, cu excluderea Convenției ONU privind contractele de vânzare internațională de mărfuri (CISG), sub rezerva normelor imperative de protecție a consumatorilor din țara de reședință obișnuită a consumatorului. Dacă clientul este comerciant, persoană juridică de drept public sau fond special de drept public, Kempen este locul exclusiv de jurisdicție pentru litigii, unde legea permite."
+        }
+      },
+      "updated": "Ultima actualizare: 8 iunie 2026",
+      "contact": "Întrebări despre acești termeni: contactați-ne prin pagina de contact (/contact) sau vizitați restaurantul la Concordienplatz 1, Kempen."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Program de fidelitate",
+      "title": "Termeni program de fidelitate",
+      "lead": "Acești termeni reglementează participarea la programul de fidelitate Concordia pentru clienții înregistrați. Completează termenii și condițiile generale și nu constituie consultanță juridică.",
+      "sections": {
+        "overview": {
+          "title": "1. Prezentare generală",
+          "body": "Programul de fidelitate Concordia recompensează comenzile repetate cu puncte, beneficii de nivel și promoții selectate. Participarea necesită un cont de client. Programul este operat de Concordia Restaurant, Concordienplatz 1, 47906 Kempen, și poate fi modificat sau încheiat oricând, în măsura permisă de lege."
+        },
+        "membership": {
+          "title": "2. Calitate de membru și cont",
+          "body": "Participarea necesită un cont personal de client cu date de contact corecte. Trebuie să mențineți informațiile actualizate. Conturile nu sunt transferabile. Putem suspenda sau șterge conturi pentru încălcarea termenilor, suspiciune de fraudă sau inactivitate prelungită."
+        },
+        "points": {
+          "title": "3. Puncte și valorificare",
+          "body": "Punctele sunt acordate pentru comenzi eligibile conform regulilor curente ale programului, de obicei după finalizarea și plata comenzii. Punctele neutilizate pot expira dacă este indicat în anunțurile programului. Punctele nu au valoare în numerar și nu sunt transferabile, decât dacă se precizează explicit."
+        },
+        "tiers": {
+          "title": "4. Niveluri și beneficii",
+          "body": "În funcție de activitate, puteți atinge niveluri de fidelitate cu beneficii suplimentare. Nivelurile, pragurile și beneficiile sunt afișate în aplicație sau pe site și pot fi actualizate. Dreptul la beneficii specifice există doar în cadrul regulilor active ale programului."
+        },
+        "birthday": {
+          "title": "5. Beneficiu de ziua de naștere",
+          "body": "Ca beneficiu de ziua de naștere, oferim o reducere cu codul BIRTHDAY o dată pe an calendaristic. La ridicare sau livrare trebuie prezentat un act de identitate cu fotografie valabil; data nașterii trebuie să corespundă contului. Frauda sau abuzul pot duce la refuzul beneficiului. Reducerea de ziua de naștere nu se combină cu alte oferte, decât dacă se precizează explicit."
+        },
+        "promotions": {
+          "title": "6. Promoții de fidelitate",
+          "body": "Promoții suplimentare, puncte bonus sau oferte limitate în timp pot fi publicate și sunt supuse condițiilor lor specifice. Reducerile pe site, voucherele și beneficiile de fidelitate nu se combină în general, decât dacă se precizează explicit. Voucherele cadou și ofertele de marketing rămân guvernate de termenii generali."
+        },
+        "misuse": {
+          "title": "7. Abuz și sancțiuni",
+          "body": "Manipularea conturilor, conturi multiple pentru aceeași persoană, date de identitate false sau încercări de a obține puncte sau reduceri în mod nelegitim sunt interzise. La încălcări putem revoca puncte, bloca beneficii, refuza comenzi și închide permanent conturi. Beneficiile deja acordate pot fi recuperate în măsura permisă de lege."
+        },
+        "changes": {
+          "title": "8. Modificări și încetare",
+          "body": "Putem modifica acești termeni ai programului, regulile de puncte, nivelurile și beneficiile cu efect viitor. Modificările importante vor fi comunicate prin site sau e-mail, unde este posibil. Utilizarea continuă după intrarea în vigoare a modificărilor constituie acceptare, dacă nu se oferă opțiune de renunțare. Programul poate fi încheiat complet; punctele rămase vor fi tratate conform regulilor în vigoare atunci."
+        }
+      },
+      "updated": "Ultima actualizare: 8 iunie 2026",
+      "contact": "Întrebări despre acești termeni: contactați-ne prin pagina de contact (/contact) sau vizitați restaurantul la Concordienplatz 1, Kempen."
     }
   },
   "giftVoucher": {

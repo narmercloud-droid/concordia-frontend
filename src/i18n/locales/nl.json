@@ -198,7 +198,7 @@
     "freeDrinkRequired": "Kies alstublieft uw gratis drankje.",
     "marketingTitle": "Aanbiedingen van Concordia (optioneel)",
     "marketingHint": "Wilt u horen over acties, nieuwe gerechten en seizoensaanbiedingen?",
-    "marketingPerkBirthday": "Verjaardagscadeau: gratis dessert met code BIRTHDAY",
+    "marketingPerkBirthday": "Verjaardagsaanbieding: korting met code BIRTHDAY",
     "marketingPerkDeals": "Vroege toegang tot week- en seizoensacties",
     "marketingPerkWinback": "Exclusieve codes voor vaste klanten (bijv. WELCOME10)",
     "marketingSMS": "SMS",
@@ -207,7 +207,7 @@
     "emailPlaceholder": "uw@email.nl",
     "emailRequiredForOffers": "Voer uw e-mailadres in voor aanbiedingen per e-mail.",
     "birthdayLabel": "Verjaardag (optioneel)",
-    "birthdayHint": "Voor een verjaardagscadeau van Concordia — gratis dessert met code BIRTHDAY.",
+    "birthdayHint": "Voor het verjaardagsaanbod van Concordia — korting met code BIRTHDAY (legitimatie verplicht).",
     "birthdayInvalid": "Voer een geldige geboortedatum in.",
     "marketingLegal": "Alleen als u zich aanmeldt. U kunt zich altijd afmelden. Bestelupdates zijn gescheiden van marketingberichten.",
     "howToOrder": "Hoe wilt u bestellen?",
@@ -218,7 +218,8 @@
     "welcomeBack": "Welkom terug, {{name}}!",
     "loyaltyBalance": "Spaarprogramma: {{points}} punten ({{tier}})",
     "loyaltyPerkPoints": "Verdien punten bij elke bezorgde bestelling",
-    "loyaltyPerkTier": "Ontgrendel bronze-, zilver- en gouden voordelen"
+    "loyaltyPerkTier": "Ontgrendel bronze-, zilver- en gouden voordelen",
+    "termsNotice": "Door te bestellen accepteert u onze <termsLink>algemene voorwaarden</termsLink> en <loyaltyLink>spaarprogramma-voorwaarden</loyaltyLink>."
   },
   "item": {
     "loading": "Gerecht laden…",
@@ -285,7 +286,9 @@
     "registerFailed": "Registratie mislukt",
     "noAccount": "Nog geen account?",
     "hasAccount": "Al een account?",
-    "loyaltyBenefits": "Gratis registreren en deelnemen aan ons spaarprogramma:"
+    "loyaltyBenefits": "Gratis registreren en deelnemen aan ons spaarprogramma:",
+    "acceptTerms": "Ik accepteer de <termsLink>algemene voorwaarden</termsLink> en de <loyaltyLink>spaarprogramma-voorwaarden</loyaltyLink>.",
+    "acceptTermsRequired": "Accepteer de voorwaarden en spaarprogramma-voorwaarden."
   },
   "pages": {
     "navLabel": "Sitepagina's",
@@ -297,7 +300,9 @@
       "reviews": "Recensies",
       "offers": "Aanbiedingen",
       "delivery": "Bezorging",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "terms": "Algemene voorwaarden",
+      "loyaltyTerms": "Voorwaarden loyaliteitsprogramma"
     },
     "about": {
       "eyebrow": "Ons verhaal",
@@ -432,6 +437,92 @@
           "a": "Concordia Straelen komt binnenkort. U ziet het in onze filiaallijst zodra bestellen live gaat."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Juridisch",
+      "title": "Algemene voorwaarden",
+      "lead": "Deze algemene voorwaarden regelen het gebruik van onze website en online bestellingen bij Concordia Restaurant, een familiebedrijf met Italiaanse keuken aan Concordienplatz 1, 47906 Kempen, Duitsland. De onderstaande informatie is bedoeld voor transparantie en vormt geen individueel juridisch advies.",
+      "sections": {
+        "operator": {
+          "title": "1. Aanbieder en toepassingsgebied",
+          "body": "De website en het online bestelsysteem worden beheerd door Concordia Restaurant (familiebedrijf), Concordienplatz 1, 47906 Kempen, Duitsland. Deze voorwaarden gelden voor alle bestellingen via onze website en aanverwante diensten zoals afhalen, bezorgen, cadeaubonnen en het loyaliteitsprogramma, tenzij uitdrukkelijk anders overeengekomen. Afwijkende klantvoorwaarden worden niet aanvaard, tenzij wij hun geldigheid uitdrukkelijk schriftelijk bevestigen."
+        },
+        "ordering": {
+          "title": "2. Totstandkoming van de overeenkomst",
+          "body": "De weergave van gerechten en dranken op onze website is geen bindend aanbod, maar een uitnodiging tot bestellen. Met het plaatsen van een bestelling doet u een bindend aanbod tot aankoop. De overeenkomst komt tot stand wanneer wij uw bestelling per e-mail of in de orderbevestiging accepteren. Wij kunnen bestellingen weigeren bij duidelijke fouten, technische storingen, capaciteitsproblemen of vermoeden van misbruik."
+        },
+        "prices": {
+          "title": "3. Prijzen, betaling en websiterabatt",
+          "body": "Alle prijzen zijn in euro en inclusief wettelijke btw, tenzij anders vermeld. Extra kosten (bijv. bezorgkosten) worden vóór afrekenen duidelijk weergegeven. In aanmerking komende online bestellingen via onze website kunnen een websiterabatt van 10% ontvangen wanneer deze actief is en aan de actievoorwaarden wordt voldaan. Kortingen, bonnen en loyaliteitsvoordelen zijn in principe niet combineerbaar, tenzij uitdrukkelijk anders vermeld."
+        },
+        "delivery": {
+          "title": "4. Afhalen, bezorgen en tijden",
+          "body": "U kunt bestellen voor afhalen in het restaurant of bezorging binnen onze aangegeven bezorggebieden. Getoonde tijden zijn richtlijnen en kunnen variëren door drukte, weer of verkeer. Bij afhalen zorgen wij voor beschikbaarheid op het afgesproken tijdstip; bij bezorging leveren wij tot aan de deur mits toegang en adresgegevens correct zijn. Controleer uw bestelling direct bij ontvangst en meld duidelijke gebreken onverwijld."
+        },
+        "cancellation": {
+          "title": "5. Annulering, wijzigingen en herroeping",
+          "body": "Korte-termijn annuleringen of wijzigingen zijn alleen mogelijk zolang de bereiding nog niet is gestart. Neem onmiddellijk telefonisch of via de kanalen in uw bevestiging contact op. Bij gerechtvaardigde annulering of herroeping restitueren wij betalingen voor niet geleverde diensten. Wettelijke herroepingsrechten voor koop op afstand blijven onverlet waar van toepassing; uitzonderingen kunnen gelden voor bederfelijke levensmiddelen."
+        },
+        "promotions": {
+          "title": "6. Acties, bonnen en marketing",
+          "body": "Acties, kortingscodes, cadeaubonnen en loyaliteitsvoordelen zijn onderworpen aan gepubliceerde voorwaarden, geldigheidsperiodes en beschikbaarheid. Bonnen zijn in principe niet contant inwisselbaar en alleen bruikbaar tot de aangegeven waarde. Met vrijwillige aanmelding voor marketing (bijv. nieuwsbrief) stemt u in met informatie over aanbiedingen; u kunt deze toestemming te allen tijde intrekken."
+        },
+        "liability": {
+          "title": "7. Aansprakelijkheid",
+          "body": "Wij zijn onbeperkt aansprakelijk bij opzet en grove nalatigheid en bij letsel aan leven, lichaam of gezondheid. Bij lichte nalatigheid in geval van schending van essentiële contractuele verplichtingen is de aansprakelijkheid beperkt tot voorzienbare, typische contractschade. Verdere aansprakelijkheid is uitgesloten voor zover wettelijk toegestaan. Wij zijn niet aansprakelijk voor storingen buiten onze controle (bijv. overmacht, uitval van betaal- of communicatiesystemen)."
+        },
+        "privacy": {
+          "title": "8. Privacy",
+          "body": "Voor het verwerken van bestellingen, betalingen, bezorgingen, bonnen, loyaliteitspunten en optionele marketing verwerken wij persoonsgegevens volgens de geldende privacywetgeving. Zie ons privacybeleid op de website voor details over gegevens, doeleinden en uw rechten. Bestellen is mogelijk zonder marketingtoestemming."
+        },
+        "law": {
+          "title": "9. Toepasselijk recht en bevoegde rechtbank",
+          "body": "Duits recht is van toepassing, met uitsluiting van het Weens Koopverdrag (CISG), onder voorbehoud van dwingende consumentenbescherming in het land waar de consument gewoonlijk verblijft. Is de klant een handelaar, rechtspersoon onder publiek recht of publiekrechtelijk fonds, is Kempen exclusieve plaats van jurisdictie voor alle geschillen voor zover wettelijk toegestaan."
+        }
+      },
+      "updated": "Laatst bijgewerkt: 8 juni 2026",
+      "contact": "Vragen over deze voorwaarden: neem contact op via onze contactpagina (/contact) of bezoek het restaurant aan Concordienplatz 1, Kempen."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Loyaliteitsprogramma",
+      "title": "Voorwaarden loyaliteitsprogramma",
+      "lead": "Deze voorwaarden regelen deelname aan het Concordia-loyaliteitsprogramma voor geregistreerde klanten. Ze vullen onze algemene voorwaarden aan en vormen geen juridisch advies.",
+      "sections": {
+        "overview": {
+          "title": "1. Overzicht",
+          "body": "Het Concordia-loyaliteitsprogramma beloont terugkerende bestellingen met punten, statusvoordelen en geselecteerde acties. Deelname vereist een klantaccount. Het programma wordt beheerd door Concordia Restaurant, Concordienplatz 1, 47906 Kempen, en kan te allen tijde worden aangepast of beëindigd voor zover wettelijk toegestaan."
+        },
+        "membership": {
+          "title": "2. Lidmaatschap en account",
+          "body": "Deelname vereist een persoonlijk klantaccount met correcte contactgegevens. U bent verplicht uw gegevens actueel te houden. Accounts zijn niet overdraagbaar. Wij kunnen accounts opschorten of verwijderen bij schending van deze voorwaarden, vermoeden van fraude of langdurige inactiviteit."
+        },
+        "points": {
+          "title": "3. Punten en inwisseling",
+          "body": "Punten worden volgens de geldende programmaregels toegekend voor gekwalificeerde bestellingen, doorgaans na voltooiing en betaling. Ongebruikte punten kunnen vervallen indien vermeld in programma-aankondigingen. Punten hebben geen contante waarde en zijn niet overdraagbaar, tenzij uitdrukkelijk anders vermeld."
+        },
+        "tiers": {
+          "title": "4. Niveaus en voordelen",
+          "body": "Afhankelijk van uw activiteit kunt u loyaliteitsniveaus bereiken met extra voordelen. Niveaus, drempels en voordelen worden getoond in de app of op de website en kunnen worden bijgewerkt. Recht op specifieke voordelen bestaat alleen binnen de actieve programmaregels."
+        },
+        "birthday": {
+          "title": "5. Verjaardagsvoordeel",
+          "body": "Als verjaardagsvoordeel bieden wij eenmaal per kalenderjaar korting met code BIRTHDAY. Bij afhalen of bezorgen moet een geldig identiteitsbewijs met foto worden getoond; de geboortedatum moet overeenkomen met het account. Fraude of misbruik kan leiden tot weigering van het voordeel. De verjaardagskorting is niet combineerbaar met andere aanbiedingen, tenzij uitdrukkelijk anders vermeld."
+        },
+        "promotions": {
+          "title": "6. Loyaliteitsacties",
+          "body": "Extra loyaliteitsacties, bonuspunten of tijdelijke aanbiedingen kunnen worden gepubliceerd en vallen onder hun specifieke voorwaarden. Websiterabatt, bonnen en loyaliteitsvoordelen zijn in principe niet combineerbaar, tenzij uitdrukkelijk anders vermeld. Cadeaubonnen en marketingaanbiedingen blijven onder de algemene voorwaarden."
+        },
+        "misuse": {
+          "title": "7. Misbruik en sancties",
+          "body": "Manipulatie van accounts, meerdere accounts voor dezelfde persoon, valse identiteitsgegevens of pogingen om punten of kortingen onrechtmatig te verkrijgen zijn verboden. Bij overtredingen kunnen wij punten intrekken, voordelen blokkeren, bestellingen weigeren en accounts permanent sluiten. Reeds verleende voordelen kunnen worden teruggevorderd voor zover wettelijk toegestaan."
+        },
+        "changes": {
+          "title": "8. Wijzigingen en beëindiging",
+          "body": "Wij kunnen deze programmavoorwaarden, puntenregels, niveaus en voordelen met toekomstige werking wijzigen. Belangrijke wijzigingen worden waar mogelijk via de website of e-mail gecommuniceerd. Voortgezet gebruik na inwerkingtreding geldt als acceptatie, tenzij een opt-out wordt aangeboden. Het programma kan volledig worden beëindigd; resterende punten worden behandeld volgens de dan geldende regels."
+        }
+      },
+      "updated": "Laatst bijgewerkt: 8 juni 2026",
+      "contact": "Vragen over deze voorwaarden: neem contact op via onze contactpagina (/contact) of bezoek het restaurant aan Concordienplatz 1, Kempen."
     }
   },
   "giftVoucher": {

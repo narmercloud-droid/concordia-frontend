@@ -154,6 +154,49 @@
   gap: 16px;
 }
 
+.info-legal__updated {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--c-muted);
+}
+
+.info-legal__section p {
+  margin: 0;
+  line-height: 1.65;
+  color: var(--c-ink);
+}
+
+.info-legal__contact {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-line);
+}
+
+.checkout-terms-notice {
+  margin: 16px 0 10px;
+  line-height: 1.5;
+}
+
+.checkout-terms-link {
+  color: var(--c-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.checkout-terms-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.checkout-terms-checkbox input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
 .info-block {
   padding: 20px 22px;
   border: 1px solid var(--c-line);

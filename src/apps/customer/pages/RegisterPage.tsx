@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { registerCustomer } from "@/api/customerAuth"
 import { useAuthStore } from "@/context/authStore"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 export default function RegisterPage() {
   const { t } = useTranslation()
@@ -14,9 +14,15 @@ export default function RegisterPage() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [error, setError] = useState("")
 
   const handleRegister = async () => {
+    if (!acceptedTerms) {
+      setError(t("auth.acceptTermsRequired"))
+      return
+    }
+
     try {
       const result = await registerCustomer({ name, email, password })
       setToken(result.accessToken)
@@ -70,6 +76,26 @@ export default function RegisterPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+
+      <label className="checkout-terms-checkbox">
+        <input
+          type="checkbox"
+          checked={acceptedTerms}
+          onChange={(e) => {
+            setAcceptedTerms(e.target.checked)
+            if (e.target.checked) setError("")
+          }}
+        />
+        <span>
+          <Trans
+            i18nKey="auth.acceptTerms"
+            components={{
+              termsLink: <Link to="/terms" className="checkout-terms-link" />,
+              loyaltyLink: <Link to="/loyalty-terms" className="checkout-terms-link" />
+            }}
+          />
+        </span>
+      </label>
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
 

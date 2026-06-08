@@ -198,7 +198,7 @@
     "freeDrinkRequired": "Ji kerema xwe vexwarina belaş hilbijêrin.",
     "marketingTitle": "Pêşkêşiyên Concordia (bixwe)",
     "marketingHint": "Dixwazin ji pêşkêşiyên taybet û xwarinên nû agahdar bibin?",
-    "marketingPerkBirthday": "Diyariya rojbûnê: şîrîniya belaş bi koda BIRTHDAY",
+    "marketingPerkBirthday": "Pêşkêşiya rojbûnê: erzanî bi koda BIRTHDAY",
     "marketingPerkDeals": "Gihîştina zûtir bo pêşkêşiyên heftane û demsalî",
     "marketingPerkWinback": "Koda taybet ji bo mêvanên herdem (mînak WELCOME10)",
     "marketingSMS": "SMS",
@@ -207,7 +207,7 @@
     "emailPlaceholder": "your@email.com",
     "emailRequiredForOffers": "E-name binivîsin bo pêşkêşiyên e-nameyê.",
     "birthdayLabel": "Rojbûn (bixwe)",
-    "birthdayHint": "Ji bo diyariya rojbûnê li Concordia — şîrîniya belaş bi koda BIRTHDAY.",
+    "birthdayHint": "Ji bo pêşkêşiya rojbûnê ya Concordia — erzanî bi koda BIRTHDAY (nasname pêwîst e).",
     "birthdayInvalid": "Ji kerema xwe rojbûnek derbasdar binivîsin.",
     "marketingLegal": "Tenê ger razî bin. Her dem dikarin abonetiyê betal bikin.",
     "howToOrder": "Çawa dixwazin ferman bidin?",
@@ -218,7 +218,8 @@
     "welcomeBack": "Bi xêr hatine, {{name}}!",
     "loyaltyBalance": "Dilsozî: {{points}} xal (ast {{tier}})",
     "loyaltyPerkPoints": "Xal bi dest bixin di her fermana gihîştî de",
-    "loyaltyPerkTier": "Xelatên bronz, zîv û zêr vekin"
+    "loyaltyPerkTier": "Xelatên bronz, zîv û zêr vekin",
+    "termsNotice": "Bi şandina fermana xwe hûn <termsLink>mercên bikaranînê</termsLink> û <loyaltyLink>mercên bernameya dilsoziyê</loyaltyLink> qebûl dikin."
   },
   "item": {
     "loading": "Xwarin tê barkirin…",
@@ -285,7 +286,9 @@
     "registerFailed": "Tomarkirin bi ser neket",
     "noAccount": "Hê hesabê we tune?",
     "hasAccount": "Jixwe hesabê we heye?",
-    "loyaltyBenefits": "Belaş tomar bibin û beşdarî bernameya dilsoziyê bibin:"
+    "loyaltyBenefits": "Belaş tomar bibin û beşdarî bernameya dilsoziyê bibin:",
+    "acceptTerms": "Ez <termsLink>mercên bikaranînê</termsLink> û <loyaltyLink>mercên bernameya dilsoziyê</loyaltyLink> qebûl dikim.",
+    "acceptTermsRequired": "Ji kerema xwe mercan qebûl bikin."
   },
   "pages": {
     "navLabel": "Rûpelên malperê",
@@ -297,7 +300,9 @@
       "reviews": "Nirxandin",
       "offers": "Pêşkêşî",
       "delivery": "Radestkirin",
-      "faq": "Pirsên pir têne pirsîn"
+      "faq": "Pirsên pir têne pirsîn",
+      "terms": "Mercên xizmetê",
+      "loyaltyTerms": "Mercên bernameya dilsohiyê"
     },
     "about": {
       "eyebrow": "Çîroka me",
@@ -432,6 +437,92 @@
           "a": "Concordia Straelen di nêzîk de ye. Hûn ê wê li lîsteya şaxan bibînin dema ferman zindî bibe."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Yasayî",
+      "title": "Mercên xizmetê",
+      "lead": "Ev mercên xizmetê bikaranîna malpera me û fermên serhêl li Concordia Restaurant — restorana Îtalyayî ya malbatî li Concordienplatz 1, 47906 Kempen, Almanya — rêve dibin. Agahdariya jêrîn ji bo şeffafiyê ye û şêwirmendiya yasayî ya kesane nîne.",
+      "sections": {
+        "operator": {
+          "title": "1. Operatör û qada sepandinê",
+          "body": "Malper û pergalê fermên serhêl ji aliyê Concordia Restaurant (karsaziya malbatî), Concordienplatz 1, 47906 Kempen, Almanya ve tê birêvebirin. Ev merc ji bo hemû fermanên bi malpera me û xizmetên têkildar — wergirtin, radestkirin, kuponên diyariyê û bernameya dilsohiyê — derbas dibin, heya ku bi awayekî eşkere lihev nehatibe. Mercên dijber ên xerîdar nayên qebûlkirin, heya ku em bi nivîsî bi awayekî eşkere razî nebin."
+        },
+        "ordering": {
+          "title": "2. Çêkirina peymanê û pêvajoya fermê",
+          "body": "Nîşandana xwarin û vexwarinan li ser malperê pêşniyareke girêdayî nîne, lê vexwendineke fermê ye. Bi şandina fermê hûn pêşniyareke girêdayî ji bo kirîna tiştên hilbijartî didin. Peyman dema em fermê bi e-name an jî di peşrastkirina pergalê de qebûl dikin çêdibe. Dikarîn fermanan red bikin di rewşên xeletiyên eşkere, têkçûnên teknîkî, sînordariya kapasîteyê an gumanê xerabkaranê de."
+        },
+        "prices": {
+          "title": "3. Biha, dravdan û erzaniya malperê",
+          "body": "Hemû bihayên bi euro ne û VATa qanûnî tê de ye, heya ku lihev nehatibe. Mesrefên zêde (mînak dravê radestkirinê) berî temamkirina fermê bi şeffafiyê têne nîşandan. Fermanên serhêl ên qebûlkirî dikarin erzaniya 10% ya malperê bistînin dema ku çalak be û şertên promosyonê pêk werin. Erzanî, kupon û feydeyên dilsohiyê bi gelemperî nayên kombîn kirin, heya ku bi awayekî eşkere nehatibe gotin."
+        },
+        "delivery": {
+          "title": "4. Wergirtin, radestkirin û dem",
+          "body": "Hûn dikarin ji bo wergirtina li restoranê an radestkirinê di nav herêmên radestkirina me de ferman bidin. Demên nîşankirî texmîn in û dikarin bi berjewendî, hewa an trafîkê biguherin. Li wergirtinê em ji bo amadebûna li dema lihevhatî bersivdar in; li radestkirinê heya deriyê radest dikin ger agahiyên gihiştinê û navnîşan rast bin. Fermê tavilê piştî wergirtinê kontrol bikin û kêmasiyên eşkere bi lez ragihînin."
+        },
+        "cancellation": {
+          "title": "5. Betalkirin, guhertin û vekişîn",
+          "body": "Betalkirin an guhertinên bi demekê kurt tenê berî destpêkirina amadekirinê gengaz in. Tavilê bi têlefon an bi kanalên di peşrastkirinê de têkilî daynin. Di betalkirina an vekişîna mafdar de em dravên ji bo xizmetên nehatine dayîn vedigerînin. Mafên vekişîna qanûnî ji bo peymanên dûr dimînin, li ku derbas dibe; ji bo xwarinên xirab dibe bêguman derkevin."
+        },
+        "promotions": {
+          "title": "6. Promosyon, kupon û marketing",
+          "body": "Pêşniyarên promosyonê, kodên erzaniyê, kuponên diyariyê û feydeyên dilsohiyê girêdayî şert, dema derbasdarî û berdestbûnê ne. Kupon bi gelemperî nayên guhertin bo perê nakît û tenê heya nirxa diyarkirî têne bikaranîn. Bi dilxwazî qeydkirina marketingê (mînak nûçename) hûn razîbûna agahdariya pêşniyaran didin; dikarin her dem vekişînin."
+        },
+        "liability": {
+          "title": "7. Bersivdarî",
+          "body": "Em bi temamî bersivdar in ji bo qest û nebalkirina giran û ji bo zirara jiyan, laş an tenduristiyê. Di nebalkirina sivik a binpêkirina erkên bingehîn de bersivdarî heya zirara pêşbînîkirî ya nûnertî ya peymanê sînordar e. Bersivdariya zêde tê derxistin heya ku qanûn destûr dide. Em bersivdar nînin ji bo têkçûnên derveyî kontrola me (mînak force majeure, têkçûna pergalên dravdanê an ragihandinê)."
+        },
+        "privacy": {
+          "title": "8. Nepenîtî",
+          "body": "Ji bo fermên, dravdanan, radestkirinan, kuponan, xalên dilsohiyê û marketinga vebijarkî em daneyên kesane li gorî qanûnên parastina daneyan pêvajoyê dikin. Ji bo hûrguliyan li siyaseta nepenîtiyê li ser malperê binêrin. Ferman bê razîbûna marketingê jî gengaz e."
+        },
+        "law": {
+          "title": "9. Qanûna sepandinê û dadgeh",
+          "body": "Qanûna Almanya tê sepandin, bi derxistina CISG, bi rêz ji bo parastina xerîdarên neçar li welatê cihê normal a xerîdar. Ger xerîdar bazirgan, saziya qanûna giştî an fondeke giştî be, Kempen cihê taybet ê dadgehê ye ji bo hemû nakokiyan, heya ku qanûn destûr dide."
+        }
+      },
+      "updated": "Dawî hate nûkirin: 8'ê Hezîranê 2026",
+      "contact": "Pirsên li ser van şertan: bi rêya rûpela têkiliyê (/contact) têkilî daynin an jî bi ser Concordienplatz 1, Kempen serdana restorana bikin."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Bernameya dilsohiyê",
+      "title": "Mercên bernameya dilsohiyê",
+      "lead": "Ev merc beşdarbûna di bernameya dilsohiyê ya Concordia de ji bo xerîdarên qeydkirî rêve dibin. Ew mercên giştî temam dikin û şêwirmendiya yasayî nînin.",
+      "sections": {
+        "overview": {
+          "title": "1. Kurtebînî",
+          "body": "Bernameya dilsohiyê ya Concordia fermanên dubare bi xalan, feydeyên astê û promosyonên hilbijartî xelat dike. Beşdarî hesabeke xerîdarê hewce dike. Bername ji aliyê Concordia Restaurant, Concordienplatz 1, 47906 Kempen ve tê birêvebirin û dikare her dem were guhertin an jî were bidawîkirin heya ku qanûn destûr dide."
+        },
+        "membership": {
+          "title": "2. Endamtî û hesab",
+          "body": "Beşdarî hesabeke kesane ya xerîdar bi agahiyên têkiliyê yên rast hewce dike. Divê agahiyên xwe nû bikin. Hesab nayên veguheztin. Dikarîn hesaban rawestînin an jî jêbirin di binpêkirina van mercan, gumanê sextekariyê an neçalakiya dirêj de."
+        },
+        "points": {
+          "title": "3. Xal û bikaranîn",
+          "body": "Xal li gorî rêzên bernameya derbasdar ji bo fermanên qebûlkirî têne dayîn, bi gelemperî piştî temamkirin û dravdana fermê. Xalên nebikaranîn dikarin biqedin ger di agahdariyên bernameyê de hatibe gotin. Xal nirxa perê nakît nînin û nayên veguheztin, heya ku bi awayekî eşkere nehatibe gotin."
+        },
+        "tiers": {
+          "title": "4. Ast û feyde",
+          "body": "Li gorî çalakiya we dikarin astên dilsohiyê bi feydeyên zêde bigihînin. Ast, asteng û feyde di sepan an malperê de têne nîşandan û dikarin were nûkirin. Mafê feydeyên taybet tenê di nav rêzên bernameya çalak de heye."
+        },
+        "birthday": {
+          "title": "5. Feyda rojbûnê",
+          "body": "Wek feyda rojbûnê em carekê di sala salnameyê de erzaniyek bi koda BIRTHDAY pêşkêş dikin. Li wergirtin an radestkirinê divê nasnameyeke wêneyê derbasdar were nîşandan; roja jidayikbûnê divê bi dîroka di hesabê de li hev bike. Sextekari an xerabkaran dikare bibe sedema redkirina feydayê. Erzaniya rojbûnê bi pêşniyarên din re nayê kombîn kirin, heya ku bi awayekî eşkere nehatibe gotin."
+        },
+        "promotions": {
+          "title": "6. Promosyonên dilsohiyê",
+          "body": "Promosyonên zêde, xalên bonus an pêşniyarên demkî dikarin were weşandin û girêdayî şertên xwe ne. Erzaniya malperê, kupon û feydeyên dilsohiyê bi gelemperî nayên kombîn kirin, heya ku bi awayekî eşkere nehatibe gotin. Kuponên diyariyê û pêşniyarên marketingê di bin mercên giştî de dimînin."
+        },
+        "misuse": {
+          "title": "7. Xerabkaran û ceza",
+          "body": "Manîpulasyona hesaban, hesabên pirjimar ji bo heman kesan, agahiyên nasnameyê yên derewîn an hewldana bidestxistina xalan an erzaniyan bi awayekî neqanûnî qedexe ne. Di binpêkirinan de em dikarin xalan vegerînin, feydeyan asteng bikin, fermanan red bikin û hesaban bi daîmî bigirin. Feydeyên jixwe dayîn dikarin were vegerandin heya ku qanûn destûr dide."
+        },
+        "changes": {
+          "title": "8. Guhertin û bidawîkirin",
+          "body": "Em dikarin van mercên bernameyê, rêzên xalan, ast û feydeyan bi bandora pêşerojê biguherînin. Guhertinên girîng dê bi malper an e-nameyê were ragihandin heya ku gengaz be. Bikaranîna domdar piştî derbasbûna guhertinan wek qebûlkirin tê hesibandin, heya ku vekişîn neyê pêşkêş kirin. Bername dikare bi tevahî were bidawîkirin; xalên mayî li gorî rêzên wê demê têne pêvajokirin."
+        }
+      },
+      "updated": "Dawî hate nûkirin: 8'ê Hezîranê 2026",
+      "contact": "Pirsên li ser van şertan: bi rêya rûpela têkiliyê (/contact) têkilî daynin an jî bi ser Concordienplatz 1, Kempen serdana restorana bikin."
     }
   },
   "giftVoucher": {

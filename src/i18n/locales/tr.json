@@ -186,7 +186,7 @@
     "freeDrinkRequired": "Lütfen ücretsiz içeceğinizi seçin.",
     "marketingTitle": "Concordia teklifleri (isteğe bağlı)",
     "marketingHint": "Kampanyalar, yeni yemekler ve mevsimlik teklifler hakkında bilgi almak ister misiniz?",
-    "marketingPerkBirthday": "Doğum günü hediyesi: BIRTHDAY koduyla ücretsiz tatlı",
+    "marketingPerkBirthday": "Doğum günü fırsatı: BIRTHDAY koduyla indirim",
     "marketingPerkDeals": "Haftalık ve mevsimlik kampanyalara erken erişim",
     "marketingPerkWinback": "Düzenli müşteriler için özel kodlar (ör. WELCOME10)",
     "marketingSMS": "SMS",
@@ -195,7 +195,7 @@
     "emailPlaceholder": "sizin@email.com",
     "emailRequiredForOffers": "E-posta teklifleri için lütfen e-posta adresinizi girin.",
     "birthdayLabel": "Doğum günü (isteğe bağlı)",
-    "birthdayHint": "Concordia'dan doğum günü hediyesi — BIRTHDAY koduyla ücretsiz tatlı.",
+    "birthdayHint": "Concordia doğum günü fırsatı — BIRTHDAY koduyla indirim (kimlik gerekli).",
     "birthdayInvalid": "Lütfen geçerli bir doğum tarihi girin.",
     "marketingLegal": "Yalnızca aktif seçimde. İstediğiniz zaman abonelikten çıkabilirsiniz. Sipariş durumu mesajları reklamlardan ayrıdır.",
     "freeDeliveryQualify": "Ücretsiz teslimat kazandınız!",
@@ -218,7 +218,8 @@
     "welcomeBack": "Tekrar hoş geldiniz, {{name}}!",
     "loyaltyBalance": "Sadakat programı: {{points}} puan ({{tier}})",
     "loyaltyPerkPoints": "Her teslimat siparişinde puan kazanın",
-    "loyaltyPerkTier": "Bronz, gümüş ve altın avantajların kilidini açın"
+    "loyaltyPerkTier": "Bronz, gümüş ve altın avantajların kilidini açın",
+    "termsNotice": "Sipariş vererek <termsLink>Kullanım Şartları</termsLink> ve <loyaltyLink>Sadakat Programı Koşullarını</loyaltyLink> kabul etmiş olursunuz."
   },
   "giftVoucher": {
     "title": "Hediye çeki",
@@ -313,7 +314,9 @@
       "reviews": "Yorumlar",
       "offers": "Teklifler",
       "delivery": "Teslimat",
-      "faq": "SSS"
+      "faq": "SSS",
+      "terms": "Hizmet Şartları",
+      "loyaltyTerms": "Sadakat Programı Şartları"
     },
     "about": {
       "eyebrow": "Hikayemiz",
@@ -448,6 +451,92 @@
           "a": "Concordia Straelen yakında. Sipariş canlı olduğunda şube listemizde göreceksiniz."
         }
       }
+    },
+    "terms": {
+      "eyebrow": "Yasal",
+      "title": "Hizmet Şartları",
+      "lead": "Bu Hizmet Şartları, Concordia Restaurant — Concordienplatz 1, 47906 Kempen, Almanya'daki aile işletmesi İtalyan restoranımızda web sitemizin ve çevrimiçi siparişlerin kullanımını düzenler. Aşağıdaki bilgiler şeffaflık içindir ve bireysel hukuki tavsiye niteliği taşımaz.",
+      "sections": {
+        "operator": {
+          "title": "1. İşletmeci ve kapsam",
+          "body": "Web sitesi ve çevrimiçi sipariş sistemi Concordia Restaurant (aile işletmesi), Concordienplatz 1, 47906 Kempen, Almanya tarafından işletilir. Bu şartlar web sitemiz üzerinden verilen tüm siparişler ile paket servis, teslimat, hediye çekleri ve sadakat programı gibi ilgili hizmetlere uygulanır; aksi açıkça kararlaştırılmadıkça. Çelişkili müşteri şartları yazılı açık onayımız olmadan kabul edilmez."
+        },
+        "ordering": {
+          "title": "2. Sözleşme ve sipariş süreci",
+          "body": "Sitede gösterilen yemek ve içecekler bağlayıcı teklif değil, sipariş davetidir. Sipariş göndererek seçilen ürünlerin satın alınması için bağlayıcı teklif verirsiniz. Sözleşme, siparişi e-posta veya sistem onayıyla kabul ettiğimizde kurulur. Açık hatalar, teknik arızalar, kapasite kısıtları veya kötüye kullanım şüphesinde siparişleri reddedebiliriz."
+        },
+        "prices": {
+          "title": "3. Fiyatlar, ödeme ve site indirimi",
+          "body": "Tüm fiyatlar euro cinsindendir ve aksi belirtilmedikçe yasal KDV dahildir. Ek maliyetler (ör. teslimat ücreti) ödeme öncesi şeffaf gösterilir. Uygun çevrimiçi siparişler, aktif olduğunda ve promosyon şartları karşılandığında %10 site indirimi alabilir. İndirimler, çekler ve sadakat avantajları genelde birleştirilemez; aksi açıkça belirtilmedikçe."
+        },
+        "delivery": {
+          "title": "4. Paket servis, teslimat ve süreler",
+          "body": "Restorandan paket servis veya belirtilen teslimat bölgelerinde teslimat için sipariş verebilirsiniz. Gösterilen süreler tahmindir; yoğunluk, hava veya trafiğe göre değişebilir. Paket serviste kararlaştırılan saatte hazır olmaktan sorumluyuz; teslimatta erişim ve adres bilgileri doğruysa kapıya teslim ederiz. Teslim alır almaz siparişi kontrol edin ve belirgin eksiklikleri gecikmeden bildirin."
+        },
+        "cancellation": {
+          "title": "5. İptal, değişiklik ve cayma",
+          "body": "Kısa süreli iptal veya değişiklikler yalnızca hazırlık başlamadan mümkündür. Hemen telefonla veya onaydaki kanallarla iletişime geçin. Haklı iptal veya caymada verilmeyen hizmetler için ödemeler iade edilir. Mesafeli sözleşmelerde yasal cayma hakları geçerli olduğu ölçüde korunur; bozulabilir gıdalar için istisnalar uygulanabilir."
+        },
+        "promotions": {
+          "title": "6. Promosyonlar, çekler ve pazarlama",
+          "body": "Promosyon teklifleri, indirim kodları, hediye çekleri ve sadakat avantajları yayımlanan şartlara, geçerlilik sürelerine ve stok durumuna tabidir. Çekler genelde nakde çevrilemez ve yalnızca belirtilen değere kadar kullanılır. Gönüllü pazarlama onayı (ör. bülten) teklif bilgilerine rıza sayılır; rıza her zaman geri alınabilir."
+        },
+        "liability": {
+          "title": "7. Sorumluluk",
+          "body": "Kasıt ve ağır ihmal ile yaşam, beden veya sağlık zararlarında sınırsız sorumluyuz. Esas sözleşme yükümlülüklerinin hafif ihlalinde sorumluluk öngörülebilir tipik sözleşme zararıyla sınırlıdır. Kanunun izin verdiği ölçüde daha fazla sorumluluk hariçtir. Kontrolümüz dışındaki aksaklıklardan (ör. mücbir sebep, ödeme veya iletişim sistemi arızası) sorumlu değiliz."
+        },
+        "privacy": {
+          "title": "8. Gizlilik",
+          "body": "Sipariş, ödeme, teslimat, çek, sadakat puanı ve isteğe bağlı pazarlama için kişisel verileri geçerli veri koruma hukukuna uygun işleriz. Toplanan veriler, amaçlar ve haklarınız için sitedeki gizlilik politikasını inceleyin. Pazarlama onayı olmadan da sipariş verilebilir."
+        },
+        "law": {
+          "title": "9. Uygulanacak hukuk ve yargı yeri",
+          "body": "CISG hariç Alman hukuku uygulanır; tüketicinin olağan ikamet ülkesindeki zorunlu tüketici koruması saklıdır. Müşteri tüccar, kamu hukuku tüzel kişisi veya kamu fonu ise, kanunun izin verdiği ölçüde tüm uyuşmazlıklarda Kempen münhasır yargı yeridir."
+        }
+      },
+      "updated": "Son güncelleme: 8 Haziran 2026",
+      "contact": "Bu şartlarla ilgili sorular: iletişim sayfamız (/contact) üzerinden bize ulaşın veya Concordienplatz 1, Kempen adresindeki restoranı ziyaret edin."
+    },
+    "loyaltyTerms": {
+      "eyebrow": "Sadakat programı",
+      "title": "Sadakat Programı Şartları",
+      "lead": "Bu şartlar, kayıtlı müşterilerin Concordia sadakat programına katılımını düzenler. Hizmet Şartlarını tamamlar ve hukuki tavsiye niteliği taşımaz.",
+      "sections": {
+        "overview": {
+          "title": "1. Genel bakış",
+          "body": "Concordia sadakat programı tekrarlayan siparişleri puanlar, seviye avantajları ve seçili promosyonlarla ödüllendirir. Katılım müşteri hesabı gerektirir. Program Concordia Restaurant, Concordienplatz 1, 47906 Kempen tarafından işletilir ve kanunun izin verdiği ölçüde her zaman ayarlanabilir veya sonlandırılabilir."
+        },
+        "membership": {
+          "title": "2. Üyelik ve hesap",
+          "body": "Katılım doğru iletişim bilgileriyle kişisel müşteri hesabı gerektirir. Bilgilerinizi güncel tutmalısınız. Hesaplar devredilemez. Bu şartların ihlali, dolandırıcılık şüphesi veya uzun süreli hareketsizlikte hesapları askıya alabilir veya silebiliriz."
+        },
+        "points": {
+          "title": "3. Puanlar ve kullanım",
+          "body": "Puanlar geçerli program kurallarına göre uygun siparişler için, genelde sipariş tamamlanıp ödendikten sonra verilir. Kullanılmayan puanlar program bildirimlerinde belirtilmişse sona erebilir. Puanların nakit değeri yoktur ve aksi belirtilmedikçe devredilemez."
+        },
+        "tiers": {
+          "title": "4. Seviyeler ve avantajlar",
+          "body": "Aktivitenize göre ek avantajlı sadakat seviyelerine ulaşabilirsiniz. Seviyeler, eşikler ve avantajlar uygulamada veya sitede gösterilir ve güncellenebilir. Belirli avantajlara hak yalnızca aktif program kuralları çerçevesinde vardır."
+        },
+        "birthday": {
+          "title": "5. Doğum günü avantajı",
+          "body": "Doğum günü avantajı olarak takvim yılında bir kez BIRTHDAY koduyla indirim sunuyoruz. Paket servis veya teslimatta geçerli fotoğraflı kimlik gösterilmelidir; doğum tarihi hesaptaki tarihle eşleşmelidir. Dolandırıcılık veya kötüye kullanım avantajın reddedilmesine yol açabilir. Doğum günü indirimi aksi açıkça belirtilmedikçe diğer tekliflerle birleştirilemez."
+        },
+        "promotions": {
+          "title": "6. Sadakat promosyonları",
+          "body": "Ek sadakat promosyonları, bonus puanlar veya süreli teklifler yayımlanabilir ve kendi şartlarına tabidir. Site indirimi, çekler ve sadakat avantajları genelde birleştirilemez; aksi açıkça belirtilmedikçe. Hediye çekleri ve pazarlama teklifleri genel Hizmet Şartlarına tabidir."
+        },
+        "misuse": {
+          "title": "7. Kötüye kullanım ve yaptırımlar",
+          "body": "Hesap manipülasyonu, aynı kişi için birden fazla hesap, yanlış kimlik bilgileri veya puan veya indirimleri hukuka aykırı elde etme girişimleri yasaktır. İhlallerde puanları iptal edebilir, avantajları engelleyebilir, siparişleri reddedebilir ve hesapları kalıcı kapatabiliriz. Verilmiş avantajlar kanunun izin verdiği ölçüde geri alınabilir."
+        },
+        "changes": {
+          "title": "8. Değişiklikler ve sonlandırma",
+          "body": "Bu program şartlarını, puan kurallarını, seviyeleri ve avantajları gelecekte etkili olacak şekilde değiştirebiliriz. Önemli değişiklikler mümkün olduğunda site veya e-posta ile bildirilir. Değişiklikler yürürlüğe girdikten sonra kullanıma devam kabul sayılır; aksi bir seçenek sunulmadıkça. Program tamamen sonlandırılabilir; kalan puanlar o anda geçerli kurallara göre işlenir."
+        }
+      },
+      "updated": "Son güncelleme: 8 Haziran 2026",
+      "contact": "Bu şartlarla ilgili sorular: iletişim sayfamız (/contact) üzerinden bize ulaşın veya Concordienplatz 1, Kempen adresindeki restoranı ziyaret edin."
     }
   },
   "auth": {
@@ -462,6 +551,8 @@
     "registerFailed": "Kayıt başarısız",
     "noAccount": "Henüz hesabınız yok mu?",
     "hasAccount": "Zaten hesabınız var mı?",
-    "loyaltyBenefits": "Ücretsiz kaydolun ve sadakat programından yararlanın:"
+    "loyaltyBenefits": "Ücretsiz kaydolun ve sadakat programından yararlanın:",
+    "acceptTerms": "<termsLink>Kullanım şartlarını</termsLink> ve <loyaltyLink>sadakat programı koşullarını</loyaltyLink> kabul ediyorum.",
+    "acceptTermsRequired": "Lütfen şartları ve sadakat programı koşullarını kabul edin."
   }
 }
