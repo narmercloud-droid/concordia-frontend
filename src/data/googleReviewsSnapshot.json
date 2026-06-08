@@ -5,71 +5,44 @@
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pizzeria+Concordia+Concordienplatz+1+Kempen",
     "reviews": [
       {
-        "author": "Google-Nutzer",
+        "author": "Mina Gadis",
         "rating": 5,
-        "text": "Lecker, etwas günstiger als die umliegenden Pizzerien, auf jeden Fall empfehlenswert.",
-        "relativeTime": "Juni 2025"
+        "text": "Es war wirklich erstaunlich dort. Sehr freundlicher Besitzer. Wir haben eine Thunfisch-Fisch-Pizza bestellt. Es war ein echtes Wow. Der Pizzateig hatte eine sehr leckere Kruste. Die Sitzgelegenheiten im Freien waren sehr gemütlich und die Atmosphäre war fabelhaft. Ich würde es nur empfehlen.",
+        "relativeTime": "vor 10 Monaten",
+        "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJf2dMGlym4A0PYcelcTcPPmy4T_GJQAYJN54GzsYhS7euibg=w72-h72-p-rp-mo-ba12-br100"
       },
       {
-        "author": "Google-Nutzer",
+        "author": "Levtis Samiropolos",
         "rating": 5,
-        "text": "Ich war überrascht, wie gut es dort schmeckt … Daher werde ich dort öfter einkehren.",
-        "relativeTime": "Juni 2025"
+        "text": "Das Essen ist hier sehr zu empfehlen. Alles, was ich bisher hier gegessen habe, ist frisch und lecker. Egal ob man vor Ort essen oder mitnehmen möchte, alles ist schnell zubereitet. Die Mitarbeiter sind sehr nett und erfüllen jeden Wunsch.",
+        "relativeTime": "vor einem Jahr",
+        "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjUcn30yjDnJxKuPl2nmWCC5gAGkSa5y7YUmlZzks3x7TXDfZnQ_=w72-h72-p-rp-mo-ba12-br100"
       },
       {
-        "author": "Google-Nutzer",
+        "author": "Sabrina Bruster",
         "rating": 5,
-        "text": "Die unserer Meinung nach einzige Pizzeria in Kempen, die gute Pizzen zubereitet und nicht eine Stunde Lieferzeit hat.",
-        "relativeTime": "Juni 2025"
-      },
-      {
-        "author": "Google-Nutzer",
-        "rating": 5,
-        "text": "Nur zu empfehlen, immer freundlich, immer frisch und sehr lecker.",
-        "relativeTime": "Juni 2025"
-      },
-      {
-        "author": "Google-Nutzer",
-        "rating": 5,
-        "text": "Beste Pizzeria in Kempen. Der Geschmack ist einfach hervorragend.",
-        "relativeTime": "Juni 2025"
-      },
-      {
-        "author": "Google-Nutzer",
-        "rating": 5,
-        "text": "Das Personal ist sehr freundlich und die Pizza ist hervorragend. Auf jeden Fall zu empfehlen!",
-        "relativeTime": "Juni 2025"
-      },
-      {
-        "author": "Google-Nutzer",
-        "rating": 5,
-        "text": "Die Pizzeria Concordia serviert die beste Pizza in ganz Kempen. Das Menü besticht durch stets frische Zutaten, exzellente Qualität und ein herzliches Team.",
-        "relativeTime": "Juni 2025"
-      },
-      {
-        "author": "Google-Nutzer",
-        "rating": 5,
-        "text": "Nach langer Suche habe ich endlich einen Ort entdeckt, der wirklich weiß, wie man eine hervorragende Pizza macht. Auch die Pasta schmeckt hier ausgezeichnet!",
-        "relativeTime": "Juni 2025"
+        "text": "Beste Pizza in ganz Kempen. Immer frische Zutaten, sehr gute Qualität, freundliches Personal. Essen macht süchtig 😋",
+        "relativeTime": "vor 2 Jahren",
+        "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocL7oopnmydoxzYiwmZs--T0AUPWSNphc9wg_TXoot5tqf9B2Q=w72-h72-p-rp-mo-br100"
       }
     ]
   },
   "concordia-straelen": {
-    "rating": 4.4,
-    "reviewCount": null,
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pizzeria+Concordia+ll+Venloer+Straße+22+Straelen",
+    "rating": 4.3,
+    "reviewCount": 74,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pizzeria+Concordia+II+Venloerstraße+22+Straelen",
     "reviews": [
       {
-        "author": "Gast",
+        "author": "Lieferando-Kunde",
         "rating": 5,
         "text": "Schnelle Lieferung und sehr lecker, hatte eine große Scampi Pizza und einen Salat :)",
-        "relativeTime": "Lieferando"
+        "relativeTime": "Lieferando · vor 3 Monaten"
       },
       {
-        "author": "Gast",
+        "author": "Lieferando-Kunde",
         "rating": 5,
         "text": "Jedesmal wieder positiv überrascht. Ihr seid die besten.",
-        "relativeTime": "Lieferando"
+        "relativeTime": "Lieferando · vor 5 Monaten"
       }
     ]
   }

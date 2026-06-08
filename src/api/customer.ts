@@ -23,6 +23,7 @@ export type BranchGoogleReview = {
 
 export type BranchGoogleReviewsResponse = {
   branchId: string
+  branchName?: string
   source: "google" | "snapshot" | "unavailable"
   rating: number | null
   reviewCount: number | null

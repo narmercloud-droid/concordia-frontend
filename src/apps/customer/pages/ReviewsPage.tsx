@@ -8,11 +8,21 @@ import googleReviewsSnapshot from "@/data/googleReviewsSnapshot.json"
 const FALLBACK_REVIEW_KEYS = ["r1", "r2", "r3", "r4", "r5"] as const
 const SNAPSHOT_BRANCH_IDS = Object.keys(googleReviewsSnapshot)
 
-function snapshotForBranch(branchId: string): BranchGoogleReviewsResponse | null {
+function reviewerInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("")
+}
+
+function snapshotForBranch(branchId: string, branchName?: string): BranchGoogleReviewsResponse | null {
   const row = googleReviewsSnapshot[branchId as keyof typeof googleReviewsSnapshot]
   if (!row?.reviews?.length) return null
   return {
     branchId,
+    branchName,
     source: "snapshot",
     rating: row.rating ?? null,
     reviewCount: row.reviewCount ?? null,
@@ -61,7 +71,7 @@ export default function ReviewsPage() {
 
   const googleReviews =
     apiReviews ??
-    (activeBranchId && isError ? snapshotForBranch(activeBranchId) : null)
+    (activeBranchId && isError ? snapshotForBranch(activeBranchId, activeBranch?.name) : null)
 
   const hasReviewCards = (googleReviews?.reviews.length ?? 0) > 0
   const hasGoogleSummary =
@@ -142,14 +152,37 @@ export default function ReviewsPage() {
       {hasReviewCards && googleReviews
         ? googleReviews.reviews.map((review, index) => (
             <article key={`${review.author}-${index}`} className="info-review">
+              <div className="info-review__header">
+                {review.profilePhotoUrl ? (
+                  <img
+                    src={review.profilePhotoUrl}
+                    alt=""
+                    className="info-review__avatar"
+                    width={44}
+                    height={44}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <span className="info-review__avatar info-review__avatar--fallback" aria-hidden="true">
+                    {reviewerInitials(review.author)}
+                  </span>
+                )}
+                <div className="info-review__identity">
+                  <p className="info-review__author">
+                    {review.author}
+                    {branchLabel ? ` · ${branchLabel}` : ""}
+                  </p>
+                  {review.relativeTime && (
+                    <p className="info-review__time">{review.relativeTime}</p>
+                  )}
+                </div>
+              </div>
               <p className="info-review__stars" aria-label={t("pages.reviews.ratingLabel", { rating: review.rating })}>
                 {starsFor(review.rating)}
               </p>
               <p className="info-review__text">"{review.text}"</p>
-              <p className="info-review__author">
-                — {review.author}
-                {review.relativeTime ? ` · ${review.relativeTime}` : ""}
-              </p>
             </article>
           ))
         : FALLBACK_REVIEW_KEYS.map((key) => (
