@@ -1,4 +1,15 @@
-export type AppLanguage = "de" | "en" | "nl" | "pl" | "ru" | "ro" | "hi" | "ar" | "ku"
+export type AppLanguage =
+  | "de"
+  | "en"
+  | "nl"
+  | "pl"
+  | "ru"
+  | "ro"
+  | "hi"
+  | "ar"
+  | "ku"
+  | "tr"
+  | "ckb"
 
 export const LANGUAGES: Array<{
   code: AppLanguage
@@ -14,7 +25,9 @@ export const LANGUAGES: Array<{
   { code: "ro", label: "Romanian", native: "Română", flag: "🇷🇴" },
   { code: "hi", label: "Hindi", native: "हिन्दी", flag: "🇮🇳" },
   { code: "ar", label: "Arabic", native: "العربية", flag: "🇸🇦" },
-  { code: "ku", label: "Kurdish", native: "Kurdî", flag: "🇮🇶" }
+  { code: "tr", label: "Turkish", native: "Türkçe", flag: "🇹🇷" },
+  { code: "ku", label: "Kurdish (Kurmanji)", native: "Kurdî (Latînî)", flag: "🇮🇶" },
+  { code: "ckb", label: "Kurdish (Sorani)", native: "کوردی (سۆرانی)", flag: "🇮🇶" }
 ]
 
 export function getLanguage(code: string) {
@@ -44,11 +57,14 @@ export function localeForLanguage(lang: string): string {
     ro: "ro-RO",
     hi: "hi-IN",
     ar: "ar-SA",
-    ku: "ku-IQ"
+    ku: "ku-IQ",
+    tr: "tr-TR",
+    ckb: "ckb-IQ"
   }
   return map[lang as AppLanguage] ?? "de-DE"
 }
 
 export function isRtlLanguage(lang: string): boolean {
-  return lang.split("-")[0] === "ar"
+  const short = lang.split("-")[0]
+  return short === "ar" || short === "ckb"
 }

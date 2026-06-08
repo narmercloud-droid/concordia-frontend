@@ -284,148 +284,148 @@
     "loyaltyBenefits": "Gratis registreren en deelnemen aan ons spaarprogramma:"
   },
   "pages": {
-    "navLabel": "Pagina's",
+    "navLabel": "Sitepagina's",
     "backHome": "Terug naar home",
     "nav": {
       "home": "Home",
       "about": "Over ons",
       "contact": "Contact",
-      "reviews": "Reviews",
+      "reviews": "Recensies",
       "offers": "Aanbiedingen",
       "delivery": "Bezorging",
       "faq": "FAQ"
     },
     "about": {
-      "eyebrow": "Our story",
-      "title": "About Concordia",
-      "quote": "Good food brings people together — that is what Concordia has always been about.",
-      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
-      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
-      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
-      "originTitle": "Rooted in Kempen",
-      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
-      "chefsTitle": "Meet your head chefs",
+      "eyebrow": "Ons verhaal",
+      "title": "Over Concordia",
+      "quote": "Goed eten brengt mensen samen — daar draait Concordia altijd om.",
+      "p1": "Concordia is een Italiaans familierestaurant in Kempen. Voor ons is harmonie niet alleen een naam — het is hoe we gasten verwelkomen, hoe we samenwerken in de keuken en hoe elk bord onze pass verlaat.",
+      "p2": "We openden onze deuren op Concordienplatz met een eenvoudig idee: eerlijke Italiaanse keuken, royale porties en het gevoel dat je aan iemands tafel eet — niet in een keten.",
+      "p3": "Vandaag kunt u ons persoonlijk bezoeken of online bestellen. Hoe dan ook bereidt hetzelfde team uw maaltijd vers wanneer u bestelt. Geen opwarmen, geen shortcuts — alleen het eten waar we trots op zijn voor onze buren en gezinnen.",
+      "originTitle": "Geworteld in Kempen",
+      "originText": "Kempen is thuis. Onze gasten kennen ons van verjaardagen, vrijdagpizzanachten en rustige lunches op het plein. Dat vertrouwen betekent alles — en daarom behandelen we elke online bestelling met dezelfde zorg als een tafel bij het raam.",
+      "chefsTitle": "Ontmoet uw chef-koks",
       "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "alaanBio": "Alaan vormt ons menu en het ritme van de keuken — van deeg en sauzen tot de gerechten die onze vaste gasten bij naam bestellen. Hij hecht aan consistentie: de pizza moet elke keer naar Concordia smaken.",
       "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
-      "valuesTitle": "What we stand for",
+      "jiuanBio": "Jiuan brengt rustige focus in een drukke service — pasta, grills, timing aan de pass. Gasten merken vaak eerst de warmte; in de keuken is het zijn vaste hand die alles soepel laat lopen.",
+      "valuesTitle": "Waar we voor staan",
       "values": {
         "fresh": {
-          "title": "Fresh, always",
-          "text": "Prepared when you order — not sitting under a heat lamp."
+          "title": "Altijd vers",
+          "text": "Bereid wanneer u bestelt — niet onder een warmtelamp."
         },
         "family": {
-          "title": "Family table",
-          "text": "A small team that knows many guests by name."
+          "title": "Familietafel",
+          "text": "Een klein team dat veel gasten bij naam kent."
         },
         "oven": {
-          "title": "Stone-oven soul",
-          "text": "Pizza and classics with real Italian heart."
+          "title": "Steenoven-ziel",
+          "text": "Pizza en klassiekers met echt Italiaans hart."
         },
         "care": {
-          "title": "Every order matters",
-          "text": "Pickup, delivery or dine-in — same pride on the plate."
+          "title": "Elke bestelling telt",
+          "text": "Afhalen, bezorgen of ter plaatse — dezelfde trots op het bord."
         }
       },
-      "kitchenTitle": "From our oven to your table",
-      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kitchenTitle": "Van onze oven naar uw tafel",
+      "kitchenText": "Pizza, pasta, salades, al forno-gerechten, schnitzel, burgers en meer — vers bereid voor afhalen of bezorgen.",
       "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
-      "eyebrow": "Kontakt",
-      "title": "Kontakt & Standorte",
-      "lead": "Besuchen Sie uns, bestellen Sie online oder schreiben Sie uns eine E-Mail. Wir freuen uns auf Sie.",
-      "emailTitle": "E-Mail",
-      "emailHint": "Für Bestellungen nutzen Sie bitte unser Online-Menü — auf allgemeine Anfragen antworten wir so schnell wie möglich."
+      "eyebrow": "Neem contact op",
+      "title": "Contact & locaties",
+      "lead": "Bezoek ons, bestel online of neem per e-mail contact op. We horen graag van u.",
+      "emailTitle": "E-mail",
+      "emailHint": "Voor bestellingen gebruikt u ons online menu — we reageren zo snel mogelijk op algemene vragen."
     },
     "reviews": {
-      "eyebrow": "Stimmen unserer Gäste",
-      "title": "Bewertungen",
-      "lead": "Einige Worte von Gästen, die bei uns bestellen — vielen Dank für Ihr Vertrauen.",
+      "eyebrow": "Gasten aan het woord",
+      "title": "Recensies",
+      "lead": "Enkele woorden van gasten die bij ons bestellen — bedankt voor uw vertrouwen en vriendelijke feedback.",
       "items": {
         "r1": {
-          "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.",
+          "text": "De beste pizza in de buurt — altijd vers, altijd vriendelijk. We bestellen elke week.",
           "author": "Sandra M., Kempen"
         },
         "r2": {
-          "text": "Schnelle Lieferung, heißes Essen, faire Preise. Die Pasta ist fantastisch.",
+          "text": "Snelle bezorging, warm eten, eerlijke prijzen. De pasta is fantastisch.",
           "author": "Thomas K., Willich"
         },
         "r3": {
-          "text": "Man schmeckt die Leidenschaft. Unsere Familie liebt Concordia.",
+          "text": "Je proeft de passie. Onze familie houdt van Concordia.",
           "author": "Elena R., Tönisvorst"
         },
         "r4": {
-          "text": "Tolles Online-Bestellen — einfach anzupassen und der 10%-Rabatt ist ein schönes Extra.",
+          "text": "Geweldig online bestellen — makkelijk aan te passen en de 10% korting is een mooie bonus.",
           "author": "Markus B., Kempen"
         },
         "r5": {
-          "text": "Herzlicher Empfang, großzügige Portionen, echter italienischer Geschmack. Sehr empfehlenswert.",
+          "text": "Warm welkom, royale porties, echte Italiaanse smaak. Sterk aanbevolen.",
           "author": "Julia H., Geldern"
         }
       }
     },
     "offers": {
-      "eyebrow": "Save with us",
-      "title": "Offers & promotions",
-      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
-      "discountTitle": "off your online order",
-      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
-      "drinkTitle": "Free drink from €35",
-      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
-      "howTitle": "How it works",
-      "step1Title": "Pick your branch",
-      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
-      "step2Title": "Build your cart",
-      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
-      "step3Title": "Checkout & enjoy",
-      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
-      "giftTitle": "Cadeaubon kopen",
-      "giftText": "Trakteer iemand op Concordia — kies €10, €20, €30 of elk bedrag. De code werkt alleen bij de vestiging waar u hem koopt (online of ter plaatse).",
+      "eyebrow": "Bespaar bij ons",
+      "title": "Aanbiedingen & acties",
+      "lead": "Bestel direct op onze website en profiteer van ingebouwde voordelen — geen codes, geen gedoe.",
+      "discountTitle": "korting op uw online bestelling",
+      "discountText": "Bestel via onze website en ontvang automatisch 10% korting bij het afrekenen. Geen vouchercode nodig.",
+      "drinkTitle": "Gratis drank vanaf €35",
+      "drinkText": "Bestellingen vanaf €35 inclusief een gratis frisdrank — onze dank voor het kiezen van Concordia.",
+      "howTitle": "Hoe het werkt",
+      "step1Title": "Kies uw filiaal",
+      "step1Text": "Kies Kempen en bekijk het volledige menu met foto's en opties.",
+      "step2Title": "Stel uw winkelwagen samen",
+      "step2Text": "Uw 10% websitekorting en gratis drank (vanaf €35) worden automatisch toegepast.",
+      "step3Title": "Afrekenen & genieten",
+      "step3Text": "Betaal contant bij afhalen of bezorging — we bereiden alles vers voor u.",
+      "promoNote": "Hongerig? Uw tafel — of uw deur — is slechts een paar klikken verwijderd.",
+      "giftTitle": "Koop een cadeaubon",
+      "giftText": "Trakteer iemand op Concordia — kies €10, €20, €30 of elk bedrag. De code werkt alleen bij het filiaal waar u koopt (online of ter plaatse).",
       "giftCta": "Bon kopen",
       "giftBadge": "Cadeaubon"
     },
     "delivery": {
-      "eyebrow": "Bis vor Ihre Tür",
-      "title": "Lieferung & Abholung",
-      "lead": "Wir liefern in ausgewählte Postleitzahlen rund um Kempen. Mindestbestellwert und Liefergebühr hängen von Ihrer Region ab.",
-      "areasTitle": "Liefergebiete (Kempen)",
-      "colPostcode": "PLZ",
-      "colMin": "Mindestbestellwert",
-      "colFee": "Liefergebühr",
-      "pickupTitle": "Abholung",
-      "pickupText": "Lieber abholen? Online bestellen und an der Concordienplatz 1 in Kempen abholen — wir bereiten alles frisch für Sie vor."
+      "eyebrow": "Tot aan uw deur",
+      "title": "Bezorging & afhalen",
+      "lead": "We bezorgen naar geselecteerde postcodes rond Kempen. Minimumbestelling en bezorgkosten hangen af van uw gebied.",
+      "areasTitle": "Bezorggebieden (Kempen)",
+      "colPostcode": "Postcode",
+      "colMin": "Min. bestelling",
+      "colFee": "Bezorgkosten",
+      "pickupTitle": "Afhalen",
+      "pickupText": "Liever ophalen? Bestel online en haal op bij Concordienplatz 1, Kempen — we hebben het klaar voor u."
     },
     "faq": {
-      "eyebrow": "Hilfe",
-      "title": "Häufige Fragen",
-      "lead": "Kurze Antworten zu Bestellung, Bezahlung und Lieferung.",
+      "eyebrow": "Hulp",
+      "title": "Veelgestelde vragen",
+      "lead": "Snelle antwoorden over bestellen, betaling en bezorging.",
       "items": {
         "q1": {
-          "q": "Wie bestelle ich?",
-          "a": "Wählen Sie auf der Startseite Ihre Filiale, stöbern Sie im Menü, passen Sie Gerichte an und schließen Sie die Bestellung online ab."
+          "q": "Hoe plaats ik een bestelling?",
+          "a": "Kies uw filiaal op de homepage, bekijk het menu, pas uw gerechten aan en reken online af."
         },
         "q2": {
-          "q": "Welche Zahlungsarten akzeptieren Sie?",
-          "a": "Aktuell akzeptieren wir Barzahlung bei Abholung und Barzahlung bei Lieferung."
+          "q": "Welke betaalmethoden accepteren jullie?",
+          "a": "We accepteren momenteel contant bij afhalen en contant bij bezorging."
         },
         "q3": {
-          "q": "Kann ich eine Bestellung vorbestellen?",
-          "a": "Ja — an der Kasse können Sie ASAP oder einen Wunschtermin wählen, sofern verfügbar."
+          "q": "Kan ik mijn bestelling plannen?",
+          "a": "Ja — bij het afrekenen kunt u kiezen voor zo snel mogelijk of een gepland tijdslot waar beschikbaar."
         },
         "q4": {
-          "q": "Wie funktioniert der 10%-Online-Rabatt?",
-          "a": "Er wird automatisch angewendet, wenn Sie über unsere Website bestellen. Kein Code erforderlich."
+          "q": "Hoe werkt de 10% online korting?",
+          "a": "Deze wordt automatisch toegepast wanneer u via onze website bestelt. Geen code nodig."
         },
         "q5": {
-          "q": "Kann ich meine Lieferung verfolgen?",
-          "a": "Ja — nach einer Lieferbestellung erhalten Sie einen Tracking-Link und sehen den Fahrer auf der Karte."
+          "q": "Kan ik mijn bezorging volgen?",
+          "a": "Ja — na een bezorgbestelling ontvangt u een trackinglink om uw chauffeur op de kaart te volgen."
         },
         "q6": {
-          "q": "Wann öffnet Straelen?",
-          "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
+          "q": "Wanneer opent Straelen?",
+          "a": "Concordia Straelen komt binnenkort. U ziet het in onze filiaallijst zodra bestellen live gaat."
         }
       }
     }

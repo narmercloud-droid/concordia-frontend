@@ -1,0 +1,1325 @@
+{
+  "ar": {
+    "navLabel": "صفحات الموقع",
+    "backHome": "العودة إلى الصفحة الرئيسية",
+    "nav": {
+      "home": "الرئيسية",
+      "about": "من نحن",
+      "contact": "اتصل بنا",
+      "reviews": "التقييمات",
+      "offers": "العروض",
+      "delivery": "التوصيل",
+      "faq": "الأسئلة الشائعة"
+    },
+    "about": {
+      "eyebrow": "قصتنا",
+      "title": "عن Concordia",
+      "quote": "الطعام الجيد يجمع الناس — وهذا ما كانت Concordia دائماً عنه.",
+      "p1": "Concordia مطعم إيطالي عائلي في Kempen. بالنسبة لنا، الانسجام ليس مجرد اسم — بل طريقة ترحيبنا بالضيوف، وطريقة عملنا معاً في المطبخ، وكيف تغادر كل طبق من مطبخنا.",
+      "p2": "افتتحنا أبوابنا في Concordienplatz بفكرة بسيطة: مطبخ إيطالي صادق، حصص سخية، والشعور بأنك تأكل على مائدة شخص ما — وليس في سلسلة مطاعم.",
+      "p3": "اليوم يمكنكم زيارتنا شخصياً أو الطلب عبر الإنترنت. في كلتا الحالتين، يُعد فريقنا وجبتكم طازجة عند الطلب. لا إعادة تسخين، لا اختصارات — فقط الطعام الذي نفخر بتقديمه لجيراننا وعائلاتنا.",
+      "originTitle": "متجذرون في Kempen",
+      "originText": "Kempen هي موطننا. يعرفنا ضيوفنا من أعياد الميلاد، وليالي البيتزا يوم الجمعة، والغداء الهادئ في الساحة. هذه الثقة تعني كل شيء — ولهذا نعامل كل طلب عبر الإنترنت بنفس العناية كما لو كان على طاولة بجانب النافذة.",
+      "chefsTitle": "تعرف على رؤساء الطهاة",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan يصمم قائمتنا وإيقاع المطبخ — من العجين والصلصات إلى الأطباق التي يطلبها زبائننا الدائمون بالاسم. يهتم بالثبات: يجب أن تكون البيتزا بطعم Concordia في كل مرة.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan يجلب تركيزاً هادئاً إلى خدمة مزدحمة — المعكرونة، المشاوي، التوقيت عند ممر التقديم. يلاحظ الضيوف غالباً الدفء أولاً؛ في المطبخ، يدُه الثابتة هي ما يبقي كل شيء يسير بسلاسة.",
+      "valuesTitle": "ما نؤمن به",
+      "values": {
+        "fresh": {
+          "title": "طازج، دائماً",
+          "text": "يُحضَّر عند الطلب — وليس تحت مصباح حراري."
+        },
+        "family": {
+          "title": "مائدة عائلية",
+          "text": "فريق صغير يعرف الكثير من الضيوف بالاسم."
+        },
+        "oven": {
+          "title": "روح الفرن الحجري",
+          "text": "بيتزا وكلاسيكيات بقلب إيطالي حقيقي."
+        },
+        "care": {
+          "title": "كل طلب مهم",
+          "text": "استلام، توصيل أو تناول في المطعم — نفس الفخر في الطبق."
+        }
+      },
+      "kitchenTitle": "من فرننا إلى مائدتكم",
+      "kitchenText": "بيتزا، معكرونة، سلطات، أطباق al forno، schnitzel، برغر والمزيد — تُطبخ طازجة للاستلام أو التوصيل.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "تواصل معنا",
+      "title": "اتصل بنا والمواقع",
+      "lead": "زورونا، اطلبوا عبر الإنترنت، أو راسلونا بالبريد الإلكتروني. نتطلع إلى سماع أخباركم.",
+      "emailTitle": "البريد الإلكتروني",
+      "emailHint": "للطلبات، يرجى استخدام قائمتنا عبر الإنترنت — نرد على الاستفسارات العامة في أقرب وقت ممكن."
+    },
+    "reviews": {
+      "eyebrow": "أصوات الضيوف",
+      "title": "التقييمات",
+      "lead": "كلمات من ضيوف يطلبون معنا — شكراً لثقتكم وتعليقاتكم اللطيفة.",
+      "items": {
+        "r1": {
+          "text": "أفضل بيتزا في المنطقة — دائماً طازجة، دائماً ودية. نطلب كل أسبوع.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "توصيل سريع، طعام ساخن، أسعار عادلة. المعكرونة رائعة.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "يمكنكم تذوق الشغف. عائلتنا تحب Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "طلب عبر الإنترنت رائع — سهل التخصيص وخصم 10% مكافأة لطيفة.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "ترحيب دافئ، حصص سخية، نكهة إيطالية أصيلة. موصى به بشدة.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "وفّروا معنا",
+      "title": "العروض والترويج",
+      "lead": "اطلبوا مباشرة على موقعنا واستمتعوا بمكافآت مدمجة — بدون أكواد، بدون تعقيد.",
+      "discountTitle": "خصم على طلبكم عبر الإنترنت",
+      "discountText": "اطلبوا عبر موقعنا واحصلوا على خصم 10% تلقائياً عند الدفع. لا حاجة لرمز قسيمة.",
+      "drinkTitle": "مشروب مجاني من €35",
+      "drinkText": "الطلبات من €35 تشمل مشروباً غازياً مجانياً — شكرنا لاختياركم Concordia.",
+      "howTitle": "كيف يعمل",
+      "step1Title": "اختر فرعك",
+      "step1Text": "اختر Kempen وتصفح القائمة الكاملة مع الصور والخيارات.",
+      "step2Title": "أنشئ سلتك",
+      "step2Text": "خصم 10% على الموقع والمشروب المجاني (من €35) يُطبَّقان تلقائياً.",
+      "step3Title": "الدفع والاستمتاع",
+      "step3Text": "ادفع نقداً عند الاستلام أو التوصيل — نُحضّر كل شيء طازجاً لكم.",
+      "promoNote": "جائعون؟ مائدتكم — أو باب منزلكم — على بُعد نقرات قليلة.",
+      "giftTitle": "اشترِ قسيمة هدايا",
+      "giftText": "أهدِ أحدهم Concordia — اختر €10 أو €20 أو €30 أو أي مبلغ. الرمز يعمل فقط في الفرع الذي تشتري منه (عبر الإنترنت أو شخصياً).",
+      "giftCta": "شراء قسيمة",
+      "giftBadge": "قسيمة هدايا"
+    },
+    "delivery": {
+      "eyebrow": "إلى بابكم",
+      "title": "التوصيل والاستلام",
+      "lead": "نوصّل إلى رموز بريدية محددة حول Kempen. الحد الأدنى للطلب ورسوم التوصيل تعتمد على منطقتكم.",
+      "areasTitle": "مناطق التوصيل (Kempen)",
+      "colPostcode": "الرمز البريدي",
+      "colMin": "الحد الأدنى",
+      "colFee": "رسوم التوصيل",
+      "pickupTitle": "الاستلام",
+      "pickupText": "تفضلون الاستلام؟ اطلبوا عبر الإنترنت واستلموا في Concordienplatz 1، Kempen — سنكون جاهزين لكم."
+    },
+    "faq": {
+      "eyebrow": "مساعدة",
+      "title": "الأسئلة الشائعة",
+      "lead": "إجابات سريعة عن الطلب والدفع والتوصيل.",
+      "items": {
+        "q1": {
+          "q": "كيف أقدم طلباً؟",
+          "a": "اختر فرعك في الصفحة الرئيسية، تصفح القائمة، خصّص أطباقك وادفع عبر الإنترنت."
+        },
+        "q2": {
+          "q": "ما طرق الدفع التي تقبلونها؟",
+          "a": "نقبل حالياً النقد عند الاستلام والنقد عند التوصيل."
+        },
+        "q3": {
+          "q": "هل يمكنني جدولة طلبي؟",
+          "a": "نعم — عند الدفع يمكنكم اختيار في أسرع وقت أو موعد محدد حيثما كان متاحاً."
+        },
+        "q4": {
+          "q": "كيف يعمل خصم 10% عبر الإنترنت؟",
+          "a": "يُطبَّق تلقائياً عند الطلب عبر موقعنا. لا حاجة لرمز."
+        },
+        "q5": {
+          "q": "هل يمكنني تتبع توصيلي؟",
+          "a": "نعم — بعد تقديم طلب توصيل تتلقون رابط تتبع لمتابعة السائق على الخريطة."
+        },
+        "q6": {
+          "q": "متى يفتح Straelen؟",
+          "a": "Concordia Straelen قريباً. سترونه في قائمة فروعنا بمجرد تفعيل الطلب."
+        }
+      }
+    }
+  },
+  "nl": {
+    "navLabel": "Sitepagina's",
+    "backHome": "Terug naar home",
+    "nav": {
+      "home": "Home",
+      "about": "Over ons",
+      "contact": "Contact",
+      "reviews": "Recensies",
+      "offers": "Aanbiedingen",
+      "delivery": "Bezorging",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Ons verhaal",
+      "title": "Over Concordia",
+      "quote": "Goed eten brengt mensen samen — daar draait Concordia altijd om.",
+      "p1": "Concordia is een Italiaans familierestaurant in Kempen. Voor ons is harmonie niet alleen een naam — het is hoe we gasten verwelkomen, hoe we samenwerken in de keuken en hoe elk bord onze pass verlaat.",
+      "p2": "We openden onze deuren op Concordienplatz met een eenvoudig idee: eerlijke Italiaanse keuken, royale porties en het gevoel dat je aan iemands tafel eet — niet in een keten.",
+      "p3": "Vandaag kunt u ons persoonlijk bezoeken of online bestellen. Hoe dan ook bereidt hetzelfde team uw maaltijd vers wanneer u bestelt. Geen opwarmen, geen shortcuts — alleen het eten waar we trots op zijn voor onze buren en gezinnen.",
+      "originTitle": "Geworteld in Kempen",
+      "originText": "Kempen is thuis. Onze gasten kennen ons van verjaardagen, vrijdagpizzanachten en rustige lunches op het plein. Dat vertrouwen betekent alles — en daarom behandelen we elke online bestelling met dezelfde zorg als een tafel bij het raam.",
+      "chefsTitle": "Ontmoet uw chef-koks",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan vormt ons menu en het ritme van de keuken — van deeg en sauzen tot de gerechten die onze vaste gasten bij naam bestellen. Hij hecht aan consistentie: de pizza moet elke keer naar Concordia smaken.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan brengt rustige focus in een drukke service — pasta, grills, timing aan de pass. Gasten merken vaak eerst de warmte; in de keuken is het zijn vaste hand die alles soepel laat lopen.",
+      "valuesTitle": "Waar we voor staan",
+      "values": {
+        "fresh": {
+          "title": "Altijd vers",
+          "text": "Bereid wanneer u bestelt — niet onder een warmtelamp."
+        },
+        "family": {
+          "title": "Familietafel",
+          "text": "Een klein team dat veel gasten bij naam kent."
+        },
+        "oven": {
+          "title": "Steenoven-ziel",
+          "text": "Pizza en klassiekers met echt Italiaans hart."
+        },
+        "care": {
+          "title": "Elke bestelling telt",
+          "text": "Afhalen, bezorgen of ter plaatse — dezelfde trots op het bord."
+        }
+      },
+      "kitchenTitle": "Van onze oven naar uw tafel",
+      "kitchenText": "Pizza, pasta, salades, al forno-gerechten, schnitzel, burgers en meer — vers bereid voor afhalen of bezorgen.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "Neem contact op",
+      "title": "Contact & locaties",
+      "lead": "Bezoek ons, bestel online of neem per e-mail contact op. We horen graag van u.",
+      "emailTitle": "E-mail",
+      "emailHint": "Voor bestellingen gebruikt u ons online menu — we reageren zo snel mogelijk op algemene vragen."
+    },
+    "reviews": {
+      "eyebrow": "Gasten aan het woord",
+      "title": "Recensies",
+      "lead": "Enkele woorden van gasten die bij ons bestellen — bedankt voor uw vertrouwen en vriendelijke feedback.",
+      "items": {
+        "r1": {
+          "text": "De beste pizza in de buurt — altijd vers, altijd vriendelijk. We bestellen elke week.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Snelle bezorging, warm eten, eerlijke prijzen. De pasta is fantastisch.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Je proeft de passie. Onze familie houdt van Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Geweldig online bestellen — makkelijk aan te passen en de 10% korting is een mooie bonus.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Warm welkom, royale porties, echte Italiaanse smaak. Sterk aanbevolen.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Bespaar bij ons",
+      "title": "Aanbiedingen & acties",
+      "lead": "Bestel direct op onze website en profiteer van ingebouwde voordelen — geen codes, geen gedoe.",
+      "discountTitle": "korting op uw online bestelling",
+      "discountText": "Bestel via onze website en ontvang automatisch 10% korting bij het afrekenen. Geen vouchercode nodig.",
+      "drinkTitle": "Gratis drank vanaf €35",
+      "drinkText": "Bestellingen vanaf €35 inclusief een gratis frisdrank — onze dank voor het kiezen van Concordia.",
+      "howTitle": "Hoe het werkt",
+      "step1Title": "Kies uw filiaal",
+      "step1Text": "Kies Kempen en bekijk het volledige menu met foto's en opties.",
+      "step2Title": "Stel uw winkelwagen samen",
+      "step2Text": "Uw 10% websitekorting en gratis drank (vanaf €35) worden automatisch toegepast.",
+      "step3Title": "Afrekenen & genieten",
+      "step3Text": "Betaal contant bij afhalen of bezorging — we bereiden alles vers voor u.",
+      "promoNote": "Hongerig? Uw tafel — of uw deur — is slechts een paar klikken verwijderd.",
+      "giftTitle": "Koop een cadeaubon",
+      "giftText": "Trakteer iemand op Concordia — kies €10, €20, €30 of elk bedrag. De code werkt alleen bij het filiaal waar u koopt (online of ter plaatse).",
+      "giftCta": "Bon kopen",
+      "giftBadge": "Cadeaubon"
+    },
+    "delivery": {
+      "eyebrow": "Tot aan uw deur",
+      "title": "Bezorging & afhalen",
+      "lead": "We bezorgen naar geselecteerde postcodes rond Kempen. Minimumbestelling en bezorgkosten hangen af van uw gebied.",
+      "areasTitle": "Bezorggebieden (Kempen)",
+      "colPostcode": "Postcode",
+      "colMin": "Min. bestelling",
+      "colFee": "Bezorgkosten",
+      "pickupTitle": "Afhalen",
+      "pickupText": "Liever ophalen? Bestel online en haal op bij Concordienplatz 1, Kempen — we hebben het klaar voor u."
+    },
+    "faq": {
+      "eyebrow": "Hulp",
+      "title": "Veelgestelde vragen",
+      "lead": "Snelle antwoorden over bestellen, betaling en bezorging.",
+      "items": {
+        "q1": {
+          "q": "Hoe plaats ik een bestelling?",
+          "a": "Kies uw filiaal op de homepage, bekijk het menu, pas uw gerechten aan en reken online af."
+        },
+        "q2": {
+          "q": "Welke betaalmethoden accepteren jullie?",
+          "a": "We accepteren momenteel contant bij afhalen en contant bij bezorging."
+        },
+        "q3": {
+          "q": "Kan ik mijn bestelling plannen?",
+          "a": "Ja — bij het afrekenen kunt u kiezen voor zo snel mogelijk of een gepland tijdslot waar beschikbaar."
+        },
+        "q4": {
+          "q": "Hoe werkt de 10% online korting?",
+          "a": "Deze wordt automatisch toegepast wanneer u via onze website bestelt. Geen code nodig."
+        },
+        "q5": {
+          "q": "Kan ik mijn bezorging volgen?",
+          "a": "Ja — na een bezorgbestelling ontvangt u een trackinglink om uw chauffeur op de kaart te volgen."
+        },
+        "q6": {
+          "q": "Wanneer opent Straelen?",
+          "a": "Concordia Straelen komt binnenkort. U ziet het in onze filiaallijst zodra bestellen live gaat."
+        }
+      }
+    }
+  },
+  "pl": {
+    "navLabel": "Strony serwisu",
+    "backHome": "Powrót do strony głównej",
+    "nav": {
+      "home": "Strona główna",
+      "about": "O nas",
+      "contact": "Kontakt",
+      "reviews": "Opinie",
+      "offers": "Oferty",
+      "delivery": "Dostawa",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Nasza historia",
+      "title": "O Concordia",
+      "quote": "Dobre jedzenie łączy ludzi — o to zawsze chodziło w Concordia.",
+      "p1": "Concordia to rodzinna włoska restauracja w Kempen. Dla nas harmonia to nie tylko nazwa — to sposób, w jaki witamy gości, pracujemy razem w kuchni i w jaki każde danie opuszcza naszą ladę.",
+      "p2": "Otworzyliśmy drzwi na Concordienplatz z prostą ideą: uczciwa kuchnia włoska, hojne porcje i uczucie, że jesz przy czyimś stole — a nie w sieciówce.",
+      "p3": "Dziś możesz nas odwiedzić osobiście lub zamówić online. Tak czy inaczej, ten sam zespół przygotowuje posiłek na świeżo po złożeniu zamówienia. Bez podgrzewania, bez skrótów — tylko jedzenie, które z dumą serwujemy sąsiadom i rodzinom.",
+      "originTitle": "Z korzeniami w Kempen",
+      "originText": "Kempen to nasz dom. Goście znają nas z urodzin, piątkowych wieczorów z pizzą i spokojnych lunchów na placu. To zaufanie wiele dla nas znaczy — dlatego każde zamówienie online traktujemy z taką samą troską jak stolik przy oknie.",
+      "chefsTitle": "Poznaj szefów kuchni",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan kształtuje nasze menu i rytm kuchni — od ciasta i sosów po dania, które stali klienci zamawiają z imienia. Zależy mu na stałości: pizza ma smakować jak Concordia za każdym razem.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan wnosi spokojne skupienie w gorącą służbę — makaron, grill, timing przy ladzie. Goście często najpierw zauważają ciepło; w kuchni to jego pewna ręka utrzymuje wszystko w płynności.",
+      "valuesTitle": "Co reprezentujemy",
+      "values": {
+        "fresh": {
+          "title": "Zawsze świeże",
+          "text": "Przygotowane po zamówieniu — nie pod lampą grzewczą."
+        },
+        "family": {
+          "title": "Rodzinny stół",
+          "text": "Mały zespół, który wielu gości zna z imienia."
+        },
+        "oven": {
+          "title": "Dusza pieca na kamieniu",
+          "text": "Pizza i klasyki z prawdziwym włoskim sercem."
+        },
+        "care": {
+          "title": "Każde zamówienie ma znaczenie",
+          "text": "Odbiór, dostawa lub na miejscu — ta sama duma na talerzu."
+        }
+      },
+      "kitchenTitle": "Z naszego pieca na Twój stół",
+      "kitchenText": "Pizza, makaron, sałatki, dania al forno, schnitzel, burgery i więcej — gotowane na świeżo do odbioru lub dostawy.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "Skontaktuj się",
+      "title": "Kontakt i lokalizacje",
+      "lead": "Odwiedź nas, zamów online lub napisz e-mail. Czekamy na wiadomość od Ciebie.",
+      "emailTitle": "E-mail",
+      "emailHint": "Do zamówień używaj naszego menu online — na ogólne zapytania odpowiadamy tak szybko, jak to możliwe."
+    },
+    "reviews": {
+      "eyebrow": "Głosy gości",
+      "title": "Opinie",
+      "lead": "Kilka słów od gości, którzy u nas zamawiają — dziękujemy za zaufanie i miłe opinie.",
+      "items": {
+        "r1": {
+          "text": "Najlepsza pizza w okolicy — zawsze świeża, zawsze miła obsługa. Zamawiamy co tydzień.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Szybka dostawa, gorące jedzenie, uczciwe ceny. Makaron jest fantastyczny.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Czuć pasję. Nasza rodzina kocha Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Świetne zamawianie online — łatwe dostosowanie, a 10% zniżki to miły bonus.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Ciepłe powitanie, hojne porcje, prawdziwy włoski smak. Gorąco polecam.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Oszczędzaj z nami",
+      "title": "Oferty i promocje",
+      "lead": "Zamawiaj bezpośrednio na naszej stronie i korzystaj z wbudowanych nagród — bez kodów, bez komplikacji.",
+      "discountTitle": "zniżki na zamówienie online",
+      "discountText": "Zamów przez naszą stronę i otrzymaj automatycznie 10% zniżki przy kasie. Kod vouchera nie jest potrzebny.",
+      "drinkTitle": "Darmowy napój od €35",
+      "drinkText": "Zamówienia od €35 obejmują darmowy napój gazowany — nasze podziękowanie za wybór Concordia.",
+      "howTitle": "Jak to działa",
+      "step1Title": "Wybierz oddział",
+      "step1Text": "Wybierz Kempen i przeglądaj pełne menu ze zdjęciami i opcjami.",
+      "step2Title": "Zbuduj koszyk",
+      "step2Text": "10% zniżki na stronie i darmowy napój (od €35) stosują się automatycznie.",
+      "step3Title": "Kasa i smacznego",
+      "step3Text": "Płać gotówką przy odbiorze lub dostawie — wszystko przygotowujemy na świeżo.",
+      "promoNote": "Głodny? Twój stół — lub drzwi — to kilka kliknięć.",
+      "giftTitle": "Kup voucher podarunkowy",
+      "giftText": "Podaruj komuś Concordia — wybierz €10, €20, €30 lub dowolną kwotę. Kod działa tylko w oddziale, w którym kupujesz (online lub na miejscu).",
+      "giftCta": "Kup voucher",
+      "giftBadge": "Voucher podarunkowy"
+    },
+    "delivery": {
+      "eyebrow": "Pod Twoje drzwi",
+      "title": "Dostawa i odbiór",
+      "lead": "Dostarczamy do wybranych kodów pocztowych wokół Kempen. Minimalne zamówienie i opłata za dostawę zależą od Twojej okolicy.",
+      "areasTitle": "Obszary dostawy (Kempen)",
+      "colPostcode": "Kod pocztowy",
+      "colMin": "Min. zamówienie",
+      "colFee": "Opłata za dostawę",
+      "pickupTitle": "Odbiór",
+      "pickupText": "Wolisz odebrać osobiście? Zamów online i odbierz przy Concordienplatz 1, Kempen — będzie gotowe."
+    },
+    "faq": {
+      "eyebrow": "Pomoc",
+      "title": "Często zadawane pytania",
+      "lead": "Szybkie odpowiedzi o zamawianiu, płatności i dostawie.",
+      "items": {
+        "q1": {
+          "q": "Jak złożyć zamówienie?",
+          "a": "Wybierz oddział na stronie głównej, przeglądaj menu, dostosuj dania i złóż zamówienie online."
+        },
+        "q2": {
+          "q": "Jakie metody płatności akceptujecie?",
+          "a": "Obecnie akceptujemy gotówkę przy odbiorze i gotówkę przy dostawie."
+        },
+        "q3": {
+          "q": "Czy mogę zaplanować zamówienie?",
+          "a": "Tak — przy kasie możesz wybrać jak najszybciej lub zaplanowany termin, jeśli jest dostępny."
+        },
+        "q4": {
+          "q": "Jak działa 10% zniżki online?",
+          "a": "Stosuje się automatycznie przy zamówieniu przez naszą stronę. Kod nie jest wymagany."
+        },
+        "q5": {
+          "q": "Czy mogę śledzić dostawę?",
+          "a": "Tak — po złożeniu zamówienia z dostawą otrzymujesz link do śledzenia kierowcy na mapie."
+        },
+        "q6": {
+          "q": "Kiedy otworzy się Straelen?",
+          "a": "Concordia Straelen wkrótce. Zobaczysz go na liście oddziałów, gdy zamawianie będzie aktywne."
+        }
+      }
+    }
+  },
+  "ru": {
+    "navLabel": "Страницы сайта",
+    "backHome": "На главную",
+    "nav": {
+      "home": "Главная",
+      "about": "О нас",
+      "contact": "Контакты",
+      "reviews": "Отзывы",
+      "offers": "Акции",
+      "delivery": "Доставка",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Наша история",
+      "title": "О Concordia",
+      "quote": "Хорошая еда объединяет людей — в этом всегда была суть Concordia.",
+      "p1": "Concordia — семейный итальянский ресторан в Kempen. Для нас гармония — не просто название: это то, как мы встречаем гостей, работаем вместе на кухне и как каждое блюдо покидает нашу линию выдачи.",
+      "p2": "Мы открыли двери на Concordienplatz с простой идеей: честная итальянская кухня, щедрые порции и ощущение, что вы едите за чьим-то столом — а не в сетевом ресторане.",
+      "p3": "Сегодня вы можете прийти к нам лично или заказать онлайн. В любом случае одна и та же команда готовит ваше блюдо свежим по заказу. Без разогрева, без компромиссов — только еда, которой мы гордимся перед соседями и семьями.",
+      "originTitle": "Корни в Kempen",
+      "originText": "Kempen — наш дом. Гости знают нас с дней рождений, пятничных вечеров с пиццей и спокойных обедов на площади. Это доверие для нас всё — поэтому каждый онлайн-заказ мы обрабатываем с той же заботой, что и стол у окна.",
+      "chefsTitle": "Познакомьтесь с шеф-поварами",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan формирует наше меню и ритм кухни — от теста и соусов до блюд, которые постоянные гости заказывают по имени. Ему важна стабильность: пицца должна каждый раз быть на вкус Concordia.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan приносит спокойную сосредоточенность в горячую смену — паста, гриль, тайминг на линии. Гости часто сначала замечают тепло; на кухне его уверенная рука держит всё в порядке.",
+      "valuesTitle": "Во что мы верим",
+      "values": {
+        "fresh": {
+          "title": "Всегда свежее",
+          "text": "Готовится по заказу — не под лампой."
+        },
+        "family": {
+          "title": "Семейный стол",
+          "text": "Небольшая команда, которая знает многих гостей по имени."
+        },
+        "oven": {
+          "title": "Душа каменной печи",
+          "text": "Пицца и классика с настоящим итальянским сердцем."
+        },
+        "care": {
+          "title": "Каждый заказ важен",
+          "text": "Самовывоз, доставка или в зале — та же гордость на тарелке."
+        }
+      },
+      "kitchenTitle": "Из нашей печи на ваш стол",
+      "kitchenText": "Пицца, паста, салаты, al forno, schnitzel, бургеры и многое другое — свежеприготовленное для самовывоза или доставки.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "Связаться с нами",
+      "title": "Контакты и адреса",
+      "lead": "Приходите к нам, заказывайте онлайн или пишите на email. Будем рады услышать вас.",
+      "emailTitle": "Email",
+      "emailHint": "Для заказов используйте наше онлайн-меню — на общие вопросы отвечаем как можно скорее."
+    },
+    "reviews": {
+      "eyebrow": "Голоса гостей",
+      "title": "Отзывы",
+      "lead": "Несколько слов от гостей, которые у нас заказывают — спасибо за доверие и добрые отзывы.",
+      "items": {
+        "r1": {
+          "text": "Лучшая пицца в районе — всегда свежая, всегда дружелюбно. Заказываем каждую неделю.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Быстрая доставка, горячая еда, честные цены. Паста потрясающая.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Чувствуется страсть. Наша семья обожает Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Отличный онлайн-заказ — легко настроить, а скидка 10% — приятный бонус.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Тёплый приём, щедрые порции, настоящий итальянский вкус. Очень рекомендую.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Экономьте с нами",
+      "title": "Акции и предложения",
+      "lead": "Заказывайте прямо на нашем сайте и получайте встроенные бонусы — без кодов и лишних хлопот.",
+      "discountTitle": "скидки на онлайн-заказ",
+      "discountText": "Закажите через наш сайт и получите автоматически 10% скидки при оплате. Промокод не нужен.",
+      "drinkTitle": "Бесплатный напиток от €35",
+      "drinkText": "Заказы от €35 включают бесплатный газированный напиток — наша благодарность за выбор Concordia.",
+      "howTitle": "Как это работает",
+      "step1Title": "Выберите филиал",
+      "step1Text": "Выберите Kempen и просмотрите полное меню с фото и опциями.",
+      "step2Title": "Соберите корзину",
+      "step2Text": "10% скидка на сайте и бесплатный напиток (от €35) применяются автоматически.",
+      "step3Title": "Оплата и наслаждение",
+      "step3Text": "Оплата наличными при самовывозе или доставке — всё готовим свежим для вас.",
+      "promoNote": "Голодны? Ваш стол — или ваши двери — в нескольких кликах.",
+      "giftTitle": "Купить подарочный сертификат",
+      "giftText": "Подарите кому-то Concordia — выберите €10, €20, €30 или любую сумму. Код действует только в филиале покупки (онлайн или лично).",
+      "giftCta": "Купить сертификат",
+      "giftBadge": "Подарочный сертификат"
+    },
+    "delivery": {
+      "eyebrow": "К вашей двери",
+      "title": "Доставка и самовывоз",
+      "lead": "Доставляем в выбранные почтовые индексы вокруг Kempen. Минимальный заказ и стоимость доставки зависят от вашего района.",
+      "areasTitle": "Зоны доставки (Kempen)",
+      "colPostcode": "Индекс",
+      "colMin": "Мин. заказ",
+      "colFee": "Стоимость доставки",
+      "pickupTitle": "Самовывоз",
+      "pickupText": "Предпочитаете забрать сами? Закажите онлайн и заберите на Concordienplatz 1, Kempen — всё будет готово."
+    },
+    "faq": {
+      "eyebrow": "Помощь",
+      "title": "Часто задаваемые вопросы",
+      "lead": "Быстрые ответы о заказе, оплате и доставке.",
+      "items": {
+        "q1": {
+          "q": "Как сделать заказ?",
+          "a": "Выберите филиал на главной, просмотрите меню, настройте блюда и оформите заказ онлайн."
+        },
+        "q2": {
+          "q": "Какие способы оплаты вы принимаете?",
+          "a": "Сейчас принимаем наличные при самовывозе и наличные при доставке."
+        },
+        "q3": {
+          "q": "Можно ли запланировать заказ?",
+          "a": "Да — при оформлении можно выбрать как можно скорее или запланированное время, где доступно."
+        },
+        "q4": {
+          "q": "Как работает 10% скидка онлайн?",
+          "a": "Применяется автоматически при заказе через наш сайт. Код не требуется."
+        },
+        "q5": {
+          "q": "Можно ли отслеживать доставку?",
+          "a": "Да — после заказа с доставкой вы получите ссылку для отслеживания водителя на карте."
+        },
+        "q6": {
+          "q": "Когда откроется Straelen?",
+          "a": "Concordia Straelen скоро откроется. Он появится в списке филиалов, когда заказ станет доступен."
+        }
+      }
+    }
+  },
+  "ro": {
+    "navLabel": "Pagini site",
+    "backHome": "Înapoi acasă",
+    "nav": {
+      "home": "Acasă",
+      "about": "Despre noi",
+      "contact": "Contact",
+      "reviews": "Recenzii",
+      "offers": "Oferte",
+      "delivery": "Livrare",
+      "faq": "FAQ"
+    },
+    "about": {
+      "eyebrow": "Povestea noastră",
+      "title": "Despre Concordia",
+      "quote": "Mâncarea bună aduce oamenii împreună — despre asta a fost mereu Concordia.",
+      "p1": "Concordia este un restaurant italian de familie în Kempen. Pentru noi, armonia nu e doar un nume — e modul în care primim oaspeții, cum lucrăm împreună în bucătărie și cum fiecare farfurie părăsește pass-ul.",
+      "p2": "Ne-am deschis ușile pe Concordienplatz cu o idee simplă: bucătărie italiană onestă, porții generoase și senzația că mănânci la masa cuiva — nu într-un lanț.",
+      "p3": "Astăzi ne poți vizita personal sau comanda online. Oricum, aceeași echipă îți pregătește masa proaspăt când comanzi. Fără reîncălzire, fără scurtături — doar mâncarea de care suntem mândri să o servim vecinilor și familiilor.",
+      "originTitle": "Rădăcini în Kempen",
+      "originText": "Kempen e acasă. Oaspeții ne cunosc de la zile de naștere, seri de pizza de vineri și prânzuri liniștite în piață. Această încredere înseamnă tot — de aceea tratăm fiecare comandă online cu aceeași grijă ca o masă la fereastră.",
+      "chefsTitle": "Cunoaște-ți chefii",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan modelează meniul nostru și ritmul bucătăriei — de la aluat și sosuri la preparatele pe care clienții fideli le cer pe nume. Îi pasă de consistență: pizza trebuie să aibă gust de Concordia de fiecare dată.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan aduce calm și focus într-un serviciu aglomerat — paste, grătar, timing la pass. Oaspeții observă adesea căldura mai întâi; în bucătărie, mâna lui sigură ține totul în mișcare.",
+      "valuesTitle": "Ce reprezentăm",
+      "values": {
+        "fresh": {
+          "title": "Proaspăt, mereu",
+          "text": "Pregătit când comanzi — nu sub o lampă de încălzire."
+        },
+        "family": {
+          "title": "Masă de familie",
+          "text": "O echipă mică care cunoaște mulți oaspeți pe nume."
+        },
+        "oven": {
+          "title": "Suflet de cuptor de piatră",
+          "text": "Pizza și clasice cu inimă italiană adevărată."
+        },
+        "care": {
+          "title": "Fiecare comandă contează",
+          "text": "Ridicare, livrare sau la restaurant — aceeași mândrie în farfurie."
+        }
+      },
+      "kitchenTitle": "Din cuptorul nostru pe masa ta",
+      "kitchenText": "Pizza, paste, salate, al forno, schnitzel, burgeri și multe altele — gătite proaspăt pentru ridicare sau livrare.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "Contactează-ne",
+      "title": "Contact și locații",
+      "lead": "Vizitează-ne, comandă online sau scrie-ne pe email. Așteptăm cu plăcere vești de la tine.",
+      "emailTitle": "Email",
+      "emailHint": "Pentru comenzi, folosește meniul nostru online — răspundem la întrebări generale cât de repede putem."
+    },
+    "reviews": {
+      "eyebrow": "Voci ale oaspeților",
+      "title": "Recenzii",
+      "lead": "Câteva cuvinte de la oaspeții care comandă la noi — mulțumim pentru încredere și feedbackul prietenos.",
+      "items": {
+        "r1": {
+          "text": "Cea mai bună pizza din zonă — mereu proaspătă, mereu prietenoasă. Comandăm în fiecare săptămână.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Livrare rapidă, mâncare caldă, prețuri corecte. Pastele sunt fantastice.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Se simte pasiunea. Familia noastră iubește Concordia.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Comandă online excelentă — ușor de personalizat, iar reducerea de 10% e un bonus frumos.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Primire caldă, porții generoase, gust italian autentic. Recomand cu căldură.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Economisește cu noi",
+      "title": "Oferte și promoții",
+      "lead": "Comandă direct pe site-ul nostru și bucură-te de recompense integrate — fără coduri, fără bătăi de cap.",
+      "discountTitle": "reducere la comanda online",
+      "discountText": "Comandă prin site-ul nostru și primești automat 10% reducere la checkout. Nu e nevoie de cod voucher.",
+      "drinkTitle": "Băutură gratuită de la €35",
+      "drinkText": "Comenzile de la €35 includ o băutură răcoritoare gratuită — mulțumim că ai ales Concordia.",
+      "howTitle": "Cum funcționează",
+      "step1Title": "Alege filiala",
+      "step1Text": "Alege Kempen și răsfoiește meniul complet cu poze și opțiuni.",
+      "step2Title": "Construiește coșul",
+      "step2Text": "Reducerea de 10% pe site și băutura gratuită (de la €35) se aplică automat.",
+      "step3Title": "Checkout și savurează",
+      "step3Text": "Plătește cash la ridicare sau livrare — pregătim totul proaspăt pentru tine.",
+      "promoNote": "Foame? Masa ta — sau ușa ta — e la câteva clicuri distanță.",
+      "giftTitle": "Cumpără un voucher cadou",
+      "giftText": "Oferă cuiva Concordia — alege €10, €20, €30 sau orice sumă. Codul funcționează doar la filiala unde cumperi (online sau personal).",
+      "giftCta": "Cumpără voucher",
+      "giftBadge": "Voucher cadou"
+    },
+    "delivery": {
+      "eyebrow": "Până la ușa ta",
+      "title": "Livrare și ridicare",
+      "lead": "Livrăm în coduri poștale selectate din jurul Kempen. Comanda minimă și taxa de livrare depind de zona ta.",
+      "areasTitle": "Zone de livrare (Kempen)",
+      "colPostcode": "Cod poștal",
+      "colMin": "Comandă min.",
+      "colFee": "Taxă livrare",
+      "pickupTitle": "Ridicare",
+      "pickupText": "Preferi să ridici? Comandă online și ridică de la Concordienplatz 1, Kempen — îl pregătim pentru tine."
+    },
+    "faq": {
+      "eyebrow": "Ajutor",
+      "title": "Întrebări frecvente",
+      "lead": "Răspunsuri rapide despre comandă, plată și livrare.",
+      "items": {
+        "q1": {
+          "q": "Cum plasez o comandă?",
+          "a": "Alege filiala pe pagina principală, răsfoiește meniul, personalizează preparatele și finalizează online."
+        },
+        "q2": {
+          "q": "Ce metode de plată acceptați?",
+          "a": "Acceptăm momentan cash la ridicare și cash la livrare."
+        },
+        "q3": {
+          "q": "Pot programa comanda?",
+          "a": "Da — la checkout poți alege cât mai repede sau un interval programat, unde e disponibil."
+        },
+        "q4": {
+          "q": "Cum funcționează reducerea de 10% online?",
+          "a": "Se aplică automat când comanzi prin site-ul nostru. Nu e nevoie de cod."
+        },
+        "q5": {
+          "q": "Pot urmări livrarea?",
+          "a": "Da — după o comandă cu livrare primești un link de tracking pentru a urmări șoferul pe hartă."
+        },
+        "q6": {
+          "q": "Când se deschide Straelen?",
+          "a": "Concordia Straelen vine în curând. Îl vei vedea în lista de filiale când comanda devine activă."
+        }
+      }
+    }
+  },
+  "hi": {
+    "navLabel": "साइट पेज",
+    "backHome": "होम पर वापस",
+    "nav": {
+      "home": "होम",
+      "about": "हमारे बारे में",
+      "contact": "संपर्क",
+      "reviews": "समीक्षाएँ",
+      "offers": "ऑफ़र",
+      "delivery": "डिलीवरी",
+      "faq": "अक्सर पूछे जाने वाले प्रश्न"
+    },
+    "about": {
+      "eyebrow": "हमारी कहानी",
+      "title": "Concordia के बारे में",
+      "quote": "अच्छा खाना लोगों को एक साथ लाता है — Concordia हमेशा इसी बात की थी।",
+      "p1": "Concordia Kempen में एक पारिवारिक इतालवी रेस्तरां है। हमारे लिए सामंजस्य सिर्फ नाम नहीं — यह मेहमानों का स्वागत करने, रसोई में साथ काम करने और हर प्लेट के पास से निकलने का तरीका है।",
+      "p2": "हमने Concordienplatz पर दरवाज़े खोले एक सरल विचार के साथ: ईमानदार इतालवी खाना, उदार मात्रा, और यह एहसास कि आप किसी की मेज़ पर खा रहे हैं — किसी श्रृंखला में नहीं।",
+      "p3": "आज आप हमसे व्यक्तिगत रूप से मिल सकते हैं या ऑनलाइन ऑर्डर कर सकते हैं। दोनों तरह, वही टीम आपका खाना ऑर्डर पर ताज़ा बनाती है। न पुनः गर्म, न शॉर्टकट — बस वह खाना जिसे हम अपने पड़ोसियों और परिवारों को परोसने पर गर्व करते हैं।",
+      "originTitle": "Kempen में जड़ें",
+      "originText": "Kempen हमारा घर है। मेहमान हमें जन्मदिन, शुक्रवार की पिज़्ज़ा रात और चौक पर शांत दोपहर के भोजन से जानते हैं। यह भरोसा सब कुछ है — इसीलिए हर ऑनलाइन ऑर्डर को हम खिड़की वाली मेज़ जैसी देखभाल देते हैं।",
+      "chefsTitle": "अपने मुख्य शेफ़ से मिलें",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan हमारा मेन्यू और रसोई की लय तय करते हैं — आटे और सॉस से लेकर वे व्यंजन जो नियमित ग्राहक नाम से मँगाते हैं। उन्हें स्थिरता महत्व रखती है: पिज़्ज़ा हर बार Concordia जैसा स्वाद देनी चाहिए।",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan व्यस्त सेवा में शांत एकाग्रता लाते हैं — पास्ता, ग्रिल, पास पर समय। मेहमान अक्सर पहले गर्मजोशी महसूस करते हैं; रसोई में उनका स्थिर हाथ सब कुछ सुचारु रखता है।",
+      "valuesTitle": "हम किसके लिए खड़े हैं",
+      "values": {
+        "fresh": {
+          "title": "हमेशा ताज़ा",
+          "text": "ऑर्डर पर बनाया — गर्म लैंप के नीचे नहीं।"
+        },
+        "family": {
+          "title": "पारिवारिक मेज़",
+          "text": "छोटी टीम जो कई मेहमानों को नाम से जानती है।"
+        },
+        "oven": {
+          "title": "पत्थर की भट्ठी की आत्मा",
+          "text": "असली इतालवी दिल के साथ पिज़्ज़ा और क्लासिक।"
+        },
+        "care": {
+          "title": "हर ऑर्डर महत्वपूर्ण",
+          "text": "पिकअप, डिलीवरी या रेस्तरां में — प्लेट पर वही गर्व।"
+        }
+      },
+      "kitchenTitle": "हमारी भट्ठी से आपकी मेज़ तक",
+      "kitchenText": "पिज़्ज़ा, पास्ता, सलाद, al forno व्यंजन, schnitzel, बर्गर और अधिक — पिकअप या डिलीवरी के लिए ताज़ा पकाया।",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "संपर्क करें",
+      "title": "संपर्क और स्थान",
+      "lead": "हमसे मिलें, ऑनलाइन ऑर्डर करें, या ईमेल करें। आपसे सुनकर खुशी होगी।",
+      "emailTitle": "ईमेल",
+      "emailHint": "ऑर्डर के लिए हमारा ऑनलाइन मेन्यू उपयोग करें — सामान्य पूछताछ का जल्द जवाब देते हैं।"
+    },
+    "reviews": {
+      "eyebrow": "मेहमानों की आवाज़",
+      "title": "समीक्षाएँ",
+      "lead": "हमारे साथ ऑर्डर करने वाले मेहमानों के कुछ शब्द — विश्वास और सौम्य प्रतिक्रिया के लिए धन्यवाद।",
+      "items": {
+        "r1": {
+          "text": "इलाके की सर्वश्रेष्ठ पिज़्ज़ा — हमेशा ताज़ा, हमेशा मिलनसार। हम हर सप्ताह ऑर्डर करते हैं।",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "तेज़ डिलीवरी, गर्म खाना, उचित कीमत। पास्ता शानदार है।",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "जुनून स्वाद में महसूस होता है। हमारा परिवार Concordia से प्यार करता है।",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "बढ़िया ऑनलाइन ऑर्डर — अनुकूलित करना आसान और 10% छूट अच्छा बोनस है।",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "गर्म स्वागत, उदार मात्रा, सच्चा इतालवी स्वाद। अत्यधिक अनुशंसित।",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "हमारे साथ बचत",
+      "title": "ऑफ़र और प्रचार",
+      "lead": "सीधे वेबसाइट पर ऑर्डर करें और अंतर्निहित पुरस्कार पाएं — बिना कोड, बिना झंझट।",
+      "discountTitle": "ऑनलाइन ऑर्डर पर छूट",
+      "discountText": "वेबसाइट से ऑर्डर करें और चेकआउट पर स्वचालित रूप से 10% छूट पाएं। वाउचर कोड की ज़रूरत नहीं।",
+      "drinkTitle": "€35 से मुफ़्त पेय",
+      "drinkText": "€35 से ऑर्डर में मुफ़्त शीतल पेय — Concordia चुनने के लिए धन्यवाद।",
+      "howTitle": "यह कैसे काम करता है",
+      "step1Title": "शाखा चुनें",
+      "step1Text": "Kempen चुनें और फ़ोटो और विकल्पों के साथ पूरा मेन्यू देखें।",
+      "step2Title": "कार्ट बनाएं",
+      "step2Text": "10% वेबसाइट छूट और मुफ़्त पेय (€35 से) स्वचालित लागू होते हैं।",
+      "step3Title": "चेकआउट और आनंद",
+      "step3Text": "पिकअप या डिलीवरी पर नकद भुगतान — सब ताज़ा तैयार करते हैं।",
+      "promoNote": "भूख लगी? आपकी मेज़ — या दरवाज़ा — कुछ क्लिक दूर।",
+      "giftTitle": "उपहार वाउचर खरीदें",
+      "giftText": "किसी को Concordia उपहार दें — €10, €20, €30 या कोई राशि। कोड सिर्फ जहाँ खरीदते हैं वही शाखा पर (ऑनलाइन या व्यक्तिगत)।",
+      "giftCta": "वाउचर खरीदें",
+      "giftBadge": "उपहार वाउचर"
+    },
+    "delivery": {
+      "eyebrow": "आपके दरवाज़े तक",
+      "title": "डिलीवरी और पिकअप",
+      "lead": "Kempen के आसपास चुने गए पिन कोड में डिलीवरी। न्यूनतम ऑर्डर और डिलीवरी शुल्क क्षेत्र पर निर्भर।",
+      "areasTitle": "डिलीवरी क्षेत्र (Kempen)",
+      "colPostcode": "पिन कोड",
+      "colMin": "न्यूनतम ऑर्डर",
+      "colFee": "डिलीवरी शुल्क",
+      "pickupTitle": "पिकअप",
+      "pickupText": "स्वयं लेना पसंद? ऑनलाइन ऑर्डर करें और Concordienplatz 1, Kempen पर लें — तैयार रखेंगे।"
+    },
+    "faq": {
+      "eyebrow": "मदद",
+      "title": "अक्सर पूछे जाने वाले प्रश्न",
+      "lead": "ऑर्डर, भुगतान और डिलीवरी पर त्वरित उत्तर।",
+      "items": {
+        "q1": {
+          "q": "ऑर्डर कैसे करूँ?",
+          "a": "होमपेज पर शाखा चुनें, मेन्यू देखें, व्यंजन अनुकूलित करें और ऑनलाइन चेकआउट करें।"
+        },
+        "q2": {
+          "q": "कौन से भुगतान तरीके?",
+          "a": "अभी पिकअप पर नकद और डिलीवरी पर नकद स्वीकार करते हैं।"
+        },
+        "q3": {
+          "q": "ऑर्डर शेड्यूल कर सकता हूँ?",
+          "a": "हाँ — चेकआउट पर जल्द से जल्द या निर्धारित समय चुनें जहाँ उपलब्ध।"
+        },
+        "q4": {
+          "q": "10% ऑनलाइन छूट कैसे?",
+          "a": "वेबसाइट से ऑर्डर पर स्वचालित लागू। कोड नहीं चाहिए।"
+        },
+        "q5": {
+          "q": "डिलीवरी ट्रैक कर सकता हूँ?",
+          "a": "हाँ — डिलीवरी ऑर्डर के बाद नक्शे पर ड्राइवर का ट्रैकिंग लिंक मिलता है।"
+        },
+        "q6": {
+          "q": "Straelen कब खुलेगा?",
+          "a": "Concordia Straelen जल्द। ऑर्डरिंग सक्रिय होते ही शाखा सूची में दिखेगा।"
+        }
+      }
+    }
+  },
+  "ku": {
+    "navLabel": "Rûpelên malperê",
+    "backHome": "Vegere malperê",
+    "nav": {
+      "home": "Mal",
+      "about": "Der barê me",
+      "contact": "Têkilî",
+      "reviews": "Nirxandin",
+      "offers": "Pêşkêşî",
+      "delivery": "Radestkirin",
+      "faq": "Pirsên pir têne pirsîn"
+    },
+    "about": {
+      "eyebrow": "Çîroka me",
+      "title": "Der barê Concordia",
+      "quote": "Xwarina baş mirovan bi hev re tîne — Concordia her dem li ser vê bû.",
+      "p1": "Concordia restoranteke Îtalî ya malbatî ye li Kempen. Ji bo me hevgirtin tenê navek nîne — ew awayê me ye ku mêvanan pêşwazî dikin, di mitbaxê de bi hev re dixebitin, û her qurs ji pasê me derdikeve.",
+      "p2": "Em derîyên xwe li Concordienplatz vekirin bi fikreke sade: xwarina Îtalî ya rast, beşên mezin, û hestek ku hûn li maseya kesekî dixwin — ne li zincîreyekê.",
+      "p3": "Îro hûn dikarin bi kesî werin an jî online ferman bidin. Her du awayan, heman ekip xwarina we taze amade dike dema ku hûn ferman didin. Bê germkirin, bê rêkên kurt — tenê xwarina ku em bi wê serbilind in ji cîran û malbatên xwe re.",
+      "originTitle": "Li Kempen rêz bûyî",
+      "originText": "Kempen malê me ye. Mêvan me ji rojbûnan, şevên pizza yên Înê, û nîvrojên aram li qadeyê dinasin. Ev bawerî her tişt e — û ji ber vê yekê em her fermana online bi heman bala maseya li pencereyê dinirxînin.",
+      "chefsTitle": "Bi serşefên xwe re hevdîtin",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan menuya me û ritma mitbaxê dike — ji xamir û sosan heta xwarinên ku mêvanên herdem bi navê dixwazin. Balê li domdarîyê dide: pizza divê her car bi Concordia bihêze.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan di xizmeta tije de bala aram tîne — pasta, grill, demjimêr li pasê. Mêvan pir caran yekem germahî dibînin; di mitbaxê de destê wî yê aram her tişt bi rê ve dibe.",
+      "valuesTitle": "Em ji bo çi disekinin",
+      "values": {
+        "fresh": {
+          "title": "Her dem taze",
+          "text": "Dema ferman didin amade dibe — ne bin lampa germkirinê."
+        },
+        "family": {
+          "title": "Maseya malbatê",
+          "text": "Ekîba piçûk ku gelek mêvan bi navê dinase."
+        },
+        "oven": {
+          "title": "Rûhê firina kevirî",
+          "text": "Pizza û klasîk bi dilê Îtalî yê rastîn."
+        },
+        "care": {
+          "title": "Her ferman girîng e",
+          "text": "Wergirtin, radestkirin an jî li cih — heman serbilindî li qursê."
+        }
+      },
+      "kitchenTitle": "Ji firina me heta maseya we",
+      "kitchenText": "Pizza, pasta, salata, al forno, schnitzel, burger û zêdetir — taze ji bo wergirtin an radestkirinê.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "Têkilî",
+      "title": "Têkilî û cih",
+      "lead": "Bi me re werin, online ferman bidin, an bi e-nameyê bi me re biaxivin. Bi dilxwazî li benda we ne.",
+      "emailTitle": "E-name",
+      "emailHint": "Ji bo fermanan menuya me ya online bikar bînin — em bi lez bersiv didin pirsên giştî."
+    },
+    "reviews": {
+      "eyebrow": "Dengên mêvanan",
+      "title": "Nirxandin",
+      "lead": "Hin gotin ji mêvanên ku bi me re ferman didin — spas ji bo bawerî û nerînên xweş.",
+      "items": {
+        "r1": {
+          "text": "Baştirîn pizza li herêmê — her dem taze, her dem dostane. Em her hefte ferman didin.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Radestkirina bilez, xwarina germ, bihayên adil. Pasta ecêb e.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Hûn dikarin hez hest bikin. Malbata me Concordia hez dike.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Fermana online a baş — hêsan e ku xweş bikin û %10 daxistin bonusek xweş e.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Pêşwaziya germ, beşên mezin, tam Îtalî. Bi dilsozî pêşniyar dikim.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Bi me re tiştêk bişopînin",
+      "title": "Pêşkêşî û promosyon",
+      "lead": "Rasterast li malpera me ferman bidin û xelatên amade bistînin — bê kod, bê zehmetî.",
+      "discountTitle": "daxistin li fermana online",
+      "discountText": "Bi malpera me ferman bidin û %10 daxistin bixweber li checkoutê bistînin. Kodê voucher ne hewce ye.",
+      "drinkTitle": "Vexwarina belaş ji €35",
+      "drinkText": "Fermanên ji €35 vexwarinek belaş tê de — spas ji bo Concordia hilbijartina we.",
+      "howTitle": "Ew çawa dixebite",
+      "step1Title": "Şaxê xwe hilbijêrin",
+      "step1Text": "Kempen hilbijêrin û menuya tevahî bi wêne û vebijarkan bigerin.",
+      "step2Title": "Selikê xwe ava bikin",
+      "step2Text": "%10 daxistina malperê û vexwarina belaş (ji €35) bixweber têne sepandin.",
+      "step3Title": "Checkout û kêf bikin",
+      "step3Text": "Bi pereyê destan li wergirtin an radestkirinê bidin — her tişt taze ji bo we amade dikin.",
+      "promoNote": "Birçî ne? Maseya we — an jî deriyê we — tenê çend klîk dûr e.",
+      "giftTitle": "Vouchera diyariyê bikirin",
+      "giftText": "Kesekî bi Concordia xweş bikin — €10, €20, €30 an jî her qasî hilbijêrin. Kod tenê li şaxa ku hûn dikirin dixebite (online an jî bi kesî).",
+      "giftCta": "Voucher bikirin",
+      "giftBadge": "Vouchera diyariyê"
+    },
+    "delivery": {
+      "eyebrow": "He ta deriyê we",
+      "title": "Radestkirin û wergirtin",
+      "lead": "Em radest dikin bo koda posteyê yên hilbijartî li dora Kempen. Fermana herî kêm û lêçûna radestkirinê li gorî herêmê ye.",
+      "areasTitle": "Herêmên radestkirinê (Kempen)",
+      "colPostcode": "Koda posteyê",
+      "colMin": "Fermana herî kêm",
+      "colFee": "Lêçûna radestkirinê",
+      "pickupTitle": "Wergirtin",
+      "pickupText": "Hûn dixwazin werbigirin? Online ferman bidin û li Concordienplatz 1, Kempen werbigirin — em amade dikin."
+    },
+    "faq": {
+      "eyebrow": "Alîkarî",
+      "title": "Pirsên pir têne pirsîn",
+      "lead": "Bersivên bilez li ser ferman, dayîn û radestkirinê.",
+      "items": {
+        "q1": {
+          "q": "Ez çawa ferman bidim?",
+          "a": "Li ser malperê şaxê xwe hilbijêrin, menuyê bigerin, xwarinan xweş bikin û online checkout bikin."
+        },
+        "q2": {
+          "q": "Hûn çi awayên dayînê qebûl dikin?",
+          "a": "Niha em pereyê destan li wergirtin û pereyê destan li radestkirinê qebûl dikin."
+        },
+        "q3": {
+          "q": "Ez dikarim fermana xwe plansaz bikim?",
+          "a": "Erê — li checkoutê hûn dikarin zûtirîn an demek plansaz hilbijêrin ku heye."
+        },
+        "q4": {
+          "q": "Daxistina %10 ya online çawa dixebite?",
+          "a": "Bi ferman bi malpera me bixweber tê sepandin. Kod ne hewce ye."
+        },
+        "q5": {
+          "q": "Ez dikarim radestkirina xwe bişopînim?",
+          "a": "Erê — piştî fermana radestkirinê hûn lîngek şopandinê distînin da ku ajokar li nexşeyê bişopînin."
+        },
+        "q6": {
+          "q": "Straelen kengî vedibe?",
+          "a": "Concordia Straelen di nêzîk de ye. Hûn ê wê li lîsteya şaxan bibînin dema ferman zindî bibe."
+        }
+      }
+    }
+  },
+  "tr": {
+    "navLabel": "Site sayfaları",
+    "backHome": "Ana sayfaya dön",
+    "nav": {
+      "home": "Ana sayfa",
+      "about": "Hakkımızda",
+      "contact": "İletişim",
+      "reviews": "Yorumlar",
+      "offers": "Teklifler",
+      "delivery": "Teslimat",
+      "faq": "SSS"
+    },
+    "about": {
+      "eyebrow": "Hikayemiz",
+      "title": "Concordia Hakkında",
+      "quote": "İyi yemek insanları bir araya getirir — Concordia her zaman bunun üzerine kuruldu.",
+      "p1": "Concordia, Kempen'de aile işletmesi bir İtalyan restoranıdır. Bizim için uyum sadece bir isim değil — misafirleri karşılama, mutfakta birlikte çalışma ve her tabağın pass'ten çıkış biçimimizdir.",
+      "p2": "Concordienplatz'ta kapılarımızı basit bir fikirle açtık: dürüst İtalyan mutfağı, cömert porsiyonlar ve bir zincirde değil, birinin masasında yemek yediğiniz hissi.",
+      "p3": "Bugün bizi yüz yüze ziyaret edebilir veya online sipariş verebilirsiniz. Her iki durumda da aynı ekip yemeğinizi sipariş üzerine taze hazırlar. Isıtma yok, kısayol yok — komşularımıza ve ailelerimize gururla servis ettiğimiz yemek.",
+      "originTitle": "Kempen'de köklü",
+      "originText": "Kempen evimiz. Misafirler bizi doğum günlerinden, cuma pizza gecelerinden ve meydandaki sakin öğle yemeklerinden tanır. Bu güven her şey demek — bu yüzden her online siparişi pencere kenarındaki bir masa kadar özenle ele alıyoruz.",
+      "chefsTitle": "Baş şeflerinizle tanışın",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan menümüzü ve mutfağın ritmini şekillendirir — hamur ve soslardan, düzenli müşterilerimizin isimle istediği yemeklere kadar. Tutarlılığa önem verir: pizza her seferinde Concordia gibi tatmalı.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan yoğun servise sakin bir odak getirir — makarna, ızgara, pass'te zamanlama. Misafirler genelde önce sıcaklığı fark eder; mutfakta her şeyi akıcı tutan onun sağlam elidir.",
+      "valuesTitle": "Neye inanıyoruz",
+      "values": {
+        "fresh": {
+          "title": "Her zaman taze",
+          "text": "Sipariş üzerine hazırlanır — ısı lambasının altında değil."
+        },
+        "family": {
+          "title": "Aile sofrası",
+          "text": "Birçok misafiri isimle tanıyan küçük bir ekip."
+        },
+        "oven": {
+          "title": "Taş fırın ruhu",
+          "text": "Gerçek İtalyan kalbiyle pizza ve klasikler."
+        },
+        "care": {
+          "title": "Her sipariş önemli",
+          "text": "Gel-al, teslimat veya yerinde — tabakta aynı gurur."
+        }
+      },
+      "kitchenTitle": "Fırınımızdan masanıza",
+      "kitchenText": "Pizza, makarna, salatalar, al forno, schnitzel, burger ve daha fazlası — gel-al veya teslimat için taze pişirilir.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "İletişime geçin",
+      "title": "İletişim ve lokasyonlar",
+      "lead": "Bizi ziyaret edin, online sipariş verin veya e-posta ile ulaşın. Sizden haber almayı dört gözle bekliyoruz.",
+      "emailTitle": "E-posta",
+      "emailHint": "Siparişler için online menümüzü kullanın — genel sorulara en kısa sürede yanıt veriyoruz."
+    },
+    "reviews": {
+      "eyebrow": "Misafir sesleri",
+      "title": "Yorumlar",
+      "lead": "Bizden sipariş veren misafirlerden birkaç söz — güveniniz ve nazik geri bildiriminiz için teşekkürler.",
+      "items": {
+        "r1": {
+          "text": "Bölgedeki en iyi pizza — her zaman taze, her zaman güler yüzlü. Her hafta sipariş veriyoruz.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "Hızlı teslimat, sıcak yemek, adil fiyatlar. Makarna harika.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "Tutku tadı hissediliyor. Ailemiz Concordia'yı seviyor.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "Harika online sipariş — özelleştirmesi kolay ve %10 indirim güzel bir bonus.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "Sıcak karşılama, cömert porsiyonlar, gerçek İtalyan lezzeti. Şiddetle tavsiye ederim.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "Bizimle tasarruf edin",
+      "title": "Teklifler ve promosyonlar",
+      "lead": "Doğrudan web sitemizden sipariş verin ve kod gerektirmeyen yerleşik ödüllerden yararlanın.",
+      "discountTitle": "online siparişinizde indirim",
+      "discountText": "Web sitemizden sipariş verin ve ödeme sırasında otomatik %10 indirim alın. Kupon kodu gerekmez.",
+      "drinkTitle": "€35'ten itibaren ücretsiz içecek",
+      "drinkText": "€35 ve üzeri siparişlerde ücretsiz gazlı içecek — Concordia'yı seçtiğiniz için teşekkürler.",
+      "howTitle": "Nasıl çalışır",
+      "step1Title": "Şubenizi seçin",
+      "step1Text": "Kempen'i seçin ve fotoğraflar ve seçeneklerle tam menüye göz atın.",
+      "step2Title": "Sepetinizi oluşturun",
+      "step2Text": "%10 web indirimi ve ücretsiz içecek (€35'ten) otomatik uygulanır.",
+      "step3Title": "Ödeme ve keyif",
+      "step3Text": "Gel-al veya teslimatta nakit ödeyin — her şeyi sizin için taze hazırlıyoruz.",
+      "promoNote": "Acıktınız mı? Masanız — veya kapınız — birkaç tık uzağınızda.",
+      "giftTitle": "Hediye çeki satın alın",
+      "giftText": "Birine Concordia ısmarlayın — €10, €20, €30 veya istediğiniz tutarı seçin. Kod yalnızca satın aldığınız şubede geçerlidir (online veya yüz yüze).",
+      "giftCta": "Çek satın al",
+      "giftBadge": "Hediye çeki"
+    },
+    "delivery": {
+      "eyebrow": "Kapınıza kadar",
+      "title": "Teslimat ve gel-al",
+      "lead": "Kempen çevresindeki seçili posta kodlarına teslim ediyoruz. Minimum sipariş ve teslimat ücreti bölgenize bağlıdır.",
+      "areasTitle": "Teslimat bölgeleri (Kempen)",
+      "colPostcode": "Posta kodu",
+      "colMin": "Min. sipariş",
+      "colFee": "Teslimat ücreti",
+      "pickupTitle": "Gel-al",
+      "pickupText": "Tercihen almak mı istiyorsunuz? Online sipariş verin ve Concordienplatz 1, Kempen'den alın — hazır olacak."
+    },
+    "faq": {
+      "eyebrow": "Yardım",
+      "title": "Sık sorulan sorular",
+      "lead": "Sipariş, ödeme ve teslimat hakkında hızlı yanıtlar.",
+      "items": {
+        "q1": {
+          "q": "Nasıl sipariş veririm?",
+          "a": "Ana sayfada şubenizi seçin, menüye göz atın, yemeklerinizi özelleştirin ve online ödeme yapın."
+        },
+        "q2": {
+          "q": "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+          "a": "Şu anda gel-alda nakit ve teslimatta nakit kabul ediyoruz."
+        },
+        "q3": {
+          "q": "Siparişimi planlayabilir miyim?",
+          "a": "Evet — ödeme sırasında mümkün olan en kısa süre veya uygunsa planlanmış bir zaman seçebilirsiniz."
+        },
+        "q4": {
+          "q": "%10 online indirim nasıl çalışır?",
+          "a": "Web sitemizden sipariş verdiğinizde otomatik uygulanır. Kod gerekmez."
+        },
+        "q5": {
+          "q": "Teslimatımı takip edebilir miyim?",
+          "a": "Evet — teslimat siparişinden sonra sürücüyü haritada takip etmek için bir bağlantı alırsınız."
+        },
+        "q6": {
+          "q": "Straelen ne zaman açılacak?",
+          "a": "Concordia Straelen yakında. Sipariş canlı olduğunda şube listemizde göreceksiniz."
+        }
+      }
+    }
+  },
+  "ckb": {
+    "navLabel": "لاپەڕەکانی ماڵپەڕ",
+    "backHome": "گەڕانەوە بۆ سەرەکی",
+    "nav": {
+      "home": "سەرەکی",
+      "about": "دەربارەی ئێمە",
+      "contact": "پەیوەندی",
+      "reviews": "هەڵسەنگاندن",
+      "offers": "پێشکەشکراو",
+      "delivery": "گەیاندن",
+      "faq": "پرسیارە باوەکان"
+    },
+    "about": {
+      "eyebrow": "چیرۆکەکەمان",
+      "title": "دەربارەی Concordia",
+      "quote": "خواردنی باش خەڵک کۆدەکاتەوە — Concordia هەمیشە لەمە بوو.",
+      "p1": "Concordia چێشتخانەیەکی ئیتاڵی خێزانییە لە Kempen. بۆ ئێمە هاوسەنگی تەنها ناوێک نییە — ئەوەیە چۆن میوانەکان بگرینەوە، چۆن لە چێشتخانەدا پێکەوە کار دەکەین، و هەر قاپێک چۆن لە پاسەکەمان دەچێتە دەرەوە.",
+      "p2": "دەرگاکانمان لە Concordienplatz کردەوە بە بیرۆکەیەکی سادە: چێشتنەوەی ئیتاڵی ڕاستگۆ، بەشە گەورەکان، و هەستێک کە لە مێزی کەسێک دەخۆیت — نەک لە زنجیرەیەک.",
+      "p3": "ئەمڕۆ دەتوانیت بە کەسێ بیێت یان ئۆنلاین داوا بکەیت. هەر دوو حاڵەت، هەمان تیم خواردنەکەت تازە ئامادە دەکات کاتێک داوا دەکەیت. بێ گەرمکردنەوە، بێ ڕێگای کورت — تەنها ئەو خواردنەی کە بە پێزانین بۆ دراوسێ و خێزانەکانمان دەخەینەڕوو.",
+      "originTitle": "ڕەگ لە Kempen",
+      "originText": "Kempen ماڵە. میوانەکان لە ڕۆژلادن، شەوی پیتزای هەینی، و نانی نیوەڕۆی ئارام لە میدان دەمانناسن. ئەو متمانەیە هەموو شتێکە — بۆیە هەر داوای ئۆنلاین بە هەمان گرنگی وەک مێزی پەنجەرە مامەڵە دەکەین.",
+      "chefsTitle": "سەرچێشتخوازەکانت بناسە",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan مێنوو و ڕیتمی چێشتخانەکەمان دەسازێت — لە هەڕەمەکی و سۆسەوە تا ئەو خواردنانەی میوانە هەمیشەییەکان بە ناو داوا دەکەن. گرنگی بە جێگیربوون دەدات: پیتزا دەبێت هەر جار وەک Concordia بێت.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan تیشکبوونی ئارام بۆ خزمەتێکی قورس دەهێنێت — پاستا، گریل، کات لە پاس. میوانەکان زۆرجار یەکەم گەرمی دەبینن؛ لە چێشتخانەدا دەستی جێگیرەکەی هەموو شت بە ڕێکوپێکی دەهێڵێت.",
+      "valuesTitle": "ئێمە بۆ چی وەستاوین",
+      "values": {
+        "fresh": {
+          "title": "هەمیشە تازە",
+          "text": "کاتێک داوا دەکەیت ئامادە دەکرێت — نەک لەژێر گرمکەرەوە."
+        },
+        "family": {
+          "title": "مێزی خێزان",
+          "text": "تیمێکی بچووک کە زۆر میوان بە ناو دەناسێت."
+        },
+        "oven": {
+          "title": "ڕۆحی فڕنی بەرد",
+          "text": "پیتزا و کلاسیک بە دڵی ئیتاڵی ڕاستەقینە."
+        },
+        "care": {
+          "title": "هەر داوایەک گرنگە",
+          "text": "وەرگرتن، گەیاندن یان لە شوێن — هەمان شانازی لە قاپ."
+        }
+      },
+      "kitchenTitle": "لە فڕنەکەمان بۆ مێزەکەت",
+      "kitchenText": "پیتزا، پاستا، ساڵاد، al forno، schnitzel، burger و زیاتر — تازە بۆ وەرگرتن یان گەیاندن.",
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+    },
+    "contact": {
+      "eyebrow": "پەیوەندی",
+      "title": "پەیوەندی و شوێنەکان",
+      "lead": "سەردانمان بکە، ئۆنلاین داوا بکە، یان بە ئیمەیڵ پەیوەندی بکە. چاوەڕوانی گوێگرتن لە تۆین.",
+      "emailTitle": "ئیمەیڵ",
+      "emailHint": "بۆ داواکان مێنووی ئۆنلاینمان بەکاربهێنە — بە زووترین کات وەڵامی پرسیارە گشتییەکان دەدەینەوە."
+    },
+    "reviews": {
+      "eyebrow": "دەنگی میوان",
+      "title": "هەڵسەنگاندن",
+      "lead": "چەند وشەیەک لە میوانانی ئێمە — سوپاس بۆ متمانە و فیدباکی جوان.",
+      "items": {
+        "r1": {
+          "text": "باشترین پیتزا لە ناوچەکە — هەمیشە تازە، هەمیشە دۆستانە. هەموو هەفتەیەک داوا دەکەین.",
+          "author": "Sandra M., Kempen"
+        },
+        "r2": {
+          "text": "گەیاندنی خێرا، خواردنی گەرم، نرخی دادپەروەر. پاستا نایابە.",
+          "author": "Thomas K., Willich"
+        },
+        "r3": {
+          "text": "پاش بەری دەتوانرێت تام بکرێت. خێزانەکەمان Concordia خۆشدەویست.",
+          "author": "Elena R., Tönisvorst"
+        },
+        "r4": {
+          "text": "داوای ئۆنلاینی نایاب — ئاسانە دەستکاری بکەیت و %10 داشکاندن پاداشتێکی جوانە.",
+          "author": "Markus B., Kempen"
+        },
+        "r5": {
+          "text": "بەخێرهاتنی گەرم، بەشە گەورەکان، تامی ئیتاڵی ڕاستەقینە. بە توندی پێشنیار دەکرێت.",
+          "author": "Julia H., Geldern"
+        }
+      }
+    },
+    "offers": {
+      "eyebrow": "لەگەڵمان پاشەکەوت بکە",
+      "title": "پێشکەشکراو و پرۆمۆشن",
+      "lead": "ڕاستەوخۆ لە ماڵپەڕەکەمان داوا بکە و پاداشتە ناوخۆییەکان وەربگرە — بێ کۆد، بێ ئاڵۆزی.",
+      "discountTitle": "داشکاندن لە داوای ئۆنلاین",
+      "discountText": "لە ماڵپەڕەکەمان داوا بکە و %10 داشکاندن بە خۆکار لە کاتی پارەدان.",
+      "drinkTitle": "خواردنەوەی بێبەرامبەر لە €35",
+      "drinkText": "داواکان لە €35 خواردنەوەی بێبەرامبەر — سوپاس بۆ هەڵبژاردنی Concordia.",
+      "howTitle": "چۆن کار دەکات",
+      "step1Title": "لق هەڵبژێرە",
+      "step1Text": "Kempen هەڵبژێرە و مێنووی تەواو بە وێنە و هەڵبژاردن بگەڕێ.",
+      "step2Title": "سەبەتە دروست بکە",
+      "step2Text": "%10 داشکاندنی ماڵپەڕ و خواردنەوەی بێبەرامبەر (لە €35) بە خۆکار جێبەجێ دەبن.",
+      "step3Title": "پارەدان و چێژ",
+      "step3Text": "پارەی کاش لە وەرگرتن یان گەیاندن — هەموو شت تازە بۆ تۆ ئامادە دەکەین.",
+      "promoNote": "برسیت؟ مێزەکەت — یان دەرگاکەت — چەند کلیک دوورە.",
+      "giftTitle": "کارتەی دیاری بکڕە",
+      "giftText": "کەسێک Concordia پێشکەش بکە — €10، €20، €30 یان هەر بڕێک. کۆد تەنها لەو لقە کار دەکات کە لێی دەکڕیت (ئۆنلاین یان بە کەس).",
+      "giftCta": "کارتە بکڕە",
+      "giftBadge": "کارتەی دیاری"
+    },
+    "delivery": {
+      "eyebrow": "بۆ دەرگاکەت",
+      "title": "گەیاندن و وەرگرتن",
+      "lead": "بۆ کۆدی پۆستی هەڵبژێردراو لە دەوروبەری Kempen گەیاندن دەکەین. کەمترین داوا و کرێی گەیاندن بەپێی ناوچەکەت.",
+      "areasTitle": "ناوچەکانی گەیاندن (Kempen)",
+      "colPostcode": "کۆدی پۆست",
+      "colMin": "کەمترین داوا",
+      "colFee": "کرێی گەیاندن",
+      "pickupTitle": "وەرگرتن",
+      "pickupText": "حەز دەکەیت وەربگریت؟ ئۆنلاین داوا بکە و لە Concordienplatz 1، Kempen وەربگرە — ئامادەی دەکەین."
+    },
+    "faq": {
+      "eyebrow": "یارمەتی",
+      "title": "پرسیارە باوەکان",
+      "lead": "وەڵامی خێرا دەربارەی داوا، پارەدان و گەیاندن.",
+      "items": {
+        "q1": {
+          "q": "چۆن داوا بکەم؟",
+          "a": "لە سەرەکی لق هەڵبژێرە، مێنوو بگەڕێ، خواردنەکان دەستکاری بکە و ئۆنلاین پارە بدە."
+        },
+        "q2": {
+          "q": "چ جۆرە پارەدان قبوڵ دەکەن؟",
+          "a": "ئێستا پارەی کاش لە وەرگرتن و گەیاندن قبوڵ دەکەین."
+        },
+        "q3": {
+          "q": "دەتوانم داوام خشتە بکەم؟",
+          "a": "بەڵێ — لە کاتی پارەدان دەتوانیت زووترین یان کاتی خشتەکراو هەڵبژێریت."
+        },
+        "q4": {
+          "q": "داشکاندنی %10 ئۆنلاین چۆنە؟",
+          "a": "بە خۆکار جێبەجێ دەبێت کاتێک لە ماڵپەڕەکەمان داوا دەکەیت. کۆد پێویست نییە."
+        },
+        "q5": {
+          "q": "دەتوانم گەیاندنەکەم بەدوادا بچم؟",
+          "a": "بەڵێ — دوای داوای گەیاندن بەستەرێکی شوێنکەوتن وەردەگریت بۆ شوفێر لە نەخشە."
+        },
+        "q6": {
+          "q": "Straelen کەی دەکرێتەوە؟",
+          "a": "Concordia Straelen بەزووی. لە لیستی لقەکان دەبینیت کاتێک داوا چالاک دەبێت."
+        }
+      }
+    }
+  }
+}

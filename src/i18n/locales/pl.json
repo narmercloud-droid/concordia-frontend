@@ -284,7 +284,7 @@
     "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:"
   },
   "pages": {
-    "navLabel": "Strony",
+    "navLabel": "Strony serwisu",
     "backHome": "Powrót do strony głównej",
     "nav": {
       "home": "Strona główna",
@@ -296,136 +296,136 @@
       "faq": "FAQ"
     },
     "about": {
-      "eyebrow": "Our story",
-      "title": "About Concordia",
-      "quote": "Good food brings people together — that is what Concordia has always been about.",
-      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
-      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
-      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
-      "originTitle": "Rooted in Kempen",
-      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
-      "chefsTitle": "Meet your head chefs",
+      "eyebrow": "Nasza historia",
+      "title": "O Concordia",
+      "quote": "Dobre jedzenie łączy ludzi — o to zawsze chodziło w Concordia.",
+      "p1": "Concordia to rodzinna włoska restauracja w Kempen. Dla nas harmonia to nie tylko nazwa — to sposób, w jaki witamy gości, pracujemy razem w kuchni i w jaki każde danie opuszcza naszą ladę.",
+      "p2": "Otworzyliśmy drzwi na Concordienplatz z prostą ideą: uczciwa kuchnia włoska, hojne porcje i uczucie, że jesz przy czyimś stole — a nie w sieciówce.",
+      "p3": "Dziś możesz nas odwiedzić osobiście lub zamówić online. Tak czy inaczej, ten sam zespół przygotowuje posiłek na świeżo po złożeniu zamówienia. Bez podgrzewania, bez skrótów — tylko jedzenie, które z dumą serwujemy sąsiadom i rodzinom.",
+      "originTitle": "Z korzeniami w Kempen",
+      "originText": "Kempen to nasz dom. Goście znają nas z urodzin, piątkowych wieczorów z pizzą i spokojnych lunchów na placu. To zaufanie wiele dla nas znaczy — dlatego każde zamówienie online traktujemy z taką samą troską jak stolik przy oknie.",
+      "chefsTitle": "Poznaj szefów kuchni",
       "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "alaanBio": "Alaan kształtuje nasze menu i rytm kuchni — od ciasta i sosów po dania, które stali klienci zamawiają z imienia. Zależy mu na stałości: pizza ma smakować jak Concordia za każdym razem.",
       "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
-      "valuesTitle": "What we stand for",
+      "jiuanBio": "Jiuan wnosi spokojne skupienie w gorącą służbę — makaron, grill, timing przy ladzie. Goście często najpierw zauważają ciepło; w kuchni to jego pewna ręka utrzymuje wszystko w płynności.",
+      "valuesTitle": "Co reprezentujemy",
       "values": {
         "fresh": {
-          "title": "Fresh, always",
-          "text": "Prepared when you order — not sitting under a heat lamp."
+          "title": "Zawsze świeże",
+          "text": "Przygotowane po zamówieniu — nie pod lampą grzewczą."
         },
         "family": {
-          "title": "Family table",
-          "text": "A small team that knows many guests by name."
+          "title": "Rodzinny stół",
+          "text": "Mały zespół, który wielu gości zna z imienia."
         },
         "oven": {
-          "title": "Stone-oven soul",
-          "text": "Pizza and classics with real Italian heart."
+          "title": "Dusza pieca na kamieniu",
+          "text": "Pizza i klasyki z prawdziwym włoskim sercem."
         },
         "care": {
-          "title": "Every order matters",
-          "text": "Pickup, delivery or dine-in — same pride on the plate."
+          "title": "Każde zamówienie ma znaczenie",
+          "text": "Odbiór, dostawa lub na miejscu — ta sama duma na talerzu."
         }
       },
-      "kitchenTitle": "From our oven to your table",
-      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kitchenTitle": "Z naszego pieca na Twój stół",
+      "kitchenText": "Pizza, makaron, sałatki, dania al forno, schnitzel, burgery i więcej — gotowane na świeżo do odbioru lub dostawy.",
       "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
-      "eyebrow": "Kontakt",
-      "title": "Kontakt & Standorte",
-      "lead": "Besuchen Sie uns, bestellen Sie online oder schreiben Sie uns eine E-Mail. Wir freuen uns auf Sie.",
-      "emailTitle": "E-Mail",
-      "emailHint": "Für Bestellungen nutzen Sie bitte unser Online-Menü — auf allgemeine Anfragen antworten wir so schnell wie möglich."
+      "eyebrow": "Skontaktuj się",
+      "title": "Kontakt i lokalizacje",
+      "lead": "Odwiedź nas, zamów online lub napisz e-mail. Czekamy na wiadomość od Ciebie.",
+      "emailTitle": "E-mail",
+      "emailHint": "Do zamówień używaj naszego menu online — na ogólne zapytania odpowiadamy tak szybko, jak to możliwe."
     },
     "reviews": {
-      "eyebrow": "Stimmen unserer Gäste",
-      "title": "Bewertungen",
-      "lead": "Einige Worte von Gästen, die bei uns bestellen — vielen Dank für Ihr Vertrauen.",
+      "eyebrow": "Głosy gości",
+      "title": "Opinie",
+      "lead": "Kilka słów od gości, którzy u nas zamawiają — dziękujemy za zaufanie i miłe opinie.",
       "items": {
         "r1": {
-          "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.",
+          "text": "Najlepsza pizza w okolicy — zawsze świeża, zawsze miła obsługa. Zamawiamy co tydzień.",
           "author": "Sandra M., Kempen"
         },
         "r2": {
-          "text": "Schnelle Lieferung, heißes Essen, faire Preise. Die Pasta ist fantastisch.",
+          "text": "Szybka dostawa, gorące jedzenie, uczciwe ceny. Makaron jest fantastyczny.",
           "author": "Thomas K., Willich"
         },
         "r3": {
-          "text": "Man schmeckt die Leidenschaft. Unsere Familie liebt Concordia.",
+          "text": "Czuć pasję. Nasza rodzina kocha Concordia.",
           "author": "Elena R., Tönisvorst"
         },
         "r4": {
-          "text": "Tolles Online-Bestellen — einfach anzupassen und der 10%-Rabatt ist ein schönes Extra.",
+          "text": "Świetne zamawianie online — łatwe dostosowanie, a 10% zniżki to miły bonus.",
           "author": "Markus B., Kempen"
         },
         "r5": {
-          "text": "Herzlicher Empfang, großzügige Portionen, echter italienischer Geschmack. Sehr empfehlenswert.",
+          "text": "Ciepłe powitanie, hojne porcje, prawdziwy włoski smak. Gorąco polecam.",
           "author": "Julia H., Geldern"
         }
       }
     },
     "offers": {
-      "eyebrow": "Save with us",
-      "title": "Offers & promotions",
-      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
-      "discountTitle": "off your online order",
-      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
-      "drinkTitle": "Free drink from €35",
-      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
-      "howTitle": "How it works",
-      "step1Title": "Pick your branch",
-      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
-      "step2Title": "Build your cart",
-      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
-      "step3Title": "Checkout & enjoy",
-      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
-      "giftTitle": "Kup bon podarunkowy",
-      "giftText": "Podaruj komuś Concordia — wybierz 10 €, 20 €, 30 € lub dowolną kwotę. Kod działa tylko w oddziale, w którym go kupisz (online lub na miejscu).",
-      "giftCta": "Kup bon",
-      "giftBadge": "Bon podarunkowy"
+      "eyebrow": "Oszczędzaj z nami",
+      "title": "Oferty i promocje",
+      "lead": "Zamawiaj bezpośrednio na naszej stronie i korzystaj z wbudowanych nagród — bez kodów, bez komplikacji.",
+      "discountTitle": "zniżki na zamówienie online",
+      "discountText": "Zamów przez naszą stronę i otrzymaj automatycznie 10% zniżki przy kasie. Kod vouchera nie jest potrzebny.",
+      "drinkTitle": "Darmowy napój od €35",
+      "drinkText": "Zamówienia od €35 obejmują darmowy napój gazowany — nasze podziękowanie za wybór Concordia.",
+      "howTitle": "Jak to działa",
+      "step1Title": "Wybierz oddział",
+      "step1Text": "Wybierz Kempen i przeglądaj pełne menu ze zdjęciami i opcjami.",
+      "step2Title": "Zbuduj koszyk",
+      "step2Text": "10% zniżki na stronie i darmowy napój (od €35) stosują się automatycznie.",
+      "step3Title": "Kasa i smacznego",
+      "step3Text": "Płać gotówką przy odbiorze lub dostawie — wszystko przygotowujemy na świeżo.",
+      "promoNote": "Głodny? Twój stół — lub drzwi — to kilka kliknięć.",
+      "giftTitle": "Kup voucher podarunkowy",
+      "giftText": "Podaruj komuś Concordia — wybierz €10, €20, €30 lub dowolną kwotę. Kod działa tylko w oddziale, w którym kupujesz (online lub na miejscu).",
+      "giftCta": "Kup voucher",
+      "giftBadge": "Voucher podarunkowy"
     },
     "delivery": {
-      "eyebrow": "Bis vor Ihre Tür",
-      "title": "Lieferung & Abholung",
-      "lead": "Wir liefern in ausgewählte Postleitzahlen rund um Kempen. Mindestbestellwert und Liefergebühr hängen von Ihrer Region ab.",
-      "areasTitle": "Liefergebiete (Kempen)",
-      "colPostcode": "PLZ",
-      "colMin": "Mindestbestellwert",
-      "colFee": "Liefergebühr",
-      "pickupTitle": "Abholung",
-      "pickupText": "Lieber abholen? Online bestellen und an der Concordienplatz 1 in Kempen abholen — wir bereiten alles frisch für Sie vor."
+      "eyebrow": "Pod Twoje drzwi",
+      "title": "Dostawa i odbiór",
+      "lead": "Dostarczamy do wybranych kodów pocztowych wokół Kempen. Minimalne zamówienie i opłata za dostawę zależą od Twojej okolicy.",
+      "areasTitle": "Obszary dostawy (Kempen)",
+      "colPostcode": "Kod pocztowy",
+      "colMin": "Min. zamówienie",
+      "colFee": "Opłata za dostawę",
+      "pickupTitle": "Odbiór",
+      "pickupText": "Wolisz odebrać osobiście? Zamów online i odbierz przy Concordienplatz 1, Kempen — będzie gotowe."
     },
     "faq": {
-      "eyebrow": "Hilfe",
-      "title": "Häufige Fragen",
-      "lead": "Kurze Antworten zu Bestellung, Bezahlung und Lieferung.",
+      "eyebrow": "Pomoc",
+      "title": "Często zadawane pytania",
+      "lead": "Szybkie odpowiedzi o zamawianiu, płatności i dostawie.",
       "items": {
         "q1": {
-          "q": "Wie bestelle ich?",
-          "a": "Wählen Sie auf der Startseite Ihre Filiale, stöbern Sie im Menü, passen Sie Gerichte an und schließen Sie die Bestellung online ab."
+          "q": "Jak złożyć zamówienie?",
+          "a": "Wybierz oddział na stronie głównej, przeglądaj menu, dostosuj dania i złóż zamówienie online."
         },
         "q2": {
-          "q": "Welche Zahlungsarten akzeptieren Sie?",
-          "a": "Aktuell akzeptieren wir Barzahlung bei Abholung und Barzahlung bei Lieferung."
+          "q": "Jakie metody płatności akceptujecie?",
+          "a": "Obecnie akceptujemy gotówkę przy odbiorze i gotówkę przy dostawie."
         },
         "q3": {
-          "q": "Kann ich eine Bestellung vorbestellen?",
-          "a": "Ja — an der Kasse können Sie ASAP oder einen Wunschtermin wählen, sofern verfügbar."
+          "q": "Czy mogę zaplanować zamówienie?",
+          "a": "Tak — przy kasie możesz wybrać jak najszybciej lub zaplanowany termin, jeśli jest dostępny."
         },
         "q4": {
-          "q": "Wie funktioniert der 10%-Online-Rabatt?",
-          "a": "Er wird automatisch angewendet, wenn Sie über unsere Website bestellen. Kein Code erforderlich."
+          "q": "Jak działa 10% zniżki online?",
+          "a": "Stosuje się automatycznie przy zamówieniu przez naszą stronę. Kod nie jest wymagany."
         },
         "q5": {
-          "q": "Kann ich meine Lieferung verfolgen?",
-          "a": "Ja — nach einer Lieferbestellung erhalten Sie einen Tracking-Link und sehen den Fahrer auf der Karte."
+          "q": "Czy mogę śledzić dostawę?",
+          "a": "Tak — po złożeniu zamówienia z dostawą otrzymujesz link do śledzenia kierowcy na mapie."
         },
         "q6": {
-          "q": "Wann öffnet Straelen?",
-          "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
+          "q": "Kiedy otworzy się Straelen?",
+          "a": "Concordia Straelen wkrótce. Zobaczysz go na liście oddziałów, gdy zamawianie będzie aktywne."
         }
       }
     }

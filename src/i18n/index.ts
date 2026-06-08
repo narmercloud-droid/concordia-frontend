@@ -16,6 +16,8 @@ import ro from "./locales/ro.json"
 import hi from "./locales/hi.json"
 import ar from "./locales/ar.json"
 import ku from "./locales/ku.json"
+import tr from "./locales/tr.json"
+import ckb from "./locales/ckb.json"
 
 function syncDocumentLanguage(lng: string) {
   const short = lng.split("-")[0]
@@ -36,7 +38,9 @@ i18n
       ro: { translation: ro },
       hi: { translation: hi },
       ar: { translation: ar },
-      ku: { translation: ku }
+      ku: { translation: ku },
+      tr: { translation: tr },
+      ckb: { translation: ckb }
     },
     fallbackLng: DEFAULT_LANGUAGE,
     supportedLngs: SUPPORTED_LANGUAGE_CODES,

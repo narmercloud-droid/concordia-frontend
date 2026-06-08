@@ -15,9 +15,9 @@
     "extras": "Zêde",
     "processing": "Tê pêvajokirin…",
     "close": "Bigire",
-    "retry": "دووبارە هەوڵ بدەوە",
-    "logoAlt": "چێشتخانەی Concordia",
-    "logoHomeAlt": "چێشتخانەی Concordia — پیتزا، ماکارۆنی، گریل"
+    "retry": "Dîsa biceribîne",
+    "logoAlt": "Restorana Concordia",
+    "logoHomeAlt": "Restorana Concordia — Pîzza, Makaron, Grill"
   },
   "lang": {
     "label": "Ziman"
@@ -26,9 +26,9 @@
     "notificationsDisabled": "Agahdarî neçalak in. Ji bo wergirtina nûçeyên fermana xwe wan di mîhengên gerokê de çalak bikin.",
     "cart": "Selik",
     "cartWithCount": "Selik ({{count}})",
-    "login": "چوونەژوورەوە",
-    "logout": "دەرچوون",
-    "account": "هەژمار"
+    "login": "Têkeve",
+    "logout": "Derkeve",
+    "account": "Hesab"
   },
   "home": {
     "loading": "Concordia",
@@ -94,7 +94,7 @@
     "websiteDiscountStrip": "Serhêl ferman bidin & rizgar bibin",
     "websiteDiscountFooter": "{{percent}}% erzanî dema fermana serhêl — bixweber di dema dravdanê de",
     "footerFreeDrink": "Vexwarina belaş ji fermana 35 €",
-    "branchesLoading": "Loading restaurants…"
+    "branchesLoading": "Restoran tên barkirin…"
   },
   "branchOwner": {
     "eyebrow": "Şefên we",
@@ -111,9 +111,9 @@
     "from": "ji",
     "bestSellers": "Herî firotin",
     "bestSellersDesc": "Xwarinên me yên herî populer — pêşniyarên şef.",
-    "bestSellersFromSales": "زۆرترین فرۆش لە 30 ڕۆژی ڕابردوو — بەپێی داواکارییە ڕاستەقینەکان.",
-    "alsoPopular": "هەروەها بەناوبانگ",
-    "loadError": "لیستەکە بارنەکرا. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە."
+    "bestSellersFromSales": "Herî firotin di 30 rojên derbasbûyî de — li gor fermana rastîn.",
+    "alsoPopular": "Her wiha populer",
+    "loadError": "Lîste nehat barkirin. Dibe ku server dest pê bike — ji kerema xwe dîsa biceribîne."
   },
   "cart": {
     "title": "Selika we",
@@ -121,8 +121,8 @@
     "clear": "Selikê vala bike",
     "checkout": "Dravdan",
     "afterDiscount": "Piştî erzanîyê",
-    "edit": "دەستکاری",
-    "editingItem": "هەڵبژاردنەکانت لە خوارەوە نوێ بکەوە، پاشان لە سەبەتەدا پاشەکەوت بکە."
+    "edit": "Guherandin",
+    "editingItem": "Vebijarkên xwe li jêr nûve bikin, paşê di selikê de tomar bikin."
   },
   "checkout": {
     "title": "Dravdan",
@@ -163,58 +163,58 @@
     "scheduleRequired": "Ji kerema xwe demek diyarkirî hilbijêrin.",
     "orderFailed": "Ferman bi ser neket. Ji kerema xwe dîsa biceribînin.",
     "searchingAddresses": "Navnîşan tên lêgerîn…",
-    "addressHintLive": "شەقامەکەت بنووسە — ناونیشانە گونجاوەکان لەکاتی نووسیندا دەردەکەون.",
-    "voucherLabel": "کۆدی دیاری / داشکاندن",
-    "voucherPlaceholder": "وەک WELCOME10",
-    "voucherApply": "جێبەجێکردن",
-    "voucherApplied": "کۆد {{code}}: −{{amount}}",
-    "voucherActive": "{{code}} جێبەجێکرا (−{{amount}})",
-    "giftCardActive": "{{code}} جێبەجێکرا (−{{amount}}، ماوە {{remaining}})",
-    "voucherRemove": "لابردن",
-    "voucherInvalid": "کۆدی نادروست یان بەسەرچوو.",
-    "paymentCard": "پارەدان: کارت (دێبیت یان کریدیت)",
-    "paymentMethod": "شێوازی پارەدان",
-    "payCash": "کاش",
-    "payCard": "کارت",
+    "addressHintLive": "Kolana xwe binivîsin — navnîşanên guncan dema nivîsandinê xuya dibin.",
+    "voucherLabel": "Koda diyariyê / erzanîyê",
+    "voucherPlaceholder": "mînak WELCOME10",
+    "voucherApply": "Sepandin",
+    "voucherApplied": "Kod {{code}}: −{{amount}}",
+    "voucherActive": "{{code}} hat sepandin (−{{amount}})",
+    "giftCardActive": "{{code}} hat sepandin (−{{amount}}, mayî {{remaining}})",
+    "voucherRemove": "Rakêşe",
+    "voucherInvalid": "Koda nederbas an qediyaye.",
+    "paymentCard": "Dravdan: Kart (debit an kredît)",
+    "paymentMethod": "Rêbaza dravdanê",
+    "payCash": "Pereyê destan",
+    "payCard": "Kart",
     "payPayPal": "PayPal",
     "payKlarna": "Klarna",
     "paySepa": "SEPA",
-    "comingSoon": "بەم زووانە",
-    "paymentPaypal": "پارەدان: PayPal",
-    "paymentKlarna": "پارەدان: Klarna (بەم زووانە)",
-    "paymentSepa": "پارەدان: SEPA (بەم زووانە)",
-    "onlinePaymentTitle": "پارەدانی پارێزراو",
-    "continueToPayment": "بەردەوامبوون بۆ پارەدان",
-    "cardPaymentTitle": "پارەدانی پارێزراو",
-    "cardPaymentHint": "بە کارت یان PayPal پارە بدە. داواکاری دوای پارەدان دەچێتە چێشتخانە.",
-    "paymentFailed": "پارەدان سەرنەکەوت. دووبارە هەوڵ بدەوە یان کاش هەڵبژێرە.",
-    "paymentCancelled": "پارەدان هەڵوەشێنرایەوە. داواکاری پارەنەدرا.",
-    "freeDrinkTitle": "خواردنەوەی بێبەرامبەر",
-    "freeDrinkHint": "یەک خواردنەوەی بێبەرامبەر هەڵبژێرە — 0.33 ل سۆفت درینک یان 0.5 ل Durstlöscher.",
-    "freeDrinkRequired": "تکایە خواردنەوەی بێبەرامبەر هەڵبژێرە.",
-    "marketingTitle": "پێشکەشکراوەکانی Concordia (ئارەزوومەندانە)",
-    "marketingHint": "دەتەوێت لە پێشکەشکراوە تایبەتەکان و خواردنە نوێکان بزانیت؟",
-    "marketingPerkBirthday": "دیاری لەدایکبوون: شیرینی بێبەرامبەر بە کۆدی BIRTHDAY",
-    "marketingPerkDeals": "دەستگەیشتنی زووتر بۆ پێشکەشکراوە هەفتانە و وەرزییەکان",
-    "marketingPerkWinback": "کۆدی تایبەت بۆ کڕیارە هەمیشەییەکان (وەک WELCOME10)",
+    "comingSoon": "Zû tê",
+    "paymentPaypal": "Dravdan: PayPal",
+    "paymentKlarna": "Dravdan: Klarna (zû tê)",
+    "paymentSepa": "Dravdan: SEPA (zû tê)",
+    "onlinePaymentTitle": "Dravdana ewle",
+    "continueToPayment": "Berdewam bo dravdanê",
+    "cardPaymentTitle": "Dravdana ewle",
+    "cardPaymentHint": "Bi kart an PayPal bidin. Ferman piştî dravdanê diçe mitbaxê.",
+    "paymentFailed": "Dravdan bi ser neket. Dîsa biceribînin an pereyê destan hilbijêrin.",
+    "paymentCancelled": "Dravdan hat betalkirin. Ferman nehat dayîn.",
+    "freeDrinkTitle": "Vexwarina belaş",
+    "freeDrinkHint": "Vexwarinek belaş hilbijêrin — 0.33l soft drink an 0.5l Durstlöscher.",
+    "freeDrinkRequired": "Ji kerema xwe vexwarina belaş hilbijêrin.",
+    "marketingTitle": "Pêşkêşiyên Concordia (bixwe)",
+    "marketingHint": "Dixwazin ji pêşkêşiyên taybet û xwarinên nû agahdar bibin?",
+    "marketingPerkBirthday": "Diyariya rojbûnê: şîrîniya belaş bi koda BIRTHDAY",
+    "marketingPerkDeals": "Gihîştina zûtir bo pêşkêşiyên heftane û demsalî",
+    "marketingPerkWinback": "Koda taybet ji bo mêvanên herdem (mînak WELCOME10)",
     "marketingSMS": "SMS",
     "marketingWhatsApp": "WhatsApp",
-    "marketingEmail": "ئیمەیڵ",
+    "marketingEmail": "E-name",
     "emailPlaceholder": "your@email.com",
-    "emailRequiredForOffers": "ئیمەیڵ بنووسە بۆ پێشکەشکراوەکانی ئیمەیڵ.",
-    "birthdayLabel": "ڕۆژی لەدایکبوون (ئارەزوومەندانە)",
-    "birthdayHint": "بۆ دیاری لەدایکبوون لە Concordia — شیرینی بێبەرامبەر بە کۆدی BIRTHDAY.",
-    "birthdayInvalid": "تکایە ڕۆژی لەدایکبوونی دروست بنووسە.",
-    "marketingLegal": "تەنها ئەگەر ڕازی بیت. هەر کاتێک دەتوانیت بەشداری هەڵبوەشێنیتەوە.",
-    "howToOrder": "چۆن دەتەوێت داوا بکەیت؟",
-    "orderAsGuest": "وەک میوان",
-    "orderWithAccount": "بە هەژمارەکەم",
-    "accountBenefits": "هەژمارێکی بێبەرامبەر دروست بکە و خاڵی وەفاداری لە هەر داواکارییەکدا بەدەست بهێنە.",
-    "accountLoginRequired": "بچۆ ژوورەوە یان خۆت تۆمار بکە، یان وەک میوان داوا بکە.",
-    "welcomeBack": "بەخێربێیتەوە، {{name}}!",
-    "loyaltyBalance": "وەفاداری: {{points}} خاڵ (ئاستی {{tier}})",
-    "loyaltyPerkPoints": "خاڵ بەدەست بهێنە لە هەر داواکارییەکی گەیشتوو",
-    "loyaltyPerkTier": "پاداشتی برۆنز، زیو و زێڕ بکەرەوە"
+    "emailRequiredForOffers": "E-name binivîsin bo pêşkêşiyên e-nameyê.",
+    "birthdayLabel": "Rojbûn (bixwe)",
+    "birthdayHint": "Ji bo diyariya rojbûnê li Concordia — şîrîniya belaş bi koda BIRTHDAY.",
+    "birthdayInvalid": "Ji kerema xwe rojbûnek derbasdar binivîsin.",
+    "marketingLegal": "Tenê ger razî bin. Her dem dikarin abonetiyê betal bikin.",
+    "howToOrder": "Çawa dixwazin ferman bidin?",
+    "orderAsGuest": "Wek mêvan",
+    "orderWithAccount": "Bi hesabê min",
+    "accountBenefits": "Hesabek belaş çêkin û xalên dilsoziyê di her fermanê de bi dest bixin.",
+    "accountLoginRequired": "Têkevin an tomar bibin, an wek mêvan ferman bidin.",
+    "welcomeBack": "Bi xêr hatine, {{name}}!",
+    "loyaltyBalance": "Dilsozî: {{points}} xal (ast {{tier}})",
+    "loyaltyPerkPoints": "Xal bi dest bixin di her fermana gihîştî de",
+    "loyaltyPerkTier": "Xelatên bronz, zîv û zêr vekin"
   },
   "item": {
     "loading": "Xwarin tê barkirin…",
@@ -236,8 +236,8 @@
     "increaseQty": "Hejmarê zêde bike",
     "addedToCart": "{{name}} hate zêdekirin selikê",
     "viewCart": "Selikê bibîne",
-    "updateCart": "سەبەتە نوێ بکەوە",
-    "loadError": "هەڵبژاردنەکان بارنەکران. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە."
+    "updateCart": "Selikê nûve bike",
+    "loadError": "Vebijark nehatin barkirin. Dibe ku server dest pê bike — ji kerema xwe dîsa biceribîne."
   },
   "order": {
     "tracking": "Şopandina fermana",
@@ -281,179 +281,179 @@
     "registerFailed": "Tomarkirin bi ser neket",
     "noAccount": "Hê hesabê we tune?",
     "hasAccount": "Jixwe hesabê we heye?",
-    "loyaltyBenefits": "بەخۆڕایی تۆمار بکە و بەشداری بەرنامەی وەفاداری بکە:"
+    "loyaltyBenefits": "Belaş tomar bibin û beşdarî bernameya dilsoziyê bibin:"
   },
   "pages": {
-    "navLabel": "Rûpel",
-    "backHome": "Vegere serûpelê",
+    "navLabel": "Rûpelên malperê",
+    "backHome": "Vegere malperê",
     "nav": {
-      "home": "Serûpel",
+      "home": "Mal",
       "about": "Der barê me",
       "contact": "Têkilî",
       "reviews": "Nirxandin",
-      "offers": "Pêşniyar",
+      "offers": "Pêşkêşî",
       "delivery": "Radestkirin",
-      "faq": "FAQ"
+      "faq": "Pirsên pir têne pirsîn"
     },
     "about": {
-      "eyebrow": "Our story",
-      "title": "About Concordia",
-      "quote": "Good food brings people together — that is what Concordia has always been about.",
-      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
-      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
-      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
-      "originTitle": "Rooted in Kempen",
-      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
-      "chefsTitle": "Meet your head chefs",
+      "eyebrow": "Çîroka me",
+      "title": "Der barê Concordia",
+      "quote": "Xwarina baş mirovan bi hev re tîne — Concordia her dem li ser vê bû.",
+      "p1": "Concordia restoranteke Îtalî ya malbatî ye li Kempen. Ji bo me hevgirtin tenê navek nîne — ew awayê me ye ku mêvanan pêşwazî dikin, di mitbaxê de bi hev re dixebitin, û her qurs ji pasê me derdikeve.",
+      "p2": "Em derîyên xwe li Concordienplatz vekirin bi fikreke sade: xwarina Îtalî ya rast, beşên mezin, û hestek ku hûn li maseya kesekî dixwin — ne li zincîreyekê.",
+      "p3": "Îro hûn dikarin bi kesî werin an jî online ferman bidin. Her du awayan, heman ekip xwarina we taze amade dike dema ku hûn ferman didin. Bê germkirin, bê rêkên kurt — tenê xwarina ku em bi wê serbilind in ji cîran û malbatên xwe re.",
+      "originTitle": "Li Kempen rêz bûyî",
+      "originText": "Kempen malê me ye. Mêvan me ji rojbûnan, şevên pizza yên Înê, û nîvrojên aram li qadeyê dinasin. Ev bawerî her tişt e — û ji ber vê yekê em her fermana online bi heman bala maseya li pencereyê dinirxînin.",
+      "chefsTitle": "Bi serşefên xwe re hevdîtin",
       "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "alaanBio": "Alaan menuya me û ritma mitbaxê dike — ji xamir û sosan heta xwarinên ku mêvanên herdem bi navê dixwazin. Balê li domdarîyê dide: pizza divê her car bi Concordia bihêze.",
       "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
-      "valuesTitle": "What we stand for",
+      "jiuanBio": "Jiuan di xizmeta tije de bala aram tîne — pasta, grill, demjimêr li pasê. Mêvan pir caran yekem germahî dibînin; di mitbaxê de destê wî yê aram her tişt bi rê ve dibe.",
+      "valuesTitle": "Em ji bo çi disekinin",
       "values": {
         "fresh": {
-          "title": "Fresh, always",
-          "text": "Prepared when you order — not sitting under a heat lamp."
+          "title": "Her dem taze",
+          "text": "Dema ferman didin amade dibe — ne bin lampa germkirinê."
         },
         "family": {
-          "title": "Family table",
-          "text": "A small team that knows many guests by name."
+          "title": "Maseya malbatê",
+          "text": "Ekîba piçûk ku gelek mêvan bi navê dinase."
         },
         "oven": {
-          "title": "Stone-oven soul",
-          "text": "Pizza and classics with real Italian heart."
+          "title": "Rûhê firina kevirî",
+          "text": "Pizza û klasîk bi dilê Îtalî yê rastîn."
         },
         "care": {
-          "title": "Every order matters",
-          "text": "Pickup, delivery or dine-in — same pride on the plate."
+          "title": "Her ferman girîng e",
+          "text": "Wergirtin, radestkirin an jî li cih — heman serbilindî li qursê."
         }
       },
-      "kitchenTitle": "From our oven to your table",
-      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kitchenTitle": "Ji firina me heta maseya we",
+      "kitchenText": "Pizza, pasta, salata, al forno, schnitzel, burger û zêdetir — taze ji bo wergirtin an radestkirinê.",
       "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
-      "eyebrow": "Get in touch",
-      "title": "Contact & locations",
-      "lead": "Visit us, order online, or reach out by email. We look forward to hearing from you.",
-      "emailTitle": "Email",
-      "emailHint": "For orders, please use our online menu — we reply to general enquiries as soon as we can."
+      "eyebrow": "Têkilî",
+      "title": "Têkilî û cih",
+      "lead": "Bi me re werin, online ferman bidin, an bi e-nameyê bi me re biaxivin. Bi dilxwazî li benda we ne.",
+      "emailTitle": "E-name",
+      "emailHint": "Ji bo fermanan menuya me ya online bikar bînin — em bi lez bersiv didin pirsên giştî."
     },
     "reviews": {
-      "eyebrow": "Guest voices",
-      "title": "Reviews",
-      "lead": "A few words from guests who order with us — thank you for your trust and kind feedback.",
+      "eyebrow": "Dengên mêvanan",
+      "title": "Nirxandin",
+      "lead": "Hin gotin ji mêvanên ku bi me re ferman didin — spas ji bo bawerî û nerînên xweş.",
       "items": {
         "r1": {
-          "text": "The best pizza in the area — always fresh, always friendly. We order every week.",
+          "text": "Baştirîn pizza li herêmê — her dem taze, her dem dostane. Em her hefte ferman didin.",
           "author": "Sandra M., Kempen"
         },
         "r2": {
-          "text": "Fast delivery, hot food, fair prices. The pasta is fantastic.",
+          "text": "Radestkirina bilez, xwarina germ, bihayên adil. Pasta ecêb e.",
           "author": "Thomas K., Willich"
         },
         "r3": {
-          "text": "You can taste the passion. Our family loves Concordia.",
+          "text": "Hûn dikarin hez hest bikin. Malbata me Concordia hez dike.",
           "author": "Elena R., Tönisvorst"
         },
         "r4": {
-          "text": "Great online ordering — easy to customise and the 10% discount is a nice bonus.",
+          "text": "Fermana online a baş — hêsan e ku xweş bikin û %10 daxistin bonusek xweş e.",
           "author": "Markus B., Kempen"
         },
         "r5": {
-          "text": "Warm welcome, generous portions, true Italian flavour. Highly recommended.",
+          "text": "Pêşwaziya germ, beşên mezin, tam Îtalî. Bi dilsozî pêşniyar dikim.",
           "author": "Julia H., Geldern"
         }
       }
     },
     "offers": {
-      "eyebrow": "Save with us",
-      "title": "Offers & promotions",
-      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
-      "discountTitle": "off your online order",
-      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
-      "drinkTitle": "Free drink from €35",
-      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
-      "howTitle": "How it works",
-      "step1Title": "Pick your branch",
-      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
-      "step2Title": "Build your cart",
-      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
-      "step3Title": "Checkout & enjoy",
-      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
-      "giftTitle": "کۆدی دیاری بکڕە",
-      "giftText": "کەسێک Concordia دیاری بکە — 10 €، 20 €، 30 € یان هەر بڕێک. کۆد تەنها لە لقی کڕین کار دەکات.",
-      "giftCta": "کۆد بکڕە",
-      "giftBadge": "کۆدی دیاری"
+      "eyebrow": "Bi me re tiştêk bişopînin",
+      "title": "Pêşkêşî û promosyon",
+      "lead": "Rasterast li malpera me ferman bidin û xelatên amade bistînin — bê kod, bê zehmetî.",
+      "discountTitle": "daxistin li fermana online",
+      "discountText": "Bi malpera me ferman bidin û %10 daxistin bixweber li checkoutê bistînin. Kodê voucher ne hewce ye.",
+      "drinkTitle": "Vexwarina belaş ji €35",
+      "drinkText": "Fermanên ji €35 vexwarinek belaş tê de — spas ji bo Concordia hilbijartina we.",
+      "howTitle": "Ew çawa dixebite",
+      "step1Title": "Şaxê xwe hilbijêrin",
+      "step1Text": "Kempen hilbijêrin û menuya tevahî bi wêne û vebijarkan bigerin.",
+      "step2Title": "Selikê xwe ava bikin",
+      "step2Text": "%10 daxistina malperê û vexwarina belaş (ji €35) bixweber têne sepandin.",
+      "step3Title": "Checkout û kêf bikin",
+      "step3Text": "Bi pereyê destan li wergirtin an radestkirinê bidin — her tişt taze ji bo we amade dikin.",
+      "promoNote": "Birçî ne? Maseya we — an jî deriyê we — tenê çend klîk dûr e.",
+      "giftTitle": "Vouchera diyariyê bikirin",
+      "giftText": "Kesekî bi Concordia xweş bikin — €10, €20, €30 an jî her qasî hilbijêrin. Kod tenê li şaxa ku hûn dikirin dixebite (online an jî bi kesî).",
+      "giftCta": "Voucher bikirin",
+      "giftBadge": "Vouchera diyariyê"
     },
     "delivery": {
-      "eyebrow": "To your door",
-      "title": "Delivery & pickup",
-      "lead": "We deliver to selected postcodes around Kempen. Minimum order and delivery fee depend on your area.",
-      "areasTitle": "Delivery areas (Kempen)",
-      "colPostcode": "Postcode",
-      "colMin": "Min. order",
-      "colFee": "Delivery fee",
-      "pickupTitle": "Pickup",
-      "pickupText": "Prefer to collect? Order online and pick up at Concordienplatz 1, Kempen — we'll have it ready for you."
+      "eyebrow": "He ta deriyê we",
+      "title": "Radestkirin û wergirtin",
+      "lead": "Em radest dikin bo koda posteyê yên hilbijartî li dora Kempen. Fermana herî kêm û lêçûna radestkirinê li gorî herêmê ye.",
+      "areasTitle": "Herêmên radestkirinê (Kempen)",
+      "colPostcode": "Koda posteyê",
+      "colMin": "Fermana herî kêm",
+      "colFee": "Lêçûna radestkirinê",
+      "pickupTitle": "Wergirtin",
+      "pickupText": "Hûn dixwazin werbigirin? Online ferman bidin û li Concordienplatz 1, Kempen werbigirin — em amade dikin."
     },
     "faq": {
-      "eyebrow": "Help",
-      "title": "Frequently asked questions",
-      "lead": "Quick answers about ordering, payment and delivery.",
+      "eyebrow": "Alîkarî",
+      "title": "Pirsên pir têne pirsîn",
+      "lead": "Bersivên bilez li ser ferman, dayîn û radestkirinê.",
       "items": {
         "q1": {
-          "q": "How do I place an order?",
-          "a": "Choose your branch on the homepage, browse the menu, customise your dishes and checkout online."
+          "q": "Ez çawa ferman bidim?",
+          "a": "Li ser malperê şaxê xwe hilbijêrin, menuyê bigerin, xwarinan xweş bikin û online checkout bikin."
         },
         "q2": {
-          "q": "Which payment methods do you accept?",
-          "a": "We currently accept cash on pickup and cash on delivery."
+          "q": "Hûn çi awayên dayînê qebûl dikin?",
+          "a": "Niha em pereyê destan li wergirtin û pereyê destan li radestkirinê qebûl dikin."
         },
         "q3": {
-          "q": "Can I schedule my order?",
-          "a": "Yes — at checkout you can choose ASAP or a scheduled time slot where available."
+          "q": "Ez dikarim fermana xwe plansaz bikim?",
+          "a": "Erê — li checkoutê hûn dikarin zûtirîn an demek plansaz hilbijêrin ku heye."
         },
         "q4": {
-          "q": "How does the 10% online discount work?",
-          "a": "It is applied automatically when you order through our website. No code is required."
+          "q": "Daxistina %10 ya online çawa dixebite?",
+          "a": "Bi ferman bi malpera me bixweber tê sepandin. Kod ne hewce ye."
         },
         "q5": {
-          "q": "Can I track my delivery?",
-          "a": "Yes — after placing a delivery order you receive a tracking link to follow your driver on the map."
+          "q": "Ez dikarim radestkirina xwe bişopînim?",
+          "a": "Erê — piştî fermana radestkirinê hûn lîngek şopandinê distînin da ku ajokar li nexşeyê bişopînin."
         },
         "q6": {
-          "q": "When will Straelen open?",
-          "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live."
+          "q": "Straelen kengî vedibe?",
+          "a": "Concordia Straelen di nêzîk de ye. Hûn ê wê li lîsteya şaxan bibînin dema ferman zindî bibe."
         }
       }
     }
   },
   "giftVoucher": {
-    "title": "کۆدی دیاری",
-    "lead": "خۆشی هاوبەش بکە — کۆد بۆ لقەکەی هەڵبژێردراو. ئۆنلاین یان لە چێشتخانە بەکاربهێنە.",
-    "chooseBranch": "لق",
-    "selectBranch": "لق هەڵبژێرە…",
-    "branchRequired": "تکایە لقێک هەڵبژێرە.",
-    "amount": "بڕی کۆد",
-    "customAmount": "بڕی تایبەت",
-    "yourName": "ناوت",
-    "email": "ئیمەیڵ",
-    "phone": "تەلەفۆن",
-    "recipient": "بۆ (ناوی وەرگر)",
-    "message": "پەیامی کەسی",
-    "continue": "بەردەوام — {{amount}}",
-    "payOnline": "ئێستا پارە بدە",
-    "cashNote": "کاش: کۆد دوای پارەدان لە لق چالاک دەبێت.",
-    "cashPending": "تکایە لە لق پارە بدە. کۆدەکەت دواتر چالاک دەبێت.",
-    "successTitle": "کۆدەکەت ئامادەیە",
-    "successText": "ئەم کۆدە پارێزگاری بکە. تەنها لە لقی هەڵبژێردراو کار دەکات:",
-    "branchNote": "کار دەکات لە {{branch}} — ئۆنلاین و ڕووبەڕوو.",
-    "orderNow": "ئێستا داوا بکە",
-    "nameRequired": "ناو پێویستە.",
-    "amountInvalid": "بڕێک لە نێوان 5 € و 500 € هەڵبژێرە.",
-    "purchaseFailed": "کۆد دروست نەکرا."
+    "title": "Vouchera diyariyê",
+    "lead": "Kêfxweşiyê parve bikin — voucher bo şaxa hilbijartî. Online an li restoranê bikar bînin.",
+    "chooseBranch": "Şax",
+    "selectBranch": "Şaxek hilbijêrin…",
+    "branchRequired": "Ji kerema xwe şaxek hilbijêrin.",
+    "amount": "Nirxa voucherê",
+    "customAmount": "Mîqtara taybet",
+    "yourName": "Navê we",
+    "email": "E-name",
+    "phone": "Telefon",
+    "recipient": "Ji bo (navê wergir)",
+    "message": "Peyama kesane",
+    "continue": "Berdewam — {{amount}}",
+    "payOnline": "Niha bidin",
+    "cashNote": "Pereyê destan: voucher piştî dravdanê li şaxê tê çalakkirin.",
+    "cashPending": "Ji kerema xwe li şaxê bidin. Voucherê we paşê tê çalakkirin.",
+    "successTitle": "Voucherê we amade ye",
+    "successText": "Vê koda biparêzin. Tenê li şaxa hilbijartî derbas dibe:",
+    "branchNote": "Derbasdar li {{branch}} — online û li cih.",
+    "orderNow": "Niha ferman bidin",
+    "nameRequired": "Nav pêwîst e.",
+    "amountInvalid": "Ji kerema xwe mîqtarek di navbera 5 € û 500 € de hilbijêrin.",
+    "purchaseFailed": "Voucher nehat çêkirin."
   },
   "account": {
     "ordersLoading": "Daxwazî tên barkirin…",

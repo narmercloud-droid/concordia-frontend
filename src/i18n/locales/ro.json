@@ -284,7 +284,7 @@
     "loyaltyBenefits": "Înregistrează-te gratuit și alătură-te programului de loialitate:"
   },
   "pages": {
-    "navLabel": "Pagini",
+    "navLabel": "Pagini site",
     "backHome": "Înapoi acasă",
     "nav": {
       "home": "Acasă",
@@ -293,139 +293,139 @@
       "reviews": "Recenzii",
       "offers": "Oferte",
       "delivery": "Livrare",
-      "faq": "Întrebări"
+      "faq": "FAQ"
     },
     "about": {
-      "eyebrow": "Our story",
-      "title": "About Concordia",
-      "quote": "Good food brings people together — that is what Concordia has always been about.",
-      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
-      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
-      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
-      "originTitle": "Rooted in Kempen",
-      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
-      "chefsTitle": "Meet your head chefs",
+      "eyebrow": "Povestea noastră",
+      "title": "Despre Concordia",
+      "quote": "Mâncarea bună aduce oamenii împreună — despre asta a fost mereu Concordia.",
+      "p1": "Concordia este un restaurant italian de familie în Kempen. Pentru noi, armonia nu e doar un nume — e modul în care primim oaspeții, cum lucrăm împreună în bucătărie și cum fiecare farfurie părăsește pass-ul.",
+      "p2": "Ne-am deschis ușile pe Concordienplatz cu o idee simplă: bucătărie italiană onestă, porții generoase și senzația că mănânci la masa cuiva — nu într-un lanț.",
+      "p3": "Astăzi ne poți vizita personal sau comanda online. Oricum, aceeași echipă îți pregătește masa proaspăt când comanzi. Fără reîncălzire, fără scurtături — doar mâncarea de care suntem mândri să o servim vecinilor și familiilor.",
+      "originTitle": "Rădăcini în Kempen",
+      "originText": "Kempen e acasă. Oaspeții ne cunosc de la zile de naștere, seri de pizza de vineri și prânzuri liniștite în piață. Această încredere înseamnă tot — de aceea tratăm fiecare comandă online cu aceeași grijă ca o masă la fereastră.",
+      "chefsTitle": "Cunoaște-ți chefii",
       "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "alaanBio": "Alaan modelează meniul nostru și ritmul bucătăriei — de la aluat și sosuri la preparatele pe care clienții fideli le cer pe nume. Îi pasă de consistență: pizza trebuie să aibă gust de Concordia de fiecare dată.",
       "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
-      "valuesTitle": "What we stand for",
+      "jiuanBio": "Jiuan aduce calm și focus într-un serviciu aglomerat — paste, grătar, timing la pass. Oaspeții observă adesea căldura mai întâi; în bucătărie, mâna lui sigură ține totul în mișcare.",
+      "valuesTitle": "Ce reprezentăm",
       "values": {
         "fresh": {
-          "title": "Fresh, always",
-          "text": "Prepared when you order — not sitting under a heat lamp."
+          "title": "Proaspăt, mereu",
+          "text": "Pregătit când comanzi — nu sub o lampă de încălzire."
         },
         "family": {
-          "title": "Family table",
-          "text": "A small team that knows many guests by name."
+          "title": "Masă de familie",
+          "text": "O echipă mică care cunoaște mulți oaspeți pe nume."
         },
         "oven": {
-          "title": "Stone-oven soul",
-          "text": "Pizza and classics with real Italian heart."
+          "title": "Suflet de cuptor de piatră",
+          "text": "Pizza și clasice cu inimă italiană adevărată."
         },
         "care": {
-          "title": "Every order matters",
-          "text": "Pickup, delivery or dine-in — same pride on the plate."
+          "title": "Fiecare comandă contează",
+          "text": "Ridicare, livrare sau la restaurant — aceeași mândrie în farfurie."
         }
       },
-      "kitchenTitle": "From our oven to your table",
-      "kitchenText": "Pizza, pasta, salads, al forno dishes, schnitzel, burgers and more — cooked fresh for pickup or delivery.",
+      "kitchenTitle": "Din cuptorul nostru pe masa ta",
+      "kitchenText": "Pizza, paste, salate, al forno, schnitzel, burgeri și multe altele — gătite proaspăt pentru ridicare sau livrare.",
       "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
     },
     "contact": {
-      "eyebrow": "Get in touch",
-      "title": "Contact & locations",
-      "lead": "Visit us, order online, or reach out by email. We look forward to hearing from you.",
+      "eyebrow": "Contactează-ne",
+      "title": "Contact și locații",
+      "lead": "Vizitează-ne, comandă online sau scrie-ne pe email. Așteptăm cu plăcere vești de la tine.",
       "emailTitle": "Email",
-      "emailHint": "For orders, please use our online menu — we reply to general enquiries as soon as we can."
+      "emailHint": "Pentru comenzi, folosește meniul nostru online — răspundem la întrebări generale cât de repede putem."
     },
     "reviews": {
-      "eyebrow": "Guest voices",
-      "title": "Reviews",
-      "lead": "A few words from guests who order with us — thank you for your trust and kind feedback.",
+      "eyebrow": "Voci ale oaspeților",
+      "title": "Recenzii",
+      "lead": "Câteva cuvinte de la oaspeții care comandă la noi — mulțumim pentru încredere și feedbackul prietenos.",
       "items": {
         "r1": {
-          "text": "The best pizza in the area — always fresh, always friendly. We order every week.",
+          "text": "Cea mai bună pizza din zonă — mereu proaspătă, mereu prietenoasă. Comandăm în fiecare săptămână.",
           "author": "Sandra M., Kempen"
         },
         "r2": {
-          "text": "Fast delivery, hot food, fair prices. The pasta is fantastic.",
+          "text": "Livrare rapidă, mâncare caldă, prețuri corecte. Pastele sunt fantastice.",
           "author": "Thomas K., Willich"
         },
         "r3": {
-          "text": "You can taste the passion. Our family loves Concordia.",
+          "text": "Se simte pasiunea. Familia noastră iubește Concordia.",
           "author": "Elena R., Tönisvorst"
         },
         "r4": {
-          "text": "Great online ordering — easy to customise and the 10% discount is a nice bonus.",
+          "text": "Comandă online excelentă — ușor de personalizat, iar reducerea de 10% e un bonus frumos.",
           "author": "Markus B., Kempen"
         },
         "r5": {
-          "text": "Warm welcome, generous portions, true Italian flavour. Highly recommended.",
+          "text": "Primire caldă, porții generoase, gust italian autentic. Recomand cu căldură.",
           "author": "Julia H., Geldern"
         }
       }
     },
     "offers": {
-      "eyebrow": "Save with us",
-      "title": "Offers & promotions",
-      "lead": "Order directly on our website and enjoy rewards built in — no codes, no fuss.",
-      "discountTitle": "off your online order",
-      "discountText": "Order through our website and receive 10% off automatically at checkout. No voucher code needed.",
-      "drinkTitle": "Free drink from €35",
-      "drinkText": "Orders from €35 include a complimentary soft drink — our thank-you for choosing Concordia.",
-      "howTitle": "How it works",
-      "step1Title": "Pick your branch",
-      "step1Text": "Choose Kempen and browse the full menu with photos and options.",
-      "step2Title": "Build your cart",
-      "step2Text": "Your 10% website discount and free drink (from €35) apply automatically.",
-      "step3Title": "Checkout & enjoy",
-      "step3Text": "Pay cash on pickup or delivery — we prepare everything fresh for you.",
-      "promoNote": "Hungry? Your table — or your doorstep — is just a few clicks away.",
-      "giftTitle": "Cumpără voucher cadou",
-      "giftText": "Oferă cuiva Concordia — alege 10 €, 20 €, 30 € sau orice sumă. Codul funcționează doar la filiala unde îl cumperi (online sau la fața locului).",
+      "eyebrow": "Economisește cu noi",
+      "title": "Oferte și promoții",
+      "lead": "Comandă direct pe site-ul nostru și bucură-te de recompense integrate — fără coduri, fără bătăi de cap.",
+      "discountTitle": "reducere la comanda online",
+      "discountText": "Comandă prin site-ul nostru și primești automat 10% reducere la checkout. Nu e nevoie de cod voucher.",
+      "drinkTitle": "Băutură gratuită de la €35",
+      "drinkText": "Comenzile de la €35 includ o băutură răcoritoare gratuită — mulțumim că ai ales Concordia.",
+      "howTitle": "Cum funcționează",
+      "step1Title": "Alege filiala",
+      "step1Text": "Alege Kempen și răsfoiește meniul complet cu poze și opțiuni.",
+      "step2Title": "Construiește coșul",
+      "step2Text": "Reducerea de 10% pe site și băutura gratuită (de la €35) se aplică automat.",
+      "step3Title": "Checkout și savurează",
+      "step3Text": "Plătește cash la ridicare sau livrare — pregătim totul proaspăt pentru tine.",
+      "promoNote": "Foame? Masa ta — sau ușa ta — e la câteva clicuri distanță.",
+      "giftTitle": "Cumpără un voucher cadou",
+      "giftText": "Oferă cuiva Concordia — alege €10, €20, €30 sau orice sumă. Codul funcționează doar la filiala unde cumperi (online sau personal).",
       "giftCta": "Cumpără voucher",
       "giftBadge": "Voucher cadou"
     },
     "delivery": {
-      "eyebrow": "To your door",
-      "title": "Delivery & pickup",
-      "lead": "We deliver to selected postcodes around Kempen. Minimum order and delivery fee depend on your area.",
-      "areasTitle": "Delivery areas (Kempen)",
-      "colPostcode": "Postcode",
-      "colMin": "Min. order",
-      "colFee": "Delivery fee",
-      "pickupTitle": "Pickup",
-      "pickupText": "Prefer to collect? Order online and pick up at Concordienplatz 1, Kempen — we'll have it ready for you."
+      "eyebrow": "Până la ușa ta",
+      "title": "Livrare și ridicare",
+      "lead": "Livrăm în coduri poștale selectate din jurul Kempen. Comanda minimă și taxa de livrare depind de zona ta.",
+      "areasTitle": "Zone de livrare (Kempen)",
+      "colPostcode": "Cod poștal",
+      "colMin": "Comandă min.",
+      "colFee": "Taxă livrare",
+      "pickupTitle": "Ridicare",
+      "pickupText": "Preferi să ridici? Comandă online și ridică de la Concordienplatz 1, Kempen — îl pregătim pentru tine."
     },
     "faq": {
-      "eyebrow": "Help",
-      "title": "Frequently asked questions",
-      "lead": "Quick answers about ordering, payment and delivery.",
+      "eyebrow": "Ajutor",
+      "title": "Întrebări frecvente",
+      "lead": "Răspunsuri rapide despre comandă, plată și livrare.",
       "items": {
         "q1": {
-          "q": "How do I place an order?",
-          "a": "Choose your branch on the homepage, browse the menu, customise your dishes and checkout online."
+          "q": "Cum plasez o comandă?",
+          "a": "Alege filiala pe pagina principală, răsfoiește meniul, personalizează preparatele și finalizează online."
         },
         "q2": {
-          "q": "Which payment methods do you accept?",
-          "a": "We currently accept cash on pickup and cash on delivery."
+          "q": "Ce metode de plată acceptați?",
+          "a": "Acceptăm momentan cash la ridicare și cash la livrare."
         },
         "q3": {
-          "q": "Can I schedule my order?",
-          "a": "Yes — at checkout you can choose ASAP or a scheduled time slot where available."
+          "q": "Pot programa comanda?",
+          "a": "Da — la checkout poți alege cât mai repede sau un interval programat, unde e disponibil."
         },
         "q4": {
-          "q": "How does the 10% online discount work?",
-          "a": "It is applied automatically when you order through our website. No code is required."
+          "q": "Cum funcționează reducerea de 10% online?",
+          "a": "Se aplică automat când comanzi prin site-ul nostru. Nu e nevoie de cod."
         },
         "q5": {
-          "q": "Can I track my delivery?",
-          "a": "Yes — after placing a delivery order you receive a tracking link to follow your driver on the map."
+          "q": "Pot urmări livrarea?",
+          "a": "Da — după o comandă cu livrare primești un link de tracking pentru a urmări șoferul pe hartă."
         },
         "q6": {
-          "q": "When will Straelen open?",
-          "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live."
+          "q": "Când se deschide Straelen?",
+          "a": "Concordia Straelen vine în curând. Îl vei vedea în lista de filiale când comanda devine activă."
         }
       }
     }
