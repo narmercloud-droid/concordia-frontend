@@ -172,6 +172,28 @@
   border-top: 1px solid var(--c-line);
 }
 
+.info-legal__part-divider {
+  margin: 32px 0 20px;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--c-green-soft) 0%, #fff 100%);
+  border: 1px solid var(--c-line);
+}
+
+.info-legal__part-title {
+  margin: 0 0 8px;
+  font-family: var(--c-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.info-legal__part-divider p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--c-muted);
+}
+
 .checkout-terms-notice {
   margin: 16px 0 10px;
   line-height: 1.5;
@@ -265,11 +287,93 @@
   color: var(--c-muted);
 }
 
+.info-reviews__branch-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.info-reviews__branch-btn {
+  padding: 10px 16px;
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  background: var(--c-card);
+  color: var(--c-ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.info-reviews__branch-btn.is-active,
+.info-reviews__branch-btn:hover {
+  border-color: var(--c-accent, #1b7340);
+  background: color-mix(in srgb, var(--c-accent, #1b7340) 8%, var(--c-card));
+}
+
+.info-reviews__summary {
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--c-line);
+  border-radius: 16px;
+  background: var(--c-card);
+}
+
+.info-reviews__rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+}
+
+.info-reviews__rating-stars {
+  color: var(--c-gold, #1b7340);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+}
+
+.info-reviews__rating-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.info-reviews__rating-count {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-muted);
+}
+
+.info-reviews__meta {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--c-muted);
+}
+
+.info-reviews__maps-link {
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-accent, #1b7340);
+  text-decoration: none;
+}
+
+.info-reviews__maps-link:hover {
+  text-decoration: underline;
+}
+
 .info-review {
   padding: 18px 20px;
   border: 1px solid var(--c-line);
   border-radius: 16px;
   background: var(--c-card);
+}
+
+.info-review + .info-review {
+  margin-top: 12px;
 }
 
 .info-review__stars {

@@ -219,7 +219,7 @@
     "loyaltyBalance": "Dilsozî: {{points}} xal (ast {{tier}})",
     "loyaltyPerkPoints": "Xal bi dest bixin di her fermana gihîştî de",
     "loyaltyPerkTier": "Xelatên bronz, zîv û zêr vekin",
-    "termsNotice": "Bi şandina fermana xwe hûn <termsLink>mercên bikaranînê</termsLink> û <loyaltyLink>mercên bernameya dilsoziyê</loyaltyLink> qebûl dikin."
+    "termsNotice": "Bi şandina fermana xwe hûn <termsLink>mercên bikaranînê</termsLink> qebûl dikin."
   },
   "item": {
     "loading": "Xwarin tê barkirin…",
@@ -287,7 +287,7 @@
     "noAccount": "Hê hesabê we tune?",
     "hasAccount": "Jixwe hesabê we heye?",
     "loyaltyBenefits": "Belaş tomar bibin û beşdarî bernameya dilsoziyê bibin:",
-    "acceptTerms": "Ez <termsLink>mercên bikaranînê</termsLink> û <loyaltyLink>mercên bernameya dilsoziyê</loyaltyLink> qebûl dikim.",
+    "acceptTerms": "Ez <termsLink>mercên bikaranînê</termsLink> qebûl dikim.",
     "acceptTermsRequired": "Ji kerema xwe mercan qebûl bikin."
   },
   "pages": {
@@ -301,8 +301,7 @@
       "offers": "Pêşkêşî",
       "delivery": "Radestkirin",
       "faq": "Pirsên pir têne pirsîn",
-      "terms": "Mercên xizmetê",
-      "loyaltyTerms": "Mercên bernameya dilsohiyê"
+      "terms": "Merc"
     },
     "about": {
       "eyebrow": "Çîroka me",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "Dengên mêvanan",
       "title": "Nirxandin",
-      "lead": "Hin gotin ji mêvanên ku bi me re ferman didin — spas ji bo bawerî û nerînên xweş.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "Baştirîn pizza li herêmê — her dem taze, her dem dostane. Em her hefte ferman didin.",
@@ -373,7 +372,15 @@
           "text": "Pêşwaziya germ, beşên mezin, tam Îtalî. Bi dilsozî pêşniyar dikim.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "Bi me re tiştêk bişopînin",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "Yasayî",
-      "title": "Mercên xizmetê",
+      "title": "Mercên bikaranînê & bernameya dilsoziyê",
       "lead": "Ev mercên xizmetê bikaranîna malpera me û fermên serhêl li Concordia Restaurant — restorana Îtalyayî ya malbatî li Concordienplatz 1, 47906 Kempen, Almanya — rêve dibin. Agahdariya jêrîn ji bo şeffafiyê ye û şêwirmendiya yasayî ya kesane nîne.",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "Dawî hate nûkirin: 8'ê Hezîranê 2026",
-      "contact": "Pirsên li ser van şertan: bi rêya rûpela têkiliyê (/contact) têkilî daynin an jî bi ser Concordienplatz 1, Kempen serdana restorana bikin."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Bernameya dilsohiyê",
-      "title": "Mercên bernameya dilsohiyê",
-      "lead": "Ev merc beşdarbûna di bernameya dilsohiyê ya Concordia de ji bo xerîdarên qeydkirî rêve dibin. Ew mercên giştî temam dikin û şêwirmendiya yasayî nînin.",
-      "sections": {
+      "contact": "Pirsên li ser van şertan: bi rêya rûpela têkiliyê (/contact) têkilî daynin an jî bi ser Concordienplatz 1, Kempen serdana restorana bikin.",
+      "loyaltyPartTitle": "Beş 2: Bernameya dilsoziyê",
+      "loyaltyPartLead": "Mercên jêrîn ji bo bernameya me ya belaş a dilsoziyê derbasdar in.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Kurtebînî",
           "body": "Bernameya dilsohiyê ya Concordia fermanên dubare bi xalan, feydeyên astê û promosyonên hilbijartî xelat dike. Beşdarî hesabeke xerîdarê hewce dike. Bername ji aliyê Concordia Restaurant, Concordienplatz 1, 47906 Kempen ve tê birêvebirin û dikare her dem were guhertin an jî were bidawîkirin heya ku qanûn destûr dide."
@@ -520,9 +524,7 @@
           "title": "8. Guhertin û bidawîkirin",
           "body": "Em dikarin van mercên bernameyê, rêzên xalan, ast û feydeyan bi bandora pêşerojê biguherînin. Guhertinên girîng dê bi malper an e-nameyê were ragihandin heya ku gengaz be. Bikaranîna domdar piştî derbasbûna guhertinan wek qebûlkirin tê hesibandin, heya ku vekişîn neyê pêşkêş kirin. Bername dikare bi tevahî were bidawîkirin; xalên mayî li gorî rêzên wê demê têne pêvajokirin."
         }
-      },
-      "updated": "Dawî hate nûkirin: 8'ê Hezîranê 2026",
-      "contact": "Pirsên li ser van şertan: bi rêya rûpela têkiliyê (/contact) têkilî daynin an jî bi ser Concordienplatz 1, Kempen serdana restorana bikin."
+      }
     }
   },
   "giftVoucher": {

@@ -219,7 +219,7 @@
     "loyaltyBalance": "وەفاداری: {{points}} خاڵ (ئاستی {{tier}})",
     "loyaltyPerkPoints": "خاڵ بەدەست بهێنە لە هەر داواکارییەکی گەیشتوو",
     "loyaltyPerkTier": "پاداشتی برۆنز، زیو و زێڕ بکەرەوە",
-    "termsNotice": "بە دانانی داواکاری <termsLink>مەرج و ڕێساکان</termsLink> و <loyaltyLink>مەرجەکانی بەرنامەی وەفاداری</loyaltyLink> قبوڵ دەکەیت."
+    "termsNotice": "بە دانانی داواکاری <termsLink>مەرج و ڕێساکان</termsLink> قبوڵ دەکەیت."
   },
   "giftVoucher": {
     "title": "کارتەی دیاری",
@@ -315,8 +315,7 @@
       "offers": "پێشکەشکراو",
       "delivery": "گەیاندن",
       "faq": "پرسیارە باوەکان",
-      "terms": "مەرجەکانی خزمەتگوزاری",
-      "loyaltyTerms": "مەرجەکانی بەرنامەی دڵسۆزی"
+      "terms": "مەرجەکان"
     },
     "about": {
       "eyebrow": "چیرۆکەکەمان",
@@ -365,7 +364,7 @@
     "reviews": {
       "eyebrow": "دەنگی میوان",
       "title": "هەڵسەنگاندن",
-      "lead": "چەند وشەیەک لە میوانانی ئێمە — سوپاس بۆ متمانە و فیدباکی جوان.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "باشترین پیتزا لە ناوچەکە — هەمیشە تازە، هەمیشە دۆستانە. هەموو هەفتەیەک داوا دەکەین.",
@@ -387,7 +386,15 @@
           "text": "بەخێرهاتنی گەرم، بەشە گەورەکان، تامی ئیتاڵی ڕاستەقینە. بە توندی پێشنیار دەکرێت.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "لەگەڵمان پاشەکەوت بکە",
@@ -454,7 +461,7 @@
     },
     "terms": {
       "eyebrow": "یاسایی",
-      "title": "مەرجەکانی خزمەتگوزاری",
+      "title": "مەرج و ڕێساکان و بەرنامەی وەفاداری",
       "lead": "ئەم مەرجانە بەکارهێنانی ماڵپەڕ و داواکارییە ئۆنلاینەکان لە Concordia Restaurant — چێشتخانەیەکی ئیتاڵی خێزانی لە Concordienplatz 1، 47906 Kempen، آلمان — ڕێکدەخەن. زانیاریی خوارەوە بۆ شەفافییەتە و ڕاوێژی یاسایی تاکەکەسی نییە.",
       "sections": {
         "operator": {
@@ -495,13 +502,10 @@
         }
       },
       "updated": "دوایین نوێکردنەوە: ٨ی حوزەیرانی ٢٠٢٦",
-      "contact": "پرسیار دەربارەی ئەم مەرجانە: پەیوەندی لە ڕێگەی پەڕەی پەیوەندی (/contact) یان سەردانی ڕێستۆرانتەکە لە Concordienplatz 1، Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "بەرنامەی دڵسۆزی",
-      "title": "مەرجەکانی بەرنامەی دڵسۆزی",
-      "lead": "ئەم مەرجانە بەشداریکردن لە بەرنامەی دڵسۆزی Concordia بۆ کڕیارە تۆمارکراوەکان ڕێکدەخەن. مەرجە گشتییەکان تەواو دەکەن و ڕاوێژی یاسایی نین.",
-      "sections": {
+      "contact": "پرسیار دەربارەی ئەم مەرجانە: پەیوەندی لە ڕێگەی پەڕەی پەیوەندی (/contact) یان سەردانی ڕێستۆرانتەکە لە Concordienplatz 1، Kempen.",
+      "loyaltyPartTitle": "بەشی ٢: بەرنامەی وەفاداری",
+      "loyaltyPartLead": "مەرجەکانی خوارەوە زیادە لەسەر بەرنامەی وەفاداری بەخۆڕاییمان جێبەجێ دەبن.",
+      "loyaltySections": {
         "overview": {
           "title": "1. پێڕست",
           "body": "بەرنامەی دڵسۆزی Concordia داواکارییە دووبارەکان بە خاڵ، سوودی ئاست و پڕۆمۆشنە هەڵبژێردراوەکان خەڵات دەکات. بەشداریکردن پێویستی بە هەژماری کڕیار هەیە. بەرنامەکە لەلایەن Concordia Restaurant، Concordienplatz 1، 47906 Kempen بەڕێوەدەبرێت و دەتوانرێت هەر کاتێک بگۆڕدرێت یان کۆتایی پێ بێتەوە تا ئەوپەڕی یاسا ڕێگە دەدات."
@@ -534,9 +538,7 @@
           "title": "8. گۆڕان و کۆتایی",
           "body": "دەتوانین ئەم مەرجە بەرنامەیە، یاسای خاڵ، ئاست و سوودەکان بە کاریگەری داهاتوو بگۆڕین. گۆڕانی گرنگ لە ڕێگەی ماڵپەڕ یان ئیمەیڵەوە ئاگادار دەکرێیتەوە ئەگەر گونجا بێت. بەردەوامبوونی بەکارهێنان دوای جێبەجێبوونی گۆڕانەکان وەک قبوڵکردن دادەنرێت، مەگەر هەڵبژاردنی پاشگەزبوونەوە پێشکەش بکرێت. بەرنامەکە دەتوانرێت بە تەواوی کۆتایی پێ بێت؛ خاڵە ماوەکان بەپێی یاساکانی ئەو کاتە مامەڵەیان لەگەڵ دەکرێت."
         }
-      },
-      "updated": "دوایین نوێکردنەوە: ٨ی حوزەیرانی ٢٠٢٦",
-      "contact": "پرسیار دەربارەی ئەم مەرجانە: پەیوەندی لە ڕێگەی پەڕەی پەیوەندی (/contact) یان سەردانی ڕێستۆرانتەکە لە Concordienplatz 1، Kempen."
+      }
     }
   },
   "auth": {
@@ -552,7 +554,7 @@
     "noAccount": "هێشتا هەژمارت نییە؟",
     "hasAccount": "پێشتر هەژمارت هەیە؟",
     "loyaltyBenefits": "بەخۆڕایی تۆمار بکە و بەشداری بەرنامەی وەفاداری بکە:",
-    "acceptTerms": "<termsLink>مەرج و ڕێساکان</termsLink> و <loyaltyLink>مەرجەکانی بەرنامەی وەفاداری</loyaltyLink> قبوڵ دەکەم.",
-    "acceptTermsRequired": "تکایە مەرجەکان قبوڵ بکە."
+    "acceptTerms": "<termsLink>مەرج و ڕێساکان</termsLink> قبوڵ دەکەم.",
+    "acceptTermsRequired": "تکایە مەرج و ڕێساکان قبوڵ بکە."
   }
 }

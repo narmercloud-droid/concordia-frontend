@@ -219,7 +219,7 @@
     "loyaltyBalance": "Program lojalnościowy: {{points}} punktów (poziom {{tier}})",
     "loyaltyPerkPoints": "Zbieraj punkty przy każdym dostarczonym zamówieniu",
     "loyaltyPerkTier": "Odblokuj nagrody brązowe, srebrne i złote",
-    "termsNotice": "Składając zamówienie akceptujesz <termsLink>regulamin</termsLink> oraz <loyaltyLink>warunki programu lojalnościowego</loyaltyLink>."
+    "termsNotice": "Składając zamówienie akceptujesz <termsLink>regulamin</termsLink>."
   },
   "item": {
     "loading": "Ładowanie dania…",
@@ -287,8 +287,8 @@
     "noAccount": "Nie masz konta?",
     "hasAccount": "Masz już konto?",
     "loyaltyBenefits": "Zarejestruj się za darmo i dołącz do programu lojalnościowego:",
-    "acceptTerms": "Akceptuję <termsLink>regulamin</termsLink> oraz <loyaltyLink>warunki programu lojalnościowego</loyaltyLink>.",
-    "acceptTermsRequired": "Zaakceptuj regulamin i warunki programu lojalnościowego."
+    "acceptTerms": "Akceptuję <termsLink>regulamin</termsLink>.",
+    "acceptTermsRequired": "Zaakceptuj regulamin."
   },
   "pages": {
     "navLabel": "Strony serwisu",
@@ -301,8 +301,7 @@
       "offers": "Oferty",
       "delivery": "Dostawa",
       "faq": "FAQ",
-      "terms": "Regulamin",
-      "loyaltyTerms": "Regulamin programu lojalnościowego"
+      "terms": "Regulamin"
     },
     "about": {
       "eyebrow": "Nasza historia",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "Głosy gości",
       "title": "Opinie",
-      "lead": "Kilka słów od gości, którzy u nas zamawiają — dziękujemy za zaufanie i miłe opinie.",
+      "lead": "Prawdziwe opinie z Google Maps — dziękujemy za zaufanie.",
       "items": {
         "r1": {
           "text": "Najlepsza pizza w okolicy — zawsze świeża, zawsze miła obsługa. Zamawiamy co tydzień.",
@@ -373,7 +372,15 @@
           "text": "Ciepłe powitanie, hojne porcje, prawdziwy włoski smak. Gorąco polecam.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Wybierz oddział",
+      "branchReviews": "Najlepsze opinie Google dla Concordia {{branch}}",
+      "loading": "Ładowanie opinii…",
+      "loadError": "Nie udało się teraz załadować opinii Google.",
+      "fallbackNotice": "Polecane cytaty gości dla {{branch}}, podczas ładowania opinii Google.",
+      "viewOnGoogle": "Zobacz wszystkie opinie w Google Maps",
+      "ratingLabel": "{{rating}} na 5 gwiazdek",
+      "reviewCount": "{{count}} opinii Google"
     },
     "offers": {
       "eyebrow": "Oszczędzaj z nami",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "Informacje prawne",
-      "title": "Regulamin",
+      "title": "Regulamin i program lojalnościowy",
       "lead": "Niniejszy regulamin określa zasady korzystania z naszej strony internetowej oraz składania zamówień online w restauracji Concordia — rodzinnej restauracji włoskiej przy Concordienplatz 1, 47906 Kempen, Niemcy. Poniższe informacje służą przejrzystości i nie stanowią indywidualnej porady prawnej.",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "Ostatnia aktualizacja: 8 czerwca 2026",
-      "contact": "Pytania dotyczące tych warunków: skontaktuj się przez stronę kontaktową (/contact) lub odwiedź restaurację przy Concordienplatz 1, Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Program lojalnościowy",
-      "title": "Regulamin programu lojalnościowego",
-      "lead": "Niniejszy regulamin określa zasady uczestnictwa w programie lojalnościowym Concordia dla zarejestrowanych klientów. Uzupełnia nasz regulamin ogólny i nie stanowi porady prawnej.",
-      "sections": {
+      "contact": "Pytania dotyczące tych warunków: skontaktuj się przez stronę kontaktową (/contact) lub odwiedź restaurację przy Concordienplatz 1, Kempen.",
+      "loyaltyPartTitle": "Część 2: Program lojalnościowy",
+      "loyaltyPartLead": "Poniższe warunki obowiązują dodatkowo dla naszego bezpłatnego programu lojalnościowego.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Przegląd",
           "body": "Program lojalnościowy Concordia nagradza powtarzające się zamówienia punktami, korzyściami statusowymi i wybranymi promocjami. Uczestnictwo wymaga konta klienta. Program prowadzi Concordia Restaurant, Concordienplatz 1, 47906 Kempen, i może być zmieniany lub zakończony w dowolnym momencie, o ile prawo na to pozwala."
@@ -520,9 +524,7 @@
           "title": "8. Zmiany i zakończenie",
           "body": "Możemy zmieniać warunki programu, zasady punktów, poziomy i korzyści ze skutkiem na przyszłość. Istotne zmiany będą komunikowane przez stronę lub e-mail, gdy to możliwe. Dalsze korzystanie po wejściu zmian w życie oznacza akceptację, o ile nie oferujemy możliwości rezygnacji. Program może zostać całkowicie zakończony; pozostałe punkty będą rozliczone według obowiązujących wówczas zasad."
         }
-      },
-      "updated": "Ostatnia aktualizacja: 8 czerwca 2026",
-      "contact": "Pytania dotyczące tych warunków: skontaktuj się przez stronę kontaktową (/contact) lub odwiedź restaurację przy Concordienplatz 1, Kempen."
+      }
     }
   },
   "giftVoucher": {

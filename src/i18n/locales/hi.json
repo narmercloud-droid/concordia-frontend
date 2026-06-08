@@ -219,7 +219,7 @@
     "loyaltyBalance": "लॉयल्टी: {{points}} पॉइंट ({{tier}} स्तर)",
     "loyaltyPerkPoints": "हर डिलीवर ऑर्डर पर पॉइंट कमाएं",
     "loyaltyPerkTier": "कांस्य, चांदी और सोने के सदस्य लाभ अनलॉक करें",
-    "termsNotice": "ऑर्डर देकर आप <termsLink>नियम व शर्तें</termsLink> और <loyaltyLink>लॉयल्टी प्रोग्राम की शर्तें</loyaltyLink> स्वीकार करते हैं।"
+    "termsNotice": "ऑर्डर देकर आप <termsLink>नियम व शर्तें</termsLink> स्वीकार करते हैं।"
   },
   "item": {
     "loading": "आइटम लोड हो रहा है…",
@@ -287,8 +287,8 @@
     "noAccount": "खाता नहीं है?",
     "hasAccount": "पहले से खाता है?",
     "loyaltyBenefits": "मुफ्त रजिस्टर करें और हमारे लॉयल्टी प्रोग्राम में शामिल हों:",
-    "acceptTerms": "मैं <termsLink>नियम व शर्तें</termsLink> और <loyaltyLink>लॉयल्टी प्रोग्राम की शर्तें</loyaltyLink> स्वीकार करता/करती हूँ।",
-    "acceptTermsRequired": "कृपया नियम और लॉयल्टी शर्तें स्वीकार करें।"
+    "acceptTerms": "मैं <termsLink>नियम व शर्तें</termsLink> स्वीकार करता/करती हूँ।",
+    "acceptTermsRequired": "कृपया नियम व शर्तें स्वीकार करें।"
   },
   "pages": {
     "navLabel": "साइट पेज",
@@ -301,8 +301,7 @@
       "offers": "ऑफ़र",
       "delivery": "डिलीवरी",
       "faq": "अक्सर पूछे जाने वाले प्रश्न",
-      "terms": "सेवा की शर्तें",
-      "loyaltyTerms": "लॉयल्टी कार्यक्रम की शर्तें"
+      "terms": "नियम"
     },
     "about": {
       "eyebrow": "हमारी कहानी",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "मेहमानों की आवाज़",
       "title": "समीक्षाएँ",
-      "lead": "हमारे साथ ऑर्डर करने वाले मेहमानों के कुछ शब्द — विश्वास और सौम्य प्रतिक्रिया के लिए धन्यवाद।",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "इलाके की सर्वश्रेष्ठ पिज़्ज़ा — हमेशा ताज़ा, हमेशा मिलनसार। हम हर सप्ताह ऑर्डर करते हैं।",
@@ -373,7 +372,15 @@
           "text": "गर्म स्वागत, उदार मात्रा, सच्चा इतालवी स्वाद। अत्यधिक अनुशंसित।",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "हमारे साथ बचत",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "कानूनी",
-      "title": "सेवा की शर्तें",
+      "title": "नियम व शर्तें और लॉयल्टी कार्यक्रम",
       "lead": "ये सेवा की शर्तें हमारी वेबसाइट और Concordia Restaurant — Concordienplatz 1, 47906 Kempen, जर्मनी में एक पारिवारिक इतालवी रेस्तरां — पर ऑनलाइन ऑर्डर के उपयोग को नियंत्रित करती हैं। नीचे दी गई जानकारी पारदर्शिता के लिए है और व्यक्तिगत कानूनी सलाह नहीं है।",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "अंतिम अद्यतन: 8 जून 2026",
-      "contact": "इन शर्तों के बारे में प्रश्न: हमारे संपर्क पृष्ठ (/contact) के माध्यम से संपर्क करें या Concordienplatz 1, Kempen पर रेस्तरां में आएं।"
-    },
-    "loyaltyTerms": {
-      "eyebrow": "लॉयल्टी कार्यक्रम",
-      "title": "लॉयल्टी कार्यक्रम की शर्तें",
-      "lead": "ये शर्तें पंजीकृत ग्राहकों के लिए Concordia लॉयल्टी कार्यक्रम में भागीदारी को नियंत्रित करती हैं। ये हमारी सेवा की शर्तों को पूरक करती हैं और कानूनी सलाह नहीं हैं।",
-      "sections": {
+      "contact": "इन शर्तों के बारे में प्रश्न: हमारे संपर्क पृष्ठ (/contact) के माध्यम से संपर्क करें या Concordienplatz 1, Kempen पर रेस्तरां में आएं।",
+      "loyaltyPartTitle": "भाग 2: लॉयल्टी कार्यक्रम",
+      "loyaltyPartLead": "निम्नलिखित शर्तें हमारे मुफ्त लॉयल्टी कार्यक्रम पर अतिरिक्त लागू होती हैं।",
+      "loyaltySections": {
         "overview": {
           "title": "1. अवलोकन",
           "body": "Concordia लॉयल्टी कार्यक्रम बार-बार ऑर्डर को अंक, स्तर लाभ और चयनित प्रचारों से पुरस्कृत करता है। भागीदारी के लिए ग्राहक खाता आवश्यक है। कार्यक्रम Concordia Restaurant, Concordienplatz 1, 47906 Kempen द्वारा संचालित है और कानून द्वारा अनुमत सीमा तक कभी भी समायोजित या बंद किया जा सकता है।"
@@ -520,9 +524,7 @@
           "title": "8. परिवर्तन और समाप्ति",
           "body": "हम इन कार्यक्रम शर्तों, अंक नियमों, स्तरों और लाभों को भविष्य के प्रभाव से बदल सकते हैं। महत्वपूर्ण परिवर्तन जहां संभव हो वेबसाइट या ईमेल के माध्यम से सूचित किए जाएंगे। परिवर्तन प्रभावी होने के बाद निरंतर उपयोग स्वीकृति माना जाता है, जब तक ऑप्ट-आउट न दिया जाए। कार्यक्रम पूरी तरह समाप्त किया जा सकता है; शेष अंक तब लागू नियमों के अनुसार संभाले जाएंगे।"
         }
-      },
-      "updated": "अंतिम अद्यतन: 8 जून 2026",
-      "contact": "इन शर्तों के बारे में प्रश्न: हमारे संपर्क पृष्ठ (/contact) के माध्यम से संपर्क करें या Concordienplatz 1, Kempen पर रेस्तरां में आएं।"
+      }
     }
   },
   "giftVoucher": {

@@ -219,7 +219,7 @@
     "loyaltyBalance": "Loyalty: {{points}} points ({{tier}} tier)",
     "loyaltyPerkPoints": "Earn points on every delivered order",
     "loyaltyPerkTier": "Unlock bronze, silver and gold member rewards",
-    "termsNotice": "By placing your order you accept our <termsLink>Terms & Conditions</termsLink> and <loyaltyLink>Loyalty Programme Terms</loyaltyLink>."
+    "termsNotice": "By placing your order you accept our <termsLink>Terms & Conditions</termsLink>."
   },
   "giftVoucher": {
     "title": "Gift voucher",
@@ -310,8 +310,7 @@
       "offers": "Offers",
       "delivery": "Delivery",
       "faq": "FAQ",
-      "terms": "Terms of Service",
-      "loyaltyTerms": "Loyalty Programme Terms"
+      "terms": "Terms"
     },
     "about": {
       "eyebrow": "Our story",
@@ -360,7 +359,15 @@
     "reviews": {
       "eyebrow": "Guest voices",
       "title": "Reviews",
-      "lead": "A few words from guests who order with us — thank you for your trust and kind feedback.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews",
       "items": {
         "r1": {
           "text": "The best pizza in the area — always fresh, always friendly. We order every week.",
@@ -449,7 +456,7 @@
     },
     "terms": {
       "eyebrow": "Legal",
-      "title": "Terms of Service",
+      "title": "Terms & Conditions",
       "lead": "These Terms of Service govern use of our website and online orders at Concordia Restaurant, a family-run Italian restaurant at Concordienplatz 1, 47906 Kempen, Germany. The information below is provided for transparency and does not constitute individual legal advice.",
       "sections": {
         "operator": {
@@ -490,13 +497,10 @@
         }
       },
       "updated": "Last updated: 8 June 2026",
-      "contact": "Questions about these terms: contact us via our contact page (/contact) or visit the restaurant at Concordienplatz 1, Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Loyalty programme",
-      "title": "Loyalty Programme Terms",
-      "lead": "These terms govern participation in the Concordia loyalty programme for registered customers. They supplement our Terms of Service and do not constitute legal advice.",
-      "sections": {
+      "contact": "Questions about these terms: contact us via our contact page (/contact) or visit the restaurant at Concordienplatz 1, Kempen.",
+      "loyaltyPartTitle": "Part 2: Loyalty programme",
+      "loyaltyPartLead": "The following terms apply additionally to our free loyalty programme.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Overview",
           "body": "The Concordia loyalty programme rewards repeat orders with points, tier benefits, and selected promotions. Participation requires a customer account. The programme is operated by Concordia Restaurant, Concordienplatz 1, 47906 Kempen, and may be adjusted or discontinued at any time where permitted by law."
@@ -529,9 +533,7 @@
           "title": "8. Changes and termination",
           "body": "We may change these programme terms, point rules, tiers, and benefits with future effect. Material changes will be communicated via the website or email where possible. Continued use after changes take effect constitutes acceptance unless an opt-out is offered. The programme may be discontinued entirely; any remaining points will be handled under the rules then in force."
         }
-      },
-      "updated": "Last updated: 8 June 2026",
-      "contact": "Questions about these terms: contact us via our contact page (/contact) or visit the restaurant at Concordienplatz 1, Kempen."
+      }
     }
   },
   "auth": {
@@ -547,8 +549,8 @@
     "noAccount": "No account yet?",
     "hasAccount": "Already have an account?",
     "loyaltyBenefits": "Register free and join our loyalty programme:",
-    "acceptTerms": "I accept the <termsLink>Terms & Conditions</termsLink> and <loyaltyLink>Loyalty Programme Terms</loyaltyLink>.",
-    "acceptTermsRequired": "Please accept the terms and loyalty programme conditions."
+    "acceptTerms": "I accept the <termsLink>Terms & Conditions</termsLink>.",
+    "acceptTermsRequired": "Please accept the Terms & Conditions."
   },
   "account": {
     "ordersLoading": "Loading orders…",

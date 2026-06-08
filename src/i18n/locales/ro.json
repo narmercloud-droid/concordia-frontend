@@ -219,7 +219,7 @@
     "loyaltyBalance": "Loialitate: {{points}} puncte (nivel {{tier}})",
     "loyaltyPerkPoints": "Câștigați puncte la fiecare comandă livrată",
     "loyaltyPerkTier": "Deblocați recompense bronz, argint și aur",
-    "termsNotice": "Plasând comanda acceptați <termsLink>termenii și condițiile</termsLink> și <loyaltyLink>regulamentul programului de loialitate</loyaltyLink>."
+    "termsNotice": "Plasând comanda acceptați <termsLink>termenii și condițiile</termsLink>."
   },
   "item": {
     "loading": "Se încarcă preparatul…",
@@ -287,8 +287,8 @@
     "noAccount": "Nu aveți cont?",
     "hasAccount": "Aveți deja cont?",
     "loyaltyBenefits": "Înregistrează-te gratuit și alătură-te programului de loialitate:",
-    "acceptTerms": "Accept <termsLink>termenii și condițiile</termsLink> și <loyaltyLink>regulamentul programului de loialitate</loyaltyLink>.",
-    "acceptTermsRequired": "Acceptați termenii și regulamentul programului de loialitate."
+    "acceptTerms": "Accept <termsLink>termenii și condițiile</termsLink>.",
+    "acceptTermsRequired": "Acceptați termenii și condițiile."
   },
   "pages": {
     "navLabel": "Pagini site",
@@ -301,8 +301,7 @@
       "offers": "Oferte",
       "delivery": "Livrare",
       "faq": "FAQ",
-      "terms": "Termeni și condiții",
-      "loyaltyTerms": "Termeni program de fidelitate"
+      "terms": "Termeni"
     },
     "about": {
       "eyebrow": "Povestea noastră",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "Voci ale oaspeților",
       "title": "Recenzii",
-      "lead": "Câteva cuvinte de la oaspeții care comandă la noi — mulțumim pentru încredere și feedbackul prietenos.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "Cea mai bună pizza din zonă — mereu proaspătă, mereu prietenoasă. Comandăm în fiecare săptămână.",
@@ -373,7 +372,15 @@
           "text": "Primire caldă, porții generoase, gust italian autentic. Recomand cu căldură.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "Economisește cu noi",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "Informații legale",
-      "title": "Termeni și condiții",
+      "title": "Termeni și program de loialitate",
       "lead": "Acești termeni reglementează utilizarea site-ului nostru și comenzile online la Concordia Restaurant, un restaurant italian de familie la Concordienplatz 1, 47906 Kempen, Germania. Informațiile de mai jos sunt oferite pentru transparență și nu constituie consultanță juridică individuală.",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "Ultima actualizare: 8 iunie 2026",
-      "contact": "Întrebări despre acești termeni: contactați-ne prin pagina de contact (/contact) sau vizitați restaurantul la Concordienplatz 1, Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Program de fidelitate",
-      "title": "Termeni program de fidelitate",
-      "lead": "Acești termeni reglementează participarea la programul de fidelitate Concordia pentru clienții înregistrați. Completează termenii și condițiile generale și nu constituie consultanță juridică.",
-      "sections": {
+      "contact": "Întrebări despre acești termeni: contactați-ne prin pagina de contact (/contact) sau vizitați restaurantul la Concordienplatz 1, Kempen.",
+      "loyaltyPartTitle": "Partea 2: Program de loialitate",
+      "loyaltyPartLead": "Următoarele condiții se aplică în plus programului nostru gratuit de loialitate.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Prezentare generală",
           "body": "Programul de fidelitate Concordia recompensează comenzile repetate cu puncte, beneficii de nivel și promoții selectate. Participarea necesită un cont de client. Programul este operat de Concordia Restaurant, Concordienplatz 1, 47906 Kempen, și poate fi modificat sau încheiat oricând, în măsura permisă de lege."
@@ -520,9 +524,7 @@
           "title": "8. Modificări și încetare",
           "body": "Putem modifica acești termeni ai programului, regulile de puncte, nivelurile și beneficiile cu efect viitor. Modificările importante vor fi comunicate prin site sau e-mail, unde este posibil. Utilizarea continuă după intrarea în vigoare a modificărilor constituie acceptare, dacă nu se oferă opțiune de renunțare. Programul poate fi încheiat complet; punctele rămase vor fi tratate conform regulilor în vigoare atunci."
         }
-      },
-      "updated": "Ultima actualizare: 8 iunie 2026",
-      "contact": "Întrebări despre acești termeni: contactați-ne prin pagina de contact (/contact) sau vizitați restaurantul la Concordienplatz 1, Kempen."
+      }
     }
   },
   "giftVoucher": {

@@ -90,8 +90,7 @@ export default function RegisterPage() {
           <Trans
             i18nKey="auth.acceptTerms"
             components={{
-              termsLink: <Link to="/terms" className="checkout-terms-link" />,
-              loyaltyLink: <Link to="/loyalty-terms" className="checkout-terms-link" />
+              termsLink: <Link to="/terms" className="checkout-terms-link" />
             }}
           />
         </span>

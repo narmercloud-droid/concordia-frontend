@@ -847,8 +847,7 @@ export default function CheckoutPage() {
           <Trans
             i18nKey="checkout.termsNotice"
             components={{
-              termsLink: <Link to="/terms" className="checkout-terms-link" />,
-              loyaltyLink: <Link to="/loyalty-terms" className="checkout-terms-link" />
+              termsLink: <Link to="/terms" className="checkout-terms-link" />
             }}
           />
         </p>

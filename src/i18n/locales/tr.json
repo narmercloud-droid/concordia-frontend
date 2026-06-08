@@ -219,7 +219,7 @@
     "loyaltyBalance": "Sadakat programı: {{points}} puan ({{tier}})",
     "loyaltyPerkPoints": "Her teslimat siparişinde puan kazanın",
     "loyaltyPerkTier": "Bronz, gümüş ve altın avantajların kilidini açın",
-    "termsNotice": "Sipariş vererek <termsLink>Kullanım Şartları</termsLink> ve <loyaltyLink>Sadakat Programı Koşullarını</loyaltyLink> kabul etmiş olursunuz."
+    "termsNotice": "Sipariş vererek <termsLink>Kullanım Şartları</termsLink>nı kabul etmiş olursunuz."
   },
   "giftVoucher": {
     "title": "Hediye çeki",
@@ -315,8 +315,7 @@
       "offers": "Teklifler",
       "delivery": "Teslimat",
       "faq": "SSS",
-      "terms": "Hizmet Şartları",
-      "loyaltyTerms": "Sadakat Programı Şartları"
+      "terms": "Şartlar"
     },
     "about": {
       "eyebrow": "Hikayemiz",
@@ -365,7 +364,7 @@
     "reviews": {
       "eyebrow": "Misafir sesleri",
       "title": "Yorumlar",
-      "lead": "Bizden sipariş veren misafirlerden birkaç söz — güveniniz ve nazik geri bildiriminiz için teşekkürler.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "Bölgedeki en iyi pizza — her zaman taze, her zaman güler yüzlü. Her hafta sipariş veriyoruz.",
@@ -387,7 +386,15 @@
           "text": "Sıcak karşılama, cömert porsiyonlar, gerçek İtalyan lezzeti. Şiddetle tavsiye ederim.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "Bizimle tasarruf edin",
@@ -454,7 +461,7 @@
     },
     "terms": {
       "eyebrow": "Yasal",
-      "title": "Hizmet Şartları",
+      "title": "Kullanım şartları ve sadakat programı",
       "lead": "Bu Hizmet Şartları, Concordia Restaurant — Concordienplatz 1, 47906 Kempen, Almanya'daki aile işletmesi İtalyan restoranımızda web sitemizin ve çevrimiçi siparişlerin kullanımını düzenler. Aşağıdaki bilgiler şeffaflık içindir ve bireysel hukuki tavsiye niteliği taşımaz.",
       "sections": {
         "operator": {
@@ -495,13 +502,10 @@
         }
       },
       "updated": "Son güncelleme: 8 Haziran 2026",
-      "contact": "Bu şartlarla ilgili sorular: iletişim sayfamız (/contact) üzerinden bize ulaşın veya Concordienplatz 1, Kempen adresindeki restoranı ziyaret edin."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Sadakat programı",
-      "title": "Sadakat Programı Şartları",
-      "lead": "Bu şartlar, kayıtlı müşterilerin Concordia sadakat programına katılımını düzenler. Hizmet Şartlarını tamamlar ve hukuki tavsiye niteliği taşımaz.",
-      "sections": {
+      "contact": "Bu şartlarla ilgili sorular: iletişim sayfamız (/contact) üzerinden bize ulaşın veya Concordienplatz 1, Kempen adresindeki restoranı ziyaret edin.",
+      "loyaltyPartTitle": "Bölüm 2: Sadakat programı",
+      "loyaltyPartLead": "Aşağıdaki koşullar ücretsiz sadakat programımız için ek olarak geçerlidir.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Genel bakış",
           "body": "Concordia sadakat programı tekrarlayan siparişleri puanlar, seviye avantajları ve seçili promosyonlarla ödüllendirir. Katılım müşteri hesabı gerektirir. Program Concordia Restaurant, Concordienplatz 1, 47906 Kempen tarafından işletilir ve kanunun izin verdiği ölçüde her zaman ayarlanabilir veya sonlandırılabilir."
@@ -534,9 +538,7 @@
           "title": "8. Değişiklikler ve sonlandırma",
           "body": "Bu program şartlarını, puan kurallarını, seviyeleri ve avantajları gelecekte etkili olacak şekilde değiştirebiliriz. Önemli değişiklikler mümkün olduğunda site veya e-posta ile bildirilir. Değişiklikler yürürlüğe girdikten sonra kullanıma devam kabul sayılır; aksi bir seçenek sunulmadıkça. Program tamamen sonlandırılabilir; kalan puanlar o anda geçerli kurallara göre işlenir."
         }
-      },
-      "updated": "Son güncelleme: 8 Haziran 2026",
-      "contact": "Bu şartlarla ilgili sorular: iletişim sayfamız (/contact) üzerinden bize ulaşın veya Concordienplatz 1, Kempen adresindeki restoranı ziyaret edin."
+      }
     }
   },
   "auth": {
@@ -552,7 +554,7 @@
     "noAccount": "Henüz hesabınız yok mu?",
     "hasAccount": "Zaten hesabınız var mı?",
     "loyaltyBenefits": "Ücretsiz kaydolun ve sadakat programından yararlanın:",
-    "acceptTerms": "<termsLink>Kullanım şartlarını</termsLink> ve <loyaltyLink>sadakat programı koşullarını</loyaltyLink> kabul ediyorum.",
-    "acceptTermsRequired": "Lütfen şartları ve sadakat programı koşullarını kabul edin."
+    "acceptTerms": "<termsLink>Kullanım şartlarını</termsLink> kabul ediyorum.",
+    "acceptTermsRequired": "Lütfen kullanım şartlarını kabul edin."
   }
 }

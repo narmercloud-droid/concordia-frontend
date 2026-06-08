@@ -219,7 +219,7 @@
     "loyaltyBalance": "الولاء: {{points}} نقطة (مستوى {{tier}})",
     "loyaltyPerkPoints": "اكسب نقاطاً مع كل طلب يُسلّم",
     "loyaltyPerkTier": "افتح مزايا العضوية البرونزية والفضية والذهبية",
-    "termsNotice": "بإتمام الطلب فإنك توافق على <termsLink>الشروط والأحكام</termsLink> و<loyaltyLink>شروط برنامج الولاء</loyaltyLink>."
+    "termsNotice": "بإتمام الطلب فإنك توافق على <termsLink>الشروط والأحكام</termsLink>."
   },
   "item": {
     "loading": "جاري تحميل الطبق…",
@@ -287,8 +287,8 @@
     "noAccount": "ليس لديك حساب؟",
     "hasAccount": "لديك حساب بالفعل؟",
     "loyaltyBenefits": "سجّل مجاناً وانضم إلى برنامج الولاء:",
-    "acceptTerms": "أوافق على <termsLink>الشروط والأحكام</termsLink> و<loyaltyLink>شروط برنامج الولاء</loyaltyLink>.",
-    "acceptTermsRequired": "يرجى قبول الشروط وشروط برنامج الولاء."
+    "acceptTerms": "أوافق على <termsLink>الشروط والأحكام</termsLink>.",
+    "acceptTermsRequired": "يرجى قبول الشروط والأحكام."
   },
   "pages": {
     "navLabel": "صفحات الموقع",
@@ -301,8 +301,7 @@
       "offers": "العروض",
       "delivery": "التوصيل",
       "faq": "الأسئلة الشائعة",
-      "terms": "الشروط والأحكام",
-      "loyaltyTerms": "شروط برنامج الولاء"
+      "terms": "الشروط"
     },
     "about": {
       "eyebrow": "قصتنا",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "أصوات الضيوف",
       "title": "التقييمات",
-      "lead": "كلمات من ضيوف يطلبون معنا — شكراً لثقتكم وتعليقاتكم اللطيفة.",
+      "lead": "Real feedback from Google Maps — thank you for your trust and kind words.",
       "items": {
         "r1": {
           "text": "أفضل بيتزا في المنطقة — دائماً طازجة، دائماً ودية. نطلب كل أسبوع.",
@@ -373,7 +372,15 @@
           "text": "ترحيب دافئ، حصص سخية، نكهة إيطالية أصيلة. موصى به بشدة.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Choose branch",
+      "branchReviews": "Top Google reviews for Concordia {{branch}}",
+      "loading": "Loading reviews…",
+      "loadError": "Could not load Google reviews right now.",
+      "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
+      "viewOnGoogle": "See all reviews on Google Maps",
+      "ratingLabel": "{{rating}} out of 5 stars",
+      "reviewCount": "{{count}} Google reviews"
     },
     "offers": {
       "eyebrow": "وفّروا معنا",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "قانوني",
-      "title": "الشروط والأحكام",
+      "title": "الشروط والأحكام وبرنامج الولاء",
       "lead": "تنظم هذه الشروط استخدام موقعنا والطلبات عبر الإنترنت في مطعم Concordia — مطعم إيطالي عائلي في Concordienplatz 1، 47906 Kempen، ألمانيا. المعلومات أدناه لأغراض الشفافية ولا تشكل استشارة قانونية فردية.",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "آخر تحديث: ٨ يونيو ٢٠٢٦",
-      "contact": "أسئلة حول هذه الشروط: تواصل معنا عبر صفحة الاتصال (/contact) أو زر المطعم في Concordienplatz 1، Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "برنامج الولاء",
-      "title": "شروط برنامج الولاء",
-      "lead": "تنظم هذه الشروط المشاركة في برنامج ولاء Concordia للعملاء المسجلين. وهي تكمّل شروط الخدمة ولا تشكل استشارة قانونية.",
-      "sections": {
+      "contact": "أسئلة حول هذه الشروط: تواصل معنا عبر صفحة الاتصال (/contact) أو زر المطعم في Concordienplatz 1، Kempen.",
+      "loyaltyPartTitle": "الجزء 2: برنامج الولاء",
+      "loyaltyPartLead": "تنطبق الشروط التالية إضافاً على برنامج الولاء المجاني.",
+      "loyaltySections": {
         "overview": {
           "title": "1. نظرة عامة",
           "body": "يكافئ برنامج ولاء Concordia الطلبات المتكررة بالنقاط ومزايا المستويات والعروض المختارة. تتطلب المشاركة حساب عميل. يُدار البرنامج من قبل Concordia Restaurant، Concordienplatz 1، 47906 Kempen، ويمكن تعديله أو إيقافه في أي وقت ضمن ما يسمح به القانون."
@@ -520,9 +524,7 @@
           "title": "8. التغييرات والإنهاء",
           "body": "يمكننا تغيير شروط البرنامج وقواعد النقاط والمستويات والمزايا بأثر مستقبلي. سيتم إبلاغ التغييرات الجوهرية عبر الموقع أو البريد حيثما أمكن. الاستمرار في الاستخدام بعد سريان التغييرات يُعد قبولاً ما لم يُعرض خيار الانسحاب. قد يُنهى البرنامج بالكامل؛ تُعالج النقاط المتبقية وفق القواعد السارية حينها."
         }
-      },
-      "updated": "آخر تحديث: ٨ يونيو ٢٠٢٦",
-      "contact": "أسئلة حول هذه الشروط: تواصل معنا عبر صفحة الاتصال (/contact) أو زر المطعم في Concordienplatz 1، Kempen."
+      }
     }
   },
   "giftVoucher": {

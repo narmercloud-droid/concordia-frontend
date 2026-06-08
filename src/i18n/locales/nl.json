@@ -219,7 +219,7 @@
     "loyaltyBalance": "Spaarprogramma: {{points}} punten ({{tier}})",
     "loyaltyPerkPoints": "Verdien punten bij elke bezorgde bestelling",
     "loyaltyPerkTier": "Ontgrendel bronze-, zilver- en gouden voordelen",
-    "termsNotice": "Door te bestellen accepteert u onze <termsLink>algemene voorwaarden</termsLink> en <loyaltyLink>spaarprogramma-voorwaarden</loyaltyLink>."
+    "termsNotice": "Door te bestellen accepteert u onze <termsLink>algemene voorwaarden</termsLink>."
   },
   "item": {
     "loading": "Gerecht laden…",
@@ -287,8 +287,8 @@
     "noAccount": "Nog geen account?",
     "hasAccount": "Al een account?",
     "loyaltyBenefits": "Gratis registreren en deelnemen aan ons spaarprogramma:",
-    "acceptTerms": "Ik accepteer de <termsLink>algemene voorwaarden</termsLink> en de <loyaltyLink>spaarprogramma-voorwaarden</loyaltyLink>.",
-    "acceptTermsRequired": "Accepteer de voorwaarden en spaarprogramma-voorwaarden."
+    "acceptTerms": "Ik accepteer de <termsLink>algemene voorwaarden</termsLink>.",
+    "acceptTermsRequired": "Accepteer de algemene voorwaarden."
   },
   "pages": {
     "navLabel": "Sitepagina's",
@@ -301,8 +301,7 @@
       "offers": "Aanbiedingen",
       "delivery": "Bezorging",
       "faq": "FAQ",
-      "terms": "Algemene voorwaarden",
-      "loyaltyTerms": "Voorwaarden loyaliteitsprogramma"
+      "terms": "Voorwaarden"
     },
     "about": {
       "eyebrow": "Ons verhaal",
@@ -351,7 +350,7 @@
     "reviews": {
       "eyebrow": "Gasten aan het woord",
       "title": "Recensies",
-      "lead": "Enkele woorden van gasten die bij ons bestellen — bedankt voor uw vertrouwen en vriendelijke feedback.",
+      "lead": "Echte feedback van Google Maps — bedankt voor uw vertrouwen.",
       "items": {
         "r1": {
           "text": "De beste pizza in de buurt — altijd vers, altijd vriendelijk. We bestellen elke week.",
@@ -373,7 +372,15 @@
           "text": "Warm welkom, royale porties, echte Italiaanse smaak. Sterk aanbevolen.",
           "author": "Julia H., Geldern"
         }
-      }
+      },
+      "branchLabel": "Kies vestiging",
+      "branchReviews": "Top Google-recensies voor Concordia {{branch}}",
+      "loading": "Recensies laden…",
+      "loadError": "Google-recensies konden nu niet worden geladen.",
+      "fallbackNotice": "Uitgelichte gastcitaten voor {{branch}} terwijl Google-recensies laden.",
+      "viewOnGoogle": "Alle recensies op Google Maps",
+      "ratingLabel": "{{rating}} van 5 sterren",
+      "reviewCount": "{{count}} Google-recensies"
     },
     "offers": {
       "eyebrow": "Bespaar bij ons",
@@ -440,7 +447,7 @@
     },
     "terms": {
       "eyebrow": "Juridisch",
-      "title": "Algemene voorwaarden",
+      "title": "Algemene voorwaarden & spaarprogramma",
       "lead": "Deze algemene voorwaarden regelen het gebruik van onze website en online bestellingen bij Concordia Restaurant, een familiebedrijf met Italiaanse keuken aan Concordienplatz 1, 47906 Kempen, Duitsland. De onderstaande informatie is bedoeld voor transparantie en vormt geen individueel juridisch advies.",
       "sections": {
         "operator": {
@@ -481,13 +488,10 @@
         }
       },
       "updated": "Laatst bijgewerkt: 8 juni 2026",
-      "contact": "Vragen over deze voorwaarden: neem contact op via onze contactpagina (/contact) of bezoek het restaurant aan Concordienplatz 1, Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Loyaliteitsprogramma",
-      "title": "Voorwaarden loyaliteitsprogramma",
-      "lead": "Deze voorwaarden regelen deelname aan het Concordia-loyaliteitsprogramma voor geregistreerde klanten. Ze vullen onze algemene voorwaarden aan en vormen geen juridisch advies.",
-      "sections": {
+      "contact": "Vragen over deze voorwaarden: neem contact op via onze contactpagina (/contact) of bezoek het restaurant aan Concordienplatz 1, Kempen.",
+      "loyaltyPartTitle": "Deel 2: Spaarprogramma",
+      "loyaltyPartLead": "De volgende voorwaarden gelden aanvullend voor ons gratis spaarprogramma.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Overzicht",
           "body": "Het Concordia-loyaliteitsprogramma beloont terugkerende bestellingen met punten, statusvoordelen en geselecteerde acties. Deelname vereist een klantaccount. Het programma wordt beheerd door Concordia Restaurant, Concordienplatz 1, 47906 Kempen, en kan te allen tijde worden aangepast of beëindigd voor zover wettelijk toegestaan."
@@ -520,9 +524,7 @@
           "title": "8. Wijzigingen en beëindiging",
           "body": "Wij kunnen deze programmavoorwaarden, puntenregels, niveaus en voordelen met toekomstige werking wijzigen. Belangrijke wijzigingen worden waar mogelijk via de website of e-mail gecommuniceerd. Voortgezet gebruik na inwerkingtreding geldt als acceptatie, tenzij een opt-out wordt aangeboden. Het programma kan volledig worden beëindigd; resterende punten worden behandeld volgens de dan geldende regels."
         }
-      },
-      "updated": "Laatst bijgewerkt: 8 juni 2026",
-      "contact": "Vragen over deze voorwaarden: neem contact op via onze contactpagina (/contact) of bezoek het restaurant aan Concordienplatz 1, Kempen."
+      }
     }
   },
   "giftVoucher": {

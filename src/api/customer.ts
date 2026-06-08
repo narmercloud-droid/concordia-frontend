@@ -13,6 +13,28 @@ export const getBranches = async () => {
   return unwrap<any[]>(res)
 }
 
+export type BranchGoogleReview = {
+  author: string
+  rating: number
+  text: string
+  relativeTime?: string
+  profilePhotoUrl?: string
+}
+
+export type BranchGoogleReviewsResponse = {
+  branchId: string
+  source: "google" | "snapshot" | "unavailable"
+  rating: number | null
+  reviewCount: number | null
+  googleMapsUrl: string | null
+  reviews: BranchGoogleReview[]
+}
+
+export const getBranchGoogleReviews = async (branchId: string) => {
+  const res = await api.get(`/api/branches/${branchId}/google-reviews`)
+  return unwrap<BranchGoogleReviewsResponse>(res)
+}
+
 export const getBranchMenu = async (branchId: string) => {
   const res = await api.get(`/api/branches/${branchId}/menu`)
   return unwrap<{ categories: any[] }>(res)

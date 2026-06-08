@@ -219,7 +219,7 @@
     "loyaltyBalance": "Treueprogramm: {{points}} Punkte ({{tier}})",
     "loyaltyPerkPoints": "Punkte bei jeder gelieferten Bestellung",
     "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten",
-    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB</termsLink> und die <loyaltyLink>Bedingungen des Treueprogramms</loyaltyLink>."
+    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB & Treueprogramm</termsLink>."
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",
@@ -315,8 +315,7 @@
       "offers": "Angebote",
       "delivery": "Lieferung",
       "faq": "FAQ",
-      "terms": "AGB",
-      "loyaltyTerms": "Treueprogramm"
+      "terms": "AGB"
     },
     "about": {
       "eyebrow": "Unsere Geschichte",
@@ -365,7 +364,15 @@
     "reviews": {
       "eyebrow": "Stimmen unserer Gäste",
       "title": "Bewertungen",
-      "lead": "Einige Worte von Gästen, die bei uns bestellen — vielen Dank für Ihr Vertrauen.",
+      "lead": "Echte Bewertungen von Google Maps — vielen Dank für Ihr Vertrauen.",
+      "branchLabel": "Filiale wählen",
+      "branchReviews": "Top Google-Bewertungen für Concordia {{branch}}",
+      "loading": "Bewertungen werden geladen…",
+      "loadError": "Google-Bewertungen konnten gerade nicht geladen werden.",
+      "fallbackNotice": "Ausgewählte Gästestimmen für {{branch}}, während Google-Bewertungen geladen werden.",
+      "viewOnGoogle": "Alle Bewertungen auf Google Maps",
+      "ratingLabel": "{{rating}} von 5 Sternen",
+      "reviewCount": "{{count}} Google-Bewertungen",
       "items": {
         "r1": {
           "text": "Die beste Pizza in der Umgebung — immer frisch, immer freundlich. Wir bestellen jede Woche.",
@@ -454,7 +461,7 @@
     },
     "terms": {
       "eyebrow": "Rechtliches",
-      "title": "Allgemeine Geschäftsbedingungen",
+      "title": "AGB & Treueprogramm",
       "lead": "Diese Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung unserer Website sowie Online-Bestellungen bei Concordia Restaurant, einem familiengeführten italienischen Restaurant am Concordienplatz 1, 47906 Kempen, Deutschland. Die nachfolgenden Informationen dienen der Transparenz und stellen keine individuelle Rechtsberatung dar.",
       "sections": {
         "operator": {
@@ -495,13 +502,10 @@
         }
       },
       "updated": "Zuletzt aktualisiert: 8. Juni 2026",
-      "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen."
-    },
-    "loyaltyTerms": {
-      "eyebrow": "Treueprogramm",
-      "title": "Bedingungen des Treueprogramms",
-      "lead": "Diese Bedingungen regeln die Teilnahme am Concordia-Treueprogramm für registrierte Kunden. Sie ergänzen unsere Allgemeinen Geschäftsbedingungen und stellen keine Rechtsberatung dar.",
-      "sections": {
+      "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen.",
+      "loyaltyPartTitle": "Teil 2: Treueprogramm",
+      "loyaltyPartLead": "Die folgenden Bedingungen gelten zusätzlich für unser kostenloses Treueprogramm.",
+      "loyaltySections": {
         "overview": {
           "title": "1. Überblick",
           "body": "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Concordia Restaurant, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
@@ -534,9 +538,7 @@
           "title": "8. Änderungen und Beendigung",
           "body": "Wir können diese Programmbedingungen, Punkteregeln, Stufen und Vorteile mit Wirkung für die Zukunft ändern. Wesentliche Änderungen werden über die Website oder per E-Mail kommuniziert, soweit möglich. Die fortgesetzte Nutzung des Programms nach Inkrafttreten gilt als Zustimmung, sofern keine Widerspruchsmöglichkeit angeboten wird. Das Programm kann insgesamt beendet werden; in diesem Fall werden offene Punkte nach den dann geltenden Regeln behandelt."
         }
-      },
-      "updated": "Zuletzt aktualisiert: 8. Juni 2026",
-      "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen."
+      }
     }
   },
   "auth": {
@@ -552,7 +554,7 @@
     "noAccount": "Noch kein Konto?",
     "hasAccount": "Bereits ein Konto?",
     "loyaltyBenefits": "Kostenlos registrieren und vom Treueprogramm profitieren:",
-    "acceptTerms": "Ich akzeptiere die <termsLink>AGB</termsLink> und die <loyaltyLink>Bedingungen des Treueprogramms</loyaltyLink>.",
-    "acceptTermsRequired": "Bitte akzeptieren Sie die AGB und Treueprogramm-Bedingungen."
+    "acceptTerms": "Ich akzeptiere die <termsLink>AGB & Treueprogramm</termsLink>.",
+    "acceptTermsRequired": "Bitte akzeptieren Sie die AGB & Treueprogramm-Bedingungen."
   }
 }
