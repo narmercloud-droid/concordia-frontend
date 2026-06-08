@@ -16,11 +16,17 @@
     "processing": "Processing…",
     "close": "Close",
     "retry": "Try again",
+    "errorTitle": "Something went wrong",
+    "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
+    "refreshPage": "Refresh page",
     "logoAlt": "Concordia Restaurant",
     "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
   },
   "lang": {
     "label": "Language"
+  },
+  "legal": {
+    "localeNote": "The legally binding version of this page is provided in German below."
   },
   "layout": {
     "notificationsDisabled": "Notifications are disabled. Enable them in your browser settings to receive order updates.",
@@ -317,6 +323,7 @@
   },
   "pages": {
     "navLabel": "Site pages",
+    "legalNavLabel": "Legal",
     "backHome": "Back to home",
     "nav": {
       "home": "Home",
@@ -326,7 +333,10 @@
       "offers": "Offers",
       "delivery": "Delivery",
       "faq": "FAQ",
-      "terms": "Terms"
+      "impressum": "Legal notice",
+      "privacy": "Privacy",
+      "agb": "Terms (AGB)",
+      "terms": "Terms & loyalty"
     },
     "about": {
       "eyebrow": "Our story",
@@ -468,13 +478,36 @@
         "q6": {
           "q": "When will Straelen open?",
           "a": "Concordia Straelen is coming soon. You'll see it in our branch list as soon as ordering goes live."
+        },
+        "q7": {
+          "q": "Where can I find legal information?",
+          "a": "Legal notice (Impressum), privacy policy and general terms are linked in the footer under Legal. Website order and loyalty terms are on Terms & loyalty."
         }
-      }
+      },
+      "legalTitle": "Legal information",
+      "legalLead": "Impressum, privacy policy and terms — carried over from our previous online shop."
+    },
+    "impressum": {
+      "eyebrow": "Legal",
+      "title": "Legal notice (Impressum)",
+      "lead": "Mandatory provider information for Pizzeria Concordia in Kempen, Germany."
+    },
+    "privacy": {
+      "eyebrow": "Legal",
+      "title": "Privacy policy",
+      "lead": "How we process personal data on the Concordia website."
+    },
+    "agb": {
+      "eyebrow": "Legal",
+      "title": "General terms and conditions (AGB)",
+      "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
+      "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
     },
     "terms": {
       "eyebrow": "Legal",
       "title": "Terms & Conditions",
-      "lead": "These Terms of Service govern use of our website and online orders at Concordia Restaurant, a family-run Italian restaurant at Concordienplatz 1, 47906 Kempen, Germany. The information below is provided for transparency and does not constitute individual legal advice.",
+      "lead": "These terms govern online orders on the Concordia website and the loyalty programme.",
+      "relatedLegal": "See also: <impressumLink>Legal notice</impressumLink> · <privacyLink>Privacy</privacyLink> · <agbLink>AGB</agbLink>",
       "sections": {
         "operator": {
           "title": "1. Operator and scope",
@@ -506,7 +539,7 @@
         },
         "privacy": {
           "title": "8. Privacy",
-          "body": "To process orders, payments, deliveries, vouchers, loyalty points, and optional marketing communications, we process personal data in accordance with applicable data protection law. Please see our privacy policy on the website for details on data collected, purposes, and your rights. You may place orders without marketing consent."
+          "body": "Details are in our <privacyLink>privacy policy</privacyLink>. You may place orders without marketing consent."
         },
         "law": {
           "title": "9. Governing law and jurisdiction",

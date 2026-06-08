@@ -4,11 +4,11 @@ import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { scrollToBranchChoice } from "@/lib/scrollToBranchChoice"
 
 const ITEMS = [
-  { key: "pizza", image: FOOD_IMAGES.pizza },
-  { key: "pasta", image: FOOD_IMAGES.pasta },
-  { key: "salads", image: FOOD_IMAGES.salads },
+  { key: "pizza", image: FOOD_IMAGES.pizzaMargherita },
+  { key: "pasta", image: FOOD_IMAGES.pastaTomato },
+  { key: "salads", image: FOOD_IMAGES.saladMixed },
   { key: "alforno", image: FOOD_IMAGES.alforno },
-  { key: "classics", image: FOOD_IMAGES.classics }
+  { key: "classics", image: FOOD_IMAGES.schnitzel }
 ] as const
 
 export default function MenuShowcase() {

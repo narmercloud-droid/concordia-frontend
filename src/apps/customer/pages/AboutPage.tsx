@@ -76,7 +76,7 @@ export default function AboutPage() {
 
       <section
         className="about-kitchen-banner"
-        style={{ backgroundImage: `url(${FOOD_IMAGES.pizza})` }}
+        style={{ backgroundImage: `url(${FOOD_IMAGES.pizzaMargherita})` }}
       >
         <div className="about-kitchen-banner__overlay" aria-hidden="true" />
         <div className="about-kitchen-banner__copy">

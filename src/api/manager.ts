@@ -115,6 +115,27 @@ export const deleteManagerMenuItem = (branchMenuItemId: number, branchId?: strin
     params: withBranch(branchId)
   })
 
+export const uploadManagerMenuItemImage = async (
+  branchMenuItemId: number,
+  file: File,
+  branchId?: string
+) => {
+  const fd = new FormData()
+  fd.append("image", file)
+  if (branchId) fd.append("branchId", branchId)
+  const res = await api.post(`/api/v1/manager/menu/items/${branchMenuItemId}/image`, fd, {
+    headers: { "Content-Type": "multipart/form-data" }
+  })
+  return unwrap(res)
+}
+
+export const clearManagerMenuItemImage = async (branchMenuItemId: number, branchId?: string) => {
+  const res = await api.delete(`/api/v1/manager/menu/items/${branchMenuItemId}/image`, {
+    params: withBranch(branchId)
+  })
+  return unwrap(res)
+}
+
 export const createManagerVariantGroup = (
   menuItemId: number,
   data: Record<string, unknown>,

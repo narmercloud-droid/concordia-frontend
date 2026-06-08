@@ -1,8 +1,8 @@
 import i18n from "i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
 import { initReactI18next } from "react-i18next"
 import {
   DEFAULT_LANGUAGE,
+  detectPreferredLanguage,
   isRtlLanguage,
   resolveAppLanguage,
   SUPPORTED_LANGUAGE_CODES
@@ -43,25 +43,19 @@ async function loadLocale(lng: string) {
 }
 
 export async function bootstrapI18n() {
-  await i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      resources: {
-        de: { translation: de }
-      },
-      fallbackLng: DEFAULT_LANGUAGE,
-      supportedLngs: SUPPORTED_LANGUAGE_CODES,
-      load: "languageOnly",
-      nonExplicitSupportedLngs: true,
-      detection: {
-        order: ["localStorage", "navigator"],
-        caches: ["localStorage"],
-        lookupLocalStorage: "concordia-lang-v2",
-        convertDetectedLanguage: (lng) => resolveAppLanguage(lng)
-      },
-      interpolation: { escapeValue: false }
-    })
+  const initialLanguage = detectPreferredLanguage()
+
+  await i18n.use(initReactI18next).init({
+    lng: initialLanguage,
+    resources: {
+      de: { translation: de }
+    },
+    fallbackLng: DEFAULT_LANGUAGE,
+    supportedLngs: SUPPORTED_LANGUAGE_CODES,
+    load: "languageOnly",
+    nonExplicitSupportedLngs: true,
+    interpolation: { escapeValue: false }
+  })
 
   syncDocumentLanguage(i18n.language)
   i18n.on("languageChanged", (lng) => {

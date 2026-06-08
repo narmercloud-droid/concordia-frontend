@@ -39,6 +39,45 @@ export const DEFAULT_LANGUAGE: AppLanguage = "de"
 
 export const SUPPORTED_LANGUAGE_CODES = LANGUAGES.map((lang) => lang.code)
 
+/** Saved only when the customer picks a language in the header switcher. */
+export const LANGUAGE_STORAGE_KEY = "concordia-lang-v2"
+
+function languageFromCode(code: string | undefined): AppLanguage | null {
+  const short = (code ?? "").split("-")[0].toLowerCase()
+  return SUPPORTED_LANGUAGE_CODES.includes(short as AppLanguage) ? (short as AppLanguage) : null
+}
+
+/** Manual override from localStorage, else first matching phone/browser locale, else German. */
+export function detectPreferredLanguage(): AppLanguage {
+  if (typeof window !== "undefined") {
+    try {
+      const manual = localStorage.getItem(LANGUAGE_STORAGE_KEY)
+      const fromManual = languageFromCode(manual ?? undefined)
+      if (fromManual) return fromManual
+    } catch {
+      // private browsing / blocked storage
+    }
+
+    if (typeof navigator !== "undefined") {
+      const candidates = [...(navigator.languages ?? []), navigator.language].filter(Boolean)
+      for (const raw of candidates) {
+        const match = languageFromCode(raw)
+        if (match) return match
+      }
+    }
+  }
+
+  return DEFAULT_LANGUAGE
+}
+
+export function persistLanguageChoice(code: AppLanguage) {
+  try {
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, code)
+  } catch {
+    // ignore
+  }
+}
+
 /** Map browser/device locale to a supported app language, else German. */
 export function resolveAppLanguage(code: string | undefined): AppLanguage {
   const short = (code ?? "").split("-")[0].toLowerCase()

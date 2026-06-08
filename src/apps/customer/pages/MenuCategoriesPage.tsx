@@ -1,4 +1,4 @@
-﻿import React from "react"
+import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getCategories } from "@/api/menu"

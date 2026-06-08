@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
@@ -59,17 +59,20 @@ export default function BranchMenuPage() {
   const branch = branches?.find((b: { id: string }) => b.id === branchId)
   const branchName = branch ? branchDisplayName(branch.name) : ""
 
-  const { data, isError: menuError, refetch: refetchMenu, isFetching: menuFetching } = useQuery({
+  const { data, isError: menuError, refetch: refetchMenu } = useQuery({
     queryKey: ["branchMenu", branchId, i18n.language],
     queryFn: () => getBranchMenu(branchId!),
     enabled: !!branchId,
+    placeholderData: (previous) => previous,
     ...menuQueryOptions
   })
+
+  const menuReady = !!data?.categories?.length
 
   const { data: bestsellersData } = useQuery({
     queryKey: ["branchBestsellers", branchId, i18n.language],
     queryFn: () => getBranchBestsellers(branchId!),
-    enabled: !!branchId,
+    enabled: !!branchId && menuReady,
     ...bestsellersQueryOptions
   })
 
@@ -91,47 +94,9 @@ export default function BranchMenuPage() {
     return () => window.clearTimeout(timer)
   }, [toastName])
 
-  const openItem = (item: MenuItem, categoryName: string) => {
+  const openItem = useCallback((item: MenuItem, categoryName: string) => {
     setSelectedItem({ ...item, categoryName })
-  }
-
-  const renderItemCard = (item: MenuItem, categoryName: string) => {
-    const image = dishImageForName(item.name, item.imageUrl, categoryName)
-    return (
-      <article key={item.id} className="branch-menu__card">
-        <button
-          type="button"
-          className="branch-menu__card-main"
-          onClick={() => openItem(item, categoryName)}
-        >
-          <div className="branch-menu__thumb" aria-hidden="true">
-            <img src={image} alt="" loading="lazy" decoding="async" />
-          </div>
-          <div className="branch-menu__card-body">
-            <div className="branch-menu__card-top">
-              {item.itemNumber && (
-                <span className="branch-menu__number">Nr. {item.itemNumber}</span>
-              )}
-              <h4 className="branch-menu__name">{item.name}</h4>
-            </div>
-            {item.description && (
-              <p className="branch-menu__desc">{item.description}</p>
-            )}
-            <p className="branch-menu__price">
-              {t("menu.from")} {formatCurrency(item.price)}
-            </p>
-          </div>
-        </button>
-        <button
-          type="button"
-          className="branch-menu__order-btn"
-          onClick={() => openItem(item, categoryName)}
-        >
-          {t("home.orderNow")}
-        </button>
-      </article>
-    )
-  }
+  }, [])
 
   if (!data?.categories) {
     if (menuError) {
@@ -196,9 +161,14 @@ export default function BranchMenuPage() {
           </div>
 
           <div className="branch-menu__grid">
-            {bestSellers.map((item) =>
-              renderItemCard(item, categoryForItem(categories, item))
-            )}
+            {bestSellers.map((item) => (
+              <BranchMenuItemCard
+                key={item.id}
+                item={item}
+                categoryName={categoryForItem(categories, item)}
+                onOpen={openItem}
+              />
+            ))}
           </div>
         </section>
       )}
@@ -226,6 +196,7 @@ export default function BranchMenuPage() {
           itemName={selectedItem.name}
           itemNumber={selectedItem.itemNumber}
           categoryName={selectedItem.categoryName}
+          description={selectedItem.description}
           imageUrl={selectedItem.imageUrl}
           onClose={() => setSelectedItem(null)}
           onAdded={(name) => setToastName(name)}
@@ -236,6 +207,7 @@ export default function BranchMenuPage() {
               itemNumber: item.itemNumber,
               price: item.price,
               imageUrl: item.imageUrl,
+              description: item.description,
               categoryName: categoryForItem(categories, item)
             })
           }
@@ -253,3 +225,45 @@ export default function BranchMenuPage() {
     </div>
   )
 }
+
+type BranchMenuItemCardProps = {
+  item: MenuItem
+  categoryName: string
+  onOpen: (item: MenuItem, categoryName: string) => void
+}
+
+const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
+  item,
+  categoryName,
+  onOpen
+}: BranchMenuItemCardProps) {
+  const { t } = useTranslation()
+  const image = dishImageForName(item.name, item.imageUrl, categoryName, item.description)
+
+  return (
+    <article className="branch-menu__card">
+      <button
+        type="button"
+        className="branch-menu__card-main"
+        onClick={() => onOpen(item, categoryName)}
+      >
+        <div className="branch-menu__thumb" aria-hidden="true">
+          <img src={image} alt="" loading="lazy" decoding="async" />
+        </div>
+        <div className="branch-menu__card-body">
+          <div className="branch-menu__card-top">
+            {item.itemNumber && <span className="branch-menu__number">Nr. {item.itemNumber}</span>}
+            <h4 className="branch-menu__name">{item.name}</h4>
+          </div>
+          {item.description && <p className="branch-menu__desc">{item.description}</p>}
+          <p className="branch-menu__price">
+            {t("menu.from")} {formatCurrency(item.price)}
+          </p>
+        </div>
+      </button>
+      <button type="button" className="branch-menu__order-btn" onClick={() => onOpen(item, categoryName)}>
+        {t("home.orderNow")}
+      </button>
+    </article>
+  )
+})

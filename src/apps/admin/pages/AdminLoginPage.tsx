@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       setToken(accessToken)
       setAdmin(admin)
 
-      navigate("/admin/dashboard")
+      navigate("/admin")
     } catch (err: any) {
       setError(err.response?.data?.error || err.response?.data?.message || "Login failed")
     }

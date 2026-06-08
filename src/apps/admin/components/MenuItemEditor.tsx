@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
+  clearManagerMenuItemImage,
   createManagerAddOn,
   createManagerAddOnGroup,
   createManagerVariant,
@@ -15,8 +16,10 @@ import {
   updateManagerMenuItem,
   updateManagerMenuItemFull,
   updateManagerVariant,
-  updateManagerVariantGroupFull
+  updateManagerVariantGroupFull,
+  uploadManagerMenuItemImage
 } from "@/api/manager"
+import { dishImageForItem } from "@/lib/foodImagery"
 
 type Category = { id: number; name: string }
 
@@ -56,6 +59,8 @@ export default function MenuItemEditor({
   const [categoryId, setCategoryId] = useState<number | "">("")
   const [sortOrder, setSortOrder] = useState("0")
   const [isAvailable, setIsAvailable] = useState(true)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [error, setError] = useState("")
 
   useEffect(() => {
@@ -67,6 +72,8 @@ export default function MenuItemEditor({
     setCategoryId(data.categoryId ?? "")
     setSortOrder(String(data.sortOrder ?? 0))
     setIsAvailable(data.isAvailable !== false)
+    setImageUrl(data.imageUrl ?? null)
+    setImagePreview(null)
   }, [data])
 
   const invalidate = () => {
@@ -95,6 +102,32 @@ export default function MenuItemEditor({
     },
     onError: (err: any) => {
       setError(err?.response?.data?.error?.message ?? "Could not save item")
+    }
+  })
+
+  const uploadImageMutation = useMutation({
+    mutationFn: (file: File) => uploadManagerMenuItemImage(branchMenuItemId, file, branchId),
+    onSuccess: (result: { imageUrl?: string | null }) => {
+      setImageUrl(result?.imageUrl ?? null)
+      setImagePreview(null)
+      invalidate()
+      setError("")
+    },
+    onError: (err: any) => {
+      setError(err?.response?.data?.error?.message ?? "Could not upload photo")
+    }
+  })
+
+  const clearImageMutation = useMutation({
+    mutationFn: () => clearManagerMenuItemImage(branchMenuItemId, branchId),
+    onSuccess: () => {
+      setImageUrl(null)
+      setImagePreview(null)
+      invalidate()
+      setError("")
+    },
+    onError: (err: any) => {
+      setError(err?.response?.data?.error?.message ?? "Could not remove photo")
     }
   })
 
@@ -230,6 +263,62 @@ export default function MenuItemEditor({
             style={{ ...inputStyle, width: "100%" }}
           />
         </label>
+
+        <section style={{ marginTop: 16 }}>
+          <h4 style={{ margin: "0 0 8px" }}>Item photo</h4>
+          <p style={{ fontSize: 13, color: "#666", marginTop: 0 }}>
+            Upload a real photo for this dish. It appears on the customer menu instead of the
+            generic placeholder.
+          </p>
+          <div style={{ display: "flex", gap: 16, alignItems: "flex-start", flexWrap: "wrap" }}>
+            <img
+              src={
+                imagePreview ??
+                resolveMenuImageUrl(imageUrl) ??
+                dishImageForItem(name, null, "", description)
+              }
+              alt={name || "Menu item"}
+              style={{
+                width: 120,
+                height: 120,
+                objectFit: "cover",
+                borderRadius: 8,
+                border: "1px solid #e5e5e5",
+                background: "#f5f5f5"
+              }}
+            />
+            {canEditStructure && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <label style={{ fontSize: 14 }}>
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    disabled={uploadImageMutation.isPending}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (!file) return
+                      setImagePreview(URL.createObjectURL(file))
+                      uploadImageMutation.mutate(file)
+                      e.target.value = ""
+                    }}
+                  />
+                </label>
+                {uploadImageMutation.isPending && (
+                  <span style={{ fontSize: 13, color: "#666" }}>Uploading…</span>
+                )}
+                {imageUrl && (
+                  <button
+                    type="button"
+                    disabled={clearImageMutation.isPending}
+                    onClick={() => clearImageMutation.mutate()}
+                  >
+                    {clearImageMutation.isPending ? "Removing…" : "Remove photo"}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
 
         {canEditStructure && (
           <button
@@ -529,4 +618,11 @@ const groupBox: React.CSSProperties = {
   borderRadius: 8,
   padding: 12,
   marginTop: 10
+}
+
+function resolveMenuImageUrl(imageUrl?: string | null) {
+  if (!imageUrl) return null
+  if (/^https?:\/\//i.test(imageUrl)) return imageUrl
+  const base = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "")
+  return `${base}${imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`}`
 }

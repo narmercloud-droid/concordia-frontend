@@ -1,6 +1,8 @@
 import React from "react"
-import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
+import { Trans, useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
+import LegalCrossLinks from "@/apps/customer/components/LegalCrossLinks"
 
 const WEBSITE_SECTIONS = [
   "operator",
@@ -34,12 +36,35 @@ export default function TermsPage() {
       <div className="info-block">
         <p className="info-legal__updated">{t(`${base}.updated`)}</p>
         <p>{t(`${base}.lead`)}</p>
+        <p>
+          <Trans
+            i18nKey={`${base}.relatedLegal`}
+            components={{
+              impressumLink: <Link to="/impressum" className="checkout-terms-link" />,
+              privacyLink: <Link to="/datenschutz" className="checkout-terms-link" />,
+              agbLink: <Link to="/agb" className="checkout-terms-link" />
+            }}
+          />
+        </p>
       </div>
+
+      <LegalCrossLinks current="/terms" />
 
       {WEBSITE_SECTIONS.map((key) => (
         <div key={key} className="info-block info-legal__section">
           <h2 className="info-block__title">{t(`${base}.sections.${key}.title`)}</h2>
-          <p>{t(`${base}.sections.${key}.body`)}</p>
+          {key === "privacy" ? (
+            <p>
+              <Trans
+                i18nKey={`${base}.sections.privacy.body`}
+                components={{
+                  privacyLink: <Link to="/datenschutz" className="checkout-terms-link" />
+                }}
+              />
+            </p>
+          ) : (
+            <p>{t(`${base}.sections.${key}.body`)}</p>
+          )}
         </div>
       ))}
 
@@ -58,6 +83,8 @@ export default function TermsPage() {
       <div className="info-block info-legal__contact">
         <p>{t(`${base}.contact`)}</p>
       </div>
+
+      <LegalCrossLinks current="/terms" />
     </InfoPageShell>
   )
 }

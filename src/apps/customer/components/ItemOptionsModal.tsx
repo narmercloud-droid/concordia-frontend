@@ -14,6 +14,7 @@ type SuggestedItem = {
   name: string
   itemNumber?: string | null
   price: number
+  description?: string | null
   imageUrl?: string | null
 }
 
@@ -24,6 +25,7 @@ type Props = {
   itemName: string
   itemNumber?: string | null
   categoryName?: string
+  description?: string | null
   imageUrl?: string | null
   onClose: () => void
   onAdded: (itemName: string) => void
@@ -37,6 +39,7 @@ export default function ItemOptionsModal({
   itemName,
   itemNumber,
   categoryName = "",
+  description = null,
   imageUrl,
   onClose,
   onAdded,
@@ -76,7 +79,7 @@ export default function ItemOptionsModal({
 
   if (!open) return null
 
-  const image = dishImageForName(itemName, imageUrl, categoryName)
+  const image = dishImageForName(itemName, imageUrl, categoryName, description)
 
   const handleAdd = () => {
     const ok = options.addToCart(() => {
@@ -133,7 +136,7 @@ export default function ItemOptionsModal({
                     <span
                       className="item-modal__also-popular-thumb"
                       style={{
-                        backgroundImage: `url(${dishImageForName(item.name, item.imageUrl, categoryName)})`
+                        backgroundImage: `url(${dishImageForName(item.name, item.imageUrl, categoryName, item.description)})`
                       }}
                       aria-hidden="true"
                     />

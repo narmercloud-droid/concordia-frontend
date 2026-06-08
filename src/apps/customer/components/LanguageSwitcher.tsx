@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { getLanguage, LANGUAGES, type AppLanguage } from "@/i18n/languages"
+import {
+  getLanguage,
+  LANGUAGES,
+  persistLanguageChoice,
+  type AppLanguage
+} from "@/i18n/languages"
 
 export default function LanguageSwitcher() {
   const { i18n, t } = useTranslation()
@@ -21,7 +26,8 @@ export default function LanguageSwitcher() {
   }, [open])
 
   const selectLanguage = (code: AppLanguage) => {
-    i18n.changeLanguage(code)
+    persistLanguageChoice(code)
+    void i18n.changeLanguage(code)
     setOpen(false)
   }
 

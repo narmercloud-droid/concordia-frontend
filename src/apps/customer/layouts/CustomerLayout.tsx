@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
@@ -13,7 +14,8 @@ import "../customer.css"
 import "../customer-mobile.css"
 
 export default function CustomerLayout() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const queryClient = useQueryClient()
   const location = useLocation()
   const [pushDenied, setPushDenied] = useState(false)
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
@@ -24,6 +26,16 @@ export default function CustomerLayout() {
   const onCartPage = location.pathname === "/customer/cart"
   const isWidePage = WIDE_CUSTOMER_PATHS.has(location.pathname)
   const showSiteNav = !location.pathname.startsWith("/customer/checkout")
+
+  useEffect(() => {
+    const onLanguageChanged = () => {
+      queryClient.invalidateQueries({ queryKey: ["branchMenu"] })
+      queryClient.invalidateQueries({ queryKey: ["branchBestsellers"] })
+      queryClient.invalidateQueries({ queryKey: ["itemDetails"] })
+    }
+    i18n.on("languageChanged", onLanguageChanged)
+    return () => i18n.off("languageChanged", onLanguageChanged)
+  }, [i18n, queryClient])
 
   useEffect(() => {
     if (!("Notification" in window)) return

@@ -16,11 +16,17 @@
     "processing": "Wird bearbeitet…",
     "close": "Schließen",
     "retry": "Erneut versuchen",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Bitte laden Sie die Seite neu. Wenn das Problem bleibt, versuchen Sie es in einem Moment erneut.",
+    "refreshPage": "Seite neu laden",
     "logoAlt": "Concordia Restaurant",
     "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
   },
   "lang": {
     "label": "Sprache"
+  },
+  "legal": {
+    "localeNote": "Die rechtsverbindliche Fassung dieser Seite finden Sie unten auf Deutsch."
   },
   "layout": {
     "notificationsDisabled": "Benachrichtigungen sind deaktiviert. Aktivieren Sie sie in den Browser-Einstellungen, um Bestellupdates zu erhalten.",
@@ -322,6 +328,7 @@
   },
   "pages": {
     "navLabel": "Seiten",
+    "legalNavLabel": "Rechtliches",
     "backHome": "Zur Startseite",
     "nav": {
       "home": "Startseite",
@@ -331,7 +338,10 @@
       "offers": "Angebote",
       "delivery": "Lieferung",
       "faq": "FAQ",
-      "terms": "AGB"
+      "impressum": "Impressum",
+      "privacy": "Datenschutz",
+      "agb": "AGB",
+      "terms": "AGB & Treue"
     },
     "about": {
       "eyebrow": "Unsere Geschichte",
@@ -473,13 +483,36 @@
         "q6": {
           "q": "Wann öffnet Straelen?",
           "a": "Concordia Straelen kommt bald. Sobald Bestellungen möglich sind, erscheint die Filiale in unserer Liste."
+        },
+        "q7": {
+          "q": "Wo finde ich Impressum, Datenschutz und AGB?",
+          "a": "Impressum, Datenschutzerklärung und Allgemeine Geschäftsbedingungen finden Sie im Footer unter „Rechtliches“. Die Bedingungen für Online-Bestellungen und das Treueprogramm stehen unter AGB & Treue."
         }
-      }
+      },
+      "legalTitle": "Rechtliches",
+      "legalLead": "Impressum, Datenschutz und AGB — wie auf unserem bisherigen Online-Shop."
+    },
+    "impressum": {
+      "eyebrow": "Rechtliches",
+      "title": "Impressum",
+      "lead": "Pflichtangaben gemäß Telemediengesetz (TMG) für Pizzeria Concordia in Kempen."
+    },
+    "privacy": {
+      "eyebrow": "Rechtliches",
+      "title": "Datenschutzerklärung",
+      "lead": "Informationen zur Verarbeitung personenbezogener Daten auf der Concordia-Website."
+    },
+    "agb": {
+      "eyebrow": "Rechtliches",
+      "title": "Allgemeine Geschäftsbedingungen",
+      "lead": "AGB für Online-Bestellungen bei Pizzeria Concordia (übernommen vom bisherigen Speisebaron-Shop, angepasst für diese Website).",
+      "loyaltyNote": "Ergänzend gelten die Bedingungen des Treueprogramms auf der Seite <termsLink>AGB & Treue</termsLink>."
     },
     "terms": {
       "eyebrow": "Rechtliches",
       "title": "AGB & Treueprogramm",
-      "lead": "Diese Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung unserer Website sowie Online-Bestellungen bei Concordia Restaurant, einem familiengeführten italienischen Restaurant am Concordienplatz 1, 47906 Kempen, Deutschland. Die nachfolgenden Informationen dienen der Transparenz und stellen keine individuelle Rechtsberatung dar.",
+      "lead": "Diese Bedingungen regeln Online-Bestellungen über die Concordia-Website sowie das Treueprogramm für Pizzeria Concordia in Kempen.",
+      "relatedLegal": "Siehe auch: <impressumLink>Impressum</impressumLink> · <privacyLink>Datenschutz</privacyLink> · <agbLink>AGB</agbLink>",
       "sections": {
         "operator": {
           "title": "1. Anbieter und Geltungsbereich",
@@ -511,7 +544,7 @@
         },
         "privacy": {
           "title": "8. Datenschutz",
-          "body": "Zur Abwicklung von Bestellungen, Zahlungen, Lieferungen, Gutscheinen, Treuepunkten und optionalen Marketing-Mitteilungen verarbeiten wir personenbezogene Daten gemäß den geltenden Datenschutzvorschriften. Welche Daten erhoben werden, zu welchen Zwecken und welche Rechte Sie haben, entnehmen Sie bitte unserer Datenschutzerklärung auf der Website. Eine Bestellung ist auch ohne Marketing-Einwilligung möglich."
+          "body": "Details zur Datenverarbeitung finden Sie in unserer <privacyLink>Datenschutzerklärung</privacyLink>. Eine Bestellung ist auch ohne Marketing-Einwilligung möglich."
         },
         "law": {
           "title": "9. Anwendbares Recht und Gerichtsstand",

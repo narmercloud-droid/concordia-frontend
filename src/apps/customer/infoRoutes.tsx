@@ -10,6 +10,9 @@ const OffersPage = React.lazy(() => import("./pages/OffersPage.js"))
 const GiftVoucherPage = React.lazy(() => import("./pages/GiftVoucherPage.js"))
 const FaqPage = React.lazy(() => import("./pages/FaqPage.js"))
 const TermsPage = React.lazy(() => import("./pages/TermsPage.js"))
+const ImpressumPage = React.lazy(() => import("./pages/ImpressumPage.js"))
+const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage.js"))
+const AgbPage = React.lazy(() => import("./pages/AgbPage.js"))
 
 const lazy = (element: React.ReactElement) => (
   <Suspense fallback={<LoadingFallback />}>{element}</Suspense>
@@ -25,6 +28,10 @@ export const infoRoutes = {
     { path: "gutschein", element: lazy(<GiftVoucherPage />) },
     { path: "gutschein/:branchId", element: lazy(<GiftVoucherPage />) },
     { path: "faq", element: lazy(<FaqPage />) },
+    { path: "impressum", element: lazy(<ImpressumPage />) },
+    { path: "datenschutz", element: lazy(<PrivacyPage />) },
+    { path: "privacy", element: <Navigate to="/datenschutz" replace /> },
+    { path: "agb", element: lazy(<AgbPage />) },
     { path: "terms", element: lazy(<TermsPage />) },
     { path: "loyalty-terms", element: <Navigate to="/terms" replace /> }
   ]

@@ -2,7 +2,7 @@ import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 
 const isDev = import.meta.env.DEV
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
-const MAX_GET_RETRIES = 2
+const MAX_GET_RETRIES = 0
 
 type RetryConfig = InternalAxiosRequestConfig & { __retryCount?: number }
 
@@ -19,6 +19,7 @@ api.interceptors.request.use((config) => {
   const url = config.url ?? ""
   const isAdmin =
     url.includes("/api/v1/manager") ||
+    url.includes("/api/v1/super-admin") ||
     url.includes("/api/auth/admin") ||
     url.includes("/api/v1/admin") ||
     url.includes("/api/admin/")

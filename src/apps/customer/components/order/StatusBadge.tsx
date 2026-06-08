@@ -1,6 +1,9 @@
 ﻿import React from "react"
+import { useTranslation } from "react-i18next"
+import { translateOrderStatus } from "@/utils/translateStatus"
 
 export default function StatusBadge({ status }: { status: string }) {
+  const { t } = useTranslation()
   const colors: any = {
     pending: "#999",
     confirmed: "#007bff",
@@ -20,7 +23,7 @@ export default function StatusBadge({ status }: { status: string }) {
         fontSize: 12
       }}
     >
-      {status.toUpperCase()}
+      {translateOrderStatus(status, t)}
     </span>
   )
 }

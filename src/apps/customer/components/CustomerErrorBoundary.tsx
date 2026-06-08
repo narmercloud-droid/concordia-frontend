@@ -1,4 +1,5 @@
 import React from "react"
+import i18n from "@/i18n"
 
 type Props = {
   children: React.ReactNode
@@ -23,16 +24,16 @@ export default class CustomerErrorBoundary extends React.Component<Props, State>
     if (this.state.hasError) {
       return (
         <div className="customer-page" style={{ padding: 32, textAlign: "center" }}>
-          <h2 style={{ fontFamily: "var(--c-serif)", marginBottom: 12 }}>Something went wrong</h2>
-          <p style={{ color: "var(--c-muted)", marginBottom: 20 }}>
-            Please refresh the page. If the problem continues, try again in a moment.
-          </p>
+          <h2 style={{ fontFamily: "var(--c-serif)", marginBottom: 12 }}>
+            {i18n.t("common.errorTitle")}
+          </h2>
+          <p style={{ color: "var(--c-muted)", marginBottom: 20 }}>{i18n.t("common.errorBody")}</p>
           <button
             type="button"
             className="home-cta"
             onClick={() => window.location.reload()}
           >
-            Refresh page
+            {i18n.t("common.refreshPage")}
           </button>
         </div>
       )

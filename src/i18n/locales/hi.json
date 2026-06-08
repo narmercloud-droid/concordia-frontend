@@ -17,7 +17,10 @@
     "close": "बंद करें",
     "retry": "फिर से कोशिश करें",
     "logoAlt": "Concordia रेस्तरां",
-    "logoHomeAlt": "Concordia रेस्तरां — पिज़्ज़ा, पास्ता, ग्रिल"
+    "logoHomeAlt": "Concordia रेस्तरां — पिज़्ज़ा, पास्ता, ग्रिल",
+    "errorTitle": "Something went wrong",
+    "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
+    "refreshPage": "Refresh page"
   },
   "lang": {
     "label": "भाषा"
@@ -301,7 +304,10 @@
       "offers": "ऑफ़र",
       "delivery": "डिलीवरी",
       "faq": "अक्सर पूछे जाने वाले प्रश्न",
-      "terms": "नियम"
+      "terms": "नियम",
+      "impressum": "Legal notice",
+      "privacy": "Privacy",
+      "agb": "Terms (AGB)"
     },
     "about": {
       "eyebrow": "हमारी कहानी",
@@ -380,7 +386,8 @@
       "fallbackNotice": "Showing featured guest quotes while Google reviews load for {{branch}}.",
       "viewOnGoogle": "See all reviews on Google Maps",
       "ratingLabel": "{{rating}} out of 5 stars",
-      "reviewCount": "{{count}} Google reviews"
+      "reviewCount": "{{count}} Google reviews",
+      "noReviewCards": "More reviews are available on Google Maps for {{branch}}."
     },
     "offers": {
       "eyebrow": "हमारे साथ बचत",
@@ -442,8 +449,14 @@
         "q6": {
           "q": "Straelen कब खुलेगा?",
           "a": "Concordia Straelen जल्द। ऑर्डरिंग सक्रिय होते ही शाखा सूची में दिखेगा।"
+        },
+        "q7": {
+          "q": "Where can I find legal information?",
+          "a": "Legal notice (Impressum), privacy policy and general terms are linked in the footer under Legal. Website order and loyalty terms are on Terms & loyalty."
         }
-      }
+      },
+      "legalTitle": "Legal information",
+      "legalLead": "Impressum, privacy policy and terms — carried over from our previous online shop."
     },
     "terms": {
       "eyebrow": "कानूनी",
@@ -524,7 +537,25 @@
           "title": "8. परिवर्तन और समाप्ति",
           "body": "हम इन कार्यक्रम शर्तों, अंक नियमों, स्तरों और लाभों को भविष्य के प्रभाव से बदल सकते हैं। महत्वपूर्ण परिवर्तन जहां संभव हो वेबसाइट या ईमेल के माध्यम से सूचित किए जाएंगे। परिवर्तन प्रभावी होने के बाद निरंतर उपयोग स्वीकृति माना जाता है, जब तक ऑप्ट-आउट न दिया जाए। कार्यक्रम पूरी तरह समाप्त किया जा सकता है; शेष अंक तब लागू नियमों के अनुसार संभाले जाएंगे।"
         }
-      }
+      },
+      "relatedLegal": "See also: <impressumLink>Legal notice</impressumLink> · <privacyLink>Privacy</privacyLink> · <agbLink>AGB</agbLink>"
+    },
+    "legalNavLabel": "Legal",
+    "impressum": {
+      "eyebrow": "Legal",
+      "title": "Legal notice (Impressum)",
+      "lead": "Mandatory provider information for Pizzeria Concordia in Kempen, Germany."
+    },
+    "privacy": {
+      "eyebrow": "Legal",
+      "title": "Privacy policy",
+      "lead": "How we process personal data on the Concordia website."
+    },
+    "agb": {
+      "eyebrow": "Legal",
+      "title": "General terms and conditions (AGB)",
+      "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
+      "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
     }
   },
   "giftVoucher": {
@@ -556,5 +587,24 @@
     "ordersLoading": "ऑर्डर लोड हो रहे हैं…",
     "noOrders": "आपके कोई पिछले ऑर्डर नहीं हैं।",
     "ordersTitle": "ऑर्डर"
+  },
+  "legal": {
+    "localeNote": "The legally binding version of this page is provided in German below."
+  },
+  "orderReview": {
+    "title": "How was your order?",
+    "lead": "Your feedback helps us improve our food and delivery. It only takes a moment.",
+    "foodLabel": "Food",
+    "deliveryLabel": "Delivery",
+    "commentLabel": "Comments (optional)",
+    "commentPlaceholder": "What did you enjoy? What could we do better?",
+    "submit": "Send feedback",
+    "submitting": "Sending…",
+    "submitError": "Could not save your review. Please try again.",
+    "thanksTitle": "Thank you for your feedback",
+    "thanksBody": "We read every review to improve Concordia for you and our guests.",
+    "guestHint": "You can leave feedback without an account using this order page.",
+    "leaveReview": "Leave feedback",
+    "reviewSubmitted": "Feedback sent"
   }
 }

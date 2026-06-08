@@ -1,8 +1,9 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
+import LegalCrossLinks from "@/apps/customer/components/LegalCrossLinks"
 
-const FAQ_KEYS = ["q1", "q2", "q3", "q4", "q5", "q6"] as const
+const FAQ_KEYS = ["q1", "q2", "q3", "q4", "q5", "q6", "q7"] as const
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -19,6 +20,11 @@ export default function FaqPage() {
             <p>{t(`pages.faq.items.${key}.a`)}</p>
           </details>
         ))}
+      </div>
+      <div className="info-block">
+        <h2 className="info-block__title">{t("pages.faq.legalTitle")}</h2>
+        <p>{t("pages.faq.legalLead")}</p>
+        <LegalCrossLinks />
       </div>
     </InfoPageShell>
   )

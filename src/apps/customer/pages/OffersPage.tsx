@@ -18,7 +18,7 @@ export default function OffersPage() {
         <article className="offers-card offers-card--discount">
           <div
             className="offers-card__bg"
-            style={{ backgroundImage: `url(${FOOD_IMAGES.pizza})` }}
+            style={{ backgroundImage: `url(${FOOD_IMAGES.pizzaMargherita})` }}
             aria-hidden="true"
           />
           <div className="offers-card__overlay" aria-hidden="true" />

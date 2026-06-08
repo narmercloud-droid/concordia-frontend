@@ -13,6 +13,7 @@ import MenuItemEditor from "@/apps/admin/components/MenuItemEditor"
 import ExtraPresetsPanel from "@/apps/admin/components/ExtraPresetsPanel"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
+import { dishImageForItem } from "@/lib/foodImagery"
 
 export default function MenuPage() {
   const { branchId } = useAdminBranch()
@@ -189,6 +190,7 @@ export default function MenuPage() {
           <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 8 }}>
             <thead>
               <tr>
+                <th style={{ textAlign: "left", padding: 8, width: 56 }}>Photo</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Item</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Kitchen</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Price (€)</th>
@@ -199,6 +201,22 @@ export default function MenuPage() {
             <tbody>
               {cat.items.map((item: any) => (
                 <tr key={item.branchMenuItemId} style={{ opacity: item.isAvailable ? 1 : 0.5 }}>
+                  <td style={{ padding: 8 }}>
+                    <img
+                      src={
+                        resolveMenuImageUrl(item.imageUrl) ??
+                        dishImageForItem(item.name, null, cat.name, item.description)
+                      }
+                      alt=""
+                      style={{
+                        width: 40,
+                        height: 40,
+                        objectFit: "cover",
+                        borderRadius: 6,
+                        border: "1px solid #e5e5e5"
+                      }}
+                    />
+                  </td>
                   <td style={{ padding: 8 }}>{item.name}</td>
                   <td style={{ padding: 8 }}>{item.kitchen === "A" ? "Pizza" : "Rest"}</td>
                   <td style={{ padding: 8 }}>
@@ -285,4 +303,11 @@ export default function MenuPage() {
       )}
     </div>
   )
+}
+
+function resolveMenuImageUrl(imageUrl?: string | null) {
+  if (!imageUrl) return null
+  if (/^https?:\/\//i.test(imageUrl)) return imageUrl
+  const base = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "")
+  return `${base}${imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`}`
 }

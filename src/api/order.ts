@@ -1,4 +1,4 @@
-﻿import api from "./client.js"
+import api from "./client.js"
 
 export const createOrder = (data: any) => api.post("/orders", data)
 export const getOrder = (orderId: string) => api.get(`/orders/${orderId}`)

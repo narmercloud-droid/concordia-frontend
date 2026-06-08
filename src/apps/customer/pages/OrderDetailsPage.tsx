@@ -1,4 +1,4 @@
-﻿import React from "react"
+import React from "react"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
@@ -6,6 +6,7 @@ import { getOrder } from "@/api/order"
 import { useOrderTracking } from "@/hooks/useOrderTracking"
 import Button from "@/components/ui/Button"
 import { useCartStore } from "@/context/cartStore"
+import { translateOrderStatus } from "@/utils/translateStatus"
 
 export default function OrderDetailsPage() {
   const { t } = useTranslation()
@@ -29,7 +30,7 @@ export default function OrderDetailsPage() {
       <h2>{t("order.orderNumber", { id: order.id })}</h2>
 
       <div>
-        <strong>{t("order.status")}:</strong> {order.status}
+        <strong>{t("order.status")}:</strong> {translateOrderStatus(order.status, t)}
       </div>
 
       {order.eta && (

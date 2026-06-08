@@ -107,7 +107,7 @@ export default function HomeFeaturedMenu({ branchId }: Props) {
 
                   style={{
 
-                    backgroundImage: `url(${dishImageForName(item.name, item.imageUrl, categoryName)})`
+                    backgroundImage: `url(${dishImageForName(item.name, item.imageUrl, categoryName, item.description)})`
 
                   }}
 

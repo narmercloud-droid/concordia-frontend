@@ -67,7 +67,8 @@ export function AdminHomeRedirect() {
     { path: "/admin/hours", perm: "hours_view" },
     { path: "/admin/delivery", perm: "delivery_view" },
     { path: "/admin/offers", perm: "offers_view" },
-    { path: "/admin/customers", perm: "customers_view" }
+    { path: "/admin/customers", perm: "customers_view" },
+    { path: "/admin/reviews", perm: "reviews_view" }
   ]
 
   const first = order.find((o) => can(o.perm))

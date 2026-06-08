@@ -1089,3 +1089,26 @@
 [dir="rtl"] .item-options__total {
   text-align: left;
 }
+
+[dir="rtl"] .customer-shell {
+  text-align: start;
+}
+
+[dir="rtl"] .lang-switcher__trigger {
+  padding: 8px 28px 8px 12px;
+  background-position: left 10px center;
+}
+
+[dir="rtl"] .branch-menu__card-body,
+[dir="rtl"] .branch-menu__section-desc,
+[dir="rtl"] .info-block,
+[dir="rtl"] .customer-page {
+  text-align: start;
+}
+
+[dir="rtl"] .info-legal__locale-note {
+  border-inline-start: 3px solid var(--c-accent, #1b7340);
+  border-left: none;
+  padding-inline-start: 12px;
+  padding-left: 0;
+}

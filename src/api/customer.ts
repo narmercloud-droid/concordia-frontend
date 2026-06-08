@@ -49,7 +49,9 @@ export const getFreeDrinkOptions = async (branchId: string) => {
 }
 
 export const getBranchBestsellers = async (branchId: string, limit = 6) => {
-  const res = await api.get(`/api/branches/${branchId}/bestsellers`, { params: { limit } })
+  const res = await api.get(`/api/branches/${branchId}/bestsellers`, {
+    params: { limit, lang: getMenuLang() }
+  })
   return unwrap<{
     periodDays: number
     hasSalesData: boolean
