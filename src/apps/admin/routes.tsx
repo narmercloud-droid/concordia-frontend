@@ -12,6 +12,7 @@ const StaffPage = React.lazy(() => import("./pages/StaffPage.js"))
 const PermissionsPage = React.lazy(() => import("./pages/PermissionsPage.js"))
 const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
 const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
+const BranchesPage = React.lazy(() => import("./pages/BranchesPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
 import AdminPermissionRoute, { AdminHomeRedirect } from "@/router/AdminPermissionRoute"
 
@@ -50,6 +51,7 @@ export const adminRoutes = {
         { path: "customers", element: guard("customers_view", <CustomersPage />) },
         { path: "reviews", element: guard("reviews_view", <ReviewsPage />) },
         { path: "offers", element: guard("offers_view", <BranchOffersPage />) },
+        { path: "branches", element: guardSuper(<BranchesPage />) },
         { path: "staff", element: guardSuper(<StaffPage />) },
         { path: "permissions", element: guardSuper(<PermissionsPage />) }
       ]

@@ -49,7 +49,23 @@ export const deleteSuperAdminStaff = async (id: string) => {
   return unwrap(res)
 }
 
+export type SuperAdminBranch = {
+  id: string
+  name: string
+  status: "live" | "coming_soon"
+  city?: string | null
+  address?: string | null
+}
+
 export const getSuperAdminBranches = async () => {
   const res = await api.get("/api/v1/super-admin/branches")
-  return unwrap<any[]>(res)
+  return unwrap<SuperAdminBranch[]>(res)
+}
+
+export const updateSuperAdminBranchStatus = async (
+  branchId: string,
+  status: "live" | "coming_soon"
+) => {
+  const res = await api.put(`/api/v1/super-admin/branches/${branchId}/status`, { status })
+  return unwrap<SuperAdminBranch>(res)
 }
