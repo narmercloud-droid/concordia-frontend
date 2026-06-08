@@ -1,12 +1,15 @@
 import React, { useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import Input from "@/components/ui/Input"
 import Button from "@/components/ui/Button"
 import { adminLogin } from "@/api/adminAuth"
+import { getManagerSession } from "@/api/manager"
 import { useAdminAuthStore } from "@/context/adminAuthStore"
 import { useNavigate } from "react-router-dom"
 
 export default function AdminLoginPage() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const setToken = useAdminAuthStore((s) => s.setToken)
   const setAdmin = useAdminAuthStore((s) => s.setAdmin)
 
@@ -26,6 +29,12 @@ export default function AdminLoginPage() {
 
       setToken(accessToken)
       setAdmin(admin)
+
+      void queryClient.prefetchQuery({
+        queryKey: ["managerSession"],
+        queryFn: getManagerSession,
+        staleTime: 5 * 60_000
+      })
 
       navigate("/admin")
     } catch (err: any) {

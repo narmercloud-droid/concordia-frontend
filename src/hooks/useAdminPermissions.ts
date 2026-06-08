@@ -30,12 +30,14 @@ export function permissionAllowed(
 
 export function useAdminPermissions() {
   const admin = useAdminAuthStore((s) => s.admin)
+  const token = useAdminAuthStore((s) => s.token)
   const isSuperAdmin = admin?.role === "admin"
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading: sessionLoading } = useQuery({
     queryKey: ["managerSession"],
     queryFn: getManagerSession,
-    staleTime: 5 * 60_000
+    staleTime: 5 * 60_000,
+    enabled: Boolean(token)
   })
 
   const permissions = (data?.permissions ?? {}) as ManagerPermissions
@@ -44,5 +46,8 @@ export function useAdminPermissions() {
 
   const canAny = (keys: string[]) => keys.some((k) => can(k))
 
-  return { can, canAny, permissions, isLoading, isSuperAdmin }
+  // Super admin role is already known from login — don't block the whole panel on session API
+  const isLoading = isSuperAdmin ? false : sessionLoading
+
+  return { can, canAny, permissions, isLoading, sessionLoading, isSuperAdmin }
 }

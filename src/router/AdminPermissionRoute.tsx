@@ -32,7 +32,17 @@ export default function AdminPermissionRoute({
 }: Props) {
   const { can, isSuperAdmin, isLoading } = useAdminPermissions()
 
-  if (isLoading) return <p>Loading permissions…</p>
+  if (isLoading) {
+    return (
+      <div style={{ maxWidth: 480 }}>
+        <p>Loading permissions…</p>
+        <p style={{ color: "#666", fontSize: 14 }}>
+          If this takes more than a minute, the server may be waking up (Render free tier). Refresh
+          once, or upgrade to Render Starter for instant loads — see DEPLOYMENT_ROADMAP.md.
+        </p>
+      </div>
+    )
+  }
 
   if (superAdminOnly) {
     if (!isSuperAdmin) return <PermissionDenied message="This page is only available to the super admin." />
@@ -56,7 +66,16 @@ export default function AdminPermissionRoute({
 export function AdminHomeRedirect() {
   const { can, isSuperAdmin, isLoading } = useAdminPermissions()
 
-  if (isLoading) return <p>Loading…</p>
+  if (isLoading) {
+    return (
+      <div style={{ maxWidth: 480 }}>
+        <p>Loading…</p>
+        <p style={{ color: "#666", fontSize: 14 }}>
+          Waking up the server can take up to a minute on the free hosting plan.
+        </p>
+      </div>
+    )
+  }
 
   if (isSuperAdmin) return <Navigate to="/admin/dashboard" replace />
 
