@@ -1,0 +1,76 @@
+{
+  "concordia-kempen": {
+    "rating": 4.0,
+    "reviewCount": 175,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pizzeria+Concordia+Concordienplatz+1+Kempen",
+    "reviews": [
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Lecker, etwas günstiger als die umliegenden Pizzerien, auf jeden Fall empfehlenswert.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Ich war überrascht, wie gut es dort schmeckt … Daher werde ich dort öfter einkehren.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Die unserer Meinung nach einzige Pizzeria in Kempen, die gute Pizzen zubereitet und nicht eine Stunde Lieferzeit hat.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Nur zu empfehlen, immer freundlich, immer frisch und sehr lecker.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Beste Pizzeria in Kempen. Der Geschmack ist einfach hervorragend.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Das Personal ist sehr freundlich und die Pizza ist hervorragend. Auf jeden Fall zu empfehlen!",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Die Pizzeria Concordia serviert die beste Pizza in ganz Kempen. Das Menü besticht durch stets frische Zutaten, exzellente Qualität und ein herzliches Team.",
+        "relativeTime": "Juni 2025"
+      },
+      {
+        "author": "Google-Nutzer",
+        "rating": 5,
+        "text": "Nach langer Suche habe ich endlich einen Ort entdeckt, der wirklich weiß, wie man eine hervorragende Pizza macht. Auch die Pasta schmeckt hier ausgezeichnet!",
+        "relativeTime": "Juni 2025"
+      }
+    ]
+  },
+  "concordia-straelen": {
+    "rating": 4.4,
+    "reviewCount": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Pizzeria+Concordia+ll+Venloer+Straße+22+Straelen",
+    "reviews": [
+      {
+        "author": "Gast",
+        "rating": 5,
+        "text": "Schnelle Lieferung und sehr lecker, hatte eine große Scampi Pizza und einen Salat :)",
+        "relativeTime": "Lieferando"
+      },
+      {
+        "author": "Gast",
+        "rating": 5,
+        "text": "Jedesmal wieder positiv überrascht. Ihr seid die besten.",
+        "relativeTime": "Lieferando"
+      }
+    ]
+  }
+}

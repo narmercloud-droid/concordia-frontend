@@ -2,9 +2,24 @@ import React, { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
-import { getBranchGoogleReviews, getBranches } from "@/api/customer"
+import { getBranchGoogleReviews, getBranches, type BranchGoogleReviewsResponse } from "@/api/customer"
+import googleReviewsSnapshot from "@/data/googleReviewsSnapshot.json"
 
 const FALLBACK_REVIEW_KEYS = ["r1", "r2", "r3", "r4", "r5"] as const
+const SNAPSHOT_BRANCH_IDS = Object.keys(googleReviewsSnapshot)
+
+function snapshotForBranch(branchId: string): BranchGoogleReviewsResponse | null {
+  const row = googleReviewsSnapshot[branchId as keyof typeof googleReviewsSnapshot]
+  if (!row?.reviews?.length) return null
+  return {
+    branchId,
+    source: "snapshot",
+    rating: row.rating ?? null,
+    reviewCount: row.reviewCount ?? null,
+    googleMapsUrl: row.googleMapsUrl ?? null,
+    reviews: row.reviews
+  }
+}
 
 function branchDisplayName(name: string) {
   return name.replace(/^Concordia\s+/i, "")
@@ -24,7 +39,11 @@ export default function ReviewsPage() {
   })
 
   const reviewBranches = useMemo(
-    () => branches.filter((b: { comingSoon?: boolean }) => !b.comingSoon),
+    () =>
+      branches.filter(
+        (b: { id: string; comingSoon?: boolean }) =>
+          !b.comingSoon || SNAPSHOT_BRANCH_IDS.includes(b.id)
+      ),
     [branches]
   )
 
@@ -32,16 +51,22 @@ export default function ReviewsPage() {
   const activeBranchId = branchId ?? reviewBranches[0]?.id ?? null
   const activeBranch = reviewBranches.find((b: { id: string }) => b.id === activeBranchId)
 
-  const { data: googleReviews, isLoading, isError } = useQuery({
+  const { data: apiReviews, isLoading, isError } = useQuery({
     queryKey: ["googleReviews", activeBranchId],
     queryFn: () => getBranchGoogleReviews(activeBranchId!),
     enabled: !!activeBranchId,
-    staleTime: 60 * 60_000
+    staleTime: 60 * 60_000,
+    retry: 1
   })
+
+  const googleReviews =
+    apiReviews ??
+    (activeBranchId && isError ? snapshotForBranch(activeBranchId) : null)
 
   const hasReviewCards = (googleReviews?.reviews.length ?? 0) > 0
   const hasGoogleSummary =
     !!googleReviews && (googleReviews.rating != null || hasReviewCards || !!googleReviews.googleMapsUrl)
+  const showLoadError = isError && !googleReviews
   const branchLabel = activeBranch ? branchDisplayName(activeBranch.name) : ""
 
   return (
@@ -108,7 +133,7 @@ export default function ReviewsPage() {
             </>
           ) : (
             <p className="info-reviews__meta">
-              {isError ? t("pages.reviews.loadError") : t("pages.reviews.fallbackNotice", { branch: branchLabel })}
+              {showLoadError ? t("pages.reviews.loadError") : t("pages.reviews.fallbackNotice", { branch: branchLabel })}
             </p>
           )}
         </div>
