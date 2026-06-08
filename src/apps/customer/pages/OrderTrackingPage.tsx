@@ -6,6 +6,7 @@ import { getOrderStatus } from "@/api/customer"
 import { socket } from "@/lib/socket"
 import { formatDateTime, formatTime } from "@/utils/format"
 import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
+import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
 
@@ -145,6 +146,14 @@ export default function OrderTrackingPage() {
             ))}
           </ul>
         </div>
+      )}
+
+      {(order.canReview || order.hasReview) && orderId && (
+        <OrderReviewForm
+          orderId={orderId}
+          fulfillmentType={order.fulfillmentType}
+          existingReview={order.hasReview ? order.review : null}
+        />
       )}
     </div>
   )

@@ -288,6 +288,22 @@
     "itemsTitle": "Items",
     "reorder": "Reorder these items"
   },
+  "orderReview": {
+    "title": "How was your order?",
+    "lead": "Your feedback helps us improve our food and delivery. It only takes a moment.",
+    "foodLabel": "Food",
+    "deliveryLabel": "Delivery",
+    "commentLabel": "Comments (optional)",
+    "commentPlaceholder": "What did you enjoy? What could we do better?",
+    "submit": "Send feedback",
+    "submitting": "Sending…",
+    "submitError": "Could not save your review. Please try again.",
+    "thanksTitle": "Thank you for your feedback",
+    "thanksBody": "We read every review to improve Concordia for you and our guests.",
+    "guestHint": "You can leave feedback without an account using this order page.",
+    "leaveReview": "Leave feedback",
+    "reviewSubmitted": "Feedback sent"
+  },
   "status": {
     "pending": "Received",
     "accepted": "Accepted",

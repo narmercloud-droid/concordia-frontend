@@ -1,7 +1,14 @@
-﻿import React from "react"
+import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getMyOrders } from "@/api/order"
+
+function unwrapOrders(res: any) {
+  const body = res?.data
+  if (body?.data) return body.data
+  if (Array.isArray(body)) return body
+  return []
+}
 import OrderHistoryItem from "../components/order/OrderHistoryItem.js"
 
 export default function OrderHistoryPage() {
@@ -13,7 +20,7 @@ export default function OrderHistoryPage() {
 
   if (isLoading) return <div>{t("account.ordersLoading")}</div>
 
-  const orders = data?.data || []
+  const orders = data ? unwrapOrders(data) : []
 
   if (orders.length === 0) return <div>{t("account.noOrders")}</div>
 

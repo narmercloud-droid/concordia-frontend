@@ -293,6 +293,22 @@
     "timeline": "Verlauf",
     "loading": "Bestellung wird geladen…"
   },
+  "orderReview": {
+    "title": "Wie war Ihre Bestellung?",
+    "lead": "Ihr Feedback hilft uns, Essen und Lieferung zu verbessern. Es dauert nur einen Moment.",
+    "foodLabel": "Essen",
+    "deliveryLabel": "Lieferung",
+    "commentLabel": "Kommentar (optional)",
+    "commentPlaceholder": "Was hat Ihnen gefallen? Was können wir besser machen?",
+    "submit": "Feedback senden",
+    "submitting": "Wird gesendet…",
+    "submitError": "Feedback konnte nicht gespeichert werden. Bitte erneut versuchen.",
+    "thanksTitle": "Vielen Dank für Ihr Feedback",
+    "thanksBody": "Wir lesen jede Bewertung, um Concordia für Sie und unsere Gäste zu verbessern.",
+    "guestHint": "Sie können ohne Konto über diese Bestellseite Feedback hinterlassen.",
+    "leaveReview": "Feedback geben",
+    "reviewSubmitted": "Feedback gesendet"
+  },
   "status": {
     "pending": "Eingegangen",
     "accepted": "Angenommen",
