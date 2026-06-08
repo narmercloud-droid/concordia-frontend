@@ -10,7 +10,8 @@ function unwrap<T>(res: { data?: { data?: T; success?: boolean } & T }): T {
 
 export const getBranches = async () => {
   const res = await api.get("/api/branches")
-  return unwrap<any[]>(res)
+  const rows = unwrap<unknown>(res)
+  return Array.isArray(rows) ? rows : []
 }
 
 export type BranchGoogleReview = {

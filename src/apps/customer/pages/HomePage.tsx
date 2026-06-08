@@ -18,12 +18,11 @@ const HomeGallery = React.lazy(() => import("@/apps/customer/components/HomeGall
 export default function HomePage() {
   const { t } = useTranslation()
   const { data, isLoading, isError, isFetching, refetch } = useQuery({
-    queryKey: BRANCHES_QUERY_KEY,
-    queryFn: branchesQueryOptions.queryFn,
-    ...branchesQueryOptions
+    ...branchesQueryOptions,
+    queryKey: BRANCHES_QUERY_KEY
   })
 
-  const branches = data ?? []
+  const branches = Array.isArray(data) ? data : []
 
   return (
     <div className="home">

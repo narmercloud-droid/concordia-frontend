@@ -10,5 +10,6 @@ export const branchesQueryOptions = {
   staleTime: 300_000,
   gcTime: 20 * 60_000,
   refetchOnWindowFocus: false,
-  placeholderData: (previousData: unknown) => previousData
+  placeholderData: (previousData: unknown) =>
+    Array.isArray(previousData) ? previousData : undefined
 }

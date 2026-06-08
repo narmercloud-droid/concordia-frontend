@@ -106,9 +106,9 @@ export default function CustomerLayout() {
       )}
 
       <main style={{ marginTop: 20 }}>
-        <CustomerErrorBoundary>
-        <Outlet />
-      </CustomerErrorBoundary>
+        <CustomerErrorBoundary resetKey={location.pathname}>
+          <Outlet />
+        </CustomerErrorBoundary>
       </main>
     </div>
   )

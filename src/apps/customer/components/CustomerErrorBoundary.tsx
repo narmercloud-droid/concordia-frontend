@@ -3,6 +3,7 @@ import i18n from "@/i18n"
 
 type Props = {
   children: React.ReactNode
+  resetKey?: string
 }
 
 type State = {
@@ -14,6 +15,12 @@ export default class CustomerErrorBoundary extends React.Component<Props, State>
 
   static getDerivedStateFromError() {
     return { hasError: true }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
+      this.setState({ hasError: false })
+    }
   }
 
   componentDidCatch(error: unknown) {
@@ -31,7 +38,10 @@ export default class CustomerErrorBoundary extends React.Component<Props, State>
           <button
             type="button"
             className="home-cta"
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              this.setState({ hasError: false })
+              window.location.reload()
+            }}
           >
             {i18n.t("common.refreshPage")}
           </button>

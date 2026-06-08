@@ -21,8 +21,8 @@ type Props = {
   branches: HomeBranch[]
 }
 
-function branchDisplayName(name: string) {
-  return name.replace(/^Concordia\s+/i, "")
+function branchDisplayName(name?: string | null) {
+  return String(name ?? "").replace(/^Concordia\s+/i, "")
 }
 
 function formatDistance(km: number) {
@@ -65,7 +65,10 @@ export default function HomeOrderHub({ branches }: Props) {
   const [distances, setDistances] = useState<Record<string, number>>({})
   const [locationState, setLocationState] = useState<LocationState>("idle")
 
-  const liveBranches = useMemo(() => branches.filter((b) => !b.comingSoon), [branches])
+  const liveBranches = useMemo(
+    () => safeBranches.filter((b) => !b.comingSoon),
+    [safeBranches]
+  )
   const nearestBranch = liveBranches.find((b) => b.id === nearestId)
 
   const detectNearest = () => {
@@ -126,7 +129,7 @@ export default function HomeOrderHub({ branches }: Props) {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return branches.filter((b) => {
+    return safeBranches.filter((b) => {
       if (q) {
         const hay = [b.name, b.city, b.postalCode, b.address].filter(Boolean).join(" ").toLowerCase()
         if (!hay.includes(q)) return false
@@ -137,7 +140,7 @@ export default function HomeOrderHub({ branches }: Props) {
       if (filters.has("pickup") && b.supportsPickup === false) return false
       return true
     })
-  }, [branches, query, filters])
+  }, [safeBranches, query, filters])
 
   const sorted = useMemo(() => {
     const live = filtered.filter((b) => !b.comingSoon)
