@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getManagerHours, updateManagerHours } from "@/api/manager"
+import { getManagerBranch, getManagerHours, updateManagerHours } from "@/api/manager"
+import { updateSuperAdminBranchStatus } from "@/api/superAdmin"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import Button from "@/components/ui/Button"
@@ -10,18 +11,27 @@ const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frid
 type HourRow = { dayOfWeek: number; openTime: string; closeTime: string }
 
 export default function HoursPage() {
-  const { branchId } = useAdminBranch()
-  const { can } = useAdminPermissions()
+  const { branchId, branchName } = useAdminBranch()
+  const { can, isSuperAdmin } = useAdminPermissions()
   const canEdit = can("hours_edit")
   const readOnly = can("hours_view") && !canEdit
   const queryClient = useQueryClient()
   const [rows, setRows] = useState<HourRow[]>([])
   const [saved, setSaved] = useState(false)
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["managerHours", branchId],
-    queryFn: () => getManagerHours(branchId)
+  const { data: branch, isLoading: branchLoading } = useQuery({
+    queryKey: ["managerBranch", branchId],
+    queryFn: () => getManagerBranch(branchId),
+    enabled: !!branchId
   })
+
+  const { data, isLoading: hoursLoading } = useQuery({
+    queryKey: ["managerHours", branchId],
+    queryFn: () => getManagerHours(branchId),
+    enabled: !!branchId
+  })
+
+  const branchStatus = branch?.status === "coming_soon" ? "coming_soon" : "live"
 
   useEffect(() => {
     const hours = data?.data?.data ?? []
@@ -53,18 +63,89 @@ export default function HoursPage() {
     }
   })
 
+  const statusMutation = useMutation({
+    mutationFn: (status: "live" | "coming_soon") =>
+      updateSuperAdminBranchStatus(branchId!, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["managerBranch", branchId] })
+      queryClient.invalidateQueries({ queryKey: ["branches"] })
+    }
+  })
+
   const updateRow = (index: number, field: "openTime" | "closeTime", value: string) => {
     setRows((prev) =>
       prev.map((row, i) => (i === index ? { ...row, [field]: value } : row))
     )
   }
 
-  if (isLoading) return <p>Loading hours...</p>
+  if (branchLoading || hoursLoading) return <p>Loading hours...</p>
 
   return (
     <div>
       <h2>Opening hours</h2>
-      <p style={{ color: "#666" }}>These hours control scheduled order time slots.</p>
+      <p style={{ color: "#666" }}>
+        These hours control when {branchName ?? "this branch"} appears open on the website and
+        which time slots customers can choose.
+      </p>
+
+      {isSuperAdmin && (
+        <div
+          style={{
+            marginTop: 20,
+            marginBottom: 24,
+            padding: 16,
+            background: "#f7f4ff",
+            border: "1px solid #e8e0f5",
+            borderRadius: 8,
+            maxWidth: 640
+          }}
+        >
+          <h3 style={{ margin: "0 0 8px", fontSize: 16 }}>Branch visibility (super admin)</h3>
+          <p style={{ margin: "0 0 12px", color: "#666", fontSize: 14 }}>
+            <strong>Active</strong> — customers can order (opening hours still apply).{" "}
+            <strong>Inactive</strong> — branch shows as coming soon and cannot accept orders.
+          </p>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <button
+              type="button"
+              disabled={statusMutation.isPending || branchStatus === "live"}
+              onClick={() => statusMutation.mutate("live")}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 6,
+                border: "1px solid #1b7340",
+                background: branchStatus === "live" ? "#1b7340" : "white",
+                color: branchStatus === "live" ? "white" : "#1b7340",
+                cursor: statusMutation.isPending || branchStatus === "live" ? "default" : "pointer"
+              }}
+            >
+              Active — order now
+            </button>
+            <button
+              type="button"
+              disabled={statusMutation.isPending || branchStatus === "coming_soon"}
+              onClick={() => statusMutation.mutate("coming_soon")}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 6,
+                border: "1px solid #e65100",
+                background: branchStatus === "coming_soon" ? "#e65100" : "white",
+                color: branchStatus === "coming_soon" ? "white" : "#e65100",
+                cursor:
+                  statusMutation.isPending || branchStatus === "coming_soon" ? "default" : "pointer"
+              }}
+            >
+              Inactive — coming soon
+            </button>
+          </div>
+          {statusMutation.isError && (
+            <p style={{ color: "#b00020", marginTop: 12, marginBottom: 0, fontSize: 14 }}>
+              Could not update branch status. Try again.
+            </p>
+          )}
+        </div>
+      )}
+
       {readOnly && (
         <p style={{ color: "#b45309", background: "#fff8e1", padding: 12, borderRadius: 8 }}>
           View only — editing is disabled until the super admin enables hours edit permission.
