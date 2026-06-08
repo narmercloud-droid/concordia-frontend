@@ -57,6 +57,7 @@ function sortByDistance(list: HomeBranch[], distances: Record<string, number>) {
 }
 
 export default function HomeOrderHub({ branches }: Props) {
+  const safeBranches = Array.isArray(branches) ? branches : []
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [query, setQuery] = useState("")
