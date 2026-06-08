@@ -5,7 +5,7 @@ self.addEventListener("push", (event) => {
     event.waitUntil(
       self.registration.showNotification(data.title || "Notification", {
         body: data.body || "",
-        icon: "/logo.png",
+        icon: "/images/concordia-logo.png",
         data: data.url || "/"
       })
     )

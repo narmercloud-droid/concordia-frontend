@@ -6,7 +6,7 @@ import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
-import { subscribeToPush } from "@/utils/pushNotifications"
+import { isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
 import SiteNav from "@/apps/customer/components/SiteNav"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
@@ -38,7 +38,7 @@ export default function CustomerLayout() {
   }, [i18n, queryClient])
 
   useEffect(() => {
-    if (!("Notification" in window)) return
+    if (!isPushConfigured() || !("Notification" in window)) return
 
     if (Notification.permission === "denied") {
       setPushDenied(true)
@@ -46,7 +46,7 @@ export default function CustomerLayout() {
     }
 
     const run = () => {
-      subscribeToPush().catch(() => {})
+      void subscribeToPush()
     }
     if ("requestIdleCallback" in window) {
       const id = window.requestIdleCallback(run, { timeout: 5000 })

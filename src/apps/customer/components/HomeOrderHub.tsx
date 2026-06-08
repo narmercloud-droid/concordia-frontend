@@ -157,6 +157,8 @@ export default function HomeOrderHub({ branches }: Props) {
       <div className="home-order-hub__toolbar">
         <input
           type="search"
+          id="branch-search"
+          name="branchSearch"
           className="home-order-hub__search"
           placeholder={t("home.searchPlaceholder")}
           value={query}

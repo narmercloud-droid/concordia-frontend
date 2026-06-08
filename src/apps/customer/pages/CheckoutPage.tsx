@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { getStoredPushToken, isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Trans, useTranslation } from "react-i18next"
@@ -321,6 +322,11 @@ export default function CheckoutPage() {
 
     try {
       const useAccount = checkoutMode === "account" && isLoggedIn
+      let pushToken = getStoredPushToken()
+      if (isPushConfigured() && !pushToken) {
+        pushToken = await subscribeToPush()
+      }
+
       const res = await createMutation.mutateAsync({
         branchId,
         items,
@@ -339,7 +345,8 @@ export default function CheckoutPage() {
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: paymentChoice,
         promoCode: appliedVoucher?.code,
-        notes: orderNotes.trim() || undefined
+        notes: orderNotes.trim() || undefined,
+        pushToken: pushToken ?? undefined
       })
 
       const orderId = res?.id

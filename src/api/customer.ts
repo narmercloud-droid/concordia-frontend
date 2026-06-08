@@ -123,6 +123,7 @@ export const createOrder = (data: {
   notes?: string
   isGuest?: boolean
   customerId?: string
+  pushToken?: string
 }) =>
   api
     .post("/orders", {
@@ -144,6 +145,7 @@ export const createOrder = (data: {
       paymentStatus: "pending",
       promoCode: data.promoCode,
       notes: data.notes,
+      pushToken: data.pushToken,
       items: data.items.map((item) => ({
         itemId: item.id,
         quantity: item.quantity,
