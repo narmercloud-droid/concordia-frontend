@@ -183,7 +183,14 @@ export default function BranchMenuPage() {
           </div>
 
           <div className="branch-menu__grid">
-            {cat.items.map((item) => renderItemCard(item, cat.name))}
+            {cat.items.map((item) => (
+              <BranchMenuItemCard
+                key={item.id}
+                item={item}
+                categoryName={cat.name}
+                onOpen={openItem}
+              />
+            ))}
           </div>
         </section>
       ))}
