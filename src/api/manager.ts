@@ -20,6 +20,14 @@ export const getManagerHours = (branchId?: string) =>
 export const updateManagerHours = (hours: any[], branchId?: string) =>
   api.put("/api/v1/manager/hours", { hours, branchId })
 
+export const updateManagerBranchStatus = async (
+  status: "live" | "coming_soon",
+  branchId?: string
+) => {
+  const res = await api.patch("/api/v1/manager/branch/status", { status, branchId })
+  return unwrap(res)
+}
+
 export const getManagerDeliverySettings = async (branchId?: string) => {
   const res = await api.get("/api/v1/manager/config", {
     params: branchId ? { branchId } : {}

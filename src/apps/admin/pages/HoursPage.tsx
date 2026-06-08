@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getManagerBranch, getManagerHours, updateManagerHours } from "@/api/manager"
-import { updateSuperAdminBranchStatus } from "@/api/superAdmin"
+import {
+  getManagerBranch,
+  getManagerHours,
+  updateManagerBranchStatus,
+  updateManagerHours
+} from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import Button from "@/components/ui/Button"
@@ -65,7 +69,7 @@ export default function HoursPage() {
 
   const statusMutation = useMutation({
     mutationFn: (status: "live" | "coming_soon") =>
-      updateSuperAdminBranchStatus(branchId!, status),
+      updateManagerBranchStatus(status, branchId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["managerBranch", branchId] })
       queryClient.invalidateQueries({ queryKey: ["branches"] })
@@ -140,7 +144,9 @@ export default function HoursPage() {
           </div>
           {statusMutation.isError && (
             <p style={{ color: "#b00020", marginTop: 12, marginBottom: 0, fontSize: 14 }}>
-              Could not update branch status. Try again.
+              {(statusMutation.error as any)?.response?.data?.error?.message ??
+                (statusMutation.error as any)?.response?.data?.message ??
+                "Could not update branch status. Try again."}
             </p>
           )}
         </div>
