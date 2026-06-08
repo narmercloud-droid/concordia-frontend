@@ -45,7 +45,11 @@
       "pasta": "Paste de casă",
       "pizza": "Pizza crocantă",
       "salads": "Salate proaspete",
-      "dining": "Plăcere la Concordia"
+      "dining": "Plăcere la Concordia",
+      "alforno": "Al forno din cuptor",
+      "classics": "Șnițel și clasice",
+      "burger": "Burgeri gourmet",
+      "baguette": "Baghete proaspete"
     },
     "showcase": {
       "pizza": "Pizza",
@@ -220,7 +224,7 @@
     "loading": "Se încarcă preparatul…",
     "includedTitle": "Inclus în comandă — alegeți o opțiune (gratuit)",
     "paidExtras": "Extra cu plată",
-    "extrasSizeHint": "Alegeți mai întâi mărimea — prețurile extra depind de klein / groß",
+    "extrasSizeHint": "Alegeți mai întâi mărimea — prețurile extra depind de mică / mare",
     "extrasSizeSelected": "Prețuri pentru {{size}}",
     "extrasOptional": "Extra opționale — alegeți din orice categorie",
     "instructions": "Instrucțiuni speciale",

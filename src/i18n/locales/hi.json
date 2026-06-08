@@ -45,7 +45,11 @@
       "pasta": "घर जैसा पास्ता",
       "pizza": "कुरकुरी पिज़्ज़ा",
       "salads": "ताज़ा सलाद",
-      "dining": "Concordia में आनंद"
+      "dining": "Concordia में आनंद",
+      "alforno": "ओवन से al forno",
+      "classics": "श्निट्ज़ेल और क्लासिक",
+      "burger": "गourmet बर्गर",
+      "baguette": "ताज़ी बैगेट"
     },
     "showcase": {
       "pizza": "पिज़्ज़ा",
@@ -220,7 +224,7 @@
     "loading": "आइटम लोड हो रहा है…",
     "includedTitle": "ऑर्डर में शामिल — एक विकल्प चुनें (मुफ़्त)",
     "paidExtras": "सशुल्क अतिरिक्त",
-    "extrasSizeHint": "पहले साइज़ चुनें — अतिरिक्त कीमत klein / groß पर निर्भर",
+    "extrasSizeHint": "पहले साइज़ चुनें — अतिरिक्त कीमत छोटी / बड़ी पर निर्भर",
     "extrasSizeSelected": "{{size}} के लिए कीमतें",
     "extrasOptional": "वैकल्पिक अतिरिक्त — किसी भी श्रेणी से चुनें",
     "instructions": "विशेष निर्देश",

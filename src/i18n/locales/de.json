@@ -45,7 +45,11 @@
       "pasta": "Hausgemachte Pasta",
       "pizza": "Knusprige Pizza",
       "salads": "Frische Salate",
-      "dining": "Genuss bei Concordia"
+      "dining": "Genuss bei Concordia",
+      "alforno": "Al Forno aus dem Ofen",
+      "classics": "Schnitzel & Klassiker",
+      "burger": "Burger vom Grill",
+      "baguette": "Frische Baguettes"
     },
     "showcase": {
       "pizza": "Pizza",

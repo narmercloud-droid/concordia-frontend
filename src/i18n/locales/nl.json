@@ -45,7 +45,11 @@
       "pasta": "Huisgemaakte pasta",
       "pizza": "Knapperige pizza",
       "salads": "Verse salades",
-      "dining": "Genieten bij Concordia"
+      "dining": "Genieten bij Concordia",
+      "alforno": "Al forno uit de oven",
+      "classics": "Schnitzel & klassiekers",
+      "burger": "Gourmet burgers",
+      "baguette": "Verse baguettes"
     },
     "showcase": {
       "pizza": "Pizza",
@@ -220,7 +224,7 @@
     "loading": "Gerecht laden…",
     "includedTitle": "Inbegrepen bij uw bestelling — kies één optie (gratis)",
     "paidExtras": "Betaalde extra's",
-    "extrasSizeHint": "Kies eerst de maat — extraprijzen hangen af van klein / groß",
+    "extrasSizeHint": "Kies eerst de maat — extraprijzen hangen af van klein / groot",
     "extrasSizeSelected": "Prijzen voor {{size}}",
     "extrasOptional": "Optionele extra's — kies uit alle categorieën",
     "instructions": "Speciale wensen",

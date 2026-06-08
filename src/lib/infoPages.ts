@@ -3,7 +3,6 @@ export const INFO_PAGES = [
   { path: "/contact", key: "contact" },
   { path: "/reviews", key: "reviews" },
   { path: "/offers", key: "offers" },
-  { path: "/delivery", key: "delivery" },
   { path: "/faq", key: "faq" }
 ] as const
 

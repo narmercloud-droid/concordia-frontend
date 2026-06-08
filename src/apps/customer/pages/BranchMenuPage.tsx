@@ -4,8 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu, getBranches } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
-import { warmupApi } from "@/api/warmup"
-import { BRANCHES_QUERY_KEY } from "@/lib/branchesQuery"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import { getBranchOwnerBranding } from "@/lib/branchBranding"
@@ -53,8 +52,8 @@ export default function BranchMenuPage() {
 
   const { data: branches } = useQuery({
     queryKey: BRANCHES_QUERY_KEY,
-    queryFn: getBranches,
-    staleTime: 90_000
+    queryFn: branchesQueryOptions.queryFn,
+    ...branchesQueryOptions
   })
 
   const branch = branches?.find((b: { id: string }) => b.id === branchId)
@@ -62,10 +61,7 @@ export default function BranchMenuPage() {
 
   const { data, isError: menuError, refetch: refetchMenu, isFetching: menuFetching } = useQuery({
     queryKey: ["branchMenu", branchId, i18n.language],
-    queryFn: async () => {
-      await warmupApi()
-      return getBranchMenu(branchId!)
-    },
+    queryFn: () => getBranchMenu(branchId!),
     enabled: !!branchId,
     ...menuQueryOptions
   })

@@ -45,7 +45,11 @@
       "pasta": "Domowy makaron",
       "pizza": "Chrupiąca pizza",
       "salads": "Świeże sałatki",
-      "dining": "Przyjemność w Concordia"
+      "dining": "Przyjemność w Concordia",
+      "alforno": "Dania al forno z pieca",
+      "classics": "Sznitzle i klasyki",
+      "burger": "Burgery gourmet",
+      "baguette": "Świeże bagietki"
     },
     "showcase": {
       "pizza": "Pizza",
@@ -220,7 +224,7 @@
     "loading": "Ładowanie dania…",
     "includedTitle": "W cenie — wybierz jedną opcję (gratis)",
     "paidExtras": "Płatne dodatki",
-    "extrasSizeHint": "Najpierw wybierz rozmiar — ceny dodatków zależą od klein / groß",
+    "extrasSizeHint": "Najpierw wybierz rozmiar — ceny dodatków zależą od małej / dużej",
     "extrasSizeSelected": "Ceny dla {{size}}",
     "extrasOptional": "Opcjonalne dodatki — wybierz z dowolnej kategorii",
     "instructions": "Specjalne życzenia",

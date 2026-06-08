@@ -5,6 +5,8 @@ export const FOOD_IMAGES = {
   salads: "/images/food/salad.jpg",
   alforno: "/images/food/alforno.jpg",
   classics: "/images/food/classics.jpg",
+  burger: "/images/food/burger.jpg",
+  baguette: "/images/food/baguette.jpg",
   dining: "/images/food/gallery-dining.jpg"
 } as const
 
@@ -45,8 +47,11 @@ export function dishImageForName(name: string, imageUrl?: string | null, categor
 }
 
 export const GALLERY_IMAGES = [
-  { src: FOOD_IMAGES.pasta, key: "pasta" },
   { src: FOOD_IMAGES.pizza, key: "pizza" },
+  { src: FOOD_IMAGES.pasta, key: "pasta" },
   { src: FOOD_IMAGES.salads, key: "salads" },
-  { src: FOOD_IMAGES.dining, key: "dining" }
+  { src: FOOD_IMAGES.alforno, key: "alforno" },
+  { src: FOOD_IMAGES.classics, key: "classics" },
+  { src: FOOD_IMAGES.burger, key: "burger" },
+  { src: FOOD_IMAGES.baguette, key: "baguette" }
 ] as const

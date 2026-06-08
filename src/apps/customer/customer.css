@@ -11,7 +11,7 @@
   --c-green-deep: #145a32;
   --c-green-soft: #e6f4eb;
   --c-green-rgb: 27 115 64;
-  --c-bg: #f6faf7;
+  --c-bg: #fcfefd;
   --c-ink: #1a1f1c;
   --c-muted: #5c6b62;
   --c-line: #d8e4dc;
@@ -21,8 +21,8 @@
   --c-gold: var(--c-green);
   --c-card: #ffffff;
   background:
-    radial-gradient(ellipse 120% 70% at 0% -10%, rgb(var(--c-green-rgb) / 0.1), transparent 55%),
-    radial-gradient(ellipse 90% 60% at 100% 0%, rgb(var(--c-red-rgb) / 0.06), transparent 50%),
+    radial-gradient(ellipse 120% 70% at 0% -10%, rgb(var(--c-green-rgb) / 0.04), transparent 55%),
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgb(var(--c-red-rgb) / 0.03), transparent 50%),
     linear-gradient(180deg, #ffffff 0%, var(--c-bg) 100%);
   min-height: 100vh;
   --c-success: var(--c-green);

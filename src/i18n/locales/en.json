@@ -45,7 +45,11 @@
       "pasta": "Homemade pasta",
       "pizza": "Crispy pizza",
       "salads": "Fresh salads",
-      "dining": "Enjoy at Concordia"
+      "dining": "Enjoy at Concordia",
+      "alforno": "Baked al forno",
+      "classics": "Schnitzel & classics",
+      "burger": "Gourmet burgers",
+      "baguette": "Fresh baguettes"
     },
     "showcase": {
       "pizza": "Pizza",
@@ -245,7 +249,7 @@
     "loading": "Loading item…",
     "includedTitle": "Included with your order — choose one (free)",
     "paidExtras": "Paid extras",
-    "extrasSizeHint": "Choose your size first — extra prices depend on klein / groß",
+    "extrasSizeHint": "Choose your size first — extra prices depend on small / large",
     "extrasSizeSelected": "Prices for {{size}}",
     "extrasOptional": "Optional add-ons — pick from any category below",
     "instructions": "Special instructions",
