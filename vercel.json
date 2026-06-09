@@ -9,6 +9,18 @@
       "source": "/api/(.*)",
       "destination": "https://concordia-backend-web.onrender.com/api/$1"
     },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/orders/:path*",
+      "destination": "https://concordia-backend-web.onrender.com/orders/:path*"
+    },
+    {
+      "source": "/orders",
+      "destination": "https://concordia-backend-web.onrender.com/orders"
+    },
+    {
+      "source": "/customer/:path*",
+      "destination": "https://concordia-backend-web.onrender.com/customer/:path*"
+    },
+    { "source": "/((?!api/|orders|customer).*)", "destination": "/index.html" }
   ]
 }

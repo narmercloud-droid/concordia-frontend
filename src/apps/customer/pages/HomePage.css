@@ -421,7 +421,7 @@
 
 .concordia-home-logo__image {
   display: block;
-  width: min(380px, 86vw);
+  width: min(520px, 94vw);
   height: auto;
   margin: 0 auto;
 }

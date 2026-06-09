@@ -114,15 +114,24 @@
 }
 
 .concordia-logo--sm .concordia-logo__image {
-  width: 120px;
+  width: auto;
+  max-width: 132px;
+  max-height: 48px;
+  object-fit: contain;
 }
 
 .concordia-logo--md .concordia-logo__image {
-  width: 148px;
+  width: auto;
+  max-width: 168px;
+  max-height: 64px;
+  object-fit: contain;
 }
 
 .concordia-logo--lg .concordia-logo__image {
-  width: 196px;
+  width: auto;
+  max-width: 220px;
+  max-height: 84px;
+  object-fit: contain;
 }
 
 .branch-owner {

@@ -27,6 +27,7 @@ export default function SiteFooter() {
         ))}
       </nav>
       <ConcordiaLogo size="sm" className="site-footer__logo" />
+      <p className="site-footer__tagline">{t("home.tagline")}</p>
       <p className="site-footer__slogan">{t("home.slogan")}</p>
       <p>{t("home.footerCash")}</p>
       <p className="site-footer__promo">

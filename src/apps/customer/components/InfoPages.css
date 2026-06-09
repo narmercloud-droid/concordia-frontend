@@ -130,6 +130,15 @@
   opacity: 0.92;
 }
 
+.site-footer__tagline {
+  margin: 0 0 6px !important;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft, #4a4540) !important;
+}
+
 .site-footer__slogan {
   margin: 0 0 12px !important;
   font-family: var(--c-serif);

@@ -20,7 +20,7 @@
     "errorBody": "Bitte laden Sie die Seite neu. Wenn das Problem bleibt, versuchen Sie es in einem Moment erneut.",
     "refreshPage": "Seite neu laden",
     "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+    "logoHomeAlt": "Concordia Restaurant — fünf Küchenchefs, Deutsche Herzlichkeit, Italienische Leidenschaft"
   },
   "lang": {
     "label": "Sprache"
@@ -40,6 +40,7 @@
     "loading": "Concordia",
     "eyebrow": "Willkommen bei",
     "title": "Concordia Restaurant",
+    "tagline": "Deutsche Herzlichkeit • Italienische Leidenschaft",
     "slogan": "Wo Harmonie auf dem Teller liegt.",
     "lead": "Italienische Küche aus unserem Ofen — von knuspriger Pizza über hausgemachte Pasta bis zu beliebten Klassikern. Bestellen Sie bequem online zur Abholung oder Lieferung.",
     "showcaseLabel": "Unsere Küche",

@@ -366,6 +366,8 @@ export default function CheckoutPage() {
       const message =
         err?.response?.data?.error?.message ??
         err?.response?.data?.message ??
+        (err?.response?.status === 405 ? t("checkout.orderFailed") : null) ??
+        err?.message ??
         t("checkout.orderFailed")
       setError(message)
     }

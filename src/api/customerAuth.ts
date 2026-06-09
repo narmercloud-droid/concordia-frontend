@@ -22,16 +22,16 @@ export const registerCustomer = async (data: {
   password: string
   phone?: string
 }) => {
-  const res = await api.post("/customer/register", data)
+  const res = await api.post("/api/v1/customers/register", data)
   return unwrap<{ accessToken: string; user: CustomerUser }>(res)
 }
 
 export const loginCustomer = async (data: { email: string; password: string }) => {
-  const res = await api.post("/customer/login", data)
+  const res = await api.post("/api/v1/customers/login", data)
   return unwrap<{ accessToken: string; user: CustomerUser }>(res)
 }
 
 export const getCustomerProfile = async () => {
-  const res = await api.get("/customer/me")
+  const res = await api.get("/api/v1/customers/me")
   return unwrap<CustomerUser & { addresses?: unknown[] }>(res)
 }

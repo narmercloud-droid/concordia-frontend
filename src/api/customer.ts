@@ -126,7 +126,7 @@ export const createOrder = (data: {
   pushToken?: string
 }) =>
   api
-    .post("/orders", {
+    .post("/api/v1/order", {
       branchId: data.branchId,
       isGuest: data.isGuest ?? true,
       customerId: data.customerId,
@@ -160,7 +160,7 @@ export const createOrder = (data: {
     .then((res) => unwrap<any>(res))
 
 export const getOrderStatus = async (orderId: string) => {
-  const res = await api.get(`/orders/${orderId}/status`)
+  const res = await api.get(`/api/v1/order/${orderId}/status`)
   return unwrap<any>(res)
 }
 

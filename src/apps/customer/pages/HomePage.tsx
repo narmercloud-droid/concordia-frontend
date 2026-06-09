@@ -38,7 +38,6 @@ export default function HomePage() {
           <div className="home-hero__overlay" aria-hidden="true" />
 
           <p className="home-hero__kicker">{t("home.eyebrow")}</p>
-          <p className="home-slogan">{t("home.slogan")}</p>
           <div className="home-divider" aria-hidden="true" />
           <p className="home-lead">{t("home.lead")}</p>
 
