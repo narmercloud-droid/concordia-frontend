@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { clearCartStorage, loadCartItems, saveCartItems } from "@/lib/cartStorage";
 
 export interface CartSelection {
   id: string;
@@ -42,7 +43,7 @@ interface CartState {
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
-  items: [],
+  items: loadCartItems(),
 
   addItem: (item) => {
     const cartKey = buildCartKey(item);
@@ -97,8 +98,15 @@ export const useCartStore = create<CartState>((set, get) => ({
       items: state.items.filter((i) => i.cartKey !== cartKey)
     })),
 
-  clearCart: () => set({ items: [] }),
+  clearCart: () => {
+    clearCartStorage();
+    set({ items: [] });
+  },
 
   total: () =>
     get().items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
 }));
+
+useCartStore.subscribe((state) => {
+  saveCartItems(state.items);
+});

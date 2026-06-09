@@ -23,6 +23,7 @@ import {
   loadCheckoutDraft,
   saveCheckoutDraft
 } from "@/lib/checkoutDraft"
+import { getApiErrorMessage, getOrderIdFromPayload } from "@/lib/apiErrors"
 import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
@@ -47,6 +48,7 @@ export default function CheckoutPage() {
     [branchId]
   )
   const hadSavedDraft = useRef(Boolean(savedDraft))
+  const freeDrinkSectionRef = useRef<HTMLDivElement>(null)
 
   const [name, setName] = useState(() => savedDraft?.name ?? "")
   const [phone, setPhone] = useState(() => savedDraft?.phone ?? "")
@@ -106,7 +108,7 @@ export default function CheckoutPage() {
 
   const postalCode = extractPostalCode(address)
 
-  const { data: branches } = useQuery({
+  const { data: branches, isLoading: branchesLoading } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches
   })
@@ -140,7 +142,7 @@ export default function CheckoutPage() {
     paymentChoice === "card" || paymentChoice === "paypal"
   const needsOnlinePayment = onlinePaymentChoice && paymentMethods[paymentChoice]
 
-  const { data: freeDrinkData } = useQuery({
+  const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
     queryFn: () => getFreeDrinkOptions(branchId!),
     enabled: !!branchId && qualifiesForFreeDrink,
@@ -148,6 +150,12 @@ export default function CheckoutPage() {
   })
 
   const freeDrinkOptions = freeDrinkData?.options ?? []
+  const needsFreeDrinkSelection = qualifiesForFreeDrink
+  const freeDrinkChosen =
+    freeDrinkChoice !== "" && typeof freeDrinkChoice === "number"
+  const freeDrinkBlocking =
+    needsFreeDrinkSelection &&
+    (freeDrinkLoading || freeDrinkOptions.length === 0 || !freeDrinkChosen)
 
   const createMutation = useMutation({
     mutationFn: createOrder
@@ -359,8 +367,11 @@ export default function CheckoutPage() {
       return false
     }
 
-    if (qualifiesForFreeDrink && freeDrinkChoice === "") {
-      setFreeDrinkError(t("checkout.freeDrinkRequired"))
+    if (needsFreeDrinkSelection && !freeDrinkChosen) {
+      const message = t("checkout.freeDrinkRequired")
+      setError(message)
+      setFreeDrinkError(message)
+      freeDrinkSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
       return false
     }
 
@@ -382,6 +393,11 @@ export default function CheckoutPage() {
   }
 
   const handleSubmit = async () => {
+    if (branchesLoading) {
+      setError(t("common.processing"))
+      return
+    }
+
     if (!validateCheckout()) return
 
     if (checkoutMode === "account" && !isLoggedIn) {
@@ -404,7 +420,8 @@ export default function CheckoutPage() {
         customerName: name.trim(),
         customerPhone: phone.trim(),
         customerEmail: customerEmail.trim() || undefined,
-        freeDrinkChoice: qualifiesForFreeDrink ? freeDrinkChoice : undefined,
+        freeDrinkChoice:
+          needsFreeDrinkSelection && freeDrinkChosen ? Number(freeDrinkChoice) : undefined,
         marketingEmail,
         marketingSMS,
         marketingWhatsApp,
@@ -418,7 +435,7 @@ export default function CheckoutPage() {
         pushToken: pushToken ?? undefined
       })
 
-      const orderId = res?.id
+      const orderId = getOrderIdFromPayload(res)
       if (!orderId) {
         setError(t("checkout.orderFailed"))
         return
@@ -432,14 +449,13 @@ export default function CheckoutPage() {
       clearCart()
       clearCheckoutDraft()
       navigate(`/customer/order/${orderId}`)
-    } catch (err: any) {
-      const message =
-        err?.response?.data?.error?.message ??
-        err?.response?.data?.message ??
-        (err?.response?.status === 405 ? t("checkout.orderFailed") : null) ??
-        err?.message ??
-        t("checkout.orderFailed")
+    } catch (err: unknown) {
+      const message = getApiErrorMessage(err) ?? t("checkout.orderFailed")
       setError(message)
+      if (message.includes("Gratisgetränk") || message.toLowerCase().includes("free drink")) {
+        setFreeDrinkError(t("checkout.freeDrinkRequired"))
+        freeDrinkSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+      }
     }
   }
 
@@ -547,6 +563,47 @@ export default function CheckoutPage() {
             {branchPromo?.freeDrinkMessage ??
               t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
           </p>
+        )}
+        {needsFreeDrinkSelection && (
+          <div
+            ref={freeDrinkSectionRef}
+            className="checkout-free-drink checkout-free-drink--summary"
+            style={{ marginTop: 12 }}
+          >
+            <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
+            <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
+            {freeDrinkLoading ? (
+              <p className="customer-hint">{t("common.processing")}</p>
+            ) : (
+              <div className="checkout-free-drink__options" role="radiogroup">
+                {freeDrinkOptions.map((drink) => (
+                  <label
+                    key={drink.id}
+                    className={`checkout-free-drink__option${
+                      freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="freeDrink"
+                      value={drink.id}
+                      checked={freeDrinkChoice === drink.id}
+                      onChange={() => {
+                        setFreeDrinkChoice(drink.id)
+                        setFreeDrinkError("")
+                        setError("")
+                      }}
+                    />
+                    <span>{drink.label}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+            {!freeDrinkChosen && !freeDrinkLoading && (
+              <p className="customer-error">{t("checkout.freeDrinkRequired")}</p>
+            )}
+            {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
+          </div>
         )}
         {freeDrinkMin > 0 && !qualifiesForFreeDrink && (
           <p className="customer-hint">
@@ -809,36 +866,6 @@ export default function CheckoutPage() {
         </div>
       )}
 
-      {qualifiesForFreeDrink && (
-        <div className="customer-field checkout-free-drink">
-          <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
-          <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
-          <div className="checkout-free-drink__options" role="radiogroup">
-            {freeDrinkOptions.map((drink) => (
-              <label
-                key={drink.id}
-                className={`checkout-free-drink__option${
-                  freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="freeDrink"
-                  value={drink.id}
-                  checked={freeDrinkChoice === drink.id}
-                  onChange={() => {
-                    setFreeDrinkChoice(drink.id)
-                    setFreeDrinkError("")
-                  }}
-                />
-                <span>{drink.label}</span>
-              </label>
-            ))}
-          </div>
-          {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
-        </div>
-      )}
-
       <div className="customer-field">
         <label className="customer-label">
           {t("checkout.notes")} ({t("common.optional")})
@@ -934,18 +961,20 @@ export default function CheckoutPage() {
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={createMutation.isPending || deliveryBlocked}
+          disabled={createMutation.isPending || deliveryBlocked || branchesLoading || freeDrinkBlocking}
           className="customer-btn customer-btn--primary"
         >
-          {createMutation.isPending
+          {createMutation.isPending || branchesLoading
             ? t("common.processing")
-            : deliveryBlocked && fulfillmentType === "delivery"
-              ? quoteLoading
-                ? t("checkout.checkingDelivery")
-                : t("checkout.completeAddress")
-              : needsOnlinePayment
-                ? t("checkout.continueToPayment")
-                : t("checkout.placeOrder")}
+            : freeDrinkBlocking
+              ? t("checkout.freeDrinkRequired")
+              : deliveryBlocked && fulfillmentType === "delivery"
+                ? quoteLoading
+                  ? t("checkout.checkingDelivery")
+                  : t("checkout.completeAddress")
+                : needsOnlinePayment
+                  ? t("checkout.continueToPayment")
+                  : t("checkout.placeOrder")}
         </button>
         </>
       )}
