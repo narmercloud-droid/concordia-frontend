@@ -2,245 +2,301 @@
 
 You are the restaurant owner. Your lead developer handles all technical work.
 
-**Permanent hosting plan:** see [DEPLOYMENT_ROADMAP.md](./DEPLOYMENT_ROADMAP.md) for domain, Vercel, Render, S3, and go-live steps.
+**Hosting & go-live:** [DEPLOYMENT_ROADMAP.md](./DEPLOYMENT_ROADMAP.md)  
+**This guide:** what works today, how to run Kempen, and how to grow direct orders.
 
+---
 
+## Quick navigation
+
+| Section | What it covers |
+|---------|----------------|
+| [What works now](#what-works-now) | Website, Sunmi, drivers, admin panel |
+| [Kempen delivery areas](#kempen-delivery-postcodes) | Postcodes, minimums, fees |
+| [Growing the business](#growing-the-business) | Attract customers, improve flow, 90-day plan |
+| [Your role](#your-role) | What you do vs what the developer does |
+| [Live URLs](#live-urls-june-2026) | Production links |
+| [Security](#security) | Passwords and credentials |
+
+---
 
 ## What works now
 
-
-
 ### Customer website
 
-- Customer site has no AI; bestsellers and manager analytics are SQL-based from real order data.
-
-- Order online at Kempen: pickup or delivery (cash, card, PayPal when configured)
-
-- **Cart editing** — change quantities or edit item options before checkout
-
-- **Guest or account checkout** — guests can order without signing in; registered customers earn loyalty points
-
-- **Payment method icons** on checkout and gift voucher pages
-
-- Delivery postcode rules (Lieferando areas)
-
+- Order online at **Kempen**: pickup or delivery (cash; card/PayPal when configured)
+- **10% off** automatic discount on website orders
+- **Free drink** on orders from €35
+- **Guest or account checkout** — no sign-in required; accounts earn loyalty points
+- **Cart editing** — change quantities or item options before checkout
+- **11 languages** — good for Kempen’s diverse customer base
+- Delivery postcode rules (Lieferando-aligned areas)
 - ASAP or scheduled time slots
-
-- Live order tracking with driver map (delivery orders)
-
-- **Gift vouchers** — purchasable per branch, redeemable at checkout
-
-
+- Live order tracking with driver map (delivery)
+- **Gift vouchers** — `/gutschein`, redeemable at checkout
+- **Google reviews** on `/reviews`; order feedback in admin at `/admin/reviews`
+- Bestsellers on the menu are based on **real order data**, not AI guesses
 
 ### Sunmi terminal (Kempen)
 
 - Branch code: **KEMPEN** (enter once, stays connected 24/7)
-
-- Staff sees new orders — no auto-print
-
-- Staff sets prep time (default 45 min delivery / 15 min pickup)
-
+- Staff sees new orders — **no auto-print**
+- Staff sets prep time (default: 45 min delivery / 15 min pickup)
 - Staff taps **Confirm time & Print**
-
 - Prints full receipt + Kitchen 2 ticket (non-pizza items)
-
-
 
 ### Driver delivery
 
 - Driver scans QR on receipt → accepts delivery → GPS tracks automatically
-
-- Customer sees driver on map during delivery
-
-
+- Customer sees driver on the map during delivery
 
 ### Branch manager panel
 
-- URL: `/admin/login` on the website
-
+- URL: **`/admin/login`** on the website
 - **Kempen manager:** `kempen@concordia.de`
-
 - **Super admin (you):** `owner@concordia.de`
-
 - Default password (change after first login): **Kempen2026!**
-
-
 
 From the panel you can:
 
-- View today's orders and revenue
-
-- Edit opening hours
-
-- **Delivery settings** — choose postcode zones, distance radius, or both; set free delivery when minimum order is reached
-
+- View today’s orders and revenue
+- Edit opening hours and branch on/off (super admin)
+- **Delivery settings** — postcode zones, distance radius, free delivery rules
 - Toggle menu items on/off and change prices
-
-
+- Read customer order reviews (food + delivery)
 
 ---
-
-
 
 ## Kempen delivery postcodes
 
-
-
 | Postcode | Min order | Delivery fee |
-
 |----------|-----------|--------------|
-
 | 41749 | €30 | €2 |
-
 | 47647 | €20 | €2 |
-
 | 47669 | €20 | €2 |
-
 | 47839 | €30 | €2 |
-
 | 47906 | €15 | €2 |
-
 | 47918 | €20 | €2 |
-
 | 47929 | €20 | €2 |
 
-
-
 ---
-
-
 
 ## Kitchen routing
 
+| Station | What prints |
+|---------|-------------|
+| **Kitchen 1 (Sunmi)** | Full order receipt |
+| **Kitchen 2** | Non-pizza items only (on Sunmi until network printer is installed) |
 
-
-- **Kitchen 1 (Sunmi):** Full order receipt
-
-- **Kitchen 2:** Non-pizza items only (on Sunmi until network printer is installed)
-
-
+**Staff rule:** Always set a realistic prep time and tap **Confirm time & Print** before the kitchen starts. Reliable timing = better reviews.
 
 ---
-
-
 
 ## Payment
 
-
-
-Cash only at launch. PayPal comes later.
-
-
+**Launch:** cash on pickup and delivery (`CASH_ONLY_LAUNCH=true` on the server).  
+**When ready:** card and PayPal can be turned on in hosting settings — many customers expect online payment.
 
 ---
 
+## Growing the business
 
+### The big opportunity
 
-## When we go live online (free hosting)
+Lieferando takes roughly **15–30% commission**. Your own website keeps that margin and you still offer **10% off** to the customer — everyone wins except the platform.
 
+**Goal:** Make ordering direct **easier and more trustworthy** than Lieferando, then **bring people back** so they order again.
 
-
-Developer will:
-
-1. Deploy backend to Render (free tier)
-
-2. Deploy website to Vercel (free tier)
-
-3. Set `CASH_ONLY_LAUNCH=true` (no payment setup needed)
-
-4. Rebuild Sunmi APK with the live API URL
-
-5. Run database seed once
-
-
-
-You will then do **one full test session** before switching customers from Lieferando.
-
-
-
-Lieferando stays live in parallel until you are confident.
-
-
+> Keep Lieferando live in parallel until you are confident. Switch customers gradually, not overnight.
 
 ---
 
+### 1. Attract new customers (outside the website)
 
+These often matter **more than new software features**.
+
+#### Own your Google presence
+
+Most new local customers find you on **Google Maps**, not by typing your URL.
+
+| Action | How |
+|--------|-----|
+| Ask for reviews | After a good meal or delivery: *“If you enjoyed it, a Google review helps us a lot.”* |
+| QR on receipts | Link to your Kempen Google review page |
+| Keep profile updated | Hours, photos, phone, link to your order site |
+
+Your website already shows Google reviews on **`/reviews`** — use the same quotes on social media.
+
+#### Move customers from Lieferando to your site
+
+| Channel | Message |
+|---------|---------|
+| Receipt / flyer | *“Order direct & save 10%”* + your website URL |
+| Bag insert | Small card in every delivery bag |
+| In person | *“We have our own app-free website — 10% off automatically.”* |
+
+#### Local partnerships (low cost)
+
+- Schools, clubs, sports teams → family pizza night with online discount
+- Flyers to offices in your delivery postcodes (47906, 47929, etc.)
+
+#### Social media
+
+Short kitchen clips (pizza from the oven, fresh pasta) outperform polished ads. Use **real guest quotes** from Google.
+
+---
+
+### 2. Improve the order flow (website → paid order)
+
+Fix friction **before** adding fancy features.
+
+| Priority | Issue | What to do |
+|----------|--------|------------|
+| **High** | Slow first load (“Loading menu…”) | Upgrade backend to **Render Starter (~€7/mo)** — no cold starts |
+| **High** | `vercel.app` URL looks temporary | Connect **your own domain** (e.g. `www.concordia-kempen.de`) |
+| **High** | Cash-only blocks some guests | Enable **card/PayPal** when you are ready |
+| **Medium** | Mobile orders | Keep **Order now** obvious on the homepage |
+| **Medium** | Straelen | When live, one site with **two branches** widens reach instantly |
+
+**Already working well:** guest checkout, auto 10% discount, free drink from €35, live delivery tracking, gift vouchers, multi-language menu.
+
+---
+
+### 3. Bring customers back (retention)
+
+Keeping a customer is cheaper than finding a new one.
+
+| Tactic | Status | Next step |
+|--------|--------|-----------|
+| **Loyalty points** | Built for registered users | Launch with a simple message: *“Create an account — earn points every order.”* |
+| **Post-order feedback** | Customers can rate on tracking page | Ask happy guests to leave a **Google** review; fix issues before they go public |
+| **Marketing email/SMS** | Opt-in at checkout | Only with consent — Friday offers, birthday deals |
+| **Gift vouchers** | Live at `/gutschein` | Promote for birthdays, Christmas, local employers |
+
+**First loyalty reward** should be easy to reach (e.g. free drink or €5 off) so people feel progress quickly.
+
+---
+
+### 4. Operations = marketing
+
+| If the kitchen/driver flow is reliable | Then |
+|----------------------------------------|------|
+| Realistic prep times on Sunmi | Fewer angry calls |
+| Kitchen 2 tickets for non-pizza | Fewer mistakes, faster service |
+| Driver QR + GPS map | Fewer “where is my food?” messages |
+| Correct hours & prices in admin | No lost orders from wrong info |
+
+**Happy operations → good reviews → more new customers.**
+
+---
+
+### 5. What to measure (simple weekly check)
+
+You do not need complex analytics yet. Once a week, note:
+
+| Metric | Why it matters |
+|--------|----------------|
+| Website orders vs Lieferando | Are you winning the switch? |
+| Average order value | Is the €35 free drink lifting basket size? |
+| Repeat customers (same phone/email) | Is retention working? |
+| Delivery vs pickup split | Staffing and marketing focus |
+| Google rating & review count | Local discovery |
+| Feedback in **`/admin/reviews`** | Fix kitchen/driver issues early |
+
+---
+
+### 6. Ninety-day growth plan
+
+#### Month 1 — Trust & reliability
+
+- [ ] Custom domain + Render Starter (fast menu load)
+- [ ] Google review push (receipt QR, ask in restaurant)
+- [ ] Flyers: *“10% off — order direct”*
+- [ ] Train staff: **Confirm time & Print** on every Sunmi order
+
+#### Month 2 — Conversion & retention
+
+- [ ] Card/PayPal if not live yet
+- [ ] Promote gift vouchers locally
+- [ ] Turn on loyalty for registered customers
+- [ ] Post-order message: rate your order / leave Google review
+
+#### Month 3 — Scale
+
+- [ ] Straelen online when kitchen is ready
+- [ ] Small SMS/email to past guests (**opt-in only**)
+- [ ] 2–3 local business or club partnerships
+
+---
+
+### What not to chase yet
+
+- AI chatbots on the website
+- Complex loyalty tiers before basic points work
+- More branches on the site before Straelen actually takes orders
+- Heavy paid ads before Google reviews and your own domain are solid
+
+---
+
+### Bottom line
+
+| Best return on effort | |
+|----------------------|---|
+| 1 | Switch Lieferando customers to your site (10% off + better experience) |
+| 2 | Google reviews + own domain (trust) |
+| 3 | Fast, reliable ordering (no cold starts, clear menu) |
+| 4 | Bring people back (loyalty, vouchers, follow-up) |
+| 5 | Run kitchen/driver flow consistently every shift |
+
+You already have more technology than most independent restaurants. The gap is **visibility, trust, and habit** — then loyalty and notifications as you grow.
+
+---
 
 ## Your role
 
-
-
-1. Test when asked and report what you see
-
-2. Use the branch manager panel to adjust hours, prices, and delivery rules
-
-3. Tell us when you are ready for friends & family soft launch
-
-
+1. **Test** when asked and report what you see (works / broken / confusing)
+2. **Use the admin panel** for hours, prices, delivery rules, and feedback
+3. **Say when you are ready** for friends & family, then public switch from Lieferando
+4. **Drive growth** using the checklist above — marketing is yours; building is the developer’s
 
 ---
-
-
 
 ## Live URLs (June 2026)
 
-
-
 | What | URL |
-
 |------|-----|
-
-| **Backend API (Render)** | https://concordia-backend-web.onrender.com |
-
+| **Customer website** | https://concordia-restaurant-de.vercel.app |
+| **Kempen menu** | https://concordia-restaurant-de.vercel.app/branch/concordia-kempen |
+| **Straelen menu** | https://concordia-restaurant-de.vercel.app/branch/concordia-straelen |
+| **Admin panel** | https://concordia-restaurant-de.vercel.app/admin/login |
+| **Backend API** | https://concordia-backend-web.onrender.com |
 | **Health check** | https://concordia-backend-web.onrender.com/health |
 
-| **Customer website (Vercel)** | *pending — see deploy steps below* |
-
-| **Kempen direct order link** | `/customer/branch/concordia-kempen` *(on your Vercel domain)* |
-
-
+Custom domain (recommended next step): see [DEPLOYMENT_ROADMAP.md](./DEPLOYMENT_ROADMAP.md).
 
 ---
-
-
 
 ## Deploy status
 
-
-
 ### Done
 
-- Render backend is **Live** (free tier)
-
+- Render backend **Live** (free tier — consider Starter for production)
+- Vercel frontend **Live**
 - Neon database connected
+- Kempen menu synced
 
-- Kempen menu synced (113 items)
+### Recommended next
 
-
-
-### Next (one-time setup)
-
-1. **GitHub:** Create empty repo `concordia-frontend` under `narmercloud-droid` — lead developer pushes the website code
-
-2. **Vercel:** Import `concordia-frontend`, set `VITE_API_URL=https://concordia-backend-web.onrender.com`
-
-3. **Render:** Update `FRONTEND_URL`, `CORS_ORIGIN`, `PUBLIC_URL` to your Vercel URL
-
-
+1. **Custom domain** on Vercel + API subdomain on Render
+2. **Render Starter** (~€7/mo) — eliminates slow “wake up” on first visit
+3. **S3** for permanent menu photos (see deployment roadmap)
+4. Change default admin password after first login
 
 ---
 
-
-
 ## Security
 
-
-
-- Never share database passwords in chat
-
+- Never share database passwords in chat or email
 - Change the default admin password after first login
-
-- Credentials stay in secure hosting settings only
-
-- Rotate Neon password after launch (was shared during setup)
-
+- Credentials live only in Vercel / Render / Neon dashboards
+- Rotate Neon password if it was ever shared during setup

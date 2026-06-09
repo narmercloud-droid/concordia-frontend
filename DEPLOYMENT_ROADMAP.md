@@ -29,7 +29,7 @@ Courier ordering is already part of the main website (`/courier`). No separate h
 
 | What | URL |
 |------|-----|
-| Customer website | https://concordia-frontend-eight.vercel.app |
+| Customer website | https://concordia-restaurant-de.vercel.app |
 | Backend API | https://concordia-backend-web.onrender.com |
 | Health check | https://concordia-backend-web.onrender.com/health |
 
