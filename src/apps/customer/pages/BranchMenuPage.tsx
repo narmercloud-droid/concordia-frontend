@@ -56,8 +56,9 @@ export default function BranchMenuPage() {
     ...branchesQueryOptions
   })
 
-  const branch = branches?.find((b: { id: string }) => b.id === branchId)
+  const branch = branches?.find((b: { id: string; comingSoon?: boolean }) => b.id === branchId)
   const branchName = branch ? branchDisplayName(branch.name) : ""
+  const orderingDisabled = !!branch?.comingSoon
 
   const { data, isError: menuError, refetch: refetchMenu } = useQuery({
     queryKey: ["branchMenu", branchId, i18n.language],
@@ -94,9 +95,13 @@ export default function BranchMenuPage() {
     return () => window.clearTimeout(timer)
   }, [toastName])
 
-  const openItem = useCallback((item: MenuItem, categoryName: string) => {
-    setSelectedItem({ ...item, categoryName })
-  }, [])
+  const openItem = useCallback(
+    (item: MenuItem, categoryName: string) => {
+      if (orderingDisabled) return
+      setSelectedItem({ ...item, categoryName })
+    },
+    [orderingDisabled]
+  )
 
   if (!data?.categories) {
     if (menuError) {
@@ -118,6 +123,12 @@ export default function BranchMenuPage() {
     <div className="customer-page customer-page--wide branch-menu">
       {ownerBranding && branchName && (
         <BranchOwnerWelcome branding={ownerBranding} branchName={branchName} />
+      )}
+
+      {orderingDisabled && (
+        <div className="branch-menu__soon-banner" role="status">
+          {t("home.comingSoonLabel")} — {t("pages.faq.items.q6.a")}
+        </div>
       )}
 
       <header className="branch-menu__header">
@@ -167,6 +178,7 @@ export default function BranchMenuPage() {
                 item={item}
                 categoryName={categoryForItem(categories, item)}
                 onOpen={openItem}
+                orderingDisabled={orderingDisabled}
               />
             ))}
           </div>
@@ -189,6 +201,7 @@ export default function BranchMenuPage() {
                 item={item}
                 categoryName={cat.name}
                 onOpen={openItem}
+                orderingDisabled={orderingDisabled}
               />
             ))}
           </div>
@@ -237,12 +250,14 @@ type BranchMenuItemCardProps = {
   item: MenuItem
   categoryName: string
   onOpen: (item: MenuItem, categoryName: string) => void
+  orderingDisabled?: boolean
 }
 
 const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
   item,
   categoryName,
-  onOpen
+  onOpen,
+  orderingDisabled = false
 }: BranchMenuItemCardProps) {
   const { t } = useTranslation()
   const image = dishImageForName(item.name, item.imageUrl, categoryName, item.description)
@@ -268,8 +283,13 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
           </p>
         </div>
       </button>
-      <button type="button" className="branch-menu__order-btn" onClick={() => onOpen(item, categoryName)}>
-        {t("home.orderNow")}
+      <button
+        type="button"
+        className={`branch-menu__order-btn${orderingDisabled ? " branch-menu__order-btn--disabled" : ""}`}
+        onClick={() => onOpen(item, categoryName)}
+        disabled={orderingDisabled}
+      >
+        {orderingDisabled ? t("home.comingSoonLabel") : t("home.orderNow")}
       </button>
     </article>
   )
