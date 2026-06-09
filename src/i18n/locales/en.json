@@ -378,9 +378,14 @@
     "contact": {
       "eyebrow": "Get in touch",
       "title": "Contact & locations",
-      "lead": "Visit us, order online, or reach out by email. We look forward to hearing from you.",
-      "emailTitle": "Email",
-      "emailHint": "For orders, please use our online menu — we reply to general enquiries as soon as we can."
+      "lead": "Visit us in person or get in touch by phone or email. We look forward to hearing from you.",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "maps": "Directions",
+      "viewOnMaps": "Open in Google Maps",
+      "detailsPending": "Contact details will be published here soon.",
+      "emailHint": "For online orders, please use our menu from the homepage. We reply to general enquiries as soon as we can."
     },
     "reviews": {
       "eyebrow": "Guest voices",

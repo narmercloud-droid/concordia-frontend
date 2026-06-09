@@ -383,9 +383,14 @@
     "contact": {
       "eyebrow": "Kontakt",
       "title": "Kontakt & Standorte",
-      "lead": "Besuchen Sie uns, bestellen Sie online oder schreiben Sie uns eine E-Mail. Wir freuen uns auf Sie.",
-      "emailTitle": "E-Mail",
-      "emailHint": "Für Bestellungen nutzen Sie bitte unser Online-Menü — auf allgemeine Anfragen antworten wir so schnell wie möglich."
+      "lead": "Besuchen Sie uns vor Ort oder kontaktieren Sie uns per Telefon oder E-Mail. Wir freuen uns auf Sie.",
+      "address": "Adresse",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "maps": "Anfahrt",
+      "viewOnMaps": "In Google Maps öffnen",
+      "detailsPending": "Kontaktdaten folgen in Kürze.",
+      "emailHint": "Für Online-Bestellungen nutzen Sie bitte das Menü auf der Startseite. Auf allgemeine Anfragen antworten wir so schnell wie möglich."
     },
     "reviews": {
       "eyebrow": "Stimmen unserer Gäste",

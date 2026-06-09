@@ -555,6 +555,46 @@
   font-weight: 500;
 }
 
+.info-contact-card__badge {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(180, 83, 9, 0.1);
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.info-contact-card__details {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.info-contact-card__details dt {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.info-contact-card__details dd {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--c-text);
+}
+
+.info-contact-card__empty {
+  margin: 0;
+  font-size: 14px;
+  color: var(--c-muted);
+}
+
 .info-contact-card p {
   margin: 0 0 8px;
   font-size: 14px;
