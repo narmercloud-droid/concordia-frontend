@@ -14,7 +14,7 @@ import {
 import { getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
-import AddressAutocomplete from "@/components/AddressAutocomplete"
+import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { calcWebsiteDiscount } from "@/lib/websitePromo"
@@ -24,17 +24,18 @@ import {
   saveCheckoutDraft
 } from "@/lib/checkoutDraft"
 import { getApiErrorMessage, getOrderIdFromPayload } from "@/lib/apiErrors"
+import {
+  formatDeliveryAddress,
+  isDeliveryAddressComplete,
+  loadAddressFields,
+  type DeliveryAddressFields
+} from "@/lib/deliveryAddress"
 import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
 type PaymentChoice = "cash" | "card" | "paypal" | "klarna" | "sepa"
 type CheckoutMode = "guest" | "account"
-
-function extractPostalCode(address: string): string | null {
-  const match = address.match(/\b(\d{5})\b/)
-  return match ? match[1] : null
-}
 
 export default function CheckoutPage() {
   const { t } = useTranslation()
@@ -52,7 +53,9 @@ export default function CheckoutPage() {
 
   const [name, setName] = useState(() => savedDraft?.name ?? "")
   const [phone, setPhone] = useState(() => savedDraft?.phone ?? "")
-  const [address, setAddress] = useState(() => savedDraft?.address ?? "")
+  const [addressFields, setAddressFields] = useState<DeliveryAddressFields>(() =>
+    loadAddressFields(savedDraft)
+  )
   const [fulfillmentType, setFulfillmentType] = useState<FulfillmentType>(
     () => savedDraft?.fulfillmentType ?? "delivery"
   )
@@ -106,14 +109,16 @@ export default function CheckoutPage() {
   const authToken = useAuthStore((s) => s.token)
   const isLoggedIn = !!authToken && !!authUser?.id
 
-  const postalCode = extractPostalCode(address)
+  const deliveryAddress = formatDeliveryAddress(addressFields)
+  const postalCode = addressFields.postalCode.trim() || null
 
   const { data: branches, isLoading: branchesLoading } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches
   })
 
-  const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
+  const branchInfo = branches?.find((b: { id: string }) => b.id === branchId)
+  const branchPromo = branchInfo?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
   const qualifiesForFreeDrink = freeDrinkMin > 0 && total >= freeDrinkMin
 
@@ -162,7 +167,7 @@ export default function CheckoutPage() {
   })
 
   useEffect(() => {
-    if (fulfillmentType !== "delivery" || !branchId || address.trim().length < 5) {
+    if (fulfillmentType !== "delivery" || !branchId || !isDeliveryAddressComplete(addressFields)) {
       setDeliveryQuote(null)
       return
     }
@@ -172,7 +177,7 @@ export default function CheckoutPage() {
       try {
         const quote = await getDeliveryQuote(
           branchId,
-          address.trim(),
+          deliveryAddress,
           total,
           postalCode ?? undefined
         )
@@ -185,7 +190,7 @@ export default function CheckoutPage() {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [address, branchId, fulfillmentType, postalCode, total])
+  }, [addressFields, branchId, deliveryAddress, fulfillmentType, postalCode, total])
 
   useEffect(() => {
     if (!appliedVoucher) return
@@ -235,7 +240,8 @@ export default function CheckoutPage() {
         branchId,
         name,
         phone,
-        address,
+        address: deliveryAddress,
+        addressFields,
         fulfillmentType,
         timingMode,
         scheduledFor,
@@ -258,7 +264,8 @@ export default function CheckoutPage() {
     branchId,
     name,
     phone,
-    address,
+    addressFields,
+    deliveryAddress,
     fulfillmentType,
     timingMode,
     scheduledFor,
@@ -327,7 +334,7 @@ export default function CheckoutPage() {
   const deliveryBlocked =
     fulfillmentType === "delivery" &&
     (quoteLoading ||
-      address.trim().length < 8 ||
+      !isDeliveryAddressComplete(addressFields) ||
       !deliveryQuote?.allowed ||
       (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder))
 
@@ -352,12 +359,20 @@ export default function CheckoutPage() {
     }
 
     if (fulfillmentType === "delivery") {
-      if (address.trim().length < 8) {
+      if (!/^\d{5}$/.test(addressFields.postalCode.trim())) {
+        setAddressError(t("checkout.postcodeRequired"))
+        return false
+      }
+      if (!addressFields.city.trim()) {
         setAddressError(t("checkout.addressRequired"))
         return false
       }
-      if (!postalCode) {
-        setAddressError(t("checkout.postcodeRequired"))
+      if (!addressFields.street.trim()) {
+        setAddressError(t("checkout.addressRequired"))
+        return false
+      }
+      if (!addressFields.houseNumber.trim()) {
+        setAddressError(t("checkout.addressRequired"))
         return false
       }
     }
@@ -427,7 +442,7 @@ export default function CheckoutPage() {
         marketingWhatsApp,
         birthday: birthday || undefined,
         fulfillmentType,
-        deliveryAddress: fulfillmentType === "delivery" ? address.trim() : undefined,
+        deliveryAddress: fulfillmentType === "delivery" ? deliveryAddress : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: paymentChoice,
         promoCode: appliedVoucher?.code,
@@ -836,15 +851,16 @@ export default function CheckoutPage() {
       {fulfillmentType === "delivery" && (
         <div className="customer-field">
           <label className="customer-label">{t("checkout.address")}</label>
-          <AddressAutocomplete
+          <DeliveryAddressForm
             branchId={branchId!}
-            value={address}
-            onChange={setAddress}
-            onSelect={(s) => setAddress(s.label)}
-            placeholder={t("checkout.addressPlaceholder")}
+            branchCity={branchInfo?.city}
+            value={addressFields}
+            onChange={(fields) => {
+              setAddressFields(fields)
+              setAddressError("")
+            }}
+            error={addressError}
           />
-          <p className="customer-hint">{t("checkout.addressHintLive")}</p>
-          {addressError && <p className="customer-error">{addressError}</p>}
           {quoteLoading && <p className="customer-hint">{t("checkout.checkingDelivery")}</p>}
           {deliveryQuote && !deliveryQuote.allowed && (
             <p className="customer-error">{deliveryQuote.message}</p>

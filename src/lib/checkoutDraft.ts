@@ -1,3 +1,5 @@
+import type { DeliveryAddressFields } from "@/lib/deliveryAddress"
+
 const STORAGE_KEY = "concordia_checkout_draft"
 
 export type CheckoutDraftFulfillment = "pickup" | "delivery"
@@ -17,6 +19,7 @@ export type CheckoutDraft = {
   name: string
   phone: string
   address: string
+  addressFields?: DeliveryAddressFields
   fulfillmentType: CheckoutDraftFulfillment
   timingMode: CheckoutDraftTiming
   scheduledFor: string

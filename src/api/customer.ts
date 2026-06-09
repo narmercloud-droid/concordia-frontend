@@ -184,10 +184,11 @@ export const getBranchDeliveryAreas = async (branchId: string) => {
 export const suggestAddresses = async (
   branchId: string,
   query: string,
-  postalCode?: string
+  postalCode?: string,
+  city?: string
 ) => {
   const res = await api.get(`/api/branches/${branchId}/address-suggest`, {
-    params: { q: query, postalCode }
+    params: { q: query, postalCode, city }
   })
   return unwrap<{
     suggestions: Array<{
