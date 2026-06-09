@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { getStoredPushToken, isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -18,6 +18,11 @@ import AddressAutocomplete from "@/components/AddressAutocomplete"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { calcWebsiteDiscount } from "@/lib/websitePromo"
+import {
+  clearCheckoutDraft,
+  loadCheckoutDraft,
+  saveCheckoutDraft
+} from "@/lib/checkoutDraft"
 import { formatCurrency } from "@/utils/format"
 
 type FulfillmentType = "pickup" | "delivery"
@@ -36,12 +41,21 @@ export default function CheckoutPage() {
   const items = useCartStore((s) => s.items)
   const total = useCartStore((s) => s.total())
   const clearCart = useCartStore((s) => s.clearCart)
-  const [name, setName] = useState("")
-  const [phone, setPhone] = useState("")
-  const [address, setAddress] = useState("")
-  const [fulfillmentType, setFulfillmentType] = useState<FulfillmentType>("delivery")
-  const [timingMode, setTimingMode] = useState<TimingMode>("asap")
-  const [scheduledFor, setScheduledFor] = useState("")
+  const branchId = items[0]?.branchId
+  const savedDraft = useMemo(
+    () => (branchId ? loadCheckoutDraft(branchId) : null),
+    [branchId]
+  )
+  const hadSavedDraft = useRef(Boolean(savedDraft))
+
+  const [name, setName] = useState(() => savedDraft?.name ?? "")
+  const [phone, setPhone] = useState(() => savedDraft?.phone ?? "")
+  const [address, setAddress] = useState(() => savedDraft?.address ?? "")
+  const [fulfillmentType, setFulfillmentType] = useState<FulfillmentType>(
+    () => savedDraft?.fulfillmentType ?? "delivery"
+  )
+  const [timingMode, setTimingMode] = useState<TimingMode>(() => savedDraft?.timingMode ?? "asap")
+  const [scheduledFor, setScheduledFor] = useState(() => savedDraft?.scheduledFor ?? "")
   const [error, setError] = useState("")
   const [nameError, setNameError] = useState("")
   const [phoneError, setPhoneError] = useState("")
@@ -55,34 +69,41 @@ export default function CheckoutPage() {
     minimumOrder?: number
   } | null>(null)
   const [quoteLoading, setQuoteLoading] = useState(false)
-  const [orderNotes, setOrderNotes] = useState("")
-  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>("cash")
+  const [orderNotes, setOrderNotes] = useState(() => savedDraft?.orderNotes ?? "")
+  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>(
+    () => savedDraft?.paymentChoice ?? "cash"
+  )
   const [pendingCardOrderId, setPendingCardOrderId] = useState<string | null>(null)
-  const [voucherInput, setVoucherInput] = useState("")
+  const [voucherInput, setVoucherInput] = useState(() => savedDraft?.voucherInput ?? "")
   const [appliedVoucher, setAppliedVoucher] = useState<{
     code: string
     discountAmount: number
     kind?: "promo" | "gift"
     balanceRemaining?: number
-  } | null>(null)
+  } | null>(() => savedDraft?.appliedVoucher ?? null)
   const [voucherError, setVoucherError] = useState("")
   const [voucherLoading, setVoucherLoading] = useState(false)
-  const [freeDrinkChoice, setFreeDrinkChoice] = useState<number | "">("")
+  const [freeDrinkChoice, setFreeDrinkChoice] = useState<number | "">(
+    () => savedDraft?.freeDrinkChoice ?? ""
+  )
   const [freeDrinkError, setFreeDrinkError] = useState("")
-  const [customerEmail, setCustomerEmail] = useState("")
+  const [customerEmail, setCustomerEmail] = useState(() => savedDraft?.customerEmail ?? "")
   const [emailError, setEmailError] = useState("")
-  const [marketingEmail, setMarketingEmail] = useState(false)
-  const [marketingSMS, setMarketingSMS] = useState(false)
-  const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
-  const [birthday, setBirthday] = useState("")
+  const [marketingEmail, setMarketingEmail] = useState(() => savedDraft?.marketingEmail ?? false)
+  const [marketingSMS, setMarketingSMS] = useState(() => savedDraft?.marketingSMS ?? false)
+  const [marketingWhatsApp, setMarketingWhatsApp] = useState(
+    () => savedDraft?.marketingWhatsApp ?? false
+  )
+  const [birthday, setBirthday] = useState(() => savedDraft?.birthday ?? "")
   const [birthdayError, setBirthdayError] = useState("")
-  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>("account")
+  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(
+    () => savedDraft?.checkoutMode ?? "account"
+  )
 
   const authUser = useAuthStore((s) => s.user)
   const authToken = useAuthStore((s) => s.token)
   const isLoggedIn = !!authToken && !!authUser?.id
 
-  const branchId = items[0]?.branchId
   const postalCode = extractPostalCode(address)
 
   const { data: branches } = useQuery({
@@ -199,12 +220,60 @@ export default function CheckoutPage() {
   }, [items, navigate, clearCart])
 
   useEffect(() => {
-    if (!isLoggedIn || !authUser) return
+    if (!branchId) return
+
+    const timer = window.setTimeout(() => {
+      saveCheckoutDraft({
+        branchId,
+        name,
+        phone,
+        address,
+        fulfillmentType,
+        timingMode,
+        scheduledFor,
+        orderNotes,
+        paymentChoice,
+        voucherInput,
+        appliedVoucher,
+        freeDrinkChoice,
+        customerEmail,
+        marketingEmail,
+        marketingSMS,
+        marketingWhatsApp,
+        birthday,
+        checkoutMode
+      })
+    }, 200)
+
+    return () => window.clearTimeout(timer)
+  }, [
+    branchId,
+    name,
+    phone,
+    address,
+    fulfillmentType,
+    timingMode,
+    scheduledFor,
+    orderNotes,
+    paymentChoice,
+    voucherInput,
+    appliedVoucher,
+    freeDrinkChoice,
+    customerEmail,
+    marketingEmail,
+    marketingSMS,
+    marketingWhatsApp,
+    birthday,
+    checkoutMode
+  ])
+
+  useEffect(() => {
+    if (!isLoggedIn || !authUser || hadSavedDraft.current) return
     setCheckoutMode("account")
     if (!name && authUser.name) setName(authUser.name)
     if (!customerEmail && authUser.email) setCustomerEmail(authUser.email)
     if (!phone && authUser.phone) setPhone(authUser.phone)
-  }, [isLoggedIn, authUser])
+  }, [isLoggedIn, authUser, name, customerEmail, phone])
 
   if (items.length === 0) return null
 
@@ -361,6 +430,7 @@ export default function CheckoutPage() {
       }
 
       clearCart()
+      clearCheckoutDraft()
       navigate(`/customer/order/${orderId}`)
     } catch (err: any) {
       const message =
@@ -376,6 +446,7 @@ export default function CheckoutPage() {
   const handleCardPaymentSuccess = () => {
     const orderId = pendingCardOrderId
     clearCart()
+    clearCheckoutDraft()
     setPendingCardOrderId(null)
     if (orderId) navigate(`/customer/order/${orderId}`)
   }
