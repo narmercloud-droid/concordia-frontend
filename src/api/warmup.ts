@@ -1,3 +1,4 @@
+import { resolveApiBase } from "@/api/client"
 import { detectPreferredLanguage } from "@/i18n/languages"
 import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
 
@@ -7,13 +8,11 @@ let warmupPromise: Promise<void> | null = null
 export function warmupApi(): Promise<void> {
   if (warmupPromise) return warmupPromise
 
-  const base = import.meta.env.VITE_API_URL
-  if (!base) {
+  const root = resolveApiBase()
+  if (!root && typeof window === "undefined") {
     warmupPromise = Promise.resolve()
     return warmupPromise
   }
-
-  const root = base.replace(/\/$/, "")
   const timeoutMs = 12_000
   const signal = AbortSignal.timeout(timeoutMs)
   const fetchOpts: RequestInit = { method: "GET", credentials: "omit", signal }

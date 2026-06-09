@@ -6,8 +6,22 @@ const MAX_GET_RETRIES = 0
 
 type RetryConfig = InternalAxiosRequestConfig & { __retryCount?: number }
 
+/** Same-origin on Vercel (proxied in vercel.json) to avoid CORS when the deploy URL changes. */
+export function resolveApiBase(): string {
+  if (
+    import.meta.env.PROD &&
+    typeof window !== "undefined" &&
+    window.location.hostname.endsWith(".vercel.app")
+  ) {
+    return ""
+  }
+  const configured = String(import.meta.env.VITE_API_URL ?? "").trim()
+  if (configured) return configured.replace(/\/$/, "")
+  return isDev ? "http://localhost:4000" : ""
+}
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: resolveApiBase(),
   withCredentials: true,
   timeout: 45_000,
   headers: {
