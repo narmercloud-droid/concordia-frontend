@@ -51,6 +51,10 @@ export default function CheckoutPage() {
   const hadSavedDraft = useRef(Boolean(savedDraft))
   const freeDrinkSectionRef = useRef<HTMLDivElement>(null)
 
+  const authUser = useAuthStore((s) => s.user)
+  const authToken = useAuthStore((s) => s.token)
+  const isLoggedIn = !!authToken && !!authUser?.id
+
   const [name, setName] = useState(() => savedDraft?.name ?? "")
   const [phone, setPhone] = useState(() => savedDraft?.phone ?? "")
   const [addressFields, setAddressFields] = useState<DeliveryAddressFields>(() =>
@@ -101,13 +105,13 @@ export default function CheckoutPage() {
   )
   const [birthday, setBirthday] = useState(() => savedDraft?.birthday ?? "")
   const [birthdayError, setBirthdayError] = useState("")
-  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(
-    () => savedDraft?.checkoutMode ?? "account"
-  )
-
-  const authUser = useAuthStore((s) => s.user)
-  const authToken = useAuthStore((s) => s.token)
-  const isLoggedIn = !!authToken && !!authUser?.id
+  const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(() => {
+    const token = localStorage.getItem("accessToken")
+    const user = JSON.parse(localStorage.getItem("user") || "null")
+    const loggedIn = !!token && !!user?.id
+    if (loggedIn) return "account"
+    return savedDraft?.checkoutMode ?? "account"
+  })
 
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
@@ -283,11 +287,17 @@ export default function CheckoutPage() {
   ])
 
   useEffect(() => {
-    if (!isLoggedIn || !authUser || hadSavedDraft.current) return
+    if (!isLoggedIn || !authUser) return
     setCheckoutMode("account")
-    if (!name && authUser.name) setName(authUser.name)
-    if (!customerEmail && authUser.email) setCustomerEmail(authUser.email)
-    if (!phone && authUser.phone) setPhone(authUser.phone)
+    if (!hadSavedDraft.current || !name) {
+      if (authUser.name) setName(authUser.name)
+    }
+    if (!hadSavedDraft.current || !customerEmail) {
+      if (authUser.email) setCustomerEmail(authUser.email)
+    }
+    if (!hadSavedDraft.current || !phone) {
+      if (authUser.phone) setPhone(authUser.phone)
+    }
   }, [isLoggedIn, authUser, name, customerEmail, phone])
 
   if (items.length === 0) return null
@@ -492,6 +502,21 @@ export default function CheckoutPage() {
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
 
       <div className="customer-card checkout-account">
+        {isLoggedIn && authUser ? (
+          <div className="checkout-account__logged-in">
+            <h3 className="customer-subtitle">{t("checkout.orderWithAccount")}</h3>
+            <p className="customer-hint">
+              {t("checkout.welcomeBack", { name: authUser.name })}
+            </p>
+            <p className="customer-alert customer-alert--success">
+              {t("checkout.loyaltyBalance", {
+                points: authUser.loyaltyPoints ?? 0,
+                tier: authUser.loyaltyTier ?? "bronze"
+              })}
+            </p>
+          </div>
+        ) : (
+          <>
         <h3 className="customer-subtitle">{t("checkout.howToOrder")}</h3>
         <div className="customer-toggle-group">
           <button
@@ -531,19 +556,7 @@ export default function CheckoutPage() {
             </div>
           </div>
         )}
-
-        {checkoutMode === "account" && isLoggedIn && authUser && (
-          <div className="checkout-account__logged-in">
-            <p className="customer-hint">
-              {t("checkout.welcomeBack", { name: authUser.name })}
-            </p>
-            <p className="customer-alert customer-alert--success">
-              {t("checkout.loyaltyBalance", {
-                points: authUser.loyaltyPoints ?? 0,
-                tier: authUser.loyaltyTier ?? "bronze"
-              })}
-            </p>
-          </div>
+          </>
         )}
       </div>
 
