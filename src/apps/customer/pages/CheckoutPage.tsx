@@ -850,7 +850,10 @@ export default function CheckoutPage() {
 
       {fulfillmentType === "delivery" && (
         <div className="customer-field">
-          <label className="customer-label">{t("checkout.address")}</label>
+          <h3 className="customer-subtitle">{t("checkout.address")}</h3>
+          <p className="customer-hint" style={{ marginBottom: 12 }}>
+            {t("checkout.addressStructuredHint")}
+          </p>
           <DeliveryAddressForm
             branchId={branchId!}
             branchCity={branchInfo?.city}

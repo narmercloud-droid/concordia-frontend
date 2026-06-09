@@ -154,6 +154,7 @@
     "addressHint": "Vorschlag auswählen oder vollständige Adresse mit Postleitzahl eingeben.",
     "addressHintLive": "Straße eintippen — passende Adressen erscheinen sofort.",
     "addressStructuredHint": "Zuerst Postleitzahl wählen, dann Straße aus den Vorschlägen auswählen.",
+    "addressCityAutoFilled": "Die Stadt wird automatisch aus der Postleitzahl übernommen.",
     "addressPostalCode": "Postleitzahl",
     "addressPostalCodePlaceholder": "z. B. 47906",
     "addressSelectPostcode": "Postleitzahl wählen",

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchDeliveryAreas, suggestAddresses } from "@/api/customer"
@@ -43,10 +43,23 @@ export default function DeliveryAddressForm({
 
   const deliveryAreas = deliveryAreasData?.areas ?? []
   const hasPostcodeList = deliveryAreas.length > 0
+  const matchedArea = useMemo(
+    () => deliveryAreas.find((area) => area.postalCode === value.postalCode.trim()),
+    [deliveryAreas, value.postalCode]
+  )
+  const cityAutoFilled = Boolean(matchedArea?.city)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
     onChange({ ...value, ...partial })
+  }
+
+  const handlePostalCodeChange = (postalCode: string) => {
+    const area = deliveryAreas.find((a) => a.postalCode === postalCode)
+    patch({
+      postalCode,
+      city: area?.city ?? (postalCode.length < 5 ? "" : value.city)
+    })
   }
 
   useEffect(() => {
@@ -109,11 +122,7 @@ export default function DeliveryAddressForm({
   }, [])
 
   const pickSuggestion = (suggestion: StreetSuggestion) => {
-    patch({
-      street: suggestion.street,
-      city: suggestion.city || value.city,
-      postalCode: suggestion.postalCode || value.postalCode
-    })
+    patch({ street: suggestion.street })
     setOpen(false)
     setActiveIndex(-1)
   }
@@ -137,13 +146,12 @@ export default function DeliveryAddressForm({
   }
 
   const showDropdown = open && (loading || suggestions.length > 0)
+  const postcodeReady = /^\d{5}$/.test(value.postalCode.trim())
 
   return (
     <div className="delivery-address-form">
-      <p className="customer-hint">{t("checkout.addressStructuredHint")}</p>
-
-      <div className="delivery-address-form__row delivery-address-form__row--split">
-        <div className="delivery-address-form__field">
+      <div className="delivery-address-form__grid">
+        <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-postal-code">
             {t("checkout.addressPostalCode")}
           </label>
@@ -152,19 +160,12 @@ export default function DeliveryAddressForm({
               id="checkout-postal-code"
               className="customer-select"
               value={value.postalCode}
-              onChange={(e) => {
-                const postalCode = e.target.value
-                const area = deliveryAreas.find((a) => a.postalCode === postalCode)
-                patch({
-                  postalCode,
-                  city: area?.city ?? value.city
-                })
-              }}
+              onChange={(e) => handlePostalCodeChange(e.target.value)}
             >
               <option value="">{t("checkout.addressSelectPostcode")}</option>
               {deliveryAreas.map((area) => (
                 <option key={area.postalCode} value={area.postalCode}>
-                  {area.postalCode} — {area.city}
+                  {area.postalCode}
                 </option>
               ))}
             </select>
@@ -176,84 +177,84 @@ export default function DeliveryAddressForm({
               maxLength={5}
               placeholder={t("checkout.addressPostalCodePlaceholder")}
               value={value.postalCode}
-              onChange={(e) => patch({ postalCode: e.target.value.replace(/\D/g, "").slice(0, 5) })}
+              onChange={(e) => handlePostalCodeChange(e.target.value.replace(/\D/g, "").slice(0, 5))}
               autoComplete="postal-code"
             />
           )}
         </div>
 
-        <div className="delivery-address-form__field">
+        <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-city">
             {t("checkout.addressCity")}
           </label>
           <input
             id="checkout-city"
-            className="customer-input"
+            className={`customer-input${cityAutoFilled ? " customer-input--readonly" : ""}`}
             placeholder={t("checkout.addressCityPlaceholder")}
             value={value.city}
             onChange={(e) => patch({ city: e.target.value })}
+            readOnly={cityAutoFilled}
             autoComplete="address-level2"
+            aria-readonly={cityAutoFilled}
           />
-        </div>
-      </div>
-
-      <div className="delivery-address-form__field" ref={streetContainerRef}>
-        <label className="customer-label" htmlFor="checkout-street">
-          {t("checkout.addressStreet")}
-        </label>
-        <div className="address-autocomplete">
-          <input
-            id="checkout-street"
-            className="customer-input"
-            placeholder={t("checkout.addressStreetPlaceholder")}
-            value={value.street}
-            onChange={(e) => patch({ street: e.target.value })}
-            onFocus={() => {
-              if (canSearchStreets && (loading || suggestions.length > 0)) {
-                setOpen(true)
-              }
-            }}
-            onKeyDown={handleStreetKeyDown}
-            autoComplete="address-line1"
-            role="combobox"
-            aria-expanded={showDropdown}
-            aria-autocomplete="list"
-            disabled={!/^\d{5}$/.test(value.postalCode.trim())}
-          />
-          {!/^\d{5}$/.test(value.postalCode.trim()) && (
-            <p className="customer-hint">{t("checkout.addressEnterPostcodeFirst")}</p>
-          )}
-          {showDropdown && (
-            <ul className="address-autocomplete__list" role="listbox">
-              {loading && suggestions.length === 0 && (
-                <li className="address-autocomplete__status">{t("checkout.searchingAddresses")}</li>
-              )}
-              {suggestions.map((s, index) => (
-                <li key={`${s.street}-${s.postalCode}-${index}`}>
-                  <button
-                    type="button"
-                    role="option"
-                    aria-selected={index === activeIndex}
-                    className={`address-autocomplete__option${
-                      index === activeIndex ? " address-autocomplete__option--active" : ""
-                    }`}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onClick={() => pickSuggestion(s)}
-                  >
-                    <span className="address-autocomplete__street">{s.street}</span>
-                    <span className="address-autocomplete__meta">
-                      {s.postalCode} {s.city}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+          {cityAutoFilled && (
+            <p className="customer-hint">{t("checkout.addressCityAutoFilled")}</p>
           )}
         </div>
-      </div>
 
-      <div className="delivery-address-form__row delivery-address-form__row--split">
-        <div className="delivery-address-form__field">
+        <div className="delivery-address-form__cell delivery-address-form__cell--wide" ref={streetContainerRef}>
+          <label className="customer-label" htmlFor="checkout-street">
+            {t("checkout.addressStreet")}
+          </label>
+          <div className="address-autocomplete">
+            <input
+              id="checkout-street"
+              className="customer-input"
+              placeholder={t("checkout.addressStreetPlaceholder")}
+              value={value.street}
+              onChange={(e) => patch({ street: e.target.value })}
+              onFocus={() => {
+                if (canSearchStreets && (loading || suggestions.length > 0)) {
+                  setOpen(true)
+                }
+              }}
+              onKeyDown={handleStreetKeyDown}
+              autoComplete="off"
+              role="combobox"
+              aria-expanded={showDropdown}
+              aria-autocomplete="list"
+              disabled={!postcodeReady}
+            />
+            {!postcodeReady && (
+              <p className="customer-hint">{t("checkout.addressEnterPostcodeFirst")}</p>
+            )}
+            {showDropdown && (
+              <ul className="address-autocomplete__list" role="listbox">
+                {loading && suggestions.length === 0 && (
+                  <li className="address-autocomplete__status">{t("checkout.searchingAddresses")}</li>
+                )}
+                {suggestions.map((s, index) => (
+                  <li key={`${s.street}-${index}`}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={index === activeIndex}
+                      className={`address-autocomplete__option${
+                        index === activeIndex ? " address-autocomplete__option--active" : ""
+                      }`}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onClick={() => pickSuggestion(s)}
+                    >
+                      <span className="address-autocomplete__street">{s.street}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-house-number">
             {t("checkout.addressHouseNumber")}
           </label>
@@ -263,11 +264,11 @@ export default function DeliveryAddressForm({
             placeholder={t("checkout.addressHouseNumberPlaceholder")}
             value={value.houseNumber}
             onChange={(e) => patch({ houseNumber: e.target.value })}
-            autoComplete="address-line2"
+            autoComplete="off"
           />
         </div>
 
-        <div className="delivery-address-form__field">
+        <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-floor">
             {t("checkout.addressFloor")} ({t("common.optional")})
           </label>
@@ -277,6 +278,7 @@ export default function DeliveryAddressForm({
             placeholder={t("checkout.addressFloorPlaceholder")}
             value={value.floor}
             onChange={(e) => patch({ floor: e.target.value })}
+            autoComplete="off"
           />
         </div>
       </div>

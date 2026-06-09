@@ -154,6 +154,7 @@
     "addressHint": "Pick a suggestion or type your full address including postcode.",
     "addressHintLive": "Start typing your street — matching addresses appear as you type.",
     "addressStructuredHint": "Enter your postcode first, then choose your street from the suggestions.",
+    "addressCityAutoFilled": "City is set automatically from your postal code.",
     "addressPostalCode": "Postal code",
     "addressPostalCodePlaceholder": "e.g. 47906",
     "addressSelectPostcode": "Select postal code",

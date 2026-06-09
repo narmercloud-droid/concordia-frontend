@@ -503,23 +503,34 @@
   gap: 12px;
 }
 
-.delivery-address-form__row {
+.delivery-address-form__grid {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.delivery-address-form__row--split {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.delivery-address-form__field {
+.delivery-address-form__cell {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-card);
+}
+
+.delivery-address-form__cell--wide {
+  grid-column: 1 / -1;
+}
+
+.customer-input--readonly {
+  background: var(--c-bg, #f8f6f4);
+  color: var(--c-muted);
+  cursor: default;
 }
 
 @media (max-width: 520px) {
-  .delivery-address-form__row--split {
+  .delivery-address-form__grid {
     grid-template-columns: 1fr;
   }
 }
