@@ -21,7 +21,7 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
     includedGroups,
     paidVariantGroups,
     addOnGroups,
-    sizeBasedExtras,
+    requiresSizeForExtras,
     selectedSizeName,
     extrasBlocked,
     toggleAddOn,
@@ -122,7 +122,7 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
             {t("item.paidExtras")}
           </h3>
           <p className="customer-hint">
-            {sizeBasedExtras
+            {requiresSizeForExtras
               ? selectedSizeName
                 ? t("item.extrasSizeSelected", { size: selectedSizeName })
                 : t("item.extrasSizeHint")

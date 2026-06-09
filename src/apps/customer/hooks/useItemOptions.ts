@@ -8,7 +8,11 @@ import { getItemDetails } from "@/api/customer"
 
 import { useCartStore, type CartItem, type CartSelection } from "@/store/cartStore"
 
-import { findSizeVariantName, getAddOnDisplayPrice } from "@/utils/extraPricing"
+import {
+  findSizeVariantName,
+  getAddOnDisplayPrice,
+  hasSizeVariantGroup
+} from "@/utils/extraPricing"
 
 import { formatCurrency } from "@/utils/format"
 
@@ -157,6 +161,7 @@ export function useItemOptions(
   const addOnGroups: ItemOptionGroup[] = item?.addOnGroups ?? []
 
   const sizeBasedExtras = item?.extraPricing?.sizeBased === true
+  const requiresSizeForExtras = sizeBasedExtras && hasSizeVariantGroup(variantGroups)
 
 
 
@@ -292,7 +297,7 @@ export function useItemOptions(
 
 
 
-  const extrasBlocked = sizeBasedExtras && !selectedSizeName
+  const extrasBlocked = requiresSizeForExtras && !selectedSizeName
 
 
 
@@ -346,7 +351,7 @@ export function useItemOptions(
 
     }
 
-    if (sizeBasedExtras && !selectedSizeName) {
+    if (requiresSizeForExtras && !selectedSizeName) {
 
       return t("item.chooseSizeFirst")
 
@@ -497,6 +502,8 @@ export function useItemOptions(
     addOnGroups,
 
     sizeBasedExtras,
+
+    requiresSizeForExtras,
 
     selectedSizeName,
 
