@@ -68,6 +68,38 @@ export const OWNER_PIZZA_CHEF_3_PHOTO = `${OWNER_PHOTOS_DIR}/owner-1.png`
 /** Fourth family chef — back right (owner-4). */
 export const OWNER_KITCHEN_CHEF_PHOTO = `${OWNER_PHOTOS_DIR}/owner-4.png`
 
+/** Portrait crops used on Team and About pages (same files, one source of truth). */
+export const TEAM_MEMBER_PHOTOS = {
+  director: `${OWNER_PHOTOS_DIR}/owner-3-logo-portrait.png`,
+  pizzaChef1: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait.png`,
+  pizzaChef2: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png`,
+  pizzaChef3: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png`,
+  kitchenChef: `${OWNER_PHOTOS_DIR}/owner-4-logo-portrait.png`
+} as const
+
+export type TeamMemberPhotoKey = keyof typeof TEAM_MEMBER_PHOTOS
+
+/** About page branch chefs — each maps to a Team page portrait. */
+export const ABOUT_BRANCH_CHEFS = [
+  {
+    branchKey: "kempen",
+    chefs: [
+      { chefKey: "alaan", teamPhoto: "pizzaChef1" },
+      { chefKey: "jiuan", teamPhoto: "pizzaChef2" }
+    ]
+  },
+  {
+    branchKey: "straelen",
+    chefs: [
+      { chefKey: "ahmad", teamPhoto: "kitchenChef" },
+      { chefKey: "siban", teamPhoto: "pizzaChef3" }
+    ]
+  }
+] as const satisfies ReadonlyArray<{
+  branchKey: "kempen" | "straelen"
+  chefs: ReadonlyArray<{ chefKey: string; teamPhoto: TeamMemberPhotoKey }>
+}>
+
 /** Path for an uploaded owner photo (use .jpg, .png, or .webp with this base name). */
 export function getOwnerPhotoPath(slotId: string, ext: "jpg" | "png" | "webp" = "jpg"): string | null {
   const slot = OWNER_PHOTO_SLOTS.find((s) => s.id === slotId)

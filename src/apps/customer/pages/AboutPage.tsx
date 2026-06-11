@@ -2,27 +2,14 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import { BRAND_LOGO_FANCY, OWNER_PHOTOS_DIR } from "@/lib/branchBranding"
+import {
+  ABOUT_BRANCH_CHEFS,
+  BRAND_LOGO_FANCY,
+  TEAM_MEMBER_PHOTOS
+} from "@/lib/branchBranding"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
 const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
-
-const BRANCH_CHEFS = [
-  {
-    branchKey: "kempen",
-    chefs: [
-      { chefKey: "alaan", photo: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png` },
-      { chefKey: "jiuan", photo: `${OWNER_PHOTOS_DIR}/owner-4-logo-portrait.png` }
-    ]
-  },
-  {
-    branchKey: "straelen",
-    chefs: [
-      { chefKey: "ahmad", photo: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait.png` },
-      { chefKey: "siban", photo: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png` }
-    ]
-  }
-] as const
 
 export default function AboutPage() {
   const { t } = useTranslation()
@@ -58,16 +45,16 @@ export default function AboutPage() {
       </div>
 
       <div className="about-chef-branches">
-        {BRANCH_CHEFS.map(({ branchKey, chefs }) => (
+        {ABOUT_BRANCH_CHEFS.map(({ branchKey, chefs }) => (
           <section key={branchKey} className="about-chef-branch">
             <h2 className="about-chef-branch__title">
               {t(`pages.about.branches.${branchKey}.title`)}
             </h2>
             <div className="about-chef-branch__grid">
-              {chefs.map(({ chefKey, photo }) => (
+              {chefs.map(({ chefKey, teamPhoto }) => (
                 <article key={chefKey} className="about-chef-tile">
                   <img
-                    src={photo}
+                    src={TEAM_MEMBER_PHOTOS[teamPhoto]}
                     alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
                     className="about-chef-tile__photo"
                     width={120}
