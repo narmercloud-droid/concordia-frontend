@@ -367,33 +367,16 @@
       "eyebrow": "Our story",
       "title": "About Concordia",
       "quote": "Good food brings people together — that is what Concordia has always been about.",
-      "familySignature": "— The Concordia Family",
-      "p1": "Concordia is a family-run Italian restaurant group. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
-      "p2": "We started with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
-      "p3": "Today you can visit us in person or order online from any of our branches. The same family standards apply everywhere — fresh when you order, no reheating, no shortcuts.",
-      "originTitle": "One family, more locations",
-      "originText": "What began as a single restaurant has grown into several Concordia locations, each run with the same care. Whether you dine in, pick up, or order delivery, you get the team, recipes, and warmth our name stands for.",
-      "chefsTitle": "Meet our head chefs",
-      "chefs": {
-        "kempen": {
-          "name": "Head chefs · Kempen",
-          "role": "Kitchen leadership",
-          "bio": "Our founding kitchen team shapes the menu, the dough, and the rhythm of every service — from stone-oven pizza and pasta to the classics our regulars ask for by name.",
-          "photoAlt": "Concordia head chefs portrait"
-        },
-        "straelenAA": {
-          "name": "Chef A.A.",
-          "role": "Head chef · Straelen",
-          "bio": "Chef A.A. leads our second kitchen with the same Concordia standards — careful prep, steady service, and pizza that tastes like home every time.",
-          "photoAlt": "Chef A.A. portrait"
-        },
-        "straelenSiban": {
-          "name": "Chef Siban",
-          "role": "Kitchen chef · Straelen",
-          "bio": "Chef Siban brings calm focus to pasta, grills, and timing at the pass — the steady hand that keeps a busy service running smoothly.",
-          "photoAlt": "Chef Siban portrait"
-        }
-      },
+      "p1": "Concordia is a family-run Italian restaurant in Kempen. For us, harmony is not just a name — it is how we welcome guests, how we work together in the kitchen, and how every plate leaves our pass.",
+      "p2": "We opened our doors on Concordienplatz with a simple idea: honest Italian cooking, generous portions, and the feeling that you are eating at someone's table — not in a chain.",
+      "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
+      "originTitle": "Rooted in Kempen",
+      "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
+      "chefsTitle": "Meet your head chefs",
+      "alaanName": "Chef Alaan",
+      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
+      "jiuanName": "Chef Jiuan",
+      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
       "valuesTitle": "What we stand for",
       "values": {
         "fresh": {
