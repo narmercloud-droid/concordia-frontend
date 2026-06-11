@@ -116,6 +116,14 @@
     "websiteDiscountFooter": "{{percent}} % Rabatt bei Online-Bestellung — automatisch an der Kasse",
     "footerFreeDrink": "Gratisgetränk ab Bestellwert von 35 €"
   },
+  "appDownload": {
+    "eyebrow": "Mobile App",
+    "title": "Concordia in Ihrer Tasche",
+    "lead": "Schneller bestellen, Lieferungen verfolgen und Favoriten speichern — unsere iOS- und Android-Apps kommen bald.",
+    "ios": "Für iPhone herunterladen",
+    "android": "Für Android herunterladen",
+    "comingSoonNote": "Bald verfügbar — wir finalisieren gerade die Apps."
+  },
   "branchOwner": {
     "eyebrow": "Ihre Küchenchefs",
     "welcome": "Willkommen bei Concordia {{branch}}",
@@ -337,7 +345,10 @@
     "thanksBody": "Wir lesen jede Bewertung, um Concordia für Sie und unsere Gäste zu verbessern.",
     "guestHint": "Sie können ohne Konto über diese Bestellseite Feedback hinterlassen.",
     "leaveReview": "Feedback geben",
-    "reviewSubmitted": "Feedback gesendet"
+    "reviewSubmitted": "Feedback gesendet",
+    "inviteEyebrow": "Ihre Bestellung ist abgeschlossen",
+    "inviteTitle": "Essen & Lieferung bewerten",
+    "inviteLead": "Sagen Sie uns, wie das Essen geschmeckt hat und wie die Lieferung war. Es dauert nur einen Moment."
   },
   "status": {
     "pending": "Eingegangen",
@@ -478,7 +489,26 @@
       "maps": "Anfahrt",
       "viewOnMaps": "In Google Maps öffnen",
       "detailsPending": "Kontaktdaten folgen in Kürze.",
-      "emailHint": "Für Online-Bestellungen nutzen Sie bitte das Menü auf der Startseite. Auf allgemeine Anfragen antworten wir so schnell wie möglich."
+      "emailHint": "Für Online-Bestellungen nutzen Sie bitte das Menü auf der Startseite. Auf allgemeine Anfragen antworten wir so schnell wie möglich.",
+      "form": {
+        "title": "Nachricht senden",
+        "lead": "Fragen zu einer Bestellung, Feedback oder etwas anderes? Schreiben Sie uns — wir melden uns so schnell wie möglich.",
+        "name": "Ihr Name",
+        "email": "E-Mail-Adresse",
+        "phone": "Telefon (optional)",
+        "branch": "Filiale (optional)",
+        "branchAny": "Beliebig / unsicher",
+        "orderNumber": "Bestellnummer (optional)",
+        "orderNumberPlaceholder": "z. B. die ersten 8 Zeichen aus der Bestätigung",
+        "orderNumberHint": "Optional — hilft uns, Ihre Bestellung schneller zu finden.",
+        "message": "Nachricht",
+        "submit": "Nachricht senden",
+        "sending": "Wird gesendet…",
+        "successTitle": "Nachricht gesendet",
+        "successBody": "Vielen Dank — wir haben Ihre Nachricht erhalten und antworten so schnell wie möglich.",
+        "sendAnother": "Weitere Nachricht senden",
+        "error": "Nachricht konnte nicht gesendet werden. Bitte erneut versuchen oder uns anrufen."
+      }
     },
     "reviews": {
       "eyebrow": "Stimmen unserer Gäste",

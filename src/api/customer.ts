@@ -164,6 +164,16 @@ export const getOrderStatus = async (orderId: string) => {
   return unwrap<any>(res)
 }
 
+export const submitContactForm = (data: {
+  name: string
+  email: string
+  message: string
+  branchId?: string
+  orderNumber?: string
+  phone?: string
+}) =>
+  api.post("/api/contact", data).then((res) => unwrap<{ sent: boolean }>(res))
+
 export const getOrderHistory = async (customerId: string) => {
   const res = await api.get(`/customers/${customerId}/orders`)
   return unwrap<any[]>(res)

@@ -116,6 +116,14 @@
     "websiteDiscountFooter": "{{percent}}% off when you order online — automatic at checkout",
     "footerFreeDrink": "Free drink on orders from €35"
   },
+  "appDownload": {
+    "eyebrow": "Mobile app",
+    "title": "Concordia in your pocket",
+    "lead": "Order faster, track deliveries and save your favourites — our iOS and Android apps are on the way.",
+    "ios": "Download for iPhone",
+    "android": "Download for Android",
+    "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
   "branchOwner": {
     "eyebrow": "Your head chefs",
     "welcome": "Welcome to Concordia {{branch}}",
@@ -332,7 +340,10 @@
     "thanksBody": "We read every review to improve Concordia for you and our guests.",
     "guestHint": "You can leave feedback without an account using this order page.",
     "leaveReview": "Leave feedback",
-    "reviewSubmitted": "Feedback sent"
+    "reviewSubmitted": "Feedback sent",
+    "inviteEyebrow": "Your order is complete",
+    "inviteTitle": "Rate your food & delivery",
+    "inviteLead": "Tell us how the food tasted and how the delivery went. It only takes a moment."
   },
   "status": {
     "pending": "Received",
@@ -473,7 +484,26 @@
       "maps": "Directions",
       "viewOnMaps": "Open in Google Maps",
       "detailsPending": "Contact details will be published here soon.",
-      "emailHint": "For online orders, please use our menu from the homepage. We reply to general enquiries as soon as we can."
+      "emailHint": "For online orders, please use our menu from the homepage. We reply to general enquiries as soon as we can.",
+      "form": {
+        "title": "Send us a message",
+        "lead": "Questions about an order, feedback or anything else? Fill in the form and we will get back to you.",
+        "name": "Your name",
+        "email": "Email address",
+        "phone": "Phone (optional)",
+        "branch": "Branch (optional)",
+        "branchAny": "Any / not sure",
+        "orderNumber": "Order number (optional)",
+        "orderNumberPlaceholder": "e.g. first 8 characters from your confirmation",
+        "orderNumberHint": "Optional — helps us find your order faster.",
+        "message": "Message",
+        "submit": "Send message",
+        "sending": "Sending…",
+        "successTitle": "Message sent",
+        "successBody": "Thank you — we have received your message and will reply as soon as we can.",
+        "sendAnother": "Send another message",
+        "error": "Could not send your message. Please try again or call us."
+      }
     },
     "reviews": {
       "eyebrow": "Guest voices",

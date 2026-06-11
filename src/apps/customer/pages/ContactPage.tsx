@@ -5,6 +5,7 @@ import { getBranches } from "@/api/customer"
 import { branchesQueryOptions } from "@/lib/branchesQuery"
 import { BRANCH_CONTACT } from "@/lib/branchContact"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
+import ContactFormSection from "@/apps/customer/components/ContactFormSection"
 
 type Branch = {
   id: string
@@ -41,6 +42,8 @@ export default function ContactPage() {
       <div className="info-block">
         <p>{t("pages.contact.lead")}</p>
       </div>
+
+      {!isLoading && branches.length > 0 && <ContactFormSection branches={branches} />}
 
       {isLoading ? (
         <p className="customer-text">{t("common.loading")}</p>

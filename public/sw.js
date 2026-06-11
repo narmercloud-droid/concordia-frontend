@@ -1,12 +1,13 @@
 self.addEventListener("push", (event) => {
   try {
     if (!event.data) return
-    const data = event.data.json()
+    const payload = event.data.json()
+    const targetUrl = payload.url ?? payload.data?.url ?? "/"
     event.waitUntil(
-      self.registration.showNotification(data.title || "Notification", {
-        body: data.body || "",
+      self.registration.showNotification(payload.title || "Notification", {
+        body: payload.body || "",
         icon: "/images/concordia-logo.png",
-        data: data.url || "/"
+        data: targetUrl
       })
     )
   } catch (err) {

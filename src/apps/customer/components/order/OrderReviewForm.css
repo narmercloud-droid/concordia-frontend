@@ -69,3 +69,28 @@
   font-style: italic;
   color: var(--c-muted);
 }
+
+.order-review-invite {
+  margin-top: 28px;
+  padding: 20px 22px;
+  border: 1px solid rgb(var(--c-green-rgb) / 0.22);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgb(var(--c-green-rgb) / 0.08) 0%, var(--c-card) 100%);
+}
+
+.order-review-invite__eyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-green);
+}
+
+.order-review-invite .customer-subtitle {
+  margin: 0 0 8px;
+}
+
+.order-review-invite .customer-btn {
+  margin-top: 14px;
+}

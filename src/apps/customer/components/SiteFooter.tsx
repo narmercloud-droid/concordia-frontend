@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
 import { INFO_PAGES, LEGAL_PAGES } from "@/lib/infoPages"
 import "./InfoPages.css"
@@ -25,6 +26,7 @@ export default function SiteFooter() {
           </Link>
         ))}
       </nav>
+      <AppDownloadSection variant="compact" />
       <ConcordiaLogo size="md" round className="site-footer__logo" />
       <p className="site-footer__tagline">{t("home.tagline")}</p>
       <p className="site-footer__copy">© {new Date().getFullYear()} Concordia Restaurant</p>

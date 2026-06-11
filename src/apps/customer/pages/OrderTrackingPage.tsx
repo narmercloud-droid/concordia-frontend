@@ -152,11 +152,23 @@ export default function OrderTrackingPage() {
       )}
 
       {(order.canReview || order.hasReview) && orderId && (
-        <OrderReviewForm
-          orderId={orderId}
-          fulfillmentType={order.fulfillmentType}
-          existingReview={order.hasReview ? order.review : null}
-        />
+        <>
+          {order.canReview && (
+            <div className="order-review-invite">
+              <p className="order-review-invite__eyebrow">{t("orderReview.inviteEyebrow")}</p>
+              <h3 className="customer-subtitle">{t("orderReview.inviteTitle")}</h3>
+              <p className="customer-hint">{t("orderReview.inviteLead")}</p>
+              <a className="customer-btn customer-btn--primary" href="#review">
+                {t("orderReview.leaveReview")}
+              </a>
+            </div>
+          )}
+          <OrderReviewForm
+            orderId={orderId}
+            fulfillmentType={order.fulfillmentType}
+            existingReview={order.hasReview ? order.review : null}
+          />
+        </>
       )}
     </div>
   )

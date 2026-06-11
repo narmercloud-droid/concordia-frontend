@@ -83,7 +83,7 @@ export default function OrderReviewForm({
 
   if (existingReview) {
     return (
-      <div className="order-review order-review--submitted">
+      <div className="order-review order-review--submitted" id="review">
         <h3 className="customer-subtitle">{t("orderReview.thanksTitle")}</h3>
         <p className="customer-hint">{t("orderReview.thanksBody")}</p>
         <StarRow label={t("orderReview.foodLabel")} value={existingReview.foodRating} onChange={() => {}} />
@@ -105,7 +105,7 @@ export default function OrderReviewForm({
     foodRating >= 1 && foodRating <= 5 && (!isDelivery || (deliveryRating >= 1 && deliveryRating <= 5))
 
   return (
-    <div className="order-review">
+    <div className="order-review" id="review">
       <h3 className="customer-subtitle">{t("orderReview.title")}</h3>
       <p className="customer-hint">{t("orderReview.lead")}</p>
 
