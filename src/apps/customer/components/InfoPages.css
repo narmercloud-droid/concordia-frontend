@@ -756,7 +756,7 @@
 .about-chef-branch__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 .about-chef-tile {
@@ -767,12 +767,12 @@
 }
 
 .about-chef-tile__frame {
-  width: min(100%, 148px);
+  width: 100%;
+  max-width: 240px;
   aspect-ratio: 3 / 2;
-  border-radius: 14px;
-  border: 3px solid #fff;
-  box-shadow: 0 8px 20px rgb(var(--c-red-rgb) / 0.12);
-  background: #faf8f5;
+  border-radius: 12px;
+  border: 1px solid var(--c-line);
+  background: #fff;
   overflow: hidden;
 }
 
@@ -780,23 +780,24 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .about-chef-tile__frame--pending {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
+  min-height: 120px;
+  padding: 16px;
+  background: #fff;
   color: var(--c-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-align: center;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .about-chef-tile__name {
@@ -805,6 +806,21 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--c-ink);
+}
+
+@media (max-width: 520px) {
+  .about-chef-branch__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .about-chef-tile {
+    width: min(100%, 320px);
+  }
+
+  .about-chef-tile__frame {
+    max-width: none;
+  }
 }
 
 .about-chefs {
@@ -1255,11 +1271,11 @@
   }
 
   .about-chef-branch__grid {
-    gap: 18px;
+    gap: 24px;
   }
 
   .about-chef-tile__frame {
-    width: min(100%, 160px);
+    max-width: 280px;
   }
 
   .about-chefs {

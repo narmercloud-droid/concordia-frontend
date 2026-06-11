@@ -55,8 +55,8 @@ export default function AboutPage() {
                         src={photo}
                         alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
                         className="about-chef-tile__photo"
-                        width={160}
-                        height={107}
+                        width={320}
+                        height={213}
                         loading="lazy"
                       />
                     </div>
