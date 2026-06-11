@@ -770,12 +770,12 @@
   width: 100%;
   max-width: 112px;
   aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center 15%;
+  object-fit: contain;
+  object-position: center;
   border-radius: 14px;
   border: 3px solid #fff;
   box-shadow: 0 8px 20px rgb(var(--c-red-rgb) / 0.12);
-  filter: saturate(1.35) contrast(1.12) brightness(1.06) sepia(0.08);
+  background: #faf8f5;
 }
 
 .about-chef-tile__photo--pending {
