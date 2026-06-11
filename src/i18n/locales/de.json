@@ -378,11 +378,34 @@
       "p3": "Heute können Sie uns besuchen oder online bestellen. In beiden Fällen bereitet dasselbe Team Ihr Essen frisch zu, wenn Sie bestellen. Kein Aufwärmen, keine Abkürzungen — nur das, womit wir uns vor unseren Nachbarn und Familien sehen lassen.",
       "originTitle": "Verwurzelt in Kempen",
       "originText": "Kempen ist unsere Heimat. Unsere Gäste kennen uns von Geburtstagen, Freitag-Pizza-Abenden und ruhigen Mittagessen am Platz. Dieses Vertrauen bedeutet uns alles — deshalb behandeln wir jede Online-Bestellung mit derselben Sorgfalt wie einen Tisch am Fenster.",
-      "chefsTitle": "Ihre Küchenchefs",
-      "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan prägt unsere Karte und den Rhythmus der Küche — vom Teig und den Saucen bis zu den Gerichten, die Stammgäste beim Namen bestellen. Ihm liegt Beständigkeit am Herzen: Die Pizza soll jedes Mal nach Concordia schmecken.",
-      "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan bringt Ruhe und Konzentration in einen vollen Service — Pasta, Grill, Timing an der Theke. Gäste spüren oft zuerst die Wärme; in der Küche ist es seine ruhige Hand, die alles im Fluss hält.",
+      "branches": {
+        "kempen": {
+          "title": "Kempen",
+          "chefs": {
+            "alaan": {
+              "name": "Chef Alaan",
+              "photoAlt": "Porträt von Chef Alaan"
+            },
+            "jiuan": {
+              "name": "Chef Jiuan",
+              "photoAlt": "Porträt von Chef Jiuan"
+            }
+          }
+        },
+        "straelen": {
+          "title": "Straelen",
+          "chefs": {
+            "ahmad": {
+              "name": "Chef Ahmad",
+              "photoAlt": "Porträt von Chef Ahmad"
+            },
+            "siban": {
+              "name": "Chef Siban",
+              "photoAlt": "Porträt von Chef Siban"
+            }
+          }
+        }
+      },
       "valuesTitle": "Wofür wir stehen",
       "values": {
         "fresh": {

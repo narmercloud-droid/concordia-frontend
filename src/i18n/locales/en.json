@@ -373,11 +373,34 @@
       "p3": "Today you can visit us in person or order online. Either way, the same team prepares your meal fresh when you order. No reheating, no shortcuts — just the food we are proud to serve our neighbours and families.",
       "originTitle": "Rooted in Kempen",
       "originText": "Kempen is home. Our guests know us from birthdays, Friday pizza nights, and quiet lunches on the square. That trust means everything — and it is why we treat every online order with the same care as a table by the window.",
-      "chefsTitle": "Meet your head chefs",
-      "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan shapes our menu and the rhythm of the kitchen — from dough and sauces to the dishes our regulars ask for by name. He cares about consistency: the pizza should taste like Concordia every single time.",
-      "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan brings calm focus to a busy service — pasta, grills, timing at the pass. Guests often notice the warmth first; in the kitchen, it is his steady hand that keeps everything running smoothly.",
+      "branches": {
+        "kempen": {
+          "title": "Kempen",
+          "chefs": {
+            "alaan": {
+              "name": "Chef Alaan",
+              "photoAlt": "Chef Alaan portrait"
+            },
+            "jiuan": {
+              "name": "Chef Jiuan",
+              "photoAlt": "Chef Jiuan portrait"
+            }
+          }
+        },
+        "straelen": {
+          "title": "Straelen",
+          "chefs": {
+            "ahmad": {
+              "name": "Chef Ahmad",
+              "photoAlt": "Chef Ahmad portrait"
+            },
+            "siban": {
+              "name": "Chef Siban",
+              "photoAlt": "Chef Siban portrait"
+            }
+          }
+        }
+      },
       "valuesTitle": "What we stand for",
       "values": {
         "fresh": {

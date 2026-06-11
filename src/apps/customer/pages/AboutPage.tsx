@@ -2,10 +2,27 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import { BRAND_LOGO_FANCY } from "@/lib/branchBranding"
+import { BRAND_LOGO_FANCY, OWNER_PHOTOS_DIR } from "@/lib/branchBranding"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
 const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
+
+const BRANCH_CHEFS = [
+  {
+    branchKey: "kempen",
+    chefs: [
+      { chefKey: "alaan", photo: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png` },
+      { chefKey: "jiuan", photo: `${OWNER_PHOTOS_DIR}/owner-4-logo-portrait.png` }
+    ]
+  },
+  {
+    branchKey: "straelen",
+    chefs: [
+      { chefKey: "ahmad", photo: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait.png` },
+      { chefKey: "siban", photo: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png` }
+    ]
+  }
+] as const
 
 export default function AboutPage() {
   const { t } = useTranslation()
@@ -40,22 +57,31 @@ export default function AboutPage() {
         <p>{t("pages.about.originText")}</p>
       </div>
 
-      <h2 className="about-section-title">{t("pages.about.chefsTitle")}</h2>
-      <div className="about-chefs">
-        <article className="about-chef-card">
-          <div className="about-chef-card__badge" aria-hidden="true">
-            AA
-          </div>
-          <h3>{t("pages.about.alaanName")}</h3>
-          <p>{t("pages.about.alaanBio")}</p>
-        </article>
-        <article className="about-chef-card">
-          <div className="about-chef-card__badge" aria-hidden="true">
-            JI
-          </div>
-          <h3>{t("pages.about.jiuanName")}</h3>
-          <p>{t("pages.about.jiuanBio")}</p>
-        </article>
+      <div className="about-chef-branches">
+        {BRANCH_CHEFS.map(({ branchKey, chefs }) => (
+          <section key={branchKey} className="about-chef-branch">
+            <h2 className="about-chef-branch__title">
+              {t(`pages.about.branches.${branchKey}.title`)}
+            </h2>
+            <div className="about-chef-branch__grid">
+              {chefs.map(({ chefKey, photo }) => (
+                <article key={chefKey} className="about-chef-tile">
+                  <img
+                    src={photo}
+                    alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
+                    className="about-chef-tile__photo"
+                    width={120}
+                    height={120}
+                    loading="lazy"
+                  />
+                  <h3 className="about-chef-tile__name">
+                    {t(`pages.about.branches.${branchKey}.chefs.${chefKey}.name`)}
+                  </h3>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
 
       <div className="info-block">

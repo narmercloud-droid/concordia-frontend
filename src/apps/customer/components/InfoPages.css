@@ -733,6 +733,59 @@
   color: var(--c-ink);
 }
 
+.about-chef-branches {
+  display: grid;
+  gap: 14px;
+}
+
+.about-chef-branch {
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line);
+  background: var(--c-card);
+}
+
+.about-chef-branch__title {
+  margin: 0 0 16px;
+  font-family: var(--c-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.about-chef-branch__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.about-chef-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-chef-tile__photo {
+  width: 100%;
+  max-width: 112px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 14px;
+  border: 3px solid #fff;
+  box-shadow: 0 8px 20px rgb(var(--c-red-rgb) / 0.12);
+  filter: saturate(1.35) contrast(1.12) brightness(1.06) sepia(0.08);
+}
+
+.about-chef-tile__name {
+  margin: 10px 0 0;
+  font-family: var(--c-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
 .about-chefs {
   display: grid;
   gap: 14px;
@@ -1173,6 +1226,19 @@
   .about-hero__chefs {
     width: 140px;
     height: 140px;
+  }
+
+  .about-chef-branches {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .about-chef-branch__grid {
+    gap: 18px;
+  }
+
+  .about-chef-tile__photo {
+    max-width: 120px;
   }
 
   .about-chefs {
