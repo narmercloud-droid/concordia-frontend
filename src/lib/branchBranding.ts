@@ -79,25 +79,34 @@ export const TEAM_MEMBER_PHOTOS = {
 
 export type TeamMemberPhotoKey = keyof typeof TEAM_MEMBER_PHOTOS
 
-/** About page branch chefs — each maps to a Team page portrait. */
+/** About page branch chefs — explicit portraits (can differ from Team page). */
 export const ABOUT_BRANCH_CHEFS = [
   {
     branchKey: "kempen",
     chefs: [
-      { chefKey: "alaan", teamPhoto: "pizzaChef1" },
-      { chefKey: "jiuan", teamPhoto: "pizzaChef2" }
+      {
+        chefKey: "alaan",
+        photo: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait-no-peel.png`
+      },
+      {
+        chefKey: "jiuan",
+        photo: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png`
+      }
     ]
   },
   {
     branchKey: "straelen",
     chefs: [
-      { chefKey: "ahmad", teamPhoto: "kitchenChef" },
-      { chefKey: "siban", teamPhoto: "pizzaChef3" }
+      { chefKey: "ahmad", photo: null },
+      {
+        chefKey: "siban",
+        photo: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png`
+      }
     ]
   }
 ] as const satisfies ReadonlyArray<{
   branchKey: "kempen" | "straelen"
-  chefs: ReadonlyArray<{ chefKey: string; teamPhoto: TeamMemberPhotoKey }>
+  chefs: ReadonlyArray<{ chefKey: string; photo: string | null }>
 }>
 
 /** Path for an uploaded owner photo (use .jpg, .png, or .webp with this base name). */

@@ -778,6 +778,22 @@
   filter: saturate(1.35) contrast(1.12) brightness(1.06) sepia(0.08);
 }
 
+.about-chef-tile__photo--pending {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
+  color: var(--c-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.35;
+  filter: none;
+}
+
 .about-chef-tile__name {
   margin: 10px 0 0;
   font-family: var(--c-serif);

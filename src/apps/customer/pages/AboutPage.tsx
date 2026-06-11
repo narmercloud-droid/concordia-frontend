@@ -2,11 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import {
-  ABOUT_BRANCH_CHEFS,
-  BRAND_LOGO_FANCY,
-  TEAM_MEMBER_PHOTOS
-} from "@/lib/branchBranding"
+import { ABOUT_BRANCH_CHEFS, BRAND_LOGO_FANCY } from "@/lib/branchBranding"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
 const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
@@ -51,16 +47,25 @@ export default function AboutPage() {
               {t(`pages.about.branches.${branchKey}.title`)}
             </h2>
             <div className="about-chef-branch__grid">
-              {chefs.map(({ chefKey, teamPhoto }) => (
+              {chefs.map(({ chefKey, photo }) => (
                 <article key={chefKey} className="about-chef-tile">
-                  <img
-                    src={TEAM_MEMBER_PHOTOS[teamPhoto]}
-                    alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
-                    className="about-chef-tile__photo"
-                    width={120}
-                    height={120}
-                    loading="lazy"
-                  />
+                  {photo ? (
+                    <img
+                      src={photo}
+                      alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
+                      className="about-chef-tile__photo"
+                      width={120}
+                      height={120}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="about-chef-tile__photo about-chef-tile__photo--pending"
+                      aria-label={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
+                    >
+                      {t("pages.about.photoPending")}
+                    </div>
+                  )}
                   <h3 className="about-chef-tile__name">
                     {t(`pages.about.branches.${branchKey}.chefs.${chefKey}.name`)}
                   </h3>
