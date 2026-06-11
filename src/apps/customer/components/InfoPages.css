@@ -650,14 +650,30 @@
   background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
 }
 
+.about-hero__logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 148px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 40%, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0) 70%),
+    linear-gradient(165deg, rgb(255 252 248 / 0.98) 0%, var(--c-accent-soft) 100%);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 10px 28px rgb(var(--c-red-rgb) / 0.06);
+}
+
 .about-hero__logo {
   display: block;
   width: 100%;
-  max-width: min(280px, 86vw);
+  max-width: min(300px, 88vw);
   height: auto;
   margin: 0 auto;
   object-fit: contain;
-  filter: drop-shadow(0 8px 20px rgb(var(--c-red-rgb) / 0.1));
+  filter: drop-shadow(0 6px 16px rgb(var(--c-red-rgb) / 0.08));
 }
 
 .about-hero__media {
@@ -1137,8 +1153,13 @@
 }
 
 @media (min-width: 640px) {
+  .about-hero__logo-wrap {
+    min-height: 168px;
+    padding: 22px 28px;
+  }
+
   .about-hero__logo {
-    max-width: 320px;
+    max-width: 340px;
   }
 
   .about-hero__kitchen {
