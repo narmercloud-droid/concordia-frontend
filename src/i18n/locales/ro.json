@@ -102,7 +102,10 @@
     "websiteDiscountStrip": "Comandați online și economisiți",
     "websiteDiscountFooter": "{{percent}}% reducere la comanda online — automat la checkout",
     "footerFreeDrink": "Băutură gratuită la comenzi de la 35 €",
-    "branchesLoading": "Se încarcă restaurantele…"
+    "branchesLoading": "Se încarcă restaurantele…",
+    "kempenBranch": "Kempen",
+    "googleReview": "Google review",
+    "moreReviews": "More reviews"
   },
   "branchOwner": {
     "eyebrow": "Bucătarii dumneavoastră",
@@ -223,7 +226,21 @@
     "loyaltyBalance": "Loialitate: {{points}} puncte (nivel {{tier}})",
     "loyaltyPerkPoints": "Câștigați puncte la fiecare comandă livrată",
     "loyaltyPerkTier": "Deblocați recompense bronz, argint și aur",
-    "termsNotice": "Plasând comanda acceptați <termsLink>termenii și condițiile</termsLink>."
+    "termsNotice": "Plasând comanda acceptați <termsLink>termenii și condițiile</termsLink>.",
+    "addressStructuredHint": "Enter your postcode first, then choose your street from the suggestions.",
+    "addressCityAutoFilled": "City is set automatically from your postal code.",
+    "addressPostalCode": "Postal code",
+    "addressPostalCodePlaceholder": "e.g. 47906",
+    "addressSelectPostcode": "Select postal code",
+    "addressCity": "City",
+    "addressCityPlaceholder": "e.g. Kempen",
+    "addressStreet": "Street name",
+    "addressStreetPlaceholder": "Start typing the street name",
+    "addressHouseNumber": "House / building no.",
+    "addressHouseNumberPlaceholder": "e.g. 5 or 12a",
+    "addressFloor": "Floor",
+    "addressFloorPlaceholder": "e.g. 2nd floor",
+    "addressEnterPostcodeFirst": "Please select or enter your postal code first."
   },
   "item": {
     "loading": "Se încarcă preparatul…",
@@ -308,7 +325,8 @@
       "terms": "Termeni",
       "impressum": "Legal notice",
       "privacy": "Privacy",
-      "agb": "Terms (AGB)"
+      "agb": "Terms (AGB)",
+      "team": "Our team"
     },
     "about": {
       "eyebrow": "Povestea noastră",
@@ -352,7 +370,13 @@
       "title": "Contact și locații",
       "lead": "Vizitează-ne, comandă online sau scrie-ne pe email. Așteptăm cu plăcere vești de la tine.",
       "emailTitle": "Email",
-      "emailHint": "Pentru comenzi, folosește meniul nostru online — răspundem la întrebări generale cât de repede putem."
+      "emailHint": "Pentru comenzi, folosește meniul nostru online — răspundem la întrebări generale cât de repede putem.",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "maps": "Directions",
+      "viewOnMaps": "Open in Google Maps",
+      "detailsPending": "Contact details will be published here soon."
     },
     "reviews": {
       "eyebrow": "Voci ale oaspeților",
@@ -557,6 +581,44 @@
       "title": "General terms and conditions (AGB)",
       "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
       "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
+    },
+    "team": {
+      "eyebrow": "The people behind Concordia",
+      "title": "Our team",
+      "lead": "Concordia is a family business. Meet the director and the chefs who prepare your pizza, pasta and classics — with the same care online as in the restaurant.",
+      "ctaText": "Hungry? Choose your nearest Concordia and order for pickup or delivery.",
+      "members": {
+        "director": {
+          "name": "Director",
+          "role": "Family patriarch · Kempen",
+          "bio": "Leads Concordia with decades of hospitality experience — the calm centre of our kitchen and dining room.",
+          "photoAlt": "Concordia director portrait"
+        },
+        "pizzaChef1": {
+          "name": "Pizza chef",
+          "role": "Stone oven · Front of house",
+          "bio": "Our pizza specialist — dough, timing and the perfect bake from our oven to your table.",
+          "photoAlt": "Concordia pizza chef portrait"
+        },
+        "pizzaChef2": {
+          "name": "Pizza chef",
+          "role": "Kitchen · Service",
+          "bio": "Keeps service flowing at the pass — pasta, grills and the dishes our regulars order every week.",
+          "photoAlt": "Concordia chef portrait"
+        },
+        "pizzaChef3": {
+          "name": "Pizza chef",
+          "role": "Kitchen team",
+          "bio": "Part of the family line-up behind every busy Friday night and weekend service.",
+          "photoAlt": "Concordia kitchen team portrait"
+        },
+        "kitchenChef": {
+          "name": "Kitchen chef",
+          "role": "Kitchen team",
+          "bio": "Brings steady hands and Italian heart to salads, al forno dishes and daily specials.",
+          "photoAlt": "Concordia kitchen chef portrait"
+        }
+      }
     }
   },
   "giftVoucher": {

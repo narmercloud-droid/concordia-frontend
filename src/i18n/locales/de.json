@@ -39,10 +39,13 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Willkommen bei",
+    "pizzeria": "Pizzeria",
+    "welcomePizzeria": "Willkommen bei Pizzeria Concordia",
     "title": "Concordia Restaurant",
     "tagline": "Deutsche Herzlichkeit • Italienische Leidenschaft",
     "slogan": "Wo Harmonie auf dem Teller liegt.",
-    "lead": "Italienische Küche aus unserem Ofen — von knuspriger Pizza über hausgemachte Pasta bis zu beliebten Klassikern. Bestellen Sie bequem online zur Abholung oder Lieferung.",
+    "lead": "Italienische Küche aus unserem Ofen — knusprige Pizza, hausgemachte Pasta und beliebte Klassiker, täglich mit Sorgfalt zubereitet. Bequem online bestellen zur Abholung oder Lieferung.",
+    "leadShort": "Italienische Küche aus unserem Ofen — online bestellen zur Abholung oder Lieferung.",
     "showcaseLabel": "Unsere Küche",
     "showcaseTitle": "Vom Concordia auf Ihren Tisch",
     "galleryLabel": "Einblick in unsere Küche",
@@ -96,6 +99,12 @@
     "nearestBadge": "Nächste",
     "openNow": "Jetzt geöffnet",
     "closed": "Geschlossen",
+    "kempenBranch": "Kempen",
+    "googleReview": "Google-Bewertung",
+    "moreReviews": "Weitere Bewertungen",
+    "moreReviewsShort": "Alle Bewertungen",
+    "reviewsSectionTitle": "Das sagen unsere Gäste",
+    "reviewsSectionLead": "Echte Google-Bewertungen — Kempen & Straelen.",
     "orderNow": "Jetzt bestellen",
     "comingSoonLabel": "Bald verfügbar",
     "moreLocations": "Weitere Standorte folgen",
@@ -353,6 +362,7 @@
       "offers": "Angebote",
       "delivery": "Lieferung",
       "faq": "FAQ",
+      "team": "Unser Team",
       "impressum": "Impressum",
       "privacy": "Datenschutz",
       "agb": "AGB",
@@ -362,16 +372,33 @@
       "eyebrow": "Unsere Geschichte",
       "title": "Über Concordia",
       "quote": "Gutes Essen bringt Menschen zusammen — genau darum geht es bei Concordia.",
-      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant in Kempen. Harmonie ist für uns nicht nur ein Name — sie steht für unseren Umgang mit Gästen, für die Arbeit in der Küche und für jeden Teller, der unsere Theke verlässt.",
-      "p2": "Am Concordienplatz haben wir mit einer einfachen Idee geöffnet: ehrliche italienische Küche, großzügige Portionen und das Gefühl, bei jemandem zu essen — nicht in einer Kette.",
-      "p3": "Heute können Sie uns besuchen oder online bestellen. In beiden Fällen bereitet dasselbe Team Ihr Essen frisch zu, wenn Sie bestellen. Kein Aufwärmen, keine Abkürzungen — nur das, womit wir uns vor unseren Nachbarn und Familien sehen lassen.",
-      "originTitle": "Verwurzelt in Kempen",
-      "originText": "Kempen ist unsere Heimat. Unsere Gäste kennen uns von Geburtstagen, Freitag-Pizza-Abenden und ruhigen Mittagessen am Platz. Dieses Vertrauen bedeutet uns alles — deshalb behandeln wir jede Online-Bestellung mit derselben Sorgfalt wie einen Tisch am Fenster.",
-      "chefsTitle": "Ihre Küchenchefs",
-      "alaanName": "Chef Alaan",
-      "alaanBio": "Alaan prägt unsere Karte und den Rhythmus der Küche — vom Teig und den Saucen bis zu den Gerichten, die Stammgäste beim Namen bestellen. Ihm liegt Beständigkeit am Herzen: Die Pizza soll jedes Mal nach Concordia schmecken.",
-      "jiuanName": "Chef Jiuan",
-      "jiuanBio": "Jiuan bringt Ruhe und Konzentration in einen vollen Service — Pasta, Grill, Timing an der Theke. Gäste spüren oft zuerst die Wärme; in der Küche ist es seine ruhige Hand, die alles im Fluss hält.",
+      "familySignature": "— Die Concordia-Familie",
+      "p1": "Concordia ist ein familiengeführtes italienisches Restaurant. Harmonie ist für uns nicht nur ein Name — sie steht für unseren Umgang mit Gästen, für die Arbeit in der Küche und für jeden Teller, der unsere Theke verlässt.",
+      "p2": "Wir haben mit einer einfachen Idee begonnen: ehrliche italienische Küche, großzügige Portionen und das Gefühl, bei jemandem zu essen — nicht in einer Kette.",
+      "p3": "Heute können Sie uns besuchen oder online bei jeder unserer Filialen bestellen. Überall gelten dieselben Familienstandards — frisch zubereitet, kein Aufwärmen, keine Abkürzungen.",
+      "originTitle": "Eine Familie, mehrere Standorte",
+      "originText": "Aus einem Restaurant ist eine Concordia-Familie mit mehreren Filialen geworden — jede mit derselben Sorgfalt geführt. Ob vor Ort, zur Abholung oder per Lieferung: Sie erhalten das Team, die Rezepte und die Herzlichkeit, für die unser Name steht.",
+      "chefsTitle": "Unsere Küchenchefs",
+      "chefs": {
+        "kempen": {
+          "name": "Küchenchefs · Kempen",
+          "role": "Küchenleitung",
+          "bio": "Unser Gründerteam prägt Speisekarte, Teig und den Rhythmus jedes Services — von Steinofen-Pizza und Pasta bis zu den Klassikern, die Stammgäste beim Namen bestellen.",
+          "photoAlt": "Porträt der Concordia-Küchenchefs"
+        },
+        "straelenAA": {
+          "name": "Chef A.A.",
+          "role": "Küchenchef · Straelen",
+          "bio": "Chef A.A. führt unsere zweite Küche nach denselben Concordia-Standards — sorgfältige Vorbereitung, ruhiger Service und Pizza, die jedes Mal nach Zuhause schmeckt.",
+          "photoAlt": "Porträt von Chef A.A."
+        },
+        "straelenSiban": {
+          "name": "Chef Siban",
+          "role": "Küchenchef · Straelen",
+          "bio": "Chef Siban bringt Ruhe und Konzentration in Pasta, Grill und Timing an der Theke — die ruhige Hand, die einen vollen Service im Fluss hält.",
+          "photoAlt": "Porträt von Chef Siban"
+        }
+      },
       "valuesTitle": "Wofür wir stehen",
       "values": {
         "fresh": {
@@ -393,7 +420,45 @@
       },
       "kitchenTitle": "Vom Ofen auf Ihren Tisch",
       "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch für Abholung oder Lieferung.",
-      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+      "kitchenCta": "Wählen Sie Ihre Filiale und bestellen Sie jetzt — zur Abholung oder Lieferung."
+    },
+    "team": {
+      "eyebrow": "Die Menschen hinter Concordia",
+      "title": "Unser Team",
+      "lead": "Concordia ist ein Familienbetrieb. Lernen Sie den Direktor und die Köche kennen, die Ihre Pizza, Pasta und Klassiker zubereiten — online genauso sorgfältig wie im Restaurant.",
+      "ctaText": "Hunger? Wählen Sie Ihr Concordia in der Nähe und bestellen Sie zur Abholung oder Lieferung.",
+      "members": {
+        "director": {
+          "name": "Direktor",
+          "role": "Familienoberhaupt · Kempen",
+          "bio": "Führt Concordia mit jahrzehntelanger Gastronomie-Erfahrung — die ruhige Mitte unserer Küche und unseres Gastraums.",
+          "photoAlt": "Porträt des Concordia-Direktors"
+        },
+        "pizzaChef1": {
+          "name": "Pizzabäcker",
+          "role": "Steinofen · Service",
+          "bio": "Unser Pizza-Spezialist — Teig, Timing und der perfekte Backgang aus unserem Ofen auf Ihren Tisch.",
+          "photoAlt": "Porträt des Concordia-Pizzabäckers"
+        },
+        "pizzaChef2": {
+          "name": "Pizzabäcker",
+          "role": "Küche · Service",
+          "bio": "Hält den Service an der Theke im Fluss — Pasta, Grill und die Gerichte, die Stammgäste jede Woche bestellen.",
+          "photoAlt": "Porträt eines Concordia-Kochs"
+        },
+        "pizzaChef3": {
+          "name": "Pizzabäcker",
+          "role": "Küchenteam",
+          "bio": "Teil der Familien-Mannschaft hinter jedem vollen Freitagabend und Wochenend-Service.",
+          "photoAlt": "Porträt aus dem Concordia-Küchenteam"
+        },
+        "kitchenChef": {
+          "name": "Küchenchef",
+          "role": "Küchenteam",
+          "bio": "Bringt ruhige Hände und italienisches Herz in Salate, Al-Forno-Gerichte und Tagesangebote.",
+          "photoAlt": "Porträt eines Concordia-Küchenchefs"
+        }
+      }
     },
     "contact": {
       "eyebrow": "Kontakt",

@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
+import OrderNowLink from "@/apps/customer/components/OrderNowLink"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 
@@ -81,9 +82,7 @@ export default function OffersPage() {
         <div className="offers-cta-banner__overlay" aria-hidden="true" />
         <div className="offers-cta-banner__copy">
           <p className="offers-cta-banner__note">{t("pages.offers.promoNote")}</p>
-          <Link to="/#order" className="info-cta">
-            {t("home.orderNow")}
-          </Link>
+          <OrderNowLink className="info-cta">{t("home.orderNow")}</OrderNowLink>
         </div>
       </section>
     </InfoPageShell>

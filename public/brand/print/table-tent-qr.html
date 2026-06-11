@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Concordia — Tischaufsteller mit QR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=DM+Sans:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <style>
+    @page { size: A4 landscape; margin: 8mm; }
+    body { margin: 0; font-family: "DM Sans", Arial, sans-serif; background: #ccc; }
+    .toolbar {
+      padding: 10px 16px; background: #2d5a3d; color: #fff; font-size: 13px;
+    }
+    .toolbar button { padding: 8px 14px; border: none; border-radius: 6px; background: #d4a82a; font-weight: 700; cursor: pointer; margin-left: 8px; }
+    .sheet {
+      width: 297mm; height: 210mm; margin: 12px auto; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 0; background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+    .panel {
+      padding: 10mm; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; border: 1px dashed #ccc;
+    }
+    .panel img { width: 95mm; max-width: 90%; }
+    .panel h2 { margin: 4mm 0 2mm; font-size: 14pt; color: #8B1A2B; }
+    .panel p { margin: 0; font-size: 9pt; color: #2d5a3d; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .panel .slogan { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; color: #8B1A2B; margin-top: 2mm; }
+    #qr-left, #qr-right { margin-top: 5mm; padding: 3mm; background: #faf8f5; border: 2px solid #d4a82a; border-radius: 6px; }
+    .fold-hint {
+      grid-column: 1 / -1; text-align: center; font-size: 8pt; color: #999;
+      padding: 2mm; border-top: 1px dashed #ccc;
+    }
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .sheet { margin: 0; box-shadow: none; }
+      .fold-hint { color: #bbb; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    Tischaufsteller — 2× auf A4 quer drucken, in der Mitte falten ·
+    <button type="button" onclick="window.print()">Drucken</button>
+  </div>
+  <div class="sheet">
+    <div class="panel">
+      <img src="../../images/concordia-logo.png" alt="Concordia" style="max-height:28mm;width:auto" />
+      <h2>10% online bestellen</h2>
+      <p>Scannen &amp; bestellen</p>
+      <p class="slogan">Wo Harmonie auf dem Teller liegt.</p>
+      <div id="qr-left"></div>
+    </div>
+    <div class="panel">
+      <img src="../../images/concordia-logo.png" alt="Concordia" style="max-height:28mm;width:auto" />
+      <h2>10% online bestellen</h2>
+      <p>Scannen &amp; bestellen</p>
+      <p class="slogan">Wo Harmonie auf dem Teller liegt.</p>
+      <div id="qr-right"></div>
+    </div>
+    <p class="fold-hint">← Falzlinie in der Mitte — beide Seiten nach außen falten für Tischaufsteller →</p>
+  </div>
+  <script>
+    const url = "https://concordia-restaurant-de.vercel.app/branch/concordia-kempen";
+    ["qr-left", "qr-right"].forEach(function (id) {
+      QRCode.toCanvas(url, { width: 280, margin: 1 }, function (err, canvas) {
+        if (!err) document.getElementById(id).appendChild(canvas);
+      });
+    });
+  </script>
+</body>
+</html>

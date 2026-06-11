@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Concordia — Flyer mit Bestell-QR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <style>
+    @page { size: A5 portrait; margin: 10mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "DM Sans", Arial, sans-serif; background: #ddd; color: #1a1f1c; }
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; padding: 10px 16px;
+      background: #8B1A2B; color: #fff; font-size: 13px; z-index: 9;
+    }
+    .toolbar input { width: min(420px, 55vw); padding: 6px 10px; border-radius: 4px; border: none; }
+    .toolbar button {
+      margin-left: 6px; padding: 8px 14px; border: none; border-radius: 6px;
+      background: #d4a82a; font-weight: 700; cursor: pointer;
+    }
+    .flyer {
+      width: 148mm; min-height: 210mm; margin: 56px auto 24px; padding: 10mm;
+      background: #faf8f5; box-shadow: 0 4px 20px rgba(0,0,0,.15);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .flyer img.logo { width: 120mm; max-width: 100%; }
+    .offer {
+      margin: 6mm 0; padding: 5mm 8mm; background: #8B1A2B; color: #fff;
+      border-radius: 8px; width: 100%;
+    }
+    .offer strong { font-size: 28pt; display: block; line-height: 1; }
+    .offer span { font-size: 11pt; opacity: .95; }
+    .tagline { font-size: 8pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #2d5a3d; margin: 4mm 0 2mm; }
+    .slogan { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; color: #8B1A2B; margin: 0 0 6mm; }
+    #qrcode { padding: 4mm; background: #fff; border: 3px solid #d4a82a; border-radius: 8px; }
+    #qrcode canvas, #qrcode img { display: block; width: 42mm !important; height: 42mm !important; }
+    .scan { font-size: 12pt; font-weight: 700; margin-top: 4mm; color: #2d5a3d; }
+    .url { font-size: 8pt; color: #5c6b62; word-break: break-all; margin-top: 2mm; }
+    .footer { margin-top: auto; font-size: 7.5pt; color: #5c6b62; padding-top: 6mm; border-top: 1px solid #d8e4dc; width: 100%; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .flyer { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    QR-Link:
+    <input id="urlInput" type="url" value="https://concordia-restaurant-de.vercel.app/branch/concordia-kempen" />
+    <button type="button" id="updateBtn">QR aktualisieren</button>
+    <button type="button" onclick="window.print()">Drucken (A5)</button>
+  </div>
+  <article class="flyer">
+    <img class="logo" src="../../images/concordia-logo-hero.png" alt="Concordia Restaurant" />
+    <p class="tagline">Deutsche Herzlichkeit • Italienische Leidenschaft</p>
+    <p class="slogan">Wo Harmonie auf dem Teller liegt.</p>
+    <div class="offer">
+      <strong>10%</strong>
+      <span>Rabatt bei Online-Bestellung · Gratis Getränk ab 35€</span>
+    </div>
+    <div id="qrcode" aria-label="QR-Code zum Bestellen"></div>
+    <p class="scan">Jetzt scannen &amp; bestellen</p>
+    <p class="url" id="urlDisplay"></p>
+    <footer class="footer">
+      Concordia Kempen · Concordienplatz 1 · Tel. 02152 / 819 48 48<br />
+      Lieferung &amp; Abholung · Barzahlung bei Lieferung
+    </footer>
+  </article>
+  <script>
+    const input = document.getElementById("urlInput");
+    const box = document.getElementById("qrcode");
+    const display = document.getElementById("urlDisplay");
+    function renderQr() {
+      const url = input.value.trim();
+      display.textContent = url;
+      box.innerHTML = "";
+      QRCode.toCanvas(url, { width: 400, margin: 1, color: { dark: "#1a1f1c", light: "#ffffff" } }, function (err, canvas) {
+        if (err) { box.textContent = "QR-Fehler"; return; }
+        box.appendChild(canvas);
+      });
+    }
+    document.getElementById("updateBtn").addEventListener("click", renderQr);
+    renderQr();
+  </script>
+</body>
+</html>

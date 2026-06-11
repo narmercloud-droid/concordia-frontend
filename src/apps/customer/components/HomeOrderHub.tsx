@@ -19,6 +19,7 @@ export type HomeBranch = {
 
 type Props = {
   branches: HomeBranch[]
+  primary?: boolean
 }
 
 function branchDisplayName(name?: string | null) {
@@ -56,7 +57,7 @@ function sortByDistance(list: HomeBranch[], distances: Record<string, number>) {
   })
 }
 
-export default function HomeOrderHub({ branches }: Props) {
+export default function HomeOrderHub({ branches, primary = false }: Props) {
   const safeBranches = Array.isArray(branches) ? branches : []
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -150,7 +151,10 @@ export default function HomeOrderHub({ branches }: Props) {
   }, [filtered, distances])
 
   return (
-    <section className="home-order-hub" id="order">
+    <section
+      className={`home-order-hub${primary ? " home-order-hub--primary" : ""}`}
+      id="order"
+    >
       <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
       <p className="home-order-hub__lead">{t("home.orderLead")}</p>
 

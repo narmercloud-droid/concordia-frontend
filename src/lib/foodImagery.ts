@@ -1,23 +1,26 @@
+export const HERO_OVEN_LOOP = "/videos/hero-oven.webp?v=20260612"
+// Regenerate: python scripts/build-hero-oven-loop.py
+
 export const FOOD_IMAGES = {
-  hero: "/images/food/hero-pizzeria.jpg",
-  dining: "/images/food/gallery-dining.jpg",
-  pizzaMargherita: "/images/food/pizza-margherita.jpg",
+  hero: "/images/food/concordia-hero-oven-pizza.jpg?v=20260621",
+  dining: "/images/food/concordia-gallery-dining.jpg?v=20260621",
+  pizzaMargherita: "/images/food/concordia-dish-pizza.jpg?v=20260621",
   pizzaSalami: "/images/food/pizza-salami.jpg",
   pizzaHawaii: "/images/food/pizza-hawaii.jpg",
   pizzaSeafood: "/images/food/pizza-seafood.jpg",
   pizzaVegetarian: "/images/food/pizza-vegetarian.jpg",
   pizzaQuattroFormaggi: "/images/food/pizza-quattro-formaggi.jpg",
   calzone: "/images/food/calzone.jpg",
-  pastaTomato: "/images/food/pasta.jpg",
+  pastaTomato: "/images/food/concordia-dish-pasta.jpg?v=20260621",
   pastaCarbonara: "/images/food/pasta-carbonara.jpg",
   pastaGorgonzola: "/images/food/pasta-gorgonzola.jpg",
   pastaSalmone: "/images/food/pasta-salmone.jpg",
   saladCaprese: "/images/food/salad-caprese.jpg",
-  saladMixed: "/images/food/salad.jpg",
+  saladMixed: "/images/food/concordia-dish-salad.jpg?v=20260621",
   saladChicken: "/images/food/salad-chicken.jpg",
-  alforno: "/images/food/alforno.jpg",
+  alforno: "/images/food/concordia-dish-alforno.jpg?v=20260621",
   doenerAuflauf: "/images/food/doener-auflauf.jpg",
-  schnitzel: "/images/food/classics.jpg",
+  schnitzel: "/images/food/concordia-dish-classics.jpg?v=20260621",
   burger: "/images/food/burger.jpg",
   baguetteSucuk: "/images/food/baguette-sucuk.jpg",
   baguetteDeli: "/images/food/baguette.jpg",
@@ -121,11 +124,11 @@ export function dishImageForName(
 }
 
 export const GALLERY_IMAGES = [
-  { src: FOOD_IMAGES.pizzaMargherita, key: "pizza" },
+  { src: "/images/food/concordia-hero-oven-pizza.jpg?v=20260621", key: "pizza" },
+  { src: "/images/food/concordia-gallery-kitchen.jpg?v=20260621", key: "alforno" },
   { src: FOOD_IMAGES.pastaTomato, key: "pasta" },
   { src: FOOD_IMAGES.saladMixed, key: "salads" },
-  { src: FOOD_IMAGES.alforno, key: "alforno" },
+  { src: FOOD_IMAGES.dining, key: "dining" },
   { src: FOOD_IMAGES.schnitzel, key: "classics" },
-  { src: FOOD_IMAGES.burger, key: "burger" },
   { src: FOOD_IMAGES.baguetteSucuk, key: "baguette" }
 ] as const

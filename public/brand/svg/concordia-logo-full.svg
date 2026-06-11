@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" role="img" aria-label="Concordia Restaurant">
+  <defs>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d4a82a" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#d4a82a"/>
+      <stop offset="100%" stop-color="#d4a82a" stop-opacity="0"/>
+    </linearGradient>
+    <style>
+      .wordmark { font-family: "Cormorant Garamond", Georgia, serif; font-size: 72px; font-style: italic; font-weight: 600; fill: #8B1A2B; }
+      .subtitle { font-family: "DM Sans", Arial, sans-serif; font-size: 22px; font-weight: 600; letter-spacing: 0.35em; fill: #2d5a3d; }
+      .tagline { font-family: "DM Sans", Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; fill: #2d5a3d; }
+      .slogan { font-family: "Cormorant Garamond", Georgia, serif; font-size: 20px; font-style: italic; fill: #8B1A2B; }
+    </style>
+  </defs>
+  <rect width="920" height="420" fill="#faf8f5"/>
+  <!-- Five illustrated chefs (Option B family mark) -->
+  <g id="chefs" transform="translate(110 28)">
+    <!-- Chef 1 -->
+    <g transform="translate(0 0)">
+      <ellipse cx="50" cy="118" rx="34" ry="38" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <path d="M24 52 Q50 18 76 52 L72 68 Q50 48 28 68 Z" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <circle cx="50" cy="88" r="22" fill="#f0c9a6"/>
+      <path d="M38 90 Q50 100 62 90" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="42" cy="84" r="2.5" fill="#3d2a22"/>
+      <circle cx="58" cy="84" r="2.5" fill="#3d2a22"/>
+      <path d="M34 108 L66 108 L62 138 L38 138 Z" fill="#fff" stroke="#8B1A2B" stroke-width="1.5"/>
+      <path d="M38 118 L62 118" stroke="#d4a82a" stroke-width="3"/>
+    </g>
+    <!-- Chef 2 -->
+    <g transform="translate(130 6)">
+      <ellipse cx="50" cy="112" rx="34" ry="38" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <path d="M24 46 Q50 12 76 46 L72 62 Q50 42 28 62 Z" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <circle cx="50" cy="82" r="22" fill="#e8b896"/>
+      <path d="M38 84 Q50 94 62 84" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="42" cy="78" r="2.5" fill="#3d2a22"/>
+      <circle cx="58" cy="78" r="2.5" fill="#3d2a22"/>
+      <path d="M34 102 L66 102 L62 132 L38 132 Z" fill="#fff" stroke="#8B1A2B" stroke-width="1.5"/>
+      <path d="M38 112 L62 112" stroke="#2d5a3d" stroke-width="3"/>
+    </g>
+    <!-- Chef 3 (center, glasses) -->
+    <g transform="translate(260 -8)">
+      <ellipse cx="50" cy="108" rx="36" ry="40" fill="#fff" stroke="#8B1A2B" stroke-width="2.5"/>
+      <path d="M22 40 Q50 2 78 40 L74 58 Q50 36 26 58 Z" fill="#fff" stroke="#8B1A2B" stroke-width="2.5"/>
+      <circle cx="50" cy="78" r="24" fill="#f0c9a6"/>
+      <rect x="36" y="72" width="28" height="8" rx="4" fill="none" stroke="#5a5a5a" stroke-width="1.5"/>
+      <path d="M36 84 Q50 96 64 84" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>
+      <path d="M32 98 L68 98 L64 134 L36 134 Z" fill="#fff" stroke="#8B1A2B" stroke-width="1.5"/>
+      <path d="M36 110 L64 110" stroke="#d4a82a" stroke-width="3.5"/>
+    </g>
+    <!-- Chef 4 -->
+    <g transform="translate(390 6)">
+      <ellipse cx="50" cy="112" rx="34" ry="38" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <path d="M24 46 Q50 12 76 46 L72 62 Q50 42 28 62 Z" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <circle cx="50" cy="82" r="22" fill="#ddb08a"/>
+      <path d="M38 84 Q50 94 62 84" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="42" cy="78" r="2.5" fill="#3d2a22"/>
+      <circle cx="58" cy="78" r="2.5" fill="#3d2a22"/>
+      <path d="M34 102 L66 102 L62 132 L38 132 Z" fill="#fff" stroke="#8B1A2B" stroke-width="1.5"/>
+      <path d="M38 112 L62 112" stroke="#2d5a3d" stroke-width="3"/>
+    </g>
+    <!-- Chef 5 (pizza peel) -->
+    <g transform="translate(520 0)">
+      <ellipse cx="50" cy="118" rx="34" ry="38" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <path d="M24 52 Q50 18 76 52 L72 68 Q50 48 28 68 Z" fill="#fff" stroke="#8B1A2B" stroke-width="2"/>
+      <circle cx="50" cy="88" r="22" fill="#f0c9a6"/>
+      <path d="M38 90 Q50 100 62 90" fill="none" stroke="#6b4a3a" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="42" cy="84" r="2.5" fill="#3d2a22"/>
+      <circle cx="58" cy="84" r="2.5" fill="#3d2a22"/>
+      <path d="M34 108 L66 108 L62 138 L38 138 Z" fill="#fff" stroke="#8B1A2B" stroke-width="1.5"/>
+      <line x1="88" y1="70" x2="118" y2="40" stroke="#c49a6c" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="120" cy="38" r="14" fill="#f5d6a8" stroke="#d4a82a" stroke-width="2"/>
+    </g>
+  </g>
+  <text x="460" y="248" text-anchor="middle" class="wordmark">Concordia</text>
+  <text x="460" y="282" text-anchor="middle" class="subtitle">RESTAURANT</text>
+  <line x1="220" y1="300" x2="700" y2="300" stroke="url(#goldLine)" stroke-width="2"/>
+  <text x="460" y="328" text-anchor="middle" class="tagline">DEUTSCHE HERZLICHKEIT • ITALIENISCHE LEIDENSCHAFT</text>
+  <text x="460" y="358" text-anchor="middle" class="slogan">Wo Harmonie auf dem Teller liegt.</text>
+  <g transform="translate(448 372)">
+    <ellipse cx="12" cy="10" rx="10" ry="12" fill="#2d5a3d"/>
+    <ellipse cx="0" cy="8" rx="8" ry="10" fill="#8B1A2B"/>
+    <ellipse cx="24" cy="8" rx="8" ry="10" fill="#8B1A2B"/>
+  </g>
+</svg>

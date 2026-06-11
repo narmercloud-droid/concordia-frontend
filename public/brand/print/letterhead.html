@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Concordia — Briefpapier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 18mm 20mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", Arial, sans-serif;
+      font-size: 11pt;
+      color: #1a1f1c;
+      background: #e8e8e8;
+    }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 12px auto;
+      padding: 16mm 20mm 20mm;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,.12);
+    }
+    .header { text-align: center; border-bottom: 2px solid #d4a82a; padding-bottom: 10mm; margin-bottom: 12mm; }
+    .header img { width: 88mm; height: auto; }
+    .taglines { margin-top: 4mm; font-size: 8pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #2d5a3d; }
+    .slogan { margin-top: 2mm; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 11pt; color: #8B1A2B; }
+    .contact {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8mm;
+      font-size: 9pt; color: #5c6b62; margin-bottom: 14mm;
+    }
+    .body { min-height: 160mm; line-height: 1.55; }
+    .body p { margin: 0 0 5mm; }
+    .footer {
+      margin-top: auto; padding-top: 8mm; border-top: 1px solid #d8e4dc;
+      font-size: 8pt; color: #5c6b62; text-align: center;
+    }
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; padding: 10px 16px;
+      background: #2d5a3d; color: #fff; font-size: 13px; z-index: 9;
+    }
+    .toolbar button {
+      margin-left: 8px; padding: 8px 16px; border: none; border-radius: 6px;
+      background: #d4a82a; color: #1a1f1c; font-weight: 700; cursor: pointer;
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    Concordia Briefpapier — Drucken: Strg+P · Papier: A4
+    <button type="button" onclick="window.print()">Drucken</button>
+  </div>
+  <div class="sheet">
+    <header class="header">
+      <img src="../../images/concordia-logo-hero.png" alt="Concordia Restaurant" />
+      <p class="taglines">Deutsche Herzlichkeit • Italienische Leidenschaft</p>
+      <p class="slogan">Wo Harmonie auf dem Teller liegt.</p>
+    </header>
+    <div class="contact">
+      <div>
+        <strong>Concordia Kempen</strong><br />
+        Concordienplatz 1 · 47906 Kempen<br />
+        Tel. 02152 / 819 48 48
+      </div>
+      <div style="text-align: right;">
+        concordia-restaurant-de.vercel.app<br />
+        kempen@concordia.de
+      </div>
+    </div>
+    <main class="body">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>Sehr geehrte Damen und Herren,</p>
+      <p>&nbsp;</p>
+      <p><!-- Ihr Brieftext hier --></p>
+      <p>&nbsp;</p>
+      <p>Mit freundlichen Grüßen</p>
+      <p>&nbsp;</p>
+      <p>Concordia Restaurant Kempen</p>
+    </main>
+    <footer class="footer">
+      Pizza · Pasta · Grill · Lieferung &amp; Abholung · 10% Rabatt bei Online-Bestellung
+    </footer>
+  </div>
+</body>
+</html>

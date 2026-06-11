@@ -102,7 +102,10 @@
     "websiteDiscountStrip": "Online bestellen & besparen",
     "websiteDiscountFooter": "{{percent}}% korting bij online bestellen — automatisch bij afrekenen",
     "footerFreeDrink": "Gratis drankje vanaf €35 bestelwaarde",
-    "branchesLoading": "Restaurants laden…"
+    "branchesLoading": "Restaurants laden…",
+    "kempenBranch": "Kempen",
+    "googleReview": "Google review",
+    "moreReviews": "More reviews"
   },
   "branchOwner": {
     "eyebrow": "Uw chef-koks",
@@ -223,7 +226,21 @@
     "loyaltyBalance": "Spaarprogramma: {{points}} punten ({{tier}})",
     "loyaltyPerkPoints": "Verdien punten bij elke bezorgde bestelling",
     "loyaltyPerkTier": "Ontgrendel bronze-, zilver- en gouden voordelen",
-    "termsNotice": "Door te bestellen accepteert u onze <termsLink>algemene voorwaarden</termsLink>."
+    "termsNotice": "Door te bestellen accepteert u onze <termsLink>algemene voorwaarden</termsLink>.",
+    "addressStructuredHint": "Enter your postcode first, then choose your street from the suggestions.",
+    "addressCityAutoFilled": "City is set automatically from your postal code.",
+    "addressPostalCode": "Postal code",
+    "addressPostalCodePlaceholder": "e.g. 47906",
+    "addressSelectPostcode": "Select postal code",
+    "addressCity": "City",
+    "addressCityPlaceholder": "e.g. Kempen",
+    "addressStreet": "Street name",
+    "addressStreetPlaceholder": "Start typing the street name",
+    "addressHouseNumber": "House / building no.",
+    "addressHouseNumberPlaceholder": "e.g. 5 or 12a",
+    "addressFloor": "Floor",
+    "addressFloorPlaceholder": "e.g. 2nd floor",
+    "addressEnterPostcodeFirst": "Please select or enter your postal code first."
   },
   "item": {
     "loading": "Gerecht laden…",
@@ -308,7 +325,8 @@
       "terms": "Voorwaarden",
       "impressum": "Legal notice",
       "privacy": "Privacy",
-      "agb": "Terms (AGB)"
+      "agb": "Terms (AGB)",
+      "team": "Our team"
     },
     "about": {
       "eyebrow": "Ons verhaal",
@@ -352,7 +370,13 @@
       "title": "Contact & locaties",
       "lead": "Bezoek ons, bestel online of neem per e-mail contact op. We horen graag van u.",
       "emailTitle": "E-mail",
-      "emailHint": "Voor bestellingen gebruikt u ons online menu — we reageren zo snel mogelijk op algemene vragen."
+      "emailHint": "Voor bestellingen gebruikt u ons online menu — we reageren zo snel mogelijk op algemene vragen.",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "maps": "Directions",
+      "viewOnMaps": "Open in Google Maps",
+      "detailsPending": "Contact details will be published here soon."
     },
     "reviews": {
       "eyebrow": "Gasten aan het woord",
@@ -557,6 +581,44 @@
       "title": "General terms and conditions (AGB)",
       "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
       "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
+    },
+    "team": {
+      "eyebrow": "The people behind Concordia",
+      "title": "Our team",
+      "lead": "Concordia is a family business. Meet the director and the chefs who prepare your pizza, pasta and classics — with the same care online as in the restaurant.",
+      "ctaText": "Hungry? Choose your nearest Concordia and order for pickup or delivery.",
+      "members": {
+        "director": {
+          "name": "Director",
+          "role": "Family patriarch · Kempen",
+          "bio": "Leads Concordia with decades of hospitality experience — the calm centre of our kitchen and dining room.",
+          "photoAlt": "Concordia director portrait"
+        },
+        "pizzaChef1": {
+          "name": "Pizza chef",
+          "role": "Stone oven · Front of house",
+          "bio": "Our pizza specialist — dough, timing and the perfect bake from our oven to your table.",
+          "photoAlt": "Concordia pizza chef portrait"
+        },
+        "pizzaChef2": {
+          "name": "Pizza chef",
+          "role": "Kitchen · Service",
+          "bio": "Keeps service flowing at the pass — pasta, grills and the dishes our regulars order every week.",
+          "photoAlt": "Concordia chef portrait"
+        },
+        "pizzaChef3": {
+          "name": "Pizza chef",
+          "role": "Kitchen team",
+          "bio": "Part of the family line-up behind every busy Friday night and weekend service.",
+          "photoAlt": "Concordia kitchen team portrait"
+        },
+        "kitchenChef": {
+          "name": "Kitchen chef",
+          "role": "Kitchen team",
+          "bio": "Brings steady hands and Italian heart to salads, al forno dishes and daily specials.",
+          "photoAlt": "Concordia kitchen chef portrait"
+        }
+      }
     }
   },
   "giftVoucher": {

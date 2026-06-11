@@ -8,6 +8,7 @@ import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
 import SiteNav from "@/apps/customer/components/SiteNav"
+import StickyOrderFab from "@/apps/customer/components/StickyOrderFab"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
@@ -64,7 +65,7 @@ export default function CustomerLayout() {
     >
       <header className="customer-header">
         <Link to="/" className="customer-header__brand">
-          <ConcordiaLogo size="sm" />
+          <ConcordiaLogo size="sm" round />
         </Link>
         <div className="customer-header__actions">
           <LanguageSwitcher />
@@ -110,6 +111,8 @@ export default function CustomerLayout() {
           <Outlet />
         </CustomerErrorBoundary>
       </main>
+
+      {location.pathname === "/" ? <StickyOrderFab /> : null}
     </div>
   )
 }

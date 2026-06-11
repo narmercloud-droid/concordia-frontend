@@ -102,7 +102,10 @@
     "websiteDiscountDetail": "بە خۆکار لە کاتی پارەدان دەکرێت — کۆد پێویست نییە",
     "websiteDiscountStrip": "ئۆنلاین داوا بکە و پاشەکەوت بکە",
     "websiteDiscountFooter": "{{percent}}% داشکاندن لە داوای ئۆنلاین — بە خۆکار لە کاتی پارەدان",
-    "footerFreeDrink": "خواردنەوەی بێبەرامبەر لە داوای 35 €"
+    "footerFreeDrink": "خواردنەوەی بێبەرامبەر لە داوای 35 €",
+    "kempenBranch": "Kempen",
+    "googleReview": "Google review",
+    "moreReviews": "More reviews"
   },
   "branchOwner": {
     "eyebrow": "سەرچێشتخوازەکانت",
@@ -223,7 +226,21 @@
     "loyaltyBalance": "وەفاداری: {{points}} خاڵ (ئاستی {{tier}})",
     "loyaltyPerkPoints": "خاڵ بەدەست بهێنە لە هەر داواکارییەکی گەیشتوو",
     "loyaltyPerkTier": "پاداشتی برۆنز، زیو و زێڕ بکەرەوە",
-    "termsNotice": "بە دانانی داواکاری <termsLink>مەرج و ڕێساکان</termsLink> قبوڵ دەکەیت."
+    "termsNotice": "بە دانانی داواکاری <termsLink>مەرج و ڕێساکان</termsLink> قبوڵ دەکەیت.",
+    "addressStructuredHint": "Enter your postcode first, then choose your street from the suggestions.",
+    "addressCityAutoFilled": "City is set automatically from your postal code.",
+    "addressPostalCode": "Postal code",
+    "addressPostalCodePlaceholder": "e.g. 47906",
+    "addressSelectPostcode": "Select postal code",
+    "addressCity": "City",
+    "addressCityPlaceholder": "e.g. Kempen",
+    "addressStreet": "Street name",
+    "addressStreetPlaceholder": "Start typing the street name",
+    "addressHouseNumber": "House / building no.",
+    "addressHouseNumberPlaceholder": "e.g. 5 or 12a",
+    "addressFloor": "Floor",
+    "addressFloorPlaceholder": "e.g. 2nd floor",
+    "addressEnterPostcodeFirst": "Please select or enter your postal code first."
   },
   "giftVoucher": {
     "title": "کارتەی دیاری",
@@ -322,7 +339,8 @@
       "terms": "مەرجەکان",
       "impressum": "Legal notice",
       "privacy": "Privacy",
-      "agb": "Terms (AGB)"
+      "agb": "Terms (AGB)",
+      "team": "Our team"
     },
     "about": {
       "eyebrow": "چیرۆکەکەمان",
@@ -366,7 +384,13 @@
       "title": "پەیوەندی و شوێنەکان",
       "lead": "سەردانمان بکە، ئۆنلاین داوا بکە، یان بە ئیمەیڵ پەیوەندی بکە. چاوەڕوانی گوێگرتن لە تۆین.",
       "emailTitle": "ئیمەیڵ",
-      "emailHint": "بۆ داواکان مێنووی ئۆنلاینمان بەکاربهێنە — بە زووترین کات وەڵامی پرسیارە گشتییەکان دەدەینەوە."
+      "emailHint": "بۆ داواکان مێنووی ئۆنلاینمان بەکاربهێنە — بە زووترین کات وەڵامی پرسیارە گشتییەکان دەدەینەوە.",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "maps": "Directions",
+      "viewOnMaps": "Open in Google Maps",
+      "detailsPending": "Contact details will be published here soon."
     },
     "reviews": {
       "eyebrow": "دەنگی میوان",
@@ -571,6 +595,44 @@
       "title": "General terms and conditions (AGB)",
       "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
       "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
+    },
+    "team": {
+      "eyebrow": "The people behind Concordia",
+      "title": "Our team",
+      "lead": "Concordia is a family business. Meet the director and the chefs who prepare your pizza, pasta and classics — with the same care online as in the restaurant.",
+      "ctaText": "Hungry? Choose your nearest Concordia and order for pickup or delivery.",
+      "members": {
+        "director": {
+          "name": "Director",
+          "role": "Family patriarch · Kempen",
+          "bio": "Leads Concordia with decades of hospitality experience — the calm centre of our kitchen and dining room.",
+          "photoAlt": "Concordia director portrait"
+        },
+        "pizzaChef1": {
+          "name": "Pizza chef",
+          "role": "Stone oven · Front of house",
+          "bio": "Our pizza specialist — dough, timing and the perfect bake from our oven to your table.",
+          "photoAlt": "Concordia pizza chef portrait"
+        },
+        "pizzaChef2": {
+          "name": "Pizza chef",
+          "role": "Kitchen · Service",
+          "bio": "Keeps service flowing at the pass — pasta, grills and the dishes our regulars order every week.",
+          "photoAlt": "Concordia chef portrait"
+        },
+        "pizzaChef3": {
+          "name": "Pizza chef",
+          "role": "Kitchen team",
+          "bio": "Part of the family line-up behind every busy Friday night and weekend service.",
+          "photoAlt": "Concordia kitchen team portrait"
+        },
+        "kitchenChef": {
+          "name": "Kitchen chef",
+          "role": "Kitchen team",
+          "bio": "Brings steady hands and Italian heart to salads, al forno dishes and daily specials.",
+          "photoAlt": "Concordia kitchen chef portrait"
+        }
+      }
     }
   },
   "auth": {

@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { FOOD_IMAGES } from "@/lib/foodImagery"
+import { FOOD_IMAGES, GALLERY_IMAGES } from "@/lib/foodImagery"
 import { scrollToBranchChoice } from "@/lib/scrollToBranchChoice"
 
 const ITEMS = [
@@ -11,6 +11,8 @@ const ITEMS = [
   { key: "classics", image: FOOD_IMAGES.schnitzel }
 ] as const
 
+const ATMOSPHERE_IMAGES = GALLERY_IMAGES.slice(0, 4)
+
 export default function MenuShowcase() {
   const { t } = useTranslation()
 
@@ -18,6 +20,7 @@ export default function MenuShowcase() {
     <section className="home-showcase">
       <p className="home-section-label">{t("home.showcaseLabel")}</p>
       <h2 className="home-section-title">{t("home.showcaseTitle")}</h2>
+      <p className="home-showcase__lead">{t("home.galleryLead")}</p>
       <div className="home-showcase__grid">
         {ITEMS.map((item) => (
           <button
@@ -37,6 +40,15 @@ export default function MenuShowcase() {
               <p>{t(`home.showcase.${item.key}Desc`)}</p>
             </div>
           </button>
+        ))}
+      </div>
+
+      <div className="home-showcase__atmosphere" aria-label={t("home.galleryTitle")}>
+        {ATMOSPHERE_IMAGES.map((img) => (
+          <figure key={img.key} className="home-showcase__atmosphere-item">
+            <img src={img.src} alt={t(`home.gallery.${img.key}`)} loading="lazy" />
+            <figcaption>{t(`home.gallery.${img.key}`)}</figcaption>
+          </figure>
         ))}
       </div>
     </section>

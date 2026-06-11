@@ -9,6 +9,7 @@ const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
 const OffersPage = React.lazy(() => import("./pages/OffersPage.js"))
 const GiftVoucherPage = React.lazy(() => import("./pages/GiftVoucherPage.js"))
 const FaqPage = React.lazy(() => import("./pages/FaqPage.js"))
+const TeamPage = React.lazy(() => import("./pages/TeamPage.js"))
 const TermsPage = React.lazy(() => import("./pages/TermsPage.js"))
 const ImpressumPage = React.lazy(() => import("./pages/ImpressumPage.js"))
 const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage.js"))
@@ -28,6 +29,7 @@ export const infoRoutes = {
     { path: "gutschein", element: lazy(<GiftVoucherPage />) },
     { path: "gutschein/:branchId", element: lazy(<GiftVoucherPage />) },
     { path: "faq", element: lazy(<FaqPage />) },
+    { path: "team", element: lazy(<TeamPage />) },
     { path: "impressum", element: lazy(<ImpressumPage />) },
     { path: "datenschutz", element: lazy(<PrivacyPage />) },
     { path: "privacy", element: <Navigate to="/datenschutz" replace /> },

@@ -74,6 +74,11 @@
   border-color: transparent;
 }
 
+.site-nav__status {
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
 .site-footer {
   margin-top: 48px;
   padding-top: 28px;
@@ -125,9 +130,9 @@
 }
 
 .site-footer__logo {
+  display: flex;
   justify-content: center;
-  margin-bottom: 10px;
-  opacity: 0.92;
+  margin: 0 auto 14px;
 }
 
 .site-footer__tagline {
@@ -638,11 +643,21 @@
 
 .about-hero {
   display: grid;
-  gap: 20px;
-  padding: 22px;
+  gap: 22px;
+  padding: 24px 22px 26px;
   border-radius: 20px;
   border: 1px solid var(--c-line);
   background: linear-gradient(145deg, #fff 0%, var(--c-accent-soft) 100%);
+}
+
+.about-hero__logo {
+  display: block;
+  width: 100%;
+  max-width: min(280px, 86vw);
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgb(var(--c-red-rgb) / 0.1));
 }
 
 .about-hero__media {
@@ -663,7 +678,7 @@
 }
 
 .about-hero__kitchen {
-  height: 120px;
+  height: 140px;
   border-radius: 16px;
   background-size: cover;
   background-position: center;
@@ -708,10 +723,38 @@
 }
 
 .about-chef-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 16px;
+  align-items: start;
   padding: 20px 22px;
   border-radius: 18px;
   border: 1px solid var(--c-line);
   background: var(--c-card);
+}
+
+.about-chef-card__photo {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  object-position: center 15%;
+  border-radius: 14px;
+  border: 3px solid #fff;
+  box-shadow: 0 8px 20px rgb(var(--c-red-rgb) / 0.12);
+  filter: saturate(1.35) contrast(1.12) brightness(1.06) sepia(0.08);
+}
+
+.about-chef-card__body {
+  min-width: 0;
+}
+
+.about-chef-card__role {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
 }
 
 .about-chef-card__badge {
@@ -838,6 +881,36 @@
   margin-top: 14px !important;
   font-weight: 600;
   color: #ffffff !important;
+}
+
+.about-kitchen-banner__cta-lead {
+  margin-top: 14px !important;
+  font-size: 15px !important;
+  font-weight: 500;
+  color: #fff !important;
+}
+
+.about-kitchen-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-kitchen-banner__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
 }
 
 /* —— Offers page —— */
@@ -1064,6 +1137,14 @@
 }
 
 @media (min-width: 640px) {
+  .about-hero__logo {
+    max-width: 320px;
+  }
+
+  .about-hero__kitchen {
+    height: 168px;
+  }
+
   .about-hero__media {
     grid-template-columns: 140px 1fr;
   }
@@ -1074,7 +1155,16 @@
   }
 
   .about-chefs {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .about-chef-card {
+    grid-template-columns: 112px 1fr;
+  }
+
+  .about-chef-card__photo {
+    width: 112px;
+    height: 112px;
   }
 
   .about-values {
@@ -1100,5 +1190,128 @@
     justify-content: center;
     flex-wrap: wrap;
     overflow-x: visible;
+  }
+}
+
+/* —— Team page —— */
+
+.team-lead {
+  margin: 0 0 24px;
+  max-width: 42em;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--c-muted);
+}
+
+.team-hero-mark {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.team-hero-mark__image {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #faf8f5;
+  border: 3px solid #fff;
+  box-shadow:
+    0 0 0 2px rgb(var(--c-green-rgb) / 0.35),
+    0 10px 28px rgb(var(--c-red-rgb) / 0.12);
+}
+
+.team-grid {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.team-card {
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line);
+  background: linear-gradient(160deg, #fff 0%, var(--c-accent-soft) 100%);
+  text-align: center;
+}
+
+.team-card__photo-wrap {
+  display: inline-flex;
+  padding: 3px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-green), var(--c-red));
+}
+
+.team-card__photo {
+  display: block;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid #fff;
+  background: #faf8f5;
+}
+
+.team-card__name {
+  margin: 0 0 4px;
+  font-family: var(--c-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.team-card__role {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.team-card__bio {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--c-muted);
+}
+
+.team-cta {
+  padding: 24px;
+  border-radius: 18px;
+  text-align: center;
+  border: 1px solid var(--c-line);
+  background: linear-gradient(145deg, #fff, var(--c-green-soft));
+}
+
+.team-cta p {
+  margin: 0 0 14px;
+  color: var(--c-muted);
+}
+
+@media (min-width: 640px) {
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .team-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .team-card:first-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 20px;
+    text-align: left;
+    align-items: center;
+  }
+
+  .team-card:first-child .team-card__photo-wrap {
+    margin-bottom: 0;
   }
 }
