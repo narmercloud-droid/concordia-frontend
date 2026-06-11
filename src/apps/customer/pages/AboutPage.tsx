@@ -50,17 +50,19 @@ export default function AboutPage() {
               {chefs.map(({ chefKey, photo }) => (
                 <article key={chefKey} className="about-chef-tile">
                   {photo ? (
-                    <img
-                      src={photo}
-                      alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
-                      className="about-chef-tile__photo"
-                      width={120}
-                      height={120}
-                      loading="lazy"
-                    />
+                    <div className="about-chef-tile__frame">
+                      <img
+                        src={photo}
+                        alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
+                        className="about-chef-tile__photo"
+                        width={160}
+                        height={107}
+                        loading="lazy"
+                      />
+                    </div>
                   ) : (
                     <div
-                      className="about-chef-tile__photo about-chef-tile__photo--pending"
+                      className="about-chef-tile__frame about-chef-tile__frame--pending"
                       aria-label={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
                     >
                       {t("pages.about.photoPending")}

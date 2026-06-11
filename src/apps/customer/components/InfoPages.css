@@ -766,19 +766,25 @@
   text-align: center;
 }
 
-.about-chef-tile__photo {
-  width: 100%;
-  max-width: 112px;
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
+.about-chef-tile__frame {
+  width: min(100%, 148px);
+  aspect-ratio: 3 / 2;
   border-radius: 14px;
   border: 3px solid #fff;
   box-shadow: 0 8px 20px rgb(var(--c-red-rgb) / 0.12);
   background: #faf8f5;
+  overflow: hidden;
 }
 
-.about-chef-tile__photo--pending {
+.about-chef-tile__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.about-chef-tile__frame--pending {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -791,7 +797,6 @@
   text-transform: uppercase;
   text-align: center;
   line-height: 1.35;
-  filter: none;
 }
 
 .about-chef-tile__name {
@@ -1253,8 +1258,8 @@
     gap: 18px;
   }
 
-  .about-chef-tile__photo {
-    max-width: 120px;
+  .about-chef-tile__frame {
+    width: min(100%, 160px);
   }
 
   .about-chefs {
