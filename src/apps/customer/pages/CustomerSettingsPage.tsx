@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
@@ -51,10 +51,15 @@ function fieldsToStreetLine(fields: DeliveryAddressFields): string {
 
 export default function CustomerSettingsPage() {
   const { t } = useTranslation()
+  const location = useLocation()
   const queryClient = useQueryClient()
   const authUser = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
-  const [tab, setTab] = useState<Tab>("profile")
+  const initialTab: Tab =
+    location.pathname.includes("/orders") && !location.pathname.includes("/orders/")
+      ? "orders"
+      : "profile"
+  const [tab, setTab] = useState<Tab>(initialTab)
   const [phone, setPhone] = useState("")
   const [phoneSaved, setPhoneSaved] = useState(false)
   const [addressModalOpen, setAddressModalOpen] = useState(false)

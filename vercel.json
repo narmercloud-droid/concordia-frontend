@@ -41,10 +41,6 @@
       "source": "/orders",
       "destination": "https://concordia-backend-web.onrender.com/orders"
     },
-    {
-      "source": "/customer/:path*",
-      "destination": "https://concordia-backend-web.onrender.com/customer/:path*"
-    },
-    { "source": "/((?!api/|orders|customer).*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

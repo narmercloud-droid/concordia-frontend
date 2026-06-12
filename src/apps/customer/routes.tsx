@@ -13,7 +13,6 @@ const MenuCategoriesPage = React.lazy(() => import("./pages/MenuCategoriesPage.j
 const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
 const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
-const OrderHistoryPage = React.lazy(() => import("./pages/OrderHistoryPage.js"))
 const CustomerSettingsPage = React.lazy(() => import("./pages/CustomerSettingsPage.js"))
 import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
@@ -65,18 +64,14 @@ export const customerRoutes = {
         { path: "menu/:categoryId", element: lazySection(<MenuItemsPage />) },
         { path: "menu/item/:itemId", element: lazySection(<MenuItemDetailsPage />) },
         {
+          path: "orders/history",
+          element: <Navigate to="/customer/orders" replace />
+        },
+        {
           path: "orders/:orderId",
           element: (
             <ProtectedRoute>
               {lazySection(<OrderDetailsPage />)}
-            </ProtectedRoute>
-          )
-        },
-        {
-          path: "orders/history",
-          element: (
-            <ProtectedRoute>
-              {lazySection(<OrderHistoryPage />)}
             </ProtectedRoute>
           )
         },
