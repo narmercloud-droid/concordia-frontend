@@ -33,14 +33,6 @@
       "source": "/api/(.*)",
       "destination": "https://concordia-backend-web.onrender.com/api/$1"
     },
-    {
-      "source": "/orders/:path*",
-      "destination": "https://concordia-backend-web.onrender.com/orders/:path*"
-    },
-    {
-      "source": "/orders",
-      "destination": "https://concordia-backend-web.onrender.com/orders"
-    },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
