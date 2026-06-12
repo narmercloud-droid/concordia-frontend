@@ -4,6 +4,7 @@ import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
 import infoRoutes from "../apps/customer/infoRoutes.js"
 import adminRoutes from "../apps/admin/routes.js"
+import { courierRoutes } from "@/apps/courier/routes.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 
@@ -21,10 +22,7 @@ export const router = createBrowserRouter([
       branchRoutes,
       customerRoutes,
       adminRoutes,
-      {
-        path: "courier",
-        lazy: () => import("@/apps/courier/lazyRoutes").then((m) => m.courierRouteLazy())
-      },
+      courierRoutes,
       {
         path: "*",
         element: <NotFoundPage />

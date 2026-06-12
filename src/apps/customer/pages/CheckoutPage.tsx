@@ -50,6 +50,7 @@ export default function CheckoutPage() {
   )
   const hadSavedDraft = useRef(Boolean(savedDraft))
   const freeDrinkSectionRef = useRef<HTMLDivElement>(null)
+  const orderSubmittedRef = useRef(false)
 
   const authUser = useAuthStore((s) => s.user)
   const authToken = useAuthStore((s) => s.token)
@@ -224,8 +225,10 @@ export default function CheckoutPage() {
   }, [total, appliedVoucher?.code, t])
 
   useEffect(() => {
+    if (orderSubmittedRef.current) return
+
     if (items.length === 0) {
-      navigate("/customer/cart")
+      navigate("/customer/cart", { replace: true })
       return
     }
 
@@ -235,6 +238,13 @@ export default function CheckoutPage() {
       navigate("/customer")
     }
   }, [items, navigate, clearCart])
+
+  const goToOrderConfirmation = (orderId: string) => {
+    orderSubmittedRef.current = true
+    clearCheckoutDraft()
+    navigate(`/customer/order/${orderId}`, { replace: true })
+    clearCart()
+  }
 
   useEffect(() => {
     if (!branchId) return
@@ -471,9 +481,7 @@ export default function CheckoutPage() {
         return
       }
 
-      clearCart()
-      clearCheckoutDraft()
-      navigate(`/customer/order/${orderId}`)
+      goToOrderConfirmation(orderId)
     } catch (err: unknown) {
       const message = getApiErrorMessage(err) ?? t("checkout.orderFailed")
       setError(message)
@@ -486,10 +494,8 @@ export default function CheckoutPage() {
 
   const handleCardPaymentSuccess = () => {
     const orderId = pendingCardOrderId
-    clearCart()
-    clearCheckoutDraft()
     setPendingCardOrderId(null)
-    if (orderId) navigate(`/customer/order/${orderId}`)
+    if (orderId) goToOrderConfirmation(orderId)
   }
 
   const cashPaymentLabel =
