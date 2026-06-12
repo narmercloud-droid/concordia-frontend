@@ -141,7 +141,8 @@
     "bestSellersDesc": "Unsere beliebtesten Gerichte — vom Küchenchef empfohlen.",
     "bestSellersFromSales": "Top-Seller der letzten 30 Tage — basierend auf echten Bestellungen.",
     "alsoPopular": "Auch beliebt",
-    "loadError": "Speisekarte konnte nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen."
+    "loadError": "Speisekarte konnte nicht geladen werden. Der Server startet möglicherweise — bitte erneut versuchen.",
+    "closedBanner": "Diese Filiale ist derzeit geschlossen. Sie können vorbestellen — wählen Sie beim Checkout eine Uhrzeit innerhalb der Öffnungszeiten."
   },
   "cart": {
     "title": "Ihr Warenkorb",
@@ -150,7 +151,14 @@
     "checkout": "Zur Kasse",
     "afterDiscount": "Nach Rabatt",
     "edit": "Bearbeiten",
-    "editingItem": "Passen Sie Ihre Auswahl an und speichern Sie den Warenkorb."
+    "editingItem": "Passen Sie Ihre Auswahl an und speichern Sie den Warenkorb.",
+    "suggestionsEyebrow": "Passend dazu",
+    "suggestionsTitle": "Noch etwas dazu?",
+    "suggestionsLead": "Getränke, Salate und Beilagen wie Pommes — schnell mitbestellen.",
+    "suggestionsDrinks": "Getränke",
+    "suggestionsSides": "Salate & Beilagen",
+    "suggestionsContinue": "Weiter",
+    "suggestionsContinueCart": "Weiter im Warenkorb"
   },
   "checkout": {
     "title": "Kasse",
@@ -246,6 +254,10 @@
     "addressRequired": "Bitte geben Sie Ihre vollständige Lieferadresse ein.",
     "postcodeRequired": "Bitte geben Sie die Postleitzahl in der Adresse an.",
     "scheduleRequired": "Bitte wählen Sie eine Uhrzeit.",
+    "branchClosedBanner": "Diese Filiale ist derzeit geschlossen. Bitte wählen Sie eine Vorbestellung innerhalb der Öffnungszeiten.",
+    "branchClosedAsap": "Sofortbestellungen sind nur während der Öffnungszeiten möglich. Bitte wählen Sie eine Vorbestellung.",
+    "asapUnavailableClosed": "Sofort (geschlossen)",
+    "noScheduleSlots": "Derzeit sind keine Vorbestell-Zeiten verfügbar.",
     "orderFailed": "Bestellung fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "searchingAddresses": "Adressen werden gesucht…",
     "howToOrder": "Wie möchten Sie bestellen?",
@@ -257,7 +269,14 @@
     "loyaltyBalance": "Treueprogramm: {{points}} Punkte ({{tier}})",
     "loyaltyPerkPoints": "Punkte bei jeder gelieferten Bestellung",
     "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten",
-    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB & Treueprogramm</termsLink>."
+    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB & Treueprogramm</termsLink>.",
+    "useMyLocation": "Meinen Standort verwenden",
+    "locating": "Standort wird ermittelt…",
+    "locationDenied": "Standortzugriff verweigert. Bitte Adresse manuell eingeben.",
+    "locationUnsupported": "Ihr Browser unterstützt keine Standortbestimmung.",
+    "locationResolveFailed": "Adresse konnte nicht ermittelt werden. Bitte manuell eingeben.",
+    "addressRadiusHint": "Postleitzahl und Straße eingeben oder „Meinen Standort verwenden“ tippen.",
+    "savedAddresses": "Gespeicherte Adressen"
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",
@@ -310,7 +329,24 @@
   "account": {
     "ordersLoading": "Bestellungen werden geladen…",
     "noOrders": "Sie haben keine früheren Bestellungen.",
-    "ordersTitle": "Bestellungen"
+    "ordersTitle": "Bestellungen",
+    "settingsTitle": "Mein Konto",
+    "settingsLead": "Profil, gespeicherte Adressen und Bestellverlauf verwalten.",
+    "tabProfile": "Profil",
+    "tabAddresses": "Adressen",
+    "tabOrders": "Bestellungen",
+    "savePhone": "Telefon speichern",
+    "phoneSaved": "Telefonnummer gespeichert.",
+    "addressesTitle": "Gespeicherte Adressen",
+    "addAddress": "Adresse hinzufügen",
+    "editAddress": "Bearbeiten",
+    "saveAddress": "Adresse speichern",
+    "noAddresses": "Noch keine gespeicherten Adressen.",
+    "addressLabel": "Bezeichnung",
+    "addressLabelPlaceholder": "z. B. Zuhause, Arbeit",
+    "addressDefaultLabel": "Zuhause",
+    "defaultAddress": "Standard",
+    "addressSaveFailed": "Adresse konnte nicht gespeichert werden."
   },
   "order": {
     "tracking": "Bestellverfolgung",
@@ -329,7 +365,17 @@
     "driverUpdated": " — aktualisiert {{time}}",
     "driverPending": "Fahrer hat noch nicht angenommen — Lieferadresse wird angezeigt",
     "timeline": "Verlauf",
-    "loading": "Bestellung wird geladen…"
+    "loading": "Bestellung wird geladen…",
+    "confirmationTitle": "Bestellung aufgegeben!",
+    "confirmationLead": "Vielen Dank — wir bereiten Ihre Bestellung vor. Verfolgen Sie den Fortschritt unten.",
+    "viewOrderHistory": "Bestellverlauf in Ihrem Konto ansehen",
+    "progressLabel": "Bestellfortschritt",
+    "stepReceived": "Eingegangen",
+    "stepPreparing": "In Zubereitung",
+    "stepOnTheWay": "Unterwegs",
+    "stepDelivered": "Geliefert",
+    "stepReady": "Abholbereit",
+    "stepDone": "Abgeholt"
   },
   "orderReview": {
     "title": "Wie war Ihre Bestellung?",

@@ -71,7 +71,7 @@ export default function CustomerLayout() {
           <LanguageSwitcher />
           {isLoggedIn ? (
             <>
-              <Link to="/customer/orders" className="customer-header__account">
+              <Link to="/customer/settings" className="customer-header__account">
                 {authUser.name?.split(" ")[0] ?? t("layout.account")}
               </Link>
               <button

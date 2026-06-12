@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getOrderStatus } from "@/api/customer"
 import { socket } from "@/lib/socket"
-import { formatDateTime, formatTime } from "@/utils/format"
+import { formatCurrency, formatDateTime, formatTime } from "@/utils/format"
 import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
 import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
+import OrderProgressStepper from "@/apps/customer/components/order/OrderProgressStepper"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
@@ -14,9 +15,11 @@ type CourierLocation = { lat: number; lng: number; updatedAt?: string }
 export default function OrderTrackingPage() {
   const { t } = useTranslation()
   const { orderId } = useParams()
+  const location = useLocation()
   const queryClient = useQueryClient()
   const tabVisible = useDocumentVisible()
   const [courierLocation, setCourierLocation] = useState<CourierLocation | null>(null)
+  const justPlaced = Boolean((location.state as { justPlaced?: boolean } | null)?.justPlaced)
 
   const { data } = useQuery({
     queryKey: ["orderStatus", orderId],
@@ -85,36 +88,66 @@ export default function OrderTrackingPage() {
         ? `https://maps.google.com/maps?q=${encodeURIComponent(order.deliveryAddress)}&z=15&output=embed`
         : null
 
+  const showConfirmation =
+    justPlaced || ["pending", "accepted"].includes(order.status)
+
   return (
-    <div className="customer-page">
+    <div className="customer-page order-tracking">
+      {showConfirmation && (
+        <div className="order-confirmation">
+          <div className="order-confirmation__icon" aria-hidden="true">
+            ✓
+          </div>
+          <h2 className="order-confirmation__title">{t("order.confirmationTitle")}</h2>
+          <p className="order-confirmation__lead">{t("order.confirmationLead")}</p>
+          <p className="order-confirmation__meta">
+            {t("order.orderNumber", { id: orderId?.slice(0, 8) })}
+            {order.orderTotal != null && (
+              <> · {formatCurrency(Number(order.orderTotal))}</>
+            )}
+          </p>
+        </div>
+      )}
+
       <h2 className="customer-title">{t("order.tracking")}</h2>
-      <p>{t("order.orderNumber", { id: orderId?.slice(0, 8) })}</p>
-      <p>
-        <strong>{t("order.status")}:</strong> {translateOrderStatus(order.status, t)}
+
+      <OrderProgressStepper status={order.status} fulfillmentType={order.fulfillmentType} />
+
+      <div className="order-tracking__status-card customer-card">
+        <p>
+          <strong>{t("order.status")}:</strong> {translateOrderStatus(order.status, t)}
+        </p>
+        {order.courierStatus && (
+          <p>
+            <strong>{t("order.driver")}:</strong> {order.courierStatus}
+          </p>
+        )}
+        {order.fulfillmentType && (
+          <p>
+            {t("order.type")}: {translateFulfillmentType(order.fulfillmentType, t)}
+          </p>
+        )}
+        {order.scheduledFor && (
+          <p>
+            {t("order.scheduledFor")}: {formatDateTime(order.scheduledFor)}
+          </p>
+        )}
+        {order.etaReadyAt && (
+          <p>
+            {t("order.readyAt")}: {formatDateTime(order.etaReadyAt)}
+          </p>
+        )}
+        {order.estimatedPrepTime && (
+          <p>{t("order.prepTime", { min: order.estimatedPrepTime })}</p>
+        )}
+        {order.deliveryAddress && order.fulfillmentType === "delivery" && (
+          <p className="customer-hint">{order.deliveryAddress}</p>
+        )}
+      </div>
+
+      <p className="customer-hint">
+        <Link to="/customer/settings">{t("order.viewOrderHistory")}</Link>
       </p>
-      {order.courierStatus && (
-        <p>
-          <strong>{t("order.driver")}:</strong> {order.courierStatus}
-        </p>
-      )}
-      {order.fulfillmentType && (
-        <p>
-          {t("order.type")}: {translateFulfillmentType(order.fulfillmentType, t)}
-        </p>
-      )}
-      {order.scheduledFor && (
-        <p>
-          {t("order.scheduledFor")}: {formatDateTime(order.scheduledFor)}
-        </p>
-      )}
-      {order.etaReadyAt && (
-        <p>
-          {t("order.readyAt")}: {formatDateTime(order.etaReadyAt)}
-        </p>
-      )}
-      {order.estimatedPrepTime && (
-        <p>{t("order.prepTime", { min: order.estimatedPrepTime })}</p>
-      )}
 
       {order.fulfillmentType === "delivery" && mapUrl && (
         <div style={{ marginTop: 20 }}>

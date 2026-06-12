@@ -1,6 +1,5 @@
-import { useTranslation } from "react-i18next"
+import { Navigate } from "react-router-dom"
 
 export default function OrdersPage() {
-  const { t } = useTranslation()
-  return <div>{t("account.ordersTitle")}</div>
+  return <Navigate to="/customer/settings" replace />
 }

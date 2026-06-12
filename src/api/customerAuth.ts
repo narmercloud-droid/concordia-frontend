@@ -33,5 +33,10 @@ export const loginCustomer = async (data: { email: string; password: string }) =
 
 export const getCustomerProfile = async () => {
   const res = await api.get("/api/v1/customers/me")
-  return unwrap<CustomerUser & { addresses?: unknown[] }>(res)
+  return unwrap<CustomerUser & { addresses?: import("./addresses").SavedAddress[] }>(res)
+}
+
+export const updateCustomerPhone = async (phoneNumber: string) => {
+  const res = await api.put("/api/v1/customers/phone", { phoneNumber })
+  return unwrap<CustomerUser>(res)
 }

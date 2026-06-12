@@ -11,6 +11,7 @@ import {
   getFreeDrinkOptions,
   validatePromoCode
 } from "@/api/customer"
+import { listAddresses, type SavedAddress } from "@/api/addresses"
 import { getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
@@ -25,12 +26,15 @@ import {
 } from "@/lib/checkoutDraft"
 import { getApiErrorMessage, getOrderIdFromPayload } from "@/lib/apiErrors"
 import {
+  EMPTY_DELIVERY_ADDRESS,
   formatDeliveryAddress,
   isDeliveryAddressComplete,
   loadAddressFields,
+  parseLegacyAddress,
   type DeliveryAddressFields
 } from "@/lib/deliveryAddress"
 import { formatCurrency } from "@/utils/format"
+import { SHOW_FREE_DRINK_CHECKOUT, SHOW_LOYALTY_CHECKOUT } from "@/lib/customerFeatures"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
@@ -117,20 +121,40 @@ export default function CheckoutPage() {
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
 
+  const applySavedAddress = (address: SavedAddress) => {
+    const parsed = parseLegacyAddress(address.street)
+    setAddressFields({
+      ...EMPTY_DELIVERY_ADDRESS,
+      street: parsed.houseNumber ? parsed.street : address.street,
+      houseNumber: parsed.houseNumber,
+      city: address.city,
+      postalCode: address.postalCode,
+      floor: address.instructions ?? "",
+      lat: address.lat ?? undefined,
+      lng: address.lng ?? undefined
+    })
+    setAddressError("")
+  }
+
   const { data: branches, isLoading: branchesLoading } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches
   })
 
-  const branchInfo = branches?.find((b: { id: string }) => b.id === branchId)
+  const branchInfo = branches?.find(
+    (b: { id: string; comingSoon?: boolean; isOpen?: boolean }) => b.id === branchId
+  )
+  const branchClosed =
+    branchInfo != null && !branchInfo.comingSoon && branchInfo.isOpen === false
   const branchPromo = branchInfo?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
-  const qualifiesForFreeDrink = freeDrinkMin > 0 && total >= freeDrinkMin
+  const qualifiesForFreeDrink =
+    SHOW_FREE_DRINK_CHECKOUT && freeDrinkMin > 0 && total >= freeDrinkMin
 
-  const { data: slotsData } = useQuery({
+  const { data: slotsData, isLoading: slotsLoading } = useQuery({
     queryKey: ["timeSlots", branchId],
     queryFn: () => getBranchTimeSlots(branchId!),
-    enabled: !!branchId && timingMode === "scheduled"
+    enabled: !!branchId && (timingMode === "scheduled" || branchClosed)
   })
 
   const timeSlots: Array<{ label: string; value: string }> = slotsData?.slots ?? []
@@ -155,8 +179,14 @@ export default function CheckoutPage() {
   const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
     queryFn: () => getFreeDrinkOptions(branchId!),
-    enabled: !!branchId && qualifiesForFreeDrink,
+    enabled: SHOW_FREE_DRINK_CHECKOUT && !!branchId && qualifiesForFreeDrink,
     staleTime: 5 * 60_000
+  })
+
+  const { data: savedAddresses = [] } = useQuery({
+    queryKey: ["customerAddresses"],
+    queryFn: listAddresses,
+    enabled: isLoggedIn && fulfillmentType === "delivery"
   })
 
   const freeDrinkOptions = freeDrinkData?.options ?? []
@@ -196,6 +226,12 @@ export default function CheckoutPage() {
 
     return () => clearTimeout(timer)
   }, [addressFields, branchId, deliveryAddress, fulfillmentType, postalCode, total])
+
+  useEffect(() => {
+    if (branchClosed && timingMode === "asap") {
+      setTimingMode("scheduled")
+    }
+  }, [branchClosed, timingMode])
 
   useEffect(() => {
     if (!appliedVoucher) return
@@ -242,7 +278,7 @@ export default function CheckoutPage() {
   const goToOrderConfirmation = (orderId: string) => {
     orderSubmittedRef.current = true
     clearCheckoutDraft()
-    navigate(`/customer/order/${orderId}`, { replace: true })
+    navigate(`/customer/order/${orderId}`, { replace: true, state: { justPlaced: true } })
     clearCart()
   }
 
@@ -402,6 +438,20 @@ export default function CheckoutPage() {
       return false
     }
 
+    if (branchClosed && timingMode === "asap") {
+      setError(t("checkout.branchClosedAsap"))
+      return false
+    }
+
+    if (
+      timingMode === "scheduled" &&
+      !slotsLoading &&
+      timeSlots.length === 0
+    ) {
+      setScheduleError(t("checkout.noScheduleSlots"))
+      return false
+    }
+
     if (needsFreeDrinkSelection && !freeDrinkChosen) {
       const message = t("checkout.freeDrinkRequired")
       setError(message)
@@ -501,11 +551,21 @@ export default function CheckoutPage() {
   const cashPaymentLabel =
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
 
+  const scheduleBlocked = timingMode === "scheduled" && !scheduledFor
+  const closedScheduleBlocked =
+    branchClosed && (timingMode === "asap" || scheduleBlocked || (!slotsLoading && timeSlots.length === 0))
+
   return (
     <div className="customer-page">
       <h2 className="customer-title">{t("checkout.title")}</h2>
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
+
+      {branchClosed && (
+        <div className="customer-alert customer-alert--warn" role="status">
+          {t("checkout.branchClosedBanner")}
+        </div>
+      )}
 
       <div className="customer-card checkout-account">
         {isLoggedIn && authUser ? (
@@ -514,12 +574,14 @@ export default function CheckoutPage() {
             <p className="customer-hint">
               {t("checkout.welcomeBack", { name: authUser.name })}
             </p>
-            <p className="customer-alert customer-alert--success">
-              {t("checkout.loyaltyBalance", {
-                points: authUser.loyaltyPoints ?? 0,
-                tier: authUser.loyaltyTier ?? "bronze"
-              })}
-            </p>
+            {SHOW_LOYALTY_CHECKOUT ? (
+              <p className="customer-alert customer-alert--success">
+                {t("checkout.loyaltyBalance", {
+                  points: authUser.loyaltyPoints ?? 0,
+                  tier: authUser.loyaltyTier ?? "bronze"
+                })}
+              </p>
+            ) : null}
           </div>
         ) : (
           <>
@@ -544,11 +606,13 @@ export default function CheckoutPage() {
         {checkoutMode === "account" && !isLoggedIn && (
           <div className="checkout-account__prompt">
             <p className="customer-hint">{t("checkout.accountBenefits")}</p>
-            <ul className="checkout-marketing__perks">
-              <li>{t("checkout.loyaltyPerkPoints")}</li>
-              <li>{t("checkout.loyaltyPerkTier")}</li>
-              <li>{t("checkout.marketingPerkBirthday")}</li>
-            </ul>
+            {SHOW_LOYALTY_CHECKOUT ? (
+              <ul className="checkout-marketing__perks">
+                <li>{t("checkout.loyaltyPerkPoints")}</li>
+                <li>{t("checkout.loyaltyPerkTier")}</li>
+                <li>{t("checkout.marketingPerkBirthday")}</li>
+              </ul>
+            ) : null}
             <div className="customer-btn-row">
               <Link
                 to="/customer/login?redirect=%2Fcustomer%2Fcheckout"
@@ -592,13 +656,13 @@ export default function CheckoutPage() {
           </div>
         ))}
 
-        {qualifiesForFreeDrink && (
+        {SHOW_FREE_DRINK_CHECKOUT && qualifiesForFreeDrink && (
           <p className="customer-alert customer-alert--success" style={{ marginTop: 12 }}>
             {branchPromo?.freeDrinkMessage ??
               t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
           </p>
         )}
-        {needsFreeDrinkSelection && (
+        {SHOW_FREE_DRINK_CHECKOUT && needsFreeDrinkSelection && (
           <div
             ref={freeDrinkSectionRef}
             className="checkout-free-drink checkout-free-drink--summary"
@@ -639,7 +703,7 @@ export default function CheckoutPage() {
             {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
           </div>
         )}
-        {freeDrinkMin > 0 && !qualifiesForFreeDrink && (
+        {SHOW_FREE_DRINK_CHECKOUT && freeDrinkMin > 0 && !qualifiesForFreeDrink && (
           <p className="customer-hint">
             {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
           </p>
@@ -813,9 +877,12 @@ export default function CheckoutPage() {
           <button
             type="button"
             onClick={() => setTimingMode("asap")}
-            className={`customer-toggle${timingMode === "asap" ? " customer-toggle--active" : ""}`}
+            disabled={branchClosed}
+            className={`customer-toggle${timingMode === "asap" ? " customer-toggle--active" : ""}${
+              branchClosed ? " customer-toggle--disabled" : ""
+            }`}
           >
-            {t("checkout.asap")}
+            {branchClosed ? t("checkout.asapUnavailableClosed") : t("checkout.asap")}
           </button>
           <button
             type="button"
@@ -841,6 +908,9 @@ export default function CheckoutPage() {
               ))}
             </select>
             {scheduleError && <p className="customer-error">{scheduleError}</p>}
+            {branchClosed && !slotsLoading && timeSlots.length === 0 && (
+              <p className="customer-error">{t("checkout.noScheduleSlots")}</p>
+            )}
           </div>
         )}
       </div>
@@ -870,9 +940,23 @@ export default function CheckoutPage() {
       {fulfillmentType === "delivery" && (
         <div className="customer-field">
           <h3 className="customer-subtitle">{t("checkout.address")}</h3>
-          <p className="customer-hint" style={{ marginBottom: 12 }}>
-            {t("checkout.addressStructuredHint")}
-          </p>
+          {isLoggedIn && savedAddresses.length > 0 && (
+            <div className="checkout-saved-addresses">
+              <p className="customer-label">{t("checkout.savedAddresses")}</p>
+              <div className="checkout-saved-addresses__list">
+                {savedAddresses.map((address) => (
+                  <button
+                    key={address.id}
+                    type="button"
+                    className="checkout-saved-addresses__chip"
+                    onClick={() => applySavedAddress(address)}
+                  >
+                    {address.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <DeliveryAddressForm
             branchId={branchId!}
             branchCity={branchInfo?.city}
@@ -999,7 +1083,13 @@ export default function CheckoutPage() {
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={createMutation.isPending || deliveryBlocked || branchesLoading || freeDrinkBlocking}
+          disabled={
+            createMutation.isPending ||
+            deliveryBlocked ||
+            branchesLoading ||
+            freeDrinkBlocking ||
+            closedScheduleBlocked
+          }
           className="customer-btn customer-btn--primary"
         >
           {createMutation.isPending || branchesLoading

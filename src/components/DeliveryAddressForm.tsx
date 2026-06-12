@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchDeliveryAreas, suggestAddresses } from "@/api/customer"
+import {
+  getBranchDeliveryAreas,
+  reverseGeocodeLocation,
+  suggestAddresses
+} from "@/api/customer"
 import type { DeliveryAddressFields } from "@/lib/deliveryAddress"
 
 export type StreetSuggestion = {
@@ -30,6 +34,8 @@ export default function DeliveryAddressForm({
   const [suggestions, setSuggestions] = useState<StreetSuggestion[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [locating, setLocating] = useState(false)
+  const [locationError, setLocationError] = useState("")
   const [activeIndex, setActiveIndex] = useState(-1)
   const streetContainerRef = useRef<HTMLDivElement>(null)
   const requestId = useRef(0)
@@ -42,12 +48,14 @@ export default function DeliveryAddressForm({
   })
 
   const deliveryAreas = deliveryAreasData?.areas ?? []
-  const hasPostcodeList = deliveryAreas.length > 0
+  const deliveryMode = deliveryAreasData?.deliveryMode ?? "postcodes"
+  const usePostcodeDropdown =
+    deliveryAreas.length > 0 && deliveryMode === "postcodes"
   const matchedArea = useMemo(
     () => deliveryAreas.find((area) => area.postalCode === value.postalCode.trim()),
     [deliveryAreas, value.postalCode]
   )
-  const cityAutoFilled = Boolean(matchedArea?.city)
+  const cityAutoFilled = Boolean(usePostcodeDropdown && matchedArea?.city)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
@@ -60,6 +68,44 @@ export default function DeliveryAddressForm({
       postalCode,
       city: area?.city ?? (postalCode.length < 5 ? "" : value.city)
     })
+  }
+
+  const handleUseLocation = () => {
+    setLocationError("")
+    if (!navigator.geolocation) {
+      setLocationError(t("checkout.locationUnsupported"))
+      return
+    }
+
+    setLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const result = await reverseGeocodeLocation(
+            branchId,
+            position.coords.latitude,
+            position.coords.longitude
+          )
+          patch({
+            street: result.street,
+            houseNumber: result.houseNumber,
+            city: result.city,
+            postalCode: result.postalCode,
+            lat: result.lat,
+            lng: result.lng
+          })
+        } catch {
+          setLocationError(t("checkout.locationResolveFailed"))
+        } finally {
+          setLocating(false)
+        }
+      },
+      () => {
+        setLocationError(t("checkout.locationDenied"))
+        setLocating(false)
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+    )
   }
 
   useEffect(() => {
@@ -78,7 +124,10 @@ export default function DeliveryAddressForm({
           branchId,
           value.street.trim(),
           value.postalCode.trim(),
-          value.city.trim() || branchCity
+          value.city.trim() || branchCity,
+          value.lat != null && value.lng != null
+            ? { lat: value.lat, lng: value.lng }
+            : undefined
         )
         if (currentRequest !== requestId.current) return
         const next = (res.suggestions ?? []).map((s) => ({
@@ -108,6 +157,8 @@ export default function DeliveryAddressForm({
     value.street,
     value.postalCode,
     value.city,
+    value.lat,
+    value.lng,
     canSearchStreets
   ])
 
@@ -147,15 +198,35 @@ export default function DeliveryAddressForm({
 
   const showDropdown = open && (loading || suggestions.length > 0)
   const postcodeReady = /^\d{5}$/.test(value.postalCode.trim())
+  const addressHint =
+    deliveryMode === "radius"
+      ? t("checkout.addressRadiusHint")
+      : t("checkout.addressStructuredHint")
 
   return (
     <div className="delivery-address-form">
+      <div className="delivery-address-form__locate-row">
+        <button
+          type="button"
+          className="customer-btn customer-btn--secondary delivery-address-form__locate"
+          onClick={handleUseLocation}
+          disabled={locating}
+        >
+          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
+        </button>
+        {locationError && <p className="customer-error">{locationError}</p>}
+      </div>
+
+      <p className="customer-hint" style={{ marginBottom: 12 }}>
+        {addressHint}
+      </p>
+
       <div className="delivery-address-form__grid">
         <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-postal-code">
             {t("checkout.addressPostalCode")}
           </label>
-          {hasPostcodeList ? (
+          {usePostcodeDropdown ? (
             <select
               id="checkout-postal-code"
               className="customer-select"
@@ -177,7 +248,9 @@ export default function DeliveryAddressForm({
               maxLength={5}
               placeholder={t("checkout.addressPostalCodePlaceholder")}
               value={value.postalCode}
-              onChange={(e) => handlePostalCodeChange(e.target.value.replace(/\D/g, "").slice(0, 5))}
+              onChange={(e) =>
+                handlePostalCodeChange(e.target.value.replace(/\D/g, "").slice(0, 5))
+              }
               autoComplete="postal-code"
             />
           )}

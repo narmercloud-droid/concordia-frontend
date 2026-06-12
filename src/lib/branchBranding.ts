@@ -1,5 +1,3 @@
-import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
-
 /**
  * Brand marks — homepage/header use CSS wordmark (ConcordiaWordmark).
  * Full illustrated PNGs kept for print / legacy reference only.
@@ -114,19 +112,4 @@ export function getOwnerPhotoPath(slotId: string, ext: "jpg" | "png" | "webp" = 
   const slot = OWNER_PHOTO_SLOTS.find((s) => s.id === slotId)
   if (!slot) return null
   return `${OWNER_PHOTOS_DIR}/${slot.id}.${ext}`
-}
-
-export type BranchOwnerBranding = {
-  /** Team / welcome image until personalized logo is ready */
-  photoImage: string
-}
-
-const OWNER_BRANDING: Record<string, BranchOwnerBranding> = {
-  [KEMPEN_BRANCH_ID]: {
-    photoImage: OWNER_CEO_PHOTO
-  }
-}
-
-export function getBranchOwnerBranding(branchId: string): BranchOwnerBranding | null {
-  return OWNER_BRANDING[branchId] ?? null
 }

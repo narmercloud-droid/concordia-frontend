@@ -141,7 +141,8 @@
     "bestSellersDesc": "Our most popular dishes — chef's picks.",
     "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
     "alsoPopular": "Also popular",
-    "loadError": "Menu could not load. The server may be waking up — please try again."
+    "loadError": "Menu could not load. The server may be waking up — please try again.",
+    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout."
   },
   "cart": {
     "title": "Your cart",
@@ -150,7 +151,14 @@
     "checkout": "Checkout",
     "afterDiscount": "After discount",
     "edit": "Edit",
-    "editingItem": "Update your choices below, then save to cart."
+    "editingItem": "Update your choices below, then save to cart.",
+    "suggestionsEyebrow": "Goes well with",
+    "suggestionsTitle": "Add something extra?",
+    "suggestionsLead": "Drinks, salads and sides like fries — add them in one tap.",
+    "suggestionsDrinks": "Drinks",
+    "suggestionsSides": "Salads & sides",
+    "suggestionsContinue": "Continue",
+    "suggestionsContinueCart": "Back to cart"
   },
   "checkout": {
     "title": "Checkout",
@@ -246,6 +254,10 @@
     "addressRequired": "Please enter your full delivery address.",
     "postcodeRequired": "Please include your postcode in the address.",
     "scheduleRequired": "Please choose a scheduled time.",
+    "branchClosedBanner": "This branch is currently closed. Please schedule your order within opening hours.",
+    "branchClosedAsap": "Immediate orders are only available during opening hours. Please choose a scheduled time.",
+    "asapUnavailableClosed": "ASAP (closed)",
+    "noScheduleSlots": "No scheduled times are available right now.",
     "orderFailed": "Order failed. Please try again.",
     "searchingAddresses": "Searching addresses…",
     "howToOrder": "How would you like to order?",
@@ -257,7 +269,14 @@
     "loyaltyBalance": "Loyalty: {{points}} points ({{tier}} tier)",
     "loyaltyPerkPoints": "Earn points on every delivered order",
     "loyaltyPerkTier": "Unlock bronze, silver and gold member rewards",
-    "termsNotice": "By placing your order you accept our <termsLink>Terms & Conditions</termsLink>."
+    "termsNotice": "By placing your order you accept our <termsLink>Terms & Conditions</termsLink>.",
+    "useMyLocation": "Use my location",
+    "locating": "Finding location…",
+    "locationDenied": "Location access denied. Please enter your address manually.",
+    "locationUnsupported": "Your browser does not support location services.",
+    "locationResolveFailed": "Could not determine your address. Please enter it manually.",
+    "addressRadiusHint": "Enter your postcode and street, or tap \"Use my location\" to fill automatically.",
+    "savedAddresses": "Saved addresses"
   },
   "giftVoucher": {
     "title": "Gift voucher",
@@ -324,7 +343,17 @@
     "loading": "Loading order…",
     "etaMinutes": "ETA: {{min}} minutes",
     "itemsTitle": "Items",
-    "reorder": "Reorder these items"
+    "reorder": "Reorder these items",
+    "confirmationTitle": "Order placed!",
+    "confirmationLead": "Thank you — we're preparing your order. Track progress below.",
+    "viewOrderHistory": "View order history in your account",
+    "progressLabel": "Order progress",
+    "stepReceived": "Received",
+    "stepPreparing": "Preparing",
+    "stepOnTheWay": "On the way",
+    "stepDelivered": "Delivered",
+    "stepReady": "Ready for pickup",
+    "stepDone": "Picked up"
   },
   "orderReview": {
     "title": "How was your order?",
@@ -728,6 +757,23 @@
   "account": {
     "ordersLoading": "Loading orders…",
     "noOrders": "You have no past orders.",
-    "ordersTitle": "Orders"
+    "ordersTitle": "Orders",
+    "settingsTitle": "My account",
+    "settingsLead": "Manage your profile, saved addresses and order history.",
+    "tabProfile": "Profile",
+    "tabAddresses": "Addresses",
+    "tabOrders": "Orders",
+    "savePhone": "Save phone",
+    "phoneSaved": "Phone number saved.",
+    "addressesTitle": "Saved addresses",
+    "addAddress": "Add address",
+    "editAddress": "Edit",
+    "saveAddress": "Save address",
+    "noAddresses": "No saved addresses yet.",
+    "addressLabel": "Label",
+    "addressLabelPlaceholder": "e.g. Home, Work",
+    "addressDefaultLabel": "Home",
+    "defaultAddress": "Default",
+    "addressSaveFailed": "Could not save address."
   }
 }

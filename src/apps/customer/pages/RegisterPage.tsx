@@ -3,6 +3,7 @@ import { registerCustomer } from "@/api/customerAuth"
 import { useAuthStore } from "@/context/authStore"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Trans, useTranslation } from "react-i18next"
+import { SHOW_LOYALTY_CHECKOUT } from "@/lib/customerFeatures"
 
 export default function RegisterPage() {
   const { t } = useTranslation()
@@ -41,12 +42,16 @@ export default function RegisterPage() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <p className="customer-hint">{t("auth.loyaltyBenefits")}</p>
-      <ul className="checkout-marketing__perks">
-        <li>{t("checkout.loyaltyPerkPoints")}</li>
-        <li>{t("checkout.loyaltyPerkTier")}</li>
-        <li>{t("checkout.marketingPerkBirthday")}</li>
-      </ul>
+      {SHOW_LOYALTY_CHECKOUT ? (
+        <>
+          <p className="customer-hint">{t("auth.loyaltyBenefits")}</p>
+          <ul className="checkout-marketing__perks">
+            <li>{t("checkout.loyaltyPerkPoints")}</li>
+            <li>{t("checkout.loyaltyPerkTier")}</li>
+            <li>{t("checkout.marketingPerkBirthday")}</li>
+          </ul>
+        </>
+      ) : null}
 
       <div className="customer-field">
         <label className="customer-label">{t("auth.name")}</label>

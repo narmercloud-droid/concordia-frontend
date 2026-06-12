@@ -1,9 +1,13 @@
-import React from "react"
+import React, { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { formatCurrency } from "@/utils/format"
+import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
+import CartSuggestionsModal, {
+  type SuggestionItem
+} from "@/apps/customer/components/CartSuggestionsModal"
 
 export default function CartPage() {
   const { t } = useTranslation()
@@ -15,6 +19,11 @@ export default function CartPage() {
   const updateQuantity = useCartStore((s) => s.updateQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
+
+  const branchId = items[0]?.branchId ?? ""
+  const cartItemIds = useMemo(() => items.map((i) => i.id), [items])
+  const [showSuggestions, setShowSuggestions] = useState(true)
+  const [selectedItem, setSelectedItem] = useState<SuggestionItem | null>(null)
 
   if (items.length === 0) {
     return (
@@ -125,6 +134,39 @@ export default function CartPage() {
           {t("cart.checkout")}
         </button>
       </div>
+
+      {branchId && showSuggestions && !selectedItem && (
+        <CartSuggestionsModal
+          open={showSuggestions}
+          branchId={branchId}
+          excludeItemIds={cartItemIds}
+          onClose={() => setShowSuggestions(false)}
+          continueLabel={t("cart.suggestionsContinueCart")}
+          onContinue={() => setShowSuggestions(false)}
+          onSelectItem={(item) => {
+            setShowSuggestions(false)
+            setSelectedItem(item)
+          }}
+        />
+      )}
+
+      {branchId && selectedItem && (
+        <ItemOptionsModal
+          open={!!selectedItem}
+          branchId={branchId}
+          itemId={selectedItem.id}
+          itemName={selectedItem.name}
+          itemNumber={selectedItem.itemNumber}
+          categoryName={selectedItem.categoryName ?? ""}
+          description={selectedItem.description}
+          imageUrl={selectedItem.imageUrl}
+          onClose={() => setSelectedItem(null)}
+          onAdded={() => {
+            setSelectedItem(null)
+            setShowSuggestions(true)
+          }}
+        />
+      )}
     </div>
   )
 }

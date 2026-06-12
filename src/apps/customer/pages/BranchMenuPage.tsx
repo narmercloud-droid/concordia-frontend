@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
-import BranchOwnerWelcome from "@/apps/customer/components/BranchOwnerWelcome"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
-import { getBranchOwnerBranding } from "@/lib/branchBranding"
+import CartSuggestionsModal, {
+  type SuggestionItem
+} from "@/apps/customer/components/CartSuggestionsModal"
 import {
   BEST_SELLERS_SECTION_ID,
   categoryForItem,
@@ -15,6 +16,7 @@ import {
 } from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
 import { formatCurrency } from "@/utils/format"
+import { useCartStore } from "@/store/cartStore"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -35,10 +37,6 @@ type MenuCategory = {
 
 type SelectedItem = MenuItem & { categoryName: string }
 
-function branchDisplayName(name: string) {
-  return name.replace(/^Concordia\s+/i, "")
-}
-
 function categoryAnchor(id: string | number) {
   return `menu-cat-${id}`
 }
@@ -46,9 +44,9 @@ function categoryAnchor(id: string | number) {
 export default function BranchMenuPage() {
   const { t, i18n } = useTranslation()
   const { branchId } = useParams()
-  const ownerBranding = branchId ? getBranchOwnerBranding(branchId) : null
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [toastName, setToastName] = useState<string | null>(null)
+  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const { data: branches } = useQuery({
     queryKey: BRANCHES_QUERY_KEY,
@@ -56,9 +54,11 @@ export default function BranchMenuPage() {
     ...branchesQueryOptions
   })
 
-  const branch = branches?.find((b: { id: string; comingSoon?: boolean }) => b.id === branchId)
-  const branchName = branch ? branchDisplayName(branch.name) : ""
+  const branch = branches?.find(
+    (b: { id: string; comingSoon?: boolean; isOpen?: boolean }) => b.id === branchId
+  )
   const orderingDisabled = !!branch?.comingSoon
+  const branchClosed = branch != null && !branch.comingSoon && branch.isOpen === false
 
   const { data, isError: menuError, refetch: refetchMenu } = useQuery({
     queryKey: ["branchMenu", branchId, i18n.language],
@@ -78,6 +78,12 @@ export default function BranchMenuPage() {
   })
 
   const categories = (data?.categories ?? []) as MenuCategory[]
+
+  const cartItems = useCartStore((s) => s.items)
+  const cartItemIds = useMemo(
+    () => cartItems.filter((i) => i.branchId === branchId).map((i) => i.id),
+    [cartItems, branchId]
+  )
 
   const bestSellers = useMemo(
     () => pickFeatured(categories, 6, { salesItemIds: bestsellersData?.itemIds }),
@@ -121,8 +127,10 @@ export default function BranchMenuPage() {
 
   return (
     <div className="customer-page customer-page--wide branch-menu">
-      {ownerBranding && branchName && (
-        <BranchOwnerWelcome branding={ownerBranding} branchName={branchName} />
+      {branchClosed && (
+        <div className="branch-menu__soon-banner branch-menu__closed-banner" role="status">
+          {t("menu.closedBanner")}
+        </div>
       )}
 
       {orderingDisabled && (
@@ -219,8 +227,21 @@ export default function BranchMenuPage() {
           description={selectedItem.description}
           imageUrl={selectedItem.imageUrl}
           onClose={() => setSelectedItem(null)}
-          onAdded={(name) => setToastName(name)}
-          onSuggestItem={(item) =>
+          onAdded={(name) => {
+            setToastName(name)
+            setShowSuggestions(true)
+          }}
+        />
+      )}
+
+      {branchId && showSuggestions && !selectedItem && (
+        <CartSuggestionsModal
+          open={showSuggestions}
+          branchId={branchId}
+          excludeItemIds={cartItemIds}
+          onClose={() => setShowSuggestions(false)}
+          onSelectItem={(item: SuggestionItem) => {
+            setShowSuggestions(false)
             setSelectedItem({
               id: item.id,
               name: item.name,
@@ -228,9 +249,9 @@ export default function BranchMenuPage() {
               price: item.price,
               imageUrl: item.imageUrl,
               description: item.description,
-              categoryName: categoryForItem(categories, item)
+              categoryName: item.categoryName ?? categoryForItem(categories, item)
             })
-          }
+          }}
         />
       )}
 

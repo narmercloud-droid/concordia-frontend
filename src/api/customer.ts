@@ -68,6 +68,39 @@ export const getBranchBestsellers = async (branchId: string, limit = 6) => {
   }>(res)
 }
 
+export const getCartSuggestions = async (branchId: string, excludeItemIds: number[] = []) => {
+  const excludeIds = excludeItemIds.length ? excludeItemIds.join(",") : undefined
+  const res = await api.get(`/api/branches/${branchId}/cart-suggestions`, {
+    params: { lang: getMenuLang(), excludeIds }
+  })
+  return unwrap<{
+    drinks: Array<{
+      id: number
+      itemNumber?: string | null
+      name: string
+      description?: string | null
+      price: number
+      imageUrl?: string | null
+    }>
+    sides: Array<{
+      id: number
+      itemNumber?: string | null
+      name: string
+      description?: string | null
+      price: number
+      imageUrl?: string | null
+    }>
+    items: Array<{
+      id: number
+      itemNumber?: string | null
+      name: string
+      description?: string | null
+      price: number
+      imageUrl?: string | null
+    }>
+  }>(res)
+}
+
 export const getAlsoPopular = async (branchId: string, itemId: number) => {
   const res = await api.get(`/api/branches/${branchId}/items/${itemId}/also-popular`, {
     params: { lang: getMenuLang() }
@@ -182,6 +215,7 @@ export const getOrderHistory = async (customerId: string) => {
 export const getBranchDeliveryAreas = async (branchId: string) => {
   const res = await api.get(`/api/branches/${branchId}/delivery-areas`)
   return unwrap<{
+    deliveryMode?: "postcodes" | "radius" | "both"
     areas: Array<{
       postalCode: string
       city?: string
@@ -191,14 +225,35 @@ export const getBranchDeliveryAreas = async (branchId: string) => {
   }>(res)
 }
 
+export const reverseGeocodeLocation = async (branchId: string, lat: number, lng: number) => {
+  const res = await api.get(`/api/branches/${branchId}/reverse-geocode`, {
+    params: { lat, lng }
+  })
+  return unwrap<{
+    street: string
+    houseNumber: string
+    city: string
+    postalCode: string
+    lat: number
+    lng: number
+  }>(res)
+}
+
 export const suggestAddresses = async (
   branchId: string,
   query: string,
   postalCode?: string,
-  city?: string
+  city?: string,
+  coords?: { lat?: number; lng?: number }
 ) => {
   const res = await api.get(`/api/branches/${branchId}/address-suggest`, {
-    params: { q: query, postalCode, city }
+    params: {
+      q: query,
+      postalCode,
+      city,
+      lat: coords?.lat,
+      lng: coords?.lng
+    }
   })
   return unwrap<{
     suggestions: Array<{

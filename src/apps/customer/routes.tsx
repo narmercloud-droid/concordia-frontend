@@ -7,7 +7,6 @@ const ItemDetailsPage = React.lazy(() => import("./pages/ItemDetailsPage.js"))
 const CartPage = React.lazy(() => import("./pages/CartPage.js"))
 const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
 const OrderTrackingPage = React.lazy(() => import("./pages/OrderTrackingPage.js"))
-const OrdersPage = React.lazy(() => import("./pages/OrdersPage.js"))
 const LoginPage = React.lazy(() => import("./pages/LoginPage.js"))
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage.js"))
 const MenuCategoriesPage = React.lazy(() => import("./pages/MenuCategoriesPage.js"))
@@ -15,6 +14,7 @@ const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
 const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
 const OrderHistoryPage = React.lazy(() => import("./pages/OrderHistoryPage.js"))
+const CustomerSettingsPage = React.lazy(() => import("./pages/CustomerSettingsPage.js"))
 import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
 import {
@@ -84,7 +84,15 @@ export const customerRoutes = {
           path: "orders",
           element: (
             <ProtectedRoute>
-              {lazySection(<OrdersPage />)}
+              {lazySection(<CustomerSettingsPage />)}
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "settings",
+          element: (
+            <ProtectedRoute>
+              {lazySection(<CustomerSettingsPage />)}
             </ProtectedRoute>
           )
         }

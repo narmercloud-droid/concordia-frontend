@@ -4,6 +4,8 @@ export type DeliveryAddressFields = {
   floor: string
   city: string
   postalCode: string
+  lat?: number
+  lng?: number
 }
 
 export const EMPTY_DELIVERY_ADDRESS: DeliveryAddressFields = {
