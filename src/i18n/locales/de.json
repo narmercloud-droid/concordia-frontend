@@ -277,7 +277,10 @@
     "locationUnsupported": "Ihr Browser unterstützt keine Standortbestimmung.",
     "locationResolveFailed": "Adresse konnte nicht ermittelt werden. Bitte manuell eingeben.",
     "addressRadiusHint": "Postleitzahl und Straße eingeben oder „Meinen Standort verwenden“ tippen.",
-    "savedAddresses": "Gespeicherte Adressen"
+    "savedAddresses": "Gespeicherte Adressen",
+    "validationTitle": "Bitte Angaben prüfen",
+    "validationLead": "Bevor wir Ihre Bestellung aufgeben können, fehlen noch folgende Angaben:",
+    "validationFix": "Angaben ergänzen"
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",

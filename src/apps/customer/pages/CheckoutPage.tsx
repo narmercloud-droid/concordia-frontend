@@ -41,6 +41,12 @@ type TimingMode = "asap" | "scheduled"
 type PaymentChoice = "cash" | "card" | "paypal" | "klarna" | "sepa"
 type CheckoutMode = "guest" | "account"
 
+type CheckoutValidationIssue = {
+  id: string
+  message: string
+  focus?: () => void
+}
+
 export default function CheckoutPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -54,6 +60,11 @@ export default function CheckoutPage() {
   )
   const hadSavedDraft = useRef(Boolean(savedDraft))
   const freeDrinkSectionRef = useRef<HTMLDivElement>(null)
+  const nameFieldRef = useRef<HTMLDivElement>(null)
+  const phoneFieldRef = useRef<HTMLDivElement>(null)
+  const addressSectionRef = useRef<HTMLDivElement>(null)
+  const scheduleFieldRef = useRef<HTMLDivElement>(null)
+  const marketingSectionRef = useRef<HTMLDivElement>(null)
   const orderSubmittedRef = useRef(false)
 
   const authUser = useAuthStore((s) => s.user)
@@ -117,6 +128,8 @@ export default function CheckoutPage() {
     if (loggedIn) return "account"
     return savedDraft?.checkoutMode ?? "account"
   })
+  const [validationModalOpen, setValidationModalOpen] = useState(false)
+  const [validationIssues, setValidationIssues] = useState<CheckoutValidationIssue[]>([])
 
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
@@ -193,10 +206,6 @@ export default function CheckoutPage() {
   const needsFreeDrinkSelection = qualifiesForFreeDrink
   const freeDrinkChosen =
     freeDrinkChoice !== "" && typeof freeDrinkChoice === "number"
-  const freeDrinkBlocking =
-    needsFreeDrinkSelection &&
-    (freeDrinkLoading || freeDrinkOptions.length === 0 || !freeDrinkChosen)
-
   const createMutation = useMutation({
     mutationFn: createOrder
   })
@@ -387,14 +396,29 @@ export default function CheckoutPage() {
     setVoucherError("")
   }
 
-  const deliveryBlocked =
-    fulfillmentType === "delivery" &&
-    (quoteLoading ||
-      !isDeliveryAddressComplete(addressFields) ||
-      !deliveryQuote?.allowed ||
-      (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder))
+  const scrollToField = (ref: React.RefObject<HTMLElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+    const focusable = ref.current?.querySelector<HTMLElement>(
+      "input:not([type=hidden]), select, textarea, button"
+    )
+    focusable?.focus()
+  }
 
-  const validateCheckout = () => {
+  const openValidationModal = (issues: CheckoutValidationIssue[]) => {
+    if (issues.length === 0) return
+    setValidationIssues(issues)
+    setValidationModalOpen(true)
+    setError(issues[0].message)
+  }
+
+  const closeValidationModal = (focusFirst = false, issues = validationIssues) => {
+    setValidationModalOpen(false)
+    if (focusFirst && issues[0]?.focus) {
+      window.setTimeout(() => issues[0]?.focus?.(), 150)
+    }
+  }
+
+  const validateCheckout = (): CheckoutValidationIssue[] => {
     setError("")
     setNameError("")
     setPhoneError("")
@@ -404,89 +428,141 @@ export default function CheckoutPage() {
     setEmailError("")
     setBirthdayError("")
 
+    const issues: CheckoutValidationIssue[] = []
+    const addIssue = (
+      id: string,
+      message: string,
+      options?: { focus?: () => void; setFieldError?: (message: string) => void }
+    ) => {
+      options?.setFieldError?.(message)
+      issues.push({ id, message, focus: options?.focus })
+    }
+
     if (!name.trim()) {
-      setNameError(t("checkout.nameRequired"))
-      return false
+      addIssue("name", t("checkout.nameRequired"), {
+        setFieldError: setNameError,
+        focus: () => scrollToField(nameFieldRef)
+      })
     }
 
     if (!phone.trim()) {
-      setPhoneError(t("checkout.phoneRequired"))
-      return false
+      addIssue("phone", t("checkout.phoneRequired"), {
+        setFieldError: setPhoneError,
+        focus: () => scrollToField(phoneFieldRef)
+      })
     }
 
     if (fulfillmentType === "delivery") {
-      if (!/^\d{5}$/.test(addressFields.postalCode.trim())) {
-        setAddressError(t("checkout.postcodeRequired"))
-        return false
-      }
-      if (!addressFields.city.trim()) {
-        setAddressError(t("checkout.addressRequired"))
-        return false
-      }
-      if (!addressFields.street.trim()) {
-        setAddressError(t("checkout.addressRequired"))
-        return false
-      }
-      if (!addressFields.houseNumber.trim()) {
-        setAddressError(t("checkout.addressRequired"))
-        return false
+      if (quoteLoading) {
+        addIssue("deliveryQuote", t("checkout.checkingDelivery"))
+      } else if (!/^\d{5}$/.test(addressFields.postalCode.trim())) {
+        addIssue("postcode", t("checkout.postcodeRequired"), {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (!addressFields.city.trim()) {
+        addIssue("city", t("checkout.addressRequired"), {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (!addressFields.street.trim()) {
+        addIssue("street", t("checkout.addressRequired"), {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (!addressFields.houseNumber.trim()) {
+        addIssue("houseNumber", t("checkout.addressRequired"), {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (deliveryQuote && !deliveryQuote.allowed) {
+        const message = deliveryQuote.message ?? t("checkout.completeAddress")
+        addIssue("deliveryArea", message, {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (
+        deliveryQuote?.minimumOrder != null &&
+        total < deliveryQuote.minimumOrder
+      ) {
+        addIssue("minimumOrder", t("checkout.minimumOrder", {
+          amount: formatCurrency(deliveryQuote.minimumOrder)
+        }), {
+          focus: () => scrollToField(addressSectionRef)
+        })
       }
     }
 
     if (timingMode === "scheduled" && !scheduledFor) {
-      setScheduleError(t("checkout.scheduleRequired"))
-      return false
+      addIssue("schedule", t("checkout.scheduleRequired"), {
+        setFieldError: setScheduleError,
+        focus: () => scrollToField(scheduleFieldRef)
+      })
     }
 
     if (branchClosed && timingMode === "asap") {
-      setError(t("checkout.branchClosedAsap"))
-      return false
+      addIssue("branchClosed", t("checkout.branchClosedAsap"), {
+        focus: () => scrollToField(scheduleFieldRef)
+      })
     }
 
-    if (
-      timingMode === "scheduled" &&
-      !slotsLoading &&
-      timeSlots.length === 0
-    ) {
-      setScheduleError(t("checkout.noScheduleSlots"))
-      return false
+    if (timingMode === "scheduled" && !slotsLoading && timeSlots.length === 0) {
+      addIssue("noScheduleSlots", t("checkout.noScheduleSlots"), {
+        setFieldError: setScheduleError,
+        focus: () => scrollToField(scheduleFieldRef)
+      })
     }
 
     if (needsFreeDrinkSelection && !freeDrinkChosen) {
       const message = t("checkout.freeDrinkRequired")
-      setError(message)
-      setFreeDrinkError(message)
-      freeDrinkSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
-      return false
+      addIssue("freeDrink", message, {
+        setFieldError: setFreeDrinkError,
+        focus: () => freeDrinkSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })
+      })
     }
 
     if (marketingEmail && !customerEmail.trim()) {
-      setEmailError(t("checkout.emailRequiredForOffers"))
-      return false
+      addIssue("email", t("checkout.emailRequiredForOffers"), {
+        setFieldError: setEmailError,
+        focus: () => scrollToField(marketingSectionRef)
+      })
     }
 
     const hasMarketing = marketingEmail || marketingSMS || marketingWhatsApp
     if (hasMarketing && birthday) {
       const parsed = new Date(birthday)
       if (Number.isNaN(parsed.getTime())) {
-        setBirthdayError(t("checkout.birthdayInvalid"))
-        return false
+        addIssue("birthday", t("checkout.birthdayInvalid"), {
+          setFieldError: setBirthdayError,
+          focus: () => scrollToField(marketingSectionRef)
+        })
       }
     }
 
-    return true
+    return issues
   }
 
   const handleSubmit = async () => {
     if (branchesLoading) {
-      setError(t("common.processing"))
+      openValidationModal([
+        { id: "loading", message: t("common.processing") }
+      ])
       return
     }
 
-    if (!validateCheckout()) return
+    const issues = validateCheckout()
+    if (issues.length > 0) {
+      openValidationModal(issues)
+      return
+    }
 
     if (checkoutMode === "account" && !isLoggedIn) {
-      setError(t("checkout.accountLoginRequired"))
+      openValidationModal([
+        {
+          id: "account",
+          message: t("checkout.accountLoginRequired")
+        }
+      ])
       return
     }
 
@@ -550,10 +626,6 @@ export default function CheckoutPage() {
 
   const cashPaymentLabel =
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
-
-  const scheduleBlocked = timingMode === "scheduled" && !scheduledFor
-  const closedScheduleBlocked =
-    branchClosed && (timingMode === "asap" || scheduleBlocked || (!slotsLoading && timeSlots.length === 0))
 
   return (
     <div className="customer-page">
@@ -871,7 +943,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <div className="customer-field">
+      <div className="customer-field" ref={scheduleFieldRef}>
         <label className="customer-label">{t("checkout.when")}</label>
         <div className="customer-toggle-group">
           <button
@@ -896,9 +968,12 @@ export default function CheckoutPage() {
         {timingMode === "scheduled" && (
           <div style={{ marginTop: 12 }}>
             <select
-              className="customer-select"
+              className={`customer-select${scheduleError ? " customer-select--invalid" : ""}`}
               value={scheduledFor}
-              onChange={(e) => setScheduledFor(e.target.value)}
+              onChange={(e) => {
+                setScheduledFor(e.target.value)
+                setScheduleError("")
+              }}
             >
               <option value="">{t("checkout.chooseTime")}</option>
               {timeSlots.map((slot) => (
@@ -915,30 +990,36 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      <div className="customer-field">
+      <div className="customer-field" ref={nameFieldRef}>
         <label className="customer-label">{t("checkout.name")}</label>
         <input
-          className="customer-input"
+          className={`customer-input${nameError ? " customer-input--invalid" : ""}`}
           placeholder={t("checkout.namePlaceholder")}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value)
+            setNameError("")
+          }}
         />
         {nameError && <p className="customer-error">{nameError}</p>}
       </div>
 
-      <div className="customer-field">
+      <div className="customer-field" ref={phoneFieldRef}>
         <label className="customer-label">{t("checkout.phone")}</label>
         <input
-          className="customer-input"
+          className={`customer-input${phoneError ? " customer-input--invalid" : ""}`}
           placeholder={t("checkout.phonePlaceholder")}
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => {
+            setPhone(e.target.value)
+            setPhoneError("")
+          }}
         />
         {phoneError && <p className="customer-error">{phoneError}</p>}
       </div>
 
       {fulfillmentType === "delivery" && (
-        <div className="customer-field">
+        <div className="customer-field" ref={addressSectionRef}>
           <h3 className="customer-subtitle">{t("checkout.address")}</h3>
           {isLoggedIn && savedAddresses.length > 0 && (
             <div className="checkout-saved-addresses">
@@ -1002,7 +1083,7 @@ export default function CheckoutPage() {
         />
       </div>
 
-      <div className="customer-card checkout-marketing">
+      <div className="customer-card checkout-marketing" ref={marketingSectionRef}>
         <h3 className="customer-subtitle">{t("checkout.marketingTitle")}</h3>
         <p className="customer-hint">{t("checkout.marketingHint")}</p>
         <div className="checkout-marketing__channels">
@@ -1083,26 +1164,14 @@ export default function CheckoutPage() {
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={
-            createMutation.isPending ||
-            deliveryBlocked ||
-            branchesLoading ||
-            freeDrinkBlocking ||
-            closedScheduleBlocked
-          }
+          disabled={createMutation.isPending || branchesLoading}
           className="customer-btn customer-btn--primary"
         >
           {createMutation.isPending || branchesLoading
             ? t("common.processing")
-            : freeDrinkBlocking
-              ? t("checkout.freeDrinkRequired")
-              : deliveryBlocked && fulfillmentType === "delivery"
-                ? quoteLoading
-                  ? t("checkout.checkingDelivery")
-                  : t("checkout.completeAddress")
-                : needsOnlinePayment
-                  ? t("checkout.continueToPayment")
-                  : t("checkout.placeOrder")}
+            : needsOnlinePayment
+              ? t("checkout.continueToPayment")
+              : t("checkout.placeOrder")}
         </button>
         </>
       )}
@@ -1118,6 +1187,48 @@ export default function CheckoutPage() {
             onSuccess={handleCardPaymentSuccess}
             onError={(message) => setError(message)}
           />
+        </div>
+      )}
+
+      {validationModalOpen && validationIssues.length > 0 && (
+        <div
+          className="customer-modal-backdrop"
+          role="presentation"
+          onClick={() => closeValidationModal(false)}
+        >
+          <div
+            className="customer-modal checkout-validation-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="checkout-validation-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 id="checkout-validation-title" className="customer-subtitle">
+              {t("checkout.validationTitle")}
+            </h3>
+            <p className="customer-hint">{t("checkout.validationLead")}</p>
+            <ul className="checkout-validation-modal__list">
+              {validationIssues.map((issue) => (
+                <li key={issue.id}>{issue.message}</li>
+              ))}
+            </ul>
+            <div className="checkout-validation-modal__actions">
+              <button
+                type="button"
+                className="customer-btn customer-btn--primary"
+                onClick={() => closeValidationModal(true, validationIssues)}
+              >
+                {t("checkout.validationFix")}
+              </button>
+              <button
+                type="button"
+                className="customer-btn"
+                onClick={() => closeValidationModal(false)}
+              >
+                {t("common.close")}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

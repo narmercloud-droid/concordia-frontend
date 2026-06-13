@@ -1494,6 +1494,28 @@
   box-shadow: 0 20px 50px rgb(0 0 0 / 0.2);
 }
 
+.checkout-validation-modal__list {
+  margin: 16px 0 20px;
+  padding-left: 1.25rem;
+  color: var(--c-text, #1a1a1a);
+}
+
+.checkout-validation-modal__list li + li {
+  margin-top: 8px;
+}
+
+.checkout-validation-modal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.customer-input--invalid,
+.customer-select--invalid {
+  border-color: var(--c-danger, #c0392b) !important;
+  box-shadow: 0 0 0 1px rgb(192 57 43 / 0.15);
+}
+
 @media (max-width: 640px) {
   .order-progress {
     grid-template-columns: repeat(2, minmax(0, 1fr));

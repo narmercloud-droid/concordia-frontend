@@ -24,7 +24,13 @@ function StoreButton({
       aria-label={`${label} — ${comingSoon}`}
     >
       <span className="app-download__store-icon" aria-hidden="true">
-        {platform === "ios" ? "iOS" : "Play"}
+        <img
+          src={platform === "ios" ? "/brand/svg/apple.svg" : "/brand/svg/google-play.svg"}
+          alt=""
+          width={28}
+          height={28}
+          className="app-download__store-icon-img"
+        />
       </span>
       <span className="app-download__store-copy">
         <span className="app-download__store-kicker">

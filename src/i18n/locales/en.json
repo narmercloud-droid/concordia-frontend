@@ -277,7 +277,10 @@
     "locationUnsupported": "Your browser does not support location services.",
     "locationResolveFailed": "Could not determine your address. Please enter it manually.",
     "addressRadiusHint": "Enter your postcode and street, or tap \"Use my location\" to fill automatically.",
-    "savedAddresses": "Saved addresses"
+    "savedAddresses": "Saved addresses",
+    "validationTitle": "Please check your details",
+    "validationLead": "We need a few details before we can place your order:",
+    "validationFix": "Review fields"
   },
   "giftVoucher": {
     "title": "Gift voucher",

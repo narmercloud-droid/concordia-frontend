@@ -80,10 +80,22 @@
 
 .app-download__store-icon {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.app-download__store-icon-img {
+  display: block;
   width: 28px;
-  font-size: 24px;
-  line-height: 1;
-  text-align: center;
+  height: 28px;
+  object-fit: contain;
+}
+
+.app-download__store--ios .app-download__store-icon-img {
+  filter: brightness(0) invert(1);
 }
 
 .app-download__store-copy {
