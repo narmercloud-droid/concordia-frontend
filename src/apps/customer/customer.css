@@ -1466,6 +1466,14 @@
   border-radius: 999px;
 }
 
+.customer-settings__sync-hint {
+  margin: 0 0 16px;
+  color: var(--c-warn-ink);
+  background: var(--c-warn-bg);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
 .customer-modal-backdrop {
   position: fixed;
   inset: 0;

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
@@ -15,6 +15,7 @@ import { getMyOrders } from "@/api/order"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import OrderHistoryItem from "@/apps/customer/components/order/OrderHistoryItem"
 import { useAuthStore } from "@/context/authStore"
+import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
 import {
   EMPTY_DELIVERY_ADDRESS,
   formatDeliveryAddress,
@@ -24,11 +25,9 @@ import {
 
 type Tab = "profile" | "addresses" | "orders"
 
-function unwrapOrders(res: any) {
-  const body = res?.data
-  if (body?.data) return body.data
-  if (Array.isArray(body)) return body
-  return []
+function tabFromPath(pathname: string): Tab {
+  if (pathname.includes("/customer/orders")) return "orders"
+  return "profile"
 }
 
 function addressToFields(address: SavedAddress): DeliveryAddressFields {
@@ -55,12 +54,8 @@ export default function CustomerSettingsPage() {
   const queryClient = useQueryClient()
   const authUser = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
-  const initialTab: Tab =
-    location.pathname.includes("/orders") && !location.pathname.includes("/orders/")
-      ? "orders"
-      : "profile"
-  const [tab, setTab] = useState<Tab>(initialTab)
-  const [phone, setPhone] = useState("")
+  const [tab, setTab] = useState<Tab>(() => tabFromPath(location.pathname))
+  const [phone, setPhone] = useState(() => authUser?.phone ?? "")
   const [phoneSaved, setPhoneSaved] = useState(false)
   const [addressModalOpen, setAddressModalOpen] = useState(false)
   const [editingAddress, setEditingAddress] = useState<SavedAddress | null>(null)
@@ -70,34 +65,60 @@ export default function CustomerSettingsPage() {
   })
   const [addressError, setAddressError] = useState("")
 
+  useEffect(() => {
+    setTab(tabFromPath(location.pathname))
+  }, [location.pathname])
+
   const { data: branches } = useQuery({
     queryKey: ["branches"],
     queryFn: getBranches,
     staleTime: 10 * 60_000
   })
-  const geoBranchId = branches?.[0]?.id ?? "kempen"
+  const geoBranchId =
+    branches?.find((b: { id: string }) => b.id === KEMPEN_BRANCH_ID)?.id ??
+    branches?.[0]?.id ??
+    KEMPEN_BRANCH_ID
 
-  const { data: profile, isLoading: profileLoading } = useQuery({
+  const {
+    data: profile,
+    isLoading: profileLoading,
+    isError: profileError,
+    refetch: refetchProfile
+  } = useQuery({
     queryKey: ["customerProfile"],
-    queryFn: getCustomerProfile
+    queryFn: getCustomerProfile,
+    retry: 1,
+    staleTime: 60_000
   })
 
-  const { data: addresses = [], isLoading: addressesLoading } = useQuery({
+  const {
+    data: addresses = [],
+    isLoading: addressesLoading,
+    isError: addressesError,
+    refetch: refetchAddresses
+  } = useQuery({
     queryKey: ["customerAddresses"],
-    queryFn: listAddresses
+    queryFn: listAddresses,
+    retry: 1,
+    enabled: tab === "addresses"
   })
 
-  const { data: ordersResponse, isLoading: ordersLoading } = useQuery({
+  const {
+    data: orders = [],
+    isLoading: ordersLoading,
+    isError: ordersError,
+    refetch: refetchOrders
+  } = useQuery({
     queryKey: ["my-orders"],
     queryFn: getMyOrders,
-    enabled: tab === "orders"
+    enabled: tab === "orders",
+    retry: 1
   })
 
-  React.useEffect(() => {
-    if (profile?.phone && !phone) {
-      setPhone(profile.phone)
-    }
-  }, [profile?.phone, phone])
+  useEffect(() => {
+    const nextPhone = profile?.phone ?? authUser?.phone ?? ""
+    if (nextPhone) setPhone(nextPhone)
+  }, [profile?.phone, authUser?.phone])
 
   const phoneMutation = useMutation({
     mutationFn: updateCustomerPhone,
@@ -173,8 +194,9 @@ export default function CustomerSettingsPage() {
     setAddressError("")
   }
 
-  const orders = ordersResponse ? unwrapOrders(ordersResponse) : []
   const displayName = profile?.name ?? authUser?.name ?? ""
+  const displayEmail = profile?.email ?? authUser?.email ?? ""
+  const profilePending = profileLoading && !profile && !authUser
 
   return (
     <div className="customer-page customer-settings">
@@ -198,10 +220,20 @@ export default function CustomerSettingsPage() {
 
       {tab === "profile" && (
         <div className="customer-card customer-settings__panel">
-          {profileLoading ? (
-            <p>{t("common.loading")}</p>
+          {profilePending ? (
+            <p className="customer-loading">{t("common.loading")}</p>
+          ) : profileError && !authUser ? (
+            <div>
+              <p className="customer-error">{t("account.profileLoadError")}</p>
+              <button type="button" className="customer-btn" onClick={() => void refetchProfile()}>
+                {t("common.retry")}
+              </button>
+            </div>
           ) : (
             <>
+              {profileError && (
+                <p className="customer-hint customer-settings__sync-hint">{t("account.profileSyncError")}</p>
+              )}
               <div className="customer-field">
                 <label className="customer-label">{t("auth.name")}</label>
                 <input className="customer-input customer-input--readonly" value={displayName} readOnly />
@@ -210,7 +242,7 @@ export default function CustomerSettingsPage() {
                 <label className="customer-label">{t("auth.email")}</label>
                 <input
                   className="customer-input customer-input--readonly"
-                  value={profile?.email ?? authUser?.email ?? ""}
+                  value={displayEmail}
                   readOnly
                 />
               </div>
@@ -251,7 +283,14 @@ export default function CustomerSettingsPage() {
           </div>
 
           {addressesLoading ? (
-            <p>{t("common.loading")}</p>
+            <p className="customer-loading">{t("common.loading")}</p>
+          ) : addressesError ? (
+            <div>
+              <p className="customer-error">{t("account.addressesLoadError")}</p>
+              <button type="button" className="customer-btn" onClick={() => void refetchAddresses()}>
+                {t("common.retry")}
+              </button>
+            </div>
           ) : addresses.length === 0 ? (
             <p className="customer-hint">{t("account.noAddresses")}</p>
           ) : (
@@ -297,7 +336,14 @@ export default function CustomerSettingsPage() {
         <div className="customer-settings__panel">
           <h3 className="customer-subtitle">{t("account.ordersTitle")}</h3>
           {ordersLoading ? (
-            <p>{t("account.ordersLoading")}</p>
+            <p className="customer-loading">{t("account.ordersLoading")}</p>
+          ) : ordersError ? (
+            <div>
+              <p className="customer-error">{t("account.ordersLoadError")}</p>
+              <button type="button" className="customer-btn" onClick={() => void refetchOrders()}>
+                {t("common.retry")}
+              </button>
+            </div>
           ) : orders.length === 0 ? (
             <p className="customer-hint">{t("account.noOrders")}</p>
           ) : (

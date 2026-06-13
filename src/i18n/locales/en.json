@@ -157,6 +157,7 @@
     "suggestionsLead": "Drinks, salads and sides like fries — add them in one tap.",
     "suggestionsDrinks": "Drinks",
     "suggestionsSides": "Salads & sides",
+    "suggestionsAdd": "Add",
     "suggestionsContinue": "Continue",
     "suggestionsContinueCart": "Back to cart"
   },
@@ -774,6 +775,10 @@
     "addressLabelPlaceholder": "e.g. Home, Work",
     "addressDefaultLabel": "Home",
     "defaultAddress": "Default",
-    "addressSaveFailed": "Could not save address."
+    "addressSaveFailed": "Could not save address.",
+    "profileLoadError": "Could not load your profile.",
+    "profileSyncError": "Showing saved account details. Some info may be outdated.",
+    "addressesLoadError": "Could not load saved addresses.",
+    "ordersLoadError": "Could not load your orders."
   }
 }

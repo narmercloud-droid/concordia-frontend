@@ -5,6 +5,7 @@ import { getCartSuggestions } from "@/api/customer"
 import { dishImageForName } from "@/lib/foodImagery"
 import { formatCurrency } from "@/utils/format"
 import "./ItemOptionsModal.css"
+import "./CartSuggestionsModal.css"
 
 export type SuggestionItem = {
   id: number
@@ -26,42 +27,61 @@ type Props = {
   onContinue?: () => void
 }
 
+function isDrinkSuggestion(item: SuggestionItem) {
+  const text = `${item.categoryName ?? ""} ${item.name}`.toLowerCase()
+  return /getränk|drink|cola|sprite|fanta|wasser|uludag|lift|spritzer|durstl|0,33|0.33|1,0|1\.0|mehrweg/.test(
+    text
+  )
+}
+
 function SuggestionGrid({
   items,
-  onSelect
+  onSelect,
+  addLabel
 }: {
   items: SuggestionItem[]
   onSelect: (item: SuggestionItem) => void
+  addLabel: string
 }) {
   if (!items.length) return null
 
   return (
-    <div className="item-modal__also-popular-list">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          className="item-modal__also-popular-item"
-          onClick={() => onSelect(item)}
-        >
-          <span
-            className="item-modal__also-popular-thumb"
-            style={{
-              backgroundImage: `url(${dishImageForName(
-                item.name,
-                item.imageUrl,
-                item.categoryName ?? "",
-                item.description
-              )})`
-            }}
-            aria-hidden="true"
-          />
-          <span className="item-modal__also-popular-copy">
-            <span className="item-modal__also-popular-name">{item.name}</span>
-            <span className="item-modal__also-popular-price">{formatCurrency(item.price)}</span>
-          </span>
-        </button>
-      ))}
+    <div className="cart-suggestions-modal__grid">
+      {items.map((item) => {
+        const isDrink = isDrinkSuggestion(item)
+        return (
+          <button
+            key={item.id}
+            type="button"
+            className="cart-suggestions-modal__item"
+            onClick={() => onSelect(item)}
+          >
+            {isDrink ? (
+              <span className="cart-suggestions-modal__thumb cart-suggestions-modal__thumb--drink" aria-hidden="true">
+                🥤
+              </span>
+            ) : (
+              <span
+                className="cart-suggestions-modal__thumb"
+                style={{
+                  backgroundImage: `url(${dishImageForName(
+                    item.name,
+                    item.imageUrl,
+                    item.categoryName ?? "",
+                    item.description
+                  )})`
+                }}
+                aria-hidden="true"
+              />
+            )}
+            <span className="cart-suggestions-modal__copy">
+              <span className="cart-suggestions-modal__name">{item.name}</span>
+              <span className="cart-suggestions-modal__price">{formatCurrency(item.price)}</span>
+            </span>
+            <span className="cart-suggestions-modal__add">{addLabel}</span>
+          </button>
+        )
+      })}
     </div>
   )
 }
@@ -84,6 +104,10 @@ export default function CartSuggestionsModal({
     staleTime: 60_000
   })
 
+  const drinks = data?.drinks ?? []
+  const sides = data?.sides ?? []
+  const hasSuggestions = drinks.length > 0 || sides.length > 0
+
   useEffect(() => {
     if (!open) return
 
@@ -100,12 +124,6 @@ export default function CartSuggestionsModal({
       window.removeEventListener("keydown", onKeyDown)
     }
   }, [open, onClose])
-
-  if (!open) return null
-
-  const drinks = data?.drinks ?? []
-  const sides = data?.sides ?? []
-  const hasSuggestions = drinks.length > 0 || sides.length > 0
 
   useEffect(() => {
     if (!open || isLoading) return
@@ -129,7 +147,7 @@ export default function CartSuggestionsModal({
       />
 
       <div className="item-modal__panel cart-suggestions-modal__panel">
-        <header className="item-modal__header cart-suggestions-modal__header">
+        <header className="cart-suggestions-modal__header">
           <div className="item-modal__head-text">
             <p className="item-modal__also-popular-label">{t("cart.suggestionsEyebrow")}</p>
             <h2 id="cart-suggestions-title" className="item-modal__title">
@@ -147,21 +165,29 @@ export default function CartSuggestionsModal({
           </button>
         </header>
 
-        <div className="item-modal__body">
+        <div className="cart-suggestions-modal__body">
           {isLoading ? (
             <p className="customer-loading">{t("common.loading")}</p>
           ) : (
             <>
               {drinks.length > 0 && (
-                <section className="item-modal__also-popular">
-                  <p className="item-modal__also-popular-label">{t("cart.suggestionsDrinks")}</p>
-                  <SuggestionGrid items={drinks} onSelect={onSelectItem} />
+                <section className="cart-suggestions-modal__section">
+                  <p className="cart-suggestions-modal__section-label">{t("cart.suggestionsDrinks")}</p>
+                  <SuggestionGrid
+                    items={drinks}
+                    onSelect={onSelectItem}
+                    addLabel={t("cart.suggestionsAdd")}
+                  />
                 </section>
               )}
               {sides.length > 0 && (
-                <section className="item-modal__also-popular">
-                  <p className="item-modal__also-popular-label">{t("cart.suggestionsSides")}</p>
-                  <SuggestionGrid items={sides} onSelect={onSelectItem} />
+                <section className="cart-suggestions-modal__section">
+                  <p className="cart-suggestions-modal__section-label">{t("cart.suggestionsSides")}</p>
+                  <SuggestionGrid
+                    items={sides}
+                    onSelect={onSelectItem}
+                    addLabel={t("cart.suggestionsAdd")}
+                  />
                 </section>
               )}
             </>

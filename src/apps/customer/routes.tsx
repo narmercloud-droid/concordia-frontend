@@ -13,7 +13,7 @@ const MenuCategoriesPage = React.lazy(() => import("./pages/MenuCategoriesPage.j
 const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
 const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
-const CustomerSettingsPage = React.lazy(() => import("./pages/CustomerSettingsPage.js"))
+import CustomerSettingsPage from "./pages/CustomerSettingsPage.js"
 import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
 import {
@@ -79,7 +79,7 @@ export const customerRoutes = {
           path: "orders",
           element: (
             <ProtectedRoute>
-              {lazySection(<CustomerSettingsPage />)}
+              <CustomerSettingsPage />
             </ProtectedRoute>
           )
         },
@@ -87,7 +87,7 @@ export const customerRoutes = {
           path: "settings",
           element: (
             <ProtectedRoute>
-              {lazySection(<CustomerSettingsPage />)}
+              <CustomerSettingsPage />
             </ProtectedRoute>
           )
         }

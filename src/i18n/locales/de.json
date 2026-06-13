@@ -157,6 +157,7 @@
     "suggestionsLead": "Getränke, Salate und Beilagen wie Pommes — schnell mitbestellen.",
     "suggestionsDrinks": "Getränke",
     "suggestionsSides": "Salate & Beilagen",
+    "suggestionsAdd": "Hinzufügen",
     "suggestionsContinue": "Weiter",
     "suggestionsContinueCart": "Weiter im Warenkorb"
   },
@@ -346,7 +347,11 @@
     "addressLabelPlaceholder": "z. B. Zuhause, Arbeit",
     "addressDefaultLabel": "Zuhause",
     "defaultAddress": "Standard",
-    "addressSaveFailed": "Adresse konnte nicht gespeichert werden."
+    "addressSaveFailed": "Adresse konnte nicht gespeichert werden.",
+    "profileLoadError": "Profil konnte nicht geladen werden.",
+    "profileSyncError": "Gespeicherte Kontodaten werden angezeigt. Einige Angaben können veraltet sein.",
+    "addressesLoadError": "Adressen konnten nicht geladen werden.",
+    "ordersLoadError": "Bestellungen konnten nicht geladen werden."
   },
   "order": {
     "tracking": "Bestellverfolgung",
