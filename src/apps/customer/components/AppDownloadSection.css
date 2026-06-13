@@ -55,82 +55,30 @@
 .app-download__stores {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-}
-
-.app-download__store {
-  position: relative;
-  display: inline-flex;
+  gap: 14px;
   align-items: center;
-  gap: 12px;
-  min-width: 210px;
-  padding: 12px 16px 12px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  background: #111;
-  color: #fff;
-  text-align: left;
-  cursor: not-allowed;
-  opacity: 0.82;
 }
 
-.app-download__store--android {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0d3b2e 100%);
-}
-
-.app-download__store-icon {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-}
-
-.app-download__store-icon-img {
+.app-download__badge {
   display: block;
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.92;
+  transition: opacity 0.15s ease;
 }
 
-.app-download__store--ios .app-download__store-icon-img {
-  filter: brightness(0) invert(1);
+.app-download__badge:disabled {
+  cursor: not-allowed;
 }
 
-.app-download__store-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.app-download__store-kicker {
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  opacity: 0.78;
-}
-
-.app-download__store-label {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.app-download__store-badge {
-  position: absolute;
-  top: -8px;
-  right: -6px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(180, 83, 9, 0.14);
-  color: #b45309;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  white-space: nowrap;
+.app-download__badge-img {
+  display: block;
+  width: min(220px, 100%);
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.12);
 }
 
 .app-download__note {
@@ -143,12 +91,6 @@
   justify-content: center;
 }
 
-.app-download--compact .app-download__store {
-  min-width: 180px;
-  flex: 1 1 180px;
-  max-width: 240px;
-}
-
 .app-download--compact .app-download__note {
   text-align: center;
   font-size: 12px;
@@ -157,11 +99,12 @@
 @media (max-width: 560px) {
   .app-download__stores {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .app-download__store,
-  .app-download--compact .app-download__store {
+  .app-download__badge-img {
     width: 100%;
-    max-width: none;
+    max-width: 280px;
+    margin: 0 auto;
   }
 }

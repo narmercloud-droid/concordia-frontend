@@ -6,39 +6,28 @@ type Props = {
   variant?: "full" | "compact"
 }
 
-function StoreButton({
+function StoreBadge({
   platform,
-  label,
   comingSoon
 }: {
   platform: "ios" | "android"
-  label: string
   comingSoon: string
 }) {
+  const label = platform === "ios" ? "App Store" : "Google Play"
+  const src =
+    platform === "ios"
+      ? "/brand/svg/app-store-coming-soon.svg"
+      : "/brand/svg/google-play-coming-soon.svg"
+
   return (
     <button
       type="button"
-      className={`app-download__store app-download__store--${platform}`}
+      className={`app-download__badge app-download__badge--${platform}`}
       disabled
       aria-disabled="true"
       aria-label={`${label} — ${comingSoon}`}
     >
-      <span className="app-download__store-icon" aria-hidden="true">
-        <img
-          src={platform === "ios" ? "/brand/svg/apple.svg" : "/brand/svg/google-play.svg"}
-          alt=""
-          width={28}
-          height={28}
-          className="app-download__store-icon-img"
-        />
-      </span>
-      <span className="app-download__store-copy">
-        <span className="app-download__store-kicker">
-          {platform === "ios" ? "App Store" : "Google Play"}
-        </span>
-        <span className="app-download__store-label">{label}</span>
-      </span>
-      <span className="app-download__store-badge">{comingSoon}</span>
+      <img src={src} alt="" className="app-download__badge-img" width={220} height={64} />
     </button>
   )
 }
@@ -63,8 +52,8 @@ export default function AppDownloadSection({ variant = "full" }: Props) {
       )}
 
       <div className="app-download__stores">
-        <StoreButton platform="ios" label={t("appDownload.ios")} comingSoon={comingSoon} />
-        <StoreButton platform="android" label={t("appDownload.android")} comingSoon={comingSoon} />
+        <StoreBadge platform="ios" comingSoon={comingSoon} />
+        <StoreBadge platform="android" comingSoon={comingSoon} />
       </div>
 
       <p className="app-download__note">{t("appDownload.comingSoonNote")}</p>
