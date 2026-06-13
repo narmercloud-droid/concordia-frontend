@@ -37,6 +37,33 @@
     <meta name="description" content="Concordia Restaurant — Pizza, Pasta & mehr. Online bestellen zur Abholung oder Lieferung." />
     <link rel="dns-prefetch" href="https://concordia-backend-web.onrender.com" />
     <link rel="preconnect" href="https://concordia-backend-web.onrender.com" crossorigin />
+    <script>
+      (function () {
+        try {
+          var lang = document.documentElement.lang || "de";
+          fetch("/health", { method: "GET", credentials: "omit", keepalive: true }).catch(function () {});
+          fetch("/api/branches", { method: "GET", credentials: "omit", keepalive: true })
+            .then(function (res) {
+              return res.ok ? res.json() : null;
+            })
+            .then(function (body) {
+              var rows = body && body.data && body.data.length ? body.data : body;
+              if (Array.isArray(rows)) {
+                localStorage.setItem(
+                  "concordia-branches-v1",
+                  JSON.stringify({ data: rows, ts: Date.now() })
+                );
+              }
+            })
+            .catch(function () {});
+          fetch("/api/branches/concordia-kempen/menu?lang=" + encodeURIComponent(lang), {
+            method: "GET",
+            credentials: "omit",
+            keepalive: true
+          }).catch(function () {});
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
