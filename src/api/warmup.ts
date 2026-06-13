@@ -1,7 +1,8 @@
 import { resolveApiBase } from "@/api/client"
 import { detectPreferredLanguage } from "@/i18n/languages"
-import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
 import { writeBranchListCache } from "@/lib/branchListCache"
+import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
+import { writeMenuCache } from "@/lib/menuCache"
 
 let warmupPromise: Promise<void> | null = null
 
@@ -10,6 +11,16 @@ function unwrapBranches(body: unknown): unknown[] | null {
   const record = body as { data?: unknown }
   if (Array.isArray(record.data)) return record.data
   if (Array.isArray(body)) return body
+  return null
+}
+
+function unwrapMenu(body: unknown): { categories: unknown[] } | null {
+  if (!body || typeof body !== "object") return null
+  const record = body as { data?: { categories?: unknown[] } }
+  const categories = record.data?.categories
+  if (Array.isArray(categories)) return { categories }
+  const direct = body as { categories?: unknown[] }
+  if (Array.isArray(direct.categories)) return { categories: direct.categories }
   return null
 }
 
@@ -22,7 +33,7 @@ export function warmupApi(): Promise<void> {
     warmupPromise = Promise.resolve()
     return warmupPromise
   }
-  const timeoutMs = 12_000
+  const timeoutMs = 60_000
   const signal = AbortSignal.timeout(timeoutMs)
   const fetchOpts: RequestInit = { method: "GET", credentials: "omit", signal }
   const lang = detectPreferredLanguage()
@@ -36,7 +47,12 @@ export function warmupApi(): Promise<void> {
       const rows = unwrapBranches(body)
       if (rows) writeBranchListCache(rows)
     }),
-    fetch(menuUrl, fetchOpts)
+    fetch(menuUrl, fetchOpts).then(async (res) => {
+      if (!res.ok) return
+      const body = await res.json()
+      const menu = unwrapMenu(body)
+      if (menu) writeMenuCache(KEMPEN_BRANCH_ID, lang, menu)
+    })
   ]).then(() => undefined)
 
   return warmupPromise

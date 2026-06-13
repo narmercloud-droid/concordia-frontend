@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
-import { bestsellersQueryOptions, menuQueryOptions } from "@/lib/customerQueryOptions"
+import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CartSuggestionsModal, {
@@ -64,8 +64,7 @@ export default function BranchMenuPage() {
     queryKey: ["branchMenu", branchId, i18n.language],
     queryFn: () => getBranchMenu(branchId!),
     enabled: !!branchId,
-    placeholderData: (previous) => previous,
-    ...menuQueryOptions
+    ...menuQueryOptionsFor(branchId ?? "", i18n.language)
   })
 
   const menuReady = !!data?.categories?.length
@@ -109,7 +108,7 @@ export default function BranchMenuPage() {
     [orderingDisabled]
   )
 
-  if (!data?.categories) {
+  if (!data?.categories?.length) {
     if (menuError) {
       return (
         <div className="customer-page">

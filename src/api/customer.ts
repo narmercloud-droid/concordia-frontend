@@ -1,5 +1,6 @@
 import api from "./client.js"
 import { getMenuLang } from "@/lib/menuLang"
+import { writeMenuCache } from "@/lib/menuCache"
 
 function unwrap<T>(res: { data?: { data?: T; success?: boolean } & T }): T {
   if (res.data && "data" in res.data && res.data.data !== undefined) {
@@ -38,10 +39,15 @@ export const getBranchGoogleReviews = async (branchId: string) => {
 }
 
 export const getBranchMenu = async (branchId: string) => {
+  const lang = getMenuLang()
   const res = await api.get(`/api/branches/${branchId}/menu`, {
-    params: { lang: getMenuLang() }
+    params: { lang }
   })
-  return unwrap<{ categories: any[] }>(res)
+  const data = unwrap<{ categories: any[] }>(res)
+  if (data?.categories?.length) {
+    writeMenuCache(branchId, lang, data)
+  }
+  return data
 }
 
 export const getFreeDrinkOptions = async (branchId: string) => {

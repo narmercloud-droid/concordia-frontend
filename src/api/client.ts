@@ -2,7 +2,7 @@ import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 
 const isDev = import.meta.env.DEV
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
-const MAX_GET_RETRIES = 0
+const MAX_GET_RETRIES = 2
 
 type RetryConfig = InternalAxiosRequestConfig & { __retryCount?: number }
 
@@ -23,7 +23,7 @@ export function resolveApiBase(): string {
 export const api = axios.create({
   baseURL: resolveApiBase(),
   withCredentials: true,
-  timeout: 45_000,
+  timeout: 60_000,
   headers: {
     Accept: "application/json"
   }

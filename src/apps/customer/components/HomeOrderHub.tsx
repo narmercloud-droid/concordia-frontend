@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { branchPath } from "@/lib/customerPaths"
+import { prefetchBranchMenu } from "@/lib/prefetchCustomerData"
 
 export type HomeBranch = {
   id: string
@@ -299,6 +300,8 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
                     <button
                       type="button"
                       className="home-branch-btn home-branch-btn--primary"
+                      onMouseEnter={() => prefetchBranchMenu(b.id)}
+                      onFocus={() => prefetchBranchMenu(b.id)}
                       onClick={() => navigate(branchPath(b.id))}
                     >
                       {t("home.orderNow")}

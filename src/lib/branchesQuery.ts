@@ -1,4 +1,8 @@
-import { readBranchListCache, writeBranchListCache } from "@/lib/branchListCache"
+import {
+  readBranchListCache,
+  readBranchListCacheUpdatedAt,
+  writeBranchListCache
+} from "@/lib/branchListCache"
 
 export const BRANCHES_QUERY_KEY = ["branches"] as const
 
@@ -9,10 +13,11 @@ export const branchesQueryOptions = {
     writeBranchListCache(data)
     return data
   },
-  retry: 2,
-  retryDelay: (attempt: number) => Math.min(1000 * 2 ** attempt, 8000),
+  retry: 3,
+  retryDelay: (attempt: number) => Math.min(1500 * 2 ** attempt, 12_000),
   staleTime: 600_000,
-  gcTime: 30 * 60_000,
+  gcTime: 7 * 24 * 60 * 60_000,
   refetchOnWindowFocus: false,
-  placeholderData: () => readBranchListCache() ?? undefined
+  initialData: () => readBranchListCache() ?? undefined,
+  initialDataUpdatedAt: () => readBranchListCacheUpdatedAt() ?? 0
 }

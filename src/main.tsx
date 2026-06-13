@@ -7,9 +7,11 @@ import queryClient from "./lib/queryClient.js"
 import router from "./router/rootRouter.js"
 import { warmupApi } from "./api/warmup.js"
 import { bootstrapI18n } from "./i18n/index.js"
+import { hydrateCustomerQueries } from "./lib/hydrateCustomerQueries.js"
 
 async function startApp() {
-  warmupApi()
+  hydrateCustomerQueries(queryClient)
+  void warmupApi()
   await bootstrapI18n()
 
   ReactDOM.createRoot(document.getElementById("root")!).render(

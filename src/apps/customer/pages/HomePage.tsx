@@ -34,7 +34,7 @@ export default function HomePage() {
   }, [location.hash])
 
   const orderHub =
-    isLoading || (isFetching && !data) ? (
+    !branches.length && (isLoading || isFetching) ? (
       <section className="home-order-hub home-order-hub--primary home-order-hub--loading" id="order">
         <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
         <p className="home-order-hub__empty">{t("home.branchesLoading")}</p>
