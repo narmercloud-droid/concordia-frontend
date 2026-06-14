@@ -368,11 +368,15 @@ export default function CheckoutPage() {
   const handleApplyVoucher = async () => {
     const code = voucherInput.trim()
     if (!code) return
+    if (!branchId) {
+      setVoucherError(t("checkout.voucherInvalid"))
+      return
+    }
 
     setVoucherError("")
     setVoucherLoading(true)
     try {
-      const result = await validatePromoCode(code, subtotal)
+      const result = await validatePromoCode(code, subtotal, branchId)
       setAppliedVoucher({
         code: result.code,
         discountAmount: result.discountAmount
