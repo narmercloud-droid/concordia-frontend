@@ -7,11 +7,18 @@ const MAX_GET_RETRIES = 2
 type RetryConfig = InternalAxiosRequestConfig & { __retryCount?: number }
 
 /** Same-origin on Vercel (proxied in vercel.json) to avoid CORS when the deploy URL changes. */
+function usesSameOriginApi(hostname: string): boolean {
+  if (hostname.endsWith(".vercel.app")) return true
+  if (hostname === "concordiapizza.de" || hostname.endsWith(".concordiapizza.de")) return true
+  if (hostname === "pizzeriaconcordia.de" || hostname.endsWith(".pizzeriaconcordia.de")) return true
+  return false
+}
+
 export function resolveApiBase(): string {
   if (
     import.meta.env.PROD &&
     typeof window !== "undefined" &&
-    window.location.hostname.endsWith(".vercel.app")
+    usesSameOriginApi(window.location.hostname)
   ) {
     return ""
   }

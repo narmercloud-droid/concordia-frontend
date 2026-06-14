@@ -15,7 +15,7 @@ export const BRAND_LOGO_FULL_SVG = "/brand/svg/concordia-logo-full.svg"
 export const BRAND_MARK_SVG = "/brand/svg/concordia-mark.svg"
 
 export const BRAND_ORDER_URL_KEMPEN =
-  "https://concordia-restaurant-de.vercel.app/branch/concordia-kempen"
+  "https://www.concordiapizza.de/branch/concordia-kempen"
 
 export const BRAND_PRINT = {
   letterhead: "/brand/print/letterhead.html",
