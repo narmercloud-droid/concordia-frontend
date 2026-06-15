@@ -105,7 +105,13 @@
     "footerFreeDrink": "خواردنەوەی بێبەرامبەر لە داوای 35 €",
     "kempenBranch": "Kempen",
     "googleReview": "Google review",
-    "moreReviews": "More reviews"
+    "moreReviews": "More reviews",
+    "pizzeria": "Pizzeria",
+    "welcomePizzeria": "Welcome to Pizzeria Concordia",
+    "leadShort": "Italian cuisine from our oven — order online for pickup or delivery.",
+    "moreReviewsShort": "All reviews",
+    "reviewsSectionTitle": "What our guests say",
+    "reviewsSectionLead": "Real reviews from Google — Kempen & Straelen."
   },
   "branchOwner": {
     "eyebrow": "سەرچێشتخوازەکانت",
@@ -124,7 +130,8 @@
     "bestSellersDesc": "خواردنە بەناوبانگەکانمان — پێشنیاری سەرچێشتخواز.",
     "bestSellersFromSales": "زۆرترین فرۆش لە 30 ڕۆژی ڕابردوو — بەپێی داواکارییە ڕاستەقینەکان.",
     "alsoPopular": "هەروەها بەناوبانگ",
-    "loadError": "مێنوو بارنەکرا. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە."
+    "loadError": "مێنوو بارنەکرا. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە.",
+    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout."
   },
   "cart": {
     "title": "سەبەتەکەت",
@@ -133,7 +140,15 @@
     "checkout": "پارەدان",
     "afterDiscount": "دوای داشکاندن",
     "edit": "دەستکاری",
-    "editingItem": "هەڵبژاردنەکانت لە خوارەوە نوێ بکەوە، پاشان لە سەبەتەدا پاشەکەوت بکە."
+    "editingItem": "هەڵبژاردنەکانت لە خوارەوە نوێ بکەوە، پاشان لە سەبەتەدا پاشەکەوت بکە.",
+    "suggestionsEyebrow": "Goes well with",
+    "suggestionsTitle": "Add something extra?",
+    "suggestionsLead": "Drinks, salads and sides like fries — add them in one tap.",
+    "suggestionsDrinks": "Drinks",
+    "suggestionsSides": "Salads & sides",
+    "suggestionsAdd": "Add",
+    "suggestionsContinue": "Continue",
+    "suggestionsContinueCart": "Back to cart"
   },
   "checkout": {
     "title": "پارەدان",
@@ -240,7 +255,21 @@
     "addressHouseNumberPlaceholder": "e.g. 5 or 12a",
     "addressFloor": "Floor",
     "addressFloorPlaceholder": "e.g. 2nd floor",
-    "addressEnterPostcodeFirst": "Please select or enter your postal code first."
+    "addressEnterPostcodeFirst": "Please select or enter your postal code first.",
+    "branchClosedBanner": "This branch is currently closed. Please schedule your order within opening hours.",
+    "branchClosedAsap": "Immediate orders are only available during opening hours. Please choose a scheduled time.",
+    "asapUnavailableClosed": "ASAP (closed)",
+    "noScheduleSlots": "No scheduled times are available right now.",
+    "useMyLocation": "Use my location",
+    "locating": "Finding location…",
+    "locationDenied": "Location access denied. Please enter your address manually.",
+    "locationUnsupported": "Your browser does not support location services.",
+    "locationResolveFailed": "Could not determine your address. Please enter it manually.",
+    "addressRadiusHint": "Enter your postcode and street, or tap \"Use my location\" to fill automatically.",
+    "savedAddresses": "Saved addresses",
+    "validationTitle": "Please check your details",
+    "validationLead": "We need a few details before we can place your order:",
+    "validationFix": "Review fields"
   },
   "giftVoucher": {
     "title": "کارتەی دیاری",
@@ -293,7 +322,28 @@
   "account": {
     "ordersLoading": "داواکارییەکان بار دەکرێن…",
     "noOrders": "هیچ داواکارییەکی پێشووت نییە.",
-    "ordersTitle": "داواکارییەکان"
+    "ordersTitle": "داواکارییەکان",
+    "settingsTitle": "My account",
+    "settingsLead": "Manage your profile, saved addresses and order history.",
+    "tabProfile": "Profile",
+    "tabAddresses": "Addresses",
+    "tabOrders": "Orders",
+    "savePhone": "Save phone",
+    "phoneSaved": "Phone number saved.",
+    "addressesTitle": "Saved addresses",
+    "addAddress": "Add address",
+    "editAddress": "Edit",
+    "saveAddress": "Save address",
+    "noAddresses": "No saved addresses yet.",
+    "addressLabel": "Label",
+    "addressLabelPlaceholder": "e.g. Home, Work",
+    "addressDefaultLabel": "Home",
+    "defaultAddress": "Default",
+    "addressSaveFailed": "Could not save address.",
+    "profileLoadError": "Could not load your profile.",
+    "profileSyncError": "Showing saved account details. Some info may be outdated.",
+    "addressesLoadError": "Could not load saved addresses.",
+    "ordersLoadError": "Could not load your orders."
   },
   "order": {
     "tracking": "شوێنکەوتنی داواکاری",
@@ -312,7 +362,17 @@
     "driverUpdated": " — نوێکرایەوە {{time}}",
     "driverPending": "شوفێر هێشتا قبوڵ نەکردووە — ناونیشانی گەیاندن پیشان دەدرێت",
     "timeline": "کات هێڵ",
-    "loading": "داواکاری بار دەکرێت…"
+    "loading": "داواکاری بار دەکرێت…",
+    "confirmationTitle": "Order placed!",
+    "confirmationLead": "Thank you — we're preparing your order. Track progress below.",
+    "viewOrderHistory": "View order history in your account",
+    "progressLabel": "Order progress",
+    "stepReceived": "Received",
+    "stepPreparing": "Preparing",
+    "stepOnTheWay": "On the way",
+    "stepDelivered": "Delivered",
+    "stepReady": "Ready for pickup",
+    "stepDone": "Picked up"
   },
   "status": {
     "pending": "وەرگیرا",
@@ -377,7 +437,38 @@
       },
       "kitchenTitle": "لە فڕنەکەمان بۆ مێزەکەت",
       "kitchenText": "پیتزا، پاستا، ساڵاد، al forno، schnitzel، burger و زیاتر — تازە بۆ وەرگرتن یان گەیاندن.",
-      "kempenAddress": "Concordienplatz 1 · 47906 Kempen"
+      "kempenAddress": "Concordienplatz 1 · 47906 Kempen",
+      "familySignature": "— The Concordia Family",
+      "photoPending": "Photo coming soon",
+      "branches": {
+        "kempen": {
+          "title": "Kempen",
+          "chefs": {
+            "alaan": {
+              "name": "Chef Alaan",
+              "photoAlt": "Chef Alaan portrait"
+            },
+            "jiuan": {
+              "name": "Chef Jiuan",
+              "photoAlt": "Chef Jiuan portrait"
+            }
+          }
+        },
+        "straelen": {
+          "title": "Straelen",
+          "chefs": {
+            "ahmad": {
+              "name": "Chef Ahmad",
+              "photoAlt": "Chef Ahmad portrait"
+            },
+            "siban": {
+              "name": "Chef Siban",
+              "photoAlt": "Chef Siban portrait"
+            }
+          }
+        }
+      },
+      "kitchenCta": "Choose your branch and order now — pickup or delivery."
     },
     "contact": {
       "eyebrow": "پەیوەندی",
@@ -390,7 +481,26 @@
       "email": "Email",
       "maps": "Directions",
       "viewOnMaps": "Open in Google Maps",
-      "detailsPending": "Contact details will be published here soon."
+      "detailsPending": "Contact details will be published here soon.",
+      "form": {
+        "title": "Send us a message",
+        "lead": "Questions about an order, feedback or anything else? Fill in the form and we will get back to you.",
+        "name": "Your name",
+        "email": "Email address",
+        "phone": "Phone (optional)",
+        "branch": "Branch (optional)",
+        "branchAny": "Any / not sure",
+        "orderNumber": "Order number (optional)",
+        "orderNumberPlaceholder": "e.g. first 8 characters from your confirmation",
+        "orderNumberHint": "Optional — helps us find your order faster.",
+        "message": "Message",
+        "submit": "Send message",
+        "sending": "Sending…",
+        "successTitle": "Message sent",
+        "successBody": "Thank you — we have received your message and will reply as soon as we can.",
+        "sendAnother": "Send another message",
+        "error": "Could not send your message. Please try again or call us."
+      }
     },
     "reviews": {
       "eyebrow": "دەنگی میوان",
@@ -668,6 +778,17 @@
     "thanksBody": "We read every review to improve Concordia for you and our guests.",
     "guestHint": "You can leave feedback without an account using this order page.",
     "leaveReview": "Leave feedback",
-    "reviewSubmitted": "Feedback sent"
+    "reviewSubmitted": "Feedback sent",
+    "inviteEyebrow": "Your order is complete",
+    "inviteTitle": "Rate your food & delivery",
+    "inviteLead": "Tell us how the food tasted and how the delivery went. It only takes a moment."
+  },
+  "appDownload": {
+    "eyebrow": "Mobile app",
+    "title": "Concordia in your pocket",
+    "lead": "Order faster, track deliveries and save your favourites — our iOS and Android apps are on the way.",
+    "ios": "Download for iPhone",
+    "android": "Download for Android",
+    "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
   }
 }

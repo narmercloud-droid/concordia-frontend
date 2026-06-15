@@ -6,6 +6,9 @@ export function loadCartItems(): CartItem[] {
   if (typeof window === "undefined") return []
 
   try {
+    // Drop legacy cart format from pre-unification store.
+    window.localStorage.removeItem("cart")
+
     const raw = window.localStorage.getItem(CART_STORAGE_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw)

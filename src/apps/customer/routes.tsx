@@ -9,16 +9,16 @@ const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
 const OrderTrackingPage = React.lazy(() => import("./pages/OrderTrackingPage.js"))
 const LoginPage = React.lazy(() => import("./pages/LoginPage.js"))
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage.js"))
-const MenuCategoriesPage = React.lazy(() => import("./pages/MenuCategoriesPage.js"))
-const MenuItemsPage = React.lazy(() => import("./pages/MenuItemsPage.js"))
-const MenuItemDetailsPage = React.lazy(() => import("./pages/MenuItemDetailsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
 import CustomerSettingsPage from "./pages/CustomerSettingsPage.js"
 import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
 import {
   RedirectCustomerBranch,
-  RedirectCustomerBranchItem
+  RedirectCustomerBranchItem,
+  RedirectLegacyMenu,
+  RedirectLegacyMenuCategory,
+  RedirectLegacyMenuItem
 } from "./branchRedirects.js"
 
 const lazySection = (element: React.ReactElement) => (
@@ -60,9 +60,9 @@ export const customerRoutes = {
         { path: "cart", element: lazySection(<CartPage />) },
         { path: "checkout", element: lazySection(<CheckoutPage />) },
         { path: "order/:orderId", element: lazySection(<OrderTrackingPage />) },
-        { path: "menu", element: lazySection(<MenuCategoriesPage />) },
-        { path: "menu/:categoryId", element: lazySection(<MenuItemsPage />) },
-        { path: "menu/item/:itemId", element: lazySection(<MenuItemDetailsPage />) },
+        { path: "menu", element: <RedirectLegacyMenu /> },
+        { path: "menu/:categoryId", element: <RedirectLegacyMenuCategory /> },
+        { path: "menu/item/:itemId", element: <RedirectLegacyMenuItem /> },
         {
           path: "orders/history",
           element: <Navigate to="/customer/orders" replace />

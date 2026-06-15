@@ -1,6 +1,7 @@
 import React, { Suspense } from "react"
-import { createBrowserRouter, Outlet } from "react-router-dom"
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom"
 import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
+import { RedirectLegacyTrack } from "../apps/customer/branchRedirects.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
 import infoRoutes from "../apps/customer/infoRoutes.js"
 import adminRoutes from "../apps/admin/routes.js"
@@ -21,6 +22,8 @@ export const router = createBrowserRouter([
       infoRoutes,
       branchRoutes,
       customerRoutes,
+      { path: "checkout", element: <Navigate to="/customer/checkout" replace /> },
+      { path: "track/:orderId", element: <RedirectLegacyTrack /> },
       adminRoutes,
       courierRoutes,
       {

@@ -1,17 +1,15 @@
 import { io } from "socket.io-client"
+import { resolveSocketUrl } from "@/api/client"
 
-export const socket = io(
-  import.meta.env.VITE_SOCKET_URL ?? import.meta.env.VITE_API_URL,
-  {
-    autoConnect: false,
-    withCredentials: true,
-    reconnection: true,
-    reconnectionAttempts: 8,
-    reconnectionDelay: 1500,
-    reconnectionDelayMax: 10000,
-    timeout: 20000
-  }
-)
+export const socket = io(resolveSocketUrl(), {
+  autoConnect: false,
+  withCredentials: true,
+  reconnection: true,
+  reconnectionAttempts: 8,
+  reconnectionDelay: 1500,
+  reconnectionDelayMax: 10000,
+  timeout: 20000
+})
 
 export function joinOrderRoom(orderId: string) {
   socket.emit("join_order", { orderId })

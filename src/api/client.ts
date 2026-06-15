@@ -27,6 +27,23 @@ export function resolveApiBase(): string {
   return isDev ? "http://localhost:4000" : ""
 }
 
+/** Socket.IO must hit the backend directly — Vercel rewrites HTTP /api only. */
+export function resolveSocketUrl(): string {
+  const socketEnv = String(import.meta.env.VITE_SOCKET_URL ?? "").trim()
+  if (socketEnv) return socketEnv.replace(/\/$/, "")
+
+  const apiEnv = String(import.meta.env.VITE_API_URL ?? "").trim()
+  if (apiEnv) return apiEnv.replace(/\/$/, "")
+
+  const apiBase = resolveApiBase()
+  if (apiBase) return apiBase
+
+  if (typeof window !== "undefined") {
+    return window.location.hostname === "localhost" ? "http://localhost:4000" : window.location.origin
+  }
+  return "http://localhost:4000"
+}
+
 export const api = axios.create({
   baseURL: resolveApiBase(),
   withCredentials: true,

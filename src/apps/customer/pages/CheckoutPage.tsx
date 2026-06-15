@@ -126,7 +126,7 @@ export default function CheckoutPage() {
     const user = JSON.parse(localStorage.getItem("user") || "null")
     const loggedIn = !!token && !!user?.id
     if (loggedIn) return "account"
-    return savedDraft?.checkoutMode ?? "account"
+    return savedDraft?.checkoutMode ?? "guest"
   })
   const [validationModalOpen, setValidationModalOpen] = useState(false)
   const [validationIssues, setValidationIssues] = useState<CheckoutValidationIssue[]>([])
@@ -665,17 +665,17 @@ export default function CheckoutPage() {
         <div className="customer-toggle-group">
           <button
             type="button"
-            onClick={() => setCheckoutMode("account")}
-            className={`customer-toggle${checkoutMode === "account" ? " customer-toggle--active" : ""}`}
-          >
-            {t("checkout.orderWithAccount")}
-          </button>
-          <button
-            type="button"
             onClick={() => setCheckoutMode("guest")}
             className={`customer-toggle${checkoutMode === "guest" ? " customer-toggle--active" : ""}`}
           >
             {t("checkout.orderAsGuest")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setCheckoutMode("account")}
+            className={`customer-toggle${checkoutMode === "account" ? " customer-toggle--active" : ""}`}
+          >
+            {t("checkout.orderWithAccount")}
           </button>
         </div>
 
