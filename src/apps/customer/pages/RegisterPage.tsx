@@ -3,10 +3,11 @@ import { registerCustomer } from "@/api/customerAuth"
 import { useAuthStore } from "@/context/authStore"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Trans, useTranslation } from "react-i18next"
-import { SHOW_LOYALTY_CHECKOUT } from "@/lib/customerFeatures"
+import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 
 export default function RegisterPage() {
   const { t } = useTranslation()
+  const platformPromo = usePlatformPromo()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const setToken = useAuthStore((s) => s.setToken)
@@ -42,7 +43,7 @@ export default function RegisterPage() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      {SHOW_LOYALTY_CHECKOUT ? (
+      {platformPromo.showLoyaltyCheckout ? (
         <>
           <p className="customer-hint">{t("auth.loyaltyBenefits")}</p>
           <ul className="checkout-marketing__perks">

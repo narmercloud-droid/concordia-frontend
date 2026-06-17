@@ -19,6 +19,7 @@ export default function AdminNav() {
     { to: "/admin/offers", label: "Offers", show: can("offers_view") },
     { to: "/admin/customers", label: "Customers", show: can("customers_view") },
     { to: "/admin/reviews", label: "Customer feedback", show: can("reviews_view") },
+    { to: "/admin/platform-settings", label: "Platform settings", show: isSuperAdmin },
     { to: "/admin/staff", label: "Staff", show: isSuperAdmin },
     { to: "/admin/permissions", label: "Manager permissions", show: isSuperAdmin }
   ]

@@ -10,6 +10,7 @@ const DeliveryAreasPage = React.lazy(() => import("./pages/DeliveryAreasPage.js"
 const CustomersPage = React.lazy(() => import("./pages/CustomersPage.js"))
 const StaffPage = React.lazy(() => import("./pages/StaffPage.js"))
 const PermissionsPage = React.lazy(() => import("./pages/PermissionsPage.js"))
+const PlatformSettingsPage = React.lazy(() => import("./pages/PlatformSettingsPage.js"))
 const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
 const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
@@ -51,7 +52,8 @@ export const adminRoutes = {
         { path: "reviews", element: guard("reviews_view", <ReviewsPage />) },
         { path: "offers", element: guard("offers_view", <BranchOffersPage />) },
         { path: "staff", element: guardSuper(<StaffPage />) },
-        { path: "permissions", element: guardSuper(<PermissionsPage />) }
+        { path: "permissions", element: guardSuper(<PermissionsPage />) },
+        { path: "platform-settings", element: guardSuper(<PlatformSettingsPage />) }
       ]
     }
   ]

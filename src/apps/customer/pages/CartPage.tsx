@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
+import { usePlatformPromo } from "@/hooks/usePlatformPromo"
+import { useQuery } from "@tanstack/react-query"
+import { getBranches } from "@/api/customer"
 import { formatCurrency } from "@/utils/format"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CartSuggestionsModal, {
@@ -14,13 +17,22 @@ export default function CartPage() {
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
   const subtotal = useCartStore((s) => s.total())
-  const websiteDiscount = calcWebsiteDiscount(subtotal)
-  const discountedSubtotal = calcDiscountedSubtotal(subtotal)
+  const branchId = items[0]?.branchId ?? ""
+  const platformPromo = usePlatformPromo()
+  const { data: branches } = useQuery({
+    queryKey: ["branches"],
+    queryFn: getBranches,
+    enabled: !!branchId
+  })
+  const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
+  const discountPct =
+    branchPromo?.websiteDiscountEnabled !== false ? platformPromo.websiteOrderDiscountPct : 0
+  const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
+  const discountedSubtotal = calcDiscountedSubtotal(subtotal, discountPct)
   const updateQuantity = useCartStore((s) => s.updateQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
 
-  const branchId = items[0]?.branchId ?? ""
   const cartItemIds = useMemo(() => items.map((i) => i.id), [items])
   const [showSuggestions, setShowSuggestions] = useState(true)
   const [selectedItem, setSelectedItem] = useState<SuggestionItem | null>(null)

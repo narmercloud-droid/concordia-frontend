@@ -34,7 +34,7 @@ import {
   type DeliveryAddressFields
 } from "@/lib/deliveryAddress"
 import { formatCurrency } from "@/utils/format"
-import { SHOW_FREE_DRINK_CHECKOUT, SHOW_LOYALTY_CHECKOUT } from "@/lib/customerFeatures"
+import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
@@ -49,6 +49,7 @@ type CheckoutValidationIssue = {
 
 export default function CheckoutPage() {
   const { t } = useTranslation()
+  const platformPromo = usePlatformPromo()
   const navigate = useNavigate()
   const items = useCartStore((s) => s.items)
   const total = useCartStore((s) => s.total())
@@ -161,8 +162,11 @@ export default function CheckoutPage() {
     branchInfo != null && !branchInfo.comingSoon && branchInfo.isOpen === false
   const branchPromo = branchInfo?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
+  const showFreeDrinkCheckout = platformPromo.showFreeDrinkCheckout
+  const showLoyaltyCheckout = platformPromo.showLoyaltyCheckout
+  const websiteDiscountEnabled = branchPromo?.websiteDiscountEnabled !== false
   const qualifiesForFreeDrink =
-    SHOW_FREE_DRINK_CHECKOUT && freeDrinkMin > 0 && total >= freeDrinkMin
+    showFreeDrinkCheckout && freeDrinkMin > 0 && total >= freeDrinkMin
 
   const { data: slotsData, isLoading: slotsLoading } = useQuery({
     queryKey: ["timeSlots", branchId],
@@ -192,7 +196,7 @@ export default function CheckoutPage() {
   const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
     queryFn: () => getFreeDrinkOptions(branchId!),
-    enabled: SHOW_FREE_DRINK_CHECKOUT && !!branchId && qualifiesForFreeDrink,
+    enabled: showFreeDrinkCheckout && !!branchId && qualifiesForFreeDrink,
     staleTime: 5 * 60_000
   })
 
@@ -358,7 +362,8 @@ export default function CheckoutPage() {
   if (items.length === 0) return null
 
   const subtotal = total
-  const websiteDiscount = calcWebsiteDiscount(subtotal)
+  const discountPct = websiteDiscountEnabled ? platformPromo.websiteOrderDiscountPct : 0
+  const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
   const voucherDiscount = appliedVoucher?.discountAmount ?? 0
   const discountedSubtotal = Math.max(0, subtotal - websiteDiscount - voucherDiscount)
   const deliveryFee =
@@ -650,7 +655,7 @@ export default function CheckoutPage() {
             <p className="customer-hint">
               {t("checkout.welcomeBack", { name: authUser.name })}
             </p>
-            {SHOW_LOYALTY_CHECKOUT ? (
+            {showLoyaltyCheckout ? (
               <p className="customer-alert customer-alert--success">
                 {t("checkout.loyaltyBalance", {
                   points: authUser.loyaltyPoints ?? 0,
@@ -682,7 +687,7 @@ export default function CheckoutPage() {
         {checkoutMode === "account" && !isLoggedIn && (
           <div className="checkout-account__prompt">
             <p className="customer-hint">{t("checkout.accountBenefits")}</p>
-            {SHOW_LOYALTY_CHECKOUT ? (
+            {showLoyaltyCheckout ? (
               <ul className="checkout-marketing__perks">
                 <li>{t("checkout.loyaltyPerkPoints")}</li>
                 <li>{t("checkout.loyaltyPerkTier")}</li>
@@ -732,13 +737,13 @@ export default function CheckoutPage() {
           </div>
         ))}
 
-        {SHOW_FREE_DRINK_CHECKOUT && qualifiesForFreeDrink && (
+        {showFreeDrinkCheckout && qualifiesForFreeDrink && (
           <p className="customer-alert customer-alert--success" style={{ marginTop: 12 }}>
             {branchPromo?.freeDrinkMessage ??
               t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
           </p>
         )}
-        {SHOW_FREE_DRINK_CHECKOUT && needsFreeDrinkSelection && (
+        {showFreeDrinkCheckout && needsFreeDrinkSelection && (
           <div
             ref={freeDrinkSectionRef}
             className="checkout-free-drink checkout-free-drink--summary"
@@ -779,7 +784,7 @@ export default function CheckoutPage() {
             {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
           </div>
         )}
-        {SHOW_FREE_DRINK_CHECKOUT && freeDrinkMin > 0 && !qualifiesForFreeDrink && (
+        {showFreeDrinkCheckout && freeDrinkMin > 0 && !qualifiesForFreeDrink && (
           <p className="customer-hint">
             {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
           </p>
