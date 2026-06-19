@@ -50,17 +50,21 @@ export const useCartStore = create<CartState>((set, get) => ({
     const line = { ...item, cartKey };
 
     set((state) => {
-      const existing = state.items.find((i) => i.cartKey === cartKey);
+      const sameBranch =
+        state.items.length === 0 || state.items[0].branchId === item.branchId;
+      const items = sameBranch ? state.items : [];
+
+      const existing = items.find((i) => i.cartKey === cartKey);
       if (existing) {
         return {
-          items: state.items.map((i) =>
+          items: items.map((i) =>
             i.cartKey === cartKey
               ? { ...i, quantity: i.quantity + item.quantity }
               : i
           )
         };
       }
-      return { items: [...state.items, line] };
+      return { items: [...items, line] };
     });
   },
 

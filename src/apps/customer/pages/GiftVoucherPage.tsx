@@ -98,8 +98,20 @@ export default function GiftVoucherPage() {
             stripeAccountId: session.stripeAccountId,
             publishableKey: session.publishableKey
           })
+          setPurchaseId(result.purchaseId)
+          return
         }
-        setPurchaseId(result.purchaseId)
+
+        if (paymentChoice === "paypal") {
+          if (!paymentConfig?.paypalClientId) {
+            setError(t("checkout.paymentUnavailable"))
+            return
+          }
+          setPurchaseId(result.purchaseId)
+          return
+        }
+
+        setError(t("checkout.paymentUnavailable"))
         return
       }
 
@@ -342,6 +354,12 @@ export default function GiftVoucherPage() {
             }}
             onError={(message) => setError(message)}
           />
+        </div>
+      )}
+
+      {purchaseId && paymentChoice === "paypal" && !paymentConfig?.paypalClientId && (
+        <div className="customer-alert customer-alert--error" role="alert">
+          {t("checkout.paymentUnavailable")}
         </div>
       )}
 

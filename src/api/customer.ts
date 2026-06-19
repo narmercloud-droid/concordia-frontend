@@ -213,8 +213,8 @@ export const submitContactForm = (data: {
 }) =>
   api.post("/api/contact", data).then((res) => unwrap<{ sent: boolean }>(res))
 
-export const getOrderHistory = async (customerId: string) => {
-  const res = await api.get(`/customers/${customerId}/orders`)
+export const getOrderHistory = async () => {
+  const res = await api.get("/api/v1/customers/orders")
   return unwrap<any[]>(res)
 }
 

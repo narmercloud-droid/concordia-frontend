@@ -123,7 +123,7 @@ export default function CartPage() {
       {websiteDiscount > 0 && (
         <p className="customer-hint" style={{ color: "var(--c-success)" }}>
           {t("checkout.websiteDiscountApplied", {
-            percent: 10,
+            percent: discountPct,
             amount: formatCurrency(websiteDiscount)
           })}
         </p>

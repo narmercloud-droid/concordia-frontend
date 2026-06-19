@@ -19,6 +19,7 @@ import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
+import { saveCartItems } from "@/lib/cartStorage"
 import { calcWebsiteDiscount } from "@/lib/websitePromo"
 import {
   clearCheckoutDraft,
@@ -107,6 +108,7 @@ export default function CheckoutPage() {
     stripeAccountId: string
     publishableKey: string
   } | null>(null)
+  const [awaitingPaymentOrderId, setAwaitingPaymentOrderId] = useState<string | null>(null)
   const [voucherInput, setVoucherInput] = useState(() => savedDraft?.voucherInput ?? "")
   const [appliedVoucher, setAppliedVoucher] = useState<{
     code: string
@@ -205,6 +207,14 @@ export default function CheckoutPage() {
   const needsPayPalPayment = paymentChoice === "paypal" && paymentMethods.paypal
   const needsOnlinePayment = needsStripePayment || needsPayPalPayment
 
+  useEffect(() => {
+    if (paymentMethods[paymentChoice]) return
+    const fallback = (
+      ["cash", "card", "apple_pay", "google_pay", "paypal"] as PaymentChoice[]
+    ).find((method) => paymentMethods[method])
+    if (fallback) setPaymentChoice(fallback)
+  }, [paymentConfig, paymentMethods, paymentChoice])
+
   const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
     queryFn: () => getFreeDrinkOptions(branchId!),
@@ -295,8 +305,12 @@ export default function CheckoutPage() {
 
     const branchSet = new Set(items.map((item) => item.branchId))
     if (branchSet.size > 1) {
-      clearCart()
-      navigate("/customer")
+      const keepBranch = branchId ?? items[0]!.branchId
+      const filtered = items.filter((item) => item.branchId === keepBranch)
+      useCartStore.setState({ items: filtered })
+      saveCartItems(filtered)
+      setError(t("cart.branchMismatch"))
+      return
     }
   }, [items, navigate, clearCart])
 
@@ -503,6 +517,14 @@ export default function CheckoutPage() {
           focus: () => scrollToField(addressSectionRef)
         })
       } else if (
+        isDeliveryAddressComplete(addressFields) &&
+        deliveryQuote === null
+      ) {
+        addIssue("deliveryQuote", t("checkout.deliveryQuoteFailed"), {
+          setFieldError: setAddressError,
+          focus: () => scrollToField(addressSectionRef)
+        })
+      } else if (
         deliveryQuote?.minimumOrder != null &&
         total < deliveryQuote.minimumOrder
       ) {
@@ -560,10 +582,54 @@ export default function CheckoutPage() {
       }
     }
 
+    if (!paymentMethods[paymentChoice]) {
+      addIssue("payment", t("checkout.paymentMethodUnavailable"))
+    }
+
     return issues
   }
 
+  const beginOnlinePayment = async (orderId: string) => {
+    if (needsStripePayment) {
+      try {
+        const session = await createStripePaymentIntent(orderId)
+        if (!session.publishableKey) {
+          setAwaitingPaymentOrderId(orderId)
+          setError(t("checkout.paymentUnavailable"))
+          return
+        }
+        setAwaitingPaymentOrderId(orderId)
+        setPendingStripeSession({
+          orderId,
+          clientSecret: session.clientSecret,
+          stripeAccountId: session.stripeAccountId,
+          publishableKey: session.publishableKey
+        })
+      } catch (err: unknown) {
+        setAwaitingPaymentOrderId(orderId)
+        setError(getApiErrorMessage(err) ?? t("checkout.paymentFailed"))
+      }
+      return
+    }
+
+    if (needsPayPalPayment) {
+      if (!paymentConfig?.paypalClientId) {
+        setAwaitingPaymentOrderId(orderId)
+        setError(t("checkout.paymentUnavailable"))
+        return
+      }
+      setAwaitingPaymentOrderId(orderId)
+      setPendingCardOrderId(orderId)
+    }
+  }
+
   const handleSubmit = async () => {
+    if (pendingStripeSession || pendingCardOrderId) return
+
+    if (awaitingPaymentOrderId) {
+      await beginOnlinePayment(awaitingPaymentOrderId)
+      return
+    }
     if (branchesLoading) {
       openValidationModal([
         { id: "loading", message: t("common.processing") }
@@ -624,21 +690,7 @@ export default function CheckoutPage() {
       }
 
       if (needsOnlinePayment) {
-        if (needsStripePayment) {
-          const session = await createStripePaymentIntent(orderId)
-          if (!session.publishableKey) {
-            setError(t("checkout.paymentUnavailable"))
-            return
-          }
-          setPendingStripeSession({
-            orderId,
-            clientSecret: session.clientSecret,
-            stripeAccountId: session.stripeAccountId,
-            publishableKey: session.publishableKey
-          })
-          return
-        }
-        setPendingCardOrderId(orderId)
+        await beginOnlinePayment(orderId)
         return
       }
 
@@ -654,11 +706,15 @@ export default function CheckoutPage() {
   }
 
   const handleCardPaymentSuccess = () => {
-    const orderId = pendingCardOrderId ?? pendingStripeSession?.orderId ?? null
+    const orderId =
+      pendingCardOrderId ?? pendingStripeSession?.orderId ?? awaitingPaymentOrderId ?? null
     setPendingCardOrderId(null)
     setPendingStripeSession(null)
+    setAwaitingPaymentOrderId(null)
     if (orderId) goToOrderConfirmation(orderId)
   }
+
+  const paymentLocked = !!awaitingPaymentOrderId
 
   const cashPaymentLabel =
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
@@ -668,6 +724,12 @@ export default function CheckoutPage() {
       <h2 className="customer-title">{t("checkout.title")}</h2>
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
+
+      {awaitingPaymentOrderId && !pendingStripeSession && !pendingCardOrderId && (
+        <div className="customer-alert customer-alert--warn" role="status">
+          {t("checkout.paymentPendingRetry")}
+        </div>
+      )}
 
       {branchClosed && (
         <div className="customer-alert customer-alert--warn" role="status">
@@ -915,7 +977,7 @@ export default function CheckoutPage() {
             method="cash"
             label={t("checkout.payCash")}
             active={paymentChoice === "cash"}
-            enabled={paymentMethods.cash}
+            enabled={paymentMethods.cash && !paymentLocked}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => {
               setPaymentChoice("cash")
@@ -927,7 +989,7 @@ export default function CheckoutPage() {
             method="card"
             label={t("checkout.payCard")}
             active={paymentChoice === "card"}
-            enabled={paymentMethods.card}
+            enabled={paymentMethods.card && !paymentLocked}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => {
               setPaymentChoice("card")
@@ -939,7 +1001,7 @@ export default function CheckoutPage() {
             method="apple_pay"
             label={t("checkout.payApplePay")}
             active={paymentChoice === "apple_pay"}
-            enabled={paymentMethods.apple_pay}
+            enabled={paymentMethods.apple_pay && !paymentLocked}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => {
               setPaymentChoice("apple_pay")
@@ -951,7 +1013,7 @@ export default function CheckoutPage() {
             method="google_pay"
             label={t("checkout.payGooglePay")}
             active={paymentChoice === "google_pay"}
-            enabled={paymentMethods.google_pay}
+            enabled={paymentMethods.google_pay && !paymentLocked}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => {
               setPaymentChoice("google_pay")
@@ -963,7 +1025,7 @@ export default function CheckoutPage() {
             method="paypal"
             label={t("checkout.payPayPal")}
             active={paymentChoice === "paypal"}
-            enabled={paymentMethods.paypal}
+            enabled={paymentMethods.paypal && !paymentLocked}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => {
               setPaymentChoice("paypal")
@@ -1232,9 +1294,11 @@ export default function CheckoutPage() {
         >
           {createMutation.isPending || branchesLoading
             ? t("common.processing")
-            : needsOnlinePayment
-              ? t("checkout.continueToPayment")
-              : t("checkout.placeOrder")}
+            : awaitingPaymentOrderId && !pendingStripeSession && !pendingCardOrderId
+              ? t("checkout.retryPayment")
+              : needsOnlinePayment
+                ? t("checkout.continueToPayment")
+                : t("checkout.placeOrder")}
         </button>
         </>
       )}
@@ -1261,6 +1325,12 @@ export default function CheckoutPage() {
             onSuccess={handleCardPaymentSuccess}
             onError={(message) => setError(message)}
           />
+        </div>
+      )}
+
+      {pendingCardOrderId && needsPayPalPayment && !paymentConfig?.paypalClientId && (
+        <div className="customer-alert customer-alert--error" role="alert">
+          {t("checkout.paymentUnavailable")}
         </div>
       )}
 

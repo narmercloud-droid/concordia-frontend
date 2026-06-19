@@ -159,7 +159,8 @@
     "suggestionsSides": "Salate & Beilagen",
     "suggestionsAdd": "Hinzufügen",
     "suggestionsContinue": "Weiter",
-    "suggestionsContinueCart": "Weiter im Warenkorb"
+    "suggestionsContinueCart": "Weiter im Warenkorb",
+    "branchMismatch": "Ihr Warenkorb enthielt Artikel von mehr als einer Filiale. Es wurden nur die Artikel für diese Bestellung behalten."
   },
   "checkout": {
     "title": "Kasse",
@@ -288,7 +289,11 @@
     "savedAddresses": "Gespeicherte Adressen",
     "validationTitle": "Bitte Angaben prüfen",
     "validationLead": "Bevor wir Ihre Bestellung aufgeben können, fehlen noch folgende Angaben:",
-    "validationFix": "Angaben ergänzen"
+    "validationFix": "Angaben ergänzen",
+    "paymentMethodUnavailable": "Diese Zahlungsart ist nicht verfügbar. Bitte wählen Sie eine andere Option.",
+    "deliveryQuoteFailed": "Die Lieferung zu Ihrer Adresse konnte nicht geprüft werden. Bitte überprüfen Sie Ihre Angaben.",
+    "paymentPendingRetry": "Ihre Bestellung wurde erstellt, die Zahlung steht noch aus. Bitte schließen Sie die Zahlung unten ab.",
+    "retryPayment": "Zahlung erneut versuchen"
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",
@@ -391,7 +396,8 @@
     "stepOnTheWay": "Unterwegs",
     "stepDelivered": "Geliefert",
     "stepReady": "Abholbereit",
-    "stepDone": "Abgeholt"
+    "stepDone": "Abgeholt",
+    "notFound": "Diese Bestellung wurde nicht gefunden. Bitte prüfen Sie den Link oder kontaktieren Sie das Restaurant."
   },
   "orderReview": {
     "title": "Wie war Ihre Bestellung?",

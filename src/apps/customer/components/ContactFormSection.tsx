@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { submitContactForm } from "@/api/customer"
+import { getApiErrorMessage } from "@/lib/apiErrors"
 
 type BranchOption = {
   id: string
@@ -162,9 +163,7 @@ export default function ContactFormSection({ branches }: Props) {
 
         {mutation.isError && (
           <p className="info-contact-form__error info-contact-form__field--full">
-            {(mutation.error as any)?.response?.data?.message ??
-              (mutation.error as any)?.response?.data?.error ??
-              t("pages.contact.form.error")}
+            {getApiErrorMessage(mutation.error) ?? t("pages.contact.form.error")}
           </p>
         )}
 

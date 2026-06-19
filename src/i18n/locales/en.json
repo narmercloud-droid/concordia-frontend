@@ -159,7 +159,8 @@
     "suggestionsSides": "Salads & sides",
     "suggestionsAdd": "Add",
     "suggestionsContinue": "Continue",
-    "suggestionsContinueCart": "Back to cart"
+    "suggestionsContinueCart": "Back to cart",
+    "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order."
   },
   "checkout": {
     "title": "Checkout",
@@ -288,7 +289,11 @@
     "savedAddresses": "Saved addresses",
     "validationTitle": "Please check your details",
     "validationLead": "We need a few details before we can place your order:",
-    "validationFix": "Review fields"
+    "validationFix": "Review fields",
+    "paymentMethodUnavailable": "This payment method is not available. Please choose another option.",
+    "deliveryQuoteFailed": "We could not verify delivery to your address. Please check your details and try again.",
+    "paymentPendingRetry": "Your order was created but payment is still pending. Please complete payment below.",
+    "retryPayment": "Retry payment"
   },
   "giftVoucher": {
     "title": "Gift voucher",
@@ -365,7 +370,8 @@
     "stepOnTheWay": "On the way",
     "stepDelivered": "Delivered",
     "stepReady": "Ready for pickup",
-    "stepDone": "Picked up"
+    "stepDone": "Picked up",
+    "notFound": "We could not find this order. Please check the link or contact the restaurant."
   },
   "orderReview": {
     "title": "How was your order?",

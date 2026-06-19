@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getOrderStatus } from "@/api/customer"
+import { getApiErrorMessage } from "@/lib/apiErrors"
 import { socket } from "@/lib/socket"
 import { formatCurrency, formatDateTime, formatTime } from "@/utils/format"
 import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
@@ -21,12 +22,13 @@ export default function OrderTrackingPage() {
   const [courierLocation, setCourierLocation] = useState<CourierLocation | null>(null)
   const justPlaced = Boolean((location.state as { justPlaced?: boolean } | null)?.justPlaced)
 
-  const { data } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["orderStatus", orderId],
     queryFn: () => getOrderStatus(orderId!),
     enabled: !!orderId,
     staleTime: 15_000,
-    refetchInterval: tabVisible ? 30_000 : false
+    refetchInterval: tabVisible ? 30_000 : false,
+    retry: 1
   })
 
   const order = data
@@ -77,7 +79,26 @@ export default function OrderTrackingPage() {
     }
   }, [order?.trackingToken, orderId, queryClient])
 
-  if (!order) return <p className="customer-loading">{t("order.loading")}</p>
+  if (isLoading) return <p className="customer-loading">{t("order.loading")}</p>
+
+  if (isError || !order) {
+    return (
+      <div className="customer-page">
+        <h2 className="customer-title">{t("order.tracking")}</h2>
+        <div className="customer-alert customer-alert--error">
+          {getApiErrorMessage(error) ?? t("order.notFound")}
+        </div>
+        <div className="customer-btn-row">
+          <button type="button" className="customer-btn" onClick={() => void refetch()}>
+            {t("common.retry")}
+          </button>
+          <Link to="/customer" className="customer-btn customer-btn--primary">
+            {t("pages.nav.home")}
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   const mapLat = courierLocation?.lat ?? order.deliveryLat
   const mapLng = courierLocation?.lng ?? order.deliveryLng

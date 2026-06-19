@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { getApiErrorMessage } from "@/lib/apiErrors"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { submitOrderReview, type OrderReview } from "@/api/reviews"
@@ -76,8 +77,8 @@ export default function OrderReviewForm({
       queryClient.invalidateQueries({ queryKey: ["my-orders"] })
       onSubmitted?.()
     },
-    onError: (err: any) => {
-      setError(err?.response?.data?.message ?? err?.response?.data?.error ?? t("orderReview.submitError"))
+    onError: (err: unknown) => {
+      setError(getApiErrorMessage(err) ?? t("orderReview.submitError"))
     }
   })
 
