@@ -14,6 +14,7 @@ import ExtraPresetsPanel from "@/apps/admin/components/ExtraPresetsPanel"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import { dishImageForItem } from "@/lib/foodImagery"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 export default function MenuPage() {
   const { branchId } = useAdminBranch()
@@ -39,7 +40,10 @@ export default function MenuPage() {
     queryFn: () => getManagerMenu(branchId)
   })
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["managerMenu", branchId] })
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: ["managerMenu", branchId] })
+    invalidateCustomerWebsiteCaches(queryClient, branchId)
+  }
 
   const updateMutation = useMutation({
     mutationFn: ({

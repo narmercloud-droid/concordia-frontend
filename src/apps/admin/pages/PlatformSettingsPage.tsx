@@ -13,6 +13,8 @@ import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { PERMISSION_DEPENDENCIES } from "@/hooks/useAdminPermissions"
 import BranchHoursEditor from "../components/BranchHoursEditor"
 import BranchDeliveryEditor from "../components/BranchDeliveryEditor"
+import BranchPaymentAdminSection from "../components/BranchPaymentAdminSection"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 const TABS = [
   { id: "website", label: "Website & checkout" },
@@ -143,7 +145,7 @@ export default function PlatformSettingsPage() {
       queryClient.invalidateQueries({ queryKey: ["platformSettings"] })
       queryClient.invalidateQueries({ queryKey: ["superAdminPermissions"] })
       queryClient.invalidateQueries({ queryKey: ["managerSession"] })
-      queryClient.invalidateQueries({ queryKey: ["platformPromo"] })
+      invalidateCustomerWebsiteCaches(queryClient)
     }
   })
 
@@ -152,7 +154,7 @@ export default function PlatformSettingsPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["superAdminBranchSettings", branchId] })
       queryClient.invalidateQueries({ queryKey: ["managerBranch", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["branches"] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
     }
   })
 
@@ -729,6 +731,8 @@ export default function PlatformSettingsPage() {
                 />
                 Free drink promotion enabled for this branch
               </label>
+
+              {branchId ? <BranchPaymentAdminSection branchId={branchId} /> : null}
 
               <h4 style={{ marginTop: 24 }}>Kitchen & printing</h4>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>

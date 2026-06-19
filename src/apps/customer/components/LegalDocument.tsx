@@ -46,10 +46,16 @@ function renderSection(section: LegalSection, index: number) {
   )
 }
 
+type LegalContent = {
+  intro?: string
+  updated?: string
+  sections: LegalSection[]
+}
+
 export default function LegalDocument({ doc }: { doc: LegalDocKey }) {
   const { i18n, t } = useTranslation()
   const isGerman = i18n.language.split("-")[0] === "de"
-  const content = legalDe[doc]
+  const content = legalDe[doc] as LegalContent
 
   return (
     <>

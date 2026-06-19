@@ -152,6 +152,14 @@ export type BranchSettingsDetail = {
     printCopies: number
     routingMode: string
   }
+  payment?: {
+    stripeConfigured: boolean
+    stripeAccountId: string | null
+    stripeReady: boolean
+    cardEnabled: boolean
+    applePayEnabled: boolean
+    googlePayEnabled: boolean
+  }
 }
 
 export const getSuperAdminBranchSettings = async (branchId: string) => {

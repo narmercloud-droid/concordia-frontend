@@ -4,7 +4,28 @@ function unwrap<T>(res: { data?: { data?: T } }): T {
   return (res.data?.data ?? res.data) as T
 }
 
-export const getManagerBranch = async (branchId?: string) => {
+export type ManagerBranch = {
+  id?: string
+  name?: string
+  status?: string
+  terminalCode?: string
+}
+
+export type ManagerMenuItemDetail = {
+  name?: string
+  description?: string | null
+  price?: number
+  kitchen?: string
+  categoryId?: number
+  sortOrder?: number
+  isAvailable?: boolean
+  imageUrl?: string | null
+  variantGroups?: Array<Record<string, unknown>>
+  presetAddOnGroups?: Array<Record<string, unknown>>
+  addOnGroups?: Array<Record<string, unknown>>
+}
+
+export const getManagerBranch = async (branchId?: string): Promise<ManagerBranch> => {
   const res = await api.get("/api/v1/manager/branch", {
     params: branchId ? { branchId } : {}
   })
@@ -73,11 +94,14 @@ export const updateManagerVariantGroup = (
 
 const withBranch = (branchId?: string) => (branchId ? { branchId } : {})
 
-export const getManagerMenuItemDetail = async (menuItemId: number, branchId?: string) => {
+export const getManagerMenuItemDetail = async (
+  menuItemId: number,
+  branchId?: string
+): Promise<ManagerMenuItemDetail> => {
   const res = await api.get(`/api/v1/manager/menu/items/${menuItemId}/detail`, {
     params: withBranch(branchId)
   })
-  return unwrap(res)
+  return unwrap<ManagerMenuItemDetail>(res)
 }
 
 export const createManagerCategory = (
@@ -134,7 +158,7 @@ export const uploadManagerMenuItemImage = async (
   const res = await api.post(`/api/v1/manager/menu/items/${branchMenuItemId}/image`, fd, {
     headers: { "Content-Type": "multipart/form-data" }
   })
-  return unwrap(res)
+  return unwrap<{ imageUrl?: string | null }>(res)
 }
 
 export const clearManagerMenuItemImage = async (branchMenuItemId: number, branchId?: string) => {

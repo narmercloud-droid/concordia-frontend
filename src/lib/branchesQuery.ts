@@ -15,9 +15,10 @@ export const branchesQueryOptions = {
   },
   retry: 3,
   retryDelay: (attempt: number) => Math.min(1500 * 2 ** attempt, 12_000),
-  staleTime: 600_000,
+  staleTime: 0,
   gcTime: 7 * 24 * 60 * 60_000,
-  refetchOnWindowFocus: false,
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
   initialData: () => readBranchListCache() ?? undefined,
   initialDataUpdatedAt: () => readBranchListCacheUpdatedAt() ?? 0
 }

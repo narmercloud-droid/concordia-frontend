@@ -4,7 +4,14 @@ const STORAGE_KEY = "concordia_checkout_draft"
 
 export type CheckoutDraftFulfillment = "pickup" | "delivery"
 export type CheckoutDraftTiming = "asap" | "scheduled"
-export type CheckoutDraftPayment = "cash" | "card" | "paypal" | "klarna" | "sepa"
+export type CheckoutDraftPayment =
+  | "cash"
+  | "card"
+  | "apple_pay"
+  | "google_pay"
+  | "paypal"
+  | "klarna"
+  | "sepa"
 export type CheckoutDraftMode = "guest" | "account"
 
 export type CheckoutDraftVoucher = {

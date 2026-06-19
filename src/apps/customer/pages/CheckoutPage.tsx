@@ -12,8 +12,9 @@ import {
   validatePromoCode
 } from "@/api/customer"
 import { listAddresses, type SavedAddress } from "@/api/addresses"
-import { getPaymentConfig } from "@/api/payments"
+import { createStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
+import StripeCheckout from "@/apps/customer/components/StripeCheckout"
 import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
@@ -38,7 +39,7 @@ import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
-type PaymentChoice = "cash" | "card" | "paypal" | "klarna" | "sepa"
+type PaymentChoice = "cash" | "card" | "apple_pay" | "google_pay" | "paypal" | "klarna" | "sepa"
 type CheckoutMode = "guest" | "account"
 
 type CheckoutValidationIssue = {
@@ -100,6 +101,12 @@ export default function CheckoutPage() {
     () => savedDraft?.paymentChoice ?? "cash"
   )
   const [pendingCardOrderId, setPendingCardOrderId] = useState<string | null>(null)
+  const [pendingStripeSession, setPendingStripeSession] = useState<{
+    orderId: string
+    clientSecret: string
+    stripeAccountId: string
+    publishableKey: string
+  } | null>(null)
   const [voucherInput, setVoucherInput] = useState(() => savedDraft?.voucherInput ?? "")
   const [appliedVoucher, setAppliedVoucher] = useState<{
     code: string
@@ -177,21 +184,26 @@ export default function CheckoutPage() {
   const timeSlots: Array<{ label: string; value: string }> = slotsData?.slots ?? []
 
   const { data: paymentConfig } = useQuery({
-    queryKey: ["paymentConfig"],
-    queryFn: getPaymentConfig,
+    queryKey: ["paymentConfig", branchId],
+    queryFn: () => getPaymentConfig(branchId!),
+    enabled: !!branchId,
     staleTime: 5 * 60_000
   })
 
   const paymentMethods = paymentConfig?.methods ?? {
     cash: true,
     card: false,
+    apple_pay: false,
+    google_pay: false,
     paypal: false,
     klarna: false,
     sepa: false
   }
-  const onlinePaymentChoice =
-    paymentChoice === "card" || paymentChoice === "paypal"
-  const needsOnlinePayment = onlinePaymentChoice && paymentMethods[paymentChoice]
+  const stripePaymentChoices = new Set<PaymentChoice>(["card", "apple_pay", "google_pay"])
+  const needsStripePayment =
+    stripePaymentChoices.has(paymentChoice) && paymentMethods[paymentChoice]
+  const needsPayPalPayment = paymentChoice === "paypal" && paymentMethods.paypal
+  const needsOnlinePayment = needsStripePayment || needsPayPalPayment
 
   const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
@@ -612,6 +624,20 @@ export default function CheckoutPage() {
       }
 
       if (needsOnlinePayment) {
+        if (needsStripePayment) {
+          const session = await createStripePaymentIntent(orderId)
+          if (!session.publishableKey) {
+            setError(t("checkout.paymentUnavailable"))
+            return
+          }
+          setPendingStripeSession({
+            orderId,
+            clientSecret: session.clientSecret,
+            stripeAccountId: session.stripeAccountId,
+            publishableKey: session.publishableKey
+          })
+          return
+        }
         setPendingCardOrderId(orderId)
         return
       }
@@ -628,8 +654,9 @@ export default function CheckoutPage() {
   }
 
   const handleCardPaymentSuccess = () => {
-    const orderId = pendingCardOrderId
+    const orderId = pendingCardOrderId ?? pendingStripeSession?.orderId ?? null
     setPendingCardOrderId(null)
+    setPendingStripeSession(null)
     if (orderId) goToOrderConfirmation(orderId)
   }
 
@@ -893,6 +920,7 @@ export default function CheckoutPage() {
             onSelect={() => {
               setPaymentChoice("cash")
               setPendingCardOrderId(null)
+              setPendingStripeSession(null)
             }}
           />
           <PaymentMethodOption
@@ -904,6 +932,31 @@ export default function CheckoutPage() {
             onSelect={() => {
               setPaymentChoice("card")
               setPendingCardOrderId(null)
+              setPendingStripeSession(null)
+            }}
+          />
+          <PaymentMethodOption
+            method="apple_pay"
+            label={t("checkout.payApplePay")}
+            active={paymentChoice === "apple_pay"}
+            enabled={paymentMethods.apple_pay}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => {
+              setPaymentChoice("apple_pay")
+              setPendingCardOrderId(null)
+              setPendingStripeSession(null)
+            }}
+          />
+          <PaymentMethodOption
+            method="google_pay"
+            label={t("checkout.payGooglePay")}
+            active={paymentChoice === "google_pay"}
+            enabled={paymentMethods.google_pay}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => {
+              setPaymentChoice("google_pay")
+              setPendingCardOrderId(null)
+              setPendingStripeSession(null)
             }}
           />
           <PaymentMethodOption
@@ -915,6 +968,7 @@ export default function CheckoutPage() {
             onSelect={() => {
               setPaymentChoice("paypal")
               setPendingCardOrderId(null)
+              setPendingStripeSession(null)
             }}
           />
           <PaymentMethodOption
@@ -1160,7 +1214,7 @@ export default function CheckoutPage() {
         <p className="customer-hint checkout-marketing__legal">{t("checkout.marketingLegal")}</p>
       </div>
 
-      {!pendingCardOrderId && (
+      {!pendingCardOrderId && !pendingStripeSession && (
         <>
         <p className="customer-hint checkout-terms-notice">
           <Trans
@@ -1185,14 +1239,25 @@ export default function CheckoutPage() {
         </>
       )}
 
-      {pendingCardOrderId && paymentConfig?.paypalClientId && needsOnlinePayment && (
+      {pendingStripeSession && needsStripePayment && (
+        <StripeCheckout
+          orderId={pendingStripeSession.orderId}
+          publishableKey={pendingStripeSession.publishableKey}
+          stripeAccountId={pendingStripeSession.stripeAccountId}
+          clientSecret={pendingStripeSession.clientSecret}
+          onSuccess={handleCardPaymentSuccess}
+          onError={(message) => setError(message)}
+        />
+      )}
+
+      {pendingCardOrderId && paymentConfig?.paypalClientId && needsPayPalPayment && (
         <div className="customer-card" style={{ marginTop: 16 }}>
           <h3 className="customer-subtitle">{t("checkout.onlinePaymentTitle")}</h3>
           <PayPalCheckout
             orderId={pendingCardOrderId}
             paypalClientId={paymentConfig.paypalClientId}
             currency={paymentConfig.currency}
-            fundingSource={paymentChoice === "card" ? "card" : "paypal"}
+            fundingSource="paypal"
             onSuccess={handleCardPaymentSuccess}
             onError={(message) => setError(message)}
           />
@@ -1253,6 +1318,8 @@ function paymentSummaryLabel(
   const keys: Record<PaymentChoice, string> = {
     cash: "checkout.payment",
     card: "checkout.paymentCard",
+    apple_pay: "checkout.paymentApplePay",
+    google_pay: "checkout.paymentGooglePay",
     paypal: "checkout.paymentPaypal",
     klarna: "checkout.paymentKlarna",
     sepa: "checkout.paymentSepa"

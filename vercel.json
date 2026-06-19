@@ -28,6 +28,13 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
+    },
+    {
+      "source": "/.well-known/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "application/octet-stream" }
+      ]
     }
   ],
   "rewrites": [
@@ -39,6 +46,6 @@
       "source": "/api/(.*)",
       "destination": "https://concordia-backend-web.onrender.com/api/$1"
     },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|\\.well-known/).*)", "destination": "/index.html" }
   ]
 }

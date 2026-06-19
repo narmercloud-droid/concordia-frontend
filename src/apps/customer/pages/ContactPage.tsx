@@ -1,9 +1,8 @@
 import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranches } from "@/api/customer"
 import { branchesQueryOptions } from "@/lib/branchesQuery"
-import { BRANCH_CONTACT } from "@/lib/branchContact"
+import { BRANCH_CONTACT, GENERAL_CONTACT_EMAIL } from "@/lib/branchContact"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import ContactFormSection from "@/apps/customer/components/ContactFormSection"
 
@@ -30,9 +29,8 @@ function formatAddress(branch: Branch) {
 export default function ContactPage() {
   const { t } = useTranslation()
   const { data, isLoading } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
-    ...branchesQueryOptions
+    ...branchesQueryOptions,
+    queryKey: ["branches"]
   })
 
   const branches = (data ?? []) as Branch[]
@@ -98,7 +96,15 @@ export default function ContactPage() {
         })
       )}
 
-      <div className="info-block">
+      <div className="info-block info-contact-card">
+        <h3>{t("pages.contact.generalTitle")}</h3>
+        <p>{t("pages.contact.generalLead")}</p>
+        <dl className="info-contact-card__details">
+          <dt>{t("pages.contact.email")}</dt>
+          <dd>
+            <a href={`mailto:${GENERAL_CONTACT_EMAIL}`}>{GENERAL_CONTACT_EMAIL}</a>
+          </dd>
+        </dl>
         <p>{t("pages.contact.emailHint")}</p>
       </div>
     </InfoPageShell>

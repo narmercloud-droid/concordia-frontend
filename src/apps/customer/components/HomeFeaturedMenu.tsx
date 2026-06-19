@@ -25,10 +25,11 @@ export default function HomeFeaturedMenu({ branchId }: Props) {
   const { t, i18n } = useTranslation()
   const activeBranch = branchId ?? KEMPEN_BRANCH_ID
 
+  const menuOpts = menuQueryOptionsFor(activeBranch, i18n.language)
   const { data } = useQuery({
+    ...menuOpts,
     queryKey: ["branchMenu", activeBranch, i18n.language],
-    queryFn: () => getBranchMenu(activeBranch),
-    ...menuQueryOptionsFor(activeBranch, i18n.language)
+    queryFn: () => getBranchMenu(activeBranch)
   })
 
   const menuReady = !!data?.categories?.length

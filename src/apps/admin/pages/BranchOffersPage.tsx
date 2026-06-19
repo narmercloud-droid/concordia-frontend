@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getManagerPromotions, updateManagerPromotions } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 export default function BranchOffersPage() {
   const { branchId } = useAdminBranch()
@@ -34,8 +35,10 @@ export default function BranchOffersPage() {
         { freeDrinkMinOrder, freeDrinkMessage, websiteDiscountEnabled },
         branchId
       ),
-    onSuccess: () =>
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["managerPromotions", branchId] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
+    }
   })
 
   if (isLoading) return <p>Loading offers…</p>

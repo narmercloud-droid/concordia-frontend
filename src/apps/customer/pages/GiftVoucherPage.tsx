@@ -4,14 +4,15 @@ import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import { purchaseGiftCard } from "@/api/giftCards"
-import { getPaymentConfig } from "@/api/payments"
+import { createGiftCardStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
+import StripeCheckout from "@/apps/customer/components/StripeCheckout"
 import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
 import { formatCurrency } from "@/utils/format"
 
 const PRESET_AMOUNTS = [10, 20, 30, 50]
 
-type PaymentChoice = "paypal" | "card" | "cash"
+type PaymentChoice = "paypal" | "card" | "apple_pay" | "google_pay" | "cash"
 
 export default function GiftVoucherPage() {
   const { t } = useTranslation()
@@ -27,6 +28,12 @@ export default function GiftVoucherPage() {
   const [paymentChoice, setPaymentChoice] = useState<PaymentChoice>("paypal")
   const [error, setError] = useState("")
   const [purchaseId, setPurchaseId] = useState<string | null>(null)
+  const [stripeSession, setStripeSession] = useState<{
+    purchaseId: string
+    clientSecret: string
+    stripeAccountId: string
+    publishableKey: string
+  } | null>(null)
   const [issuedCode, setIssuedCode] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -36,8 +43,9 @@ export default function GiftVoucherPage() {
   })
 
   const { data: paymentConfig } = useQuery({
-    queryKey: ["paymentConfig"],
-    queryFn: getPaymentConfig
+    queryKey: ["paymentConfig", branchId],
+    queryFn: () => getPaymentConfig(branchId),
+    enabled: !!branchId
   })
 
   const selectedBranch = branches?.find((b: { id: string }) => b.id === branchId)
@@ -74,6 +82,23 @@ export default function GiftVoucherPage() {
       })
 
       if (result.paymentRequired) {
+        if (
+          paymentChoice === "card" ||
+          paymentChoice === "apple_pay" ||
+          paymentChoice === "google_pay"
+        ) {
+          const session = await createGiftCardStripePaymentIntent(result.purchaseId)
+          if (!session.publishableKey) {
+            setError(t("checkout.paymentUnavailable"))
+            return
+          }
+          setStripeSession({
+            purchaseId: result.purchaseId,
+            clientSecret: session.clientSecret,
+            stripeAccountId: session.stripeAccountId,
+            publishableKey: session.publishableKey
+          })
+        }
         setPurchaseId(result.purchaseId)
         return
       }
@@ -246,9 +271,25 @@ export default function GiftVoucherPage() {
             method="card"
             label={t("checkout.payCard")}
             active={paymentChoice === "card"}
-            enabled={methods?.card ?? onlineEnabled}
+            enabled={methods?.card ?? false}
             comingSoon={t("checkout.comingSoon")}
             onSelect={() => setPaymentChoice("card")}
+          />
+          <PaymentMethodOption
+            method="apple_pay"
+            label={t("checkout.payApplePay")}
+            active={paymentChoice === "apple_pay"}
+            enabled={methods?.apple_pay ?? false}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("apple_pay")}
+          />
+          <PaymentMethodOption
+            method="google_pay"
+            label={t("checkout.payGooglePay")}
+            active={paymentChoice === "google_pay"}
+            enabled={methods?.google_pay ?? false}
+            comingSoon={t("checkout.comingSoon")}
+            onSelect={() => setPaymentChoice("google_pay")}
           />
           <PaymentMethodOption
             method="cash"
@@ -275,13 +316,26 @@ export default function GiftVoucherPage() {
         </button>
       )}
 
-      {purchaseId && paymentConfig?.paypalClientId && paymentChoice !== "cash" && (
+      {stripeSession && paymentChoice !== "cash" && paymentChoice !== "paypal" && (
+        <StripeCheckout
+          giftPurchaseId={stripeSession.purchaseId}
+          publishableKey={stripeSession.publishableKey}
+          stripeAccountId={stripeSession.stripeAccountId}
+          clientSecret={stripeSession.clientSecret}
+          onSuccess={(result) => {
+            if (result?.code) setIssuedCode(result.code)
+          }}
+          onError={(message) => setError(message)}
+        />
+      )}
+
+      {purchaseId && paymentConfig?.paypalClientId && paymentChoice === "paypal" && (
         <div className="customer-card" style={{ marginTop: 16 }}>
           <h3 className="customer-subtitle">{t("giftVoucher.payOnline")}</h3>
           <PayPalCheckout
             paypalClientId={paymentConfig.paypalClientId}
             currency={paymentConfig.currency}
-            fundingSource={paymentChoice === "card" ? "card" : "paypal"}
+            fundingSource="paypal"
             giftPurchaseId={purchaseId}
             onSuccess={(result) => {
               if (result?.code) setIssuedCode(result.code)

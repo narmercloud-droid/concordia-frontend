@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getManagerHours, updateManagerHours } from "@/api/manager"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 import Button from "@/components/ui/Button"
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -24,7 +25,7 @@ export default function BranchHoursEditor({
 
   const { data, isLoading } = useQuery({
     queryKey: ["managerHours", branchId],
-    queryFn: () => getManagerHours(branchId),
+    queryFn: () => getManagerHours(branchId ?? undefined),
     enabled: !!branchId
   })
 
@@ -50,10 +51,10 @@ export default function BranchHoursEditor({
   }, [data, branchId])
 
   const saveMutation = useMutation({
-    mutationFn: () => updateManagerHours(rows, branchId),
+    mutationFn: () => updateManagerHours(rows, branchId ?? undefined),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["managerHours", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["branches"] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
     }

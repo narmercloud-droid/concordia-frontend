@@ -10,6 +10,7 @@ import {
   updateManagerExtraPreset,
   updateManagerPresetOption
 } from "@/api/manager"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 type Category = { id: number; name: string }
 
@@ -32,6 +33,7 @@ export default function ExtraPresetsPanel({ branchId, categories, canEdit }: Pro
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["managerExtraPresets", branchId] })
     queryClient.invalidateQueries({ queryKey: ["managerMenu", branchId] })
+    invalidateCustomerWebsiteCaches(queryClient, branchId)
   }
 
   const importMutation = useMutation({

@@ -1,6 +1,13 @@
 import React from "react"
 
-export type PaymentMethodId = "cash" | "card" | "paypal" | "klarna" | "sepa"
+export type PaymentMethodId =
+  | "cash"
+  | "card"
+  | "apple_pay"
+  | "google_pay"
+  | "paypal"
+  | "klarna"
+  | "sepa"
 
 type Props = {
   method: PaymentMethodId
@@ -59,6 +66,24 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
           <rect x="6" y="25" width="8" height="2" rx="1" fill="#fff" opacity="0.6" />
           <circle cx="38" cy="22" r="5" fill="#eb001b" />
           <circle cx="42" cy="22" r="5" fill="#f79e1b" opacity="0.9" />
+        </svg>
+      )
+    case "apple_pay":
+      return (
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
+          <rect x="1" y="4" width="46" height="24" rx="4" fill="#111" />
+          <text x="24" y="20" textAnchor="middle" fontSize="8" fontWeight="700" fill="#fff">
+            Apple Pay
+          </text>
+        </svg>
+      )
+    case "google_pay":
+      return (
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
+          <rect x="1" y="4" width="46" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
+          <text x="24" y="20" textAnchor="middle" fontSize="8" fontWeight="700" fill="#4285f4">
+            Google Pay
+          </text>
         </svg>
       )
     case "paypal":

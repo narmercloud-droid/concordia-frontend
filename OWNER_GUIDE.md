@@ -17,6 +17,81 @@ You are the restaurant owner. Your lead developer handles all technical work.
 | [Your role](#your-role) | What you do vs what the developer does |
 | [Live URLs](#live-urls-june-2026) | Production links |
 | [Security](#security) | Passwords and credentials |
+| [Online payments (Stripe)](#online-payments-stripe) | Card, Apple Pay, Google Pay per branch |
+
+---
+
+## Online payments (Stripe)
+
+Each branch (Kempen, Straelen) has **its own Stripe account**. Money from online orders goes to that branch’s bank — not mixed together.
+
+### What customers see
+
+| Method | When available |
+|--------|----------------|
+| Cash on pickup/delivery | Always |
+| Card | After branch Stripe is connected |
+| Apple Pay | iPhone/Safari, after domain verified |
+| Google Pay | Chrome/Android, after branch connected |
+| PayPal | If still configured globally (optional) |
+
+### One-time setup (developer / owner with Stripe login)
+
+#### 1. Stripe Dashboard → [API keys](https://dashboard.stripe.com/apikeys)
+
+Copy **Publishable key** (`pk_live_…`) and **Secret key** (`sk_live_…`).
+
+#### 2. Render → `concordia-backend-web` → **Environment**
+
+| Variable | Value |
+|----------|--------|
+| `STRIPE_SECRET_KEY` | `sk_live_…` |
+| `STRIPE_PUBLISHABLE_KEY` | `pk_live_…` |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_…` (step 3) |
+| `FRONTEND_URL` | `https://www.concordiapizza.de` |
+
+Save → service redeploys.
+
+#### 3. Stripe Dashboard → [Webhooks](https://dashboard.stripe.com/webhooks) → **Add endpoint**
+
+| Field | Value |
+|-------|--------|
+| URL | `https://concordia-backend-web.onrender.com/api/stripe/webhook` |
+| Events | `payment_intent.succeeded`, `account.updated` |
+| Connected accounts | **Enabled** (“Listen to events on Connected accounts”) |
+
+Copy **Signing secret** → `STRIPE_WEBHOOK_SECRET` on Render.
+
+#### 4. Apple Pay domain file (already in the website repo)
+
+File path on the live site:
+
+`https://www.concordiapizza.de/.well-known/apple-developer-merchantid-domain-association`
+
+After the next frontend deploy, Stripe can verify the domain. In Stripe → **Settings → Payment method domains**, add `www.concordiapizza.de` and click **Verify**.
+
+#### 5. Connect each branch in admin
+
+1. Open **https://www.concordiapizza.de/admin/platform-settings**
+2. Log in as super admin (`owner@concordia.de`)
+3. Select **Kempen** in the branch switcher → **Branch settings** tab
+4. Click **Connect Stripe for this branch** → complete Stripe Express (business + bank for Kempen)
+5. Repeat for **Straelen** when that branch goes live
+
+### Helper script (on your PC, in `Concordia-Backend`)
+
+```bash
+node scripts/setup-stripe-payments.mjs
+node scripts/setup-stripe-payments.mjs --validate-domains   # after frontend deploy
+```
+
+Uses `STRIPE_SECRET_KEY` from `.env` to register payment domains and prints the checklist above.
+
+### Test before going live
+
+1. Use Stripe **test keys** (`sk_test_…` / `pk_test_…`) on a staging backend first, or
+2. Place a small real order at Kempen with card after Connect is complete
+3. Confirm order shows **paid** in admin and kitchen receives it
 
 ---
 
@@ -24,7 +99,7 @@ You are the restaurant owner. Your lead developer handles all technical work.
 
 ### Customer website
 
-- Order online at **Kempen**: pickup or delivery (cash; card/PayPal when configured)
+- Order online at **Kempen**: pickup or delivery (cash; **card / Apple Pay / Google Pay** per branch when Stripe is connected)
 - **10% off** automatic discount on website orders
 - **Free drink** on orders from €35
 - **Guest or account checkout** — no sign-in required; accounts earn loyalty points
@@ -216,7 +291,7 @@ You do not need complex analytics yet. Once a week, note:
 
 #### Month 2 — Conversion & retention
 
-- [ ] Card/PayPal if not live yet
+- [ ] **Stripe Connect** for Kempen (card / Apple Pay / Google Pay) — see [Online payments](#online-payments-stripe)
 - [ ] Promote gift vouchers locally
 - [ ] Turn on loyalty for registered customers
 - [ ] Post-order message: rate your order / leave Google review
@@ -265,10 +340,11 @@ You already have more technology than most independent restaurants. The gap is *
 
 | What | URL |
 |------|-----|
-| **Customer website** | https://concordia-restaurant-de.vercel.app |
-| **Kempen menu** | https://concordia-restaurant-de.vercel.app/branch/concordia-kempen |
-| **Straelen menu** | https://concordia-restaurant-de.vercel.app/branch/concordia-straelen |
-| **Admin panel** | https://concordia-restaurant-de.vercel.app/admin/login |
+| **Customer website** | https://www.concordiapizza.de |
+| **Kempen menu** | https://www.concordiapizza.de/branch/concordia-kempen |
+| **Straelen menu** | https://www.concordiapizza.de/branch/concordia-straelen |
+| **Admin panel** | https://www.concordiapizza.de/admin/login |
+| **Platform settings (Stripe)** | https://www.concordiapizza.de/admin/platform-settings |
 | **Backend API** | https://concordia-backend-web.onrender.com |
 | **Health check** | https://concordia-backend-web.onrender.com/health |
 

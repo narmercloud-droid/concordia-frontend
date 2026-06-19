@@ -20,6 +20,7 @@ import {
   uploadManagerMenuItemImage
 } from "@/api/manager"
 import { dishImageForItem } from "@/lib/foodImagery"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 type Category = { id: number; name: string }
 
@@ -79,6 +80,7 @@ export default function MenuItemEditor({
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["managerMenu", branchId] })
     queryClient.invalidateQueries({ queryKey: ["managerMenuItem", branchId, menuItemId] })
+    invalidateCustomerWebsiteCaches(queryClient, branchId)
   }
 
   const saveMutation = useMutation({
@@ -467,7 +469,7 @@ export default function MenuItemEditor({
               These come from shared topping groups on the Menu page. Edit them there — they
               apply automatically to all items in linked categories.
             </p>
-            {data.presetAddOnGroups.map((group: any) => (
+            {(data.presetAddOnGroups ?? []).map((group: any) => (
               <div key={group.id} style={{ ...groupBox, background: "#f8f9fa" }}>
                 <strong>{group.name}</strong>
                 <span style={{ fontSize: 12, color: "#888", marginLeft: 8 }}>(shared)</span>

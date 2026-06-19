@@ -5,6 +5,7 @@ import {
   updateManagerDeliverySettings
 } from "@/api/manager"
 import Button from "@/components/ui/Button"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 type DeliveryArea = {
   postalCode: string
@@ -46,7 +47,7 @@ export default function BranchDeliveryEditor({
 
   const { data: config, isLoading } = useQuery({
     queryKey: ["managerDeliverySettings", branchId],
-    queryFn: () => getManagerDeliverySettings(branchId),
+    queryFn: () => getManagerDeliverySettings(branchId ?? undefined),
     enabled: !!branchId
   })
 
@@ -83,11 +84,11 @@ export default function BranchDeliveryEditor({
           deliveryAreas: areas,
           deliveryRadiusZones: radiusZones
         },
-        branchId
+        branchId ?? undefined
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["managerDeliverySettings", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["branches"] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
     }

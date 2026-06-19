@@ -62,11 +62,13 @@ export default function CourierOrdersPage() {
   }, [])
 
   useEffect(() => {
-    socket.on("order:update", () => {
+    const handler = () => {
       queryClient.invalidateQueries({ queryKey: ["courierOrders"] })
-    })
-
-    return () => socket.off("order:update")
+    }
+    socket.on("order:update", handler)
+    return () => {
+      socket.off("order:update", handler)
+    }
   }, [queryClient])
 
   return (

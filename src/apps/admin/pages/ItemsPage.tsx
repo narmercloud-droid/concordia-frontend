@@ -32,7 +32,7 @@ export default function ItemsPage() {
 
   const reorderMutation = useMutation({
     mutationFn: reorderItems,
-    onSuccess: () => queryClient.invalidateQueries(["items"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["items"] })
   })
 
   const handleDragStart = (index: number) => setDragIndex(index)
@@ -55,7 +55,7 @@ export default function ItemsPage() {
 
   const toggleMutation = useMutation({
     mutationFn: toggleItemAvailability,
-    onSuccess: () => queryClient.invalidateQueries(["items"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["items"] })
   })
 
   const [formValues, setFormValues] = useState({
@@ -77,12 +77,12 @@ export default function ItemsPage() {
 
   const createMutation = useMutation({
     mutationFn: createItem,
-    onSuccess: () => queryClient.invalidateQueries(["items"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["items"] })
   })
 
   const deleteMutation = useMutation({
     mutationFn: deleteItem,
-    onSuccess: () => queryClient.invalidateQueries(["items"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["items"] })
   })
 
   const updateMutation = useMutation({
@@ -94,7 +94,7 @@ export default function ItemsPage() {
       return api.put(`/admin/items/${data.id}`, fd)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["items"])
+      queryClient.invalidateQueries({ queryKey: ["items"] })
       setEditOpen(false)
     }
   })

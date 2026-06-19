@@ -6,9 +6,6 @@ import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
-import CartSuggestionsModal, {
-  type SuggestionItem
-} from "@/apps/customer/components/CartSuggestionsModal"
 import {
   BEST_SELLERS_SECTION_ID,
   categoryForItem,
@@ -16,7 +13,6 @@ import {
 } from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
 import { formatCurrency } from "@/utils/format"
-import { useCartStore } from "@/store/cartStore"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -46,12 +42,10 @@ export default function BranchMenuPage() {
   const { branchId } = useParams()
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [toastName, setToastName] = useState<string | null>(null)
-  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const { data: branches } = useQuery({
-    queryKey: BRANCHES_QUERY_KEY,
-    queryFn: branchesQueryOptions.queryFn,
-    ...branchesQueryOptions
+    ...branchesQueryOptions,
+    queryKey: BRANCHES_QUERY_KEY
   })
 
   const branch = branches?.find(
@@ -60,11 +54,12 @@ export default function BranchMenuPage() {
   const orderingDisabled = !!branch?.comingSoon
   const branchClosed = branch != null && !branch.comingSoon && branch.isOpen === false
 
+  const menuOpts = menuQueryOptionsFor(branchId ?? "", i18n.language)
   const { data, isError: menuError, refetch: refetchMenu } = useQuery({
+    ...menuOpts,
     queryKey: ["branchMenu", branchId, i18n.language],
     queryFn: () => getBranchMenu(branchId!),
-    enabled: !!branchId,
-    ...menuQueryOptionsFor(branchId ?? "", i18n.language)
+    enabled: !!branchId
   })
 
   const menuReady = !!data?.categories?.length
@@ -77,12 +72,6 @@ export default function BranchMenuPage() {
   })
 
   const categories = (data?.categories ?? []) as MenuCategory[]
-
-  const cartItems = useCartStore((s) => s.items)
-  const cartItemIds = useMemo(
-    () => cartItems.filter((i) => i.branchId === branchId).map((i) => i.id),
-    [cartItems, branchId]
-  )
 
   const bestSellers = useMemo(
     () => pickFeatured(categories, 6, { salesItemIds: bestsellersData?.itemIds }),
@@ -226,31 +215,7 @@ export default function BranchMenuPage() {
           description={selectedItem.description}
           imageUrl={selectedItem.imageUrl}
           onClose={() => setSelectedItem(null)}
-          onAdded={(name) => {
-            setToastName(name)
-            setShowSuggestions(true)
-          }}
-        />
-      )}
-
-      {branchId && showSuggestions && !selectedItem && (
-        <CartSuggestionsModal
-          open={showSuggestions}
-          branchId={branchId}
-          excludeItemIds={cartItemIds}
-          onClose={() => setShowSuggestions(false)}
-          onSelectItem={(item: SuggestionItem) => {
-            setShowSuggestions(false)
-            setSelectedItem({
-              id: item.id,
-              name: item.name,
-              itemNumber: item.itemNumber,
-              price: item.price,
-              imageUrl: item.imageUrl,
-              description: item.description,
-              categoryName: item.categoryName ?? categoryForItem(categories, item)
-            })
-          }}
+          onAdded={(name) => setToastName(name)}
         />
       )}
 

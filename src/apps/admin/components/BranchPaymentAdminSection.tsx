@@ -1,0 +1,124 @@
+import React from "react"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+  getBranchPaymentStatus,
+  startBranchStripeOnboarding,
+  updateBranchPaymentSettings
+} from "@/api/payments"
+
+type Props = {
+  branchId: string
+}
+
+export default function BranchPaymentAdminSection({ branchId }: Props) {
+  const queryClient = useQueryClient()
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["branchPaymentStatus", branchId],
+    queryFn: () => getBranchPaymentStatus(branchId),
+    enabled: !!branchId
+  })
+
+  const onboardingMutation = useMutation({
+    mutationFn: () =>
+      startBranchStripeOnboarding(
+        branchId,
+        `${window.location.origin}/admin/platform-settings`,
+        `${window.location.origin}/admin/platform-settings`
+      ),
+    onSuccess: (result) => {
+      if (result.url) window.location.href = result.url
+    }
+  })
+
+  const flagsMutation = useMutation({
+    mutationFn: (payload: {
+      cardEnabled?: boolean
+      applePayEnabled?: boolean
+      googlePayEnabled?: boolean
+    }) => updateBranchPaymentSettings(branchId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["branchPaymentStatus", branchId] })
+      queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
+    }
+  })
+
+  if (isLoading) return <p>Loading payment settings…</p>
+  if (!data) return null
+
+  return (
+    <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>
+      <h4>Online payments (Stripe)</h4>
+      <p style={{ color: "#666", fontSize: 14 }}>
+        Each branch has its own Stripe account. Customers can pay by card, Apple Pay, and Google
+        Pay at checkout for this branch only.
+      </p>
+
+      {!data.stripeConfigured && (
+        <p style={{ color: "#b45309" }}>
+          Stripe platform keys are not configured on the server yet (`STRIPE_SECRET_KEY` and
+          `STRIPE_PUBLISHABLE_KEY`).
+        </p>
+      )}
+
+      <ul style={{ fontSize: 14, color: "#444", paddingLeft: 18 }}>
+        <li>Status: {data.stripeReady ? "Ready for checkout" : "Not ready"}</li>
+        <li>Stripe account: {data.stripeAccountId ?? "Not connected"}</li>
+        <li>Charges enabled: {data.stripeChargesEnabled ? "Yes" : "No"}</li>
+        <li>Payouts enabled: {data.stripePayoutsEnabled ? "Yes" : "No"}</li>
+      </ul>
+
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
+        <button
+          type="button"
+          disabled={!data.stripeConfigured || onboardingMutation.isPending}
+          onClick={() => onboardingMutation.mutate()}
+          style={{ padding: "8px 14px", borderRadius: 8 }}
+        >
+          {data.stripeAccountId ? "Continue Stripe setup" : "Connect Stripe for this branch"}
+        </button>
+        <button
+          type="button"
+          onClick={() => void refetch()}
+          style={{ padding: "8px 14px", borderRadius: 8 }}
+        >
+          Refresh status
+        </button>
+      </div>
+
+      {data.stripeReady && (
+        <div style={{ display: "grid", gap: 8 }}>
+          <label style={{ display: "flex", gap: 8 }}>
+            <input
+              type="checkbox"
+              checked={data.cardEnabled}
+              onChange={(e) => flagsMutation.mutate({ cardEnabled: e.target.checked })}
+            />
+            Card payments enabled
+          </label>
+          <label style={{ display: "flex", gap: 8 }}>
+            <input
+              type="checkbox"
+              checked={data.applePayEnabled}
+              onChange={(e) => flagsMutation.mutate({ applePayEnabled: e.target.checked })}
+            />
+            Apple Pay enabled
+          </label>
+          <label style={{ display: "flex", gap: 8 }}>
+            <input
+              type="checkbox"
+              checked={data.googlePayEnabled}
+              onChange={(e) => flagsMutation.mutate({ googlePayEnabled: e.target.checked })}
+            />
+            Google Pay enabled
+          </label>
+        </div>
+      )}
+
+      {onboardingMutation.isError && (
+        <p style={{ color: "#b91c1c", marginTop: 12 }}>
+          Could not start Stripe onboarding. Check server Stripe keys and try again.
+        </p>
+      )}
+    </div>
+  )
+}

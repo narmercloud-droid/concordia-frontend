@@ -25,7 +25,7 @@ export default function CategoriesPage() {
 
   const reorderMutation = useMutation({
     mutationFn: reorderCategories,
-    onSuccess: () => queryClient.invalidateQueries(["categories"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["categories"] })
   })
 
   const handleDragStart = (index: number) => setDragIndex(index)
@@ -52,18 +52,18 @@ export default function CategoriesPage() {
 
   const createMutation = useMutation({
     mutationFn: createCategory,
-    onSuccess: () => queryClient.invalidateQueries(["categories"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["categories"] })
   })
 
   const deleteMutation = useMutation({
     mutationFn: deleteCategory,
-    onSuccess: () => queryClient.invalidateQueries(["categories"])
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["categories"] })
   })
 
   const updateMutation = useMutation({
     mutationFn: (data: any) => api.put(`/admin/categories/${data.id}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["categories"])
+      queryClient.invalidateQueries({ queryKey: ["categories"] })
       setEditOpen(false)
     }
   })

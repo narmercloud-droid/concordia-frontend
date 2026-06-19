@@ -49,7 +49,7 @@ export default function CustomerLayout() {
     const run = () => {
       void subscribeToPush()
     }
-    if ("requestIdleCallback" in window) {
+    if (typeof window.requestIdleCallback === "function") {
       const id = window.requestIdleCallback(run, { timeout: 5000 })
       return () => window.cancelIdleCallback(id)
     }

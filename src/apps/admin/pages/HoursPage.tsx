@@ -4,6 +4,7 @@ import { getManagerBranch, updateManagerBranchStatus } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 import BranchHoursEditor from "../components/BranchHoursEditor"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 export default function HoursPage() {
   const { branchId } = useAdminBranch()
@@ -13,7 +14,7 @@ export default function HoursPage() {
 
   const { data: branch, isLoading: branchLoading } = useQuery({
     queryKey: ["managerBranch", branchId],
-    queryFn: () => getManagerBranch(branchId),
+    queryFn: () => getManagerBranch(branchId ?? undefined),
     enabled: !!branchId
   })
 
@@ -24,7 +25,7 @@ export default function HoursPage() {
       updateManagerBranchStatus(status, branchId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["managerBranch", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["branches"] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
     }
   })
 

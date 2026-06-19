@@ -45,7 +45,7 @@ export default function StaffPage() {
   const updateMutation = useMutation({
     mutationFn: (data: any) => updateStaff(data.id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["staff"])
+      queryClient.invalidateQueries({ queryKey: ["staff"] })
       setEditOpen(false)
     }
   })

@@ -8,7 +8,7 @@ export default function DashboardPage() {
 
   const { data: branch, isLoading: branchLoading } = useQuery({
     queryKey: ["managerBranch", branchId],
-    queryFn: () => getManagerBranch(branchId),
+    queryFn: () => getManagerBranch(branchId ?? undefined),
     enabled: !!branchId
   })
 
