@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { ensureLocaleLoaded } from "@/i18n/index"
 import {
   getLanguage,
   LANGUAGES,
@@ -26,9 +27,12 @@ export default function LanguageSwitcher() {
   }, [open])
 
   const selectLanguage = (code: AppLanguage) => {
-    persistLanguageChoice(code)
-    void i18n.changeLanguage(code)
     setOpen(false)
+    void (async () => {
+      persistLanguageChoice(code)
+      await ensureLocaleLoaded(code)
+      await i18n.changeLanguage(code)
+    })()
   }
 
   return (

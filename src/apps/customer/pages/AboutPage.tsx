@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import { ABOUT_BRANCH_CHEFS, BRAND_LOGO_FANCY } from "@/lib/branchBranding"
+import { ABOUT_BRANCH_CHEFS } from "@/lib/branchBranding"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
 const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
@@ -12,23 +12,6 @@ export default function AboutPage() {
 
   return (
     <InfoPageShell eyebrow={t("pages.about.eyebrow")} title={t("pages.about.title")}>
-      <section className="about-hero">
-        <div className="about-hero__logo-wrap">
-          <img
-            src={BRAND_LOGO_FANCY}
-            alt={t("common.logoAlt")}
-            className="about-hero__logo"
-            width={640}
-            height={420}
-            loading="eager"
-          />
-        </div>
-        <blockquote className="about-hero__quote">
-          <p>{t("pages.about.quote")}</p>
-          <footer>{t("pages.about.familySignature")}</footer>
-        </blockquote>
-      </section>
-
       <div className="info-block about-story">
         <p>{t("pages.about.p1")}</p>
         <p>{t("pages.about.p2")}</p>

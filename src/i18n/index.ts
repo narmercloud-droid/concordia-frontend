@@ -42,6 +42,11 @@ async function loadLocale(lng: string) {
   i18n.addResourceBundle(code, "translation", mod.default, true, true)
 }
 
+/** Load a locale file before switching language so UI text updates immediately. */
+export async function ensureLocaleLoaded(lng: string) {
+  await loadLocale(lng)
+}
+
 export async function bootstrapI18n() {
   const initialLanguage = detectPreferredLanguage()
 
@@ -54,7 +59,11 @@ export async function bootstrapI18n() {
     supportedLngs: SUPPORTED_LANGUAGE_CODES,
     load: "languageOnly",
     nonExplicitSupportedLngs: true,
-    interpolation: { escapeValue: false }
+    interpolation: { escapeValue: false },
+    react: {
+      useSuspense: false,
+      bindI18nStore: "added removed"
+    }
   })
 
   syncDocumentLanguage(i18n.language)
@@ -63,7 +72,7 @@ export async function bootstrapI18n() {
     void loadLocale(lng)
   })
 
-  void loadLocale(i18n.language)
+  await loadLocale(i18n.language)
 }
 
 export default i18n
