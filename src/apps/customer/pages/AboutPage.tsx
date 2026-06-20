@@ -2,7 +2,6 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import { ABOUT_BRANCH_CHEFS } from "@/lib/branchBranding"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
 const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
@@ -21,44 +20,6 @@ export default function AboutPage() {
       <div className="info-block">
         <h2 className="info-block__title">{t("pages.about.originTitle")}</h2>
         <p>{t("pages.about.originText")}</p>
-      </div>
-
-      <div className="about-chef-branches">
-        {ABOUT_BRANCH_CHEFS.map(({ branchKey, chefs }) => (
-          <section key={branchKey} className="about-chef-branch">
-            <h2 className="about-chef-branch__title">
-              {t(`pages.about.branches.${branchKey}.title`)}
-            </h2>
-            <div className="about-chef-branch__grid">
-              {chefs.map(({ chefKey, photo }) => (
-                <article key={chefKey} className="about-chef-tile">
-                  {photo ? (
-                    <div className="about-chef-tile__frame">
-                      <img
-                        src={photo}
-                        alt={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
-                        className="about-chef-tile__photo"
-                        width={320}
-                        height={213}
-                        loading="lazy"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className="about-chef-tile__frame about-chef-tile__frame--pending"
-                      aria-label={t(`pages.about.branches.${branchKey}.chefs.${chefKey}.photoAlt`)}
-                    >
-                      {t("pages.about.photoPending")}
-                    </div>
-                  )}
-                  <h3 className="about-chef-tile__name">
-                    {t(`pages.about.branches.${branchKey}.chefs.${chefKey}.name`)}
-                  </h3>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
       </div>
 
       <div className="info-block">

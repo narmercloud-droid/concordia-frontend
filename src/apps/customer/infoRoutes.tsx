@@ -22,6 +22,7 @@ export const infoRoutes = {
   element: <CustomerLayout />,
   children: [
     { path: "about", element: lazy(<AboutPage />) },
+    { path: "team", element: <Navigate to="/about" replace /> },
     { path: "contact", element: lazy(<ContactPage />) },
     { path: "reviews", element: lazy(<ReviewsPage />) },
     { path: "offers", element: lazy(<OffersPage />) },

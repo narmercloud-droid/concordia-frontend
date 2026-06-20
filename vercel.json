@@ -3,7 +3,7 @@
   "crons": [
     {
       "path": "/health",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 6 * * *"
     }
   ],
   "headers": [
