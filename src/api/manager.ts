@@ -319,6 +319,33 @@ export const importManagerDefaultPresets = async (branchId?: string) => {
 export const getManagerOrders = (branchId?: string) =>
   api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
 
+export type ManagerBranchCustomer = {
+  id: string
+  branchId: string
+  phone: string
+  name: string | null
+  email: string | null
+  birthday: string | null
+  orderCount: number
+  totalSpent: number
+  totalSaved: number
+  firstOrderAt: string | null
+  lastOrderAt: string | null
+  preferredChannel: string | null
+  marketingEmail: boolean
+  marketingSMS: boolean
+  marketingWhatsApp: boolean
+}
+
+export type ManagerCustomerStats = {
+  total: number
+  marketingOptIn: number
+  repeatCustomers: number
+  totalOrders: number
+  totalSpent: number
+  totalSaved: number
+}
+
 export const getManagerCustomers = async (
   branchId?: string,
   params?: { marketingOnly?: boolean; search?: string }
@@ -326,7 +353,7 @@ export const getManagerCustomers = async (
   const res = await api.get("/api/v1/manager/customers", {
     params: { branchId, ...params }
   })
-  return unwrap<{ customers: any[]; stats: any }>(res)
+  return unwrap<{ customers: ManagerBranchCustomer[]; stats: ManagerCustomerStats }>(res)
 }
 
 export const exportManagerCustomers = async (

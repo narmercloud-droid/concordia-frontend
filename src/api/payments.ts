@@ -33,6 +33,8 @@ export type StripePaymentSession = {
   paymentIntentId: string
   stripeAccountId: string
   publishableKey: string | null
+  customerSessionClientSecret?: string | null
+  savePaymentMethodOffered?: boolean
 }
 
 export type BranchPaymentStatus = {

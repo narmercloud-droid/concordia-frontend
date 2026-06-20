@@ -8,6 +8,8 @@ type Props = {
   publishableKey: string
   stripeAccountId: string
   clientSecret: string
+  customerSessionClientSecret?: string | null
+  savePaymentMethodOffered?: boolean
   orderId?: string
   giftPurchaseId?: string
   onSuccess: (result?: { code?: string }) => void
@@ -95,6 +97,8 @@ export default function StripeCheckout({
   publishableKey,
   stripeAccountId,
   clientSecret,
+  customerSessionClientSecret,
+  savePaymentMethodOffered,
   orderId,
   giftPurchaseId,
   onSuccess,
@@ -110,6 +114,9 @@ export default function StripeCheckout({
   const options = useMemo<StripeElementsOptions>(
     () => ({
       clientSecret,
+      ...(customerSessionClientSecret
+        ? { customerSessionClientSecret }
+        : {}),
       appearance: {
         theme: "stripe",
         variables: {
@@ -117,7 +124,7 @@ export default function StripeCheckout({
         }
       }
     }),
-    [clientSecret]
+    [clientSecret, customerSessionClientSecret]
   )
 
   if (!clientSecret || !publishableKey || !stripeAccountId) {
@@ -128,6 +135,9 @@ export default function StripeCheckout({
     <div className="customer-card stripe-checkout">
       <h3 className="customer-subtitle">{t("checkout.onlinePaymentTitle")}</h3>
       <p className="customer-hint">{t("checkout.stripePaymentHint")}</p>
+      {savePaymentMethodOffered ? (
+        <p className="customer-hint">{t("checkout.savePaymentMethodHint")}</p>
+      ) : null}
       <Elements stripe={stripePromise} options={options}>
         <StripePaymentForm
           orderId={orderId}

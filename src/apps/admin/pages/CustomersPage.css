@@ -1,0 +1,164 @@
+.customers-page {
+  display: grid;
+  gap: 20px;
+}
+
+.customers-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.customers-page__header h2 {
+  margin: 0;
+}
+
+.customers-page__lead {
+  margin: 6px 0 0;
+  color: #666;
+  max-width: 640px;
+}
+
+.customers-page__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.customers-page__actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.customers-page__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.customers-page__stat {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.customers-page__stat-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.customers-page__stat-value {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.customers-page__filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.customers-page__search {
+  flex: 1;
+  min-width: 220px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.customers-page__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #444;
+}
+
+.customers-page__empty {
+  color: #666;
+}
+
+.customers-page__table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.customers-page__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.customers-page__table th,
+.customers-page__table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.customers-page__table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #666;
+  background: #fafafa;
+}
+
+.customers-page__row {
+  cursor: pointer;
+}
+
+.customers-page__row:hover {
+  background: #faf8ff;
+}
+
+.customers-page__row--selected {
+  background: #f5f0ff;
+}
+
+.customers-page__history {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 16px 18px;
+  background: #fff;
+}
+
+.customers-page__history h3 {
+  margin: 0 0 8px;
+}
+
+.customers-page__history-summary {
+  margin: 0 0 12px;
+  color: #555;
+}
+
+.customers-page__history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.customers-page__history-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.customers-page__saved {
+  color: #2d6a4f;
+  font-weight: 600;
+}

@@ -107,6 +107,8 @@ export default function CheckoutPage() {
     clientSecret: string
     stripeAccountId: string
     publishableKey: string
+    customerSessionClientSecret?: string | null
+    savePaymentMethodOffered?: boolean
   } | null>(null)
   const [awaitingPaymentOrderId, setAwaitingPaymentOrderId] = useState<string | null>(null)
   const [voucherInput, setVoucherInput] = useState(() => savedDraft?.voucherInput ?? "")
@@ -603,7 +605,9 @@ export default function CheckoutPage() {
           orderId,
           clientSecret: session.clientSecret,
           stripeAccountId: session.stripeAccountId,
-          publishableKey: session.publishableKey
+          publishableKey: session.publishableKey,
+          customerSessionClientSecret: session.customerSessionClientSecret,
+          savePaymentMethodOffered: session.savePaymentMethodOffered
         })
       } catch (err: unknown) {
         setAwaitingPaymentOrderId(orderId)
@@ -1050,6 +1054,11 @@ export default function CheckoutPage() {
             onSelect={() => setPaymentChoice("sepa")}
           />
         </div>
+        {isLoggedIn && needsStripePayment && (
+          <p className="customer-hint checkout-save-payment-hint">
+            {t("checkout.savePaymentMethodHint")}
+          </p>
+        )}
       </div>
 
       <div className="customer-field">
@@ -1309,6 +1318,8 @@ export default function CheckoutPage() {
           publishableKey={pendingStripeSession.publishableKey}
           stripeAccountId={pendingStripeSession.stripeAccountId}
           clientSecret={pendingStripeSession.clientSecret}
+          customerSessionClientSecret={pendingStripeSession.customerSessionClientSecret}
+          savePaymentMethodOffered={pendingStripeSession.savePaymentMethodOffered}
           onSuccess={handleCardPaymentSuccess}
           onError={(message) => setError(message)}
         />

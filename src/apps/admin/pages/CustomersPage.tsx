@@ -4,13 +4,16 @@ import {
   exportManagerCustomers,
   getManagerCustomerOrders,
   getManagerCustomers,
+  type ManagerBranchCustomer,
   runManagerAutomation
 } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
+import { formatCurrency } from "@/utils/format"
+import "./CustomersPage.css"
 
 export default function CustomersPage() {
-  const { branchId } = useAdminBranch()
+  const { branchId, branchName } = useAdminBranch()
   const { can } = useAdminPermissions()
   const [search, setSearch] = useState("")
   const [marketingOnly, setMarketingOnly] = useState(false)
@@ -42,6 +45,7 @@ export default function CustomersPage() {
 
   const customers = data?.customers ?? []
   const stats = data?.stats
+  const selectedCustomer = customers.find((c) => c.phone === selectedPhone) ?? null
 
   const handleExport = async () => {
     const result = await exportManagerCustomers(branchId, marketingOnly)
@@ -58,16 +62,26 @@ export default function CustomersPage() {
   if (isLoading) return <p>Loading customers…</p>
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2>Customers</h2>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <button onClick={() => refetch()}>Refresh</button>
+    <div className="customers-page">
+      <div className="customers-page__header">
+        <div>
+          <h2>Customers</h2>
+          <p className="customers-page__lead">
+            Branch database for {branchName ?? branchId}. Each branch keeps its own customer list.
+          </p>
+        </div>
+        <div className="customers-page__actions">
+          <button type="button" onClick={() => refetch()}>
+            Refresh
+          </button>
           {can("customers_export") && (
-            <button onClick={() => void handleExport()}>Export CSV</button>
+            <button type="button" onClick={() => void handleExport()}>
+              Export CSV
+            </button>
           )}
           {can("customers_automation") && (
             <button
+              type="button"
               onClick={() => automationMutation.mutate()}
               disabled={automationMutation.isPending}
             >
@@ -78,21 +92,24 @@ export default function CustomersPage() {
       </div>
 
       {stats && (
-        <div style={{ display: "flex", gap: 16, marginTop: 16, flexWrap: "wrap" }}>
-          <Stat label="Total customers" value={stats.total} />
-          <Stat label="Marketing opt-in" value={stats.marketingOptIn} />
-          <Stat label="Repeat (3+ orders)" value={stats.repeatCustomers} />
+        <div className="customers-page__stats">
+          <Stat label="Customers" value={String(stats.total)} />
+          <Stat label="Total orders" value={String(stats.totalOrders)} />
+          <Stat label="Total spent" value={formatCurrency(stats.totalSpent)} />
+          <Stat label="Saved via offers" value={formatCurrency(stats.totalSaved)} />
+          <Stat label="Marketing opt-in" value={String(stats.marketingOptIn)} />
+          <Stat label="Repeat (3+ orders)" value={String(stats.repeatCustomers)} />
         </div>
       )}
 
-      <div style={{ marginTop: 16, display: "flex", gap: 12, alignItems: "center" }}>
+      <div className="customers-page__filters">
         <input
           placeholder="Search name, phone, email…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{ flex: 1, padding: 8, borderRadius: 6, border: "1px solid #ccc" }}
+          className="customers-page__search"
         />
-        <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <label className="customers-page__checkbox">
           <input
             type="checkbox"
             checked={marketingOnly}
@@ -102,49 +119,75 @@ export default function CustomersPage() {
         </label>
       </div>
 
-      <div style={{ marginTop: 16, display: "grid", gap: 12 }}>
-        {customers.length === 0 ? (
-          <p style={{ color: "#666" }}>No customers yet for this branch.</p>
-        ) : (
-          customers.map((c: any) => (
-            <div
-              key={c.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: 8,
-                padding: 14,
-                background: selectedPhone === c.phone ? "#f5f0ff" : "#fff",
-                cursor: "pointer"
-              }}
-              onClick={() => setSelectedPhone(c.phone)}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <strong>{c.name || "Guest"}</strong>
-                <span>{c.orderCount} orders</span>
-              </div>
-              <p style={{ margin: "6px 0 0", color: "#444" }}>{c.phone}</p>
-              {c.email && <p style={{ margin: 0, color: "#666" }}>{c.email}</p>}
-              <p style={{ margin: "6px 0 0", fontSize: 13, color: "#666" }}>
-                Channel: {c.preferredChannel ?? "—"}
-                {c.birthday && ` · Birthday: ${String(c.birthday).slice(0, 10)}`}
-                {c.lastOrderAt &&
-                  ` · Last order: ${new Date(c.lastOrderAt).toLocaleDateString()}`}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+      {customers.length === 0 ? (
+        <p className="customers-page__empty">No customers yet for this branch.</p>
+      ) : (
+        <div className="customers-page__table-wrap">
+          <table className="customers-page__table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Orders</th>
+                <th>Total spent</th>
+                <th>Saved</th>
+                <th>Last order</th>
+              </tr>
+            </thead>
+            <tbody>
+              {customers.map((customer) => (
+                <CustomerRow
+                  key={customer.id}
+                  customer={customer}
+                  selected={selectedPhone === customer.phone}
+                  onSelect={() =>
+                    setSelectedPhone((current) =>
+                      current === customer.phone ? null : customer.phone
+                    )
+                  }
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      {selectedPhone && orderHistory?.orders && (
-        <div style={{ marginTop: 24 }}>
-          <h3>Order history — {selectedPhone}</h3>
-          <ul style={{ paddingLeft: 20 }}>
-            {orderHistory.orders.map((o: any) => (
-              <li key={o.id} style={{ marginBottom: 8 }}>
-                #{o.id.slice(0, 8)} · €{(o.orderTotal ?? 0).toFixed(2)} · {o.status} ·{" "}
-                {new Date(o.createdAt).toLocaleString()}
-              </li>
-            ))}
+      {selectedCustomer && orderHistory?.orders && (
+        <div className="customers-page__history">
+          <h3>
+            Order history — {selectedCustomer.name || "Guest"} ({selectedCustomer.phone})
+          </h3>
+          <p className="customers-page__history-summary">
+            {selectedCustomer.orderCount} orders · spent{" "}
+            {formatCurrency(selectedCustomer.totalSpent)} · saved{" "}
+            {formatCurrency(selectedCustomer.totalSaved)} with offers
+          </p>
+          <ul className="customers-page__history-list">
+            {orderHistory.orders.map((order: {
+              id: string
+              orderTotal?: number
+              discount?: number
+              giftCardAmount?: number | null
+              status: string
+              createdAt: string
+            }) => {
+              const saved =
+                Number(order.discount ?? 0) + Number(order.giftCardAmount ?? 0)
+              return (
+                <li key={order.id}>
+                  <strong>#{order.id.slice(0, 8)}</strong>
+                  <span>{formatCurrency(Number(order.orderTotal ?? 0))}</span>
+                  {saved > 0 ? (
+                    <span className="customers-page__saved">
+                      saved {formatCurrency(saved)}
+                    </span>
+                  ) : null}
+                  <span>{order.status}</span>
+                  <span>{new Date(order.createdAt).toLocaleString()}</span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       )}
@@ -152,18 +195,40 @@ export default function CustomersPage() {
   )
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
+function CustomerRow({
+  customer,
+  selected,
+  onSelect
+}: {
+  customer: ManagerBranchCustomer
+  selected: boolean
+  onSelect: () => void
+}) {
   return (
-    <div
-      style={{
-        border: "1px solid #e5e5e5",
-        borderRadius: 8,
-        padding: "12px 16px",
-        minWidth: 140
-      }}
+    <tr
+      className={selected ? "customers-page__row customers-page__row--selected" : "customers-page__row"}
+      onClick={onSelect}
     >
-      <div style={{ fontSize: 12, color: "#666" }}>{label}</div>
-      <div style={{ fontSize: 22, fontWeight: 600 }}>{value}</div>
+      <td>{customer.name || "Guest"}</td>
+      <td>{customer.phone}</td>
+      <td>{customer.email || "—"}</td>
+      <td>{customer.orderCount}</td>
+      <td>{formatCurrency(customer.totalSpent)}</td>
+      <td>{formatCurrency(customer.totalSaved)}</td>
+      <td>
+        {customer.lastOrderAt
+          ? new Date(customer.lastOrderAt).toLocaleDateString()
+          : "—"}
+      </td>
+    </tr>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="customers-page__stat">
+      <div className="customers-page__stat-label">{label}</div>
+      <div className="customers-page__stat-value">{value}</div>
     </div>
   )
 }

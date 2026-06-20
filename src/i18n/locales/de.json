@@ -222,6 +222,7 @@
     "paymentSepa": "Zahlung: SEPA-Lastschrift (bald verfügbar)",
     "onlinePaymentTitle": "Sicher bezahlen",
     "stripePaymentHint": "Bezahlen Sie mit Karte, Apple Pay oder Google Pay. Die Bestellung geht nach der Zahlung an die Küche.",
+    "savePaymentMethodHint": "Sie können Ihre Zahlungsmethode beim Bezahlen optional für künftige Bestellungen speichern.",
     "payNow": "Jetzt bezahlen",
     "processingPayment": "Zahlung wird verarbeitet…",
     "paymentUnavailable": "Online-Zahlung ist für diese Filiale noch nicht eingerichtet.",

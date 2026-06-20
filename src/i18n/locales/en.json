@@ -222,6 +222,7 @@
     "paymentSepa": "Payment: SEPA direct debit (coming soon)",
     "onlinePaymentTitle": "Pay securely",
     "stripePaymentHint": "Pay with card, Apple Pay, or Google Pay. Your order is sent to the kitchen after payment.",
+    "savePaymentMethodHint": "You can optionally save your payment method during checkout for future orders.",
     "payNow": "Pay now",
     "processingPayment": "Processing payment…",
     "paymentUnavailable": "Online payment is not set up for this branch yet.",
