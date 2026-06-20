@@ -1,31 +1,33 @@
-export const HERO_OVEN_LOOP = "/videos/hero-oven.webp?v=20260612"
-// Regenerate: python scripts/build-hero-oven-loop.py
+export const FOOD_IMAGE_VERSION = "20260622"
+
+export const HERO_OVEN_LOOP = `/videos/hero-oven-opt.webp?v=${FOOD_IMAGE_VERSION}`
+// Regenerate: python scripts/build-hero-oven-loop.py, then node scripts/compress-static-assets.mjs
 
 export const FOOD_IMAGES = {
-  hero: "/images/food/concordia-hero-oven-pizza.jpg?v=20260621",
-  dining: "/images/food/concordia-gallery-dining.jpg?v=20260621",
-  pizzaMargherita: "/images/food/concordia-dish-pizza.jpg?v=20260621",
-  pizzaSalami: "/images/food/pizza-salami.jpg",
-  pizzaHawaii: "/images/food/pizza-hawaii.jpg",
-  pizzaSeafood: "/images/food/pizza-seafood.jpg",
-  pizzaVegetarian: "/images/food/pizza-vegetarian.jpg",
-  pizzaQuattroFormaggi: "/images/food/pizza-quattro-formaggi.jpg",
-  calzone: "/images/food/calzone.jpg",
-  pastaTomato: "/images/food/concordia-dish-pasta.jpg?v=20260621",
-  pastaCarbonara: "/images/food/pasta-carbonara.jpg",
-  pastaGorgonzola: "/images/food/pasta-gorgonzola.jpg",
-  pastaSalmone: "/images/food/pasta-salmone.jpg",
-  saladCaprese: "/images/food/salad-caprese.jpg",
-  saladMixed: "/images/food/concordia-dish-salad.jpg?v=20260621",
-  saladChicken: "/images/food/salad-chicken.jpg",
-  alforno: "/images/food/concordia-dish-alforno.jpg?v=20260621",
-  doenerAuflauf: "/images/food/doener-auflauf.jpg",
-  schnitzel: "/images/food/concordia-dish-classics.jpg?v=20260621",
-  burger: "/images/food/burger.jpg",
-  baguetteSucuk: "/images/food/baguette-sucuk.jpg",
-  baguetteDeli: "/images/food/baguette.jpg",
-  pizzabrotchen: "/images/food/pizzabrotchen.jpg",
-  imbiss: "/images/food/imbiss-snacks.jpg"
+  hero: `/images/food/concordia-hero-oven-pizza.webp?v=${FOOD_IMAGE_VERSION}`,
+  dining: `/images/food/concordia-gallery-dining.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaMargherita: `/images/food/concordia-dish-pizza.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaSalami: `/images/food/pizza-salami.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaHawaii: `/images/food/pizza-hawaii.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaSeafood: `/images/food/pizza-seafood.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaVegetarian: `/images/food/pizza-vegetarian.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzaQuattroFormaggi: `/images/food/pizza-quattro-formaggi.webp?v=${FOOD_IMAGE_VERSION}`,
+  calzone: `/images/food/calzone.webp?v=${FOOD_IMAGE_VERSION}`,
+  pastaTomato: `/images/food/concordia-dish-pasta.webp?v=${FOOD_IMAGE_VERSION}`,
+  pastaCarbonara: `/images/food/pasta-carbonara.webp?v=${FOOD_IMAGE_VERSION}`,
+  pastaGorgonzola: `/images/food/pasta-gorgonzola.webp?v=${FOOD_IMAGE_VERSION}`,
+  pastaSalmone: `/images/food/pasta-salmone.webp?v=${FOOD_IMAGE_VERSION}`,
+  saladCaprese: `/images/food/salad-caprese.webp?v=${FOOD_IMAGE_VERSION}`,
+  saladMixed: `/images/food/concordia-dish-salad.webp?v=${FOOD_IMAGE_VERSION}`,
+  saladChicken: `/images/food/salad-chicken.webp?v=${FOOD_IMAGE_VERSION}`,
+  alforno: `/images/food/concordia-dish-alforno.webp?v=${FOOD_IMAGE_VERSION}`,
+  doenerAuflauf: `/images/food/doener-auflauf.webp?v=${FOOD_IMAGE_VERSION}`,
+  schnitzel: `/images/food/concordia-dish-classics.webp?v=${FOOD_IMAGE_VERSION}`,
+  burger: `/images/food/burger.webp?v=${FOOD_IMAGE_VERSION}`,
+  baguetteSucuk: `/images/food/baguette-sucuk.webp?v=${FOOD_IMAGE_VERSION}`,
+  baguetteDeli: `/images/food/baguette.webp?v=${FOOD_IMAGE_VERSION}`,
+  pizzabrotchen: `/images/food/pizzabrotchen.webp?v=${FOOD_IMAGE_VERSION}`,
+  imbiss: `/images/food/imbiss-snacks.webp?v=${FOOD_IMAGE_VERSION}`
 } as const
 
 export type DishKind = keyof typeof FOOD_IMAGES
@@ -124,8 +126,11 @@ export function dishImageForName(
 }
 
 export const GALLERY_IMAGES = [
-  { src: "/images/food/concordia-hero-oven-pizza.jpg?v=20260621", key: "pizza" },
-  { src: "/images/food/concordia-gallery-kitchen.jpg?v=20260621", key: "alforno" },
+  { src: FOOD_IMAGES.hero, key: "pizza" },
+  {
+    src: `/images/food/concordia-gallery-kitchen.webp?v=${FOOD_IMAGE_VERSION}`,
+    key: "alforno"
+  },
   { src: FOOD_IMAGES.pastaTomato, key: "pasta" },
   { src: FOOD_IMAGES.saladMixed, key: "salads" },
   { src: FOOD_IMAGES.dining, key: "dining" },

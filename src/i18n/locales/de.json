@@ -441,7 +441,6 @@
       "offers": "Angebote",
       "delivery": "Lieferung",
       "faq": "FAQ",
-      "team": "Unser Team",
       "impressum": "Impressum",
       "privacy": "Datenschutz",
       "agb": "AGB",
@@ -508,44 +507,6 @@
       "kitchenTitle": "Vom Ofen auf Ihren Tisch",
       "kitchenText": "Pizza, Pasta, Salate, Al-Forno-Gerichte, Schnitzel, Burger und mehr — frisch für Abholung oder Lieferung.",
       "kitchenCta": "Wählen Sie Ihre Filiale und bestellen Sie jetzt — zur Abholung oder Lieferung."
-    },
-    "team": {
-      "eyebrow": "Die Menschen hinter Concordia",
-      "title": "Unser Team",
-      "lead": "Concordia ist ein Familienbetrieb. Lernen Sie den Direktor und die Köche kennen, die Ihre Pizza, Pasta und Klassiker zubereiten — online genauso sorgfältig wie im Restaurant.",
-      "ctaText": "Hunger? Wählen Sie Ihr Concordia in der Nähe und bestellen Sie zur Abholung oder Lieferung.",
-      "members": {
-        "director": {
-          "name": "Direktor",
-          "role": "Familienoberhaupt · Kempen",
-          "bio": "Führt Concordia mit jahrzehntelanger Gastronomie-Erfahrung — die ruhige Mitte unserer Küche und unseres Gastraums.",
-          "photoAlt": "Porträt des Concordia-Direktors"
-        },
-        "pizzaChef1": {
-          "name": "Pizzabäcker",
-          "role": "Steinofen · Service",
-          "bio": "Unser Pizza-Spezialist — Teig, Timing und der perfekte Backgang aus unserem Ofen auf Ihren Tisch.",
-          "photoAlt": "Porträt des Concordia-Pizzabäckers"
-        },
-        "pizzaChef2": {
-          "name": "Pizzabäcker",
-          "role": "Küche · Service",
-          "bio": "Hält den Service an der Theke im Fluss — Pasta, Grill und die Gerichte, die Stammgäste jede Woche bestellen.",
-          "photoAlt": "Porträt eines Concordia-Kochs"
-        },
-        "pizzaChef3": {
-          "name": "Pizzabäcker",
-          "role": "Küchenteam",
-          "bio": "Teil der Familien-Mannschaft hinter jedem vollen Freitagabend und Wochenend-Service.",
-          "photoAlt": "Porträt aus dem Concordia-Küchenteam"
-        },
-        "kitchenChef": {
-          "name": "Küchenchef",
-          "role": "Küchenteam",
-          "bio": "Bringt ruhige Hände und italienisches Herz in Salate, Al-Forno-Gerichte und Tagesangebote.",
-          "photoAlt": "Porträt eines Concordia-Küchenchefs"
-        }
-      }
     },
     "contact": {
       "eyebrow": "Kontakt",

@@ -66,29 +66,18 @@ export const OWNER_PIZZA_CHEF_3_PHOTO = `${OWNER_PHOTOS_DIR}/owner-1.png`
 /** Fourth family chef — back right (owner-4). */
 export const OWNER_KITCHEN_CHEF_PHOTO = `${OWNER_PHOTOS_DIR}/owner-4.png`
 
-/** Portrait crops used on Team and About pages (same files, one source of truth). */
-export const TEAM_MEMBER_PHOTOS = {
-  director: `${OWNER_PHOTOS_DIR}/owner-3-logo-portrait.png`,
-  pizzaChef1: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait.png`,
-  pizzaChef2: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png`,
-  pizzaChef3: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png`,
-  kitchenChef: `${OWNER_PHOTOS_DIR}/owner-4-logo-portrait.png`
-} as const
-
-export type TeamMemberPhotoKey = keyof typeof TEAM_MEMBER_PHOTOS
-
-/** About page branch chefs — explicit portraits (can differ from Team page). */
+/** About page branch chefs — explicit portraits. */
 export const ABOUT_BRANCH_CHEFS = [
   {
     branchKey: "kempen",
     chefs: [
       {
         chefKey: "alaan",
-        photo: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait-no-peel.png`
+        photo: `${OWNER_PHOTOS_DIR}/owner-5-logo-portrait-no-peel.webp`
       },
       {
         chefKey: "jiuan",
-        photo: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.png`
+        photo: `${OWNER_PHOTOS_DIR}/owner-2-logo-portrait.webp`
       }
     ]
   },
@@ -98,7 +87,7 @@ export const ABOUT_BRANCH_CHEFS = [
       { chefKey: "ahmad", photo: null },
       {
         chefKey: "siban",
-        photo: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.png`
+        photo: `${OWNER_PHOTOS_DIR}/owner-1-logo-portrait.webp`
       }
     ]
   }

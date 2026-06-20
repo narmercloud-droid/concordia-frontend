@@ -3,8 +3,7 @@ export const INFO_PAGES = [
   { path: "/offers", key: "offers" },
   { path: "/reviews", key: "reviews" },
   { path: "/faq", key: "faq" },
-  { path: "/contact", key: "contact" },
-  { path: "/team", key: "team" }
+  { path: "/contact", key: "contact" }
 ] as const
 
 /** Required German legal pages (Impressum, Datenschutz, AGB) plus shop terms + loyalty. */
