@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "build": {
+    "env": {
+      "VITE_VAPID_PUBLIC_KEY": "BF0SOKenmqz8aRfVbRZuOXTTh6DWXq7LRmb0UZh3Zf3YBUmGa_MrQEA1MSjPUhgu6f3wKED1nPmJsUBMYWRS94o"
+    }
+  },
   "crons": [
     {
       "path": "/health",
