@@ -249,6 +249,7 @@
     "marketingSMS": "SMS",
     "marketingWhatsApp": "WhatsApp",
     "marketingEmail": "Email",
+    "marketingPush": "Browser notifications (offers & discounts)",
     "emailPlaceholder": "your@email.com",
     "emailRequiredForOffers": "Please enter your email address for email offers.",
     "birthdayLabel": "Birthday (optional)",
@@ -469,10 +470,6 @@
         "family": {
           "title": "Family table",
           "text": "A small team that knows many guests by name."
-        },
-        "oven": {
-          "title": "Stone-oven soul",
-          "text": "Pizza and classics with real Italian heart."
         },
         "care": {
           "title": "Every order matters",
@@ -761,5 +758,31 @@
     "profileSyncError": "Showing saved account details. Some info may be outdated.",
     "addressesLoadError": "Could not load saved addresses.",
     "ordersLoadError": "Could not load your orders."
+  },
+  "notifications": {
+    "promptAria": "Offer notifications",
+    "promptTitle": "Never miss an offer",
+    "promptLead": "Turn on browser notifications for Concordia discounts, promos, and seasonal deals.",
+    "enable": "Enable notifications",
+    "enabling": "Enabling…",
+    "notNow": "Not now",
+    "enableFailed": "Could not enable notifications. Please allow them in your browser settings.",
+    "enabled": "Offer notifications are on.",
+    "deniedHint": "Notifications are blocked. Please allow them for this site in your browser settings."
+  },
+  "nativeApp": {
+    "promoStrip": "App discount on every order",
+    "promoAria": "App offer",
+    "cartBar": {
+      "label": "Shopping cart",
+      "items": "{{count}} items"
+    },
+    "tabs": {
+      "label": "Main navigation",
+      "home": "Home",
+      "offers": "Offers",
+      "order": "Order",
+      "account": "Account"
+    }
   }
 }

@@ -8,11 +8,13 @@ import router from "./router/rootRouter.js"
 import { warmupApi } from "./api/warmup.js"
 import { bootstrapI18n } from "./i18n/index.js"
 import { hydrateCustomerQueries } from "./lib/hydrateCustomerQueries.js"
+import { initNativeApp } from "./lib/initNativeApp.js"
 
 async function startApp() {
   hydrateCustomerQueries(queryClient)
   void warmupApi()
   await bootstrapI18n()
+  await initNativeApp()
 
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>

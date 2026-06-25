@@ -1,4 +1,5 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
+import { isNativeApp, nativeApiBase, nativeSocketUrl } from "@/lib/nativeApp.js"
 
 const isDev = import.meta.env.DEV
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
@@ -15,6 +16,10 @@ function usesSameOriginApi(hostname: string): boolean {
 }
 
 export function resolveApiBase(): string {
+  if (isNativeApp()) {
+    return nativeApiBase()
+  }
+
   if (
     import.meta.env.PROD &&
     typeof window !== "undefined" &&
@@ -29,6 +34,10 @@ export function resolveApiBase(): string {
 
 /** Socket.IO must hit the backend directly — Vercel rewrites HTTP /api only. */
 export function resolveSocketUrl(): string {
+  if (isNativeApp()) {
+    return nativeSocketUrl()
+  }
+
   const socketEnv = String(import.meta.env.VITE_SOCKET_URL ?? "").trim()
   if (socketEnv) return socketEnv.replace(/\/$/, "")
 
@@ -46,7 +55,7 @@ export function resolveSocketUrl(): string {
 
 export const api = axios.create({
   baseURL: resolveApiBase(),
-  withCredentials: true,
+  withCredentials: !isNativeApp(),
   timeout: 60_000,
   headers: {
     Accept: "application/json"
@@ -54,6 +63,13 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
+  config.baseURL = resolveApiBase()
+
+  if (isNativeApp()) {
+    config.headers = config.headers ?? {}
+    config.headers["X-Concordia-Channel"] = "mobile-app"
+  }
+
   const url = config.url ?? ""
   const isAdmin =
     url.includes("/api/v1/manager") ||

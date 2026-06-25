@@ -1,0 +1,93 @@
+.offer-notifications-prompt {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px 16px;
+  align-items: center;
+  margin: 0 0 20px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgb(var(--c-green-rgb, 27 115 64) / 0.18);
+  background: linear-gradient(135deg, rgb(var(--c-green-rgb, 27 115 64) / 0.08), #fff 70%);
+  box-shadow: 0 12px 28px rgb(26 24 22 / 0.06);
+}
+
+.offer-notifications-prompt__icon {
+  grid-row: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgb(var(--c-green-rgb, 27 115 64) / 0.12);
+  font-size: 1.4rem;
+}
+
+.offer-notifications-prompt__title {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-ink, #1a1f1c);
+}
+
+.offer-notifications-prompt__lead {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--c-muted, #5c6b62);
+}
+
+.offer-notifications-prompt__error {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--c-error, #b00020);
+}
+
+.offer-notifications-prompt__actions {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.offer-notifications-prompt__cta {
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--c-green, #1b7340), var(--c-green-deep, #145a32));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.offer-notifications-prompt__dismiss {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--c-line, #d8e4dc);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-muted, #5c6b62);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .offer-notifications-prompt {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-notifications-prompt__icon {
+    grid-row: auto;
+    width: 42px;
+    height: 42px;
+  }
+
+  .offer-notifications-prompt__actions {
+    grid-column: 1;
+  }
+}

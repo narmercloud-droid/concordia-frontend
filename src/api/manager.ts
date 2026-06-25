@@ -316,8 +316,77 @@ export const importManagerDefaultPresets = async (branchId?: string) => {
   return unwrap(res)
 }
 
-export const getManagerOrders = (branchId?: string) =>
-  api.get("/api/v1/manager/orders", { params: branchId ? { branchId } : {} })
+export type ManagerOrderItem = {
+  id: string
+  name: string
+  quantity: number
+  price: number
+  notes?: string | null
+  variants: Array<{ name: string; price: number }>
+  extras: Array<{ name: string; price: number }>
+}
+
+export type ManagerOrder = {
+  id: string
+  trackingToken: string | null
+  status: string
+  courierStatus?: string | null
+  kitchenStatus?: string | null
+  fulfillmentType?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerEmail?: string | null
+  deliveryAddress?: string | null
+  postalCode?: string | null
+  orderTotal?: number | null
+  deliveryFee?: number | null
+  discount?: number | null
+  giftCardAmount?: number | null
+  paymentMethod?: string | null
+  paymentStatus?: string | null
+  notes?: string | null
+  scheduledFor?: string | null
+  createdAt: string
+  confirmedAt?: string | null
+  preparingAt?: string | null
+  readyAt?: string | null
+  pickedUpAt?: string | null
+  deliveredAt?: string | null
+  estimatedPrepTime?: number | null
+  estimatedTotalTime?: number | null
+  isGuest?: boolean | null
+  items: ManagerOrderItem[]
+  timeline: Array<{ status: string; timestamp: string }>
+}
+
+export type ManagerOrdersResult = {
+  orders: ManagerOrder[]
+  total: number
+  limit: number
+  offset: number
+}
+
+export const getManagerOrders = async (
+  branchId?: string,
+  params?: { search?: string; limit?: number; offset?: number }
+) => {
+  const res = await api.get("/api/v1/manager/orders", {
+    params: {
+      branchId,
+      search: params?.search || undefined,
+      limit: params?.limit,
+      offset: params?.offset
+    }
+  })
+  return unwrap<ManagerOrdersResult>(res)
+}
+
+export const getManagerOrder = async (orderId: string, branchId?: string) => {
+  const res = await api.get(`/api/v1/manager/orders/${orderId}`, {
+    params: branchId ? { branchId } : {}
+  })
+  return unwrap<ManagerOrder>(res)
+}
 
 export type ManagerBranchCustomer = {
   id: string

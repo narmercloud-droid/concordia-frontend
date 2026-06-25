@@ -12,6 +12,11 @@ import {
 } from "@/api/addresses"
 import { getCustomerProfile, updateCustomerPhone } from "@/api/customerAuth"
 import { getMyOrders } from "@/api/order"
+import {
+  enableOfferNotifications,
+  getPushPermission,
+  isPushConfigured
+} from "@/utils/pushNotifications"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import OrderHistoryItem from "@/apps/customer/components/order/OrderHistoryItem"
 import { useAuthStore } from "@/context/authStore"
@@ -57,6 +62,9 @@ export default function CustomerSettingsPage() {
   const [tab, setTab] = useState<Tab>(() => tabFromPath(location.pathname))
   const [phone, setPhone] = useState(() => authUser?.phone ?? "")
   const [phoneSaved, setPhoneSaved] = useState(false)
+  const [pushLoading, setPushLoading] = useState(false)
+  const [pushEnabled, setPushEnabled] = useState(() => getPushPermission() === "granted")
+  const [pushError, setPushError] = useState("")
   const [addressModalOpen, setAddressModalOpen] = useState(false)
   const [editingAddress, setEditingAddress] = useState<SavedAddress | null>(null)
   const [addressLabel, setAddressLabel] = useState("")
@@ -267,6 +275,46 @@ export default function CustomerSettingsPage() {
                 <p className="customer-hint" style={{ color: "var(--c-success)" }}>
                   {t("account.phoneSaved")}
                 </p>
+              )}
+
+              {isPushConfigured() && (
+                <div className="customer-settings__notifications">
+                  <h3 className="customer-subtitle">{t("notifications.promptTitle")}</h3>
+                  <p className="customer-hint">{t("notifications.promptLead")}</p>
+                  {getPushPermission() === "denied" ? (
+                    <p className="customer-hint customer-settings__sync-hint">
+                      {t("notifications.deniedHint")}
+                    </p>
+                  ) : pushEnabled ? (
+                    <p className="customer-hint" style={{ color: "var(--c-success)" }}>
+                      {t("notifications.enabled")}
+                    </p>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="customer-btn customer-btn--primary"
+                        disabled={pushLoading}
+                        onClick={() => {
+                          setPushLoading(true)
+                          setPushError("")
+                          void enableOfferNotifications()
+                            .then((ok) => {
+                              if (!ok) {
+                                setPushError(t("notifications.enableFailed"))
+                                return
+                              }
+                              setPushEnabled(true)
+                            })
+                            .finally(() => setPushLoading(false))
+                        }}
+                      >
+                        {pushLoading ? t("notifications.enabling") : t("notifications.enable")}
+                      </button>
+                      {pushError ? <p className="customer-error">{pushError}</p> : null}
+                    </>
+                  )}
+                </div>
               )}
             </>
           )}

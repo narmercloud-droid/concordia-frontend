@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
+import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
@@ -14,6 +15,7 @@ export default function OffersPage() {
 
   return (
     <InfoPageShell eyebrow={t("pages.offers.eyebrow")} title={t("pages.offers.title")}>
+      <OfferNotificationsPrompt />
       <p className="offers-lead">{t("pages.offers.lead")}</p>
 
       <div className="offers-showcase">

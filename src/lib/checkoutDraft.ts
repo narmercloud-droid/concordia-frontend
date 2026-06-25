@@ -39,6 +39,7 @@ export type CheckoutDraft = {
   marketingEmail: boolean
   marketingSMS: boolean
   marketingWhatsApp: boolean
+  marketingPush?: boolean
   birthday: string
   checkoutMode: CheckoutDraftMode
 }

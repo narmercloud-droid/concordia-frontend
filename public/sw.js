@@ -2,11 +2,15 @@ self.addEventListener("push", (event) => {
   try {
     if (!event.data) return
     const payload = event.data.json()
-    const targetUrl = payload.url ?? payload.data?.url ?? "/"
+    const targetUrl = payload.url ?? payload.data?.url ?? "/offers"
+    const title = payload.title || "Concordia"
+    const body = payload.body || ""
     event.waitUntil(
-      self.registration.showNotification(payload.title || "Notification", {
-        body: payload.body || "",
-        icon: "/images/concordia-logo.png",
+      self.registration.showNotification(title, {
+        body,
+        icon: "/brand/apple-touch-icon.png",
+        badge: "/brand/apple-touch-icon-152.png",
+        tag: payload.data?.kind === "offer" ? "concordia-offer" : "concordia-order",
         data: targetUrl
       })
     )
@@ -19,7 +23,17 @@ self.addEventListener("notificationclick", (event) => {
   try {
     event.notification.close()
     const url = event.notification.data || "/"
-    event.waitUntil(clients.openWindow(url))
+    event.waitUntil(
+      clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+        for (const client of list) {
+          if ("focus" in client) {
+            client.navigate(url)
+            return client.focus()
+          }
+        }
+        if (clients.openWindow) return clients.openWindow(url)
+      })
+    )
   } catch (err) {
     console.error("Notification click error:", err)
   }

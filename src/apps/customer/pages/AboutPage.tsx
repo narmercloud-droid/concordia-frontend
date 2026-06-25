@@ -4,7 +4,7 @@ import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 
-const VALUE_KEYS = ["fresh", "family", "oven", "care"] as const
+const VALUE_KEYS = ["fresh", "family", "care"] as const
 
 export default function AboutPage() {
   const { t } = useTranslation()

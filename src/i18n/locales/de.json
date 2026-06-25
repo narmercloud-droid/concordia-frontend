@@ -249,6 +249,7 @@
     "marketingSMS": "SMS",
     "marketingWhatsApp": "WhatsApp",
     "marketingEmail": "E-Mail",
+    "marketingPush": "Browser-Benachrichtigungen (Angebote & Rabatte)",
     "emailPlaceholder": "ihre@email.de",
     "emailRequiredForOffers": "Bitte E-Mail-Adresse für Angebote per E-Mail angeben.",
     "birthdayLabel": "Geburtstag (optional)",
@@ -495,10 +496,6 @@
         "family": {
           "title": "Familientisch",
           "text": "Ein kleines Team, das viele Gäste beim Namen kennt."
-        },
-        "oven": {
-          "title": "Steinofen-Seele",
-          "text": "Pizza und Klassiker mit echtem italienischem Herz."
         },
         "care": {
           "title": "Jede Bestellung zählt",
@@ -761,5 +758,31 @@
     "loyaltyBenefits": "Kostenlos registrieren und vom Treueprogramm profitieren:",
     "acceptTerms": "Ich akzeptiere die <termsLink>AGB & Treueprogramm</termsLink>.",
     "acceptTermsRequired": "Bitte akzeptieren Sie die AGB & Treueprogramm-Bedingungen."
+  },
+  "notifications": {
+    "promptAria": "Angebots-Benachrichtigungen",
+    "promptTitle": "Nie wieder ein Angebot verpassen",
+    "promptLead": "Aktivieren Sie Browser-Benachrichtigungen für Rabatte, Aktionen und saisonale Deals von Concordia.",
+    "enable": "Benachrichtigungen aktivieren",
+    "enabling": "Wird aktiviert…",
+    "notNow": "Später",
+    "enableFailed": "Benachrichtigungen konnten nicht aktiviert werden. Bitte erlauben Sie sie in den Browser-Einstellungen.",
+    "enabled": "Angebots-Benachrichtigungen sind aktiv.",
+    "deniedHint": "Benachrichtigungen sind blockiert. Bitte in den Browser-Einstellungen für diese Website erlauben."
+  },
+  "nativeApp": {
+    "promoStrip": "Online-Rabatt auf jede Bestellung in der App",
+    "promoAria": "App-Angebot",
+    "cartBar": {
+      "label": "Warenkorb",
+      "items": "{{count}} Artikel"
+    },
+    "tabs": {
+      "label": "Hauptnavigation",
+      "home": "Start",
+      "offers": "Angebote",
+      "order": "Bestellen",
+      "account": "Konto"
+    }
   }
 }

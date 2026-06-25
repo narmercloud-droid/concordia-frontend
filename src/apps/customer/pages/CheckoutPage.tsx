@@ -131,6 +131,7 @@ export default function CheckoutPage() {
   const [marketingWhatsApp, setMarketingWhatsApp] = useState(
     () => savedDraft?.marketingWhatsApp ?? false
   )
+  const [marketingPush, setMarketingPush] = useState(() => savedDraft?.marketingPush ?? false)
   const [birthday, setBirthday] = useState(() => savedDraft?.birthday ?? "")
   const [birthdayError, setBirthdayError] = useState("")
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(() => {
@@ -345,6 +346,7 @@ export default function CheckoutPage() {
         marketingEmail,
         marketingSMS,
         marketingWhatsApp,
+        marketingPush,
         birthday,
         checkoutMode
       })
@@ -369,6 +371,7 @@ export default function CheckoutPage() {
     marketingEmail,
     marketingSMS,
     marketingWhatsApp,
+    marketingPush,
     birthday,
     checkoutMode
   ])
@@ -660,8 +663,15 @@ export default function CheckoutPage() {
     try {
       const useAccount = checkoutMode === "account" && isLoggedIn
       let pushToken = getStoredPushToken()
-      if (isPushConfigured() && !pushToken) {
-        pushToken = await subscribeToPush()
+      const wantsOfferPush =
+        marketingPush || marketingEmail || marketingSMS || marketingWhatsApp
+      if (isPushConfigured() && (wantsOfferPush || !pushToken)) {
+        pushToken = await subscribeToPush({
+          allowOffers: wantsOfferPush,
+          allowOrders: true,
+          branchId,
+          syncBackend: true
+        })
       }
 
       const res = await createMutation.mutateAsync({
@@ -724,7 +734,7 @@ export default function CheckoutPage() {
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
 
   return (
-    <div className="customer-page">
+    <div className="customer-page customer-page--checkout">
       <h2 className="customer-title">{t("checkout.title")}</h2>
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
@@ -1248,6 +1258,16 @@ export default function CheckoutPage() {
             />
             <span>{t("checkout.marketingEmail")}</span>
           </label>
+          {isPushConfigured() ? (
+            <label className="checkout-marketing__channel">
+              <input
+                type="checkbox"
+                checked={marketingPush}
+                onChange={(e) => setMarketingPush(e.target.checked)}
+              />
+              <span>{t("checkout.marketingPush")}</span>
+            </label>
+          ) : null}
         </div>
         {marketingEmail && (
           <div style={{ marginTop: 12 }}>

@@ -7,12 +7,19 @@ import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
+import { isNativeApp } from "@/lib/nativeApp"
 import SiteNav from "@/apps/customer/components/SiteNav"
 import StickyOrderFab from "@/apps/customer/components/StickyOrderFab"
+import NativeTabBar from "@/apps/customer/components/NativeTabBar"
+import NativeCartButton from "@/apps/customer/components/NativeCartButton"
+import NativeCartBar from "@/apps/customer/components/NativeCartBar"
+import NativePromoStrip from "@/apps/customer/components/NativePromoStrip"
+import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
 import "../customer-mobile.css"
+import "../customer-native.css"
 
 export default function CustomerLayout() {
   const { t, i18n } = useTranslation()
@@ -24,9 +31,16 @@ export default function CustomerLayout() {
   const authToken = useAuthStore((s) => s.token)
   const logout = useAuthStore((s) => s.logout)
   const isLoggedIn = !!authToken && !!authUser?.id
+  const nativeApp = isNativeApp()
   const onCartPage = location.pathname === "/customer/cart"
+  const onCheckoutPage = location.pathname.startsWith("/customer/checkout")
+  const showCartBar =
+    nativeApp &&
+    itemCount > 0 &&
+    !onCheckoutPage &&
+    (location.pathname.startsWith("/branch/") || onCartPage)
   const isWidePage = WIDE_CUSTOMER_PATHS.has(location.pathname)
-  const showSiteNav = !location.pathname.startsWith("/customer/checkout")
+  const showSiteNav = !location.pathname.startsWith("/customer/checkout") && !nativeApp
 
   useEffect(() => {
     const onLanguageChanged = () => {
@@ -46,30 +60,27 @@ export default function CustomerLayout() {
       return
     }
 
-    const run = () => {
-      void subscribeToPush()
+    if (Notification.permission === "granted") {
+      void subscribeToPush({ allowOffers: true, allowOrders: true, syncBackend: true })
+      return
     }
-    if (typeof window.requestIdleCallback === "function") {
-      const id = window.requestIdleCallback(run, { timeout: 5000 })
-      return () => window.cancelIdleCallback(id)
-    }
-    const timer = window.setTimeout(run, 2500)
-    return () => window.clearTimeout(timer)
   }, [])
 
   return (
     <div
       className={`customer-shell customer-shell--layout${
-        isWidePage ? " customer-shell--home customer-shell--wide" : ""
-      }`}
+        nativeApp ? " customer-shell--native" : ""
+      }${showCartBar ? " native-app--has-cart-bar" : ""}${
+        onCheckoutPage ? " customer-shell--checkout" : ""
+      }${isWidePage ? " customer-shell--home customer-shell--wide" : ""}`}
     >
-      <header className="customer-header">
+      <header className={`customer-header${nativeApp ? " customer-header--native" : ""}`}>
         <Link to="/" className="customer-header__brand">
           <ConcordiaLogo size="sm" round />
         </Link>
         <div className="customer-header__actions">
           <LanguageSwitcher />
-          {isLoggedIn ? (
+          {!nativeApp && isLoggedIn ? (
             <>
               <Link to="/customer/settings" className="customer-header__account">
                 {authUser.name?.split(" ")[0] ?? t("layout.account")}
@@ -82,19 +93,27 @@ export default function CustomerLayout() {
                 {t("layout.logout")}
               </button>
             </>
-          ) : (
+          ) : null}
+          {!nativeApp && !isLoggedIn ? (
             <Link to="/customer/login" className="customer-header__account">
               {t("layout.login")}
             </Link>
+          ) : null}
+          {nativeApp ? (
+            <NativeCartButton itemCount={itemCount} active={onCartPage} />
+          ) : (
+            <Link
+              to="/customer/cart"
+              className={`customer-cart-link${onCartPage ? " customer-cart-link--active" : ""}`}
+            >
+              {itemCount > 0 ? t("layout.cartWithCount", { count: itemCount }) : t("layout.cart")}
+            </Link>
           )}
-          <Link
-            to="/customer/cart"
-            className={`customer-cart-link${onCartPage ? " customer-cart-link--active" : ""}`}
-          >
-            {itemCount > 0 ? t("layout.cartWithCount", { count: itemCount }) : t("layout.cart")}
-          </Link>
         </div>
       </header>
+
+      {nativeApp && location.pathname === "/" ? <NativePromoStrip /> : null}
+      {!nativeApp && location.pathname === "/" ? <OfferNotificationsPrompt /> : null}
 
       {showSiteNav && (
         <div className="customer-site-nav-wrap">
@@ -112,7 +131,9 @@ export default function CustomerLayout() {
         </CustomerErrorBoundary>
       </main>
 
-      {location.pathname === "/" ? <StickyOrderFab /> : null}
+      {location.pathname === "/" && !nativeApp ? <StickyOrderFab /> : null}
+      <NativeCartBar />
+      <NativeTabBar />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { isNativeApp } from "@/lib/nativeApp"
 import "./AppDownloadSection.css"
 
 type Props = {
@@ -35,6 +36,8 @@ function StoreBadge({
 export default function AppDownloadSection({ variant = "full" }: Props) {
   const { t } = useTranslation()
   const comingSoon = t("home.comingSoonLabel")
+
+  if (isNativeApp()) return null
 
   return (
     <section
