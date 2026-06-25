@@ -366,6 +366,83 @@ export type ManagerOrdersResult = {
   offset: number
 }
 
+function normalizeManagerOrderItem(
+  item: Partial<ManagerOrderItem> & { name?: string; quantity?: number; price?: number }
+): ManagerOrderItem {
+  return {
+    id: item.id ?? "",
+    name: item.name ?? "Item",
+    quantity: item.quantity ?? 1,
+    price: Number(item.price ?? 0),
+    notes: item.notes ?? null,
+    variants: Array.isArray(item.variants) ? item.variants : [],
+    extras: Array.isArray(item.extras) ? item.extras : []
+  }
+}
+
+function normalizeManagerOrder(order: Partial<ManagerOrder> & { id: string }): ManagerOrder {
+  return {
+    id: order.id,
+    trackingToken: order.trackingToken ?? null,
+    status: order.status ?? "unknown",
+    courierStatus: order.courierStatus ?? null,
+    kitchenStatus: order.kitchenStatus ?? null,
+    fulfillmentType: order.fulfillmentType ?? null,
+    customerName: order.customerName ?? null,
+    customerPhone: order.customerPhone ?? null,
+    customerEmail: order.customerEmail ?? null,
+    deliveryAddress: order.deliveryAddress ?? null,
+    postalCode: order.postalCode ?? null,
+    orderTotal: order.orderTotal ?? null,
+    deliveryFee: order.deliveryFee ?? null,
+    discount: order.discount ?? null,
+    giftCardAmount: order.giftCardAmount ?? null,
+    paymentMethod: order.paymentMethod ?? null,
+    paymentStatus: order.paymentStatus ?? null,
+    notes: order.notes ?? null,
+    scheduledFor: order.scheduledFor ?? null,
+    createdAt: order.createdAt ?? new Date(0).toISOString(),
+    confirmedAt: order.confirmedAt ?? null,
+    preparingAt: order.preparingAt ?? null,
+    readyAt: order.readyAt ?? null,
+    pickedUpAt: order.pickedUpAt ?? null,
+    deliveredAt: order.deliveredAt ?? null,
+    estimatedPrepTime: order.estimatedPrepTime ?? null,
+    estimatedTotalTime: order.estimatedTotalTime ?? null,
+    isGuest: order.isGuest ?? null,
+    items: Array.isArray(order.items) ? order.items.map(normalizeManagerOrderItem) : [],
+    timeline: Array.isArray(order.timeline) ? order.timeline : []
+  }
+}
+
+function normalizeManagerOrdersResult(
+  payload: unknown,
+  fallbackLimit = 50,
+  fallbackOffset = 0
+): ManagerOrdersResult {
+  if (Array.isArray(payload)) {
+    const orders = payload.map((order) => normalizeManagerOrder(order as ManagerOrder))
+    return {
+      orders,
+      total: orders.length,
+      limit: fallbackLimit,
+      offset: fallbackOffset
+    }
+  }
+
+  const data = (payload ?? {}) as Partial<ManagerOrdersResult>
+  const orders = Array.isArray(data.orders)
+    ? data.orders.map((order) => normalizeManagerOrder(order))
+    : []
+
+  return {
+    orders,
+    total: typeof data.total === "number" ? data.total : orders.length,
+    limit: typeof data.limit === "number" ? data.limit : fallbackLimit,
+    offset: typeof data.offset === "number" ? data.offset : fallbackOffset
+  }
+}
+
 export const getManagerOrders = async (
   branchId?: string,
   params?: { search?: string; limit?: number; offset?: number }
@@ -378,14 +455,14 @@ export const getManagerOrders = async (
       offset: params?.offset
     }
   })
-  return unwrap<ManagerOrdersResult>(res)
+  return normalizeManagerOrdersResult(unwrap(res), params?.limit ?? 50, params?.offset ?? 0)
 }
 
 export const getManagerOrder = async (orderId: string, branchId?: string) => {
   const res = await api.get(`/api/v1/manager/orders/${orderId}`, {
     params: branchId ? { branchId } : {}
   })
-  return unwrap<ManagerOrder>(res)
+  return normalizeManagerOrder(unwrap<ManagerOrder>(res))
 }
 
 export type ManagerBranchCustomer = {

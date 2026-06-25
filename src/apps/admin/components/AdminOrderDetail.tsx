@@ -12,6 +12,8 @@ type Props = {
 }
 
 export default function AdminOrderDetail({ order }: Props) {
+  const items = order.items ?? []
+  const timeline = order.timeline ?? []
   const address = [order.deliveryAddress, order.postalCode].filter(Boolean).join(", ")
 
   return (
@@ -117,30 +119,35 @@ export default function AdminOrderDetail({ order }: Props) {
       </section>
 
       <section className="orders-page__section">
-        <h4>Items ({order.items.length})</h4>
+        <h4>Items ({items.length})</h4>
         <ul className="orders-page__items">
-          {order.items.map((item) => (
-            <li key={item.id} className="orders-page__item">
+          {items.map((item, index) => {
+            const variants = item.variants ?? []
+            const extras = item.extras ?? []
+            const itemKey = item.id || `${order.id}-item-${index}`
+
+            return (
+            <li key={itemKey} className="orders-page__item">
               <div className="orders-page__item-head">
                 <span>
                   {item.name} × {item.quantity}
                 </span>
                 <span>{formatCurrency(item.price * item.quantity)}</span>
               </div>
-              {item.variants.length > 0 ? (
+              {variants.length > 0 ? (
                 <ul className="orders-page__item-sub">
-                  {item.variants.map((v) => (
-                    <li key={`${item.id}-v-${v.name}`}>
+                  {variants.map((v) => (
+                    <li key={`${itemKey}-v-${v.name}`}>
                       {v.name}
                       {v.price > 0 ? ` (+${formatCurrency(v.price)})` : ""}
                     </li>
                   ))}
                 </ul>
               ) : null}
-              {item.extras.length > 0 ? (
+              {extras.length > 0 ? (
                 <ul className="orders-page__item-sub">
-                  {item.extras.map((e) => (
-                    <li key={`${item.id}-e-${e.name}`}>
+                  {extras.map((e) => (
+                    <li key={`${itemKey}-e-${e.name}`}>
                       + {e.name}
                       {e.price > 0 ? ` (${formatCurrency(e.price)})` : ""}
                     </li>
@@ -153,7 +160,8 @@ export default function AdminOrderDetail({ order }: Props) {
                 </p>
               ) : null}
             </li>
-          ))}
+            )
+          })}
         </ul>
       </section>
 
@@ -164,11 +172,11 @@ export default function AdminOrderDetail({ order }: Props) {
         </section>
       ) : null}
 
-      {order.timeline.length > 0 ? (
+      {timeline.length > 0 ? (
         <section className="orders-page__section">
           <h4>Timeline</h4>
           <ul className="orders-page__timeline">
-            {order.timeline.map((event, idx) => (
+            {timeline.map((event, idx) => (
               <li key={`${event.status}-${idx}`}>
                 {event.status} — {formatWhen(event.timestamp)}
               </li>

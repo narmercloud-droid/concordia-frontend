@@ -46,14 +46,15 @@ export default function OrdersPage() {
 
   useEffect(() => {
     if (!data) return
+    const orders = data.orders ?? []
     if (offset === 0) {
-      setAccumulatedOrders(data.orders)
+      setAccumulatedOrders(orders)
       return
     }
     setAccumulatedOrders((prev) => {
       const seen = new Set(prev.map((o) => o.id))
       const next = [...prev]
-      for (const order of data.orders) {
+      for (const order of orders) {
         if (!seen.has(order.id)) next.push(order)
       }
       return next
