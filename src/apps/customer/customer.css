@@ -1229,8 +1229,34 @@
 .delivery-address-form__locate-row {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 8px;
+}
+
+.delivery-address-form__locate-row--primary {
+  padding: 14px;
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-card);
+}
+
+.delivery-address-form__locate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  font-weight: 600;
+}
+
+.delivery-address-form__locate-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.delivery-address-form__locate-hint {
+  margin: 0;
+  text-align: center;
 }
 
 .delivery-address-form__locate-link {

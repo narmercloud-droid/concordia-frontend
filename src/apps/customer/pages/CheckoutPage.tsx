@@ -663,11 +663,11 @@ export default function CheckoutPage() {
     try {
       const useAccount = checkoutMode === "account" && isLoggedIn
       let pushToken = getStoredPushToken()
-      const wantsOfferPush =
+      const wantsMarketingPush =
         marketingPush || marketingEmail || marketingSMS || marketingWhatsApp
-      if (isPushConfigured() && (wantsOfferPush || !pushToken)) {
+      if (isPushConfigured() && wantsMarketingPush && !pushToken) {
         pushToken = await subscribeToPush({
-          allowOffers: wantsOfferPush,
+          allowOffers: wantsMarketingPush,
           allowOrders: true,
           branchId,
           syncBackend: true
@@ -1162,6 +1162,27 @@ export default function CheckoutPage() {
         {phoneError && <p className="customer-error">{phoneError}</p>}
       </div>
 
+      <div className="customer-field">
+        <label className="customer-label" htmlFor="checkout-email">
+          {t("checkout.email")} ({t("common.optional")})
+        </label>
+        <input
+          id="checkout-email"
+          className={`customer-input${emailError ? " customer-input--invalid" : ""}`}
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          placeholder={t("checkout.emailPlaceholder")}
+          value={customerEmail}
+          onChange={(e) => {
+            setCustomerEmail(e.target.value)
+            setEmailError("")
+          }}
+        />
+        <p className="customer-hint">{t("checkout.emailHint")}</p>
+        {emailError && <p className="customer-error">{emailError}</p>}
+      </div>
+
       {fulfillmentType === "delivery" && (
         <div className="customer-field" ref={addressSectionRef}>
           <h3 className="customer-subtitle">{t("checkout.address")}</h3>
@@ -1272,21 +1293,10 @@ export default function CheckoutPage() {
             </label>
           ) : null}
         </div>
-        {marketingEmail && (
-          <div style={{ marginTop: 12 }}>
-            <input
-              className="customer-input"
-              type="email"
-              placeholder={t("checkout.emailPlaceholder")}
-              value={customerEmail}
-              onChange={(e) => {
-                setCustomerEmail(e.target.value)
-                setEmailError("")
-              }}
-              autoComplete="email"
-            />
-            {emailError && <p className="customer-error">{emailError}</p>}
-          </div>
+        {marketingEmail && !customerEmail.trim() && (
+          <p className="customer-hint" style={{ marginTop: 12 }}>
+            {t("checkout.marketingEmailNeedsAddress")}
+          </p>
         )}
         {(marketingEmail || marketingSMS || marketingWhatsApp) && (
           <div className="checkout-marketing__birthday" style={{ marginTop: 12 }}>

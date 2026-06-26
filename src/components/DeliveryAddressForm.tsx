@@ -54,8 +54,10 @@ export default function DeliveryAddressForm({
   const [loading, setLoading] = useState(false)
   const [locating, setLocating] = useState(false)
   const [locationError, setLocationError] = useState("")
+  const [locationFilled, setLocationFilled] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const streetContainerRef = useRef<HTMLDivElement>(null)
+  const houseNumberRef = useRef<HTMLInputElement>(null)
   const requestId = useRef(0)
 
   const { data: deliveryAreasData } = useQuery({
@@ -76,11 +78,18 @@ export default function DeliveryAddressForm({
   const cityAutoFilled = Boolean(usePostcodeDropdown && matchedArea?.city)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
   const regionLabel = branchDisplayName(branchName) || branchCity || t("checkout.deliveryAreaFallback")
-  const mapLat = branchLat ?? value.lat
-  const mapLng = branchLng ?? value.lng
+  const mapLat = value.lat ?? branchLat
+  const mapLng = value.lng ?? branchLng
   const showMap = Number.isFinite(mapLat) && Number.isFinite(mapLng) && mapLat !== 0 && mapLng !== 0
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
+    if (
+      partial.street !== undefined ||
+      partial.postalCode !== undefined ||
+      partial.city !== undefined
+    ) {
+      setLocationFilled(false)
+    }
     onChange({ ...value, ...partial })
   }
 
@@ -94,6 +103,7 @@ export default function DeliveryAddressForm({
 
   const handleUseLocation = () => {
     setLocationError("")
+    setLocationFilled(false)
     if (!navigator.geolocation) {
       setLocationError(t("checkout.locationUnsupported"))
       return
@@ -116,14 +126,31 @@ export default function DeliveryAddressForm({
             lat: result.lat,
             lng: result.lng
           })
-        } catch {
-          setLocationError(t("checkout.locationOutsideArea"))
+          setLocationFilled(true)
+          window.setTimeout(() => {
+            if (!result.houseNumber?.trim()) {
+              houseNumberRef.current?.focus()
+            }
+          }, 100)
+        } catch (err: unknown) {
+          const apiMessage =
+            (err as { response?: { data?: { error?: { message?: string } } } })?.response?.data
+              ?.error?.message ?? ""
+          if (apiMessage.toLowerCase().includes("outside")) {
+            setLocationError(t("checkout.locationOutsideArea"))
+          } else {
+            setLocationError(t("checkout.locationResolveFailed"))
+          }
         } finally {
           setLocating(false)
         }
       },
-      () => {
-        setLocationError(t("checkout.locationDenied"))
+      (geoError) => {
+        if (geoError.code === geoError.PERMISSION_DENIED) {
+          setLocationError(t("checkout.locationDenied"))
+        } else {
+          setLocationError(t("checkout.locationResolveFailed"))
+        }
         setLocating(false)
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
@@ -244,6 +271,30 @@ export default function DeliveryAddressForm({
           {t("checkout.deliveryAreaTitle", { region: regionLabel })}
         </p>
         <p className="customer-hint">{addressHint}</p>
+      </div>
+
+      <div className="delivery-address-form__locate-row delivery-address-form__locate-row--primary">
+        <button
+          type="button"
+          className="customer-btn customer-btn--secondary delivery-address-form__locate-btn"
+          onClick={handleUseLocation}
+          disabled={locating}
+          aria-busy={locating}
+        >
+          <span className="delivery-address-form__locate-icon" aria-hidden="true">
+            📍
+          </span>
+          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
+        </button>
+        <p className="customer-hint delivery-address-form__locate-hint">
+          {t("checkout.useMyLocationHint")}
+        </p>
+        {locationFilled && (
+          <p className="customer-alert customer-alert--success" role="status">
+            {t("checkout.locationFilled")}
+          </p>
+        )}
+        {locationError && <p className="customer-error">{locationError}</p>}
       </div>
 
       {showMap && (
@@ -373,6 +424,7 @@ export default function DeliveryAddressForm({
           </label>
           <input
             id="checkout-house-number"
+            ref={houseNumberRef}
             className="customer-input"
             placeholder={t("checkout.addressHouseNumberPlaceholder")}
             value={value.houseNumber}
@@ -394,18 +446,6 @@ export default function DeliveryAddressForm({
             autoComplete="off"
           />
         </div>
-      </div>
-
-      <div className="delivery-address-form__locate-row">
-        <button
-          type="button"
-          className="delivery-address-form__locate-link"
-          onClick={handleUseLocation}
-          disabled={locating}
-        >
-          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
-        </button>
-        {locationError && <p className="customer-error">{locationError}</p>}
       </div>
 
       {error && <p className="customer-error">{error}</p>}
