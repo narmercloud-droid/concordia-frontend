@@ -1184,7 +1184,10 @@ export default function CheckoutPage() {
           )}
           <DeliveryAddressForm
             branchId={branchId!}
+            branchName={branchInfo?.name}
             branchCity={branchInfo?.city}
+            branchLat={branchInfo?.lat}
+            branchLng={branchInfo?.lng}
             value={addressFields}
             onChange={(fields) => {
               setAddressFields(fields)

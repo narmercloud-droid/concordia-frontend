@@ -548,6 +548,27 @@
   gap: 12px;
 }
 
+.delivery-address-form__region-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.delivery-address-form__map {
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--c-card);
+}
+
+.delivery-address-form__map iframe {
+  display: block;
+  width: 100%;
+  height: 180px;
+  border: 0;
+}
+
 .delivery-address-form__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1208,12 +1229,25 @@
 .delivery-address-form__locate-row {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 6px;
+  margin-top: 4px;
 }
 
-.delivery-address-form__locate {
+.delivery-address-form__locate-link {
   align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--c-green-deep, #1b7340);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.delivery-address-form__locate-link:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .customer-btn--secondary {

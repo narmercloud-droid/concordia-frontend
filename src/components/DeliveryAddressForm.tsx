@@ -13,19 +13,37 @@ export type StreetSuggestion = {
   street: string
   postalCode: string
   city: string
+  lat?: number
+  lng?: number
 }
 
 type Props = {
   branchId: string
+  branchName?: string
   branchCity?: string
+  branchLat?: number
+  branchLng?: number
   value: DeliveryAddressFields
   onChange: (fields: DeliveryAddressFields) => void
   error?: string
 }
 
+function branchDisplayName(name?: string): string {
+  return (name ?? "").replace(/^Concordia\s+/i, "").trim()
+}
+
+function mapEmbedUrl(lat: number, lng: number): string {
+  const pad = 0.04
+  const bbox = [lng - pad, lat - pad, lng + pad, lat + pad].join("%2C")
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`
+}
+
 export default function DeliveryAddressForm({
   branchId,
+  branchName,
   branchCity,
+  branchLat,
+  branchLng,
   value,
   onChange,
   error
@@ -57,6 +75,10 @@ export default function DeliveryAddressForm({
   )
   const cityAutoFilled = Boolean(usePostcodeDropdown && matchedArea?.city)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
+  const regionLabel = branchDisplayName(branchName) || branchCity || t("checkout.deliveryAreaFallback")
+  const mapLat = branchLat ?? value.lat
+  const mapLng = branchLng ?? value.lng
+  const showMap = Number.isFinite(mapLat) && Number.isFinite(mapLng) && mapLat !== 0 && mapLng !== 0
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
     onChange({ ...value, ...partial })
@@ -95,7 +117,7 @@ export default function DeliveryAddressForm({
             lng: result.lng
           })
         } catch {
-          setLocationError(t("checkout.locationResolveFailed"))
+          setLocationError(t("checkout.locationOutsideArea"))
         } finally {
           setLocating(false)
         }
@@ -127,14 +149,18 @@ export default function DeliveryAddressForm({
           value.city.trim() || branchCity,
           value.lat != null && value.lng != null
             ? { lat: value.lat, lng: value.lng }
-            : undefined
+            : branchLat != null && branchLng != null
+              ? { lat: branchLat, lng: branchLng }
+              : undefined
         )
         if (currentRequest !== requestId.current) return
         const next = (res.suggestions ?? []).map((s) => ({
           label: s.label,
           street: s.street,
           postalCode: s.postalCode,
-          city: s.city
+          city: s.city,
+          lat: s.lat,
+          lng: s.lng
         }))
         setSuggestions(next)
         setOpen(next.length > 0)
@@ -154,6 +180,8 @@ export default function DeliveryAddressForm({
   }, [
     branchId,
     branchCity,
+    branchLat,
+    branchLng,
     value.street,
     value.postalCode,
     value.city,
@@ -173,7 +201,13 @@ export default function DeliveryAddressForm({
   }, [])
 
   const pickSuggestion = (suggestion: StreetSuggestion) => {
-    patch({ street: suggestion.street })
+    patch({
+      street: suggestion.street,
+      city: suggestion.city || value.city,
+      postalCode: suggestion.postalCode || value.postalCode,
+      lat: suggestion.lat ?? value.lat,
+      lng: suggestion.lng ?? value.lng
+    })
     setOpen(false)
     setActiveIndex(-1)
   }
@@ -200,26 +234,28 @@ export default function DeliveryAddressForm({
   const postcodeReady = /^\d{5}$/.test(value.postalCode.trim())
   const addressHint =
     deliveryMode === "radius"
-      ? t("checkout.addressRadiusHint")
-      : t("checkout.addressStructuredHint")
+      ? t("checkout.addressRadiusHint", { region: regionLabel })
+      : t("checkout.addressStructuredHint", { region: regionLabel })
 
   return (
     <div className="delivery-address-form">
-      <div className="delivery-address-form__locate-row">
-        <button
-          type="button"
-          className="customer-btn customer-btn--secondary delivery-address-form__locate"
-          onClick={handleUseLocation}
-          disabled={locating}
-        >
-          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
-        </button>
-        {locationError && <p className="customer-error">{locationError}</p>}
+      <div className="delivery-address-form__region">
+        <p className="delivery-address-form__region-title">
+          {t("checkout.deliveryAreaTitle", { region: regionLabel })}
+        </p>
+        <p className="customer-hint">{addressHint}</p>
       </div>
 
-      <p className="customer-hint" style={{ marginBottom: 12 }}>
-        {addressHint}
-      </p>
+      {showMap && (
+        <div className="delivery-address-form__map">
+          <iframe
+            title={t("checkout.deliveryMapTitle", { region: regionLabel })}
+            src={mapEmbedUrl(mapLat!, mapLng!)}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      )}
 
       <div className="delivery-address-form__grid">
         <div className="delivery-address-form__cell">
@@ -237,6 +273,7 @@ export default function DeliveryAddressForm({
               {deliveryAreas.map((area) => (
                 <option key={area.postalCode} value={area.postalCode}>
                   {area.postalCode}
+                  {area.city ? ` · ${area.city}` : ""}
                 </option>
               ))}
             </select>
@@ -307,7 +344,7 @@ export default function DeliveryAddressForm({
                   <li className="address-autocomplete__status">{t("checkout.searchingAddresses")}</li>
                 )}
                 {suggestions.map((s, index) => (
-                  <li key={`${s.street}-${index}`}>
+                  <li key={`${s.street}-${s.postalCode}-${index}`}>
                     <button
                       type="button"
                       role="option"
@@ -319,6 +356,9 @@ export default function DeliveryAddressForm({
                       onClick={() => pickSuggestion(s)}
                     >
                       <span className="address-autocomplete__street">{s.street}</span>
+                      <span className="address-autocomplete__meta">
+                        {[s.postalCode, s.city].filter(Boolean).join(" ")}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -354,6 +394,18 @@ export default function DeliveryAddressForm({
             autoComplete="off"
           />
         </div>
+      </div>
+
+      <div className="delivery-address-form__locate-row">
+        <button
+          type="button"
+          className="delivery-address-form__locate-link"
+          onClick={handleUseLocation}
+          disabled={locating}
+        >
+          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
+        </button>
+        {locationError && <p className="customer-error">{locationError}</p>}
       </div>
 
       {error && <p className="customer-error">{error}</p>}
