@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — Malpera nû ji 1ê tîrmehê",
+    "eyebrow": "Em dê zû vegerin",
+    "title": "Malpera me ya nû dê zû were vekirin",
+    "lead": "Dizayna nû, fermanek hêsan û her tiştê hûn ji Concordia hez dikin — dê zû serhêl be.",
+    "highlight1": "Pîzza firinekê",
+    "highlight2": "Radestkirin & standin",
+    "highlight3": "Erzaniya serhêl",
+    "opensOn": "Vekirin li",
+    "days": "roj",
+    "hours": "demj.",
+    "minutes": "deq.",
+    "countdownAria": "{{days}} roj, {{hours}} demjimêr û {{minutes}} deqîqe maye",
+    "note": "Heta wê demê hûn dikarin wekî her dem bi telefonê li Kempen û Straelenê me bigihînin.",
+    "footer": "Pizzeria Concordia · Germêniya almanî, hezê italyanî"
   }
 }

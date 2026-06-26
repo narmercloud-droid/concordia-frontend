@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — Nowa strona od 1 lipca",
+    "eyebrow": "Wkrótce wracamy",
+    "title": "Nasza nowa strona wkrótce się otworzy",
+    "lead": "Świeży design, łatwe zamawianie i wszystko, co kochasz w Concordii — już wkrótce online.",
+    "highlight1": "Pizza z pieca",
+    "highlight2": "Dostawa i odbiór",
+    "highlight3": "Rabat online",
+    "opensOn": "Otwarcie",
+    "days": "dni",
+    "hours": "godz.",
+    "minutes": "min",
+    "countdownAria": "Pozostało {{days}} dni, {{hours}} godzin i {{minutes}} minut",
+    "note": "Do tego czasu można się z nami skontaktować telefonicznie w Kempen i Straelen jak zwykle.",
+    "footer": "Pizzeria Concordia · Niemiecka gościnność, włoska pasja"
   }
 }

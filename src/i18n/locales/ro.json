@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — Site nou din 1 iulie",
+    "eyebrow": "Revenim curând",
+    "title": "Noul nostru site se deschide în curând",
+    "lead": "Design proaspăt, comandă ușoară și tot ce iubiți la Concordia — în curând online.",
+    "highlight1": "Pizza la cuptor",
+    "highlight2": "Livrare & ridicare",
+    "highlight3": "Reducere online",
+    "opensOn": "Deschidere pe",
+    "days": "zile",
+    "hours": "ore",
+    "minutes": "min",
+    "countdownAria": "Mai sunt {{days}} zile, {{hours}} ore și {{minutes}} minute",
+    "note": "Până atunci ne puteți contacta telefonic la Kempen și Straelen ca de obicei.",
+    "footer": "Pizzeria Concordia · Căldură germană, pasiune italiană"
   }
 }

@@ -67,6 +67,110 @@
   animation-delay: -3s;
 }
 
+.coming-soon__lang {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 10;
+}
+
+.coming-soon__lang .lang-switcher {
+  position: relative;
+  font-size: 13px;
+}
+
+.coming-soon__lang .lang-switcher__flag {
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.coming-soon__lang .lang-switcher__name {
+  white-space: nowrap;
+}
+
+.coming-soon__lang .lang-switcher__trigger,
+.coming-soon__lang .lang-switcher__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--cs-ink);
+  cursor: pointer;
+}
+
+.coming-soon__lang .lang-switcher__trigger {
+  padding: 8px 32px 8px 12px;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.94)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b6560' d='M3 4.5 6 7.5 9 4.5'/%3E%3C/svg%3E")
+    no-repeat right 12px center;
+  min-width: 7.5rem;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.2);
+}
+
+.coming-soon__lang .lang-switcher__trigger:focus-visible {
+  outline: 2px solid rgb(255 255 255 / 0.8);
+  outline-offset: 2px;
+}
+
+.coming-soon__lang .lang-switcher__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 120;
+  min-width: 100%;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid #e2ebe5;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.28);
+  max-height: min(70vh, 420px);
+  overflow-y: auto;
+}
+
+.coming-soon__lang .lang-switcher__option {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+}
+
+.coming-soon__lang .lang-switcher__option:hover,
+.coming-soon__lang .lang-switcher__option--active {
+  background: #fdecef;
+}
+
+.coming-soon__lang .lang-switcher__option--active {
+  font-weight: 600;
+}
+
+[dir="rtl"] .coming-soon__lang {
+  right: auto;
+  left: max(16px, env(safe-area-inset-left));
+}
+
+[dir="rtl"] .coming-soon__lang .lang-switcher__menu {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .coming-soon__lang .lang-switcher__option {
+  text-align: right;
+}
+
+[dir="rtl"] .coming-soon__lang .lang-switcher__trigger {
+  padding: 8px 12px 8px 32px;
+  background-position: left 12px center;
+}
+
 .coming-soon__content {
   position: relative;
   z-index: 1;
@@ -390,4 +494,13 @@
   .coming-soon__footer {
     animation: none;
   }
+}
+
+[dir="rtl"] .coming-soon__content,
+[dir="rtl"] .coming-soon__card {
+  text-align: center;
+}
+
+[dir="rtl"] .coming-soon__highlights li {
+  flex-direction: row-reverse;
 }

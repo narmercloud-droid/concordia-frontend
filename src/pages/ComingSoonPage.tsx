@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import ConcordiaWordmark from "@/apps/customer/components/ConcordiaWordmark"
+import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { getLaunchDate } from "@/lib/comingSoon"
+import { localeForLanguage } from "@/i18n/languages"
 import "./ComingSoonPage.css"
 
 const HERO_IMAGE = "/images/food/concordia-hero-oven-pizza.webp?v=20260622"
@@ -40,16 +42,15 @@ export default function ComingSoonPage() {
   const launch = getLaunchDate()
   const { days, hours, minutes } = useCountdown(launch)
 
-  const launchLabel = useMemo(
-    () =>
-      new Intl.DateTimeFormat(i18n.language, {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        timeZone: "Europe/Berlin"
-      }).format(launch),
-    [i18n.language, launch]
-  )
+  const launchLabel = useMemo(() => {
+    const lang = (i18n.language ?? "de").split("-")[0]
+    return new Intl.DateTimeFormat(localeForLanguage(lang), {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Europe/Berlin"
+    }).format(launch)
+  }, [i18n.language, launch])
 
   useEffect(() => {
     const previous = document.title
@@ -97,6 +98,10 @@ export default function ComingSoonPage() {
         <div className="coming-soon__hero-overlay" />
         <div className="coming-soon__glow coming-soon__glow--green" />
         <div className="coming-soon__glow coming-soon__glow--red" />
+      </div>
+
+      <div className="coming-soon__lang">
+        <LanguageSwitcher />
       </div>
 
       <div className="coming-soon__content">

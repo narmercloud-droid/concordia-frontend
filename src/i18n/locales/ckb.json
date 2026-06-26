@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "کۆنکۆردیا — ماڵپەڕی نوێ لە ١ی تەمموز",
+    "eyebrow": "بەم زووانە دەگەڕینەوە",
+    "title": "ماڵپەڕی نوێی ئێمە بەمزوانە دەکرێتەوە",
+    "lead": "دیزاینی نوێ، داواکردنی ئاسان و هەموو ئەوەی لە کۆنکۆردیا خۆشتان دەوێت — بەمزوانە ئۆنلاین.",
+    "highlight1": "پیتزای تەنیوری",
+    "highlight2": "گەیاندن و وەرگرتن",
+    "highlight3": "داشکاندنی ئۆنلاین",
+    "opensOn": "کردنەوە لە",
+    "days": "ڕۆژ",
+    "hours": "کاتژ.",
+    "minutes": "خول.",
+    "countdownAria": "{{days}} ڕۆژ و {{hours}} کاتژمێر و {{minutes}} خولەک ماوە",
+    "note": "تا ئەو کاتە دەتوانن وەک هەمیشە بە تەلەفۆن لە کەمپەن و شتراڵەن پەیوەندیمان پێوە بکەن.",
+    "footer": "پیتزەریای کۆنکۆردیا · گەرمایی ئەڵمانی، ئارەوقەی ئیتاڵی"
   }
 }

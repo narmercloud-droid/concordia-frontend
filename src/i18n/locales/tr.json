@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — 1 Temmuz'dan itibaren yeni site",
+    "eyebrow": "Yakında geri dönüyoruz",
+    "title": "Yeni web sitemiz yakında açılıyor",
+    "lead": "Yeni tasarım, kolay sipariş ve Concordia'yı sevdiğiniz her şey — çok yakında çevrimiçi.",
+    "highlight1": "Taş fırın pizzası",
+    "highlight2": "Teslimat & paket servis",
+    "highlight3": "Online indirim",
+    "opensOn": "Açılış",
+    "days": "gün",
+    "hours": "sa.",
+    "minutes": "dk.",
+    "countdownAria": "{{days}} gün, {{hours}} saat ve {{minutes}} dakika kaldı",
+    "note": "O zamana kadar Kempen ve Straelen'de bizi her zamanki gibi telefonla arayabilirsiniz.",
+    "footer": "Pizzeria Concordia · Alman sıcaklığı, İtalyan tutkusu"
   }
 }

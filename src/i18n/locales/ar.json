@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "كونكورديا — موقع جديد من 1 يوليو",
+    "eyebrow": "نعود قريباً",
+    "title": "موقعنا الجديد يفتح قريباً",
+    "lead": "تصميم جديد، طلب سهل، وكل ما تحبونه في كونكورديا — قريباً على الإنترنت.",
+    "highlight1": "بيتزا الفرن",
+    "highlight2": "توصيل واستلام",
+    "highlight3": "خصم عبر الإنترنت",
+    "opensOn": "الافتتاح في",
+    "days": "يوم",
+    "hours": "ساعة",
+    "minutes": "دقيقة",
+    "countdownAria": "متبقي {{days}} أيام و{{hours}} ساعات و{{minutes}} دقائق",
+    "note": "حتى ذلك الحين يمكنكم التواصل معنا هاتفياً في كيمبن وشترالن كالمعتاد.",
+    "footer": "بيتزاريا كونكورديا · دفء ألماني، شغف إيطالي"
   }
 }

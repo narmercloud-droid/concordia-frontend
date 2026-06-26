@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — Nieuwe website vanaf 1 juli",
+    "eyebrow": "We zijn zo terug",
+    "title": "Onze nieuwe website opent binnenkort",
+    "lead": "Fris design, eenvoudig bestellen en alles wat u van Concordia waardeert — binnenkort online.",
+    "highlight1": "Steenvloer-pizza",
+    "highlight2": "Bezorging & afhalen",
+    "highlight3": "Online korting",
+    "opensOn": "Opening op",
+    "days": "dagen",
+    "hours": "uur",
+    "minutes": "min",
+    "countdownAria": "Nog {{days}} dagen, {{hours}} uur en {{minutes}} minuten",
+    "note": "Tot die tijd kunt u ons zoals gewoonlijk telefonisch bereiken in Kempen en Straelen.",
+    "footer": "Pizzeria Concordia · Duitse gastvrijheid, Italiaanse passie"
   }
 }

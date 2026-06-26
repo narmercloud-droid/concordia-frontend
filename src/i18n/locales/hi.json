@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — 1 जुलाई से नई वेबसाइट",
+    "eyebrow": "हम जल्द ही वापस आ रहे हैं",
+    "title": "हमारी नई वेबसाइट जल्द खुलेगी",
+    "lead": "नया डिज़ाइन, आसान ऑर्डर और Concordia की वो सब चीज़ें जो आपको पसंद हैं — जल्द ऑनलाइन।",
+    "highlight1": "चूल्हे की पिज़्ज़ा",
+    "highlight2": "डिलीवरी और पिकअप",
+    "highlight3": "ऑनलाइन छूट",
+    "opensOn": "खुलने की तारीख",
+    "days": "दिन",
+    "hours": "घं.",
+    "minutes": "मि.",
+    "countdownAria": "अभी {{days}} दिन, {{hours}} घंटे और {{minutes}} मिनट बाकी",
+    "note": "तब तक आप Kempen और Straelen में हमें फ़ोन पर पहले की तरह संपर्क कर सकते हैं।",
+    "footer": "Pizzeria Concordia · जर्मन मेहमाननवाज़ी, इतालवी जुनून"
   }
 }

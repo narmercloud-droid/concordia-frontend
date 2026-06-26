@@ -747,5 +747,21 @@
     "ios": "Download for iPhone",
     "android": "Download for Android",
     "comingSoonNote": "Coming soon — we're putting the finishing touches on the apps."
+  },
+  "comingSoon": {
+    "documentTitle": "Concordia — Новый сайт с 1 июля",
+    "eyebrow": "Скоро вернёмся",
+    "title": "Наш новый сайт скоро откроется",
+    "lead": "Свежий дизайн, простое оформление заказов и всё, что вы любите в Concordia — скоро онлайн.",
+    "highlight1": "Пицца из печи",
+    "highlight2": "Доставка и самовывоз",
+    "highlight3": "Скидка онлайн",
+    "opensOn": "Открытие",
+    "days": "дн.",
+    "hours": "ч.",
+    "minutes": "мин.",
+    "countdownAria": "Осталось {{days}} дней, {{hours}} часов и {{minutes}} минут",
+    "note": "До этого времени вы по-прежнему можете связаться с нами по телефону в Кемпене и Штралене.",
+    "footer": "Pizzeria Concordia · Немецкое гостеприимство, итальянская страсть"
   }
 }
