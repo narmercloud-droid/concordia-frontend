@@ -2,7 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "build": {
     "env": {
-      "VITE_VAPID_PUBLIC_KEY": "BF0SOKenmqz8aRfVbRZuOXTTh6DWXq7LRmb0UZh3Zf3YBUmGa_MrQEA1MSjPUhgu6f3wKED1nPmJsUBMYWRS94o"
+      "VITE_VAPID_PUBLIC_KEY": "BF0SOKenmqz8aRfVbRZuOXTTh6DWXq7LRmb0UZh3Zf3YBUmGa_MrQEA1MSjPUhgu6f3wKED1nPmJsUBMYWRS94o",
+      "VITE_COMING_SOON": "true",
+      "VITE_LAUNCH_DATE": "2026-07-01T00:00:00+02:00"
     }
   },
   "crons": [

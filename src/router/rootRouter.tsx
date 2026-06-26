@@ -8,15 +8,25 @@ import adminRoutes from "../apps/admin/routes.js"
 import { courierRoutes } from "@/apps/courier/routes.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
+import ComingSoonPage from "@/pages/ComingSoonPage.js"
+import { hasComingSoonBypass, isComingSoonActive } from "@/lib/comingSoon.js"
+
+function RootLayout() {
+  if (isComingSoonActive() && !hasComingSoonBypass()) {
+    return <ComingSoonPage />
+  }
+
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <Outlet />
+    </Suspense>
+  )
+}
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<LoadingFallback />}>
-        <Outlet />
-      </Suspense>
-    ),
+    element: <RootLayout />,
     children: [
       homeRoutes,
       infoRoutes,

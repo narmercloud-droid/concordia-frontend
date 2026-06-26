@@ -1,0 +1,393 @@
+.coming-soon {
+  --cs-red: #c8102e;
+  --cs-red-deep: #9e0c24;
+  --cs-green: #1b7340;
+  --cs-green-deep: #145a32;
+  --cs-ink: #1a1f1c;
+  --cs-muted: #5c6b62;
+  --cs-card: rgb(255 255 255 / 0.92);
+  --cs-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --cs-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--cs-ink);
+  font-family: var(--cs-sans);
+}
+
+.coming-soon__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.coming-soon__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  transform: scale(1.04);
+  animation: coming-soon-kenburns 22s ease-in-out infinite alternate;
+}
+
+.coming-soon__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(12 18 14 / 0.55) 0%, rgb(12 18 14 / 0.72) 45%, rgb(8 12 10 / 0.88) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(27 115 64 / 0.22), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgb(200 16 46 / 0.18), transparent 55%);
+}
+
+.coming-soon__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: coming-soon-float 8s ease-in-out infinite;
+}
+
+.coming-soon__glow--green {
+  width: 280px;
+  height: 280px;
+  left: -60px;
+  bottom: 10%;
+  background: var(--cs-green);
+}
+
+.coming-soon__glow--red {
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: 18%;
+  background: var(--cs-red);
+  animation-delay: -3s;
+}
+
+.coming-soon__content {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: max(28px, env(safe-area-inset-top)) 20px max(36px, env(safe-area-inset-bottom));
+  text-align: center;
+}
+
+.coming-soon__tricolor {
+  display: flex;
+  width: min(460px, 100%);
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.25);
+  animation: coming-soon-rise 0.7s ease both;
+}
+
+.coming-soon__tricolor span:nth-child(1) {
+  flex: 1;
+  background: var(--cs-green);
+}
+
+.coming-soon__tricolor span:nth-child(2) {
+  flex: 1;
+  background: #ffffff;
+}
+
+.coming-soon__tricolor span:nth-child(3) {
+  flex: 1;
+  background: var(--cs-red);
+}
+
+.coming-soon__card {
+  width: min(600px, 100%);
+  background: var(--cs-card);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgb(255 255 255 / 0.65);
+  border-radius: 28px;
+  padding: clamp(30px, 5vw, 48px) clamp(24px, 4vw, 44px);
+  box-shadow:
+    0 32px 80px rgb(0 0 0 / 0.35),
+    0 2px 0 rgb(255 255 255 / 0.9) inset;
+  animation: coming-soon-rise 0.8s ease 0.1s both;
+}
+
+.coming-soon__logo {
+  margin-bottom: 18px;
+}
+
+.coming-soon__logo .concordia-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.coming-soon__logo .concordia-wordmark__script {
+  font-family: "Pinyon Script", cursive;
+  font-size: clamp(3rem, 11vw, 4.6rem);
+  line-height: 0.92;
+  color: var(--cs-red);
+  text-shadow: 0 2px 20px rgb(200 16 46 / 0.15);
+}
+
+.coming-soon__logo .concordia-wordmark__restaurant {
+  font-family: var(--cs-serif);
+  font-size: clamp(0.95rem, 2.8vw, 1.12rem);
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--cs-ink);
+}
+
+.coming-soon__logo .concordia-wordmark__rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 10px auto 0;
+  background: linear-gradient(90deg, var(--cs-green), #ffffff, var(--cs-red));
+  border-radius: 999px;
+}
+
+.coming-soon__logo .concordia-wordmark__tagline {
+  display: none;
+}
+
+.coming-soon__eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cs-green);
+}
+
+.coming-soon__title {
+  margin: 0 0 14px;
+  font-family: var(--cs-serif);
+  font-size: clamp(2rem, 5.5vw, 2.85rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--cs-ink);
+}
+
+.coming-soon__lead {
+  margin: 0 auto 22px;
+  max-width: 38ch;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--cs-muted);
+}
+
+.coming-soon__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  padding: 0;
+  list-style: none;
+}
+
+.coming-soon__highlights li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--cs-ink);
+  background: linear-gradient(180deg, #f8fcf9 0%, #f0f7f2 100%);
+  border: 1px solid #dce9e0;
+  box-shadow: 0 2px 8px rgb(27 115 64 / 0.06);
+}
+
+.coming-soon__highlight-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.coming-soon__launch {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+  padding: 16px 28px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgb(27 115 64 / 0.1) 0%, rgb(27 115 64 / 0.04) 100%);
+  border: 1px solid rgb(27 115 64 / 0.2);
+  box-shadow: 0 8px 24px rgb(27 115 64 / 0.08);
+}
+
+.coming-soon__launch-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+}
+
+.coming-soon__launch-date {
+  font-family: var(--cs-serif);
+  font-size: clamp(1.45rem, 4.2vw, 1.9rem);
+  font-weight: 600;
+  color: var(--cs-green-deep);
+}
+
+.coming-soon__countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.coming-soon__countdown-item {
+  min-width: 76px;
+  padding: 14px 10px 12px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #f7faf8 100%);
+  border: 1px solid #e2ebe5;
+  box-shadow:
+    0 10px 24px rgb(26 31 28 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+}
+
+.coming-soon__countdown-value {
+  display: block;
+  font-family: var(--cs-serif);
+  font-size: clamp(1.85rem, 5vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-red);
+}
+
+.coming-soon__countdown-unit {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+}
+
+.coming-soon__countdown-sep {
+  font-family: var(--cs-serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: rgb(200 16 46 / 0.45);
+  margin-bottom: 18px;
+  animation: coming-soon-pulse 1.2s ease-in-out infinite;
+}
+
+.coming-soon__note {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: var(--cs-muted);
+}
+
+.coming-soon__footer {
+  margin-top: 22px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgb(255 255 255 / 0.82);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.4);
+  animation: coming-soon-rise 0.9s ease 0.25s both;
+}
+
+.coming-soon__footer p {
+  margin: 0;
+}
+
+@keyframes coming-soon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes coming-soon-kenburns {
+  from {
+    transform: scale(1.04);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes coming-soon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes coming-soon-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .coming-soon__card {
+    border-radius: 22px;
+    padding-inline: 20px;
+  }
+
+  .coming-soon__highlights {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .coming-soon__highlights li {
+    justify-content: center;
+  }
+
+  .coming-soon__countdown-item {
+    min-width: 64px;
+    padding-inline: 6px;
+  }
+
+  .coming-soon__countdown-sep {
+    font-size: 1.35rem;
+    margin-bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coming-soon__hero-img,
+  .coming-soon__glow,
+  .coming-soon__countdown-sep,
+  .coming-soon__card,
+  .coming-soon__tricolor,
+  .coming-soon__footer {
+    animation: none;
+  }
+}
