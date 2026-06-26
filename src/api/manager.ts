@@ -443,14 +443,21 @@ function normalizeManagerOrdersResult(
   }
 }
 
-export const getManagerOrders = async (
-  branchId?: string,
-  params?: { search?: string; limit?: number; offset?: number }
-) => {
+export type ManagerOrderFilters = {
+  search?: string
+  customerType?: "guest" | "registered"
+  paymentMethod?: string
+  limit?: number
+  offset?: number
+}
+
+export const getManagerOrders = async (branchId?: string, params?: ManagerOrderFilters) => {
   const res = await api.get("/api/v1/manager/orders", {
     params: {
       branchId,
       search: params?.search || undefined,
+      customerType: params?.customerType || undefined,
+      paymentMethod: params?.paymentMethod || undefined,
       limit: params?.limit,
       offset: params?.offset
     }

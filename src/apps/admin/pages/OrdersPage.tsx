@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getManagerOrders, type ManagerOrder } from "@/api/manager"
+import { getManagerOrders, type ManagerOrder, type ManagerOrderFilters } from "@/api/manager"
 import AdminOrderDetail from "@/apps/admin/components/AdminOrderDetail"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
@@ -9,8 +9,27 @@ import "./OrdersPage.css"
 
 const PAGE_SIZE = 50
 
+type CustomerTypeFilter = ManagerOrderFilters["customerType"] | ""
+type PaymentMethodFilter = "" | "cash" | "card" | "paypal" | "klarna" | "sepa"
+
 function shortOrderId(id: string) {
   return id.slice(0, 8).toUpperCase()
+}
+
+function formatPaymentMethod(method?: string | null) {
+  if (!method) return "—"
+  const value = method.toUpperCase()
+  if (value === "COD" || value === "CASH") return "Cash"
+  if (value === "CARD") return "Card"
+  if (value === "PAYPAL") return "PayPal"
+  if (value === "KLARNA") return "Klarna"
+  if (value === "SEPA") return "SEPA"
+  if (value === "STRIPE") return "Stripe"
+  return method
+}
+
+function customerLabel(order: ManagerOrder) {
+  return order.isGuest ? "Guest" : "Registered"
 }
 
 export default function OrdersPage() {
@@ -18,9 +37,13 @@ export default function OrdersPage() {
   const tabVisible = useDocumentVisible()
   const [searchInput, setSearchInput] = useState("")
   const [search, setSearch] = useState("")
+  const [customerType, setCustomerType] = useState<CustomerTypeFilter>("")
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodFilter>("")
   const [offset, setOffset] = useState(0)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [accumulatedOrders, setAccumulatedOrders] = useState<ManagerOrder[]>([])
+
+  const hasFilters = Boolean(search || customerType || paymentMethod)
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -31,17 +54,28 @@ export default function OrdersPage() {
     return () => window.clearTimeout(timer)
   }, [searchInput])
 
+  useEffect(() => {
+    setOffset(0)
+    setExpandedId(null)
+  }, [customerType, paymentMethod])
+
+  const queryFilters = useMemo(
+    () => ({
+      search: search || undefined,
+      customerType: customerType || undefined,
+      paymentMethod: paymentMethod || undefined,
+      limit: PAGE_SIZE,
+      offset
+    }),
+    [search, customerType, paymentMethod, offset]
+  )
+
   const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ["managerOrders", branchId, search, offset],
-    queryFn: () =>
-      getManagerOrders(branchId, {
-        search: search || undefined,
-        limit: PAGE_SIZE,
-        offset
-      }),
+    queryKey: ["managerOrders", branchId, queryFilters],
+    queryFn: () => getManagerOrders(branchId, queryFilters),
     enabled: !!branchId,
     staleTime: 10_000,
-    refetchInterval: tabVisible && !search ? 15_000 : false
+    refetchInterval: tabVisible && !hasFilters ? 15_000 : false
   })
 
   useEffect(() => {
@@ -64,6 +98,15 @@ export default function OrdersPage() {
   const total = data?.total ?? 0
   const hasMore = accumulatedOrders.length < total
 
+  const clearFilters = () => {
+    setSearchInput("")
+    setSearch("")
+    setCustomerType("")
+    setPaymentMethod("")
+    setOffset(0)
+    setExpandedId(null)
+  }
+
   if (!branchId) return <p>No branch selected.</p>
 
   return (
@@ -72,8 +115,8 @@ export default function OrdersPage() {
         <div>
           <h2>Orders</h2>
           <p className="orders-page__lead">
-            Search past orders for {branchName ?? branchId} by customer name, street, phone, or
-            order number. Click an order to see the full details.
+            Filter and search past orders for {branchName ?? branchId} by customer type, payment
+            method, name, address, or phone number.
           </p>
         </div>
         <div className="orders-page__toolbar">
@@ -82,9 +125,37 @@ export default function OrdersPage() {
             type="search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            placeholder="Search name, street, phone, order number…"
+            placeholder="Name, address, phone, order number…"
             aria-label="Search orders"
           />
+          <select
+            className="orders-page__filter"
+            value={customerType}
+            onChange={(e) => setCustomerType(e.target.value as CustomerTypeFilter)}
+            aria-label="Filter by customer type"
+          >
+            <option value="">All customers</option>
+            <option value="guest">Guest orders</option>
+            <option value="registered">Registered customers</option>
+          </select>
+          <select
+            className="orders-page__filter"
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value as PaymentMethodFilter)}
+            aria-label="Filter by payment method"
+          >
+            <option value="">All payments</option>
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="klarna">Klarna</option>
+            <option value="sepa">SEPA</option>
+          </select>
+          {hasFilters ? (
+            <button type="button" className="orders-page__clear" onClick={clearFilters}>
+              Clear filters
+            </button>
+          ) : null}
           <button type="button" onClick={() => void refetch()} disabled={isFetching}>
             {isFetching ? "Refreshing…" : "Refresh"}
           </button>
@@ -92,7 +163,7 @@ export default function OrdersPage() {
       </div>
 
       <p className="orders-page__meta">
-        {search
+        {hasFilters
           ? `${total} matching order${total === 1 ? "" : "s"}`
           : `Showing ${accumulatedOrders.length} of ${total} recent orders`}
       </p>
@@ -101,7 +172,7 @@ export default function OrdersPage() {
         <p>Loading orders…</p>
       ) : accumulatedOrders.length === 0 ? (
         <p className="orders-page__meta">
-          {search ? "No orders match your search." : "No orders yet."}
+          {hasFilters ? "No orders match your filters." : "No orders yet."}
         </p>
       ) : (
         <div className="orders-page__list">
@@ -126,7 +197,13 @@ export default function OrdersPage() {
                 >
                   <div className="orders-page__summary-top">
                     <strong className="orders-page__order-id">#{shortOrderId(order.id)}</strong>
-                    <span className="orders-page__status">{order.status}</span>
+                    <div className="orders-page__badges">
+                      <span className="orders-page__badge">{customerLabel(order)}</span>
+                      <span className="orders-page__badge orders-page__badge--muted">
+                        {formatPaymentMethod(order.paymentMethod)}
+                      </span>
+                      <span className="orders-page__status">{order.status}</span>
+                    </div>
                   </div>
                   <p className="orders-page__customer">
                     {order.customerName ?? "Guest"}
