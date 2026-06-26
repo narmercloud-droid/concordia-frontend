@@ -78,7 +78,6 @@ export default function ComingSoonPage() {
   }, [t])
 
   const highlights = [
-    { icon: "🍕", text: t("comingSoon.highlight1") },
     { icon: "🛵", text: t("comingSoon.highlight2") },
     { icon: "✨", text: t("comingSoon.highlight3") }
   ]
