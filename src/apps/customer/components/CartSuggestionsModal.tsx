@@ -21,8 +21,9 @@ type Props = {
   open: boolean
   branchId: string
   excludeItemIds: number[]
+  addingItemId?: number | null
   onClose: () => void
-  onSelectItem: (item: SuggestionItem) => void
+  onQuickAdd: (item: SuggestionItem) => void | Promise<void>
   continueLabel?: string
   onContinue?: () => void
 }
@@ -36,12 +37,16 @@ function isDrinkSuggestion(item: SuggestionItem) {
 
 function SuggestionGrid({
   items,
-  onSelect,
-  addLabel
+  onQuickAdd,
+  addLabel,
+  addingLabel,
+  addingItemId
 }: {
   items: SuggestionItem[]
-  onSelect: (item: SuggestionItem) => void
+  onQuickAdd: (item: SuggestionItem) => void | Promise<void>
   addLabel: string
+  addingLabel: string
+  addingItemId?: number | null
 }) {
   if (!items.length) return null
 
@@ -49,12 +54,15 @@ function SuggestionGrid({
     <div className="cart-suggestions-modal__grid">
       {items.map((item) => {
         const isDrink = isDrinkSuggestion(item)
+        const isAdding = addingItemId === item.id
         return (
           <button
             key={item.id}
             type="button"
-            className="cart-suggestions-modal__item"
-            onClick={() => onSelect(item)}
+            className={`cart-suggestions-modal__item${isAdding ? " cart-suggestions-modal__item--adding" : ""}`}
+            onClick={() => onQuickAdd(item)}
+            disabled={addingItemId != null}
+            aria-busy={isAdding}
           >
             {isDrink ? (
               <span className="cart-suggestions-modal__thumb cart-suggestions-modal__thumb--drink" aria-hidden="true">
@@ -78,7 +86,9 @@ function SuggestionGrid({
               <span className="cart-suggestions-modal__name">{item.name}</span>
               <span className="cart-suggestions-modal__price">{formatCurrency(item.price)}</span>
             </span>
-            <span className="cart-suggestions-modal__add">{addLabel}</span>
+            <span className="cart-suggestions-modal__add">
+              {isAdding ? addingLabel : addLabel}
+            </span>
           </button>
         )
       })}
@@ -90,8 +100,9 @@ export default function CartSuggestionsModal({
   open,
   branchId,
   excludeItemIds,
+  addingItemId,
   onClose,
-  onSelectItem,
+  onQuickAdd,
   continueLabel,
   onContinue
 }: Props) {
@@ -127,8 +138,8 @@ export default function CartSuggestionsModal({
 
   useEffect(() => {
     if (!open || isLoading) return
-    if (!hasSuggestions) onClose()
-  }, [open, isLoading, hasSuggestions, onClose])
+    if (!hasSuggestions) onContinue?.() ?? onClose()
+  }, [open, isLoading, hasSuggestions, onClose, onContinue])
 
   if (!open || (!isLoading && !hasSuggestions)) return null
 
@@ -142,7 +153,7 @@ export default function CartSuggestionsModal({
       <button
         type="button"
         className="item-modal__backdrop"
-        onClick={onClose}
+        onClick={onContinue ?? onClose}
         aria-label={t("common.close")}
       />
 
@@ -158,7 +169,7 @@ export default function CartSuggestionsModal({
           <button
             type="button"
             className="item-modal__close"
-            onClick={onClose}
+            onClick={onContinue ?? onClose}
             aria-label={t("common.close")}
           >
             ×
@@ -175,8 +186,10 @@ export default function CartSuggestionsModal({
                   <p className="cart-suggestions-modal__section-label">{t("cart.suggestionsDrinks")}</p>
                   <SuggestionGrid
                     items={drinks}
-                    onSelect={onSelectItem}
+                    onQuickAdd={onQuickAdd}
                     addLabel={t("cart.suggestionsAdd")}
+                    addingLabel={t("common.processing")}
+                    addingItemId={addingItemId}
                   />
                 </section>
               )}
@@ -185,8 +198,10 @@ export default function CartSuggestionsModal({
                   <p className="cart-suggestions-modal__section-label">{t("cart.suggestionsSides")}</p>
                   <SuggestionGrid
                     items={sides}
-                    onSelect={onSelectItem}
+                    onQuickAdd={onQuickAdd}
                     addLabel={t("cart.suggestionsAdd")}
+                    addingLabel={t("common.processing")}
+                    addingItemId={addingItemId}
                   />
                 </section>
               )}

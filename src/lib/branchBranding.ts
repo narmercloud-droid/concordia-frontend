@@ -1,13 +1,12 @@
 /**
- * Brand marks — homepage/header use CSS wordmark (ConcordiaWordmark).
- * Full illustrated PNGs kept for print / legacy reference only.
+ * Brand marks — V3 chef mascot (white / red / green).
+ * Header lockup, hero, and icon live under /images/.
  */
-export const BRAND_LOGO_REFERENCE = "/images/concordia-logo-reference.png"
-export const BRAND_LOGO_WORDMARK = "/images/concordia-logo-wordmark.png"
-export const BRAND_LOGO_FANCY = "/images/concordia-logo-fancy.png?v=20260620"
-export const BRAND_LOGO_PEOPLE_TIERED = "/images/concordia-logo-people-tiered.png?v=20260619"
-export const BRAND_LOGO_HERO = "/images/concordia-logo-fancy.png?v=20260619"
-export const BRAND_LOGO_IMAGE = "/images/concordia-logo-fancy.png?v=20260619"
+export const BRAND_LOGO_HEADER = "/images/concordia-logo-web-header.png?v=20260627"
+export const BRAND_LOGO_HERO = "/images/concordia-logo-web-hero.png?v=20260627"
+export const BRAND_LOGO_ICON = "/images/concordia-logo-web-icon.png?v=20260627"
+export const BRAND_LOGO_IMAGE = BRAND_LOGO_HEADER
+export const BRAND_LOGO_FANCY = BRAND_LOGO_ICON
 
 /** Vector fallbacks for print / compact header when PNG is too tall. */
 export const BRAND_LOGO_SVG = "/brand/svg/concordia-logo-compact.svg"

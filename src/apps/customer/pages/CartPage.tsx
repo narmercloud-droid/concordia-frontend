@@ -7,6 +7,7 @@ import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { useQuery } from "@tanstack/react-query"
 import { getBranches } from "@/api/customer"
 import { formatCurrency } from "@/utils/format"
+import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CartSuggestionsModal, {
   type SuggestionItem
@@ -32,10 +33,37 @@ export default function CartPage() {
   const updateQuantity = useCartStore((s) => s.updateQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
+  const addItem = useCartStore((s) => s.addItem)
 
   const cartItemIds = useMemo(() => items.map((i) => i.id), [items])
-  const [showSuggestions, setShowSuggestions] = useState(true)
+  const [checkoutExtrasOpen, setCheckoutExtrasOpen] = useState(false)
+  const [addingItemId, setAddingItemId] = useState<number | null>(null)
   const [selectedItem, setSelectedItem] = useState<SuggestionItem | null>(null)
+
+  const goToCheckout = () => navigate("/customer/checkout")
+
+  const handleCheckoutClick = () => {
+    setCheckoutExtrasOpen(true)
+  }
+
+  const handleExtrasFinished = () => {
+    setCheckoutExtrasOpen(false)
+    goToCheckout()
+  }
+
+  const handleQuickAdd = async (item: SuggestionItem) => {
+    if (!branchId || addingItemId != null) return
+
+    setAddingItemId(item.id)
+    try {
+      const result = await quickAddItemToCart(branchId, item.id, addItem)
+      if (result === "needs_options") {
+        setSelectedItem(item)
+      }
+    } finally {
+      setAddingItemId(null)
+    }
+  }
 
   if (items.length === 0) {
     return (
@@ -141,24 +169,22 @@ export default function CartPage() {
         <button
           type="button"
           className="customer-btn customer-btn--primary"
-          onClick={() => navigate("/customer/checkout")}
+          onClick={handleCheckoutClick}
         >
           {t("cart.checkout")}
         </button>
       </div>
 
-      {branchId && showSuggestions && !selectedItem && (
+      {branchId && checkoutExtrasOpen && (
         <CartSuggestionsModal
-          open={showSuggestions}
+          open={!selectedItem}
           branchId={branchId}
           excludeItemIds={cartItemIds}
-          onClose={() => setShowSuggestions(false)}
-          continueLabel={t("cart.suggestionsContinueCart")}
-          onContinue={() => setShowSuggestions(false)}
-          onSelectItem={(item) => {
-            setShowSuggestions(false)
-            setSelectedItem(item)
-          }}
+          addingItemId={addingItemId}
+          onClose={handleExtrasFinished}
+          continueLabel={t("cart.suggestionsContinueCheckout")}
+          onContinue={handleExtrasFinished}
+          onQuickAdd={handleQuickAdd}
         />
       )}
 
@@ -175,7 +201,6 @@ export default function CartPage() {
           onClose={() => setSelectedItem(null)}
           onAdded={() => {
             setSelectedItem(null)
-            setShowSuggestions(true)
           }}
         />
       )}

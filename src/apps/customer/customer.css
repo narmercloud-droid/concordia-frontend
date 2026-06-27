@@ -127,23 +127,36 @@
 
 .concordia-logo--sm .concordia-logo__image {
   width: auto;
-  max-width: 132px;
+  max-width: min(200px, 58vw);
   max-height: 48px;
   object-fit: contain;
 }
 
 .concordia-logo--md .concordia-logo__image {
   width: auto;
-  max-width: 168px;
+  max-width: 220px;
   max-height: 64px;
   object-fit: contain;
 }
 
-.concordia-logo--lg .concordia-logo__image {
+.concordia-logo--lg.concordia-logo--lockup .concordia-logo__image {
   width: auto;
-  max-width: 220px;
-  max-height: 84px;
+  max-width: 240px;
+  max-height: 72px;
   object-fit: contain;
+}
+
+.concordia-logo--hero .concordia-logo__image {
+  width: auto;
+  max-width: min(340px, 92vw);
+  max-height: min(240px, 42vw);
+  object-fit: contain;
+}
+
+.concordia-home-logo {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 8px;
 }
 
 .concordia-wordmark {

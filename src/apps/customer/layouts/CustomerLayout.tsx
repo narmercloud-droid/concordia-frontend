@@ -76,7 +76,7 @@ export default function CustomerLayout() {
     >
       <header className={`customer-header${nativeApp ? " customer-header--native" : ""}`}>
         <Link to="/" className="customer-header__brand">
-          <ConcordiaLogo size="sm" round />
+          <ConcordiaLogo size="sm" variant="lockup" />
         </Link>
         <div className="customer-header__actions">
           <LanguageSwitcher />

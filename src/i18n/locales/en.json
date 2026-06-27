@@ -159,6 +159,7 @@
     "suggestionsSides": "Salads & sides",
     "suggestionsAdd": "Add",
     "suggestionsContinue": "Continue",
+    "suggestionsContinueCheckout": "Continue to checkout",
     "suggestionsContinueCart": "Back to cart",
     "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order."
   },

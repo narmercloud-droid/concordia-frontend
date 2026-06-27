@@ -79,6 +79,12 @@
   transform: scale(0.99);
 }
 
+.cart-suggestions-modal__item--adding,
+.cart-suggestions-modal__item:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
 .cart-suggestions-modal__thumb {
   flex-shrink: 0;
   width: 52px;
