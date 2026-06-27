@@ -1,3 +1,5 @@
+import { isNativeApp } from "@/lib/nativeApp"
+
 const LAUNCH_AT = new Date(
   import.meta.env.VITE_LAUNCH_DATE ?? "2026-07-01T00:00:00+02:00"
 ).getTime()
@@ -13,6 +15,8 @@ function envFlag(name: string): boolean | null {
 }
 
 export function isComingSoonActive(): boolean {
+  if (isNativeApp()) return false
+
   const forced = envFlag("VITE_COMING_SOON")
   if (forced === false) return false
   if (forced === true) return true
