@@ -46,6 +46,7 @@ export type BranchPaymentStatus = {
   cardEnabled: boolean
   applePayEnabled: boolean
   googlePayEnabled: boolean
+  paypalEnabled: boolean
   stripeReady: boolean
   stripeConfigured: boolean
 }
@@ -96,7 +97,7 @@ export const startBranchStripeOnboarding = async (
 
 export const updateBranchPaymentSettings = async (
   branchId: string,
-  data: Partial<Pick<BranchPaymentStatus, "cardEnabled" | "applePayEnabled" | "googlePayEnabled">>
+  data: Partial<Pick<BranchPaymentStatus, "cardEnabled" | "applePayEnabled" | "googlePayEnabled" | "paypalEnabled">>
 ) => {
   const res = await api.put(`/api/payments/branches/${branchId}/settings`, data)
   return unwrap<BranchPaymentStatus>(res)
