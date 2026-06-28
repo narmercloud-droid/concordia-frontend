@@ -1113,3 +1113,216 @@
     overflow-x: visible;
   }
 }
+
+/* Clickable coupon cards (Lidl-style wallet) */
+.coupon-strip {
+  margin: 0 0 28px;
+}
+
+.coupon-strip__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.coupon-strip__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--c-serif);
+  color: var(--c-ink);
+}
+
+.coupon-strip__link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.coupon-strip__scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.coupon-strip__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.coupon-card {
+  position: relative;
+  flex: 0 0 min(280px, 82vw);
+  text-align: left;
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  cursor: pointer;
+  background: linear-gradient(135deg, #fff 0%, #f8f4ec 100%);
+  box-shadow:
+    0 8px 24px rgb(var(--c-red-rgb) / 0.08),
+    inset 0 0 0 1px rgb(var(--c-green-rgb) / 0.18);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.coupon-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 28px rgb(var(--c-red-rgb) / 0.12),
+    inset 0 0 0 1px rgb(var(--c-green-rgb) / 0.28);
+}
+
+.coupon-card--active {
+  box-shadow:
+    0 8px 24px rgb(var(--c-green-rgb) / 0.15),
+    inset 0 0 0 2px var(--c-green);
+}
+
+.coupon-card--compact .coupon-card__desc {
+  display: none;
+}
+
+.coupon-card__tear {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 10px;
+  border-radius: 0 6px 6px 0;
+  background: linear-gradient(180deg, var(--c-red) 0%, var(--c-green) 100%);
+}
+
+.coupon-card__body {
+  padding: 16px 16px 16px 22px;
+}
+
+.coupon-card__scope {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.coupon-card__value {
+  margin: 6px 0 4px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--c-serif);
+  color: var(--c-red);
+  line-height: 1.1;
+}
+
+.coupon-card__title {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.coupon-card__desc,
+.coupon-card__min {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.4;
+}
+
+.coupon-card__badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--c-green-soft);
+  color: var(--c-green-deep);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.coupon-card__cta {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.coupon-card__error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--c-error);
+}
+
+.coupon-page__header {
+  margin-bottom: 24px;
+}
+
+.coupon-page__section {
+  margin-bottom: 28px;
+}
+
+.coupon-page__section-title {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-family: var(--c-serif);
+}
+
+.coupon-page__grid {
+  display: grid;
+  gap: 14px;
+}
+
+.coupon-wallet {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.coupon-wallet__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+}
+
+.coupon-wallet__status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--c-line);
+  color: var(--c-muted);
+}
+
+.coupon-wallet__status--activated {
+  background: var(--c-green-soft);
+  color: var(--c-green-deep);
+}
+
+.coupon-wallet__status--available {
+  background: #fff4e5;
+  color: #663c00;
+}
+
+@media (min-width: 640px) {
+  .coupon-page__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -9,6 +9,7 @@ const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
 const OrderTrackingPage = React.lazy(() => import("./pages/OrderTrackingPage.js"))
 const LoginPage = React.lazy(() => import("./pages/LoginPage.js"))
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage.js"))
+const CouponsPage = React.lazy(() => import("./pages/CouponsPage.js"))
 const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
 import CustomerSettingsPage from "./pages/CustomerSettingsPage.js"
 import LoadingFallback from "./components/LoadingFallback.js"
@@ -59,6 +60,10 @@ export const customerRoutes = {
         },
         { path: "cart", element: lazySection(<CartPage />) },
         { path: "checkout", element: lazySection(<CheckoutPage />) },
+        {
+          path: "coupons",
+          element: lazySection(<CouponsPage />)
+        },
         { path: "order/:orderId", element: lazySection(<OrderTrackingPage />) },
         { path: "menu", element: <RedirectLegacyMenu /> },
         { path: "menu/:categoryId", element: <RedirectLegacyMenuCategory /> },

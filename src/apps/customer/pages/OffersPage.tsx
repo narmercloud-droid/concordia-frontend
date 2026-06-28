@@ -5,6 +5,7 @@ import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
+import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 
@@ -17,6 +18,9 @@ export default function OffersPage() {
     <InfoPageShell eyebrow={t("pages.offers.eyebrow")} title={t("pages.offers.title")}>
       <OfferNotificationsPrompt />
       <p className="offers-lead">{t("pages.offers.lead")}</p>
+
+      <CouponCampaignStrip branchId="concordia-kempen" title={t("coupons.sectionTitleKempen")} />
+      <CouponCampaignStrip branchId="concordia-straelen" title={t("coupons.sectionTitleStraelen")} />
 
       <div className="offers-showcase">
         <article className="offers-card offers-card--discount">

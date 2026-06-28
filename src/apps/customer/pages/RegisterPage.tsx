@@ -26,12 +26,18 @@ export default function RegisterPage() {
     }
 
     try {
-      const result = await registerCustomer({ name, email, password })
+      const result = await registerCustomer({
+        name,
+        email,
+        password,
+        branchId: searchParams.get("branchId") ?? undefined,
+        campaignId: searchParams.get("campaignId") ?? undefined
+      })
       setToken(result.accessToken)
       setUser(result.user)
 
       const redirect = searchParams.get("redirect")
-      navigate(redirect || "/customer/checkout")
+      navigate(redirect || `/customer/coupons?branchId=${searchParams.get("branchId") ?? "concordia-kempen"}`)
     } catch (err: any) {
       const message =
         err.response?.data?.error?.message ??

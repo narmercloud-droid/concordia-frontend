@@ -21,6 +21,8 @@ export const registerCustomer = async (data: {
   email: string
   password: string
   phone?: string
+  branchId?: string
+  campaignId?: string
 }) => {
   const res = await api.post("/api/v1/customers/register", data)
   return unwrap<{ accessToken: string; user: CustomerUser }>(res)

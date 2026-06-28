@@ -281,12 +281,14 @@ export const validatePromoCode = async (
   const res = await api.post("/api/promo/validate", { code, orderTotal, branchId })
   return unwrap<{
     code: string
-    kind: "promo" | "gift"
+    kind: "promo" | "gift" | "customer_coupon"
     type?: string
     discountAmount: number
     promoCodeId?: string
     giftCardId?: string
     balanceRemaining?: number
+    freeDelivery?: boolean
+    title?: string
   }>(res)
 }
 

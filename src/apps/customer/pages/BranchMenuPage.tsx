@@ -6,6 +6,7 @@ import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
+import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
 import {
   BEST_SELLERS_SECTION_ID,
   categoryForItem,
@@ -134,6 +135,10 @@ export default function BranchMenuPage() {
           {categories.length} {t("menu.categories")} · {totalItems} {t("menu.dishes")}
         </p>
       </header>
+
+      {branchId && !orderingDisabled && (
+        <CouponCampaignStrip branchId={branchId} />
+      )}
 
       <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
         {bestSellers.length > 0 && (
