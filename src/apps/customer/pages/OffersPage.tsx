@@ -1,11 +1,12 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
 import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
 import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
+import CouponWalletSection from "@/apps/customer/components/CouponWalletSection"
 import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 
@@ -13,14 +14,38 @@ const STEP_KEYS = ["step1", "step2", "step3"] as const
 
 export default function OffersPage() {
   const { t } = useTranslation()
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.replace("#", "")
+    const el = document.getElementById(id)
+    if (el) {
+      window.setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100)
+    }
+  }, [location.hash])
 
   return (
     <InfoPageShell eyebrow={t("pages.offers.eyebrow")} title={t("pages.offers.title")}>
       <OfferNotificationsPrompt />
       <p className="offers-lead">{t("pages.offers.lead")}</p>
 
-      <CouponCampaignStrip branchId="concordia-kempen" title={t("coupons.sectionTitleKempen")} />
-      <CouponCampaignStrip branchId="concordia-straelen" title={t("coupons.sectionTitleStraelen")} />
+      <CouponWalletSection id="wallet" />
+
+      <div id="coupons" className="offers-coupons-block">
+        <h2 className="info-block__title">{t("pages.offers.couponsTitle")}</h2>
+        <p className="customer-hint offers-coupons-block__lead">{t("pages.offers.couponsLead")}</p>
+        <CouponCampaignStrip
+          branchId="concordia-kempen"
+          title={t("coupons.sectionTitleKempen")}
+          showViewAll={false}
+        />
+        <CouponCampaignStrip
+          branchId="concordia-straelen"
+          title={t("coupons.sectionTitleStraelen")}
+          showViewAll={false}
+        />
+      </div>
 
       <div className="offers-showcase">
         <article className="offers-card offers-card--discount">

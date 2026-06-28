@@ -37,7 +37,7 @@ export default function RegisterPage() {
       setUser(result.user)
 
       const redirect = searchParams.get("redirect")
-      navigate(redirect || `/customer/coupons?branchId=${searchParams.get("branchId") ?? "concordia-kempen"}`)
+      navigate(redirect || `/offers${searchParams.get("branchId") ? `?branchId=${searchParams.get("branchId")}` : ""}#coupons`)
     } catch (err: any) {
       const message =
         err.response?.data?.error?.message ??

@@ -1106,6 +1106,22 @@
   }
 }
 
+.offers-coupons-block {
+  margin: 0 0 32px;
+}
+
+.offers-coupons-block__lead {
+  margin: -4px 0 16px;
+}
+
+.offers-wallet {
+  margin-bottom: 8px;
+}
+
+.offers-wallet-guest {
+  margin-bottom: 20px;
+}
+
 @media (min-width: 720px) {
   .site-nav__scroll {
     justify-content: center;

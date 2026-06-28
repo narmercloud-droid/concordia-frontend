@@ -29,8 +29,8 @@ export default function CouponCampaignStrip({ branchId, title, showViewAll = tru
       <div className="coupon-strip__head">
         <h2 className="coupon-strip__title">{title ?? t("coupons.sectionTitle")}</h2>
         {showViewAll && (
-          <Link to={`/customer/coupons?branchId=${branchId}`} className="coupon-strip__link">
-            {t("coupons.viewWallet")}
+          <Link to={`/offers${branchId ? `?branchId=${branchId}` : ""}#coupons`} className="coupon-strip__link">
+            {t("coupons.viewAllOffers")}
           </Link>
         )}
       </div>

@@ -34,7 +34,7 @@ export default function CouponCard({ campaign, branchId, compact, onClaimed }: P
     mutationFn: async () => {
       if (!isLoggedIn) {
         const params = new URLSearchParams()
-        params.set("redirect", `/customer/coupons${branchId ? `?branchId=${branchId}` : ""}`)
+        params.set("redirect", `/offers${branchId ? `?branchId=${branchId}` : ""}#coupons`)
         if (branchId) params.set("branchId", branchId)
         params.set("campaignId", campaign.id)
         navigate(`/customer/register?${params.toString()}`)

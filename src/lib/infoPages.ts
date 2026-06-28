@@ -1,7 +1,6 @@
 export const INFO_PAGES = [
   { path: "/about", key: "about" },
   { path: "/offers", key: "offers" },
-  { path: "/customer/coupons", key: "coupons" },
   { path: "/reviews", key: "reviews" },
   { path: "/faq", key: "faq" },
   { path: "/contact", key: "contact" }
