@@ -273,7 +273,7 @@
   },
   "item": {
     "loading": "Ładowanie dania…",
-    "includedTitle": "W cenie — wybierz jedną opcję (gratis)",
+    "includedTitle": "W cenie — wybierz jedną opcję",
     "paidExtras": "Płatne dodatki",
     "extrasSizeHint": "Najpierw wybierz rozmiar — ceny dodatków zależą od małej / dużej",
     "extrasSizeSelected": "Ceny dla {{size}}",

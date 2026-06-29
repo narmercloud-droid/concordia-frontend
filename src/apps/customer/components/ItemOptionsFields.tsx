@@ -75,9 +75,6 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
                       }
                     />
                     <span className="customer-option__name">{opt.name}</span>
-                    <span className="customer-option__price customer-option__price--free">
-                      {t("common.free")}
-                    </span>
                   </label>
                 ))}
               </div>

@@ -273,7 +273,7 @@
   },
   "item": {
     "loading": "Gerecht laden…",
-    "includedTitle": "Inbegrepen bij uw bestelling — kies één optie (gratis)",
+    "includedTitle": "Inbegrepen bij uw bestelling — kies één optie",
     "paidExtras": "Betaalde extra's",
     "extrasSizeHint": "Kies eerst de maat — extraprijzen hangen af van klein / groot",
     "extrasSizeSelected": "Prijzen voor {{size}}",

@@ -298,7 +298,7 @@
   },
   "item": {
     "loading": "Yemek yükleniyor…",
-    "includedTitle": "Fiyata dahil — bir seçenek seçin (ücretsiz)",
+    "includedTitle": "Fiyata dahil — bir seçenek seçin",
     "paidExtras": "Ücretli ekstralar",
     "extrasSizeHint": "Önce boyut seçin — ekstra fiyat küçük / büyük boyuta bağlıdır",
     "extrasSizeSelected": "{{size}} için fiyatlar",

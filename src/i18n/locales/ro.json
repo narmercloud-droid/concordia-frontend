@@ -273,7 +273,7 @@
   },
   "item": {
     "loading": "Se încarcă preparatul…",
-    "includedTitle": "Inclus în comandă — alegeți o opțiune (gratuit)",
+    "includedTitle": "Inclus în comandă — alegeți o opțiune",
     "paidExtras": "Extra cu plată",
     "extrasSizeHint": "Alegeți mai întâi mărimea — prețurile extra depind de mică / mare",
     "extrasSizeSelected": "Prețuri pentru {{size}}",
