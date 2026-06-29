@@ -1,7 +1,7 @@
 import { resolveApiBase } from "@/api/client"
 import { detectPreferredLanguage } from "@/i18n/languages"
 import { writeBranchListCache } from "@/lib/branchListCache"
-import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
+import { KEMPEN_BRANCH_ID, STRAELEN_BRANCH_ID } from "@/lib/customerPaths"
 import { writeMenuCache } from "@/lib/menuCache"
 
 let warmupPromise: Promise<void> | null = null
@@ -37,7 +37,7 @@ export function warmupApi(): Promise<void> {
   const signal = AbortSignal.timeout(timeoutMs)
   const fetchOpts: RequestInit = { method: "GET", credentials: "omit", signal }
   const lang = detectPreferredLanguage()
-  const menuUrl = `${root}/api/branches/${KEMPEN_BRANCH_ID}/menu?lang=${lang}`
+  const warmBranches = [KEMPEN_BRANCH_ID, STRAELEN_BRANCH_ID]
 
   warmupPromise = Promise.allSettled([
     fetch(`${root}/health`, fetchOpts),
@@ -47,11 +47,14 @@ export function warmupApi(): Promise<void> {
       const rows = unwrapBranches(body)
       if (rows) writeBranchListCache(rows)
     }),
-    fetch(menuUrl, fetchOpts).then(async (res) => {
-      if (!res.ok) return
-      const body = await res.json()
-      const menu = unwrapMenu(body)
-      if (menu) writeMenuCache(KEMPEN_BRANCH_ID, lang, menu)
+    ...warmBranches.map((branchId) => {
+      const menuUrl = `${root}/api/branches/${branchId}/menu?lang=${lang}`
+      return fetch(menuUrl, fetchOpts).then(async (res) => {
+        if (!res.ok) return
+        const body = await res.json()
+        const menu = unwrapMenu(body)
+        if (menu) writeMenuCache(branchId, lang, menu)
+      })
     })
   ]).then(() => undefined)
 

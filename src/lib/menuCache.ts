@@ -1,5 +1,5 @@
 const STORAGE_PREFIX = "concordia-menu-v1:"
-const MAX_AGE_MS = 2 * 60 * 1000
+const MAX_AGE_MS = 5 * 60 * 1000
 
 type CachedMenu = {
   data: { categories: unknown[] }

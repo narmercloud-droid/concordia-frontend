@@ -151,7 +151,7 @@ export function useItemOptions(
     enabled: !!branchId && !!itemId,
     retry: 3,
     retryDelay: (attempt) => Math.min(1500 * 2 ** attempt, 12_000),
-    staleTime: 60_000
+    staleTime: 5 * 60_000
   })
 
 

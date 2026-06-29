@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
+import { useBranchStore } from "@/store/branchStore"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
 import {
@@ -13,6 +14,7 @@ import {
   pickFeatured
 } from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
+import { prefetchItemDetails } from "@/lib/prefetchItemDetails"
 import { formatCurrency } from "@/utils/format"
 import "./BranchMenuPage.css"
 
@@ -41,6 +43,7 @@ function categoryAnchor(id: string | number) {
 export default function BranchMenuPage() {
   const { t, i18n } = useTranslation()
   const { branchId } = useParams()
+  const setSelectedBranchId = useBranchStore((s) => s.setSelectedBranchId)
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [toastName, setToastName] = useState<string | null>(null)
 
@@ -90,6 +93,10 @@ export default function BranchMenuPage() {
     return () => window.clearTimeout(timer)
   }, [toastName])
 
+  useEffect(() => {
+    if (branchId) setSelectedBranchId(branchId)
+  }, [branchId, setSelectedBranchId])
+
   const openItem = useCallback(
     (item: MenuItem, categoryName: string) => {
       if (orderingDisabled) return
@@ -137,7 +144,10 @@ export default function BranchMenuPage() {
       </header>
 
       {branchId && !orderingDisabled && (
-        <CouponCampaignStrip branchId={branchId} />
+        <CouponCampaignStrip
+          branchId={branchId}
+          branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
+        />
       )}
 
       <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
@@ -176,6 +186,7 @@ export default function BranchMenuPage() {
             {bestSellers.map((item) => (
               <BranchMenuItemCard
                 key={item.id}
+                branchId={branchId!}
                 item={item}
                 categoryName={categoryForItem(categories, item)}
                 onOpen={openItem}
@@ -199,6 +210,7 @@ export default function BranchMenuPage() {
             {cat.items.map((item) => (
               <BranchMenuItemCard
                 key={item.id}
+                branchId={branchId!}
                 item={item}
                 categoryName={cat.name}
                 onOpen={openItem}
@@ -237,6 +249,7 @@ export default function BranchMenuPage() {
 }
 
 type BranchMenuItemCardProps = {
+  branchId: string
   item: MenuItem
   categoryName: string
   onOpen: (item: MenuItem, categoryName: string) => void
@@ -244,13 +257,19 @@ type BranchMenuItemCardProps = {
 }
 
 const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
+  branchId,
   item,
   categoryName,
   onOpen,
   orderingDisabled = false
 }: BranchMenuItemCardProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const image = dishImageForName(item.name, item.imageUrl, categoryName, item.description)
+
+  const warmItemOptions = () => {
+    if (orderingDisabled) return
+    prefetchItemDetails(branchId, item.id, i18n.language)
+  }
 
   return (
     <article className="branch-menu__card">
@@ -258,6 +277,9 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
         type="button"
         className="branch-menu__card-main"
         onClick={() => onOpen(item, categoryName)}
+        onMouseEnter={warmItemOptions}
+        onTouchStart={warmItemOptions}
+        onFocus={warmItemOptions}
       >
         <div className="branch-menu__thumb" aria-hidden="true">
           <img src={image} alt="" loading="lazy" decoding="async" />
@@ -277,6 +299,9 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
         type="button"
         className={`branch-menu__order-btn${orderingDisabled ? " branch-menu__order-btn--disabled" : ""}`}
         onClick={() => onOpen(item, categoryName)}
+        onMouseEnter={warmItemOptions}
+        onTouchStart={warmItemOptions}
+        onFocus={warmItemOptions}
         disabled={orderingDisabled}
       >
         {orderingDisabled ? t("home.comingSoonLabel") : t("home.orderNow")}
