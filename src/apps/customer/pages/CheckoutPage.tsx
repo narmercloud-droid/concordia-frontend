@@ -946,6 +946,11 @@ export default function CheckoutPage() {
             })}
           </p>
         )}
+        {websiteDiscount > 0 && (
+          <p className="customer-hint" style={{ marginTop: 4 }}>
+            {t("checkout.websiteDiscountFoodOnly")}
+          </p>
+        )}
         {voucherDiscount > 0 && appliedVoucher && (
           <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
             {t("checkout.voucherApplied", {
@@ -1282,6 +1287,15 @@ export default function CheckoutPage() {
               {t("checkout.freeDeliveryQualify")}
             </p>
           )}
+          {deliveryQuote?.allowed &&
+            !deliveryQuote.freeDelivery &&
+            (deliveryQuote.amountToFreeDelivery ?? 0) > 0 && (
+              <p className="customer-hint">
+                {t("checkout.freeDeliveryNudge", {
+                  amount: formatCurrency(deliveryQuote.amountToFreeDelivery!)
+                })}
+              </p>
+            )}
         </div>
       )}
 

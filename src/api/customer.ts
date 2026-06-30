@@ -222,11 +222,19 @@ export const getBranchDeliveryAreas = async (branchId: string) => {
   const res = await api.get(`/api/branches/${branchId}/delivery-areas`)
   return unwrap<{
     deliveryMode?: "postcodes" | "radius" | "both"
+    freeDeliveryAtMinimum?: boolean
     areas: Array<{
       postalCode: string
       city?: string
       minimumOrder: number
       deliveryFee: number
+    }>
+    radiusZones?: Array<{
+      maxDistanceKm: number
+      minimumOrder: number
+      deliveryFee: number
+      freeDeliveryMinimum?: number
+      label?: string
     }>
   }>(res)
 }
@@ -308,6 +316,8 @@ export const getDeliveryQuote = async (
     deliveryFee: number
     freeDelivery: boolean
     minimumOrder?: number
+    freeDeliveryMinimum?: number
+    amountToFreeDelivery?: number
     message?: string
     method?: string
     distanceKm?: number

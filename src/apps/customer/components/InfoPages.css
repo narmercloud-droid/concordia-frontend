@@ -1199,6 +1199,70 @@
     inset 0 0 0 2px var(--c-green);
 }
 
+.coupon-card--claimed {
+  box-shadow:
+    0 8px 24px rgb(var(--c-red-rgb) / 0.1),
+    inset 0 0 0 1px rgb(var(--c-red-rgb) / 0.25);
+}
+
+.coupon-card__code-block {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgb(var(--c-green-rgb) / 0.08);
+  border: 1px dashed rgb(var(--c-green-rgb) / 0.35);
+}
+
+.coupon-card__code-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  margin-bottom: 4px;
+}
+
+.coupon-card__code {
+  display: block;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--c-green-deep);
+}
+
+.branch-coupon-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+  flex-wrap: wrap;
+}
+
+.branch-coupon-tabs__tab {
+  flex: 1 1 auto;
+  min-width: 120px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-card);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-muted);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.branch-coupon-tabs__tab--active {
+  background: var(--c-green-soft);
+  border-color: rgb(var(--c-green-rgb) / 0.45);
+  color: var(--c-green-deep);
+}
+
+.offers-branch-note {
+  margin: -8px 0 20px;
+}
+
 .coupon-card--compact .coupon-card__desc {
   display: none;
 }
@@ -1307,13 +1371,72 @@
 
 .coupon-wallet__item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   padding: 14px 16px;
   border-radius: 12px;
   background: var(--c-card);
   border: 1px solid var(--c-line);
+}
+
+.coupon-wallet__item--active {
+  border-color: rgb(var(--c-green-rgb) / 0.45);
+  background: rgb(var(--c-green-rgb) / 0.06);
+}
+
+.coupon-wallet__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.coupon-wallet__code-row {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgb(var(--c-green-rgb) / 0.08);
+}
+
+.coupon-wallet__code-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.coupon-wallet__code {
+  display: block;
+  font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--c-green-deep);
+}
+
+.coupon-wallet__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.coupon-wallet__activate {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.coupon-wallet__activate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .coupon-wallet__status {

@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next"
 import { Link, useLocation } from "react-router-dom"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
+import { useBranchStore } from "@/store/branchStore"
 import { isNativeApp } from "@/lib/nativeApp"
+import { useDefaultCouponBranch } from "@/apps/customer/components/BranchCouponTabs"
 import {
   NativeTabAccountIcon,
   NativeTabHomeIcon,
@@ -23,6 +25,8 @@ export default function NativeTabBar() {
   const location = useLocation()
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
   const isLoggedIn = !!useAuthStore((s) => s.token) && !!useAuthStore((s) => s.user?.id)
+  const selectedBranchId = useBranchStore((s) => s.selectedBranchId) ?? useDefaultCouponBranch()
+  const offersPath = `/offers?branchId=${selectedBranchId}`
 
   if (!isNativeApp()) return null
   if (location.pathname.startsWith("/customer/checkout")) return null
@@ -30,7 +34,7 @@ export default function NativeTabBar() {
 
   const tabs = [
     { key: "home", to: "/", labelKey: "nativeApp.tabs.home", icon: "home" },
-    { key: "offers", to: "/offers", labelKey: "nativeApp.tabs.offers", icon: "offers" },
+    { key: "offers", to: offersPath, labelKey: "nativeApp.tabs.offers", icon: "offers" },
     { key: "order", to: { pathname: "/", hash: "order" }, labelKey: "nativeApp.tabs.order", icon: "order" },
     {
       key: "account",
@@ -49,11 +53,13 @@ export default function NativeTabBar() {
             ? location.pathname === "/"
             : tab.key === "order"
               ? location.pathname === "/" || location.pathname.startsWith("/branch/")
-              : tab.key === "account"
-                ? location.pathname.startsWith("/customer/login") ||
-                  location.pathname.startsWith("/customer/register") ||
-                  location.pathname.startsWith("/customer/settings")
-                : location.pathname === href
+              : tab.key === "offers"
+                ? location.pathname === "/offers"
+                : tab.key === "account"
+                  ? location.pathname.startsWith("/customer/login") ||
+                    location.pathname.startsWith("/customer/register") ||
+                    location.pathname.startsWith("/customer/settings")
+                  : location.pathname === href
 
         const Icon = TAB_ICONS[tab.icon]
         const isOrder = tab.key === "order"

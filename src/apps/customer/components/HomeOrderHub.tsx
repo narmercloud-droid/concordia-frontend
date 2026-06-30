@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { branchPath } from "@/lib/customerPaths"
 import { prefetchBranchMenu } from "@/lib/prefetchCustomerData"
+import { useBranchStore } from "@/store/branchStore"
 
 export type HomeBranch = {
   id: string
@@ -62,6 +63,13 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
   const safeBranches = Array.isArray(branches) ? branches : []
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const setSelectedBranchId = useBranchStore((s) => s.setSelectedBranchId)
+
+  const goToBranch = (id: string) => {
+    setSelectedBranchId(id)
+    navigate(branchPath(id))
+  }
+
   const [query, setQuery] = useState("")
   const [filters, setFilters] = useState<Set<FilterKey>>(new Set())
   const [nearestId, setNearestId] = useState<string | null>(null)
@@ -226,7 +234,7 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
             <button
               type="button"
               className="home-cta home-cta--compact"
-              onClick={() => navigate(branchPath(nearestId))}
+              onClick={() => goToBranch(nearestId)}
             >
               {t("home.orderHere")}
             </button>
@@ -302,7 +310,7 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
                       className="home-branch-btn home-branch-btn--primary"
                       onMouseEnter={() => prefetchBranchMenu(b.id)}
                       onFocus={() => prefetchBranchMenu(b.id)}
-                      onClick={() => navigate(branchPath(b.id))}
+                      onClick={() => goToBranch(b.id)}
                     >
                       {t("home.orderNow")}
                     </button>

@@ -5,7 +5,7 @@ import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { useQuery } from "@tanstack/react-query"
-import { getBranches } from "@/api/customer"
+import { getBranches, getBranchDeliveryAreas } from "@/api/customer"
 import { formatCurrency } from "@/utils/format"
 import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
@@ -25,6 +25,26 @@ export default function CartPage() {
     queryFn: getBranches,
     enabled: !!branchId
   })
+  const { data: deliveryInfo } = useQuery({
+    queryKey: ["deliveryAreas", branchId],
+    queryFn: () => getBranchDeliveryAreas(branchId),
+    enabled: !!branchId,
+    staleTime: 5 * 60_000
+  })
+  const freeDeliveryGap = useMemo(() => {
+    const zones = deliveryInfo?.radiusZones ?? []
+    if (!zones.length) return null
+    const gaps = zones
+      .map((zone) => {
+        const threshold =
+          zone.freeDeliveryMinimum ??
+          (deliveryInfo?.freeDeliveryAtMinimum !== false ? zone.minimumOrder : null)
+        if (threshold == null || subtotal >= threshold) return null
+        return Math.round((threshold - subtotal) * 100) / 100
+      })
+      .filter((gap): gap is number => gap != null && gap > 0)
+    return gaps.length ? Math.min(...gaps) : null
+  }, [deliveryInfo, subtotal])
   const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
   const discountPct =
     branchPromo?.websiteDiscountEnabled !== false ? platformPromo.websiteOrderDiscountPct : 0
@@ -154,6 +174,11 @@ export default function CartPage() {
             percent: discountPct,
             amount: formatCurrency(websiteDiscount)
           })}
+        </p>
+      )}
+      {freeDeliveryGap != null && (
+        <p className="customer-hint customer-alert customer-alert--info">
+          {t("cart.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
         </p>
       )}
       {websiteDiscount > 0 && (

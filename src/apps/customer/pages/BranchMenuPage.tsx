@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
+import { getBranchBestsellers, getBranchMenu, getBranchDeliveryAreas } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { useBranchStore } from "@/store/branchStore"
@@ -74,6 +74,15 @@ export default function BranchMenuPage() {
     enabled: !!branchId && menuReady,
     ...bestsellersQueryOptions
   })
+
+  const { data: deliveryInfo } = useQuery({
+    queryKey: ["deliveryAreas", branchId],
+    queryFn: () => getBranchDeliveryAreas(branchId!),
+    enabled: !!branchId && !orderingDisabled,
+    staleTime: 5 * 60_000
+  })
+
+  const deliveryZones = deliveryInfo?.radiusZones ?? []
 
   const categories = (data?.categories ?? []) as MenuCategory[]
 
@@ -148,6 +157,32 @@ export default function BranchMenuPage() {
           branchId={branchId}
           branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
         />
+      )}
+
+      {deliveryZones.length > 0 && (
+        <section className="branch-menu__delivery-zones customer-card" aria-label={t("menu.deliveryZonesTitle")}>
+          <h3 className="customer-subtitle">{t("menu.deliveryZonesTitle")}</h3>
+          <p className="customer-hint">{t("menu.deliveryZonesLead")}</p>
+          <ul className="branch-menu__delivery-list">
+            {deliveryZones.map((zone) => {
+              const freeFrom =
+                zone.freeDeliveryMinimum ??
+                (deliveryInfo?.freeDeliveryAtMinimum !== false ? zone.minimumOrder : null)
+              return (
+                <li key={zone.maxDistanceKm} className="branch-menu__delivery-row">
+                  <span>{zone.label ?? t("menu.deliveryZoneUpTo", { km: zone.maxDistanceKm })}</span>
+                  <span>{t("menu.deliveryZoneMinOrder", { amount: formatCurrency(zone.minimumOrder) })}</span>
+                  <span>{t("menu.deliveryZoneFee", { amount: formatCurrency(zone.deliveryFee) })}</span>
+                  {freeFrom != null && (
+                    <span className="branch-menu__delivery-free">
+                      {t("menu.deliveryZoneFreeFrom", { amount: formatCurrency(freeFrom) })}
+                    </span>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </section>
       )}
 
       <nav className="branch-menu__nav" aria-label={t("menu.categories")}>

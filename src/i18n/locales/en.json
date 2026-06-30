@@ -142,7 +142,13 @@
     "bestSellersFromSales": "Top sellers from the last 30 days — based on real orders.",
     "alsoPopular": "Also popular",
     "loadError": "Menu could not load. The server may be waking up — please try again.",
-    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout."
+    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout.",
+    "deliveryZonesTitle": "Delivery areas",
+    "deliveryZonesLead": "Delivery fees depend on distance. Free delivery thresholds apply to your food order (before discounts).",
+    "deliveryZoneUpTo": "Up to {{km}} km",
+    "deliveryZoneMinOrder": "Min. {{amount}}",
+    "deliveryZoneFee": "Delivery {{amount}}",
+    "deliveryZoneFreeFrom": "Free delivery from {{amount}}"
   },
   "cart": {
     "title": "Your cart",
@@ -161,7 +167,8 @@
     "suggestionsContinue": "Continue",
     "suggestionsContinueCheckout": "Continue to checkout",
     "suggestionsContinueCart": "Back to cart",
-    "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order."
+    "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order.",
+    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount)."
   },
   "checkout": {
     "title": "Checkout",
@@ -243,6 +250,7 @@
     "paymentFailed": "Payment failed. Please try again or choose cash.",
     "paymentCancelled": "Payment cancelled. Your order was not paid.",
     "websiteDiscountApplied": "{{percent}}% website discount: −{{amount}}",
+    "websiteDiscountFoodOnly": "Discount applies to food only — not delivery fees.",
     "deliveryFee": "Delivery: {{amount}}",
     "deliveryFree": "Delivery: Free (minimum order reached)",
     "freeDrinkQualify": "You qualify for a free drink (orders from €{{amount}}).",
@@ -266,6 +274,7 @@
     "birthdayInvalid": "Please enter a valid date of birth.",
     "marketingLegal": "Only if you opt in. You can unsubscribe anytime. Order updates are separate from marketing messages.",
     "freeDeliveryQualify": "You qualify for free delivery!",
+    "freeDeliveryNudge": "Add {{amount}} more for free delivery (food subtotal before discount).",
     "checkingDelivery": "Checking delivery…",
     "minimumOrder": "Minimum order: {{amount}}",
     "placeOrder": "Place order",

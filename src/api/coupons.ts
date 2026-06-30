@@ -19,6 +19,7 @@ export type CouponCampaign = {
   sortOrder?: number
   claimed?: boolean
   customerCouponId?: string | null
+  claimCode?: string | null
   status?: string | null
 }
 
@@ -45,9 +46,9 @@ export const getBranchCouponCampaigns = async (branchId: string) => {
   return unwrap<{ campaigns: CouponCampaign[] }>(res)
 }
 
-export const listMyCoupons = async (branchId?: string) => {
+export const listMyCoupons = async (branchId: string) => {
   const res = await api.get("/api/v1/customers/coupons", {
-    params: branchId ? { branchId } : undefined
+    params: { branchId }
   })
   return unwrap<{ coupons: CustomerCoupon[]; activatedCouponId: string | null }>(res)
 }
@@ -59,7 +60,7 @@ export const listAvailableCoupons = async (branchId: string) => {
   return unwrap<{ campaigns: CouponCampaign[] }>(res)
 }
 
-export const claimCouponCampaign = async (campaignId: string, branchId?: string) => {
+export const claimCouponCampaign = async (campaignId: string, branchId: string) => {
   const res = await api.post(`/api/v1/customers/coupons/claim/${campaignId}`, {
     branchId
   })

@@ -8,11 +8,17 @@ import "./InfoPages.css"
 
 type Props = {
   branchId: string
+  branchName?: string
   title?: string
   showViewAll?: boolean
 }
 
-export default function CouponCampaignStrip({ branchId, title, showViewAll = true }: Props) {
+export default function CouponCampaignStrip({
+  branchId,
+  branchName,
+  title,
+  showViewAll = true
+}: Props) {
   const { t } = useTranslation()
   const { data, isLoading } = useQuery({
     queryKey: ["couponCampaigns", branchId],
@@ -29,7 +35,10 @@ export default function CouponCampaignStrip({ branchId, title, showViewAll = tru
       <div className="coupon-strip__head">
         <h2 className="coupon-strip__title">{title ?? t("coupons.sectionTitle")}</h2>
         {showViewAll && (
-          <Link to={`/offers${branchId ? `?branchId=${branchId}` : ""}#coupons`} className="coupon-strip__link">
+          <Link
+            to={`/offers?branchId=${branchId}#coupons`}
+            className="coupon-strip__link"
+          >
             {t("coupons.viewAllOffers")}
           </Link>
         )}
@@ -39,7 +48,13 @@ export default function CouponCampaignStrip({ branchId, title, showViewAll = tru
       ) : (
         <div className="coupon-strip__scroll">
           {campaigns.map((campaign) => (
-            <CouponCard key={campaign.id} campaign={campaign} branchId={branchId} compact />
+            <CouponCard
+              key={campaign.id}
+              campaign={campaign}
+              branchId={branchId}
+              branchName={branchName}
+              compact
+            />
           ))}
         </div>
       )}

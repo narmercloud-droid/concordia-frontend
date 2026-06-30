@@ -12,17 +12,25 @@ import { useAuthStore } from "@/context/authStore"
 
 type Props = {
   campaign: CouponCampaign
-  branchId?: string
+  branchId: string
   compact?: boolean
+  branchName?: string
   onClaimed?: () => void
 }
 
-export default function CouponCard({ campaign, branchId, compact, onClaimed }: Props) {
+export default function CouponCard({
+  campaign,
+  branchId,
+  compact,
+  branchName,
+  onClaimed
+}: Props) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const isLoggedIn = !!useAuthStore((s) => s.token)
   const [error, setError] = useState("")
+  const [localCode, setLocalCode] = useState<string | null>(null)
 
   const discountLabel = formatCouponDiscount(
     campaign.discountType,
@@ -30,28 +38,27 @@ export default function CouponCard({ campaign, branchId, compact, onClaimed }: P
     t
   )
 
+  const invalidate = () => {
+    void queryClient.invalidateQueries({ queryKey: ["customerCoupons", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["couponCampaigns", branchId] })
+  }
+
   const claimMutation = useMutation({
     mutationFn: async () => {
       if (!isLoggedIn) {
         const params = new URLSearchParams()
-        params.set("redirect", `/offers${branchId ? `?branchId=${branchId}` : ""}#coupons`)
-        if (branchId) params.set("branchId", branchId)
+        params.set("redirect", `/offers?branchId=${branchId}#coupons`)
+        params.set("branchId", branchId)
         params.set("campaignId", campaign.id)
         navigate(`/customer/register?${params.toString()}`)
         return null
       }
-      const result = await claimCouponCampaign(campaign.id, branchId)
-      if (result && !result.alreadyClaimed) {
-        await activateCoupon(result.id)
-      } else if (result?.id && campaign.status !== "activated") {
-        await activateCoupon(result.id)
-      }
-      return result
+      return claimCouponCampaign(campaign.id, branchId)
     },
     onSuccess: (result) => {
       if (!result) return
-      void queryClient.invalidateQueries({ queryKey: ["customerCoupons"] })
-      void queryClient.invalidateQueries({ queryKey: ["couponCampaigns"] })
+      setLocalCode(result.claimCode)
+      invalidate()
       onClaimed?.()
     },
     onError: (err: any) => {
@@ -63,29 +70,58 @@ export default function CouponCard({ campaign, branchId, compact, onClaimed }: P
     }
   })
 
+  const activateMutation = useMutation({
+    mutationFn: async (customerCouponId: string) => activateCoupon(customerCouponId),
+    onSuccess: (result) => {
+      setLocalCode(result.claimCode)
+      invalidate()
+      onClaimed?.()
+    },
+    onError: (err: any) => {
+      const message =
+        err?.response?.data?.error?.message ??
+        err?.response?.data?.message ??
+        t("coupons.activateFailed")
+      setError(message)
+    }
+  })
+
   const isActivated = campaign.status === "activated"
   const isClaimed = campaign.claimed && !isActivated
-  const scopeLabel =
-    campaign.scope === "platform" ? t("coupons.allBranches") : t("coupons.thisBranch")
+
+  const handleClick = () => {
+    setError("")
+    if (!isLoggedIn) {
+      claimMutation.mutate()
+      return
+    }
+    if (isActivated) return
+    if (isClaimed && campaign.customerCouponId) {
+      activateMutation.mutate(campaign.customerCouponId)
+      return
+    }
+    claimMutation.mutate()
+  }
+
+  const busy = claimMutation.isPending || activateMutation.isPending
 
   let actionLabel = t("coupons.tapToClaim")
-  if (isLoggedIn && isActivated) actionLabel = t("coupons.activeInWallet")
+  if (isLoggedIn && isActivated) actionLabel = t("coupons.activeAtCheckout")
   else if (isLoggedIn && isClaimed) actionLabel = t("coupons.tapToActivate")
-  else if (isLoggedIn && campaign.claimed) actionLabel = t("coupons.inWallet")
+
+  const displayCode =
+    localCode ?? ((isActivated || isClaimed) ? campaign.claimCode : null)
 
   return (
     <button
       type="button"
-      className={`coupon-card${compact ? " coupon-card--compact" : ""}${isActivated ? " coupon-card--active" : ""}`}
-      onClick={() => {
-        setError("")
-        claimMutation.mutate()
-      }}
-      disabled={claimMutation.isPending || (isLoggedIn && isActivated)}
+      className={`coupon-card${compact ? " coupon-card--compact" : ""}${isActivated ? " coupon-card--active" : ""}${isClaimed ? " coupon-card--claimed" : ""}`}
+      onClick={handleClick}
+      disabled={busy || (isLoggedIn && isActivated)}
     >
       <div className="coupon-card__tear" aria-hidden="true" />
       <div className="coupon-card__body">
-        <span className="coupon-card__scope">{scopeLabel}</span>
+        {branchName && <span className="coupon-card__scope">{branchName}</span>}
         <p className="coupon-card__value">{discountLabel}</p>
         <h3 className="coupon-card__title">{campaign.title}</h3>
         {campaign.description && !compact && (
@@ -99,9 +135,13 @@ export default function CouponCard({ campaign, branchId, compact, onClaimed }: P
         {campaign.newCustomersOnly && (
           <span className="coupon-card__badge">{t("coupons.newCustomers")}</span>
         )}
-        <span className="coupon-card__cta">
-          {claimMutation.isPending ? t("common.processing") : actionLabel}
-        </span>
+        {displayCode && (isActivated || isClaimed || localCode) && (
+          <div className="coupon-card__code-block">
+            <span className="coupon-card__code-label">{t("coupons.activationCode")}</span>
+            <span className="coupon-card__code">{displayCode}</span>
+          </div>
+        )}
+        <span className="coupon-card__cta">{busy ? t("common.processing") : actionLabel}</span>
         {error && <span className="coupon-card__error">{error}</span>}
       </div>
     </button>

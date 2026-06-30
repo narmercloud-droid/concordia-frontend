@@ -1,22 +1,32 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { formatCouponDiscount, listMyCoupons } from "@/api/coupons"
+import { activateCoupon, formatCouponDiscount, listMyCoupons } from "@/api/coupons"
 import { useAuthStore } from "@/context/authStore"
 
 type Props = {
+  branchId: string
   id?: string
 }
 
-export default function CouponWalletSection({ id = "wallet" }: Props) {
+export default function CouponWalletSection({ branchId, id = "wallet" }: Props) {
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
   const isLoggedIn = !!useAuthStore((s) => s.token)
 
   const { data: walletData, isLoading } = useQuery({
-    queryKey: ["customerCoupons"],
-    queryFn: () => listMyCoupons(),
-    enabled: isLoggedIn
+    queryKey: ["customerCoupons", branchId],
+    queryFn: () => listMyCoupons(branchId),
+    enabled: isLoggedIn && !!branchId
+  })
+
+  const activateMutation = useMutation({
+    mutationFn: (customerCouponId: string) => activateCoupon(customerCouponId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["customerCoupons", branchId] })
+      void queryClient.invalidateQueries({ queryKey: ["couponCampaigns", branchId] })
+    }
   })
 
   if (!isLoggedIn) {
@@ -24,7 +34,9 @@ export default function CouponWalletSection({ id = "wallet" }: Props) {
       <section id={id} className="coupon-page__section offers-wallet-guest">
         <p className="customer-alert customer-alert--info">
           {t("coupons.loginHint")}{" "}
-          <Link to="/customer/register?redirect=/offers%23coupons">{t("auth.register")}</Link>
+          <Link to={`/customer/register?branchId=${branchId}&redirect=${encodeURIComponent(`/offers?branchId=${branchId}#wallet`)}`}>
+            {t("auth.register")}
+          </Link>
         </p>
       </section>
     )
@@ -42,8 +54,11 @@ export default function CouponWalletSection({ id = "wallet" }: Props) {
       ) : (
         <ul className="coupon-wallet">
           {wallet.map((coupon) => (
-            <li key={coupon.id} className="coupon-wallet__item">
-              <div>
+            <li
+              key={coupon.id}
+              className={`coupon-wallet__item${coupon.status === "activated" ? " coupon-wallet__item--active" : ""}`}
+            >
+              <div className="coupon-wallet__main">
                 <strong>{coupon.campaign.title}</strong>
                 <p className="customer-hint">
                   {formatCouponDiscount(
@@ -56,13 +71,28 @@ export default function CouponWalletSection({ id = "wallet" }: Props) {
                       amount: coupon.campaign.minOrder.toFixed(2).replace(".", ",")
                     })}`}
                 </p>
-                <p className="customer-hint">{coupon.claimCode}</p>
+                <div className="coupon-wallet__code-row">
+                  <span className="coupon-wallet__code-label">{t("coupons.activationCode")}</span>
+                  <span className="coupon-wallet__code">{coupon.claimCode}</span>
+                </div>
               </div>
-              <span
-                className={`coupon-wallet__status coupon-wallet__status--${coupon.status}`}
-              >
-                {t(`coupons.status.${coupon.status}`, { defaultValue: coupon.status })}
-              </span>
+              <div className="coupon-wallet__actions">
+                <span
+                  className={`coupon-wallet__status coupon-wallet__status--${coupon.status}`}
+                >
+                  {t(`coupons.status.${coupon.status}`, { defaultValue: coupon.status })}
+                </span>
+                {coupon.status === "available" && (
+                  <button
+                    type="button"
+                    className="coupon-wallet__activate"
+                    disabled={activateMutation.isPending}
+                    onClick={() => activateMutation.mutate(coupon.id)}
+                  >
+                    {t("coupons.tapToActivate")}
+                  </button>
+                )}
+              </div>
             </li>
           ))}
         </ul>
