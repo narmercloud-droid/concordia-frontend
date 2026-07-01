@@ -41,7 +41,7 @@ function formatEuro(price) {
 }
 
 function branchUrls(slug, branchId) {
-  const menuUrl = `${SITE_ORIGIN}/${slug}/menu`;
+  const menuUrl = `${SITE_ORIGIN}/${slug}-menu.html`;
   const orderUrl = `${SITE_ORIGIN}/branch/${branchId}`;
   const pickupUrl = `${SITE_ORIGIN}/branch/${branchId}/checkout?fulfillment=pickup`;
   const deliveryUrl = `${SITE_ORIGIN}/branch/${branchId}/checkout?fulfillment=delivery`;
