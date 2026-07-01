@@ -67,12 +67,15 @@
     },
     {
       "source": "/straelen/menu",
-      "destination": "/straelen/menu/index.html"
+      "destination": "/straelen/menu.html"
     },
     {
       "source": "/kempen/menu",
-      "destination": "/kempen/menu/index.html"
+      "destination": "/kempen/menu.html"
     },
-    { "source": "/((?!api/|\\.well-known/).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/|\\.well-known/|straelen/|kempen/).*)",
+      "destination": "/index.html"
+    }
   ]
 }

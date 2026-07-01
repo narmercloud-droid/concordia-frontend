@@ -17,9 +17,9 @@ async function main() {
     if (!html) {
       throw new Error(`Failed to generate menu HTML for ${slug}`);
     }
-    const dir = path.join(publicRoot, slug, "menu");
+    const dir = path.join(publicRoot, slug);
     await mkdir(dir, { recursive: true });
-    const outPath = path.join(dir, "index.html");
+    const outPath = path.join(dir, "menu.html");
     await writeFile(outPath, html, "utf8");
     console.log(`Wrote ${outPath}`);
   }
