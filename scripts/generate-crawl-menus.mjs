@@ -22,6 +22,12 @@ async function main() {
     const outPath = path.join(dir, "menu.html");
     await writeFile(outPath, html, "utf8");
     console.log(`Wrote ${outPath}`);
+
+    const menusDir = path.join(publicRoot, "menus");
+    await mkdir(menusDir, { recursive: true });
+    const aliasPath = path.join(menusDir, `${slug}.html`);
+    await writeFile(aliasPath, html, "utf8");
+    console.log(`Wrote ${aliasPath}`);
   }
 }
 

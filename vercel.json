@@ -68,30 +68,37 @@
       ]
     }
   ],
-  "rewrites": {
-    "beforeFiles": [
-      {
-        "source": "/health",
-        "destination": "https://concordia-backend-web.onrender.com/health"
-      },
-      {
-        "source": "/api/(.*)",
-        "destination": "https://concordia-backend-web.onrender.com/api/$1"
-      },
-      {
-        "source": "/straelen/menu",
-        "destination": "/straelen/menu.html"
-      },
-      {
-        "source": "/kempen/menu",
-        "destination": "/kempen/menu.html"
-      }
-    ],
-    "fallback": [
-      {
-        "source": "/((?!api/|\\.well-known/).*)",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "https://concordia-backend-web.onrender.com/health"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "https://concordia-backend-web.onrender.com/api/$1"
+    },
+    {
+      "src": "/straelen/menu",
+      "dest": "/straelen/menu.html"
+    },
+    {
+      "src": "/kempen/menu",
+      "dest": "/kempen/menu.html"
+    },
+    {
+      "src": "/menus/straelen",
+      "dest": "/menus/straelen.html"
+    },
+    {
+      "src": "/menus/kempen",
+      "dest": "/menus/kempen.html"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
