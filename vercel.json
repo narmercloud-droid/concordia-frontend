@@ -15,6 +15,18 @@
   ],
   "headers": [
     {
+      "source": "/straelen/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/kempen/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Frame-Options", "value": "DENY" },
@@ -56,26 +68,30 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/health",
-      "destination": "https://concordia-backend-web.onrender.com/health"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "https://concordia-backend-web.onrender.com/api/$1"
-    },
-    {
-      "source": "/straelen/menu",
-      "destination": "/straelen/menu.html"
-    },
-    {
-      "source": "/kempen/menu",
-      "destination": "/kempen/menu.html"
-    },
-    {
-      "source": "/((?!api/|\\.well-known/|straelen/|kempen/).*)",
-      "destination": "/index.html"
-    }
-  ]
+  "rewrites": {
+    "beforeFiles": [
+      {
+        "source": "/health",
+        "destination": "https://concordia-backend-web.onrender.com/health"
+      },
+      {
+        "source": "/api/(.*)",
+        "destination": "https://concordia-backend-web.onrender.com/api/$1"
+      },
+      {
+        "source": "/straelen/menu",
+        "destination": "/straelen/menu.html"
+      },
+      {
+        "source": "/kempen/menu",
+        "destination": "/kempen/menu.html"
+      }
+    ],
+    "fallback": [
+      {
+        "source": "/((?!api/|\\.well-known/).*)",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }
