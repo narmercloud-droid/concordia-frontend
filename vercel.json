@@ -85,6 +85,6 @@
       "source": "/kempen/menu",
       "destination": "/kempen/menu.html"
     },
-    { "source": "/((?!api/|\\.well-known/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml|straelen/|kempen/).*)", "destination": "/index.html" }
   ]
 }
