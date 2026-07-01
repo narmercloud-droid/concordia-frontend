@@ -28,6 +28,10 @@ async function main() {
     const aliasPath = path.join(menusDir, `${slug}.html`);
     await writeFile(aliasPath, html, "utf8");
     console.log(`Wrote ${aliasPath}`);
+
+    const flatPath = path.join(publicRoot, `${slug}-menu.html`);
+    await writeFile(flatPath, html, "utf8");
+    console.log(`Wrote ${flatPath}`);
   }
 }
 

@@ -10,7 +10,7 @@ const SITE = "https://www.concordiapizza.de";
 
 export function googleMapsMenuUrl(branchId: GoogleMapsBranchId): string {
   const slug = GOOGLE_MAPS_BRANCH_SLUG[branchId];
-  return `${SITE}/${slug}/menu`;
+  return `${SITE}/${slug}-menu.html`;
 }
 
 export function googleMapsOrderUrl(branchId: GoogleMapsBranchId): string {

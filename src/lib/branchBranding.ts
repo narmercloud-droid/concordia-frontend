@@ -20,10 +20,10 @@ export const BRAND_ORDER_URL_STRAELEN =
   "https://www.concordiapizza.de/branch/concordia-straelen"
 
 export const BRAND_MENU_URL_KEMPEN =
-  "https://www.concordiapizza.de/kempen/menu"
+  "https://www.concordiapizza.de/kempen-menu.html"
 
 export const BRAND_MENU_URL_STRAELEN =
-  "https://www.concordiapizza.de/straelen/menu"
+  "https://www.concordiapizza.de/straelen-menu.html"
 
 export const BRAND_PRINT = {
   letterhead: "/brand/print/letterhead.html",
