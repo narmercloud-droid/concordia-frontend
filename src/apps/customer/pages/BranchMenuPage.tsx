@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useSearchParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu, getBranchDeliveryAreas } from "@/api/customer"
@@ -16,6 +16,10 @@ import {
 import { dishImageForName } from "@/lib/foodImagery"
 import { prefetchItemDetails } from "@/lib/prefetchItemDetails"
 import { formatCurrency } from "@/utils/format"
+import {
+  parseFulfillmentParam,
+  saveFulfillmentIntent
+} from "@/lib/fulfillmentIntent"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -43,9 +47,17 @@ function categoryAnchor(id: string | number) {
 export default function BranchMenuPage() {
   const { t, i18n } = useTranslation()
   const { branchId } = useParams()
+  const [searchParams] = useSearchParams()
   const setSelectedBranchId = useBranchStore((s) => s.setSelectedBranchId)
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [toastName, setToastName] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fulfillment = parseFulfillmentParam(searchParams.get("fulfillment"))
+    if (branchId && fulfillment) {
+      saveFulfillmentIntent(branchId, fulfillment)
+    }
+  }, [branchId, searchParams])
 
   const { data: branches } = useQuery({
     ...branchesQueryOptions,

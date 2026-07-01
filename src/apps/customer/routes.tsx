@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom"
 import CustomerLayout from "./layouts/CustomerLayout.js"
 import AuthLayout from "./layouts/AuthLayout.js"
 const BranchMenuPage = React.lazy(() => import("./pages/BranchMenuPage.js"))
+const BranchCheckoutEntry = React.lazy(() => import("./pages/BranchCheckoutEntry.js"))
 const ItemDetailsPage = React.lazy(() => import("./pages/ItemDetailsPage.js"))
 const CartPage = React.lazy(() => import("./pages/CartPage.js"))
 const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
@@ -31,6 +32,7 @@ export const branchRoutes = {
   element: <CustomerLayout />,
   children: [
     { path: ":branchId", element: lazySection(<BranchMenuPage />) },
+    { path: ":branchId/checkout", element: lazySection(<BranchCheckoutEntry />) },
     { path: ":branchId/item/:itemId", element: lazySection(<ItemDetailsPage />) }
   ]
 }

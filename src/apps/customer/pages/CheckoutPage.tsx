@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import { getStoredPushToken, isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Trans, useTranslation } from "react-i18next"
 import {
@@ -38,6 +38,10 @@ import {
 import { formatCurrency } from "@/utils/format"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { listMyCoupons } from "@/api/coupons"
+import {
+  loadFulfillmentIntent,
+  parseFulfillmentParam
+} from "@/lib/fulfillmentIntent"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
@@ -54,6 +58,7 @@ export default function CheckoutPage() {
   const { t } = useTranslation()
   const platformPromo = usePlatformPromo()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const items = useCartStore((s) => s.items)
   const total = useCartStore((s) => s.total())
   const clearCart = useCartStore((s) => s.clearCart)
@@ -226,6 +231,14 @@ export default function CheckoutPage() {
     ).find((method) => paymentMethods[method])
     if (fallback) setPaymentChoice(fallback)
   }, [paymentConfig, paymentMethods, paymentChoice])
+
+  useEffect(() => {
+    if (!branchId) return
+    const fromUrl = parseFulfillmentParam(searchParams.get("fulfillment"))
+    const fromIntent = loadFulfillmentIntent(branchId)
+    const next = fromUrl ?? fromIntent
+    if (next) setFulfillmentType(next)
+  }, [branchId, searchParams])
 
   const { data: freeDrinkData, isLoading: freeDrinkLoading } = useQuery({
     queryKey: ["freeDrinkOptions", branchId],
