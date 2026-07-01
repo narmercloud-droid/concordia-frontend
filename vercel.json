@@ -67,11 +67,11 @@
     },
     {
       "source": "/straelen/menu",
-      "destination": "https://concordia-backend-web.onrender.com/api/public/crawl-menu/straelen"
+      "destination": "/api/crawl-menu/straelen"
     },
     {
       "source": "/kempen/menu",
-      "destination": "https://concordia-backend-web.onrender.com/api/public/crawl-menu/kempen"
+      "destination": "/api/crawl-menu/kempen"
     },
     { "source": "/((?!api/|\\.well-known/).*)", "destination": "/index.html" }
   ]
