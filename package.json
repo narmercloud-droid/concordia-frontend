@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/generate-crawl-menus.mjs && vite build",
     "build:cap": "vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
