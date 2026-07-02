@@ -20,6 +20,7 @@ type RadiusZone = {
   maxDistanceKm: number
   minimumOrder: number
   deliveryFee: number
+  freeDeliveryMinimum?: number
   label?: string
 }
 
@@ -39,9 +40,9 @@ export default function BranchDeliveryEditor({
   const [freeDeliveryAtMinimum, setFreeDeliveryAtMinimum] = useState(true)
   const [areas, setAreas] = useState<DeliveryArea[]>([])
   const [radiusZones, setRadiusZones] = useState<RadiusZone[]>([
-    { maxDistanceKm: 5, minimumOrder: 15, deliveryFee: 2, label: "0–5 km" },
-    { maxDistanceKm: 10, minimumOrder: 20, deliveryFee: 3, label: "5–10 km" },
-    { maxDistanceKm: 15, minimumOrder: 30, deliveryFee: 4, label: "10–15 km" }
+    { maxDistanceKm: 5, minimumOrder: 9.99, deliveryFee: 2, freeDeliveryMinimum: 15, label: "0–5 km" },
+    { maxDistanceKm: 7, minimumOrder: 9.99, deliveryFee: 3, freeDeliveryMinimum: 18, label: "5–7 km" },
+    { maxDistanceKm: 10, minimumOrder: 9.99, deliveryFee: 3, freeDeliveryMinimum: 20, label: "7–10 km" }
   ])
   const [saved, setSaved] = useState(false)
 
@@ -253,6 +254,7 @@ export default function BranchDeliveryEditor({
                 <th style={{ textAlign: "left", padding: 8 }}>Up to (km)</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Min order (€)</th>
                 <th style={{ textAlign: "left", padding: 8 }}>Fee (€)</th>
+                <th style={{ textAlign: "left", padding: 8 }}>Free from (€)</th>
                 <th style={{ padding: 8 }}></th>
               </tr>
             </thead>
@@ -322,6 +324,29 @@ export default function BranchDeliveryEditor({
                     />
                   </td>
                   <td style={{ padding: 8 }}>
+                    <input
+                      type="number"
+                      step="0.5"
+                      value={zone.freeDeliveryMinimum ?? ""}
+                      disabled={!canEdit}
+                      onChange={(e) =>
+                        setRadiusZones((prev) =>
+                          prev.map((z, i) =>
+                            i === index
+                              ? {
+                                  ...z,
+                                  freeDeliveryMinimum:
+                                    e.target.value === "" ? undefined : Number(e.target.value)
+                                }
+                              : z
+                          )
+                        )
+                      }
+                      placeholder="15"
+                      style={{ width: 72 }}
+                    />
+                  </td>
+                  <td style={{ padding: 8 }}>
                     <button
                       type="button"
                       disabled={!canEdit}
@@ -344,8 +369,9 @@ export default function BranchDeliveryEditor({
                 ...prev,
                 {
                   maxDistanceKm: (prev[prev.length - 1]?.maxDistanceKm ?? 0) + 5,
-                  minimumOrder: 15,
-                  deliveryFee: 2
+                  minimumOrder: 9.99,
+                  deliveryFee: 3,
+                  freeDeliveryMinimum: 20
                 }
               ])
             }
