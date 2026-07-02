@@ -956,7 +956,7 @@ export default function CheckoutPage() {
         {websiteDiscount > 0 && (
           <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
             {t("checkout.websiteDiscountApplied", {
-              percent: 10,
+              percent: discountPct,
               amount: formatCurrency(websiteDiscount)
             })}
           </p>

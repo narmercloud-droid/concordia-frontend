@@ -28,5 +28,7 @@ export const BRAND_MENU_URL_STRAELEN =
 export const BRAND_PRINT = {
   letterhead: "/brand/print/letterhead.html",
   flyerQr: "/brand/print/flyer-order-qr.html",
-  tableTent: "/brand/print/table-tent-qr.html"
+  tableTent: "/brand/print/table-tent-qr.html",
+  posterKempen: "/brand/print/poster-online-order-kempen.html",
+  posterStraelen: "/brand/print/poster-online-order-straelen.html"
 } as const

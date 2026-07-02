@@ -7,7 +7,6 @@ import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQuer
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { useBranchStore } from "@/store/branchStore"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
-import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
 import {
   BEST_SELLERS_SECTION_ID,
   categoryForItem,
@@ -165,13 +164,6 @@ export default function BranchMenuPage() {
           {categories.length} {t("menu.categories")} · {totalItems} {t("menu.dishes")}
         </p>
       </header>
-
-      {branchId && !orderingDisabled && (
-        <CouponCampaignStrip
-          branchId={branchId}
-          branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
-        />
-      )}
 
       {deliveryZones.length > 0 && (
         <section className="branch-menu__delivery-zones customer-card" aria-label={t("menu.deliveryZonesTitle")}>
