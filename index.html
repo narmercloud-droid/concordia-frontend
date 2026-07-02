@@ -74,6 +74,24 @@
               }
             })
             .catch(function () {});
+          fetch("/api/branches/concordia-straelen/menu?lang=" + encodeURIComponent(lang), {
+            method: "GET",
+            credentials: "omit",
+            keepalive: true
+          })
+            .then(function (res) {
+              return res.ok ? res.json() : null;
+            })
+            .then(function (body) {
+              var menu = body && body.data ? body.data : body;
+              if (menu && Array.isArray(menu.categories)) {
+                localStorage.setItem(
+                  "concordia-menu-v1:concordia-straelen:" + lang,
+                  JSON.stringify({ data: menu, ts: Date.now() })
+                );
+              }
+            })
+            .catch(function () {});
         } catch (e) {}
       })();
     </script>

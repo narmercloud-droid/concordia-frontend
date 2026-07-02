@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
   getBranchPaymentStatus,
@@ -10,6 +10,13 @@ type Props = {
   branchId: string
 }
 
+const fieldStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "8px 10px",
+  borderRadius: 8,
+  border: "1px solid #ddd"
+}
+
 export default function BranchPaymentAdminSection({ branchId }: Props) {
   const queryClient = useQueryClient()
   const { data, isLoading, refetch } = useQuery({
@@ -17,6 +24,17 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
     queryFn: () => getBranchPaymentStatus(branchId),
     enabled: !!branchId
   })
+
+  const [paypalClientId, setPaypalClientId] = useState("")
+  const [paypalClientSecret, setPaypalClientSecret] = useState("")
+  const [paypalWebhookId, setPaypalWebhookId] = useState("")
+
+  useEffect(() => {
+    if (!data) return
+    setPaypalClientId(data.paypalClientId ?? "")
+    setPaypalWebhookId(data.paypalWebhookId ?? "")
+    setPaypalClientSecret("")
+  }, [data])
 
   const onboardingMutation = useMutation({
     mutationFn: () =>
@@ -35,8 +53,23 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
       cardEnabled?: boolean
       applePayEnabled?: boolean
       googlePayEnabled?: boolean
+      paypalEnabled?: boolean
     }) => updateBranchPaymentSettings(branchId, payload),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["branchPaymentStatus", branchId] })
+      queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
+    }
+  })
+
+  const paypalMutation = useMutation({
+    mutationFn: () =>
+      updateBranchPaymentSettings(branchId, {
+        paypalClientId,
+        paypalWebhookId,
+        ...(paypalClientSecret.trim() ? { paypalClientSecret: paypalClientSecret.trim() } : {})
+      }),
+    onSuccess: () => {
+      setPaypalClientSecret("")
       queryClient.invalidateQueries({ queryKey: ["branchPaymentStatus", branchId] })
       queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
     }
@@ -119,6 +152,80 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
           Could not start Stripe onboarding. Check server Stripe keys and try again.
         </p>
       )}
+
+      <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>
+        <h4>PayPal (this branch only)</h4>
+        <p style={{ color: "#666", fontSize: 14 }}>
+          Use the PayPal Business account for this restaurant location. Kempen and Straelen should
+          each use their own PayPal app credentials from developer.paypal.com.
+        </p>
+
+        <ul style={{ fontSize: 14, color: "#444", paddingLeft: 18 }}>
+          <li>Status: {data.paypalConfigured ? "Credentials saved" : "Not configured"}</li>
+          <li>Secret saved: {data.paypalSecretSet ? "Yes" : "No"}</li>
+          <li>Checkout enabled: {data.paypalEnabled ? "Yes" : "No"}</li>
+        </ul>
+
+        <div style={{ display: "grid", gap: 12, maxWidth: 520, marginTop: 12 }}>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span>PayPal Client ID</span>
+            <input
+              value={paypalClientId}
+              onChange={(e) => setPaypalClientId(e.target.value)}
+              style={fieldStyle}
+              autoComplete="off"
+            />
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span>PayPal Secret {data.paypalSecretSet ? "(leave blank to keep current)" : ""}</span>
+            <input
+              type="password"
+              value={paypalClientSecret}
+              onChange={(e) => setPaypalClientSecret(e.target.value)}
+              style={fieldStyle}
+              autoComplete="new-password"
+            />
+          </label>
+          <label style={{ display: "grid", gap: 4 }}>
+            <span>PayPal Webhook ID</span>
+            <input
+              value={paypalWebhookId}
+              onChange={(e) => setPaypalWebhookId(e.target.value)}
+              style={fieldStyle}
+              autoComplete="off"
+            />
+          </label>
+        </div>
+
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 16 }}>
+          <button
+            type="button"
+            disabled={paypalMutation.isPending}
+            onClick={() => paypalMutation.mutate()}
+            style={{ padding: "8px 14px", borderRadius: 8 }}
+          >
+            Save PayPal credentials
+          </button>
+          <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <input
+              type="checkbox"
+              checked={data.paypalEnabled}
+              disabled={!data.paypalConfigured || flagsMutation.isPending}
+              onChange={(e) => flagsMutation.mutate({ paypalEnabled: e.target.checked })}
+            />
+            Show PayPal at checkout
+          </label>
+        </div>
+
+        <p style={{ color: "#666", fontSize: 13, marginTop: 12 }}>
+          Webhook URL for PayPal:{" "}
+          <code>https://api.concordiapizza.de/api/paypal/webhook</code>
+        </p>
+
+        {paypalMutation.isError && (
+          <p style={{ color: "#b91c1c", marginTop: 12 }}>Could not save PayPal credentials.</p>
+        )}
+      </div>
     </div>
   )
 }

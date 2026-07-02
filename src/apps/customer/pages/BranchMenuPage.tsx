@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { getBranchBestsellers, getBranchMenu } from "@/api/customer"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
+import { getMenuLang } from "@/lib/menuLang"
+import { readMenuCache } from "@/lib/menuCache"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { useBranchStore } from "@/store/branchStore"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
@@ -71,18 +73,43 @@ export default function BranchMenuPage() {
   const orderingDisabled = !!branch?.comingSoon
   const branchClosed = branch != null && !branch.comingSoon && branch.isOpen === false
 
-  const menuOpts = menuQueryOptionsFor(branchId ?? "", i18n.language)
-  const { data, isError: menuError, refetch: refetchMenu } = useQuery({
+  const menuLang = getMenuLang()
+  const queryClient = useQueryClient()
+  const menuQueryKey = ["branchMenu", branchId, menuLang] as const
+
+  const menuOpts = menuQueryOptionsFor(branchId ?? "", menuLang)
+  const {
+    data,
+    isError: menuError,
+    isFetching: menuFetching,
+    isPending: menuPending,
+    failureCount: menuFailures,
+    refetch: refetchMenu
+  } = useQuery({
     ...menuOpts,
-    queryKey: ["branchMenu", branchId, i18n.language],
+    queryKey: menuQueryKey,
     queryFn: () => getBranchMenu(branchId!),
     enabled: !!branchId
   })
 
+  useEffect(() => {
+    if (!branchId || data?.categories?.length) return
+    const cached = readMenuCache(branchId, menuLang)
+    if (cached?.categories?.length) {
+      queryClient.setQueryData(menuQueryKey, cached)
+    }
+  }, [branchId, menuLang, data?.categories?.length, queryClient, menuQueryKey])
+
+  useEffect(() => {
+    if (!menuError || !branchId || data?.categories?.length || menuFetching) return
+    const timer = window.setTimeout(() => void refetchMenu(), 2000)
+    return () => window.clearTimeout(timer)
+  }, [menuError, branchId, data?.categories?.length, menuFetching, refetchMenu])
+
   const menuReady = !!data?.categories?.length
 
   const { data: bestsellersData } = useQuery({
-    queryKey: ["branchBestsellers", branchId, i18n.language],
+    queryKey: ["branchBestsellers", branchId, menuLang],
     queryFn: () => getBranchBestsellers(branchId!),
     enabled: !!branchId && menuReady,
     ...bestsellersQueryOptions
@@ -96,7 +123,7 @@ export default function BranchMenuPage() {
   )
 
   const totalItems = useMemo(
-    () => categories.reduce((sum, cat) => sum + cat.items.length, 0),
+    () => categories.reduce((sum, cat) => sum + (cat.items?.length ?? 0), 0),
     [categories]
   )
 
@@ -119,7 +146,8 @@ export default function BranchMenuPage() {
   )
 
   if (!data?.categories?.length) {
-    if (menuError) {
+    const showMenuError = menuError && !menuFetching && !menuPending && menuFailures >= 2
+    if (showMenuError) {
       return (
         <div className="customer-page">
           <p className="customer-hint" style={{ color: "#b45309" }}>
@@ -169,7 +197,7 @@ export default function BranchMenuPage() {
         {categories.map((cat) => (
           <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
             {cat.name}
-            <span className="branch-menu__nav-count">{cat.items.length}</span>
+            <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
           </a>
         ))}
       </nav>
@@ -213,7 +241,7 @@ export default function BranchMenuPage() {
           </div>
 
           <div className="branch-menu__grid">
-            {cat.items.map((item) => (
+            {(cat.items ?? []).map((item) => (
               <BranchMenuItemCard
                 key={item.id}
                 branchId={branchId!}

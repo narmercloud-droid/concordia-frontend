@@ -24,8 +24,12 @@ export default function NativeTabBar() {
   const { t } = useTranslation()
   const location = useLocation()
   const itemCount = useCartStore((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
-  const isLoggedIn = !!useAuthStore((s) => s.token) && !!useAuthStore((s) => s.user?.id)
-  const selectedBranchId = useBranchStore((s) => s.selectedBranchId) ?? useDefaultCouponBranch()
+  const authToken = useAuthStore((s) => s.token)
+  const authUserId = useAuthStore((s) => s.user?.id)
+  const isLoggedIn = !!authToken && !!authUserId
+  const storedBranchId = useBranchStore((s) => s.selectedBranchId)
+  const defaultBranchId = useDefaultCouponBranch()
+  const selectedBranchId = storedBranchId ?? defaultBranchId
   const offersPath = `/offers?branchId=${selectedBranchId}`
 
   if (!isNativeApp()) return null

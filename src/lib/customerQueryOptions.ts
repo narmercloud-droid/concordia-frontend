@@ -3,7 +3,7 @@ import { readMenuCache, readMenuCacheUpdatedAt } from "@/lib/menuCache"
 export const menuQueryOptions = {
   staleTime: 5 * 60_000,
   gcTime: 7 * 24 * 60 * 60_000,
-  retry: 2,
+  retry: 3,
   retryDelay: (attempt: number) => Math.min(1500 * 2 ** attempt, 12_000),
   refetchOnMount: false,
   refetchOnWindowFocus: false
