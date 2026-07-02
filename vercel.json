@@ -4,7 +4,8 @@
     "env": {
       "VITE_VAPID_PUBLIC_KEY": "BF0SOKenmqz8aRfVbRZuOXTTh6DWXq7LRmb0UZh3Zf3YBUmGa_MrQEA1MSjPUhgu6f3wKED1nPmJsUBMYWRS94o",
       "VITE_COMING_SOON": "false",
-      "VITE_LAUNCH_DATE": "2026-07-01T00:00:00+02:00"
+      "VITE_LAUNCH_DATE": "2026-07-01T00:00:00+02:00",
+      "VITE_SOCKET_URL": "https://concordia-backend-eu.onrender.com"
     }
   },
   "crons": [
@@ -71,11 +72,11 @@
   "rewrites": [
     {
       "source": "/health",
-      "destination": "https://concordia-backend-web.onrender.com/health"
+      "destination": "https://concordia-backend-eu.onrender.com/health"
     },
     {
       "source": "/api/(.*)",
-      "destination": "https://concordia-backend-web.onrender.com/api/$1"
+      "destination": "https://concordia-backend-eu.onrender.com/api/$1"
     },
     {
       "source": "/straelen/menu",

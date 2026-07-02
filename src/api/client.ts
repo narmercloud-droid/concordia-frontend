@@ -2,6 +2,8 @@ import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 import { isNativeApp, nativeApiBase, nativeSocketUrl } from "@/lib/nativeApp.js"
 
 const isDev = import.meta.env.DEV
+/** Socket.IO and native apps hit the API host directly (Vercel only proxies HTTP /api). */
+const PRODUCTION_API_HOST = "https://concordia-backend-eu.onrender.com"
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
 const MAX_GET_RETRIES = 2
 
@@ -48,7 +50,9 @@ export function resolveSocketUrl(): string {
   if (apiBase) return apiBase
 
   if (typeof window !== "undefined") {
-    return window.location.hostname === "localhost" ? "http://localhost:4000" : window.location.origin
+    if (window.location.hostname === "localhost") return "http://localhost:4000"
+    if (usesSameOriginApi(window.location.hostname)) return PRODUCTION_API_HOST
+    return window.location.origin
   }
   return "http://localhost:4000"
 }
