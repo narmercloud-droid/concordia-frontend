@@ -4,7 +4,7 @@ const SITE_ORIGIN = (process.env.PUBLIC_SITE_ORIGIN ?? "https://www.concordiapiz
 );
 
 const API_ORIGIN = (
-  process.env.CONCORDIA_API_ORIGIN ?? "https://concordia-backend-web.onrender.com"
+  process.env.CONCORDIA_API_ORIGIN ?? "https://api.concordiapizza.de"
 ).replace(/\/$/, "");
 
 const LOCATIONS = {

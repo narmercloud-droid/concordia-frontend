@@ -3,7 +3,7 @@ import { isNativeApp, nativeApiBase, nativeSocketUrl } from "@/lib/nativeApp.js"
 
 const isDev = import.meta.env.DEV
 /** Socket.IO and native apps hit the API host directly (Vercel only proxies HTTP /api). */
-const PRODUCTION_API_HOST = "https://concordia-backend-eu.onrender.com"
+const PRODUCTION_API_HOST = "https://api.concordiapizza.de"
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
 const MAX_GET_RETRIES = 2
 

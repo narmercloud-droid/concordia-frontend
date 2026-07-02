@@ -1,6 +1,6 @@
 import { Capacitor } from "@capacitor/core"
 
-const PRODUCTION_API = "https://concordia-backend-eu.onrender.com"
+const PRODUCTION_API = "https://api.concordiapizza.de"
 
 export function isNativeApp() {
   return Capacitor.isNativePlatform()
