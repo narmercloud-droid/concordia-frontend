@@ -275,6 +275,7 @@
     "marketingLegal": "Nur bei aktiver Auswahl. Abmeldung jederzeit möglich. Bestellstatus-Nachrichten sind von Werbung getrennt.",
     "freeDeliveryQualify": "Sie erhalten kostenlose Lieferung!",
     "freeDeliveryNudge": "Noch {{amount}} für gratis Lieferung (Essenswert vor Rabatt).",
+    "freeDeliveryAddItems": "Weitere Gerichte hinzufügen",
     "checkingDelivery": "Lieferung wird geprüft…",
     "minimumOrder": "Mindestbestellwert: {{amount}}",
     "placeOrder": "Bestellung aufgeben",

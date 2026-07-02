@@ -275,6 +275,7 @@
     "marketingLegal": "Only if you opt in. You can unsubscribe anytime. Order updates are separate from marketing messages.",
     "freeDeliveryQualify": "You qualify for free delivery!",
     "freeDeliveryNudge": "Add {{amount}} more for free delivery (food subtotal before discount).",
+    "freeDeliveryAddItems": "Add more items",
     "checkingDelivery": "Checking delivery…",
     "minimumOrder": "Minimum order: {{amount}}",
     "placeOrder": "Place order",

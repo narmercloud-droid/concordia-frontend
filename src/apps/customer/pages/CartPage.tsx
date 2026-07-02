@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
@@ -177,9 +177,20 @@ export default function CartPage() {
         </p>
       )}
       {freeDeliveryGap != null && (
-        <p className="customer-hint customer-alert customer-alert--info">
-          {t("cart.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
-        </p>
+        <div className="customer-hint customer-alert customer-alert--info">
+          <p style={{ margin: 0 }}>
+            {t("cart.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
+          </p>
+          {branchId && (
+            <Link
+              to={`/branch/${branchId}`}
+              className="customer-btn"
+              style={{ marginTop: 8, display: "inline-block" }}
+            >
+              {t("checkout.freeDeliveryAddItems")}
+            </Link>
+          )}
+        </div>
       )}
       {websiteDiscount > 0 && (
         <p className="customer-total-line">

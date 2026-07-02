@@ -6,6 +6,7 @@ import { Trans, useTranslation } from "react-i18next"
 import {
   createOrder,
   getBranches,
+  getBranchDeliveryAreas,
   getBranchTimeSlots,
   getDeliveryQuote,
   getFreeDrinkOptions,
@@ -255,6 +256,13 @@ export default function CheckoutPage() {
     enabled: isLoggedIn && fulfillmentType === "delivery"
   })
 
+  const { data: deliveryInfo } = useQuery({
+    queryKey: ["deliveryAreas", branchId],
+    queryFn: () => getBranchDeliveryAreas(branchId!),
+    enabled: !!branchId && fulfillmentType === "delivery",
+    staleTime: 5 * 60_000
+  })
+
   const freeDrinkOptions = freeDrinkData?.options ?? []
   const needsFreeDrinkSelection = qualifiesForFreeDrink
   const freeDrinkChosen =
@@ -440,6 +448,35 @@ export default function CheckoutPage() {
       if (authUser.phone) setPhone(authUser.phone)
     }
   }, [isLoggedIn, authUser, name, customerEmail, phone])
+
+  const estimatedFreeDeliveryGap = useMemo(() => {
+    if (fulfillmentType !== "delivery") return null
+    const zones = deliveryInfo?.radiusZones ?? []
+    if (!zones.length) return null
+    const gaps = zones
+      .map((zone) => {
+        const threshold =
+          zone.freeDeliveryMinimum ??
+          (deliveryInfo?.freeDeliveryAtMinimum !== false ? zone.minimumOrder : null)
+        if (threshold == null || total >= threshold) return null
+        return Math.round((threshold - total) * 100) / 100
+      })
+      .filter((gap): gap is number => gap != null && gap > 0)
+    return gaps.length ? Math.min(...gaps) : null
+  }, [deliveryInfo, fulfillmentType, total])
+
+  const freeDeliveryGap = useMemo(() => {
+    if (fulfillmentType !== "delivery") return null
+    if (deliveryQuote?.allowed && deliveryQuote.freeDelivery) return null
+    if (
+      deliveryQuote?.allowed &&
+      !deliveryQuote.freeDelivery &&
+      (deliveryQuote.amountToFreeDelivery ?? 0) > 0
+    ) {
+      return deliveryQuote.amountToFreeDelivery!
+    }
+    return estimatedFreeDeliveryGap
+  }, [fulfillmentType, deliveryQuote, estimatedFreeDeliveryGap])
 
   if (items.length === 0) return null
 
@@ -974,6 +1011,25 @@ export default function CheckoutPage() {
             })}
           </p>
         )}
+        {fulfillmentType === "delivery" && deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
+          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
+            {t("checkout.freeDeliveryQualify")}
+          </p>
+        )}
+        {fulfillmentType === "delivery" && freeDeliveryGap != null && freeDeliveryGap > 0 && (
+          <div className="customer-alert customer-alert--info" style={{ marginTop: 8 }}>
+            <p style={{ margin: 0 }}>
+              {t("checkout.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
+            </p>
+            <Link
+              to={`/branch/${branchId}`}
+              className="customer-btn"
+              style={{ marginTop: 8, display: "inline-block" }}
+            >
+              {t("checkout.freeDeliveryAddItems")}
+            </Link>
+          </div>
+        )}
         {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
           <p className="customer-hint">
             {appliedVoucher?.freeDelivery || deliveryQuote.freeDelivery
@@ -1294,20 +1350,6 @@ export default function CheckoutPage() {
               <p className="customer-error">
                 {t("checkout.minimumOrder", {
                   amount: formatCurrency(deliveryQuote.minimumOrder)
-                })}
-              </p>
-            )}
-          {deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
-            <p className="customer-hint" style={{ color: "var(--c-success)" }}>
-              {t("checkout.freeDeliveryQualify")}
-            </p>
-          )}
-          {deliveryQuote?.allowed &&
-            !deliveryQuote.freeDelivery &&
-            (deliveryQuote.amountToFreeDelivery ?? 0) > 0 && (
-              <p className="customer-hint">
-                {t("checkout.freeDeliveryNudge", {
-                  amount: formatCurrency(deliveryQuote.amountToFreeDelivery!)
                 })}
               </p>
             )}
