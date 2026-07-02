@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Navigate, useParams, useSearchParams } from "react-router-dom"
+import { Navigate, useLocation, useParams } from "react-router-dom"
 import { useCartStore } from "@/store/cartStore"
 import {
   parseFulfillmentParam,
@@ -12,8 +12,10 @@ import {
  */
 export default function BranchCheckoutEntry() {
   const { branchId = "" } = useParams<{ branchId: string }>()
-  const [searchParams] = useSearchParams()
-  const fulfillment = parseFulfillmentParam(searchParams.get("fulfillment"))
+  const location = useLocation()
+  const fulfillment = parseFulfillmentParam(
+    new URLSearchParams(location.search).get("fulfillment")
+  )
   const items = useCartStore((s) => s.items)
   const hasBranchCart = items.length > 0 && items[0]?.branchId === branchId
 

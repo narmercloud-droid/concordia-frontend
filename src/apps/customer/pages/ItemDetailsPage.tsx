@@ -1,14 +1,14 @@
 import React from "react"
-import { useParams, useNavigate, useSearchParams } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import ItemOptionsForm from "@/apps/customer/components/ItemOptionsForm"
 
 export default function ItemDetailsPage() {
   const { branchId, itemId } = useParams()
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const location = useLocation()
   const { t } = useTranslation()
-  const editCartKey = searchParams.get("edit")
+  const editCartKey = new URLSearchParams(location.search).get("edit")
 
   if (!branchId || !itemId) return null
 
