@@ -251,6 +251,7 @@
     "paymentCancelled": "Payment cancelled. Your order was not paid.",
     "websiteDiscountApplied": "{{percent}}% website discount: −{{amount}}",
     "websiteDiscountFoodOnly": "Discount applies to food only — not delivery fees.",
+    "voucherNotCombinable": "The automatic website discount cannot be combined with voucher codes.",
     "deliveryFee": "Delivery: {{amount}}",
     "deliveryFree": "Delivery: Free (minimum order reached)",
     "freeDrinkQualify": "You qualify for a free drink (orders from €{{amount}}).",

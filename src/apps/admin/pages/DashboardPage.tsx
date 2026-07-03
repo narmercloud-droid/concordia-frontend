@@ -33,7 +33,7 @@ export default function DashboardPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginTop: 24 }}>
         <div style={{ padding: 20, background: "#f5f5f5", borderRadius: 8 }}>
           <div style={{ fontSize: 32, fontWeight: 700 }}>{stats?.pendingOrders ?? 0}</div>
-          <div>Active orders</div>
+          <div>Active orders today</div>
         </div>
         <div style={{ padding: 20, background: "#f5f5f5", borderRadius: 8 }}>
           <div style={{ fontSize: 32, fontWeight: 700 }}>{stats?.todayOrders ?? 0}</div>

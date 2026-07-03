@@ -251,6 +251,7 @@
     "paymentCancelled": "Zahlung abgebrochen. Ihre Bestellung wurde nicht bezahlt.",
     "websiteDiscountApplied": "{{percent}} % Online-Rabatt: −{{amount}}",
     "websiteDiscountFoodOnly": "Rabatt gilt nur für Speisen — nicht für Liefergebühren.",
+    "voucherNotCombinable": "Der automatische Online-Rabatt kann nicht mit Gutschein-Codes kombiniert werden.",
     "deliveryFee": "Lieferung: {{amount}}",
     "deliveryFree": "Lieferung: Kostenlos (Mindestbestellwert erreicht)",
     "freeDrinkQualify": "Sie erhalten ein Gratisgetränk (ab {{amount}} € Bestellwert).",

@@ -21,6 +21,7 @@ export type PaymentConfig = {
   cardPaymentsEnabled: boolean
   onlinePaymentsEnabled: boolean
   paypalClientId: string | null
+  paypalMode?: "live" | "sandbox"
   stripePublishableKey: string | null
   stripeAccountId: string | null
   stripeReady: boolean

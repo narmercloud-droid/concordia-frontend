@@ -346,6 +346,7 @@ export default function GiftVoucherPage() {
           <h3 className="customer-subtitle">{t("giftVoucher.payOnline")}</h3>
           <PayPalCheckout
             paypalClientId={paymentConfig.paypalClientId}
+            paypalMode={paymentConfig.paypalMode}
             currency={paymentConfig.currency}
             fundingSource="paypal"
             giftPurchaseId={purchaseId}

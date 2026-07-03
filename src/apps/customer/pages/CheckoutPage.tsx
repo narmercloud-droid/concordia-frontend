@@ -192,6 +192,8 @@ export default function CheckoutPage() {
   const showFreeDrinkCheckout = platformPromo.showFreeDrinkCheckout
   const showLoyaltyCheckout = platformPromo.showLoyaltyCheckout
   const websiteDiscountEnabled = branchPromo?.websiteDiscountEnabled !== false
+  const checkoutDiscountPct = websiteDiscountEnabled ? platformPromo.websiteOrderDiscountPct : 0
+  const allowCheckoutVouchers = !(websiteDiscountEnabled && checkoutDiscountPct > 0)
   const qualifiesForFreeDrink =
     showFreeDrinkCheckout && freeDrinkMin > 0 && total >= freeDrinkMin
 
@@ -304,6 +306,16 @@ export default function CheckoutPage() {
   }, [branchClosed, timingMode])
 
   useEffect(() => {
+    if (allowCheckoutVouchers) return
+    if (appliedVoucher || voucherInput) {
+      setAppliedVoucher(null)
+      setVoucherInput("")
+      setVoucherError("")
+    }
+  }, [allowCheckoutVouchers])
+
+  useEffect(() => {
+    if (!allowCheckoutVouchers) return
     if (autoCouponAppliedRef.current || appliedVoucher || !walletData?.activatedCouponId || !branchId) {
       return
     }
@@ -330,7 +342,7 @@ export default function CheckoutPage() {
   }, [walletData, appliedVoucher, branchId, total])
 
   useEffect(() => {
-    if (!appliedVoucher) return
+    if (!allowCheckoutVouchers || !appliedVoucher) return
 
     const timer = setTimeout(async () => {
       try {
@@ -481,14 +493,17 @@ export default function CheckoutPage() {
   if (items.length === 0) return null
 
   const subtotal = total
-  const discountPct = websiteDiscountEnabled ? platformPromo.websiteOrderDiscountPct : 0
+  const discountPct = checkoutDiscountPct
   const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
-  const voucherDiscount = appliedVoucher?.discountAmount ?? 0
+  const voucherDiscount = allowCheckoutVouchers ? (appliedVoucher?.discountAmount ?? 0) : 0
   const discountedSubtotal = Math.max(0, subtotal - websiteDiscount - voucherDiscount)
   const quotedDeliveryFee =
     fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
   const deliveryFee =
-    appliedVoucher?.freeDelivery && fulfillmentType === "delivery" && deliveryQuote?.allowed
+    allowCheckoutVouchers &&
+    appliedVoucher?.freeDelivery &&
+    fulfillmentType === "delivery" &&
+    deliveryQuote?.allowed
       ? 0
       : quotedDeliveryFee
   const grandTotal = discountedSubtotal + deliveryFee
@@ -787,7 +802,7 @@ export default function CheckoutPage() {
         deliveryAddress: fulfillmentType === "delivery" ? deliveryAddress : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: paymentChoice,
-        promoCode: appliedVoucher?.code,
+        promoCode: allowCheckoutVouchers ? appliedVoucher?.code : undefined,
         notes: orderNotes.trim() || undefined,
         pushToken: pushToken ?? undefined
       })
@@ -1046,6 +1061,8 @@ export default function CheckoutPage() {
       </div>
 
       <div className="customer-field">
+        {allowCheckoutVouchers ? (
+          <>
         <label className="customer-label" htmlFor="checkout-voucher">
           {t("checkout.voucherLabel")}
         </label>
@@ -1105,6 +1122,10 @@ export default function CheckoutPage() {
               {t("checkout.voucherRemove")}
             </button>
           </div>
+        )}
+          </>
+        ) : (
+          <p className="customer-hint">{t("checkout.voucherNotCombinable")}</p>
         )}
       </div>
 
@@ -1483,6 +1504,7 @@ export default function CheckoutPage() {
           <PayPalCheckout
             orderId={pendingCardOrderId}
             paypalClientId={paymentConfig.paypalClientId}
+            paypalMode={paymentConfig.paypalMode}
             currency={paymentConfig.currency}
             fundingSource="paypal"
             onSuccess={handleCardPaymentSuccess}

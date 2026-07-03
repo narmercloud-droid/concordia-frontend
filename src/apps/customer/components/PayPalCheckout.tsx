@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useRef } from "react"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useTranslation } from "react-i18next"
 import {
@@ -10,6 +10,7 @@ import {
 
 type Props = {
   paypalClientId: string
+  paypalMode?: "live" | "sandbox"
   currency: string
   fundingSource?: "paypal" | "card"
   orderId?: string
@@ -20,6 +21,7 @@ type Props = {
 
 export default function PayPalCheckout({
   paypalClientId,
+  paypalMode = "live",
   currency,
   fundingSource,
   orderId,
@@ -28,15 +30,20 @@ export default function PayPalCheckout({
   onError
 }: Props) {
   const { t } = useTranslation()
+  const captureInFlightRef = useRef(false)
 
   const options = useMemo(
     () => ({
       clientId: paypalClientId,
       currency,
       intent: "capture" as const,
+      locale: "de_DE",
+      environment: (paypalMode === "live" ? "production" : "sandbox") as
+        | "production"
+        | "sandbox",
       components: "buttons" as const
     }),
-    [paypalClientId, currency]
+    [paypalClientId, currency, paypalMode]
   )
 
   return (
@@ -63,6 +70,8 @@ export default function PayPalCheckout({
           }
         }}
         onApprove={async () => {
+          if (captureInFlightRef.current) return
+          captureInFlightRef.current = true
           try {
             if (giftPurchaseId) {
               const result = await captureGiftCardPayPalOrder(giftPurchaseId)
@@ -78,6 +87,8 @@ export default function PayPalCheckout({
               err?.response?.data?.message ??
               t("checkout.paymentFailed")
             onError(message)
+          } finally {
+            captureInFlightRef.current = false
           }
         }}
         onCancel={() => onError(t("checkout.paymentCancelled"))}
