@@ -23,6 +23,7 @@ import {
 } from "@/lib/fulfillmentIntent"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import "./BranchMenuPage.css"
 
 type MenuItem = {
   id: number
