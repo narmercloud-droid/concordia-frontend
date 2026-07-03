@@ -16,7 +16,8 @@ import { listAddresses, type SavedAddress } from "@/api/addresses"
 import { createStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import StripeCheckout from "@/apps/customer/components/StripeCheckout"
-import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
+import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
+import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
@@ -1131,84 +1132,16 @@ export default function CheckoutPage() {
 
       <div className="customer-field">
         <label className="customer-label">{t("checkout.paymentMethod")}</label>
-        <div className="checkout-payment-grid">
-          <PaymentMethodOption
-            method="cash"
-            label={t("checkout.payCash")}
-            active={paymentChoice === "cash"}
-            enabled={paymentMethods.cash && !paymentLocked}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => {
-              setPaymentChoice("cash")
-              setPendingCardOrderId(null)
-              setPendingStripeSession(null)
-            }}
-          />
-          <PaymentMethodOption
-            method="card"
-            label={t("checkout.payCard")}
-            active={paymentChoice === "card"}
-            enabled={paymentMethods.card && !paymentLocked}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => {
-              setPaymentChoice("card")
-              setPendingCardOrderId(null)
-              setPendingStripeSession(null)
-            }}
-          />
-          <PaymentMethodOption
-            method="apple_pay"
-            label={t("checkout.payApplePay")}
-            active={paymentChoice === "apple_pay"}
-            enabled={paymentMethods.apple_pay && !paymentLocked}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => {
-              setPaymentChoice("apple_pay")
-              setPendingCardOrderId(null)
-              setPendingStripeSession(null)
-            }}
-          />
-          <PaymentMethodOption
-            method="google_pay"
-            label={t("checkout.payGooglePay")}
-            active={paymentChoice === "google_pay"}
-            enabled={paymentMethods.google_pay && !paymentLocked}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => {
-              setPaymentChoice("google_pay")
-              setPendingCardOrderId(null)
-              setPendingStripeSession(null)
-            }}
-          />
-          <PaymentMethodOption
-            method="paypal"
-            label={t("checkout.payPayPal")}
-            active={paymentChoice === "paypal"}
-            enabled={paymentMethods.paypal && !paymentLocked}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => {
-              setPaymentChoice("paypal")
-              setPendingCardOrderId(null)
-              setPendingStripeSession(null)
-            }}
-          />
-          <PaymentMethodOption
-            method="klarna"
-            label={t("checkout.payKlarna")}
-            active={paymentChoice === "klarna"}
-            enabled={paymentMethods.klarna}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("klarna")}
-          />
-          <PaymentMethodOption
-            method="sepa"
-            label={t("checkout.paySepa")}
-            active={paymentChoice === "sepa"}
-            enabled={paymentMethods.sepa}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("sepa")}
-          />
-        </div>
+        <PaymentMethodPicker
+          methods={paymentMethods}
+          selected={paymentChoice}
+          paymentLocked={paymentLocked}
+          onSelect={(method: PaymentMethodId) => {
+            setPaymentChoice(method)
+            setPendingCardOrderId(null)
+            setPendingStripeSession(null)
+          }}
+        />
         {isLoggedIn && needsStripePayment && (
           <p className="customer-hint checkout-save-payment-hint">
             {t("checkout.savePaymentMethodHint")}

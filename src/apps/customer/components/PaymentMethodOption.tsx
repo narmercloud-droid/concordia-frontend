@@ -14,6 +14,7 @@ type Props = {
   label: string
   active: boolean
   enabled: boolean
+  compact?: boolean
   comingSoon: string
   onSelect: () => void
 }
@@ -23,6 +24,7 @@ export default function PaymentMethodOption({
   label,
   active,
   enabled,
+  compact = false,
   comingSoon,
   onSelect
 }: Props) {
@@ -30,16 +32,29 @@ export default function PaymentMethodOption({
     <button
       type="button"
       disabled={!enabled}
-      className={`checkout-payment-option${active ? " checkout-payment-option--active" : ""}${
-        !enabled ? " checkout-payment-option--disabled" : ""
-      }`}
+      className={[
+        "checkout-payment-option",
+        active ? "checkout-payment-option--active" : "",
+        !enabled ? "checkout-payment-option--disabled" : "",
+        compact ? "checkout-payment-option--compact" : ""
+      ]
+        .filter(Boolean)
+        .join(" ")}
       onClick={onSelect}
       title={!enabled ? comingSoon : label}
       aria-label={label}
+      aria-pressed={enabled ? active : undefined}
     >
-      <PaymentMethodIcon method={method} />
-      <span>{label}</span>
-      {!enabled && <small>{comingSoon}</small>}
+      {active && enabled && (
+        <span className="checkout-payment-option__check" aria-hidden="true">
+          ✓
+        </span>
+      )}
+      <span className="checkout-payment-option__icon-wrap">
+        <PaymentMethodIcon method={method} />
+      </span>
+      <span className="checkout-payment-option__label">{label}</span>
+      {!enabled && <small className="checkout-payment-option__soon">{comingSoon}</small>}
     </button>
   )
 }
@@ -48,73 +63,101 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
   switch (method) {
     case "cash":
       return (
-        <svg className="checkout-payment-icon" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="6" width="46" height="20" rx="3" fill="#2d6a4f" />
-          <rect x="4" y="9" width="40" height="14" rx="2" fill="#40916c" />
-          <circle cx="24" cy="16" r="5" fill="#d8f3dc" />
-          <text x="24" y="18.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#1b4332">
+        <svg className="checkout-payment-icon" viewBox="0 0 56 36" aria-hidden="true">
+          <defs>
+            <linearGradient id="cash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#40916c" />
+              <stop offset="100%" stopColor="#1b4332" />
+            </linearGradient>
+          </defs>
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="url(#cash-grad)" />
+          <rect x="6" y="8" width="44" height="20" rx="4" fill="#52b788" opacity="0.35" />
+          <circle cx="28" cy="18" r="7" fill="#d8f3dc" />
+          <text x="28" y="21" textAnchor="middle" fontSize="9" fontWeight="700" fill="#1b4332">
             €
           </text>
         </svg>
       )
     case "card":
       return (
-        <svg className="checkout-payment-icon" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#1a1f71" />
-          <rect x="1" y="10" width="46" height="6" fill="#f7b600" />
-          <rect x="6" y="20" width="14" height="3" rx="1" fill="#fff" opacity="0.9" />
-          <rect x="6" y="25" width="8" height="2" rx="1" fill="#fff" opacity="0.6" />
-          <circle cx="38" cy="22" r="5" fill="#eb001b" />
-          <circle cx="42" cy="22" r="5" fill="#f79e1b" opacity="0.9" />
+        <svg className="checkout-payment-icon" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#1a1f71" />
+          <rect x="2" y="12" width="52" height="8" fill="#f7b600" />
+          <rect x="8" y="24" width="18" height="4" rx="1.5" fill="#fff" opacity="0.92" />
+          <circle cx="42" cy="24" r="5.5" fill="#eb001b" />
+          <circle cx="46" cy="24" r="5.5" fill="#f79e1b" opacity="0.92" />
         </svg>
       )
     case "apple_pay":
       return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#111" />
-          <text x="24" y="20" textAnchor="middle" fontSize="8" fontWeight="700" fill="#fff">
-            Apple Pay
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#000" />
+          <path
+            d="M18 14c-.8 1-2.1 1.7-3.4 1.6-.1-1.3.5-2.6 1.3-3.5.8-.9 2.2-1.6 3.3-1.7.1 1.1-.3 2.3-1.2 3.6zm-1.2 4.2c-1.9 0-3.4 1.1-4.3 1.1-.9 0-2.2-1-3.6-1-1.9 0-3.6 1.1-4.6 2.8-2 3.4-1.6 8.5.4 11.3 1 1.4 2.2 3 3.8 2.9 1.5-.1 2.1-.9 3.9-.9 1.8 0 2.3.9 3.9.9 1.6 0 2.6-1.4 3.6-2.8 1.1-1.6 1.6-3.2 1.6-3.3-.1 0-3.1-1.2-3.1-4.7 0-3 2.4-4.4 2.5-4.5-1.4-2-3.5-2.2-4.2-2.3"
+            fill="#fff"
+            transform="translate(12, 4) scale(1.15)"
+          />
+          <text x="34" y="23" fontSize="7" fontWeight="600" fill="#fff">
+            Pay
           </text>
         </svg>
       )
     case "google_pay":
       return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
-          <text x="24" y="20" textAnchor="middle" fontSize="8" fontWeight="700" fill="#4285f4">
-            Google Pay
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
+          <text x="14" y="18" fontSize="9" fontWeight="700" fill="#4285F4">
+            G
+          </text>
+          <text x="22" y="18" fontSize="9" fontWeight="700" fill="#EA4335">
+            o
+          </text>
+          <text x="28" y="18" fontSize="9" fontWeight="700" fill="#FBBC05">
+            o
+          </text>
+          <text x="34" y="18" fontSize="9" fontWeight="700" fill="#4285F4">
+            g
+          </text>
+          <text x="40" y="18" fontSize="9" fontWeight="700" fill="#34A853">
+            l
+          </text>
+          <text x="46" y="18" fontSize="9" fontWeight="700" fill="#EA4335">
+            e
+          </text>
+          <text x="28" y="28" textAnchor="middle" fontSize="6" fontWeight="600" fill="#5f6368">
+            Pay
           </text>
         </svg>
       )
     case "paypal":
       return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#fff" stroke="#e5e7eb" />
-          <text x="10" y="21" fontSize="11" fontWeight="700" fill="#003087">
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
+          <text x="12" y="24" fontSize="13" fontWeight="800" fill="#003087" fontFamily="Arial, sans-serif">
             Pay
           </text>
-          <text x="28" y="21" fontSize="11" fontWeight="700" fill="#009cde">
+          <text x="32" y="24" fontSize="13" fontWeight="800" fill="#009cde" fontFamily="Arial, sans-serif">
             Pal
           </text>
         </svg>
       )
     case "klarna":
       return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#ffb3c7" />
-          <text x="24" y="21" textAnchor="middle" fontSize="10" fontWeight="700" fill="#17120f">
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#ffb3c7" />
+          <text x="28" y="23" textAnchor="middle" fontSize="11" fontWeight="800" fill="#17120f" fontFamily="Arial, sans-serif">
             Klarna
           </text>
         </svg>
       )
     case "sepa":
       return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 48 32" aria-hidden="true">
-          <rect x="1" y="4" width="46" height="24" rx="4" fill="#0b4f8a" />
-          <text x="24" y="14" textAnchor="middle" fontSize="7" fontWeight="700" fill="#ffcc00">
+        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#0b4f8a" />
+          <text x="28" y="16" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ffcc00">
             SEPA
           </text>
-          <text x="24" y="23" textAnchor="middle" fontSize="5" fill="#fff">
+          <text x="28" y="26" textAnchor="middle" fontSize="5.5" fill="#fff">
             Lastschrift
           </text>
         </svg>

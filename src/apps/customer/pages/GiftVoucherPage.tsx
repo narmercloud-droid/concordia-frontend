@@ -7,7 +7,9 @@ import { purchaseGiftCard } from "@/api/giftCards"
 import { createGiftCardStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import StripeCheckout from "@/apps/customer/components/StripeCheckout"
-import PaymentMethodOption from "@/apps/customer/components/PaymentMethodOption"
+import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
+import { GIFT_VOUCHER_PAYMENT_METHOD_ORDER } from "@/apps/customer/components/checkoutPaymentMethods"
+import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import { formatCurrency } from "@/utils/format"
 
 const PRESET_AMOUNTS = [10, 20, 30, 50]
@@ -270,48 +272,23 @@ export default function GiftVoucherPage() {
 
       <div className="customer-field">
         <label className="customer-label">{t("checkout.paymentMethod")}</label>
-        <div className="checkout-payment-grid">
-          <PaymentMethodOption
-            method="paypal"
-            label={t("checkout.payPayPal")}
-            active={paymentChoice === "paypal"}
-            enabled={methods?.paypal ?? onlineEnabled}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("paypal")}
-          />
-          <PaymentMethodOption
-            method="card"
-            label={t("checkout.payCard")}
-            active={paymentChoice === "card"}
-            enabled={methods?.card ?? false}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("card")}
-          />
-          <PaymentMethodOption
-            method="apple_pay"
-            label={t("checkout.payApplePay")}
-            active={paymentChoice === "apple_pay"}
-            enabled={methods?.apple_pay ?? false}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("apple_pay")}
-          />
-          <PaymentMethodOption
-            method="google_pay"
-            label={t("checkout.payGooglePay")}
-            active={paymentChoice === "google_pay"}
-            enabled={methods?.google_pay ?? false}
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("google_pay")}
-          />
-          <PaymentMethodOption
-            method="cash"
-            label={t("checkout.payCash")}
-            active={paymentChoice === "cash"}
-            enabled
-            comingSoon={t("checkout.comingSoon")}
-            onSelect={() => setPaymentChoice("cash")}
-          />
-        </div>
+        <PaymentMethodPicker
+          methods={{
+            paypal: methods?.paypal ?? onlineEnabled,
+            card: methods?.card ?? false,
+            apple_pay: methods?.apple_pay ?? false,
+            google_pay: methods?.google_pay ?? false,
+            cash: true
+          }}
+          selected={paymentChoice}
+          methodOrder={GIFT_VOUCHER_PAYMENT_METHOD_ORDER}
+          isMethodEnabled={(method: PaymentMethodId) => {
+            if (method === "cash") return true
+            if (method === "paypal") return methods?.paypal ?? onlineEnabled
+            return Boolean(methods?.[method])
+          }}
+          onSelect={(method) => setPaymentChoice(method as PaymentChoice)}
+        />
         <p className="customer-hint">{t("giftVoucher.cashNote")}</p>
       </div>
 

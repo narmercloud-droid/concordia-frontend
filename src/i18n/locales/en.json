@@ -233,6 +233,7 @@
     "payKlarna": "Klarna",
     "paySepa": "SEPA",
     "comingSoon": "Coming soon",
+    "paymentComingSoon": "More payment options coming soon",
     "paymentPaypal": "Payment: PayPal",
     "paymentKlarna": "Payment: Klarna (coming soon)",
     "paymentSepa": "Payment: SEPA direct debit (coming soon)",

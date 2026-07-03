@@ -38,13 +38,18 @@
     min-height: 52px;
   }
 
-  .checkout-payment-grid,
+  .checkout-payment-grid--available,
+  .checkout-payment-grid--soon,
   .gift-voucher-amounts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .checkout-payment-option {
-    min-height: 96px;
+    min-height: 108px;
+  }
+
+  .checkout-payment-option--compact {
+    min-height: 80px;
   }
 
   .cart-line__actions {
