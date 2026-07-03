@@ -15,6 +15,7 @@ type Props = {
   fundingSource?: "paypal" | "card"
   orderId?: string
   giftPurchaseId?: string
+  payableAmount?: string
   onSuccess: (result?: { code?: string }) => void
   onError: (message: string) => void
 }
@@ -26,6 +27,7 @@ export default function PayPalCheckout({
   fundingSource,
   orderId,
   giftPurchaseId,
+  payableAmount,
   onSuccess,
   onError
 }: Props) {
@@ -48,6 +50,11 @@ export default function PayPalCheckout({
 
   return (
     <PayPalScriptProvider options={options}>
+      {payableAmount ? (
+        <p className="customer-hint checkout-paypal-payable" role="note">
+          {t("checkout.payNowPayable", { amount: payableAmount })}
+        </p>
+      ) : null}
       <PayPalButtons
         fundingSource={fundingSource}
         style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
@@ -97,4 +104,3 @@ export default function PayPalCheckout({
     </PayPalScriptProvider>
   )
 }
-

@@ -4,17 +4,21 @@ import {
   exportManagerCustomers,
   getManagerCustomerOrders,
   getManagerCustomers,
+  reconcileManagerCustomerStats,
   type ManagerBranchCustomer,
   runManagerAutomation
 } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
+import { useAdminAuthStore } from "@/context/adminAuthStore"
 import { formatCurrency } from "@/utils/format"
 import "./CustomersPage.css"
 
 export default function CustomersPage() {
   const { branchId, branchName } = useAdminBranch()
   const { can } = useAdminPermissions()
+  const admin = useAdminAuthStore((s) => s.admin)
+  const isSuperAdmin = admin?.role === "admin"
   const [search, setSearch] = useState("")
   const [marketingOnly, setMarketingOnly] = useState(false)
   const [selectedPhone, setSelectedPhone] = useState<string | null>(null)
@@ -38,6 +42,13 @@ export default function CustomersPage() {
 
   const automationMutation = useMutation({
     mutationFn: () => runManagerAutomation(branchId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["managerCustomers", branchId] })
+    }
+  })
+
+  const reconcileMutation = useMutation({
+    mutationFn: () => reconcileManagerCustomerStats(branchId),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["managerCustomers", branchId] })
     }
@@ -74,6 +85,23 @@ export default function CustomersPage() {
           <button type="button" onClick={() => refetch()}>
             Refresh
           </button>
+          {isSuperAdmin ? (
+            <button
+              type="button"
+              disabled={reconcileMutation.isPending}
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Recalculate customer order counts and totals from live orders? Use this after bulk test-order cleanup."
+                  )
+                ) {
+                  reconcileMutation.mutate()
+                }
+              }}
+            >
+              {reconcileMutation.isPending ? "Reconciling…" : "Fix customer totals"}
+            </button>
+          ) : null}
           {can("customers_export") && (
             <button type="button" onClick={() => void handleExport()}>
               Export CSV

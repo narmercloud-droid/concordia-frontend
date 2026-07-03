@@ -9,9 +9,12 @@ function formatWhen(value?: string | null) {
 
 type Props = {
   order: ManagerOrder
+  canDelete?: boolean
+  isDeleting?: boolean
+  onDelete?: () => void
 }
 
-export default function AdminOrderDetail({ order }: Props) {
+export default function AdminOrderDetail({ order, canDelete, isDeleting, onDelete }: Props) {
   const items = order.items ?? []
   const timeline = order.timeline ?? []
   const address = [order.deliveryAddress, order.postalCode].filter(Boolean).join(", ")
@@ -182,6 +185,24 @@ export default function AdminOrderDetail({ order }: Props) {
               </li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {canDelete ? (
+        <section className="orders-page__section orders-page__section--danger">
+          <h4>Delete order</h4>
+          <p className="orders-page__delete-hint">
+            Permanently removes this order and updates customer totals, coupons, gift cards, and
+            loyalty points. This cannot be undone.
+          </p>
+          <button
+            type="button"
+            className="orders-page__delete-btn"
+            disabled={isDeleting}
+            onClick={onDelete}
+          >
+            {isDeleting ? "Deleting…" : "Delete order permanently"}
+          </button>
         </section>
       ) : null}
     </div>

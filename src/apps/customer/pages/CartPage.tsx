@@ -11,6 +11,7 @@ import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
+import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
 import CartSuggestionsModal, {
   type SuggestionItem
 } from "@/apps/customer/components/CartSuggestionsModal"
@@ -167,17 +168,30 @@ export default function CartPage() {
         </div>
       ))}
 
-      <p className="customer-total-line">
-        {t("common.subtotal")}: {formatCurrency(subtotal)}
-      </p>
-      {websiteDiscount > 0 && (
-        <p className="customer-hint" style={{ color: "var(--c-success)" }}>
-          {t("checkout.websiteDiscountApplied", {
-            percent: discountPct,
-            amount: formatCurrency(websiteDiscount)
-          })}
+      <div className="cart-summary">
+        <p className="customer-total-line cart-summary__subtotal">
+          {t("common.subtotal")}: {formatCurrency(subtotal)}
         </p>
-      )}
+
+        {websiteDiscount > 0 && (
+          <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
+        )}
+
+        {websiteDiscount > 0 && (
+          <div className="cart-summary__total">
+            <span className="cart-summary__total-label">{t("cart.afterDiscount")}</span>
+            <div className="cart-summary__total-prices">
+              <span className="cart-summary__original">{formatCurrency(subtotal)}</span>
+              <span className="cart-summary__final">{formatCurrency(discountedSubtotal)}</span>
+            </div>
+          </div>
+        )}
+
+        {websiteDiscount <= 0 && (
+          <p className="customer-total-line">{t("common.total")}: {formatCurrency(subtotal)}</p>
+        )}
+      </div>
+
       {freeDeliveryGap != null && (
         <div className="customer-hint customer-alert customer-alert--info">
           <p style={{ margin: 0 }}>
@@ -194,12 +208,6 @@ export default function CartPage() {
           )}
         </div>
       )}
-      {websiteDiscount > 0 && (
-        <p className="customer-total-line">
-          {t("cart.afterDiscount")}: {formatCurrency(discountedSubtotal)}
-        </p>
-      )}
-
       <div className="customer-btn-row">
         <button type="button" className="customer-btn" onClick={clearCart}>
           {t("cart.clear")}

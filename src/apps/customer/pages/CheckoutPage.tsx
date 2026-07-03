@@ -18,8 +18,9 @@ import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import StripeCheckout from "@/apps/customer/components/StripeCheckout"
 import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
-import LegalTermsAcceptance from "@/apps/customer/components/LegalTermsAcceptance"
+import CheckoutChoiceCard from "@/apps/customer/components/CheckoutChoiceCard"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
+import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
 import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
@@ -163,8 +164,6 @@ export default function CheckoutPage() {
   })
   const [validationModalOpen, setValidationModalOpen] = useState(false)
   const [validationIssues, setValidationIssues] = useState<CheckoutValidationIssue[]>([])
-  const [acceptedTerms, setAcceptedTerms] = useState(false)
-  const termsSectionRef = useRef<HTMLDivElement>(null)
 
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
@@ -708,12 +707,6 @@ export default function CheckoutPage() {
       addIssue("payment", t("checkout.paymentMethodUnavailable"))
     }
 
-    if (!acceptedTerms) {
-      addIssue("terms", t("legal.acceptTermsRequired"), {
-        focus: () => scrollToField(termsSectionRef)
-      })
-    }
-
     return issues
   }
 
@@ -822,7 +815,8 @@ export default function CheckoutPage() {
         paymentMethod: paymentChoice,
         promoCode: allowCheckoutVouchers ? appliedVoucher?.code : undefined,
         notes: orderNotes.trim() || undefined,
-        pushToken: pushToken ?? undefined
+        pushToken: pushToken ?? undefined,
+        termsAccepted: true
       })
 
       const orderId = getOrderIdFromPayload(res)
@@ -1020,19 +1014,14 @@ export default function CheckoutPage() {
             {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
           </p>
         )}
-        <p className="customer-hint" style={{ marginTop: 12 }}>
+        <p className="customer-hint checkout-summary__subtotal">
           {t("common.subtotal")}: {formatCurrency(subtotal)}
         </p>
         {websiteDiscount > 0 && (
-          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
-            {t("checkout.websiteDiscountApplied", {
-              percent: discountPct,
-              amount: formatCurrency(websiteDiscount)
-            })}
-          </p>
+          <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} compact />
         )}
         {websiteDiscount > 0 && (
-          <p className="customer-hint" style={{ marginTop: 4 }}>
+          <p className="customer-hint checkout-summary__food-note">
             {t("checkout.websiteDiscountFoodOnly")}
           </p>
         )}
@@ -1072,8 +1061,17 @@ export default function CheckoutPage() {
                 })}
           </p>
         )}
-        <p className="customer-total-line">
-          {t("common.total")}: {formatCurrency(grandTotal)}
+        <p className="customer-total-line checkout-summary__total">
+          {websiteDiscount > 0 ? (
+            <>
+              <span className="checkout-summary__original">
+                {formatCurrency(grandTotal + websiteDiscount)}
+              </span>
+              {t("common.total")}: {formatCurrency(grandTotal)}
+            </>
+          ) : (
+            <>{t("common.total")}: {formatCurrency(grandTotal)}</>
+          )}
         </p>
         <p className="customer-hint">{paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)}</p>
       </div>
@@ -1148,65 +1146,74 @@ export default function CheckoutPage() {
       </div>
 
       <div className="customer-field">
-        <label className="customer-label">{t("checkout.paymentMethod")}</label>
-        <PaymentMethodPicker
-          methods={paymentMethods}
-          selected={paymentChoice}
-          paymentLocked={paymentLocked}
-          onSelect={(method: PaymentMethodId) => {
-            setPaymentChoice(method)
-            setPendingCardOrderId(null)
-            setPendingStripeSession(null)
-          }}
-        />
-        {isLoggedIn && needsStripePayment && (
-          <p className="customer-hint checkout-save-payment-hint">
-            {t("checkout.savePaymentMethodHint")}
-          </p>
-        )}
-      </div>
-
-      <div className="customer-field">
         <label className="customer-label">{t("checkout.orderType")}</label>
-        <div className="customer-toggle-group">
-          {(["delivery", "pickup"] as FulfillmentType[]).map((type) => (
-            <button
-              key={type}
-              type="button"
-              onClick={() => setFulfillmentType(type)}
-              className={`customer-toggle${fulfillmentType === type ? " customer-toggle--active" : ""}`}
-            >
-              {t(`checkout.${type}`)}
-            </button>
-          ))}
+        <div className="checkout-choice-grid checkout-choice-grid--2">
+          <CheckoutChoiceCard
+            active={fulfillmentType === "delivery"}
+            title={t("checkout.delivery")}
+            hint={t("checkout.deliveryHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M3 7h11v8H3z" />
+                <path d="M14 10h4l3 3v2h-7V10z" />
+                <circle cx="7" cy="17" r="2" />
+                <circle cx="17" cy="17" r="2" />
+              </svg>
+            }
+            onClick={() => setFulfillmentType("delivery")}
+          />
+          <CheckoutChoiceCard
+            active={fulfillmentType === "pickup"}
+            title={t("checkout.pickup")}
+            hint={t("checkout.pickupHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M6 8h12l-1 11H7L6 8z" />
+                <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+              </svg>
+            }
+            onClick={() => setFulfillmentType("pickup")}
+          />
         </div>
       </div>
 
       <div className="customer-field" ref={scheduleFieldRef}>
         <label className="customer-label">{t("checkout.when")}</label>
-        <div className="customer-toggle-group">
-          <button
-            type="button"
-            onClick={() => setTimingMode("asap")}
+        <div className="checkout-choice-grid checkout-choice-grid--2">
+          <CheckoutChoiceCard
+            active={timingMode === "asap"}
             disabled={branchClosed}
-            className={`customer-toggle${timingMode === "asap" ? " customer-toggle--active" : ""}${
-              branchClosed ? " customer-toggle--disabled" : ""
-            }`}
-          >
-            {branchClosed ? t("checkout.asapUnavailableClosed") : t("checkout.asap")}
-          </button>
-          <button
-            type="button"
+            title={t("checkout.asap")}
+            hint={branchClosed ? t("checkout.asapUnavailableClosed") : t("checkout.asapHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+            }
+            onClick={() => !branchClosed && setTimingMode("asap")}
+          />
+          <CheckoutChoiceCard
+            active={timingMode === "scheduled"}
+            title={t("checkout.scheduled")}
+            hint={t("checkout.scheduledHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="4" y="5" width="16" height="15" rx="2" />
+                <path d="M8 3v4M16 3v4M4 10h16" />
+              </svg>
+            }
             onClick={() => setTimingMode("scheduled")}
-            className={`customer-toggle${timingMode === "scheduled" ? " customer-toggle--active" : ""}`}
-          >
-            {t("checkout.scheduled")}
-          </button>
+          />
         </div>
 
         {timingMode === "scheduled" && (
-          <div style={{ marginTop: 12 }}>
+          <div className="checkout-schedule-picker">
+            <label className="customer-label" htmlFor="checkout-schedule-time">
+              {t("checkout.chooseTimeDetailed")}
+            </label>
             <select
+              id="checkout-schedule-time"
               className={`customer-select${scheduleError ? " customer-select--invalid" : ""}`}
               value={scheduledFor}
               onChange={(e) => {
@@ -1226,6 +1233,25 @@ export default function CheckoutPage() {
               <p className="customer-error">{t("checkout.noScheduleSlots")}</p>
             )}
           </div>
+        )}
+      </div>
+
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.paymentMethod")}</label>
+        <PaymentMethodPicker
+          methods={paymentMethods}
+          selected={paymentChoice}
+          paymentLocked={paymentLocked}
+          onSelect={(method: PaymentMethodId) => {
+            setPaymentChoice(method)
+            setPendingCardOrderId(null)
+            setPendingStripeSession(null)
+          }}
+        />
+        {isLoggedIn && needsStripePayment && (
+          <p className="customer-hint checkout-save-payment-hint">
+            {t("checkout.savePaymentMethodHint")}
+          </p>
         )}
       </div>
 
@@ -1411,19 +1437,9 @@ export default function CheckoutPage() {
       {!pendingCardOrderId && !pendingStripeSession && (
         <>
         <PriceVatNote className="customer-hint checkout-price-vat" />
-        <div ref={termsSectionRef}>
-          <LegalTermsAcceptance
-            checked={acceptedTerms}
-            onChange={(value) => {
-              setAcceptedTerms(value)
-              if (value) setError("")
-            }}
-            showLoyaltyLink={showLoyaltyCheckout}
-          />
-        </div>
-        <p className="customer-hint checkout-terms-notice">
+        <p className="customer-hint checkout-terms-notice checkout-terms-notice--implicit">
           <Trans
-            i18nKey="checkout.termsNotice"
+            i18nKey="checkout.implicitTermsNotice"
             components={{
               agbLink: <Link to="/agb" className="checkout-terms-link" />,
               widerrufLink: <Link to="/widerruf" className="checkout-terms-link" />
@@ -1449,6 +1465,7 @@ export default function CheckoutPage() {
       )}
 
       {pendingStripeSession && needsStripePayment && (
+        <>
         <StripeCheckout
           orderId={pendingStripeSession.orderId}
           publishableKey={pendingStripeSession.publishableKey}
@@ -1460,6 +1477,8 @@ export default function CheckoutPage() {
           onSuccess={handleCardPaymentSuccess}
           onError={(message) => setError(message)}
         />
+        <CheckoutLegalFooter />
+        </>
       )}
 
       {pendingCardOrderId && paymentConfig?.paypalClientId && needsPayPalPayment && (
@@ -1471,9 +1490,11 @@ export default function CheckoutPage() {
             paypalMode={paymentConfig.paypalMode}
             currency={paymentConfig.currency}
             fundingSource="paypal"
+            payableAmount={formatCurrency(grandTotal)}
             onSuccess={handleCardPaymentSuccess}
             onError={(message) => setError(message)}
           />
+          <CheckoutLegalFooter />
         </div>
       )}
 

@@ -88,7 +88,8 @@ export default function GiftVoucherPage() {
         purchaserPhone: purchaserPhone.trim() || undefined,
         recipientName: recipientName.trim() || undefined,
         message: message.trim() || undefined,
-        paymentMethod: paymentChoice
+        paymentMethod: paymentChoice,
+        termsAccepted: true
       })
 
       if (result.paymentRequired) {
@@ -160,6 +161,7 @@ export default function GiftVoucherPage() {
           <Link className="customer-btn customer-btn--primary" to={`/branch/${branchId}`}>
             {t("giftVoucher.orderNow")}
           </Link>
+          <CheckoutLegalFooter />
         </div>
       </div>
     )
@@ -346,6 +348,7 @@ export default function GiftVoucherPage() {
             currency={paymentConfig.currency}
             fundingSource="paypal"
             giftPurchaseId={purchaseId}
+            payableAmount={formatCurrency(amount)}
             onSuccess={(result) => {
               if (result?.code) setIssuedCode(result.code)
             }}

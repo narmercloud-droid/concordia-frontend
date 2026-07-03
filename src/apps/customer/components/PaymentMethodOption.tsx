@@ -63,17 +63,23 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
   switch (method) {
     case "cash":
       return (
-        <svg className="checkout-payment-icon" viewBox="0 0 56 36" aria-hidden="true">
+        <svg className="checkout-payment-icon checkout-payment-icon--cash" viewBox="0 0 56 36" aria-hidden="true">
           <defs>
-            <linearGradient id="cash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#40916c" />
-              <stop offset="100%" stopColor="#1b4332" />
+            <linearGradient id="euro-coin" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffe066" />
+              <stop offset="55%" stopColor="#f4b942" />
+              <stop offset="100%" stopColor="#d4a017" />
             </linearGradient>
+            <radialGradient id="euro-shine" cx="35%" cy="30%" r="60%">
+              <stop offset="0%" stopColor="#fff8dc" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#fff8dc" stopOpacity="0" />
+            </radialGradient>
           </defs>
-          <rect x="2" y="4" width="52" height="28" rx="6" fill="url(#cash-grad)" />
-          <rect x="6" y="8" width="44" height="20" rx="4" fill="#52b788" opacity="0.35" />
-          <circle cx="28" cy="18" r="7" fill="#d8f3dc" />
-          <text x="28" y="21" textAnchor="middle" fontSize="9" fontWeight="700" fill="#1b4332">
+          <ellipse cx="28" cy="20" rx="22" ry="14" fill="#c9a227" opacity="0.35" />
+          <circle cx="28" cy="18" r="15" fill="url(#euro-coin)" stroke="#b8860b" strokeWidth="1.5" />
+          <circle cx="28" cy="18" r="15" fill="url(#euro-shine)" />
+          <circle cx="28" cy="18" r="11" fill="none" stroke="#fff3bf" strokeWidth="1" opacity="0.7" />
+          <text x="28" y="23" textAnchor="middle" fontSize="14" fontWeight="800" fill="#7a5c00" fontFamily="Arial,sans-serif">
             €
           </text>
         </svg>
@@ -132,13 +138,25 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
     case "paypal":
       return (
         <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
-          <rect x="2" y="4" width="52" height="28" rx="6" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
-          <text x="12" y="24" fontSize="13" fontWeight="800" fill="#003087" fontFamily="Arial, sans-serif">
-            Pay
-          </text>
-          <text x="32" y="24" fontSize="13" fontWeight="800" fill="#009cde" fontFamily="Arial, sans-serif">
-            Pal
-          </text>
+          <rect x="2" y="4" width="52" height="28" rx="6" fill="#fff" stroke="#dbeafe" strokeWidth="1" />
+          <path
+            d="M18.5 10.5h6.8c3.2 0 5.4 2.1 4.9 5.5-.4 2.8-2.5 4.3-5.4 4.3h-2.7l-.9 5.7h-3.4l2.7-15.5z"
+            fill="#003087"
+          />
+          <path
+            d="M28.2 10.5h6.9c3.1 0 5.2 2 4.7 5.4-.5 3.1-2.8 4.4-5.8 4.4h-2.5l-.8 5.1h-3.2l2.7-15.5z"
+            fill="#009cde"
+          />
+          <path
+            d="M22.8 14.2h2.1c1.4 0 2.3.9 2.1 2.4-.2 1.3-1.1 2-2.4 2h-1.5l.7-4.4z"
+            fill="#001c64"
+            opacity="0.85"
+          />
+          <path
+            d="M32.6 14.2h2.2c1.3 0 2.2.9 2 2.3-.2 1.2-1 1.9-2.3 1.9h-1.4l.7-4.2z"
+            fill="#012169"
+            opacity="0.75"
+          />
         </svg>
       )
     case "klarna":

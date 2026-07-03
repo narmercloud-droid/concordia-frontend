@@ -17,6 +17,7 @@ import NativeCartBar from "@/apps/customer/components/NativeCartBar"
 import NativePromoStrip from "@/apps/customer/components/NativePromoStrip"
 import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import CookieConsent from "@/apps/customer/components/CookieConsent"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
@@ -43,6 +44,12 @@ export default function CustomerLayout() {
     (location.pathname.startsWith("/branch/") || onCartPage)
   const isWidePage = WIDE_CUSTOMER_PATHS.has(location.pathname)
   const showSiteNav = !location.pathname.startsWith("/customer/checkout") && !nativeApp
+  const showLayoutLegalFooter =
+    !nativeApp &&
+    !onCheckoutPage &&
+    !WIDE_CUSTOMER_PATHS.has(location.pathname) &&
+    !location.pathname.startsWith("/gutschein") &&
+    !location.pathname.startsWith("/customer/order/")
 
   useEffect(() => {
     const onLanguageChanged = () => {
@@ -138,6 +145,11 @@ export default function CustomerLayout() {
       </main>
 
       {location.pathname === "/" && !nativeApp ? <StickyOrderFab /> : null}
+      {showLayoutLegalFooter ? (
+        <div className="customer-layout-legal-footer">
+          <CheckoutLegalFooter />
+        </div>
+      ) : null}
       <NativeCartBar />
       <NativeTabBar />
       <CookieConsent />

@@ -2,6 +2,7 @@ import React from "react"
 import { Outlet } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import "../customer.css"
 import "../customer-mobile.css"
 
@@ -17,6 +18,9 @@ export default function AuthLayout() {
         {t("auth.loginTitle")}
       </h2>
       <Outlet />
+      <div className="customer-layout-legal-footer">
+        <CheckoutLegalFooter />
+      </div>
     </div>
   )
 }

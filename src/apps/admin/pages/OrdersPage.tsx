@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { getManagerOrders, type ManagerOrder, type ManagerOrderFilters } from "@/api/manager"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { deleteManagerOrder, getManagerOrders, type ManagerOrder, type ManagerOrderFilters } from "@/api/manager"
 import AdminOrderDetail from "@/apps/admin/components/AdminOrderDetail"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
+import { useAdminAuthStore } from "@/context/adminAuthStore"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 import { formatCurrency } from "@/utils/format"
 import "./OrdersPage.css"
@@ -34,6 +35,9 @@ function customerLabel(order: ManagerOrder) {
 
 export default function OrdersPage() {
   const { branchId, branchName } = useAdminBranch()
+  const admin = useAdminAuthStore((s) => s.admin)
+  const isSuperAdmin = admin?.role === "admin"
+  const queryClient = useQueryClient()
   const tabVisible = useDocumentVisible()
   const [searchInput, setSearchInput] = useState("")
   const [search, setSearch] = useState("")
@@ -77,6 +81,26 @@ export default function OrdersPage() {
     staleTime: 10_000,
     refetchInterval: tabVisible && !hasFilters ? 15_000 : false
   })
+
+  const deleteMutation = useMutation({
+    mutationFn: (orderId: string) => deleteManagerOrder(orderId, branchId),
+    onSuccess: (_result, orderId) => {
+      setExpandedId(null)
+      setAccumulatedOrders((prev) => prev.filter((o) => o.id !== orderId))
+      void queryClient.invalidateQueries({ queryKey: ["managerOrders", branchId] })
+      void queryClient.invalidateQueries({ queryKey: ["managerCustomers", branchId] })
+      void queryClient.invalidateQueries({ queryKey: ["managerDashboard", branchId] })
+    }
+  })
+
+  const handleDeleteOrder = (order: ManagerOrder) => {
+    const label = order.customerName ?? order.customerPhone ?? order.id.slice(0, 8)
+    const confirmed = window.confirm(
+      `Delete order #${shortOrderId(order.id)} (${label}) permanently?\n\nCustomer stats and revenue will be updated. This cannot be undone.`
+    )
+    if (!confirmed) return
+    deleteMutation.mutate(order.id)
+  }
 
   useEffect(() => {
     if (!data) return
@@ -220,7 +244,14 @@ export default function OrdersPage() {
                     {expanded ? "Hide details" : "Show full order details"}
                   </p>
                 </button>
-                {expanded ? <AdminOrderDetail order={order} /> : null}
+                {expanded ? (
+                  <AdminOrderDetail
+                    order={order}
+                    canDelete={isSuperAdmin}
+                    isDeleting={deleteMutation.isPending && deleteMutation.variables === order.id}
+                    onDelete={() => handleDeleteOrder(order)}
+                  />
+                ) : null}
               </article>
             )
           })}

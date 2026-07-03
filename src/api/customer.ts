@@ -163,6 +163,7 @@ export const createOrder = (data: {
   isGuest?: boolean
   customerId?: string
   pushToken?: string
+  termsAccepted?: boolean
 }) =>
   api
     .post("/api/v1/order", {
@@ -185,6 +186,7 @@ export const createOrder = (data: {
       promoCode: data.promoCode,
       notes: data.notes,
       pushToken: data.pushToken,
+      termsAccepted: data.termsAccepted ?? false,
       items: data.items.map((item) => ({
         itemId: item.id,
         quantity: item.quantity,

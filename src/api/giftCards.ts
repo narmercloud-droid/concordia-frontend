@@ -17,9 +17,13 @@ export const purchaseGiftCard = async (
     recipientName?: string
     message?: string
     paymentMethod: string
+    termsAccepted?: boolean
   }
 ) => {
-  const res = await api.post(`/api/branches/${branchId}/gift-cards`, data)
+  const res = await api.post(`/api/branches/${branchId}/gift-cards`, {
+    ...data,
+    termsAccepted: data.termsAccepted ?? false
+  })
   return unwrap<{
     purchaseId: string
     code: string | null

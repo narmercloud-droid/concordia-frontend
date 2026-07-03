@@ -472,6 +472,25 @@ export const getManagerOrder = async (orderId: string, branchId?: string) => {
   return normalizeManagerOrder(unwrap<ManagerOrder>(res))
 }
 
+export const deleteManagerOrder = async (orderId: string, branchId?: string) => {
+  const res = await api.delete(`/api/v1/manager/orders/${orderId}`, {
+    params: branchId ? { branchId } : {}
+  })
+  return unwrap<{ deleted: boolean; orderId: string }>(res)
+}
+
+export const reconcileManagerCustomerStats = async (branchId?: string) => {
+  const res = await api.post(
+    "/api/v1/manager/customers/reconcile-stats",
+    {},
+    { params: branchId ? { branchId } : {} }
+  )
+  return unwrap<{
+    updated: number
+    stats: ManagerCustomerStats
+  }>(res)
+}
+
 export type ManagerBranchCustomer = {
   id: string
   branchId: string

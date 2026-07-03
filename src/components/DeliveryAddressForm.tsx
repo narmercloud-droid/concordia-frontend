@@ -32,12 +32,6 @@ function branchDisplayName(name?: string): string {
   return (name ?? "").replace(/^Concordia\s+/i, "").trim()
 }
 
-function mapEmbedUrl(lat: number, lng: number): string {
-  const pad = 0.04
-  const bbox = [lng - pad, lat - pad, lng + pad, lat + pad].join("%2C")
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`
-}
-
 export default function DeliveryAddressForm({
   branchId,
   branchName,
@@ -55,6 +49,7 @@ export default function DeliveryAddressForm({
   const [locating, setLocating] = useState(false)
   const [locationError, setLocationError] = useState("")
   const [locationFilled, setLocationFilled] = useState(false)
+  const [showExtras, setShowExtras] = useState(Boolean(value.floor.trim()))
   const [activeIndex, setActiveIndex] = useState(-1)
   const streetContainerRef = useRef<HTMLDivElement>(null)
   const houseNumberRef = useRef<HTMLInputElement>(null)
@@ -78,9 +73,6 @@ export default function DeliveryAddressForm({
   const cityAutoFilled = Boolean(usePostcodeDropdown && matchedArea?.city)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
   const regionLabel = branchDisplayName(branchName) || branchCity || t("checkout.deliveryAreaFallback")
-  const mapLat = value.lat ?? branchLat
-  const mapLng = value.lng ?? branchLng
-  const showMap = Number.isFinite(mapLat) && Number.isFinite(mapLng) && mapLat !== 0 && mapLng !== 0
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
     if (
@@ -237,6 +229,7 @@ export default function DeliveryAddressForm({
     })
     setOpen(false)
     setActiveIndex(-1)
+    houseNumberRef.current?.focus()
   }
 
   const handleStreetKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -259,56 +252,34 @@ export default function DeliveryAddressForm({
 
   const showDropdown = open && (loading || suggestions.length > 0)
   const postcodeReady = /^\d{5}$/.test(value.postalCode.trim())
-  const addressHint =
-    deliveryMode === "radius"
-      ? t("checkout.addressRadiusHint", { region: regionLabel })
-      : t("checkout.addressStructuredHint", { region: regionLabel })
 
   return (
-    <div className="delivery-address-form">
-      <div className="delivery-address-form__region">
-        <p className="delivery-address-form__region-title">
-          {t("checkout.deliveryAreaTitle", { region: regionLabel })}
-        </p>
-        <p className="customer-hint">{addressHint}</p>
-      </div>
+    <div className="delivery-address-form delivery-address-form--compact">
+      <p className="customer-hint delivery-address-form__lead">
+        {t("checkout.addressQuickLead", { region: regionLabel })}
+      </p>
 
-      <div className="delivery-address-form__locate-row delivery-address-form__locate-row--primary">
-        <button
-          type="button"
-          className="customer-btn customer-btn--secondary delivery-address-form__locate-btn"
-          onClick={handleUseLocation}
-          disabled={locating}
-          aria-busy={locating}
-        >
-          <span className="delivery-address-form__locate-icon" aria-hidden="true">
-            📍
-          </span>
-          {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
-        </button>
-        <p className="customer-hint delivery-address-form__locate-hint">
-          {t("checkout.useMyLocationHint")}
-        </p>
-        {locationFilled && (
-          <p className="customer-alert customer-alert--success" role="status">
-            {t("checkout.locationFilled")}
-          </p>
-        )}
-        {locationError && <p className="customer-error">{locationError}</p>}
-      </div>
+      <button
+        type="button"
+        className="customer-btn customer-btn--secondary delivery-address-form__locate-btn delivery-address-form__locate-btn--hero"
+        onClick={handleUseLocation}
+        disabled={locating}
+        aria-busy={locating}
+      >
+        <span className="delivery-address-form__locate-icon" aria-hidden="true">
+          📍
+        </span>
+        {locating ? t("checkout.locating") : t("checkout.useMyLocation")}
+      </button>
 
-      {showMap && (
-        <div className="delivery-address-form__map">
-          <iframe
-            title={t("checkout.deliveryMapTitle", { region: regionLabel })}
-            src={mapEmbedUrl(mapLat!, mapLng!)}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
+      {locationFilled && (
+        <p className="customer-alert customer-alert--success delivery-address-form__success" role="status">
+          {t("checkout.locationFilled")}
+        </p>
       )}
+      {locationError && <p className="customer-error">{locationError}</p>}
 
-      <div className="delivery-address-form__grid">
+      <div className="delivery-address-form__grid delivery-address-form__grid--compact">
         <div className="delivery-address-form__cell">
           <label className="customer-label" htmlFor="checkout-postal-code">
             {t("checkout.addressPostalCode")}
@@ -358,12 +329,12 @@ export default function DeliveryAddressForm({
             autoComplete="address-level2"
             aria-readonly={cityAutoFilled}
           />
-          {cityAutoFilled && (
-            <p className="customer-hint">{t("checkout.addressCityAutoFilled")}</p>
-          )}
         </div>
 
-        <div className="delivery-address-form__cell delivery-address-form__cell--wide" ref={streetContainerRef}>
+        <div
+          className="delivery-address-form__cell delivery-address-form__cell--street"
+          ref={streetContainerRef}
+        >
           <label className="customer-label" htmlFor="checkout-street">
             {t("checkout.addressStreet")}
           </label>
@@ -418,7 +389,7 @@ export default function DeliveryAddressForm({
           </div>
         </div>
 
-        <div className="delivery-address-form__cell">
+        <div className="delivery-address-form__cell delivery-address-form__cell--house">
           <label className="customer-label" htmlFor="checkout-house-number">
             {t("checkout.addressHouseNumber")}
           </label>
@@ -432,8 +403,18 @@ export default function DeliveryAddressForm({
             autoComplete="off"
           />
         </div>
+      </div>
 
-        <div className="delivery-address-form__cell">
+      {!showExtras ? (
+        <button
+          type="button"
+          className="delivery-address-form__more-btn"
+          onClick={() => setShowExtras(true)}
+        >
+          {t("checkout.addressAddDetails")}
+        </button>
+      ) : (
+        <div className="delivery-address-form__extras">
           <label className="customer-label" htmlFor="checkout-floor">
             {t("checkout.addressFloor")} ({t("common.optional")})
           </label>
@@ -446,7 +427,7 @@ export default function DeliveryAddressForm({
             autoComplete="off"
           />
         </div>
-      </div>
+      )}
 
       {error && <p className="customer-error">{error}</p>}
     </div>

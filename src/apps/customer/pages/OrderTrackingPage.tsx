@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { getOrderStatus } from "@/api/customer"
 import { getApiErrorMessage } from "@/lib/apiErrors"
 import { socket } from "@/lib/socket"
@@ -9,6 +9,7 @@ import { formatCurrency, formatDateTime, formatTime } from "@/utils/format"
 import { translateFulfillmentType, translateOrderStatus } from "@/utils/translateStatus"
 import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
 import OrderProgressStepper from "@/apps/customer/components/order/OrderProgressStepper"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
@@ -127,6 +128,16 @@ export default function OrderTrackingPage() {
               <> · {formatCurrency(Number(order.orderTotal))}</>
             )}
           </p>
+          <p className="customer-hint order-confirmation__legal">
+            <Trans
+              i18nKey="order.confirmationLegal"
+              components={{
+                impressumLink: <Link to="/impressum" className="checkout-terms-link" />,
+                agbLink: <Link to="/agb" className="checkout-terms-link" />,
+                widerrufLink: <Link to="/widerruf" className="checkout-terms-link" />
+              }}
+            />
+          </p>
         </div>
       )}
 
@@ -224,6 +235,8 @@ export default function OrderTrackingPage() {
           />
         </>
       )}
+
+      <CheckoutLegalFooter />
     </div>
   )
 }
