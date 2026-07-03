@@ -49,8 +49,14 @@ export default function CustomersPage() {
 
   const reconcileMutation = useMutation({
     mutationFn: () => reconcileManagerCustomerStats(branchId),
-    onSuccess: () => {
+    onSuccess: (result) => {
       void queryClient.invalidateQueries({ queryKey: ["managerCustomers", branchId] })
+      window.alert(
+        `Customer database synced.\n\n` +
+          `Order profiles rebuilt: ${result.updated}\n` +
+          `Registered customers linked: ${result.registered}\n` +
+          `Test/orphan records removed: ${result.removed}`
+      )
     }
   })
 
@@ -92,7 +98,7 @@ export default function CustomersPage() {
               onClick={() => {
                 if (
                   window.confirm(
-                    "Recalculate customer order counts and totals from live orders? Use this after bulk test-order cleanup."
+                    "Rebuild this branch customer database from live orders?\n\nThis will update order counts and revenue, link registered website customers, and remove test customers with no orders."
                   )
                 ) {
                   reconcileMutation.mutate()

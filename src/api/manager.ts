@@ -487,6 +487,8 @@ export const reconcileManagerCustomerStats = async (branchId?: string) => {
   )
   return unwrap<{
     updated: number
+    registered: number
+    removed: number
     stats: ManagerCustomerStats
   }>(res)
 }

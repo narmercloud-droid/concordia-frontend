@@ -8,6 +8,7 @@ import {
   getPeakHours,
   getTopItems
 } from "@/api/analytics"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
 
 import { Line, Bar, Pie } from "react-chartjs-2"
 
@@ -34,63 +35,80 @@ ChartJS.register(
   Legend
 )
 
+function ChartCard({
+  title,
+  children
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <h3>{title}</h3>
+      {children}
+    </div>
+  )
+}
+
 export default function AnalyticsPage() {
+  const { branchId } = useAdminBranch()
+
   const salesQuery = useQuery({
-    queryKey: ["salesAnalytics"],
-    queryFn: getSalesAnalytics
+    queryKey: ["salesAnalytics", branchId],
+    queryFn: () => getSalesAnalytics(branchId),
+    enabled: !!branchId
   })
 
   const volumeQuery = useQuery({
-    queryKey: ["orderVolume"],
-    queryFn: getOrderVolumeAnalytics
+    queryKey: ["orderVolume", branchId],
+    queryFn: () => getOrderVolumeAnalytics(branchId),
+    enabled: !!branchId
   })
 
   const categoriesQuery = useQuery({
-    queryKey: ["categoryPerformance"],
-    queryFn: getCategoryPerformance
+    queryKey: ["categoryPerformance", branchId],
+    queryFn: () => getCategoryPerformance(branchId),
+    enabled: !!branchId
   })
 
   const branchesQuery = useQuery({
-    queryKey: ["branchPerformance"],
-    queryFn: getBranchPerformance
+    queryKey: ["branchPerformance", branchId],
+    queryFn: () => getBranchPerformance(branchId),
+    enabled: !!branchId
   })
 
   const peakQuery = useQuery({
-    queryKey: ["peakHours"],
-    queryFn: getPeakHours
+    queryKey: ["peakHours", branchId],
+    queryFn: () => getPeakHours(branchId),
+    enabled: !!branchId
   })
 
   const topItemsQuery = useQuery({
-    queryKey: ["topItems"],
-    queryFn: getTopItems
+    queryKey: ["topItems", branchId],
+    queryFn: () => getTopItems(branchId),
+    enabled: !!branchId
   })
 
-  const isLoading = [
+  const queries = [
     salesQuery,
     volumeQuery,
     categoriesQuery,
     branchesQuery,
     peakQuery,
     topItemsQuery
-  ].some((query) => query.isLoading)
+  ]
 
-  const isError = [
-    salesQuery,
-    volumeQuery,
-    categoriesQuery,
-    branchesQuery,
-    peakQuery,
-    topItemsQuery
-  ].some((query) => query.isError)
+  const isLoading = queries.some((query) => query.isLoading)
+  const failedQueries = queries.filter((query) => query.isError)
 
-  const hasAnyData = [
-    salesQuery,
-    volumeQuery,
-    categoriesQuery,
-    branchesQuery,
-    peakQuery,
-    topItemsQuery
-  ].some((query) => !!query.data?.data)
+  if (!branchId) {
+    return (
+      <div style={{ padding: 20 }}>
+        <h2>Analytics Dashboard</h2>
+        <p>No branch selected.</p>
+      </div>
+    )
+  }
 
   if (isLoading) {
     return (
@@ -101,20 +119,11 @@ export default function AnalyticsPage() {
     )
   }
 
-  if (isError) {
+  if (failedQueries.length === queries.length) {
     return (
       <div style={{ padding: 20 }}>
         <h2>Analytics Dashboard</h2>
-        <p>Failed to load analytics.</p>
-      </div>
-    )
-  }
-
-  if (!hasAnyData) {
-    return (
-      <div style={{ padding: 20 }}>
-        <h2>Analytics Dashboard</h2>
-        <p>No analytics available.</p>
+        <p style={{ color: "crimson" }}>Failed to load analytics. Try refreshing the page.</p>
       </div>
     )
   }
@@ -122,122 +131,127 @@ export default function AnalyticsPage() {
   return (
     <div style={{ padding: 20 }}>
       <h2>Analytics Dashboard</h2>
+      {failedQueries.length > 0 ? (
+        <p style={{ color: "#b45309", marginBottom: 16 }}>
+          Some charts could not be loaded. Showing available data.
+        </p>
+      ) : null}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
-        <div>
-          <h3>Sales Over Time</h3>
-          {salesQuery.data?.data && (
+        <ChartCard title="Sales Over Time">
+          {salesQuery.data?.labels?.length ? (
             <Line
               data={{
-                labels: salesQuery.data.data.labels,
+                labels: salesQuery.data.labels,
                 datasets: [
                   {
                     label: "Sales (€)",
-                    data: salesQuery.data.data.values,
+                    data: salesQuery.data.values,
                     borderColor: "blue",
                     backgroundColor: "rgba(0, 0, 255, 0.1)"
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No sales data for this period.</p>
           )}
-        </div>
+        </ChartCard>
 
-        <div>
-          <h3>Order Volume</h3>
-          {volumeQuery.data?.data && (
+        <ChartCard title="Order Volume">
+          {volumeQuery.data?.labels?.length ? (
             <Bar
               data={{
-                labels: volumeQuery.data.data.labels,
+                labels: volumeQuery.data.labels,
                 datasets: [
                   {
                     label: "Orders",
-                    data: volumeQuery.data.data.values,
+                    data: volumeQuery.data.values,
                     backgroundColor: "orange"
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No order volume data yet.</p>
           )}
-        </div>
+        </ChartCard>
 
-        <div>
-          <h3>Category Performance</h3>
-          {categoriesQuery.data?.data && (
+        <ChartCard title="Category Performance">
+          {categoriesQuery.data?.labels?.length ? (
             <Pie
               data={{
-                labels: categoriesQuery.data.data.labels,
+                labels: categoriesQuery.data.labels,
                 datasets: [
                   {
-                    data: categoriesQuery.data.data.values,
-                    backgroundColor: [
-                      "red",
-                      "green",
-                      "blue",
-                      "purple",
-                      "orange"
-                    ]
+                    data: categoriesQuery.data.values,
+                    backgroundColor: ["red", "green", "blue", "purple", "orange", "teal", "gold", "gray"]
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No category data yet.</p>
           )}
-        </div>
+        </ChartCard>
 
-        <div>
-          <h3>Branch Performance</h3>
-          {branchesQuery.data?.data && (
+        <ChartCard title="Branch Performance">
+          {branchesQuery.data?.labels?.length ? (
             <Bar
               data={{
-                labels: branchesQuery.data.data.labels,
+                labels: branchesQuery.data.labels,
                 datasets: [
                   {
                     label: "Sales (€)",
-                    data: branchesQuery.data.data.values,
+                    data: branchesQuery.data.values,
                     backgroundColor: "teal"
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No branch comparison data yet.</p>
           )}
-        </div>
+        </ChartCard>
 
-        <div>
-          <h3>Peak Hours</h3>
-          {peakQuery.data?.data && (
+        <ChartCard title="Peak Hours">
+          {peakQuery.data?.labels?.length ? (
             <Line
               data={{
-                labels: peakQuery.data.data.labels,
+                labels: peakQuery.data.labels,
                 datasets: [
                   {
                     label: "Orders",
-                    data: peakQuery.data.data.values,
+                    data: peakQuery.data.values,
                     borderColor: "red",
                     backgroundColor: "rgba(255, 0, 0, 0.1)"
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No peak-hour data yet.</p>
           )}
-        </div>
+        </ChartCard>
 
-        <div>
-          <h3>Top Items</h3>
-          {topItemsQuery.data?.data && (
+        <ChartCard title="Top Items">
+          {topItemsQuery.data?.labels?.length ? (
             <Bar
               data={{
-                labels: topItemsQuery.data.data.labels,
+                labels: topItemsQuery.data.labels,
                 datasets: [
                   {
                     label: "Orders",
-                    data: topItemsQuery.data.data.values,
+                    data: topItemsQuery.data.values,
                     backgroundColor: "gold"
                   }
                 ]
               }}
             />
+          ) : (
+            <p style={{ color: "#64748b" }}>No top items yet.</p>
           )}
-        </div>
+        </ChartCard>
       </div>
     </div>
   )

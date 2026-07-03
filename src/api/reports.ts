@@ -1,5 +1,13 @@
 import api from "./client.js"
 
+function unwrap<T>(res: { data?: { data?: T } | T }): T {
+  const body = res.data as { data?: T; success?: boolean } | T | undefined
+  if (body && typeof body === "object" && "data" in body && body.data !== undefined) {
+    return body.data as T
+  }
+  return body as T
+}
+
 export type RevenueReport = {
   company: {
     name: string
@@ -37,12 +45,13 @@ export type RevenueReport = {
   legalNote: string
 }
 
-export function getRevenueReport(params: {
+export async function getRevenueReport(params: {
   branchId?: string
   from: string
   to: string
 }) {
-  return api.get<RevenueReport>("/api/admin/reports/revenue", { params })
+  const res = await api.get("/api/admin/reports/revenue", { params })
+  return unwrap<RevenueReport>(res)
 }
 
 export async function downloadRevenueReportPdf(params: {

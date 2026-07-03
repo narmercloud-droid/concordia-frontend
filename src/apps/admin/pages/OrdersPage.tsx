@@ -74,7 +74,7 @@ export default function OrdersPage() {
     [search, customerType, paymentMethod, offset]
   )
 
-  const { data, isLoading, isFetching, refetch } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ["managerOrders", branchId, queryFilters],
     queryFn: () => getManagerOrders(branchId, queryFilters),
     enabled: !!branchId,
@@ -192,7 +192,11 @@ export default function OrdersPage() {
           : `Showing ${accumulatedOrders.length} of ${total} recent orders`}
       </p>
 
-      {isLoading && offset === 0 ? (
+      {isError && offset === 0 ? (
+        <p style={{ color: "crimson" }}>
+          Could not load orders. Check your connection and try Refresh.
+        </p>
+      ) : isLoading && offset === 0 ? (
         <p>Loading orders…</p>
       ) : accumulatedOrders.length === 0 ? (
         <p className="orders-page__meta">

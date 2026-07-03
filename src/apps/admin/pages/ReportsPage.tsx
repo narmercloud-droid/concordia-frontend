@@ -170,28 +170,36 @@ export default function ReportsPage() {
             <tbody>
               <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <td style={{ padding: 8 }}>Guest orders</td>
-                <td style={{ padding: 8 }}>{report.customerTypeBreakdown.guest.count}</td>
-                <td style={{ padding: 8 }}>{formatCurrency(report.customerTypeBreakdown.guest.total)}</td>
+                <td style={{ padding: 8 }}>{report.customerTypeBreakdown?.guest?.count ?? 0}</td>
+                <td style={{ padding: 8 }}>
+                  {formatCurrency(report.customerTypeBreakdown?.guest?.total ?? 0)}
+                </td>
               </tr>
               <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <td style={{ padding: 8 }}>Registered customers</td>
-                <td style={{ padding: 8 }}>{report.customerTypeBreakdown.registered.count}</td>
                 <td style={{ padding: 8 }}>
-                  {formatCurrency(report.customerTypeBreakdown.registered.total)}
+                  {report.customerTypeBreakdown?.registered?.count ?? 0}
+                </td>
+                <td style={{ padding: 8 }}>
+                  {formatCurrency(report.customerTypeBreakdown?.registered?.total ?? 0)}
                 </td>
               </tr>
               <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <td style={{ padding: 8 }}>First-time (branch)</td>
-                <td style={{ padding: 8 }}>{report.newReturningBreakdown.newCustomers.count}</td>
                 <td style={{ padding: 8 }}>
-                  {formatCurrency(report.newReturningBreakdown.newCustomers.total)}
+                  {report.newReturningBreakdown?.newCustomers?.count ?? 0}
+                </td>
+                <td style={{ padding: 8 }}>
+                  {formatCurrency(report.newReturningBreakdown?.newCustomers?.total ?? 0)}
                 </td>
               </tr>
               <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <td style={{ padding: 8 }}>Returning (branch)</td>
-                <td style={{ padding: 8 }}>{report.newReturningBreakdown.returningCustomers.count}</td>
                 <td style={{ padding: 8 }}>
-                  {formatCurrency(report.newReturningBreakdown.returningCustomers.total)}
+                  {report.newReturningBreakdown?.returningCustomers?.count ?? 0}
+                </td>
+                <td style={{ padding: 8 }}>
+                  {formatCurrency(report.newReturningBreakdown?.returningCustomers?.total ?? 0)}
                 </td>
               </tr>
             </tbody>
