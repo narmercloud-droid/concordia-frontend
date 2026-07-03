@@ -27,11 +27,17 @@
   },
   "legal": {
     "localeNote": "The legally binding version of this page is provided in German below.",
+    "priceInclVat": "All prices in euros include statutory VAT.",
+    "priceInclVatShort": "incl. VAT",
+    "acceptTerms": "I have read and accept the <agbLink>Terms & Conditions (AGB)</agbLink>. I have taken note of the <widerrufLink>cancellation policy</widerrufLink>.",
+    "acceptTermsWithLoyalty": "I have read and accept the <agbLink>AGB</agbLink> and taken note of the <widerrufLink>cancellation policy</widerrufLink>. The <termsLink>loyalty programme</termsLink> applies additionally.",
+    "acceptTermsRequired": "Please confirm the terms and cancellation policy.",
     "cookie": {
       "title": "Cookies & storage",
       "body": "We use essential storage for your cart, language, and login. With your consent we may also enable optional features such as offer notifications.",
       "essentialOnly": "Essential only",
-      "acceptAll": "Accept all"
+      "acceptAll": "Accept all",
+      "settings": "Cookie settings"
     }
   },
   "layout": {
@@ -316,7 +322,7 @@
     "loyaltyBalance": "Loyalty: {{points}} points ({{tier}} tier)",
     "loyaltyPerkPoints": "Earn points on every delivered order",
     "loyaltyPerkTier": "Unlock bronze, silver and gold member rewards",
-    "termsNotice": "By placing your order you accept our <termsLink>Terms & Conditions</termsLink>.",
+    "termsNotice": "Delivery fees are shown separately before checkout. Contract terms: <agbLink>AGB</agbLink> · <widerrufLink>Cancellation policy</widerrufLink>.",
     "useMyLocation": "Use my location",
     "useMyLocationHint": "Fills postcode, city and street automatically — saves time.",
     "locationFilled": "Address filled from your location. Please check the house number.",

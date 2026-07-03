@@ -7,6 +7,7 @@ import {
   isOfferPushDismissed,
   isPushConfigured
 } from "@/utils/pushNotifications"
+import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import "./OfferNotificationsPrompt.css"
 
 type Props = {
@@ -21,6 +22,7 @@ export default function OfferNotificationsPrompt({ branchId = null }: Props) {
   const [error, setError] = useState("")
 
   if (!isPushConfigured()) return null
+  if (!hasMarketingConsent()) return null
   if (hidden || enabled) return null
 
   const permission = getPushPermission()

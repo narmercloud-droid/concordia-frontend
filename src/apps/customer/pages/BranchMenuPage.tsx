@@ -23,6 +23,7 @@ import {
 } from "@/lib/fulfillmentIntent"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -184,6 +185,7 @@ export default function BranchMenuPage() {
         <p className="branch-menu__meta">
           {categories.length} {t("menu.categories")} · {totalItems} {t("menu.dishes")}
         </p>
+        <PriceVatNote className="branch-menu__vat-note" />
       </header>
 
       <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
@@ -330,7 +332,7 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
           </div>
           {item.description && <p className="branch-menu__desc">{item.description}</p>}
           <p className="branch-menu__price">
-            {t("menu.from")} {formatCurrency(item.price)}
+            {t("menu.from")} {formatCurrency(item.price)} · {t("legal.priceInclVatShort")}
           </p>
         </div>
       </button>

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { getBranches } from "@/api/customer"
 import { purchaseGiftCard } from "@/api/giftCards"
 import { createGiftCardStripePaymentIntent, getPaymentConfig } from "@/api/payments"
@@ -12,6 +12,8 @@ import { GIFT_VOUCHER_PAYMENT_METHOD_ORDER } from "@/apps/customer/components/ch
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import { formatCurrency } from "@/utils/format"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import LegalTermsAcceptance from "@/apps/customer/components/LegalTermsAcceptance"
+import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 
 const PRESET_AMOUNTS = [10, 20, 30, 50]
 
@@ -39,6 +41,7 @@ export default function GiftVoucherPage() {
   } | null>(null)
   const [issuedCode, setIssuedCode] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
 
   const { data: branches } = useQuery({
     queryKey: ["branches"],
@@ -69,6 +72,10 @@ export default function GiftVoucherPage() {
     }
     if (!Number.isFinite(amount) || amount < 5) {
       setError(t("giftVoucher.amountInvalid"))
+      return
+    }
+    if (!acceptedTerms) {
+      setError(t("legal.acceptTermsRequired"))
       return
     }
 
@@ -295,6 +302,16 @@ export default function GiftVoucherPage() {
 
       {error && <p className="customer-error">{error}</p>}
 
+      <PriceVatNote className="customer-hint" />
+
+      <LegalTermsAcceptance
+        checked={acceptedTerms}
+        onChange={(value) => {
+          setAcceptedTerms(value)
+          if (value) setError("")
+        }}
+      />
+
       {!purchaseId && (
         <button
           type="button"
@@ -312,6 +329,7 @@ export default function GiftVoucherPage() {
           publishableKey={stripeSession.publishableKey}
           stripeAccountId={stripeSession.stripeAccountId}
           clientSecret={stripeSession.clientSecret}
+          payableAmount={formatCurrency(amount)}
           onSuccess={(result) => {
             if (result?.code) setIssuedCode(result.code)
           }}
@@ -349,7 +367,13 @@ export default function GiftVoucherPage() {
       )}
 
       <p className="customer-hint checkout-terms-notice" style={{ marginTop: 20 }}>
-        {t("checkout.termsNotice")}
+        <Trans
+          i18nKey="checkout.termsNotice"
+          components={{
+            agbLink: <Link to="/agb" className="checkout-terms-link" />,
+            widerrufLink: <Link to="/widerruf" className="checkout-terms-link" />
+          }}
+        />
       </p>
       <CheckoutLegalFooter />
     </div>

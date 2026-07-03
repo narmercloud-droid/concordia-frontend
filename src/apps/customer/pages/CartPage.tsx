@@ -10,6 +10,7 @@ import { formatCurrency } from "@/utils/format"
 import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import CartSuggestionsModal, {
   type SuggestionItem
 } from "@/apps/customer/components/CartSuggestionsModal"
@@ -211,6 +212,8 @@ export default function CartPage() {
           {t("cart.checkout")}
         </button>
       </div>
+      <PriceVatNote className="customer-hint cart-vat-note" />
+      <CheckoutLegalFooter />
 
       {branchId && checkoutExtrasOpen && (
         <CartSuggestionsModal
@@ -242,7 +245,6 @@ export default function CartPage() {
         />
       )}
 
-      <CheckoutLegalFooter />
     </div>
   )
 }

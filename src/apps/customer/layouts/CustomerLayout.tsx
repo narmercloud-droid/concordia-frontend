@@ -7,6 +7,7 @@ import LanguageSwitcher from "@/apps/customer/components/LanguageSwitcher"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
+import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import { isNativeApp } from "@/lib/nativeApp"
 import SiteNav from "@/apps/customer/components/SiteNav"
 import StickyOrderFab from "@/apps/customer/components/StickyOrderFab"
@@ -62,7 +63,11 @@ export default function CustomerLayout() {
     }
 
     if (Notification.permission === "granted") {
-      void subscribeToPush({ allowOffers: true, allowOrders: true, syncBackend: true })
+      void subscribeToPush({
+        allowOffers: hasMarketingConsent(),
+        allowOrders: true,
+        syncBackend: true
+      })
       return
     }
   }, [])

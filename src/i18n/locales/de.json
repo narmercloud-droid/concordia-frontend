@@ -27,11 +27,17 @@
   },
   "legal": {
     "localeNote": "Die rechtsverbindliche Fassung dieser Seite finden Sie unten auf Deutsch.",
+    "priceInclVat": "Alle Preise in Euro inkl. gesetzlicher Mehrwertsteuer.",
+    "priceInclVatShort": "inkl. MwSt.",
+    "acceptTerms": "Ich habe die <agbLink>AGB</agbLink> gelesen und akzeptiere diese. Die <widerrufLink>Widerrufsbelehrung</widerrufLink> habe ich zur Kenntnis genommen.",
+    "acceptTermsWithLoyalty": "Ich habe die <agbLink>AGB</agbLink> gelesen und akzeptiere diese. Die <widerrufLink>Widerrufsbelehrung</widerrufLink> habe ich zur Kenntnis genommen. Das <termsLink>Treueprogramm</termsLink> gilt ergänzend.",
+    "acceptTermsRequired": "Bitte bestätigen Sie die AGB und nehmen Sie die Widerrufsbelehrung zur Kenntnis.",
     "cookie": {
       "title": "Cookies & Speicher",
       "body": "Wir verwenden technisch notwendige Speicher (Warenkorb, Sprache, Anmeldung). Mit Ihrer Zustimmung können wir auch optionale Funktionen wie Angebots-Benachrichtigungen nutzen.",
       "essentialOnly": "Nur notwendige",
-      "acceptAll": "Alle akzeptieren"
+      "acceptAll": "Alle akzeptieren",
+      "settings": "Cookie-Einstellungen"
     }
   },
   "layout": {
@@ -155,10 +161,11 @@
     "deliveryZoneMinOrder": "Mind. {{amount}}",
     "deliveryZoneFee": "Lieferung {{amount}}",
     "deliveryZoneFreeFrom": "Gratis Lieferung ab {{amount}}",
-    "allergenTitle": "Allergene & Zusatzstoffe",
-    "allergenLead": "Informationen zu Allergenen und Zusatzstoffen erhalten Sie auf Anfrage in der Filiale oder per Kontaktformular. Bei Allergien oder Unverträglichkeiten geben Sie bitte eine Anmerkung zur Bestellung an.",
-    "allergenLegend": "Häufige Allergene: Gluten, Krebstiere, Eier, Fisch, Erdnüsse, Soja, Milch, Schalenfrüchte, Sellerie, Senf, Sesam, Schwefeldioxid/Sulfite, Lupinen, Weichtiere.",
-    "allergenContact": "Allergen-Details anfragen"
+    "allergenTitle": "Allergene & Zusatzstoffe (LMIV)",
+    "allergenLead": "Bei Allergien oder Unverträglichkeiten geben Sie bitte eine Anmerkung zur Bestellung an oder kontaktieren Sie uns vor der Bestellung. Detaillierte Angaben zu Allergenen und Zusatzstoffen der einzelnen Gerichte erhalten Sie in der Filiale und auf Anfrage per Kontaktformular.",
+    "allergenLegend": "Die 14 Hauptallergene nach LMIV/InfoV: A Gluten, B Krebstiere, C Eier, D Fisch, E Erdnüsse, F Soja, G Milch, H Schalenfrüchte, L Sellerie, M Senf, N Sesam, O Schwefeldioxid/Sulfite, P Lupinen, R Weichtiere.",
+    "allergenContact": "Allergen-Details anfragen",
+    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
   },
   "cart": {
     "title": "Ihr Warenkorb",
@@ -316,7 +323,7 @@
     "loyaltyBalance": "Treueprogramm: {{points}} Punkte ({{tier}})",
     "loyaltyPerkPoints": "Punkte bei jeder gelieferten Bestellung",
     "loyaltyPerkTier": "Bronze-, Silber- und Gold-Vorteile freischalten",
-    "termsNotice": "Mit der Bestellung akzeptieren Sie unsere <termsLink>AGB & Treueprogramm</termsLink>.",
+    "termsNotice": "Lieferkosten werden vor Abschluss der Bestellung gesondert ausgewiesen. Verbindliche Vertragsbedingungen: <agbLink>AGB</agbLink> · <widerrufLink>Widerruf</widerrufLink>.",
     "useMyLocation": "Meinen Standort verwenden",
     "useMyLocationHint": "Füllt Postleitzahl, Stadt und Straße automatisch aus — spart Zeit.",
     "locationFilled": "Adresse übernommen. Bitte Hausnummer prüfen und ggf. ergänzen.",

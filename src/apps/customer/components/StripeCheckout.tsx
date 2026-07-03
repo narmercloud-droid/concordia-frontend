@@ -12,6 +12,7 @@ type Props = {
   savePaymentMethodOffered?: boolean
   orderId?: string
   giftPurchaseId?: string
+  payableAmount?: string
   onSuccess: (result?: { code?: string }) => void
   onError: (message: string) => void
 }
@@ -19,6 +20,7 @@ type Props = {
 function StripePaymentForm({
   orderId,
   giftPurchaseId,
+  payableAmount,
   onSuccess,
   onError
 }: Omit<Props, "publishableKey" | "stripeAccountId" | "clientSecret">) {
@@ -87,7 +89,11 @@ function StripePaymentForm({
         style={{ marginTop: 16 }}
         disabled={!stripe || !elements || submitting}
       >
-        {submitting ? t("checkout.processingPayment") : t("checkout.payNow")}
+        {submitting
+          ? t("checkout.processingPayment")
+          : payableAmount
+            ? t("checkout.payNowPayable", { amount: payableAmount })
+            : t("checkout.payNow")}
       </button>
     </form>
   )
@@ -101,6 +107,7 @@ export default function StripeCheckout({
   savePaymentMethodOffered,
   orderId,
   giftPurchaseId,
+  payableAmount,
   onSuccess,
   onError
 }: Props) {
@@ -142,6 +149,7 @@ export default function StripeCheckout({
         <StripePaymentForm
           orderId={orderId}
           giftPurchaseId={giftPurchaseId}
+          payableAmount={payableAmount}
           onSuccess={onSuccess}
           onError={onError}
         />

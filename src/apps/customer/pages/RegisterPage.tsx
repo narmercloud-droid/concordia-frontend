@@ -4,6 +4,7 @@ import { useAuthStore } from "@/context/authStore"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Trans, useTranslation } from "react-i18next"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
+import LegalTermsAcceptance from "@/apps/customer/components/LegalTermsAcceptance"
 
 export default function RegisterPage() {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ export default function RegisterPage() {
 
   const handleRegister = async () => {
     if (!acceptedTerms) {
-      setError(t("auth.acceptTermsRequired"))
+      setError(t("legal.acceptTermsRequired"))
       return
     }
 
@@ -89,24 +90,14 @@ export default function RegisterPage() {
         />
       </div>
 
-      <label className="checkout-terms-checkbox">
-        <input
-          type="checkbox"
-          checked={acceptedTerms}
-          onChange={(e) => {
-            setAcceptedTerms(e.target.checked)
-            if (e.target.checked) setError("")
-          }}
-        />
-        <span>
-          <Trans
-            i18nKey="auth.acceptTerms"
-            components={{
-              termsLink: <Link to="/terms" className="checkout-terms-link" />
-            }}
-          />
-        </span>
-      </label>
+      <LegalTermsAcceptance
+        checked={acceptedTerms}
+        onChange={(value) => {
+          setAcceptedTerms(value)
+          if (value) setError("")
+        }}
+        showLoyaltyLink
+      />
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
 

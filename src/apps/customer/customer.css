@@ -1633,6 +1633,35 @@
   margin-top: 12px;
 }
 
+.cookie-settings-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.site-footer__legal .cookie-settings-link {
+  color: var(--c-muted, #64748b);
+  font-size: 14px;
+}
+
+.price-vat-note,
+.branch-menu__vat-note,
+.cart-vat-note,
+.checkout-price-vat {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--c-muted);
+}
+
+.item-options__allergen-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
 .checkout-legal-footer {
   display: flex;
   flex-wrap: wrap;

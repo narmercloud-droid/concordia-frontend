@@ -52,6 +52,8 @@ export default function ItemOptionsFooter({ options, onAdd, compact = false, edi
 
       {error && <p className="customer-error">{error}</p>}
 
+      <p className="customer-hint item-options__allergen-hint">{t("menu.allergenItemHint")}</p>
+
       <button type="button" onClick={onAdd} className="customer-btn customer-btn--primary item-options__add-btn">
         {editMode ? t("item.updateCart") : t("item.addToCart")}
       </button>

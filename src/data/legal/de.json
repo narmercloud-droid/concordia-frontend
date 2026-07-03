@@ -16,8 +16,7 @@
         "title": "Kontakt",
         "paragraphs": [
           "Telefon: 02152 9591954",
-          "E-Mail: siban.ahmad13@gmail.com",
-          "Allgemeine Anfragen über die Website: info@concordiapizza.de",
+          "E-Mail (allgemein): info@concordiapizza.de",
           "Kempen: kempen@concordiapizza.de",
           "Straelen: straelen@concordiapizza.de"
         ]
@@ -85,7 +84,7 @@
         "paragraphs": [
           "Pizzeria Concordia, Inhaber Alan Ahmad, Concordienplatz 1, 47906 Kempen",
           "Telefon: 02152 9591954",
-          "E-Mail: siban.ahmad13@gmail.com"
+          "E-Mail: info@concordiapizza.de"
         ]
       },
       {
@@ -128,10 +127,17 @@
         "title": "4. Datenerfassung auf unserer Website",
         "subsections": [
           {
-            "title": "Cookies",
+            "title": "Cookies und Einwilligung (TTDSG)",
             "paragraphs": [
-              "Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden. Session-Cookies werden nach Ende Ihres Besuchs gelöscht; andere Cookies können länger gespeichert bleiben, um z. B. Spracheinstellungen oder den Warenkorb zu erhalten.",
-              "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben. Bei Deaktivierung von Cookies kann die Funktionalität der Website eingeschränkt sein."
+              "Technisch notwendige Cookies und lokale Speicher (z. B. Warenkorb, Sprache, Anmeldung) setzen wir auf Grundlage von § 25 Abs. 2 Nr. 2 TTDSG ein — hierfür ist keine Einwilligung erforderlich.",
+              "Optionale Speicher und Funktionen (z. B. Angebots-Benachrichtigungen) nutzen wir nur nach Ihrer Einwilligung über unser Cookie-Banner (§ 25 Abs. 1 TTDSG i. V. m. Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Auswahl jederzeit über „Cookie-Einstellungen“ im Footer ändern.",
+              "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden. Bei Deaktivierung kann die Funktionalität eingeschränkt sein."
+            ]
+          },
+          {
+            "title": "Cookies (technisch)",
+            "paragraphs": [
+              "Session-Cookies werden nach Ende Ihres Besuchs gelöscht; andere Cookies können länger gespeichert bleiben, um z. B. Spracheinstellungen zu erhalten."
             ]
           },
           {

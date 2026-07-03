@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 
 const STORAGE_KEY = "concordia_cookie_consent_v1"
+export const COOKIE_SETTINGS_EVENT = "concordia:open-cookie-settings"
 
 type Consent = "all" | "essential"
 
@@ -27,12 +28,23 @@ export function hasMarketingConsent() {
   return readConsent() === "all"
 }
 
+export function requestCookieSettings() {
+  if (typeof window === "undefined") return
+  window.dispatchEvent(new CustomEvent(COOKIE_SETTINGS_EVENT))
+}
+
 export default function CookieConsent() {
   const { t } = useTranslation()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     setVisible(readConsent() === null)
+  }, [])
+
+  useEffect(() => {
+    const open = () => setVisible(true)
+    window.addEventListener(COOKIE_SETTINGS_EVENT, open)
+    return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, open)
   }, [])
 
   if (!visible) return null

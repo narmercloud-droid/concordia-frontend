@@ -18,6 +18,9 @@ import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import StripeCheckout from "@/apps/customer/components/StripeCheckout"
 import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import LegalTermsAcceptance from "@/apps/customer/components/LegalTermsAcceptance"
+import PriceVatNote from "@/apps/customer/components/PriceVatNote"
+import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
@@ -160,6 +163,8 @@ export default function CheckoutPage() {
   })
   const [validationModalOpen, setValidationModalOpen] = useState(false)
   const [validationIssues, setValidationIssues] = useState<CheckoutValidationIssue[]>([])
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
+  const termsSectionRef = useRef<HTMLDivElement>(null)
 
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
@@ -703,6 +708,12 @@ export default function CheckoutPage() {
       addIssue("payment", t("checkout.paymentMethodUnavailable"))
     }
 
+    if (!acceptedTerms) {
+      addIssue("terms", t("legal.acceptTermsRequired"), {
+        focus: () => scrollToField(termsSectionRef)
+      })
+    }
+
     return issues
   }
 
@@ -777,7 +788,12 @@ export default function CheckoutPage() {
       let pushToken = getStoredPushToken()
       const wantsMarketingPush =
         marketingPush || marketingEmail || marketingSMS || marketingWhatsApp
-      if (isPushConfigured() && wantsMarketingPush && !pushToken) {
+      if (
+        isPushConfigured() &&
+        wantsMarketingPush &&
+        !pushToken &&
+        (hasMarketingConsent() || marketingPush)
+      ) {
         pushToken = await subscribeToPush({
           allowOffers: wantsMarketingPush,
           allowOrders: true,
@@ -1356,7 +1372,7 @@ export default function CheckoutPage() {
             />
             <span>{t("checkout.marketingEmail")}</span>
           </label>
-          {isPushConfigured() ? (
+          {isPushConfigured() && hasMarketingConsent() ? (
             <label className="checkout-marketing__channel">
               <input
                 type="checkbox"
@@ -1394,11 +1410,23 @@ export default function CheckoutPage() {
 
       {!pendingCardOrderId && !pendingStripeSession && (
         <>
+        <PriceVatNote className="customer-hint checkout-price-vat" />
+        <div ref={termsSectionRef}>
+          <LegalTermsAcceptance
+            checked={acceptedTerms}
+            onChange={(value) => {
+              setAcceptedTerms(value)
+              if (value) setError("")
+            }}
+            showLoyaltyLink={showLoyaltyCheckout}
+          />
+        </div>
         <p className="customer-hint checkout-terms-notice">
           <Trans
             i18nKey="checkout.termsNotice"
             components={{
-              termsLink: <Link to="/terms" className="checkout-terms-link" />
+              agbLink: <Link to="/agb" className="checkout-terms-link" />,
+              widerrufLink: <Link to="/widerruf" className="checkout-terms-link" />
             }}
           />
         </p>
@@ -1428,6 +1456,7 @@ export default function CheckoutPage() {
           clientSecret={pendingStripeSession.clientSecret}
           customerSessionClientSecret={pendingStripeSession.customerSessionClientSecret}
           savePaymentMethodOffered={pendingStripeSession.savePaymentMethodOffered}
+          payableAmount={formatCurrency(grandTotal)}
           onSuccess={handleCardPaymentSuccess}
           onError={(message) => setError(message)}
         />

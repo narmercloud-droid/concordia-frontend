@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import ConcordiaLogo from "@/apps/customer/components/ConcordiaLogo"
+import CookieSettingsLink from "@/apps/customer/components/CookieSettingsLink"
 import { INFO_PAGES, LEGAL_PAGES } from "@/lib/infoPages"
 import "./InfoPages.css"
 
@@ -25,6 +26,7 @@ export default function SiteFooter() {
             {t(`pages.nav.${page.key}`)}
           </Link>
         ))}
+        <CookieSettingsLink />
       </nav>
       <AppDownloadSection variant="compact" />
       <ConcordiaLogo size="md" round className="site-footer__logo" />
