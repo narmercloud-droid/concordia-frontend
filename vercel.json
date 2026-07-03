@@ -44,6 +44,12 @@
       ]
     },
     {
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
@@ -86,6 +92,6 @@
       "source": "/kempen/menu",
       "destination": "/kempen/menu.html"
     },
-    { "source": "/((?!api/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml|straelen/|kempen/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|assets/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml|straelen/|kempen/).*)", "destination": "/index.html" }
   ]
 }

@@ -14,6 +14,7 @@ const PlatformSettingsPage = React.lazy(() => import("./pages/PlatformSettingsPa
 const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
 const AnalyticsPage = React.lazy(() => import("./pages/AnalyticsPage.js"))
 const ReportsPage = React.lazy(() => import("./pages/ReportsPage.js"))
+const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
 import AdminPermissionRoute, { AdminHomeRedirect } from "@/router/AdminPermissionRoute"
 

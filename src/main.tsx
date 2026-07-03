@@ -11,18 +11,30 @@ import { hydrateCustomerQueries } from "./lib/hydrateCustomerQueries.js"
 import { initNativeApp } from "./lib/initNativeApp.js"
 
 async function startApp() {
-  hydrateCustomerQueries(queryClient)
-  void warmupApi()
-  await bootstrapI18n()
-  await initNativeApp()
+  try {
+    hydrateCustomerQueries(queryClient)
+    void warmupApi()
+    await bootstrapI18n()
+    await initNativeApp()
 
-  ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </React.StrictMode>
-  )
+    ReactDOM.createRoot(document.getElementById("root")!).render(
+      <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </React.StrictMode>
+    )
+  } catch (err) {
+    console.error("App bootstrap failed:", err)
+    const root = document.getElementById("root")
+    if (root) {
+      root.innerHTML =
+        '<div style="font-family:system-ui,sans-serif;max-width:520px;margin:48px auto;padding:0 20px;color:#1a1a1a">' +
+        "<h1 style=\"font-size:1.25rem\">Concordia konnte nicht geladen werden</h1>" +
+        "<p>Bitte Seite neu laden. Falls das Problem bleibt, Cache leeren (Strg+Umschalt+R).</p>" +
+        "</div>"
+    }
+  }
 }
 
 void startApp()
