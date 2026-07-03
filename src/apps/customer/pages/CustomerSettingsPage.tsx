@@ -10,6 +10,11 @@ import {
   updateAddress,
   type SavedAddress
 } from "@/api/addresses"
+import {
+  deleteMyAccount,
+  exportMyData,
+  updateMarketingPreferences
+} from "@/api/customerPrivacy"
 import { getCustomerProfile, updateCustomerPhone } from "@/api/customerAuth"
 import { getMyOrders } from "@/api/order"
 import {
@@ -59,6 +64,7 @@ export default function CustomerSettingsPage() {
   const queryClient = useQueryClient()
   const authUser = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
+  const logout = useAuthStore((s) => s.logout)
   const [tab, setTab] = useState<Tab>(() => tabFromPath(location.pathname))
   const [phone, setPhone] = useState(() => authUser?.phone ?? "")
   const [phoneSaved, setPhoneSaved] = useState(false)
@@ -72,6 +78,12 @@ export default function CustomerSettingsPage() {
     ...EMPTY_DELIVERY_ADDRESS
   })
   const [addressError, setAddressError] = useState("")
+  const [marketingEmail, setMarketingEmail] = useState(false)
+  const [marketingSMS, setMarketingSMS] = useState(false)
+  const [marketingWhatsApp, setMarketingWhatsApp] = useState(false)
+  const [marketingSaved, setMarketingSaved] = useState(false)
+  const [privacyLoading, setPrivacyLoading] = useState(false)
+  const [privacyMessage, setPrivacyMessage] = useState("")
 
   useEffect(() => {
     setTab(tabFromPath(location.pathname))
@@ -126,7 +138,12 @@ export default function CustomerSettingsPage() {
   useEffect(() => {
     const nextPhone = profile?.phone ?? authUser?.phone ?? ""
     if (nextPhone) setPhone(nextPhone)
-  }, [profile?.phone, authUser?.phone])
+    if (profile) {
+      setMarketingEmail(Boolean(profile.marketingEmail))
+      setMarketingSMS(Boolean(profile.marketingSMS))
+      setMarketingWhatsApp(Boolean(profile.marketingWhatsApp))
+    }
+  }, [profile?.phone, authUser?.phone, profile])
 
   const phoneMutation = useMutation({
     mutationFn: updateCustomerPhone,
@@ -316,6 +333,110 @@ export default function CustomerSettingsPage() {
                   )}
                 </div>
               )}
+
+              <div className="customer-settings__privacy">
+                <h3 className="customer-subtitle">{t("account.privacyTitle")}</h3>
+                <p className="customer-hint">{t("account.privacyLead")}</p>
+                <label className="customer-option">
+                  <input
+                    type="checkbox"
+                    checked={marketingEmail}
+                    onChange={(e) => setMarketingEmail(e.target.checked)}
+                  />
+                  <span>{t("account.marketingEmail")}</span>
+                </label>
+                <label className="customer-option">
+                  <input
+                    type="checkbox"
+                    checked={marketingSMS}
+                    onChange={(e) => setMarketingSMS(e.target.checked)}
+                  />
+                  <span>{t("account.marketingSMS")}</span>
+                </label>
+                <label className="customer-option">
+                  <input
+                    type="checkbox"
+                    checked={marketingWhatsApp}
+                    onChange={(e) => setMarketingWhatsApp(e.target.checked)}
+                  />
+                  <span>{t("account.marketingWhatsApp")}</span>
+                </label>
+                <button
+                  type="button"
+                  className="customer-btn"
+                  disabled={privacyLoading}
+                  onClick={() => {
+                    setPrivacyLoading(true)
+                    setPrivacyMessage("")
+                    void updateMarketingPreferences({
+                      marketingConsent:
+                        marketingEmail || marketingSMS || marketingWhatsApp,
+                      marketingEmail,
+                      marketingSMS,
+                      marketingWhatsApp
+                    })
+                      .then(() => {
+                        setMarketingSaved(true)
+                        window.setTimeout(() => setMarketingSaved(false), 2500)
+                      })
+                      .finally(() => setPrivacyLoading(false))
+                  }}
+                >
+                  {privacyLoading ? t("common.processing") : t("account.savePreferences")}
+                </button>
+                {marketingSaved && (
+                  <p className="customer-hint" style={{ color: "var(--c-success)" }}>
+                    {t("account.marketingSaved")}
+                  </p>
+                )}
+                <div className="customer-btn-row" style={{ marginTop: 16 }}>
+                  <button
+                    type="button"
+                    className="customer-btn"
+                    disabled={privacyLoading}
+                    onClick={() => {
+                      setPrivacyLoading(true)
+                      setPrivacyMessage("")
+                      void exportMyData()
+                        .then((data) => {
+                          const blob = new Blob([JSON.stringify(data, null, 2)], {
+                            type: "application/json"
+                          })
+                          const url = URL.createObjectURL(blob)
+                          const link = document.createElement("a")
+                          link.href = url
+                          link.download = "concordia-meine-daten.json"
+                          document.body.appendChild(link)
+                          link.click()
+                          link.remove()
+                          URL.revokeObjectURL(url)
+                          setPrivacyMessage(t("account.exportDone"))
+                        })
+                        .finally(() => setPrivacyLoading(false))
+                    }}
+                  >
+                    {t("account.exportData")}
+                  </button>
+                  <button
+                    type="button"
+                    className="customer-btn customer-btn--danger"
+                    disabled={privacyLoading}
+                    onClick={() => {
+                      if (!window.confirm(t("account.deleteAccountConfirm"))) return
+                      setPrivacyLoading(true)
+                      void deleteMyAccount()
+                        .then(() => {
+                          logout()
+                          setPrivacyMessage(t("account.deleteAccountDone"))
+                        })
+                        .finally(() => setPrivacyLoading(false))
+                    }}
+                  >
+                    {t("account.deleteAccount")}
+                  </button>
+                </div>
+                {privacyMessage ? <p className="customer-hint">{privacyMessage}</p> : null}
+              </div>
             </>
           )}
         </div>

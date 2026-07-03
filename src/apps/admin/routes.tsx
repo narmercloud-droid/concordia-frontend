@@ -12,7 +12,8 @@ const StaffPage = React.lazy(() => import("./pages/StaffPage.js"))
 const PermissionsPage = React.lazy(() => import("./pages/PermissionsPage.js"))
 const PlatformSettingsPage = React.lazy(() => import("./pages/PlatformSettingsPage.js"))
 const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
-const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
+const AnalyticsPage = React.lazy(() => import("./pages/AnalyticsPage.js"))
+const ReportsPage = React.lazy(() => import("./pages/ReportsPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
 import AdminPermissionRoute, { AdminHomeRedirect } from "@/router/AdminPermissionRoute"
 
@@ -44,6 +45,8 @@ export const adminRoutes = {
       children: [
         { index: true, element: <AdminHomeRedirect /> },
         { path: "dashboard", element: guard("dashboard", <DashboardPage />) },
+        { path: "reports", element: guard("dashboard", <ReportsPage />) },
+        { path: "analytics", element: guard("dashboard", <AnalyticsPage />) },
         { path: "menu", element: guard("menu_view", <MenuPage />) },
         { path: "orders", element: guard("orders", <OrdersPage />) },
         { path: "hours", element: guard("hours_view", <HoursPage />) },

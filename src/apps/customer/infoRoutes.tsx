@@ -13,6 +13,7 @@ const TermsPage = React.lazy(() => import("./pages/TermsPage.js"))
 const ImpressumPage = React.lazy(() => import("./pages/ImpressumPage.js"))
 const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage.js"))
 const AgbPage = React.lazy(() => import("./pages/AgbPage.js"))
+const WiderrufPage = React.lazy(() => import("./pages/WiderrufPage.js"))
 
 const lazy = (element: React.ReactElement) => (
   <Suspense fallback={<LoadingFallback />}>{element}</Suspense>
@@ -34,6 +35,7 @@ export const infoRoutes = {
     { path: "privacy", element: <Navigate to="/datenschutz" replace /> },
     { path: "agb", element: lazy(<AgbPage />) },
     { path: "terms", element: lazy(<TermsPage />) },
+    { path: "widerruf", element: lazy(<WiderrufPage />) },
     { path: "loyalty-terms", element: <Navigate to="/terms" replace /> }
   ]
 }

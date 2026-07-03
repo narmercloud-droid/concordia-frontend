@@ -12,6 +12,8 @@ export default function AdminNav() {
 
   const items = [
     { to: "/admin/dashboard", label: "Dashboard", show: can("dashboard") },
+    { to: "/admin/reports", label: "Revenue reports", show: can("dashboard") },
+    { to: "/admin/analytics", label: "Analytics", show: can("dashboard") },
     { to: "/admin/orders", label: "Orders", show: can("orders") },
     { to: "/admin/menu", label: "Menu", show: can("menu_view") },
     { to: "/admin/hours", label: "Opening hours", show: can("hours_view") },

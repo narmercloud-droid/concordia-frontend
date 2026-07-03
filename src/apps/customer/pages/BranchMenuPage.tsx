@@ -21,7 +21,8 @@ import {
   parseFulfillmentParam,
   saveFulfillmentIntent
 } from "@/lib/fulfillmentIntent"
-import "./BranchMenuPage.css"
+import AllergenNotice from "@/apps/customer/components/AllergenNotice"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 
 type MenuItem = {
   id: number
@@ -278,6 +279,9 @@ export default function BranchMenuPage() {
           </Link>
         </div>
       )}
+
+      <AllergenNotice />
+      <CheckoutLegalFooter />
     </div>
   )
 }

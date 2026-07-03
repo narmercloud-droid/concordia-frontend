@@ -17,6 +17,7 @@ import { createStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
 import StripeCheckout from "@/apps/customer/components/StripeCheckout"
 import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
@@ -1410,11 +1411,12 @@ export default function CheckoutPage() {
           {createMutation.isPending || branchesLoading
             ? t("common.processing")
             : awaitingPaymentOrderId && !pendingStripeSession && !pendingCardOrderId
-              ? t("checkout.retryPayment")
+              ? t("checkout.retryPaymentPayable", { amount: formatCurrency(grandTotal) })
               : needsOnlinePayment
-                ? t("checkout.continueToPayment")
-                : t("checkout.placeOrder")}
+                ? t("checkout.continueToPaymentPayable", { amount: formatCurrency(grandTotal) })
+                : t("checkout.placeOrderPayable", { amount: formatCurrency(grandTotal) })}
         </button>
+        <CheckoutLegalFooter />
         </>
       )}
 

@@ -11,6 +11,7 @@ import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
 import { GIFT_VOUCHER_PAYMENT_METHOD_ORDER } from "@/apps/customer/components/checkoutPaymentMethods"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import { formatCurrency } from "@/utils/format"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 
 const PRESET_AMOUNTS = [10, 20, 30, 50]
 
@@ -301,7 +302,7 @@ export default function GiftVoucherPage() {
           disabled={loading}
           onClick={() => void handleStartPurchase()}
         >
-          {loading ? t("common.processing") : t("giftVoucher.continue", { amount: formatCurrency(amount) })}
+          {loading ? t("common.processing") : t("giftVoucher.continuePayable", { amount: formatCurrency(amount) })}
         </button>
       )}
 
@@ -346,6 +347,11 @@ export default function GiftVoucherPage() {
           <p>{t("giftVoucher.cashPending")}</p>
         </div>
       )}
+
+      <p className="customer-hint checkout-terms-notice" style={{ marginTop: 20 }}>
+        {t("checkout.termsNotice")}
+      </p>
+      <CheckoutLegalFooter />
     </div>
   )
 }

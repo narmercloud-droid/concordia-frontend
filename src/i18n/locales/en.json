@@ -26,7 +26,13 @@
     "label": "Language"
   },
   "legal": {
-    "localeNote": "The legally binding version of this page is provided in German below."
+    "localeNote": "The legally binding version of this page is provided in German below.",
+    "cookie": {
+      "title": "Cookies & storage",
+      "body": "We use essential storage for your cart, language, and login. With your consent we may also enable optional features such as offer notifications.",
+      "essentialOnly": "Essential only",
+      "acceptAll": "Accept all"
+    }
   },
   "layout": {
     "notificationsDisabled": "Notifications are disabled. Enable them in your browser settings to receive order updates.",
@@ -148,7 +154,11 @@
     "deliveryZoneUpTo": "Up to {{km}} km",
     "deliveryZoneMinOrder": "Min. {{amount}}",
     "deliveryZoneFee": "Delivery {{amount}}",
-    "deliveryZoneFreeFrom": "Free delivery from {{amount}}"
+    "deliveryZoneFreeFrom": "Free delivery from {{amount}}",
+    "allergenTitle": "Allergens & additives",
+    "allergenLead": "Allergen and additive information is available on request in the restaurant or via our contact form. If you have allergies, please add a note to your order.",
+    "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
+    "allergenContact": "Request allergen details"
   },
   "cart": {
     "title": "Your cart",
@@ -246,6 +256,10 @@
     "paymentPickup": "pickup",
     "paymentDelivery": "delivery",
     "continueToPayment": "Continue to payment",
+    "placeOrderPayable": "Order with obligation to pay · {{amount}}",
+    "continueToPaymentPayable": "Continue to pay · {{amount}}",
+    "payNowPayable": "Pay now · {{amount}}",
+    "retryPaymentPayable": "Retry payment · {{amount}}",
     "cardPaymentTitle": "Pay securely",
     "cardPaymentHint": "Pay with debit card, credit card, or PayPal. Your order is sent to the kitchen after payment.",
     "paymentFailed": "Payment failed. Please try again or choose cash.",
@@ -334,6 +348,8 @@
     "recipient": "For (recipient name)",
     "message": "Personal message",
     "continue": "Continue — {{amount}}",
+    "continuePayable": "Continue with obligation to pay · {{amount}}",
+    "payOnlinePayable": "Pay now · {{amount}}",
     "payOnline": "Pay now",
     "cashNote": "Cash: voucher is activated at the branch after payment.",
     "cashPending": "Please pay at the branch. Your voucher will be activated afterwards.",
@@ -482,7 +498,8 @@
       "impressum": "Legal notice",
       "privacy": "Privacy",
       "agb": "Terms (AGB)",
-      "terms": "Terms & loyalty"
+      "terms": "Terms & loyalty",
+      "widerruf": "Withdrawal"
     },
     "about": {
       "eyebrow": "Our story",
@@ -698,6 +715,11 @@
       "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
       "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
     },
+    "widerruf": {
+      "eyebrow": "Legal",
+      "title": "Right of withdrawal",
+      "lead": "Information on withdrawal rights for online orders and gift vouchers."
+    },
     "terms": {
       "eyebrow": "Legal",
       "title": "Terms & Conditions",
@@ -821,7 +843,19 @@
     "profileLoadError": "Could not load your profile.",
     "profileSyncError": "Showing saved account details. Some info may be outdated.",
     "addressesLoadError": "Could not load saved addresses.",
-    "ordersLoadError": "Could not load your orders."
+    "ordersLoadError": "Could not load your orders.",
+    "privacyTitle": "Privacy & marketing",
+    "privacyLead": "Manage your consents and GDPR rights.",
+    "marketingEmail": "Offers by email",
+    "marketingSMS": "Offers by SMS",
+    "marketingWhatsApp": "Offers by WhatsApp",
+    "marketingSaved": "Preferences saved.",
+    "savePreferences": "Save preferences",
+    "exportData": "Export my data (JSON)",
+    "exportDone": "Export downloaded.",
+    "deleteAccount": "Delete account",
+    "deleteAccountConfirm": "Delete your account permanently? This cannot be undone.",
+    "deleteAccountDone": "Your account has been deleted."
   },
   "notifications": {
     "promptAria": "Offer notifications",

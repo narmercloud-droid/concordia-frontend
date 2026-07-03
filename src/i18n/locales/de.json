@@ -26,7 +26,13 @@
     "label": "Sprache"
   },
   "legal": {
-    "localeNote": "Die rechtsverbindliche Fassung dieser Seite finden Sie unten auf Deutsch."
+    "localeNote": "Die rechtsverbindliche Fassung dieser Seite finden Sie unten auf Deutsch.",
+    "cookie": {
+      "title": "Cookies & Speicher",
+      "body": "Wir verwenden technisch notwendige Speicher (Warenkorb, Sprache, Anmeldung). Mit Ihrer Zustimmung können wir auch optionale Funktionen wie Angebots-Benachrichtigungen nutzen.",
+      "essentialOnly": "Nur notwendige",
+      "acceptAll": "Alle akzeptieren"
+    }
   },
   "layout": {
     "notificationsDisabled": "Benachrichtigungen sind deaktiviert. Aktivieren Sie sie in den Browser-Einstellungen, um Bestellupdates zu erhalten.",
@@ -148,7 +154,11 @@
     "deliveryZoneUpTo": "Bis {{km}} km",
     "deliveryZoneMinOrder": "Mind. {{amount}}",
     "deliveryZoneFee": "Lieferung {{amount}}",
-    "deliveryZoneFreeFrom": "Gratis Lieferung ab {{amount}}"
+    "deliveryZoneFreeFrom": "Gratis Lieferung ab {{amount}}",
+    "allergenTitle": "Allergene & Zusatzstoffe",
+    "allergenLead": "Informationen zu Allergenen und Zusatzstoffen erhalten Sie auf Anfrage in der Filiale oder per Kontaktformular. Bei Allergien oder Unverträglichkeiten geben Sie bitte eine Anmerkung zur Bestellung an.",
+    "allergenLegend": "Häufige Allergene: Gluten, Krebstiere, Eier, Fisch, Erdnüsse, Soja, Milch, Schalenfrüchte, Sellerie, Senf, Sesam, Schwefeldioxid/Sulfite, Lupinen, Weichtiere.",
+    "allergenContact": "Allergen-Details anfragen"
   },
   "cart": {
     "title": "Ihr Warenkorb",
@@ -246,6 +256,10 @@
     "paymentPickup": "Abholung",
     "paymentDelivery": "Lieferung",
     "continueToPayment": "Weiter zur Zahlung",
+    "placeOrderPayable": "Zahlungspflichtig bestellen · {{amount}}",
+    "continueToPaymentPayable": "Zahlungspflichtig fortfahren · {{amount}}",
+    "payNowPayable": "Jetzt zahlungspflichtig bezahlen · {{amount}}",
+    "retryPaymentPayable": "Zahlung erneut versuchen · {{amount}}",
     "cardPaymentTitle": "Sicher bezahlen",
     "cardPaymentHint": "Mit Debitkarte, Kreditkarte oder PayPal bezahlen. Die Bestellung geht nach der Zahlung an die Küche.",
     "paymentFailed": "Zahlung fehlgeschlagen. Bitte erneut versuchen oder Bar wählen.",
@@ -334,6 +348,8 @@
     "recipient": "Für (Name des Beschenkten)",
     "message": "Persönliche Nachricht",
     "continue": "Weiter — {{amount}}",
+    "continuePayable": "Zahlungspflichtig fortfahren · {{amount}}",
+    "payOnlinePayable": "Jetzt zahlungspflichtig bezahlen · {{amount}}",
     "payOnline": "Jetzt bezahlen",
     "cashNote": "Barzahlung: Gutschein wird in der Filiale nach Zahlung freigeschaltet.",
     "cashPending": "Bitte zahlen Sie in der Filiale. Ihr Gutschein wird danach freigeschaltet.",
@@ -392,7 +408,19 @@
     "profileLoadError": "Profil konnte nicht geladen werden.",
     "profileSyncError": "Gespeicherte Kontodaten werden angezeigt. Einige Angaben können veraltet sein.",
     "addressesLoadError": "Adressen konnten nicht geladen werden.",
-    "ordersLoadError": "Bestellungen konnten nicht geladen werden."
+    "ordersLoadError": "Bestellungen konnten nicht geladen werden.",
+    "privacyTitle": "Datenschutz & Marketing",
+    "privacyLead": "Verwalten Sie Ihre Einwilligungen und DSGVO-Rechte.",
+    "marketingEmail": "Angebote per E-Mail",
+    "marketingSMS": "Angebote per SMS",
+    "marketingWhatsApp": "Angebote per WhatsApp",
+    "marketingSaved": "Einstellungen gespeichert.",
+    "savePreferences": "Einstellungen speichern",
+    "exportData": "Meine Daten exportieren (JSON)",
+    "exportDone": "Export wurde heruntergeladen.",
+    "deleteAccount": "Konto löschen",
+    "deleteAccountConfirm": "Möchten Sie Ihr Konto wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
+    "deleteAccountDone": "Ihr Konto wurde gelöscht."
   },
   "order": {
     "tracking": "Bestellverfolgung",
@@ -508,7 +536,8 @@
       "impressum": "Impressum",
       "privacy": "Datenschutz",
       "agb": "AGB",
-      "terms": "AGB & Treue"
+      "terms": "AGB & Treue",
+      "widerruf": "Widerruf"
     },
     "about": {
       "eyebrow": "Unsere Geschichte",
@@ -711,7 +740,7 @@
     "impressum": {
       "eyebrow": "Rechtliches",
       "title": "Impressum",
-      "lead": "Pflichtangaben gemäß Telemediengesetz (TMG) für Pizzeria Concordia in Kempen."
+      "lead": "Pflichtangaben gemäß Digitale-Dienste-Gesetz (DDG) für Pizzeria Concordia."
     },
     "privacy": {
       "eyebrow": "Rechtliches",
@@ -723,6 +752,11 @@
       "title": "Allgemeine Geschäftsbedingungen",
       "lead": "AGB für Online-Bestellungen bei Pizzeria Concordia (übernommen vom bisherigen Speisebaron-Shop, angepasst für diese Website).",
       "loyaltyNote": "Ergänzend gelten die Bedingungen des Treueprogramms auf der Seite <termsLink>AGB & Treue</termsLink>."
+    },
+    "widerruf": {
+      "eyebrow": "Rechtliches",
+      "title": "Widerrufsbelehrung",
+      "lead": "Informationen zum Widerrufsrecht für Online-Bestellungen und Gutscheine."
     },
     "terms": {
       "eyebrow": "Rechtliches",

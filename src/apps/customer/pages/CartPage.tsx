@@ -9,6 +9,7 @@ import { getBranches, getBranchDeliveryAreas } from "@/api/customer"
 import { formatCurrency } from "@/utils/format"
 import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
+import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CartSuggestionsModal, {
   type SuggestionItem
 } from "@/apps/customer/components/CartSuggestionsModal"
@@ -240,6 +241,8 @@ export default function CartPage() {
           }}
         />
       )}
+
+      <CheckoutLegalFooter />
     </div>
   )
 }

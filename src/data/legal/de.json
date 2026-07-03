@@ -3,7 +3,7 @@
     "updated": "Stand: Juni 2026",
     "sections": [
       {
-        "title": "Angaben gemäß § 5 TMG",
+        "title": "Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)",
         "paragraphs": [
           "Pizzeria Concordia",
           "Inhaber: Alan Ahmad",
@@ -33,7 +33,7 @@
       {
         "title": "Haftung für Inhalte",
         "paragraphs": [
-          "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+          "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
           "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen."
         ]
       },
@@ -157,7 +157,16 @@
           {
             "title": "Zahlungsabwicklung",
             "paragraphs": [
-              "Bei Online-Zahlungen (z. B. PayPal) werden die für die Zahlung erforderlichen Daten an den jeweiligen Zahlungsdienstleister übermittelt. Es gelten zusätzlich die Datenschutzhinweise des Zahlungsanbieters."
+              "Bei Online-Zahlungen werden die für die Zahlung erforderlichen Daten an den jeweiligen Zahlungsdienstleister übermittelt (z. B. PayPal Europe S.à r.l., Stripe Payments Europe Ltd.). Es gelten zusätzlich die Datenschutzhinweise des Zahlungsanbieters.",
+              "PayPal: https://www.paypal.com/de/webapps/mpp/ua/privacy-full",
+              "Stripe: https://stripe.com/de/privacy"
+            ]
+          },
+          {
+            "title": "Ihre Rechte (DSGVO)",
+            "paragraphs": [
+              "In Ihrem Kundenkonto können Sie Marketing-Einstellungen verwalten, Ihre Daten exportieren und Ihr Konto löschen (Recht auf Löschung gemäß Art. 17 DSGVO, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen).",
+              "Bestelldaten können aus steuer- und handelsrechtlichen Gründen auch nach Kontolöschung in anonymisierter Form aufbewahrt werden."
             ]
           }
         ]
@@ -277,6 +286,46 @@
           "(2) Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.",
           "(3) Gerichtsstand ist Kempen, sofern gesetzlich zulässig.",
           "Vorlage auf Grundlage von HÄRTING Rechtsanwälte, Berlin."
+        ]
+      }
+    ]
+  },
+  "widerruf": {
+    "updated": "Stand: Juli 2026",
+    "sections": [
+      {
+        "title": "Widerrufsrecht",
+        "paragraphs": [
+          "Verbraucher haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.",
+          "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter die Waren in Besitz genommen haben."
+        ]
+      },
+      {
+        "title": "Ausnahme: Verderbliche Waren (Speisen)",
+        "paragraphs": [
+          "Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung von Waren, die schnell verderben können oder deren Verfallsdatum schnell überschritten würde (§ 312g Abs. 2 Nr. 2 BGB, § 356 Abs. 4 BGB). Dies betrifft unsere frisch zubereiteten Speisen und Getränke.",
+          "Für digitale Gutscheine und nicht verderbliche Waren gelten die regulären Widerrufsregeln, sofern die Leistung noch nicht vollständig erbracht wurde und Sie dem ausdrücklich zugestimmt haben."
+        ]
+      },
+      {
+        "title": "Widerrufsfolgen",
+        "paragraphs": [
+          "Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme zusätzlicher Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf bei uns eingegangen ist.",
+          "Für diese Rückerstattung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart."
+        ]
+      },
+      {
+        "title": "Muster-Widerrufsformular",
+        "paragraphs": [
+          "(Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular aus und senden Sie es zurück.)",
+          "An Pizzeria Concordia, Inhaber Alan Ahmad, Concordienplatz 1, 47906 Kempen, E-Mail: info@concordiapizza.de",
+          "Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)",
+          "Bestellt am (*)/erhalten am (*)",
+          "Name des/der Verbraucher(s)",
+          "Anschrift des/der Verbraucher(s)",
+          "Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)",
+          "Datum",
+          "(*) Unzutreffendes streichen."
         ]
       }
     ]

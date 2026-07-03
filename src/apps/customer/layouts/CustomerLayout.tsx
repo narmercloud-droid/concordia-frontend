@@ -15,6 +15,7 @@ import NativeCartButton from "@/apps/customer/components/NativeCartButton"
 import NativeCartBar from "@/apps/customer/components/NativeCartBar"
 import NativePromoStrip from "@/apps/customer/components/NativePromoStrip"
 import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
+import CookieConsent from "@/apps/customer/components/CookieConsent"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import "../customer.css"
@@ -134,6 +135,7 @@ export default function CustomerLayout() {
       {location.pathname === "/" && !nativeApp ? <StickyOrderFab /> : null}
       <NativeCartBar />
       <NativeTabBar />
+      <CookieConsent />
     </div>
   )
 }

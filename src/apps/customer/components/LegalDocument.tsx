@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import legalDe from "@/data/legal/de.json"
 
-export type LegalDocKey = "impressum" | "datenschutz" | "agb"
+export type LegalDocKey = "impressum" | "datenschutz" | "agb" | "widerruf"
 
 type LegalSection = {
   title: string

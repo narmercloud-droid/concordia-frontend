@@ -11,7 +11,8 @@ export const LEGAL_PAGES = [
   { path: "/impressum", key: "impressum" },
   { path: "/datenschutz", key: "privacy" },
   { path: "/agb", key: "agb" },
-  { path: "/terms", key: "terms" }
+  { path: "/terms", key: "terms" },
+  { path: "/widerruf", key: "widerruf" }
 ] as const
 
 export const WIDE_CUSTOMER_PATHS = new Set([
