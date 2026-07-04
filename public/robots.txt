@@ -1,5 +1,14 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /courier/
+Disallow: /customer/checkout
+Disallow: /customer/cart
+Disallow: /customer/order/
+Disallow: /customer/orders
+Disallow: /customer/settings
+Disallow: /customer/login
+Disallow: /customer/register
 
 Sitemap: https://www.concordiapizza.de/sitemap.xml

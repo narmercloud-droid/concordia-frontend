@@ -20,14 +20,14 @@ import CookieConsent from "@/apps/customer/components/CookieConsent"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
-import { useSiteDocumentTitle } from "@/hooks/useSiteDocumentTitle"
+import { usePageSeo } from "@/hooks/usePageSeo"
 import "../customer.css"
 import "../customer-mobile.css"
 import "../customer-native.css"
 
 export default function CustomerLayout() {
   const { t, i18n } = useTranslation()
-  useSiteDocumentTitle()
+  usePageSeo()
   const queryClient = useQueryClient()
   const location = useLocation()
   const [pushDenied, setPushDenied] = useState(false)
