@@ -49,6 +49,20 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
         </>
       )}
 
+      <div className="customer-field" style={sectionStyle}>
+        <label className="customer-label">
+          {t("item.instructions")} ({t("common.optional")})
+        </label>
+        <textarea
+          className="customer-textarea"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder={t("item.instructionsPlaceholder")}
+          rows={compact ? 2 : 3}
+          maxLength={200}
+        />
+      </div>
+
       {includedGroups.length > 0 && (
         <div className="customer-included-box">
           <p className="customer-included-box__title">{t("item.includedTitle")}</p>
@@ -163,19 +177,6 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
         </div>
       ))}
 
-      <div className="customer-field">
-        <label className="customer-label">
-          {t("item.instructions")} ({t("common.optional")})
-        </label>
-        <textarea
-          className="customer-textarea"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder={t("item.instructionsPlaceholder")}
-          rows={compact ? 2 : 3}
-          maxLength={200}
-        />
-      </div>
     </>
   )
 }
