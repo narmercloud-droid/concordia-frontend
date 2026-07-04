@@ -41,7 +41,7 @@ Each branch (Kempen, Straelen) has **its own Stripe account**. Money from online
 
 Copy **Publishable key** (`pk_live_…`) and **Secret key** (`sk_live_…`).
 
-#### 2. Render → `concordia-backend-web` → **Environment**
+#### 2. Render → `concordia-backend-eu` → **Environment**
 
 | Variable | Value |
 |----------|--------|
@@ -56,7 +56,7 @@ Save → service redeploys.
 
 | Field | Value |
 |-------|--------|
-| URL | `https://concordia-backend-web.onrender.com/api/stripe/webhook` |
+| URL | `https://api.concordiapizza.de/api/stripe/webhook` |
 | Events | `payment_intent.succeeded`, `account.updated` |
 | Connected accounts | **Enabled** (“Listen to events on Connected accounts”) |
 
@@ -345,10 +345,10 @@ You already have more technology than most independent restaurants. The gap is *
 | **Straelen menu** | https://www.concordiapizza.de/branch/concordia-straelen |
 | **Admin panel** | https://www.concordiapizza.de/admin/login |
 | **Platform settings (Stripe)** | https://www.concordiapizza.de/admin/platform-settings |
-| **Backend API** | https://concordia-backend-web.onrender.com |
-| **Health check** | https://concordia-backend-web.onrender.com/health |
+| **Backend API** | https://api.concordiapizza.de |
+| **Health check** | https://api.concordiapizza.de/api/health |
 
-Custom domain (recommended next step): see [DEPLOYMENT_ROADMAP.md](./DEPLOYMENT_ROADMAP.md).
+Custom domain setup details: see [DEPLOYMENT_ROADMAP.md](./DEPLOYMENT_ROADMAP.md).
 
 ---
 

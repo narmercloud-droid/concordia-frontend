@@ -1,4 +1,4 @@
-{
+﻿{
   "account": {
     "ordersLoading": "Loading orders…",
     "noOrders": "You have no past orders.",
@@ -16,8 +16,8 @@
   },
   "common": {
     "retry": "Try again",
-    "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Pasta, Grill"
   },
   "menu": {
     "loadError": "Menu could not load. The server may be waking up — please try again."

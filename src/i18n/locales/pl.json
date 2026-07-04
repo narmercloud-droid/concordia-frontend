@@ -16,8 +16,9 @@
     "processing": "Przetwarzanie…",
     "close": "Zamknij",
     "retry": "Spróbuj ponownie",
-    "logoAlt": "Restauracja Concordia",
-    "logoHomeAlt": "Restauracja Concordia — Pizza, Pasta, Grill",
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Pasta, Grill",
+    "siteTitle": "Pizzeria Concordia",
     "errorTitle": "Something went wrong",
     "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
     "refreshPage": "Refresh page"
@@ -36,7 +37,7 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Witamy w",
-    "title": "Concordia Restaurant",
+    "title": "Pizzeria Concordia",
     "tagline": "Niemiecka serdeczność • Włoska pasja",
     "slogan": "Gdzie harmonia spotyka się na talerzu.",
     "lead": "Kuchnia włoska z naszego pieca — od chrupiącej pizzy i domowego makaronu po ulubione klasyki. Zamów online z odbiorem lub dostawą.",
@@ -574,7 +575,7 @@
       "sections": {
         "operator": {
           "title": "1. Usługodawca i zakres",
-          "body": "Stronę internetową i system zamówień online prowadzi Concordia Restaurant (firma rodzinna), Concordienplatz 1, 47906 Kempen, Niemcy. Regulamin dotyczy wszystkich zamówień przez naszą stronę oraz usług powiązanych, takich jak odbiór osobisty, dostawa, vouchery podarunkowe i program lojalnościowy, o ile nie uzgodniono inaczej. Sprzeczne warunki klienta nie są akceptowane, chyba że wyraźnie zgodzimy się na nie na piśmie."
+          "body": "Stronę internetową i system zamówień online prowadzi Pizzeria Concordia (firma rodzinna), Concordienplatz 1, 47906 Kempen, Niemcy. Regulamin dotyczy wszystkich zamówień przez naszą stronę oraz usług powiązanych, takich jak odbiór osobisty, dostawa, vouchery podarunkowe i program lojalnościowy, o ile nie uzgodniono inaczej. Sprzeczne warunki klienta nie są akceptowane, chyba że wyraźnie zgodzimy się na nie na piśmie."
         },
         "ordering": {
           "title": "2. Zawarcie umowy i proces zamówienia",
@@ -616,7 +617,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Przegląd",
-          "body": "Program lojalnościowy Concordia nagradza powtarzające się zamówienia punktami, korzyściami statusowymi i wybranymi promocjami. Uczestnictwo wymaga konta klienta. Program prowadzi Concordia Restaurant, Concordienplatz 1, 47906 Kempen, i może być zmieniany lub zakończony w dowolnym momencie, o ile prawo na to pozwala."
+          "body": "Program lojalnościowy Concordia nagradza powtarzające się zamówienia punktami, korzyściami statusowymi i wybranymi promocjami. Uczestnictwo wymaga konta klienta. Program prowadzi Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, i może być zmieniany lub zakończony w dowolnym momencie, o ile prawo na to pozwala."
         },
         "membership": {
           "title": "2. Członkostwo i konto",

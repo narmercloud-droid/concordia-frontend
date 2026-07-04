@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "loading": "Laden…",
     "brand": "Concordia",
@@ -19,8 +19,9 @@
     "errorTitle": "Etwas ist schiefgelaufen",
     "errorBody": "Bitte laden Sie die Seite neu. Wenn das Problem bleibt, versuchen Sie es in einem Moment erneut.",
     "refreshPage": "Seite neu laden",
-    "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — fünf Küchenchefs, Deutsche Herzlichkeit, Italienische Leidenschaft"
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — fünf Küchenchefs, Deutsche Herzlichkeit, Italienische Leidenschaft",
+    "siteTitle": "Pizzeria Concordia"
   },
   "lang": {
     "label": "Sprache"
@@ -53,7 +54,7 @@
     "eyebrow": "Willkommen bei",
     "pizzeria": "Pizzeria",
     "welcomePizzeria": "Willkommen bei Pizzeria Concordia",
-    "title": "Concordia Restaurant",
+    "title": "Pizzeria Concordia",
     "tagline": "Deutsche Herzlichkeit • Italienische Leidenschaft",
     "slogan": "Wo Harmonie auf dem Teller liegt.",
     "lead": "Italienische Küche aus unserem Ofen — knusprige Pizza, hausgemachte Pasta und beliebte Klassiker, täglich mit Sorgfalt zubereitet. Bequem online bestellen zur Abholung oder Lieferung.",
@@ -783,7 +784,7 @@
       "sections": {
         "operator": {
           "title": "1. Anbieter und Geltungsbereich",
-          "body": "Anbieter der Website und des Online-Bestellsystems ist Concordia Restaurant (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
+          "body": "Anbieter der Website und des Online-Bestellsystems ist Pizzeria Concordia (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
         },
         "ordering": {
           "title": "2. Vertragsschluss und Bestellablauf",
@@ -825,7 +826,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Überblick",
-          "body": "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Concordia Restaurant, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
+          "body": "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
         },
         "membership": {
           "title": "2. Mitgliedschaft und Konto",

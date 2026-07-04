@@ -1,4 +1,4 @@
-/** Public contact details per branch (from official Concordia restaurant listings). */
+/** Public contact details per branch (from official Pizzeria Concordia listings). */
 export type BranchContactDetails = {
   phoneDisplay: string
   phoneHref: string

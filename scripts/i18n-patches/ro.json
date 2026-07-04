@@ -1,4 +1,4 @@
-{
+﻿{
   "account": {
     "ordersLoading": "Se încarcă comenzile…",
     "noOrders": "Nu aveți comenzi anterioare.",
@@ -11,8 +11,8 @@
   },
   "common": {
     "retry": "Încearcă din nou",
-    "logoAlt": "Restaurant Concordia",
-    "logoHomeAlt": "Restaurant Concordia — Pizza, Paste, Grătar"
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Paste, Grătar"
   },
   "layout": {
     "login": "Autentificare",

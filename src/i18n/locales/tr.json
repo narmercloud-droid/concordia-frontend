@@ -16,8 +16,9 @@
     "processing": "İşleniyor…",
     "close": "Kapat",
     "retry": "Tekrar dene",
-    "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — Pizza, Makarna, Izgara",
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Makarna, Izgara",
+    "siteTitle": "Pizzeria Concordia",
     "errorTitle": "Something went wrong",
     "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
     "refreshPage": "Refresh page"
@@ -36,7 +37,7 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Hoş geldiniz",
-    "title": "Concordia Restaurant",
+    "title": "Pizzeria Concordia",
     "tagline": "Alman sıcaklığı • İtalyan tutkusu",
     "slogan": "Tabakta uyumun buluştuğu yer.",
     "lead": "Fırınımızdan İtalyan mutfağı — çıtır pizzadan ev yapımı makarnaya, sevilen klasiklere kadar. Gel-al veya teslimat için online sipariş verin.",
@@ -605,11 +606,11 @@
     "terms": {
       "eyebrow": "Yasal",
       "title": "Kullanım şartları ve sadakat programı",
-      "lead": "Bu Hizmet Şartları, Concordia Restaurant — Concordienplatz 1, 47906 Kempen, Almanya'daki aile işletmesi İtalyan restoranımızda web sitemizin ve çevrimiçi siparişlerin kullanımını düzenler. Aşağıdaki bilgiler şeffaflık içindir ve bireysel hukuki tavsiye niteliği taşımaz.",
+      "lead": "Bu Hizmet Şartları, Pizzeria Concordia — Concordienplatz 1, 47906 Kempen, Almanya'daki aile işletmesi İtalyan restoranımızda web sitemizin ve çevrimiçi siparişlerin kullanımını düzenler. Aşağıdaki bilgiler şeffaflık içindir ve bireysel hukuki tavsiye niteliği taşımaz.",
       "sections": {
         "operator": {
           "title": "1. İşletmeci ve kapsam",
-          "body": "Web sitesi ve çevrimiçi sipariş sistemi Concordia Restaurant (aile işletmesi), Concordienplatz 1, 47906 Kempen, Almanya tarafından işletilir. Bu şartlar web sitemiz üzerinden verilen tüm siparişler ile paket servis, teslimat, hediye çekleri ve sadakat programı gibi ilgili hizmetlere uygulanır; aksi açıkça kararlaştırılmadıkça. Çelişkili müşteri şartları yazılı açık onayımız olmadan kabul edilmez."
+          "body": "Web sitesi ve çevrimiçi sipariş sistemi Pizzeria Concordia (aile işletmesi), Concordienplatz 1, 47906 Kempen, Almanya tarafından işletilir. Bu şartlar web sitemiz üzerinden verilen tüm siparişler ile paket servis, teslimat, hediye çekleri ve sadakat programı gibi ilgili hizmetlere uygulanır; aksi açıkça kararlaştırılmadıkça. Çelişkili müşteri şartları yazılı açık onayımız olmadan kabul edilmez."
         },
         "ordering": {
           "title": "2. Sözleşme ve sipariş süreci",
@@ -651,7 +652,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Genel bakış",
-          "body": "Concordia sadakat programı tekrarlayan siparişleri puanlar, seviye avantajları ve seçili promosyonlarla ödüllendirir. Katılım müşteri hesabı gerektirir. Program Concordia Restaurant, Concordienplatz 1, 47906 Kempen tarafından işletilir ve kanunun izin verdiği ölçüde her zaman ayarlanabilir veya sonlandırılabilir."
+          "body": "Concordia sadakat programı tekrarlayan siparişleri puanlar, seviye avantajları ve seçili promosyonlarla ödüllendirir. Katılım müşteri hesabı gerektirir. Program Pizzeria Concordia, Concordienplatz 1, 47906 Kempen tarafından işletilir ve kanunun izin verdiği ölçüde her zaman ayarlanabilir veya sonlandırılabilir."
         },
         "membership": {
           "title": "2. Üyelik ve hesap",

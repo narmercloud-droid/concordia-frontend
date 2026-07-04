@@ -11,12 +11,12 @@ This is the step-by-step plan to move from the current setup (Vercel + Render fr
 | Piece | What it is | Today | Must be permanent? |
 |-------|------------|-------|-------------------|
 | **Customer website + admin** | `concordia-frontend` | Vercel | Yes |
-| **Backend API** | `Concordia-Backend` | Render (free) | Yes |
+| **Backend API** | `Concordia-Backend` | Render (`concordia-backend-eu`) | Yes |
 | **Database** | Kempen menu, orders, customers | Neon Postgres | Yes |
 | **Menu photos** | Dish images from admin | Render disk (temporary) | Yes → S3 |
 | **Cache / speed** | Menu cache, rate limits | Redis (optional on free Render) | Recommended |
 | **Sunmi terminal** | Kitchen APK on device | Points at Render API | Yes (API URL only) |
-| **Domain** | e.g. `order.concordia-kempen.de` | Not connected yet | Yes |
+| **Domain** | e.g. `www.concordiapizza.de` | Connected (Cloudflare + Vercel) | Yes |
 
 Courier ordering is already part of the main website (`/courier`). No separate hosting needed.
 
@@ -25,13 +25,16 @@ Courier ordering is already part of the main website (`/courier`). No separate h
 - Frontend: `concordia-frontend` → https://github.com/narmercloud-droid/concordia-frontend
 - Backend: `Concordia-Backend` → https://github.com/narmercloud-droid/Concordia-Backend
 
-**Current live URLs (before custom domain):**
+**Current live URLs (production):**
 
 | What | URL |
 |------|-----|
-| Customer website | https://concordia-restaurant-de.vercel.app |
-| Backend API | https://concordia-backend-web.onrender.com |
-| Health check | https://concordia-backend-web.onrender.com/health |
+| Customer website | https://www.concordiapizza.de |
+| Backend API | https://api.concordiapizza.de |
+| Health check | https://api.concordiapizza.de/api/health |
+| Render service (keep) | `concordia-backend-eu` |
+
+> **Deprecated:** `concordia-backend-web.onrender.com` — old duplicate; safe to delete from Render once `api.concordiapizza.de` is confirmed on **EU**.
 
 ---
 
@@ -137,7 +140,7 @@ See also: menu photo setup (bucket + IAM + Render env vars).
 
 **Goal:** API always awake and reliable.
 
-- [ ] Render → `concordia-backend-web` → upgrade **Free → Starter** (~$7/mo)
+- [ ] Render → `concordia-backend-eu` → upgrade **Free → Starter** (~$7/mo) if not already
 - [ ] Set / verify environment variables:
 
 | Variable | Value |

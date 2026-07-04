@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Generates scripts/i18n/legal-pages.json
  * Run: node scripts/i18n/generate-legal-pages.mjs
  */
@@ -55,11 +55,11 @@ const TERMS = {
   de: {
     eyebrow: "Rechtliches",
     title: "Allgemeine Geschäftsbedingungen",
-    lead: "Diese Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung unserer Website sowie Online-Bestellungen bei Concordia Restaurant, einem familiengeführten italienischen Restaurant am Concordienplatz 1, 47906 Kempen, Deutschland. Die nachfolgenden Informationen dienen der Transparenz und stellen keine individuelle Rechtsberatung dar.",
+    lead: "Diese Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung unserer Website sowie Online-Bestellungen bei Pizzeria Concordia, einem familiengeführten italienischen Restaurant am Concordienplatz 1, 47906 Kempen, Deutschland. Die nachfolgenden Informationen dienen der Transparenz und stellen keine individuelle Rechtsberatung dar.",
     sections: {
       operator: {
         title: "1. Anbieter und Geltungsbereich",
-        body: "Anbieter der Website und des Online-Bestellsystems ist Concordia Restaurant (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
+        body: "Anbieter der Website und des Online-Bestellsystems ist Pizzeria Concordia (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
       },
       ordering: {
         title: "2. Vertragsschluss und Bestellablauf",
@@ -98,11 +98,11 @@ const TERMS = {
   en: {
     eyebrow: "Legal",
     title: "Terms of Service",
-    lead: "These Terms of Service govern use of our website and online orders at Concordia Restaurant, a family-run Italian restaurant at Concordienplatz 1, 47906 Kempen, Germany. The information below is provided for transparency and does not constitute individual legal advice.",
+    lead: "These Terms of Service govern use of our website and online orders at Pizzeria Concordia, a family-run Italian restaurant at Concordienplatz 1, 47906 Kempen, Germany. The information below is provided for transparency and does not constitute individual legal advice.",
     sections: {
       operator: {
         title: "1. Operator and scope",
-        body: "The website and online ordering system are operated by Concordia Restaurant (family-run), Concordienplatz 1, 47906 Kempen, Germany. These terms apply to all orders placed through our website and related services such as pickup, delivery, gift vouchers, and the loyalty programme, unless expressly agreed otherwise. Conflicting customer terms are not accepted unless we expressly agree to them in writing."
+        body: "The website and online ordering system are operated by Pizzeria Concordia (family-run), Concordienplatz 1, 47906 Kempen, Germany. These terms apply to all orders placed through our website and related services such as pickup, delivery, gift vouchers, and the loyalty programme, unless expressly agreed otherwise. Conflicting customer terms are not accepted unless we expressly agree to them in writing."
       },
       ordering: {
         title: "2. Contract formation and order process",
@@ -148,7 +148,7 @@ const LOYALTY = {
     sections: {
       overview: {
         title: "1. Überblick",
-        body: "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Concordia Restaurant, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
+        body: "Das Concordia-Treueprogramm belohnt wiederkehrende Bestellungen mit Punkten, Statusvorteilen und ausgewählten Aktionen. Teilnahme setzt ein Kundenkonto voraus. Das Programm wird von Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, betrieben und kann jederzeit angepasst oder beendet werden, soweit gesetzlich zulässig."
       },
       membership: {
         title: "2. Mitgliedschaft und Konto",
@@ -187,7 +187,7 @@ const LOYALTY = {
     sections: {
       overview: {
         title: "1. Overview",
-        body: "The Concordia loyalty programme rewards repeat orders with points, tier benefits, and selected promotions. Participation requires a customer account. The programme is operated by Concordia Restaurant, Concordienplatz 1, 47906 Kempen, and may be adjusted or discontinued at any time where permitted by law."
+        body: "The Concordia loyalty programme rewards repeat orders with points, tier benefits, and selected promotions. Participation requires a customer account. The programme is operated by Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, and may be adjusted or discontinued at any time where permitted by law."
       },
       membership: {
         title: "2. Membership and account",

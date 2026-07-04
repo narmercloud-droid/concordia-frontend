@@ -16,8 +16,9 @@
     "processing": "Bezig…",
     "close": "Sluiten",
     "retry": "Opnieuw proberen",
-    "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill",
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Pasta, Grill",
+    "siteTitle": "Pizzeria Concordia",
     "errorTitle": "Something went wrong",
     "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
     "refreshPage": "Refresh page"
@@ -36,7 +37,7 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Welkom bij",
-    "title": "Concordia Restaurant",
+    "title": "Pizzeria Concordia",
     "tagline": "Duitse hartelijkheid • Italiaanse passie",
     "slogan": "Waar harmonie op het bord ligt.",
     "lead": "Italiaanse keuken uit onze oven — van knapperige pizza en huisgemaakte pasta tot geliefde klassiekers. Bestel online voor afhalen of bezorgen.",
@@ -570,11 +571,11 @@
     "terms": {
       "eyebrow": "Juridisch",
       "title": "Algemene voorwaarden & spaarprogramma",
-      "lead": "Deze algemene voorwaarden regelen het gebruik van onze website en online bestellingen bij Concordia Restaurant, een familiebedrijf met Italiaanse keuken aan Concordienplatz 1, 47906 Kempen, Duitsland. De onderstaande informatie is bedoeld voor transparantie en vormt geen individueel juridisch advies.",
+      "lead": "Deze algemene voorwaarden regelen het gebruik van onze website en online bestellingen bij Pizzeria Concordia, een familiebedrijf met Italiaanse keuken aan Concordienplatz 1, 47906 Kempen, Duitsland. De onderstaande informatie is bedoeld voor transparantie en vormt geen individueel juridisch advies.",
       "sections": {
         "operator": {
           "title": "1. Aanbieder en toepassingsgebied",
-          "body": "De website en het online bestelsysteem worden beheerd door Concordia Restaurant (familiebedrijf), Concordienplatz 1, 47906 Kempen, Duitsland. Deze voorwaarden gelden voor alle bestellingen via onze website en aanverwante diensten zoals afhalen, bezorgen, cadeaubonnen en het loyaliteitsprogramma, tenzij uitdrukkelijk anders overeengekomen. Afwijkende klantvoorwaarden worden niet aanvaard, tenzij wij hun geldigheid uitdrukkelijk schriftelijk bevestigen."
+          "body": "De website en het online bestelsysteem worden beheerd door Pizzeria Concordia (familiebedrijf), Concordienplatz 1, 47906 Kempen, Duitsland. Deze voorwaarden gelden voor alle bestellingen via onze website en aanverwante diensten zoals afhalen, bezorgen, cadeaubonnen en het loyaliteitsprogramma, tenzij uitdrukkelijk anders overeengekomen. Afwijkende klantvoorwaarden worden niet aanvaard, tenzij wij hun geldigheid uitdrukkelijk schriftelijk bevestigen."
         },
         "ordering": {
           "title": "2. Totstandkoming van de overeenkomst",
@@ -616,7 +617,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Overzicht",
-          "body": "Het Concordia-loyaliteitsprogramma beloont terugkerende bestellingen met punten, statusvoordelen en geselecteerde acties. Deelname vereist een klantaccount. Het programma wordt beheerd door Concordia Restaurant, Concordienplatz 1, 47906 Kempen, en kan te allen tijde worden aangepast of beëindigd voor zover wettelijk toegestaan."
+          "body": "Het Concordia-loyaliteitsprogramma beloont terugkerende bestellingen met punten, statusvoordelen en geselecteerde acties. Deelname vereist een klantaccount. Het programma wordt beheerd door Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, en kan te allen tijde worden aangepast of beëindigd voor zover wettelijk toegestaan."
         },
         "membership": {
           "title": "2. Lidmaatschap en account",

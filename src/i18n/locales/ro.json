@@ -16,8 +16,9 @@
     "processing": "Se procesează…",
     "close": "Închide",
     "retry": "Încearcă din nou",
-    "logoAlt": "Restaurant Concordia",
-    "logoHomeAlt": "Restaurant Concordia — Pizza, Paste, Grătar",
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Paste, Grătar",
+    "siteTitle": "Pizzeria Concordia",
     "errorTitle": "Something went wrong",
     "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
     "refreshPage": "Refresh page"
@@ -36,7 +37,7 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Bun venit la",
-    "title": "Concordia Restaurant",
+    "title": "Pizzeria Concordia",
     "tagline": "Căldură germană • Pasiune italiană",
     "slogan": "Unde armonia se întâlnește pe farfurie.",
     "lead": "Bucătărie italiană din cuptorul nostru — de la pizza crocantă și paste de casă la clasice îndrăgite. Comandați online pentru ridicare sau livrare.",
@@ -570,11 +571,11 @@
     "terms": {
       "eyebrow": "Informații legale",
       "title": "Termeni și program de loialitate",
-      "lead": "Acești termeni reglementează utilizarea site-ului nostru și comenzile online la Concordia Restaurant, un restaurant italian de familie la Concordienplatz 1, 47906 Kempen, Germania. Informațiile de mai jos sunt oferite pentru transparență și nu constituie consultanță juridică individuală.",
+      "lead": "Acești termeni reglementează utilizarea site-ului nostru și comenzile online la Pizzeria Concordia, un restaurant italian de familie la Concordienplatz 1, 47906 Kempen, Germania. Informațiile de mai jos sunt oferite pentru transparență și nu constituie consultanță juridică individuală.",
       "sections": {
         "operator": {
           "title": "1. Operator și domeniu de aplicare",
-          "body": "Site-ul și sistemul de comenzi online sunt operate de Concordia Restaurant (afacere de familie), Concordienplatz 1, 47906 Kempen, Germania. Termenii se aplică tuturor comenzilor prin site și serviciilor conexe, cum ar fi ridicarea, livrarea, voucherele cadou și programul de fidelitate, dacă nu se convine altfel. Condițiile contradictorii ale clientului nu sunt acceptate decât dacă le acceptăm explicit în scris."
+          "body": "Site-ul și sistemul de comenzi online sunt operate de Pizzeria Concordia (afacere de familie), Concordienplatz 1, 47906 Kempen, Germania. Termenii se aplică tuturor comenzilor prin site și serviciilor conexe, cum ar fi ridicarea, livrarea, voucherele cadou și programul de fidelitate, dacă nu se convine altfel. Condițiile contradictorii ale clientului nu sunt acceptate decât dacă le acceptăm explicit în scris."
         },
         "ordering": {
           "title": "2. Încheierea contractului și procesul de comandă",
@@ -616,7 +617,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Prezentare generală",
-          "body": "Programul de fidelitate Concordia recompensează comenzile repetate cu puncte, beneficii de nivel și promoții selectate. Participarea necesită un cont de client. Programul este operat de Concordia Restaurant, Concordienplatz 1, 47906 Kempen, și poate fi modificat sau încheiat oricând, în măsura permisă de lege."
+          "body": "Programul de fidelitate Concordia recompensează comenzile repetate cu puncte, beneficii de nivel și promoții selectate. Participarea necesită un cont de client. Programul este operat de Pizzeria Concordia, Concordienplatz 1, 47906 Kempen, și poate fi modificat sau încheiat oricând, în măsura permisă de lege."
         },
         "membership": {
           "title": "2. Calitate de membru și cont",

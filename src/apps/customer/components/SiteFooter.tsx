@@ -31,7 +31,7 @@ export default function SiteFooter() {
       <AppDownloadSection variant="compact" />
       <ConcordiaLogo size="md" round className="site-footer__logo" />
       <p className="site-footer__tagline">{t("home.tagline")}</p>
-      <p className="site-footer__copy">© {new Date().getFullYear()} Concordia Restaurant</p>
+      <p className="site-footer__copy">© {new Date().getFullYear()} Pizzeria Concordia</p>
     </footer>
   )
 }

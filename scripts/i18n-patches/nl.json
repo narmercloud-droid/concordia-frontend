@@ -1,4 +1,4 @@
-{
+﻿{
   "account": {
     "ordersLoading": "Bestellingen laden…",
     "noOrders": "U heeft geen eerdere bestellingen.",
@@ -11,8 +11,8 @@
   },
   "common": {
     "retry": "Opnieuw proberen",
-    "logoAlt": "Concordia Restaurant",
-    "logoHomeAlt": "Concordia Restaurant — Pizza, Pasta, Grill"
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Pasta, Grill"
   },
   "layout": {
     "login": "Inloggen",

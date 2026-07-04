@@ -16,8 +16,9 @@
     "processing": "Tê pêvajokirin…",
     "close": "Bigire",
     "retry": "Dîsa biceribîne",
-    "logoAlt": "Restorana Concordia",
-    "logoHomeAlt": "Restorana Concordia — Pîzza, Makaron, Grill",
+    "logoAlt": "Pizzeria Concordia",
+    "logoHomeAlt": "Pizzeria Concordia — Pîzza, Makaron, Grill",
+    "siteTitle": "Pizzeria Concordia",
     "errorTitle": "Something went wrong",
     "errorBody": "Please refresh the page. If the problem continues, try again in a moment.",
     "refreshPage": "Refresh page"
@@ -36,7 +37,7 @@
   "home": {
     "loading": "Concordia",
     "eyebrow": "Bi xêr hatine",
-    "title": "Restorana Concordia",
+    "title": "Pizzeria Concordia",
     "tagline": "Germayî germî • Italî jî şevq",
     "slogan": "Dema li ser tabaqê lihevhatî tê xizmetkirin",
     "lead": "Xwarinên Îtalî ji firina me — ji pîzzaya qirrikandî û makaronaya malê heta klasîkan. Serhêl ferman bidin bo standinê an radestkirinê.",
@@ -570,11 +571,11 @@
     "terms": {
       "eyebrow": "Yasayî",
       "title": "Mercên bikaranînê & bernameya dilsoziyê",
-      "lead": "Ev mercên xizmetê bikaranîna malpera me û fermên serhêl li Concordia Restaurant — restorana Îtalyayî ya malbatî li Concordienplatz 1, 47906 Kempen, Almanya — rêve dibin. Agahdariya jêrîn ji bo şeffafiyê ye û şêwirmendiya yasayî ya kesane nîne.",
+      "lead": "Ev mercên xizmetê bikaranîna malpera me û fermên serhêl li Pizzeria Concordia — restorana Îtalyayî ya malbatî li Concordienplatz 1, 47906 Kempen, Almanya — rêve dibin. Agahdariya jêrîn ji bo şeffafiyê ye û şêwirmendiya yasayî ya kesane nîne.",
       "sections": {
         "operator": {
           "title": "1. Operatör û qada sepandinê",
-          "body": "Malper û pergalê fermên serhêl ji aliyê Concordia Restaurant (karsaziya malbatî), Concordienplatz 1, 47906 Kempen, Almanya ve tê birêvebirin. Ev merc ji bo hemû fermanên bi malpera me û xizmetên têkildar — wergirtin, radestkirin, kuponên diyariyê û bernameya dilsohiyê — derbas dibin, heya ku bi awayekî eşkere lihev nehatibe. Mercên dijber ên xerîdar nayên qebûlkirin, heya ku em bi nivîsî bi awayekî eşkere razî nebin."
+          "body": "Malper û pergalê fermên serhêl ji aliyê Pizzeria Concordia (karsaziya malbatî), Concordienplatz 1, 47906 Kempen, Almanya ve tê birêvebirin. Ev merc ji bo hemû fermanên bi malpera me û xizmetên têkildar — wergirtin, radestkirin, kuponên diyariyê û bernameya dilsohiyê — derbas dibin, heya ku bi awayekî eşkere lihev nehatibe. Mercên dijber ên xerîdar nayên qebûlkirin, heya ku em bi nivîsî bi awayekî eşkere razî nebin."
         },
         "ordering": {
           "title": "2. Çêkirina peymanê û pêvajoya fermê",
@@ -616,7 +617,7 @@
       "loyaltySections": {
         "overview": {
           "title": "1. Kurtebînî",
-          "body": "Bernameya dilsohiyê ya Concordia fermanên dubare bi xalan, feydeyên astê û promosyonên hilbijartî xelat dike. Beşdarî hesabeke xerîdarê hewce dike. Bername ji aliyê Concordia Restaurant, Concordienplatz 1, 47906 Kempen ve tê birêvebirin û dikare her dem were guhertin an jî were bidawîkirin heya ku qanûn destûr dide."
+          "body": "Bernameya dilsohiyê ya Concordia fermanên dubare bi xalan, feydeyên astê û promosyonên hilbijartî xelat dike. Beşdarî hesabeke xerîdarê hewce dike. Bername ji aliyê Pizzeria Concordia, Concordienplatz 1, 47906 Kempen ve tê birêvebirin û dikare her dem were guhertin an jî were bidawîkirin heya ku qanûn destûr dide."
         },
         "membership": {
           "title": "2. Endamtî û hesab",
