@@ -9,6 +9,7 @@ import { warmupApi } from "./api/warmup.js"
 import { bootstrapI18n } from "./i18n/index.js"
 import { hydrateCustomerQueries } from "./lib/hydrateCustomerQueries.js"
 import { initNativeApp } from "./lib/initNativeApp.js"
+import { inject } from "@vercel/analytics"
 
 async function startApp() {
   try {
@@ -16,6 +17,7 @@ async function startApp() {
     void warmupApi()
     await bootstrapI18n()
     await initNativeApp()
+    inject()
 
     ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
