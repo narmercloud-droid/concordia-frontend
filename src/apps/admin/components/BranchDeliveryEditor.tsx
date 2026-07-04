@@ -6,6 +6,7 @@ import {
 } from "@/api/manager"
 import Button from "@/components/ui/Button"
 import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
+import DeliveryRadiusMap from "./DeliveryRadiusMap"
 
 type DeliveryArea = {
   postalCode: string
@@ -45,6 +46,7 @@ export default function BranchDeliveryEditor({
     { maxDistanceKm: 10, minimumOrder: 9.99, deliveryFee: 3, freeDeliveryMinimum: 20, label: "7–10 km" }
   ])
   const [saved, setSaved] = useState(false)
+  const [selectedZoneIndex, setSelectedZoneIndex] = useState<number | null>(0)
 
   const { data: config, isLoading } = useQuery({
     queryKey: ["managerDeliverySettings", branchId],
@@ -110,6 +112,28 @@ export default function BranchDeliveryEditor({
 
   const removeArea = (index: number) => {
     setAreas((prev) => prev.filter((_, i) => i !== index))
+  }
+
+  const branchCenter = (() => {
+    const lat = Number(config?.lat)
+    const lng = Number(config?.lng)
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      return { lat, lng }
+    }
+    return null
+  })()
+
+  const branchLabel =
+    (typeof config?.name === "string" && config.name) ||
+    (typeof config?.address === "string" && config.address) ||
+    undefined
+
+  const updateZoneRadius = (index: number, maxDistanceKm: number) => {
+    setRadiusZones((prev) =>
+      [...prev]
+        .map((zone, i) => (i === index ? { ...zone, maxDistanceKm } : zone))
+        .sort((a, b) => a.maxDistanceKm - b.maxDistanceKm)
+    )
   }
 
   if (!branchId) {
@@ -245,8 +269,36 @@ export default function BranchDeliveryEditor({
         <section style={{ marginTop: 20 }}>
           <h4>Delivery radius zones</h4>
           <p style={{ color: "#666", fontSize: 14 }}>
-            Each row applies to customers up to that distance (km) from the restaurant.
+            Each row applies to customers up to that distance (km) from the restaurant. Use the
+            map to adjust radii visually, or edit the table below.
           </p>
+
+          {branchCenter ? (
+            <DeliveryRadiusMap
+              center={branchCenter}
+              branchLabel={branchLabel}
+              zones={radiusZones}
+              selectedIndex={selectedZoneIndex}
+              canEdit={canEdit}
+              onSelectZone={setSelectedZoneIndex}
+              onZoneRadiusChange={updateZoneRadius}
+            />
+          ) : (
+            <p
+              style={{
+                marginTop: 12,
+                padding: 12,
+                borderRadius: 8,
+                background: "#fff8e1",
+                color: "#92400e",
+                fontSize: 14
+              }}
+            >
+              Restaurant coordinates are missing. Set latitude and longitude in Platform settings
+              to enable the delivery area map.
+            </p>
+          )}
+
           <table style={{ width: "100%", marginTop: 12, borderCollapse: "collapse" }}>
             <thead>
               <tr>
@@ -283,11 +335,7 @@ export default function BranchDeliveryEditor({
                       value={zone.maxDistanceKm}
                       disabled={!canEdit}
                       onChange={(e) =>
-                        setRadiusZones((prev) =>
-                          prev.map((z, i) =>
-                            i === index ? { ...z, maxDistanceKm: Number(e.target.value) } : z
-                          )
-                        )
+                        updateZoneRadius(index, Number(e.target.value))
                       }
                       style={{ width: 72 }}
                     />
