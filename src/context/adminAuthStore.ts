@@ -1,4 +1,5 @@
 ﻿import { create } from "zustand"
+import { clearAdminBranchSelection } from "./adminBranchStore"
 
 interface AdminAuthState {
   admin: any | null
@@ -26,6 +27,7 @@ export const useAdminAuthStore = create<AdminAuthState>((set) => ({
   logout: () => {
     localStorage.removeItem("admin")
     localStorage.removeItem("adminToken")
+    clearAdminBranchSelection()
     set({ admin: null, token: null })
   }
 }))

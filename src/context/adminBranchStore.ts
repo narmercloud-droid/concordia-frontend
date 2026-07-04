@@ -14,3 +14,8 @@ export const useAdminBranchStore = create<AdminBranchState>((set) => ({
     set({ selectedBranchId: branchId })
   }
 }))
+
+export function clearAdminBranchSelection() {
+  sessionStorage.removeItem("adminSelectedBranchId")
+  useAdminBranchStore.setState({ selectedBranchId: null })
+}

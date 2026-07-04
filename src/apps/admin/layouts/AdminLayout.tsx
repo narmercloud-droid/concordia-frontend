@@ -1,7 +1,7 @@
 import React from "react"
-import { Outlet } from "react-router-dom"
 import AdminNav from "../components/AdminNav.js"
 import AdminBranchBar from "../components/AdminBranchBar.js"
+import AdminBranchOutlet from "../components/AdminBranchOutlet.js"
 
 export default function AdminLayout() {
   return (
@@ -19,7 +19,7 @@ export default function AdminLayout() {
       </aside>
       <main style={{ flex: 1, padding: 24 }}>
         <AdminBranchBar />
-        <Outlet />
+        <AdminBranchOutlet />
       </main>
     </div>
   )

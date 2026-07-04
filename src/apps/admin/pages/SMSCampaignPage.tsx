@@ -5,7 +5,7 @@ import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
 
 export default function SMSCampaignPage() {
-  const { branchId, branchName, branches, isSuperAdmin, setSelectedBranchId } = useAdminBranch()
+  const { branchId, branchName } = useAdminBranch()
   const { can } = useAdminPermissions()
   const [message, setMessage] = useState("")
   const [segment, setSegment] = useState<"all" | "recent">("all")
@@ -65,29 +65,8 @@ export default function SMSCampaignPage() {
     <div style={{ padding: 20, maxWidth: 720 }}>
       <h2>SMS campaigns</h2>
       <p style={{ color: "#666", marginBottom: 20 }}>
-        Sends only to customers who opted in to marketing SMS for this branch.
-      </p>
-
-      {isSuperAdmin && branches.length > 1 && (
-        <div style={{ marginBottom: 16 }}>
-          <label htmlFor="sms-branch">Branch</label>
-          <select
-            id="sms-branch"
-            value={branchId ?? ""}
-            onChange={(e) => setSelectedBranchId(e.target.value)}
-            style={{ display: "block", marginTop: 8, padding: 8, minWidth: 280 }}
-          >
-            {branches.map((b: { id: string; name?: string }) => (
-              <option key={b.id} value={b.id}>
-                {b.name ?? b.id}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      <p style={{ marginBottom: 16 }}>
-        Target branch: <strong>{branchName ?? branchId}</strong>
+        Sends only to customers who opted in to marketing SMS for{" "}
+        <strong>{branchName ?? branchId}</strong>. Use the branch switcher above to change branch.
       </p>
 
       <div style={{ marginBottom: 16 }}>

@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getBranches } from "@/api/customer"
 import { downloadRevenueReportPdf, getRevenueReport } from "@/api/reports"
-import { useAdminAuthStore } from "@/context/adminAuthStore"
+import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { formatCurrency } from "@/utils/format"
 
 function todayBerlinYmd() {
@@ -15,18 +14,10 @@ function firstDayOfMonthYmd() {
 }
 
 export default function ReportsPage() {
-  const admin = useAdminAuthStore((s) => s.admin)
-  const isSuperAdmin = admin?.role === "admin"
-  const [branchId, setBranchId] = useState(admin?.branchId ?? "concordia-kempen")
+  const { branchId, branchName } = useAdminBranch()
   const [from, setFrom] = useState(firstDayOfMonthYmd)
   const [to, setTo] = useState(todayBerlinYmd)
   const [pdfLoading, setPdfLoading] = useState(false)
-
-  const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
-    enabled: isSuperAdmin
-  })
 
   const reportQuery = useQuery({
     queryKey: ["revenueReport", branchId, from, to],
@@ -39,6 +30,7 @@ export default function ReportsPage() {
   const paymentRows = useMemo(() => report?.paymentBreakdown ?? [], [report])
 
   const handlePdf = async () => {
+    if (!branchId) return
     setPdfLoading(true)
     try {
       await downloadRevenueReportPdf({ branchId, from, to })
@@ -47,11 +39,13 @@ export default function ReportsPage() {
     }
   }
 
+  if (!branchId) return <p>No branch selected.</p>
+
   return (
     <div>
       <h1>Revenue reports</h1>
       <p style={{ color: "#666", maxWidth: 720 }}>
-        Umsatzübersicht für Buchhaltung und Finanzamt. Barzahlungen bei Übergabe; Online-Zahlungen nur
+        Umsatzübersicht für {branchName ?? branchId}. Barzahlungen bei Übergabe; Online-Zahlungen nur
         mit Status „paid“.
       </p>
 
@@ -64,18 +58,6 @@ export default function ReportsPage() {
           marginBottom: 20
         }}
       >
-        {isSuperAdmin && (
-          <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            Branch
-            <select value={branchId} onChange={(e) => setBranchId(e.target.value)}>
-              {(branches ?? []).map((b: { id: string; name?: string }) => (
-                <option key={b.id} value={b.id}>
-                  {b.name ?? b.id}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
         <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           From
           <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />

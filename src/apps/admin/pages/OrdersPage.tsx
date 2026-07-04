@@ -63,6 +63,16 @@ export default function OrdersPage() {
     setExpandedId(null)
   }, [customerType, paymentMethod])
 
+  useEffect(() => {
+    setOffset(0)
+    setExpandedId(null)
+    setAccumulatedOrders([])
+    setSearchInput("")
+    setSearch("")
+    setCustomerType("")
+    setPaymentMethod("")
+  }, [branchId])
+
   const queryFilters = useMemo(
     () => ({
       search: search || undefined,
