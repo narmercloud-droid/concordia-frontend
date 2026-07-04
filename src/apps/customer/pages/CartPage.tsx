@@ -32,7 +32,7 @@ export default function CartPage() {
     queryKey: ["deliveryAreas", branchId],
     queryFn: () => getBranchDeliveryAreas(branchId),
     enabled: !!branchId,
-    staleTime: 5 * 60_000
+    staleTime: 60_000
   })
   const freeDeliveryGap = useMemo(() => {
     const zones = deliveryInfo?.radiusZones ?? []

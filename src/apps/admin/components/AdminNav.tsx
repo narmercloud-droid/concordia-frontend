@@ -20,6 +20,7 @@ export default function AdminNav() {
     { to: "/admin/delivery", label: "Delivery settings", show: can("delivery_view") },
     { to: "/admin/offers", label: "Offers", show: can("offers_view") },
     { to: "/admin/customers", label: "Customers", show: can("customers_view") },
+    { to: "/admin/sms", label: "SMS campaigns", show: can("customers_automation") },
     { to: "/admin/reviews", label: "Customer feedback", show: can("reviews_view") },
     { to: "/admin/platform-settings", label: "Platform settings", show: isSuperAdmin },
     { to: "/admin/staff", label: "Staff", show: isSuperAdmin },

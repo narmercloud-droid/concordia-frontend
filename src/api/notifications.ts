@@ -30,4 +30,14 @@ export const updateNotificationPreferences = (prefs: {
 export const savePushToken = (token: string, options?: PushRegistrationOptions) =>
   registerPushSubscription(token, options)
 
-export const sendBulkSMS = (data: unknown) => api.post("/notifications/sms/bulk", data)
+export type MarketingSmsPayload = {
+  message: string
+  branchId?: string
+  segment?: "all" | "recent"
+}
+
+export const sendMarketingSMS = (payload: MarketingSmsPayload) =>
+  api.post("/api/notifications/marketing/sms", payload)
+
+/** @deprecated use sendMarketingSMS */
+export const sendBulkSMS = sendMarketingSMS
