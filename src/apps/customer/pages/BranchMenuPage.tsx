@@ -24,7 +24,6 @@ import {
 } from "@/lib/fulfillmentIntent"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
-import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -52,6 +51,14 @@ function categoryAnchor(id: string | number) {
   return `menu-cat-${id}`
 }
 
+function branchMenuEyebrow(branch?: { name?: string; city?: string | null }) {
+  const location =
+    branch?.name?.replace(/^Concordia\s+/i, "").trim() ||
+    branch?.city?.trim() ||
+    ""
+  return location ? `Pizzeria Concordia - ${location}` : "Pizzeria Concordia"
+}
+
 export default function BranchMenuPage() {
   const { t, i18n } = useTranslation()
   const { branchId } = useParams()
@@ -75,7 +82,8 @@ export default function BranchMenuPage() {
   })
 
   const branch = branches?.find(
-    (b: { id: string; comingSoon?: boolean; isOpen?: boolean }) => b.id === branchId
+    (b: { id: string; name?: string; city?: string; comingSoon?: boolean; isOpen?: boolean }) =>
+      b.id === branchId
   )
   const orderingDisabled = !!branch?.comingSoon
   const branchClosed = branch != null && !branch.comingSoon && branch.isOpen === false
@@ -162,11 +170,6 @@ export default function BranchMenuPage() {
     return () => observer.disconnect()
   }, [branchId, categories, orderingDisabled, menuHasItemOptions, i18n.language])
 
-  const totalItems = useMemo(
-    () => categories.reduce((sum, cat) => sum + (cat.items?.length ?? 0), 0),
-    [categories]
-  )
-
   useEffect(() => {
     if (!toastName) return
     const timer = window.setTimeout(() => setToastName(null), 4000)
@@ -217,35 +220,28 @@ export default function BranchMenuPage() {
       )}
 
       <header className="branch-menu__header">
-        <p className="customer-eyebrow">{t("common.brand")}</p>
+        <p className="customer-eyebrow branch-menu__eyebrow">{branchMenuEyebrow(branch)}</p>
         <h2 className="customer-title">{t("menu.title")}</h2>
-        <p className="branch-menu__meta">
-          {categories.length} {t("menu.categories")} · {totalItems} {t("menu.dishes")}
-        </p>
-        <PriceVatNote className="branch-menu__vat-note" />
       </header>
 
-      <div className="branch-menu__nav-shell">
-        <p className="branch-menu__nav-label">{t("menu.browseCategories")}</p>
-        <div className="branch-menu__nav-scroll">
-          <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
-            {bestSellers.length > 0 && (
-              <a
-                className="branch-menu__nav-link branch-menu__nav-link--best"
-                href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
-              >
-                {t("menu.bestSellers")}
-                <span className="branch-menu__nav-count">{bestSellers.length}</span>
-              </a>
-            )}
-            {categories.map((cat) => (
-              <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
-                {cat.name}
-                <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
-              </a>
-            ))}
-          </nav>
-        </div>
+      <div className="branch-menu__nav-wrap">
+        <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
+          {bestSellers.length > 0 && (
+            <a
+              className="branch-menu__nav-link branch-menu__nav-link--best"
+              href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
+            >
+              {t("menu.bestSellers")}
+              <span className="branch-menu__nav-count">{bestSellers.length}</span>
+            </a>
+          )}
+          {categories.map((cat) => (
+            <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
+              {cat.name}
+              <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
+            </a>
+          ))}
+        </nav>
       </div>
 
       {bestSellers.length > 0 && (
