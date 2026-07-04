@@ -77,6 +77,7 @@ export default function CheckoutPage() {
   )
   const hadSavedDraft = useRef(Boolean(savedDraft))
   const freeDrinkSectionRef = useRef<HTMLDivElement>(null)
+  const paypalPaymentSectionRef = useRef<HTMLDivElement>(null)
   const nameFieldRef = useRef<HTMLDivElement>(null)
   const phoneFieldRef = useRef<HTMLDivElement>(null)
   const addressSectionRef = useRef<HTMLDivElement>(null)
@@ -872,6 +873,21 @@ export default function CheckoutPage() {
     setAwaitingPaymentOrderId(null)
   }
 
+  const changePaymentMethod = async () => {
+    const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
+    if (orderId) {
+      try {
+        await cancelUnpaidOrder(orderId)
+      } catch {
+        // Best effort
+      }
+    }
+    setPendingCardOrderId(null)
+    setPendingStripeSession(null)
+    setAwaitingPaymentOrderId(null)
+    setError("")
+  }
+
   useEffect(() => {
     if (!awaitingPaymentOrderId || needsOnlinePayment) return
     void cancelUnpaidOrder(awaitingPaymentOrderId)
@@ -881,6 +897,14 @@ export default function CheckoutPage() {
         setPendingCardOrderId(null)
       })
   }, [awaitingPaymentOrderId, needsOnlinePayment])
+
+  useEffect(() => {
+    if (!pendingCardOrderId || !needsPayPalPayment) return
+    const timer = window.setTimeout(() => {
+      paypalPaymentSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+    }, 120)
+    return () => window.clearTimeout(timer)
+  }, [pendingCardOrderId, needsPayPalPayment])
 
   const paymentLocked = !!awaitingPaymentOrderId
 
@@ -1514,7 +1538,18 @@ export default function CheckoutPage() {
       )}
 
       {pendingCardOrderId && paymentConfig?.paypalClientId && needsPayPalPayment && (
-        <div className="customer-card" style={{ marginTop: 16 }}>
+        <div
+          className="customer-card checkout-paypal-step"
+          ref={paypalPaymentSectionRef}
+          style={{ marginTop: 16 }}
+        >
+          <div
+            className="customer-alert customer-alert--success checkout-paypal-step__banner"
+            role="status"
+          >
+            <p className="checkout-paypal-step__title">{t("checkout.paypalOrderSavedTitle")}</p>
+            <p className="checkout-paypal-step__hint">{t("checkout.paypalTapButtonHint")}</p>
+          </div>
           <h3 className="customer-subtitle">{t("checkout.onlinePaymentTitle")}</h3>
           <PayPalCheckout
             orderId={pendingCardOrderId}
@@ -1526,6 +1561,13 @@ export default function CheckoutPage() {
             onSuccess={handleCardPaymentSuccess}
             onError={abandonOnlinePayment}
           />
+          <button
+            type="button"
+            className="customer-btn checkout-paypal-step__change"
+            onClick={() => void changePaymentMethod()}
+          >
+            {t("checkout.changePaymentMethod")}
+          </button>
           <CheckoutLegalFooter />
         </div>
       )}

@@ -349,7 +349,10 @@
     "paymentMethodUnavailable": "Diese Zahlungsart ist nicht verfügbar. Bitte wählen Sie eine andere Option.",
     "deliveryQuoteFailed": "Die Lieferung zu Ihrer Adresse konnte nicht geprüft werden. Bitte überprüfen Sie Ihre Angaben.",
     "paymentPendingRetry": "Ihre Bestellung wurde erstellt, die Zahlung steht noch aus. Bitte schließen Sie die Zahlung unten ab.",
-    "retryPayment": "Zahlung erneut versuchen"
+    "retryPayment": "Zahlung erneut versuchen",
+    "paypalOrderSavedTitle": "Bestellung gespeichert — jetzt mit PayPal bezahlen",
+    "paypalTapButtonHint": "Tippen Sie auf den goldenen PayPal-Button unten. Erst nach erfolgreicher Zahlung geht Ihre Bestellung an die Küche.",
+    "changePaymentMethod": "Andere Zahlungsart wählen"
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",

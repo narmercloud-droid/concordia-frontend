@@ -1986,3 +1986,26 @@
   padding-top: 20px;
   border-top: 1px solid var(--c-border, #e2e8f0);
 }
+
+.checkout-paypal-step {
+  scroll-margin-top: 16px;
+}
+
+.checkout-paypal-step__banner {
+  margin-bottom: 16px;
+}
+
+.checkout-paypal-step__title {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.checkout-paypal-step__hint {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.checkout-paypal-step__change {
+  margin-top: 16px;
+  width: 100%;
+}

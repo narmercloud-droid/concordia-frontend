@@ -348,7 +348,10 @@
     "paymentMethodUnavailable": "This payment method is not available. Please choose another option.",
     "deliveryQuoteFailed": "We could not verify delivery to your address. Please check your details and try again.",
     "paymentPendingRetry": "Your order was created but payment is still pending. Please complete payment below.",
-    "retryPayment": "Retry payment"
+    "retryPayment": "Retry payment",
+    "paypalOrderSavedTitle": "Order saved — pay with PayPal now",
+    "paypalTapButtonHint": "Tap the gold PayPal button below. Your order is only sent to the kitchen after payment succeeds.",
+    "changePaymentMethod": "Choose a different payment method"
   },
   "giftVoucher": {
     "title": "Gift voucher",
