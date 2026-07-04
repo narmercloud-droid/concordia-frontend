@@ -8,6 +8,9 @@ import { getItemDetails } from "@/api/customer"
 
 import { useCartStore, type CartItem, type CartSelection } from "@/store/cartStore"
 
+import { readItemDetailsCache } from "@/lib/itemDetailsCache"
+import { resolveAppLanguage } from "@/i18n/languages"
+
 import {
   findSizeVariantName,
   getAddOnDisplayPrice,
@@ -151,7 +154,11 @@ export function useItemOptions(
     enabled: !!branchId && !!itemId,
     retry: 3,
     retryDelay: (attempt) => Math.min(1500 * 2 ** attempt, 12_000),
-    staleTime: 5 * 60_000
+    staleTime: 5 * 60_000,
+    placeholderData: () => {
+      const lang = resolveAppLanguage(i18n.language?.split("-")[0])
+      return readItemDetailsCache(branchId, String(itemId), lang) ?? undefined
+    }
   })
 
 

@@ -1,6 +1,3 @@
-import { App } from "@capacitor/app"
-import { SplashScreen } from "@capacitor/splash-screen"
-import { StatusBar, Style } from "@capacitor/status-bar"
 import { isNativeApp, isIosApp, isAndroidApp } from "@/lib/nativeApp"
 
 /** Shared Capacitor bootstrap for iOS + Android customer apps (same UI, same API). */
@@ -14,6 +11,12 @@ export async function initNativeApp() {
   if (isAndroidApp()) {
     document.documentElement.classList.add("native-app--android")
   }
+
+  const [{ App }, { SplashScreen }, { StatusBar, Style }] = await Promise.all([
+    import("@capacitor/app"),
+    import("@capacitor/splash-screen"),
+    import("@capacitor/status-bar")
+  ])
 
   try {
     await StatusBar.setStyle({ style: Style.Light })

@@ -15,7 +15,7 @@ import {
   pickFeatured
 } from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
-import { prefetchItemDetails } from "@/lib/prefetchItemDetails"
+import { prefetchItemDetails, prefetchItemDetailsBatch } from "@/lib/prefetchItemDetails"
 import { formatCurrency } from "@/utils/format"
 import {
   parseFulfillmentParam,
@@ -124,6 +124,34 @@ export default function BranchMenuPage() {
     () => pickFeatured(categories, 6, { salesItemIds: bestsellersData?.itemIds }),
     [categories, bestsellersData?.itemIds]
   )
+
+  useEffect(() => {
+    if (!branchId || !menuReady || orderingDisabled) return
+    prefetchItemDetailsBatch(
+      branchId,
+      bestSellers.map((item) => item.id),
+      i18n.language,
+      6
+    )
+  }, [branchId, menuReady, orderingDisabled, bestSellers, i18n.language])
+
+  useEffect(() => {
+    if (!branchId || orderingDisabled) return
+    const cards = document.querySelectorAll("[data-prefetch-item]")
+    if (!cards.length) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const id = Number(entry.target.getAttribute("data-prefetch-item"))
+          if (Number.isFinite(id)) prefetchItemDetails(branchId, id, i18n.language)
+        }
+      },
+      { rootMargin: "160px 0px", threshold: 0.01 }
+    )
+    cards.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [branchId, categories, orderingDisabled, i18n.language])
 
   const totalItems = useMemo(
     () => categories.reduce((sum, cat) => sum + (cat.items?.length ?? 0), 0),
@@ -313,7 +341,7 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
   }
 
   return (
-    <article className="branch-menu__card">
+    <article className="branch-menu__card" data-prefetch-item={item.id}>
       <button
         type="button"
         className="branch-menu__card-main"

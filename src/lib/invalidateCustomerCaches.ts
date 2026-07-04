@@ -1,6 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query"
 import { clearBranchListCache } from "@/lib/branchListCache"
 import { clearMenuCacheForBranch } from "@/lib/menuCache"
+import { clearItemDetailsCacheForBranch } from "@/lib/itemDetailsCache"
 import { BRANCHES_QUERY_KEY } from "@/lib/branchesQuery"
 
 /** After admin saves, bust customer-facing React Query + localStorage caches. */
@@ -15,6 +16,7 @@ export function invalidateCustomerWebsiteCaches(
 
   if (branchId) {
     clearMenuCacheForBranch(branchId)
+    clearItemDetailsCacheForBranch(branchId)
     void queryClient.invalidateQueries({ queryKey: ["branchMenu", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["branchBestsellers", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["cartSuggestions", branchId] })

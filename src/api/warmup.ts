@@ -1,8 +1,8 @@
 import { resolveApiBase } from "@/api/client"
 import { detectPreferredLanguage } from "@/i18n/languages"
-import { writeBranchListCache } from "@/lib/branchListCache"
+import { readBranchListCache, writeBranchListCache } from "@/lib/branchListCache"
 import { KEMPEN_BRANCH_ID, STRAELEN_BRANCH_ID } from "@/lib/customerPaths"
-import { writeMenuCache } from "@/lib/menuCache"
+import { readMenuCache, writeMenuCache } from "@/lib/menuCache"
 
 let warmupPromise: Promise<void> | null = null
 
@@ -24,6 +24,11 @@ function unwrapMenu(body: unknown): { categories: unknown[] } | null {
   return null
 }
 
+function publicCachesFresh(lang: string, branchIds: string[]) {
+  if (!readBranchListCache()) return false
+  return branchIds.every((branchId) => !!readMenuCache(branchId, lang))
+}
+
 /** Wake Render cold backend and prefetch hot public reads before customer navigation. */
 export function warmupApi(): Promise<void> {
   if (warmupPromise) return warmupPromise
@@ -38,6 +43,13 @@ export function warmupApi(): Promise<void> {
   const fetchOpts: RequestInit = { method: "GET", credentials: "omit", signal }
   const lang = detectPreferredLanguage()
   const warmBranches = [KEMPEN_BRANCH_ID, STRAELEN_BRANCH_ID]
+
+  if (publicCachesFresh(lang, warmBranches)) {
+    warmupPromise = fetch(`${root}/health`, fetchOpts)
+      .then(() => undefined)
+      .catch(() => undefined)
+    return warmupPromise
+  }
 
   warmupPromise = Promise.allSettled([
     fetch(`${root}/health`, fetchOpts),

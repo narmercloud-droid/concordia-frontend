@@ -1,5 +1,6 @@
 import api from "./client.js"
 import { getMenuLang } from "@/lib/menuLang"
+import { writeItemDetailsCache } from "@/lib/itemDetailsCache"
 import { writeMenuCache } from "@/lib/menuCache"
 
 function unwrap<T>(res: { data?: { data?: T; success?: boolean } & T }): T {
@@ -129,10 +130,13 @@ export const getBranchTimeSlots = async (branchId: string) => {
 }
 
 export const getItemDetails = async (branchId: string, itemId: string) => {
+  const lang = getMenuLang()
   const res = await api.get(`/api/branches/${branchId}/items/${itemId}`, {
-    params: { lang: getMenuLang() }
+    params: { lang }
   })
-  return unwrap<any>(res)
+  const data = unwrap<any>(res)
+  writeItemDetailsCache(branchId, itemId, lang, data)
+  return data
 }
 
 export const createOrder = (data: {

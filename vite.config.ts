@@ -11,6 +11,7 @@ export default defineConfig({
   },
   build: {
     target: "es2020",
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -20,8 +21,12 @@ export default defineConfig({
           }
           if (!id.includes("node_modules")) return;
           if (id.includes("chart.js") || id.includes("react-chartjs-2")) return "charts";
+          if (id.includes("leaflet")) return "maps";
           if (id.includes("socket.io-client")) return "socket";
           if (id.includes("react-qr-scanner")) return "qr";
+          if (id.includes("@stripe/")) return "stripe";
+          if (id.includes("@paypal/")) return "paypal";
+          if (id.includes("@capacitor/")) return "capacitor";
           if (id.includes("i18next") || id.includes("react-i18next")) return "i18n";
           if (id.includes("@tanstack/react-query")) return "query";
           if (id.includes("react-router")) return "router";
