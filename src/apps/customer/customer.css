@@ -2009,3 +2009,19 @@
   margin-top: 16px;
   width: 100%;
 }
+
+.checkout-paypal-loading {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.checkout-paypal-buttons {
+  min-height: 48px;
+}
+
+.checkout-paypal-load-error {
+  margin-top: 8px;
+}

@@ -280,6 +280,8 @@
     "cardPaymentHint": "Pay with debit card, credit card, or PayPal. Your order is sent to the kitchen after payment.",
     "paymentFailed": "Payment failed. Please try again or choose cash.",
     "paymentCancelled": "Payment cancelled. Your order was not paid.",
+    "paypalLoading": "Loading PayPal…",
+    "paypalLoadFailed": "PayPal could not load. Please refresh the page or choose another payment method.",
     "websiteDiscountApplied": "{{percent}}% website discount: −{{amount}}",
     "websiteDiscountFoodOnly": "Discount applies to food only — not delivery fees.",
     "voucherNotCombinable": "The automatic website discount cannot be combined with voucher codes.",

@@ -281,6 +281,8 @@
     "cardPaymentHint": "Mit Debitkarte, Kreditkarte oder PayPal bezahlen. Die Bestellung geht nach der Zahlung an die Küche.",
     "paymentFailed": "Zahlung fehlgeschlagen. Bitte erneut versuchen oder Bar wählen.",
     "paymentCancelled": "Zahlung abgebrochen. Ihre Bestellung wurde nicht bezahlt.",
+    "paypalLoading": "PayPal wird geladen…",
+    "paypalLoadFailed": "PayPal konnte nicht geladen werden. Bitte Seite neu laden oder eine andere Zahlungsart wählen.",
     "websiteDiscountApplied": "{{percent}} % Online-Rabatt: −{{amount}}",
     "websiteDiscountFoodOnly": "Rabatt gilt nur für Speisen — nicht für Liefergebühren.",
     "voucherNotCombinable": "Der automatische Online-Rabatt kann nicht mit Gutschein-Codes kombiniert werden.",
