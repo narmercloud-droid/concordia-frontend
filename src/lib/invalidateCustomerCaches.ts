@@ -20,5 +20,14 @@ export function invalidateCustomerWebsiteCaches(
     void queryClient.invalidateQueries({ queryKey: ["cartSuggestions", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["itemDetails", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["googleReviews", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["deliveryAreas", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["timeSlots", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["couponCampaigns", branchId] })
+  } else {
+    void queryClient.invalidateQueries({ queryKey: ["deliveryAreas"] })
+    void queryClient.invalidateQueries({ queryKey: ["timeSlots"] })
+    void queryClient.invalidateQueries({ queryKey: ["paymentConfig"] })
+    void queryClient.invalidateQueries({ queryKey: ["couponCampaigns"] })
   }
 }

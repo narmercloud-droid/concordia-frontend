@@ -59,7 +59,7 @@ export default function DeliveryAddressForm({
     queryKey: ["deliveryAreas", branchId],
     queryFn: () => getBranchDeliveryAreas(branchId),
     enabled: !!branchId,
-    staleTime: 10 * 60_000
+    staleTime: 60_000
   })
 
   const deliveryAreas = deliveryAreasData?.areas ?? []

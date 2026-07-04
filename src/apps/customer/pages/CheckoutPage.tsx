@@ -215,7 +215,7 @@ export default function CheckoutPage() {
     queryKey: ["paymentConfig", branchId],
     queryFn: () => getPaymentConfig(branchId!),
     enabled: !!branchId,
-    staleTime: 5 * 60_000
+    staleTime: 60_000
   })
 
   const paymentMethods = paymentConfig?.methods ?? {
@@ -268,7 +268,7 @@ export default function CheckoutPage() {
     queryKey: ["deliveryAreas", branchId],
     queryFn: () => getBranchDeliveryAreas(branchId!),
     enabled: !!branchId && fulfillmentType === "delivery",
-    staleTime: 5 * 60_000
+    staleTime: 60_000
   })
 
   const freeDrinkOptions = freeDrinkData?.options ?? []

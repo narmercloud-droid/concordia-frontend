@@ -5,6 +5,7 @@ import {
   startBranchStripeOnboarding,
   updateBranchPaymentSettings
 } from "@/api/payments"
+import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 type Props = {
   branchId: string
@@ -57,7 +58,7 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
     }) => updateBranchPaymentSettings(branchId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["branchPaymentStatus", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
     }
   })
 
@@ -71,7 +72,7 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
     onSuccess: () => {
       setPaypalClientSecret("")
       queryClient.invalidateQueries({ queryKey: ["branchPaymentStatus", branchId] })
-      queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
+      invalidateCustomerWebsiteCaches(queryClient, branchId)
     }
   })
 
