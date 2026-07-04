@@ -225,23 +225,28 @@ export default function BranchMenuPage() {
         <PriceVatNote className="branch-menu__vat-note" />
       </header>
 
-      <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
-        {bestSellers.length > 0 && (
-          <a
-            className="branch-menu__nav-link branch-menu__nav-link--best"
-            href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
-          >
-            {t("menu.bestSellers")}
-            <span className="branch-menu__nav-count">{bestSellers.length}</span>
-          </a>
-        )}
-        {categories.map((cat) => (
-          <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
-            {cat.name}
-            <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
-          </a>
-        ))}
-      </nav>
+      <div className="branch-menu__nav-shell">
+        <p className="branch-menu__nav-label">{t("menu.browseCategories")}</p>
+        <div className="branch-menu__nav-scroll">
+          <nav className="branch-menu__nav" aria-label={t("menu.categories")}>
+            {bestSellers.length > 0 && (
+              <a
+                className="branch-menu__nav-link branch-menu__nav-link--best"
+                href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
+              >
+                {t("menu.bestSellers")}
+                <span className="branch-menu__nav-count">{bestSellers.length}</span>
+              </a>
+            )}
+            {categories.map((cat) => (
+              <a key={cat.id} className="branch-menu__nav-link" href={`#${categoryAnchor(cat.id)}`}>
+                {cat.name}
+                <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
 
       {bestSellers.length > 0 && (
         <section
