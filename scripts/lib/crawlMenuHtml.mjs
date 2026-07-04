@@ -10,12 +10,20 @@ const API_ORIGIN = (
 const LOCATIONS = {
   straelen: {
     branchId: "concordia-straelen",
-    label: "Concordia Pizzeria Straelen",
-    servesCuisine: ["Pizza", "Pasta", "Italian"]
+    label: "Pizzeria Concordia Straelen",
+    city: "Straelen",
+    seoTitle: "Pizza Straelen bestellen – Pizzeria Concordia | Speisekarte",
+    seoDescription:
+      "Pizzeria Concordia in Straelen (Venloer Straße 22): Pizza, Pasta, Döner und mehr online bestellen. Lieferung und Abholung in Straelen und Umgebung.",
+    servesCuisine: ["Pizza", "Pasta", "Italian", "Döner"]
   },
   kempen: {
     branchId: "concordia-kempen",
-    label: "Concordia Pizzeria Kempen",
+    label: "Pizzeria Concordia Kempen",
+    city: "Kempen",
+    seoTitle: "Pizza Kempen bestellen – Pizzeria Concordia | Speisekarte",
+    seoDescription:
+      "Pizzeria Concordia in Kempen (Concordienplatz 1): Pizza, Pasta und mehr online bestellen. Lieferung und Abholung in Kempen und Umgebung.",
     servesCuisine: ["Pizza", "Pasta", "Italian"]
   }
 };
@@ -199,8 +207,9 @@ export async function renderCrawlMenuHtml(slug) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${escapeHtml(displayName)} – Speisekarte | Concordia</title>
-  <meta name="description" content="Speisekarte von ${escapeHtml(displayName)}. Pizza, Pasta und mehr online bestellen – Abholung und Lieferung." />
+  <title>${escapeHtml(location.seoTitle)}</title>
+  <meta name="description" content="${escapeHtml(location.seoDescription)}" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="${urls.menuUrl}" />
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
   <style>

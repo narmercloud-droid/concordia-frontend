@@ -4,7 +4,7 @@
  */
 export const BRAND_LOGO_HEADER = "/images/concordia-logo-web-header.png?v=20260627"
 export const BRAND_LOGO_HERO = "/images/concordia-logo-web-hero.png?v=20260627"
-export const BRAND_LOGO_ICON = "/images/concordia-logo-web-icon.png?v=20260627"
+export const BRAND_LOGO_ICON = "/images/concordia-logo-web-icon.png?v=20260705"
 export const BRAND_LOGO_IMAGE = BRAND_LOGO_HEADER
 export const BRAND_LOGO_FANCY = BRAND_LOGO_ICON
 

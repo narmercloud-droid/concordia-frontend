@@ -37,6 +37,18 @@ export function seoForPath(
   if (branchMatch) {
     const branchId = branchMatch[1]
     const place = branchLocationLabel(branch) || branchId
+    const branchSeo: Record<string, Pick<PageSeo, "title" | "description">> = {
+      "concordia-straelen": {
+        title: "Pizza Straelen bestellen – Pizzeria Concordia | Speisekarte",
+        description:
+          "Pizzeria Concordia Straelen: Pizza, Pasta, Döner online bestellen. Lieferung und Abholung an der Venloer Straße 22 in Straelen."
+      },
+      "concordia-kempen": {
+        title: "Pizza Kempen bestellen – Pizzeria Concordia | Speisekarte",
+        description:
+          "Pizzeria Concordia Kempen: Pizza, Pasta online bestellen. Lieferung und Abholung am Concordienplatz 1 in Kempen."
+      }
+    }
     if (pathname.endsWith("/checkout")) {
       return {
         title: `Bestellen – Pizzeria Concordia ${place}`,
@@ -51,6 +63,9 @@ export function seoForPath(
         description: `Speisekarte und online bestellen bei Pizzeria Concordia ${place}.`,
         canonical
       }
+    }
+    if (branchSeo[branchId]) {
+      return { ...branchSeo[branchId], canonical }
     }
     return {
       title: `Pizza ${place} bestellen – Pizzeria Concordia | Speisekarte`,
