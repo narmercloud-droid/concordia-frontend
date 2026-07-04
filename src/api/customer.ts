@@ -215,6 +215,12 @@ export const getOrderStatus = async (orderId: string) => {
   return unwrap<any>(res)
 }
 
+/** Cancel an online order when PayPal/card payment was never completed. */
+export const cancelUnpaidOrder = async (orderId: string) => {
+  const res = await api.post(`/api/v1/order/${orderId}/cancel-unpaid`)
+  return unwrap<{ cancelled: boolean; reason?: string }>(res)
+}
+
 export const submitContactForm = (data: {
   name: string
   email: string

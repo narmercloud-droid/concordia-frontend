@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import { Trans, useTranslation } from "react-i18next"
 import {
   createOrder,
+  cancelUnpaidOrder,
   getBranches,
   getBranchDeliveryAreas,
   getBranchTimeSlots,
@@ -857,6 +858,30 @@ export default function CheckoutPage() {
     if (orderId) goToOrderConfirmation(orderId)
   }
 
+  const abandonOnlinePayment = async (message: string) => {
+    setError(message)
+    const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
+    if (orderId) {
+      try {
+        await cancelUnpaidOrder(orderId)
+      } catch {
+        // Best effort — kitchen filter also blocks unpaid online orders.
+      }
+    }
+    setPendingCardOrderId(null)
+    setAwaitingPaymentOrderId(null)
+  }
+
+  useEffect(() => {
+    if (!awaitingPaymentOrderId || needsOnlinePayment) return
+    void cancelUnpaidOrder(awaitingPaymentOrderId)
+      .catch(() => undefined)
+      .finally(() => {
+        setAwaitingPaymentOrderId(null)
+        setPendingCardOrderId(null)
+      })
+  }, [awaitingPaymentOrderId, needsOnlinePayment])
+
   const paymentLocked = !!awaitingPaymentOrderId
 
   const cashPaymentLabel =
@@ -1482,7 +1507,7 @@ export default function CheckoutPage() {
           savePaymentMethodOffered={pendingStripeSession.savePaymentMethodOffered}
           payableAmount={formatCurrency(grandTotal)}
           onSuccess={handleCardPaymentSuccess}
-          onError={(message) => setError(message)}
+          onError={abandonOnlinePayment}
         />
         <CheckoutLegalFooter />
         </>
@@ -1499,7 +1524,7 @@ export default function CheckoutPage() {
             fundingSource="paypal"
             payableAmount={formatCurrency(grandTotal)}
             onSuccess={handleCardPaymentSuccess}
-            onError={(message) => setError(message)}
+            onError={abandonOnlinePayment}
           />
           <CheckoutLegalFooter />
         </div>
