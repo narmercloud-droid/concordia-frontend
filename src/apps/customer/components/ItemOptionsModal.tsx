@@ -15,6 +15,7 @@ type Props = {
   categoryName?: string
   description?: string | null
   imageUrl?: string | null
+  menuItem?: Record<string, unknown> | null
   onClose: () => void
   onAdded: (itemName: string) => void
 }
@@ -28,12 +29,13 @@ export default function ItemOptionsModal({
   categoryName = "",
   description = null,
   imageUrl,
+  menuItem,
   onClose,
   onAdded
 }: Props) {
   const { t } = useTranslation()
   const panelRef = useRef<HTMLDivElement>(null)
-  const options = useItemOptions(branchId, itemId)
+  const options = useItemOptions(branchId, itemId, undefined, menuItem)
 
   useEffect(() => {
     if (open) options.reset()

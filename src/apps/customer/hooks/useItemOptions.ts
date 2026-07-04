@@ -9,6 +9,7 @@ import { getItemDetails } from "@/api/customer"
 import { useCartStore, type CartItem, type CartSelection } from "@/store/cartStore"
 
 import { readItemDetailsCache } from "@/lib/itemDetailsCache"
+import { isFatMenuItem } from "@/lib/menuItemFromMenu"
 import { resolveAppLanguage } from "@/i18n/languages"
 
 import {
@@ -107,7 +108,9 @@ export function useItemOptions(
 
   itemId: number,
 
-  editCartKey?: string | null
+  editCartKey?: string | null,
+
+  seedItem?: Record<string, unknown> | null
 
 ) {
 
@@ -143,15 +146,19 @@ export function useItemOptions(
 
 
 
+  const menuSeed = isFatMenuItem(seedItem) ? seedItem : null
+
+
+
   const {
-    data: item,
-    isLoading,
+    data: fetchedItem,
+    isLoading: fetchLoading,
     isError,
     refetch
   } = useQuery({
     queryKey: ["itemDetails", branchId, itemId, i18n.language],
     queryFn: () => getItemDetails(branchId, String(itemId)),
-    enabled: !!branchId && !!itemId,
+    enabled: !!branchId && !!itemId && !menuSeed,
     retry: 3,
     retryDelay: (attempt) => Math.min(1500 * 2 ** attempt, 12_000),
     staleTime: 5 * 60_000,
@@ -160,6 +167,9 @@ export function useItemOptions(
       return readItemDetailsCache(branchId, String(itemId), lang) ?? undefined
     }
   })
+
+  const item = menuSeed ?? fetchedItem
+  const isLoading = menuSeed ? false : fetchLoading
 
 
 

@@ -16,6 +16,7 @@ import {
 } from "@/lib/featuredMenu"
 import { dishImageForName } from "@/lib/foodImagery"
 import { prefetchItemDetails, prefetchItemDetailsBatch } from "@/lib/prefetchItemDetails"
+import { isFatMenuItem } from "@/lib/menuItemFromMenu"
 import { formatCurrency } from "@/utils/format"
 import {
   parseFulfillmentParam,
@@ -33,6 +34,9 @@ type MenuItem = {
   description?: string | null
   price: number
   imageUrl?: string | null
+  variantGroups?: unknown[]
+  addOnGroups?: unknown[]
+  extraPricing?: { sizeBased?: boolean; hint?: string }
 }
 
 type MenuCategory = {
@@ -125,18 +129,23 @@ export default function BranchMenuPage() {
     [categories, bestsellersData?.itemIds]
   )
 
+  const menuHasItemOptions = useMemo(
+    () => categories.some((cat) => (cat.items ?? []).some((item) => isFatMenuItem(item))),
+    [categories]
+  )
+
   useEffect(() => {
-    if (!branchId || !menuReady || orderingDisabled) return
+    if (!branchId || !menuReady || orderingDisabled || menuHasItemOptions) return
     prefetchItemDetailsBatch(
       branchId,
       bestSellers.map((item) => item.id),
       i18n.language,
       6
     )
-  }, [branchId, menuReady, orderingDisabled, bestSellers, i18n.language])
+  }, [branchId, menuReady, orderingDisabled, menuHasItemOptions, bestSellers, i18n.language])
 
   useEffect(() => {
-    if (!branchId || orderingDisabled) return
+    if (!branchId || orderingDisabled || menuHasItemOptions) return
     const cards = document.querySelectorAll("[data-prefetch-item]")
     if (!cards.length) return
     const observer = new IntersectionObserver(
@@ -151,7 +160,7 @@ export default function BranchMenuPage() {
     )
     cards.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [branchId, categories, orderingDisabled, i18n.language])
+  }, [branchId, categories, orderingDisabled, menuHasItemOptions, i18n.language])
 
   const totalItems = useMemo(
     () => categories.reduce((sum, cat) => sum + (cat.items?.length ?? 0), 0),
@@ -297,6 +306,7 @@ export default function BranchMenuPage() {
           categoryName={selectedItem.categoryName}
           description={selectedItem.description}
           imageUrl={selectedItem.imageUrl}
+          menuItem={selectedItem}
           onClose={() => setSelectedItem(null)}
           onAdded={(name) => setToastName(name)}
         />
@@ -336,7 +346,7 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
   const image = dishImageForName(item.name, item.imageUrl, categoryName, item.description)
 
   const warmItemOptions = () => {
-    if (orderingDisabled) return
+    if (orderingDisabled || isFatMenuItem(item)) return
     prefetchItemDetails(branchId, item.id, i18n.language)
   }
 
