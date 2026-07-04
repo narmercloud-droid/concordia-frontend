@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
-import { destinationPoint, haversineDistanceKm, ZONE_COLORS } from "@/utils/geo"
+import {
+  boundsForRadiusKm,
+  destinationPoint,
+  haversineDistanceKm,
+  ZONE_COLORS
+} from "@/utils/geo"
 import "./DeliveryRadiusMap.css"
 
 export type RadiusZoneMap = {
@@ -152,10 +157,11 @@ export default function DeliveryRadiusMap({
     const fitKey = `${center.lat},${center.lng},${zones.length},${maxRadiusKm}`
     if (lastFitKey.current !== fitKey) {
       lastFitKey.current = fitKey
-      const bounds = L.circle([center.lat, center.lng], {
-        radius: maxRadiusKm * 1000 * 1.15
-      }).getBounds()
-      map.fitBounds(bounds, { padding: [24, 24], maxZoom: 13 })
+      const bounds = boundsForRadiusKm(center.lat, center.lng, maxRadiusKm * 1.15)
+      map.whenReady(() => {
+        map.invalidateSize()
+        map.fitBounds(bounds, { padding: [24, 24], maxZoom: 13 })
+      })
     }
   }, [
     branchLabel,

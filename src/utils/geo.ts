@@ -44,3 +44,19 @@ export function destinationPoint(
 }
 
 export const ZONE_COLORS = ["#2563eb", "#16a34a", "#ea580c", "#9333ea", "#dc2626"]
+
+/** LatLng bounds [[southWest], [northEast]] for a circle without needing a Leaflet map. */
+export function boundsForRadiusKm(
+  lat: number,
+  lng: number,
+  radiusKm: number
+): [[number, number], [number, number]] {
+  const north = destinationPoint(lat, lng, 0, radiusKm)
+  const south = destinationPoint(lat, lng, 180, radiusKm)
+  const east = destinationPoint(lat, lng, 90, radiusKm)
+  const west = destinationPoint(lat, lng, 270, radiusKm)
+  return [
+    [south.lat, west.lng],
+    [north.lat, east.lng]
+  ]
+}
