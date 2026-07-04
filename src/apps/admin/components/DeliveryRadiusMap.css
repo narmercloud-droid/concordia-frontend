@@ -6,6 +6,23 @@
   background: #f8fafc;
 }
 
+.delivery-radius-map:fullscreen,
+.delivery-radius-map--expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  margin: 0;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-radius-map:fullscreen .delivery-radius-map__stage,
+.delivery-radius-map--expanded .delivery-radius-map__stage {
+  flex: 1;
+  min-height: 0;
+}
+
 .delivery-radius-map__header {
   display: flex;
   flex-wrap: wrap;
@@ -28,8 +45,37 @@
   color: #64748b;
 }
 
+.delivery-radius-map__fullscreen-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delivery-radius-map__fullscreen-btn:hover {
+  background: #f1f5f9;
+}
+
+.delivery-radius-map__stage {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.delivery-radius-map:fullscreen .delivery-radius-map__canvas,
+.delivery-radius-map--expanded .delivery-radius-map__canvas {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
 .delivery-radius-map__canvas {
-  height: 420px;
+  height: 560px;
   width: 100%;
 }
 

@@ -156,6 +156,9 @@ export const createOrder = (data: {
   birthday?: string
   fulfillmentType: "pickup" | "delivery"
   deliveryAddress?: string
+  deliveryLat?: number
+  deliveryLng?: number
+  postalCode?: string
   scheduledFor?: string | null
   paymentMethod?: string
   promoCode?: string
@@ -180,6 +183,9 @@ export const createOrder = (data: {
       birthday: data.birthday,
       fulfillmentType: data.fulfillmentType,
       deliveryAddress: data.fulfillmentType === "delivery" ? data.deliveryAddress : undefined,
+      deliveryLat: data.fulfillmentType === "delivery" ? data.deliveryLat : undefined,
+      deliveryLng: data.fulfillmentType === "delivery" ? data.deliveryLng : undefined,
+      postalCode: data.fulfillmentType === "delivery" ? data.postalCode : undefined,
       scheduledFor: data.scheduledFor ?? undefined,
       paymentMethod: data.paymentMethod ?? "cash",
       paymentStatus: "pending",
@@ -306,12 +312,15 @@ export const getDeliveryQuote = async (
   branchId: string,
   address: string,
   orderTotal: number,
-  postalCode?: string
+  postalCode?: string,
+  coords?: { lat?: number; lng?: number }
 ) => {
   const res = await api.post(`/api/branches/${branchId}/delivery-quote`, {
     address,
     orderTotal,
-    postalCode
+    postalCode,
+    lat: coords?.lat,
+    lng: coords?.lng
   })
   return unwrap<{
     allowed: boolean

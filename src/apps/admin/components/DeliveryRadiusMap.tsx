@@ -46,11 +46,60 @@ export default function DeliveryRadiusMap({
   onSelectZone,
   onZoneRadiusChange
 }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstance = useRef<L.Map | null>(null)
   const layerGroup = useRef<L.LayerGroup | null>(null)
   const lastFitKey = useRef("")
   const [mapReady, setMapReady] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const refreshMapSize = () => {
+    const map = mapInstance.current
+    if (!map) return
+    window.setTimeout(() => map.invalidateSize(), 50)
+  }
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      const container = containerRef.current
+      const nativeFullscreen = !!container && document.fullscreenElement === container
+      setIsExpanded(nativeFullscreen)
+      refreshMapSize()
+    }
+
+    document.addEventListener("fullscreenchange", onFullscreenChange)
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange)
+  }, [])
+
+  const toggleExpanded = async () => {
+    const container = containerRef.current
+    if (!container) return
+
+    if (document.fullscreenElement === container) {
+      await document.exitFullscreen()
+      return
+    }
+
+    if (isExpanded) {
+      setIsExpanded(false)
+      refreshMapSize()
+      return
+    }
+
+    if (container.requestFullscreen) {
+      try {
+        await container.requestFullscreen()
+      } catch {
+        setIsExpanded(true)
+        refreshMapSize()
+      }
+      return
+    }
+
+    setIsExpanded(true)
+    refreshMapSize()
+  }
 
   const sorted = useMemo(() => sortZones(zones), [zones])
   const maxRadiusKm = Math.max(5, ...zones.map((z) => z.maxDistanceKm), 1)
@@ -181,7 +230,10 @@ export default function DeliveryRadiusMap({
   const activeZone = zones[activeIndex]
 
   return (
-    <div className="delivery-radius-map">
+    <div
+      ref={containerRef}
+      className={`delivery-radius-map${isExpanded ? " delivery-radius-map--expanded" : ""}`}
+    >
       <div className="delivery-radius-map__header">
         <div>
           <h5 className="delivery-radius-map__title">Delivery area map</h5>
@@ -190,46 +242,56 @@ export default function DeliveryRadiusMap({
             Each ring shows how far you deliver from the restaurant.
           </p>
         </div>
+        <button
+          type="button"
+          className="delivery-radius-map__fullscreen-btn"
+          onClick={() => void toggleExpanded()}
+          aria-pressed={isExpanded}
+        >
+          {isExpanded ? "Exit fullscreen" : "Fullscreen"}
+        </button>
       </div>
 
-      <div ref={mapRef} className="delivery-radius-map__canvas" />
+      <div className="delivery-radius-map__stage">
+        <div ref={mapRef} className="delivery-radius-map__canvas" />
 
-      <div className="delivery-radius-map__legend">
-        {sorted.map(({ zone, index }, sortedIdx) => {
-          const color = ZONE_COLORS[sortedIdx % ZONE_COLORS.length]
-          const active = activeIndex === index
-          return (
-            <button
-              key={`${index}-${zone.maxDistanceKm}`}
-              type="button"
-              className={`delivery-radius-map__chip${active ? " delivery-radius-map__chip--active" : ""}`}
-              onClick={() => onSelectZone(index)}
-            >
-              <span className="delivery-radius-map__chip-dot" style={{ background: color }} />
-              {zoneLabel(zone, index)}
-            </button>
-          )
-        })}
-      </div>
-
-      {canEdit && activeZone ? (
-        <div className="delivery-radius-map__slider">
-          <label>
-            <span>
-              Adjust <strong>{zoneLabel(activeZone, activeIndex)}</strong>:{" "}
-              {activeZone.maxDistanceKm.toFixed(1)} km
-            </span>
-            <input
-              type="range"
-              min={0.5}
-              max={30}
-              step={0.5}
-              value={activeZone.maxDistanceKm}
-              onChange={(e) => onZoneRadiusChange(activeIndex, Number(e.target.value))}
-            />
-          </label>
+        <div className="delivery-radius-map__legend">
+          {sorted.map(({ zone, index }, sortedIdx) => {
+            const color = ZONE_COLORS[sortedIdx % ZONE_COLORS.length]
+            const active = activeIndex === index
+            return (
+              <button
+                key={`${index}-${zone.maxDistanceKm}`}
+                type="button"
+                className={`delivery-radius-map__chip${active ? " delivery-radius-map__chip--active" : ""}`}
+                onClick={() => onSelectZone(index)}
+              >
+                <span className="delivery-radius-map__chip-dot" style={{ background: color }} />
+                {zoneLabel(zone, index)}
+              </button>
+            )
+          })}
         </div>
-      ) : null}
+
+        {canEdit && activeZone ? (
+          <div className="delivery-radius-map__slider">
+            <label>
+              <span>
+                Adjust <strong>{zoneLabel(activeZone, activeIndex)}</strong>:{" "}
+                {activeZone.maxDistanceKm.toFixed(1)} km
+              </span>
+              <input
+                type="range"
+                min={0.5}
+                max={30}
+                step={0.5}
+                value={activeZone.maxDistanceKm}
+                onChange={(e) => onZoneRadiusChange(activeIndex, Number(e.target.value))}
+              />
+            </label>
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }

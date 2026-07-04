@@ -292,7 +292,11 @@ export default function CheckoutPage() {
           branchId,
           deliveryAddress,
           total,
-          postalCode ?? undefined
+          postalCode ?? undefined,
+          {
+            lat: addressFields.lat,
+            lng: addressFields.lng
+          }
         )
         setDeliveryQuote(quote)
       } catch {
@@ -811,6 +815,9 @@ export default function CheckoutPage() {
         birthday: birthday || undefined,
         fulfillmentType,
         deliveryAddress: fulfillmentType === "delivery" ? deliveryAddress : undefined,
+        deliveryLat: fulfillmentType === "delivery" ? addressFields.lat : undefined,
+        deliveryLng: fulfillmentType === "delivery" ? addressFields.lng : undefined,
+        postalCode: fulfillmentType === "delivery" ? postalCode ?? undefined : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: paymentChoice,
         promoCode: allowCheckoutVouchers ? appliedVoucher?.code : undefined,
