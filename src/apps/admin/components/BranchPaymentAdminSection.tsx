@@ -20,7 +20,7 @@ const fieldStyle: React.CSSProperties = {
 
 export default function BranchPaymentAdminSection({ branchId }: Props) {
   const queryClient = useQueryClient()
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["branchPaymentStatus", branchId],
     queryFn: () => getBranchPaymentStatus(branchId),
     enabled: !!branchId
@@ -77,7 +77,18 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
   })
 
   if (isLoading) return <p>Loading payment settings…</p>
-  if (!data) return null
+  if (!data) {
+    return (
+      <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>
+        <h4>Online payments</h4>
+        <p style={{ color: "#b91c1c", fontSize: 14 }}>
+          Could not load payment settings
+          {isError ? `: ${(error as Error)?.message ?? "request failed"}` : ""}. Try refreshing the
+          page or logging in again.
+        </p>
+      </div>
+    )
+  }
 
   return (
     <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>

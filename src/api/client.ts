@@ -80,7 +80,8 @@ api.interceptors.request.use((config) => {
     url.includes("/api/v1/super-admin") ||
     url.includes("/api/auth/admin") ||
     url.includes("/api/v1/admin") ||
-    url.includes("/api/admin/")
+    url.includes("/api/admin/") ||
+    url.includes("/api/payments/branches")
 
   const token = isAdmin
     ? localStorage.getItem("adminToken")
