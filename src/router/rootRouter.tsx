@@ -4,6 +4,8 @@ import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import { RedirectLegacyTrack } from "../apps/customer/branchRedirects.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
 import infoRoutes from "../apps/customer/infoRoutes.js"
+import adminRoutes from "../apps/admin/routes.js"
+import { courierRoutes } from "@/apps/courier/routes.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 import ComingSoonPage from "@/pages/ComingSoonPage.js"
@@ -32,20 +34,8 @@ export const router = createBrowserRouter([
       customerRoutes,
       { path: "checkout", element: <Navigate to="/customer/checkout" replace /> },
       { path: "track/:orderId", element: <RedirectLegacyTrack /> },
-      {
-        path: "/admin",
-        lazy: async () => {
-          const { adminRoutes } = await import("../apps/admin/routes.js")
-          return { children: adminRoutes.children }
-        }
-      },
-      {
-        path: "/courier",
-        lazy: async () => {
-          const { courierRoutes } = await import("@/apps/courier/routes.js")
-          return { element: courierRoutes.element, children: courierRoutes.children }
-        }
-      },
+      adminRoutes,
+      courierRoutes,
       {
         path: "*",
         element: <NotFoundPage />
