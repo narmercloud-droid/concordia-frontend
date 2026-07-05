@@ -6,12 +6,19 @@ import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminAuthStore } from "@/context/adminAuthStore"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 import { formatCurrency } from "@/utils/format"
+import { checkoutTagBadgeClass } from "@/utils/orderCheckoutTag"
 import "./OrdersPage.css"
 
 const PAGE_SIZE = 50
 
 type CustomerTypeFilter = ManagerOrderFilters["customerType"] | ""
 type PaymentMethodFilter = "" | "cash" | "card" | "paypal" | "klarna" | "sepa"
+type CheckoutIssueFilter =
+  | ""
+  | "checkout_issues"
+  | "customer_abandoned"
+  | "payment_failed"
+  | "unpaid_incomplete"
 
 function shortOrderId(id: string) {
   return id.slice(0, 8).toUpperCase()
@@ -43,11 +50,12 @@ export default function OrdersPage() {
   const [search, setSearch] = useState("")
   const [customerType, setCustomerType] = useState<CustomerTypeFilter>("")
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodFilter>("")
+  const [checkoutIssue, setCheckoutIssue] = useState<CheckoutIssueFilter>("")
   const [offset, setOffset] = useState(0)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [accumulatedOrders, setAccumulatedOrders] = useState<ManagerOrder[]>([])
 
-  const hasFilters = Boolean(search || customerType || paymentMethod)
+  const hasFilters = Boolean(search || customerType || paymentMethod || checkoutIssue)
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -61,7 +69,7 @@ export default function OrdersPage() {
   useEffect(() => {
     setOffset(0)
     setExpandedId(null)
-  }, [customerType, paymentMethod])
+  }, [customerType, paymentMethod, checkoutIssue])
 
   useEffect(() => {
     setOffset(0)
@@ -71,6 +79,7 @@ export default function OrdersPage() {
     setSearch("")
     setCustomerType("")
     setPaymentMethod("")
+    setCheckoutIssue("")
   }, [branchId])
 
   const queryFilters = useMemo(
@@ -78,10 +87,11 @@ export default function OrdersPage() {
       search: search || undefined,
       customerType: customerType || undefined,
       paymentMethod: paymentMethod || undefined,
+      checkoutIssue: checkoutIssue || undefined,
       limit: PAGE_SIZE,
       offset
     }),
-    [search, customerType, paymentMethod, offset]
+    [search, customerType, paymentMethod, checkoutIssue, offset]
   )
 
   const { data, isLoading, isFetching, isError, error, refetch } = useQuery({
@@ -138,6 +148,7 @@ export default function OrdersPage() {
     setSearch("")
     setCustomerType("")
     setPaymentMethod("")
+    setCheckoutIssue("")
     setOffset(0)
     setExpandedId(null)
   }
@@ -186,6 +197,18 @@ export default function OrdersPage() {
             <option value="klarna">Klarna</option>
             <option value="sepa">SEPA</option>
           </select>
+          <select
+            className="orders-page__filter"
+            value={checkoutIssue}
+            onChange={(e) => setCheckoutIssue(e.target.value as CheckoutIssueFilter)}
+            aria-label="Filter by checkout issue"
+          >
+            <option value="">All checkout statuses</option>
+            <option value="checkout_issues">Checkout issues (all)</option>
+            <option value="customer_abandoned">Checkout cancelled</option>
+            <option value="payment_failed">Payment failed</option>
+            <option value="unpaid_incomplete">Unpaid / incomplete</option>
+          </select>
           {hasFilters ? (
             <button type="button" className="orders-page__clear" onClick={clearFilters}>
               Clear filters
@@ -219,16 +242,14 @@ export default function OrdersPage() {
           {accumulatedOrders.map((order) => {
             const expanded = expandedId === order.id
             const address = [order.deliveryAddress, order.postalCode].filter(Boolean).join(", ")
+            const cardClass = order.checkoutTag
+              ? "orders-page__card orders-page__card--checkout-issue"
+              : order.status === "pending"
+                ? "orders-page__card orders-page__card--pending"
+                : "orders-page__card"
 
             return (
-              <article
-                key={order.id}
-                className={
-                  order.status === "pending"
-                    ? "orders-page__card orders-page__card--pending"
-                    : "orders-page__card"
-                }
-              >
+              <article key={order.id} className={cardClass}>
                 <button
                   type="button"
                   className="orders-page__summary"
@@ -238,6 +259,11 @@ export default function OrdersPage() {
                   <div className="orders-page__summary-top">
                     <strong className="orders-page__order-id">#{shortOrderId(order.id)}</strong>
                     <div className="orders-page__badges">
+                      {order.checkoutTag && order.checkoutTagLabel ? (
+                        <span className={checkoutTagBadgeClass(order.checkoutTag)}>
+                          {order.checkoutTagLabel}
+                        </span>
+                      ) : null}
                       <span className="orders-page__badge">{customerLabel(order)}</span>
                       <span className="orders-page__badge orders-page__badge--muted">
                         {formatPaymentMethod(order.paymentMethod)}

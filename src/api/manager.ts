@@ -1,4 +1,5 @@
 import api from "./client.js"
+import type { OrderCheckoutTag } from "@/utils/orderCheckoutTag"
 
 function unwrap<T>(res: { data?: { data?: T } }): T {
   return (res.data?.data ?? res.data) as T
@@ -344,6 +345,8 @@ export type ManagerOrder = {
   giftCardAmount?: number | null
   paymentMethod?: string | null
   paymentStatus?: string | null
+  checkoutTag?: OrderCheckoutTag | null
+  checkoutTagLabel?: string | null
   notes?: string | null
   scheduledFor?: string | null
   createdAt: string
@@ -399,6 +402,8 @@ function normalizeManagerOrder(order: Partial<ManagerOrder> & { id: string }): M
     giftCardAmount: order.giftCardAmount ?? null,
     paymentMethod: order.paymentMethod ?? null,
     paymentStatus: order.paymentStatus ?? null,
+    checkoutTag: order.checkoutTag ?? null,
+    checkoutTagLabel: order.checkoutTagLabel ?? null,
     notes: order.notes ?? null,
     scheduledFor: order.scheduledFor ?? null,
     createdAt: order.createdAt ?? new Date(0).toISOString(),
@@ -447,6 +452,7 @@ export type ManagerOrderFilters = {
   search?: string
   customerType?: "guest" | "registered"
   paymentMethod?: string
+  checkoutIssue?: string
   limit?: number
   offset?: number
 }
@@ -458,6 +464,7 @@ export const getManagerOrders = async (branchId?: string, params?: ManagerOrderF
       search: params?.search || undefined,
       customerType: params?.customerType || undefined,
       paymentMethod: params?.paymentMethod || undefined,
+      checkoutIssue: params?.checkoutIssue || undefined,
       limit: params?.limit,
       offset: params?.offset
     }

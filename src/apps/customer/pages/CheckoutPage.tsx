@@ -864,7 +864,7 @@ export default function CheckoutPage() {
     const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
     if (orderId) {
       try {
-        await cancelUnpaidOrder(orderId)
+        await cancelUnpaidOrder(orderId, "payment_failed")
       } catch {
         // Best effort — kitchen filter also blocks unpaid online orders.
       }
@@ -877,7 +877,7 @@ export default function CheckoutPage() {
     const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
     if (orderId) {
       try {
-        await cancelUnpaidOrder(orderId)
+        await cancelUnpaidOrder(orderId, "changed_payment")
       } catch {
         // Best effort
       }
@@ -890,7 +890,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (!awaitingPaymentOrderId || needsOnlinePayment) return
-    void cancelUnpaidOrder(awaitingPaymentOrderId)
+    void cancelUnpaidOrder(awaitingPaymentOrderId, "customer_abandoned")
       .catch(() => undefined)
       .finally(() => {
         setAwaitingPaymentOrderId(null)

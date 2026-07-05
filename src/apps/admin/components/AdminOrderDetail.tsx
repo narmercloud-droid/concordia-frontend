@@ -1,6 +1,7 @@
 import React from "react"
 import type { ManagerOrder } from "@/api/manager"
 import { formatCurrency } from "@/utils/format"
+import { checkoutTagBadgeClass } from "@/utils/orderCheckoutTag"
 
 function formatWhen(value?: string | null) {
   if (!value) return "—"
@@ -21,6 +22,11 @@ export default function AdminOrderDetail({ order, canDelete, isDeleting, onDelet
 
   return (
     <div className="orders-page__detail">
+      {order.checkoutTag && order.checkoutTagLabel ? (
+        <p className="orders-page__checkout-tag-row">
+          <span className={checkoutTagBadgeClass(order.checkoutTag)}>{order.checkoutTagLabel}</span>
+        </p>
+      ) : null}
       <section className="orders-page__section">
         <h4>Order</h4>
         <div className="orders-page__grid">
