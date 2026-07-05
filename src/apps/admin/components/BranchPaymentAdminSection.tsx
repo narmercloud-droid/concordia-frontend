@@ -18,6 +18,16 @@ const fieldStyle: React.CSSProperties = {
   border: "1px solid #ddd"
 }
 
+function paymentErrorMessage(error: unknown) {
+  if (error && typeof error === "object" && "response" in error) {
+    const data = (error as { response?: { data?: { error?: { message?: string }; message?: string } } })
+      .response?.data
+    return data?.error?.message ?? data?.message ?? null
+  }
+  if (error instanceof Error && error.message) return error.message
+  return null
+}
+
 export default function BranchPaymentAdminSection({ branchId }: Props) {
   const queryClient = useQueryClient()
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -161,7 +171,10 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
 
       {onboardingMutation.isError && (
         <p style={{ color: "#b91c1c", marginTop: 12 }}>
-          Could not start Stripe onboarding. Check server Stripe keys and try again.
+          Could not start Stripe onboarding.
+          {paymentErrorMessage(onboardingMutation.error)
+            ? ` ${paymentErrorMessage(onboardingMutation.error)}`
+            : " Check server Stripe keys and try again."}
         </p>
       )}
 
