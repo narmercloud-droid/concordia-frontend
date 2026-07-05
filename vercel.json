@@ -12,6 +12,10 @@
     {
       "path": "/health",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/health",
+      "schedule": "0 20 * * *"
     }
   ],
   "headers": [

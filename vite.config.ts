@@ -12,6 +12,18 @@ export default defineConfig({
   build: {
     target: "es2020",
     chunkSizeWarningLimit: 600,
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter(
+          (dep) =>
+            !dep.includes("/admin/") &&
+            !dep.includes("/courier/") &&
+            !dep.includes("charts") &&
+            !dep.includes("maps") &&
+            !dep.includes("qr")
+        )
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

@@ -15,9 +15,9 @@ async function startApp() {
   try {
     hydrateCustomerQueries(queryClient)
     void warmupApi()
-    await bootstrapI18n()
-    await initNativeApp()
+    void initNativeApp()
     inject()
+    await bootstrapI18n()
 
     ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>
