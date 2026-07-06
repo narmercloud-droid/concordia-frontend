@@ -1,5 +1,7 @@
 export const SITE_URL = "https://www.concordiapizza.de"
 export const SITE_NAME = "Pizzeria Concordia"
+export const DEFAULT_HOME_TITLE =
+  "Pizzeria Concordia- Pizza Online Bestellen, Pizza - Pasta - Schnitzel - Salat - Imbiss"
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/concordia-logo-web-hero.png?v=20260627`
 
 export type PageSeo = {
@@ -26,7 +28,7 @@ export function seoForPath(
 
   if (pathname === "/") {
     return {
-      title: "Pizzeria Concordia – Pizza online bestellen | Kempen & Straelen",
+      title: DEFAULT_HOME_TITLE,
       description:
         "Pizza, Pasta und mehr online bestellen bei Pizzeria Concordia in Kempen und Straelen. Lieferung oder Abholung – frisch aus dem Ofen.",
       canonical: `${SITE_URL}/`
