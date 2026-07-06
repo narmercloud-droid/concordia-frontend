@@ -14,10 +14,9 @@ import { inject } from "@vercel/analytics"
 async function startApp() {
   try {
     hydrateCustomerQueries(queryClient)
-    void warmupApi()
     void initNativeApp()
     inject()
-    await bootstrapI18n()
+    await Promise.all([bootstrapI18n(), warmupApi()])
 
     ReactDOM.createRoot(document.getElementById("root")!).render(
       <React.StrictMode>

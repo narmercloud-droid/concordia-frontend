@@ -13,12 +13,13 @@ export const branchesQueryOptions = {
     writeBranchListCache(data)
     return data
   },
-  retry: 3,
-  retryDelay: (attempt: number) => Math.min(1500 * 2 ** attempt, 12_000),
+  retry: 5,
+  retryDelay: (attempt: number) => Math.min(2000 * 2 ** attempt, 20_000),
   staleTime: 5 * 60_000,
   gcTime: 7 * 24 * 60 * 60_000,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
   initialData: () => readBranchListCache() ?? undefined,
-  initialDataUpdatedAt: () => readBranchListCacheUpdatedAt() ?? 0
+  initialDataUpdatedAt: () => readBranchListCacheUpdatedAt() ?? 0,
+  placeholderData: (previous: unknown) => previous ?? readBranchListCache() ?? undefined
 }

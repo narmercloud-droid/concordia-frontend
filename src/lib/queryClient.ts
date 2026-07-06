@@ -10,9 +10,9 @@ export const queryClient = new QueryClient({
         if (status && status >= 400 && status < 500 && status !== 408 && status !== 429) {
           return false
         }
-        return failureCount < 2
+        return failureCount < 4
       },
-      retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10_000),
+      retryDelay: (attempt) => Math.min(2000 * 2 ** attempt, 20_000),
       refetchOnWindowFocus: false,
       refetchOnReconnect: "always"
     },

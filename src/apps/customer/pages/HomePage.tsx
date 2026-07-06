@@ -20,7 +20,7 @@ const MenuShowcase = React.lazy(() => import("@/apps/customer/components/MenuSho
 export default function HomePage() {
   const { t } = useTranslation()
   const location = useLocation()
-  const { data, isLoading, isError, isFetching, refetch } = useQuery({
+  const { data, isLoading, isError, isFetching, isPending, refetch } = useQuery({
     ...branchesQueryOptions,
     queryKey: BRANCHES_QUERY_KEY
   })
@@ -28,18 +28,26 @@ export default function HomePage() {
   const branches = (Array.isArray(data) ? data : []) as HomeBranch[]
 
   useEffect(() => {
+    if (!isError || branches.length || isFetching || isPending) return
+    const timer = window.setTimeout(() => void refetch(), 2500)
+    return () => window.clearTimeout(timer)
+  }, [isError, branches.length, isFetching, isPending, refetch])
+
+  useEffect(() => {
     if (location.hash !== "#order") return
     const timer = window.setTimeout(() => scrollToBranchChoice(), 80)
     return () => window.clearTimeout(timer)
   }, [location.hash])
 
-  const orderHub =
-    !branches.length && (isLoading || isFetching) ? (
+  const branchesLoading = !branches.length && (isLoading || isFetching || isPending)
+  const branchesFailed = isError && !isFetching && !isPending && !branches.length
+
+  const orderHub = branchesLoading ? (
       <section className="home-order-hub home-order-hub--primary home-order-hub--loading" id="order">
         <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
         <p className="home-order-hub__empty">{t("home.branchesLoading")}</p>
       </section>
-    ) : isError ? (
+    ) : branchesFailed ? (
       <section className="home-order-hub home-order-hub--primary home-order-hub--error" id="order">
         <h2 className="home-order-hub__title">{t("home.chooseRestaurant")}</h2>
         <p className="home-order-hub__empty">{t("home.branchesLoadError")}</p>

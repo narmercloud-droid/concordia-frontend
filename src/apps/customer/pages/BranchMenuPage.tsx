@@ -98,7 +98,6 @@ export default function BranchMenuPage() {
     isError: menuError,
     isFetching: menuFetching,
     isPending: menuPending,
-    failureCount: menuFailures,
     refetch: refetchMenu
   } = useQuery({
     ...menuOpts,
@@ -189,7 +188,7 @@ export default function BranchMenuPage() {
   )
 
   if (!data?.categories?.length) {
-    const showMenuError = menuError && !menuFetching && !menuPending && menuFailures >= 2
+    const showMenuError = menuError && !menuFetching && !menuPending
     if (showMenuError) {
       return (
         <div className="customer-page">
