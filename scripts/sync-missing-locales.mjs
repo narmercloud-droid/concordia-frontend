@@ -4,7 +4,10 @@ import { fileURLToPath } from "url"
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const localesDir = path.join(here, "../src/i18n/locales")
-const ref = JSON.parse(fs.readFileSync(path.join(localesDir, "en.json"), "utf8"))
+
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, ""))
+}
 
 function flatten(obj, prefix = "") {
   const out = {}
@@ -33,35 +36,31 @@ function unflatten(flat) {
   return result
 }
 
-function deepMergeMissing(target, source) {
-  for (const [k, v] of Object.entries(source)) {
-    if (v && typeof v === "object" && !Array.isArray(v)) {
-      target[k] = deepMergeMissing(target[k] ?? {}, v)
-    } else if (target[k] === undefined) {
-      target[k] = v
-    }
-  }
-  return target
-}
+const master = readJson(path.join(localesDir, "de.json"))
+const en = readJson(path.join(localesDir, "en.json"))
+const masterFlat = flatten(master)
+const enFlat = flatten(en)
 
-const refFlat = flatten(ref)
 const files = fs
   .readdirSync(localesDir)
   .filter((f) => f.endsWith(".json") && f !== "de.json")
 
 for (const file of files) {
   const locPath = path.join(localesDir, file)
-  const loc = JSON.parse(fs.readFileSync(locPath, "utf8"))
-  const locFlat = flatten(loc)
-  const missing = {}
-  for (const [key, value] of Object.entries(refFlat)) {
-    if (!(key in locFlat)) missing[key] = value
+  const locFlat = flatten(readJson(locPath))
+  let added = 0
+
+  for (const [key, deValue] of Object.entries(masterFlat)) {
+    if (key in locFlat) continue
+    locFlat[key] = enFlat[key] ?? deValue
+    added += 1
   }
-  if (!Object.keys(missing).length) {
+
+  if (!added) {
     console.log(`${file}: up to date`)
     continue
   }
-  const merged = deepMergeMissing(loc, unflatten(missing))
-  fs.writeFileSync(locPath, `${JSON.stringify(merged, null, 2)}\n`)
-  console.log(`${file}: added ${Object.keys(missing).length} keys`)
+
+  fs.writeFileSync(locPath, `${JSON.stringify(unflatten(locFlat), null, 2)}\n`)
+  console.log(`${file}: added ${added} keys`)
 }

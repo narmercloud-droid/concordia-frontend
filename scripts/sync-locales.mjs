@@ -32,12 +32,16 @@ function flatten(obj, prefix = "") {
   })
 }
 
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, ""))
+}
+
 // Apply de patch first so new master keys are included in parity checks
 const masterPath = path.join(localesDir, "de.json")
-const master = JSON.parse(fs.readFileSync(masterPath, "utf8"))
+const master = readJson(masterPath)
 const dePatchPath = path.join(patchesDir, "de.json")
 if (fs.existsSync(dePatchPath)) {
-  deepMerge(master, JSON.parse(fs.readFileSync(dePatchPath, "utf8")))
+  deepMerge(master, readJson(dePatchPath))
   fs.writeFileSync(masterPath, `${JSON.stringify(master, null, 2)}\n`)
 }
 const masterKeys = new Set(flatten(master).map(([k]) => k))
@@ -51,11 +55,11 @@ let failed = false
 for (const file of localeFiles) {
   const lang = file.replace(".json", "")
   const filePath = path.join(localesDir, file)
-  const data = JSON.parse(fs.readFileSync(filePath, "utf8"))
+  const data = readJson(filePath)
 
   const patchPath = path.join(patchesDir, `${lang}.json`)
   if (fs.existsSync(patchPath)) {
-    const patch = JSON.parse(fs.readFileSync(patchPath, "utf8"))
+    const patch = readJson(patchPath)
     deepMerge(data, patch)
   }
 

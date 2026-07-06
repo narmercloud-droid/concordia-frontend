@@ -132,7 +132,19 @@
     "bestSellersFromSales": "Cele mai vândute din ultimele 30 de zile — pe baza comenzilor reale.",
     "alsoPopular": "De asemenea populare",
     "loadError": "Meniul nu a putut fi încărcat. Serverul se poate porni — încercați din nou.",
-    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout."
+    "closedBanner": "This branch is currently closed. You can still pre-order — choose a time within opening hours at checkout.",
+    "browseCategories": "Categories — tap to jump · swipe sideways for more",
+    "deliveryZonesTitle": "Delivery areas",
+    "deliveryZonesLead": "Delivery fees depend on distance. Free delivery thresholds apply to your food order (before discounts).",
+    "deliveryZoneUpTo": "Up to {{km}} km",
+    "deliveryZoneMinOrder": "Min. {{amount}}",
+    "deliveryZoneFee": "Delivery {{amount}}",
+    "deliveryZoneFreeFrom": "Free delivery from {{amount}}",
+    "allergenTitle": "Allergens & additives",
+    "allergenLead": "Allergen and additive information is available on request in the restaurant or via our contact form. If you have allergies, please add a note to your order.",
+    "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
+    "allergenContact": "Request allergen details",
+    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
   },
   "cart": {
     "title": "Coșul dvs.",
@@ -149,7 +161,11 @@
     "suggestionsSides": "Salads & sides",
     "suggestionsAdd": "Add",
     "suggestionsContinue": "Continue",
-    "suggestionsContinueCart": "Back to cart"
+    "suggestionsContinueCart": "Back to cart",
+    "discountYouSave": "You save {{amount}} online!",
+    "suggestionsContinueCheckout": "Continue to checkout",
+    "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order.",
+    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount)."
   },
   "checkout": {
     "title": "Finalizare",
@@ -221,7 +237,7 @@
     "freeDrinkRequired": "Alegeți băutura gratuită.",
     "marketingTitle": "Oferte Concordia (opțional)",
     "marketingHint": "Doriți să aflați despre promoții, preparate noi și oferte sezoniere?",
-    "marketingPerkBirthday": "Ofertă de ziua de naștere: reducere cu codul BIRTHDAY",
+    "marketingPerkBirthday": "Cadou de ziua de naștere: desert gratuit cu codul BIRTHDAY",
     "marketingPerkDeals": "Acces timpuriu la oferte săptămânale și sezoniere",
     "marketingPerkWinback": "Coduri exclusive pentru clienți fideli (ex. WELCOME10)",
     "marketingSMS": "SMS",
@@ -230,7 +246,7 @@
     "emailPlaceholder": "email@exemplu.ro",
     "emailRequiredForOffers": "Introduceți adresa de e-mail pentru oferte prin e-mail.",
     "birthdayLabel": "Zi de naștere (opțional)",
-    "birthdayHint": "Ofertă de ziua de naștere de la Concordia — reducere cu codul BIRTHDAY (act de identitate obligatoriu).",
+    "birthdayHint": "Pentru un cadou de la Concordia — desert gratuit cu codul BIRTHDAY.",
     "birthdayInvalid": "Introduceți o dată de naștere validă.",
     "marketingLegal": "Doar dacă vă înscrieți. Vă puteți dezabona oricând. Actualizările comenzii sunt separate de mesajele de marketing.",
     "howToOrder": "Cum doriți să comandați?",
@@ -270,7 +286,53 @@
     "savedAddresses": "Saved addresses",
     "validationTitle": "Please check your details",
     "validationLead": "We need a few details before we can place your order:",
-    "validationFix": "Review fields"
+    "validationFix": "Review fields",
+    "deliveryHint": "Delivered to your address",
+    "pickupHint": "Collect at the branch",
+    "asapHint": "Next available slot",
+    "scheduledHint": "Pick date & time",
+    "chooseTimeDetailed": "Choose a time (every 15 min)",
+    "email": "Email",
+    "emailHint": "For order confirmation and questions — also shown on the kitchen receipt.",
+    "marketingEmailNeedsAddress": "Please enter your email address above to receive offers by email.",
+    "addressQuickLead": "Delivery area {{region}} — use your location or enter postcode, street and house number.",
+    "addressAddDetails": "+ Add floor / doorbell note",
+    "deliveryAreaTitle": "Delivery area — {{region}}",
+    "deliveryAreaFallback": "this branch",
+    "deliveryMapTitle": "Map — {{region}}",
+    "locationOutsideArea": "This location is outside the delivery area for this branch.",
+    "walletCouponHint": "Your activated coupon is applied automatically at checkout.",
+    "paymentApplePay": "Payment: Apple Pay",
+    "paymentGooglePay": "Payment: Google Pay",
+    "payApplePay": "Apple Pay",
+    "payGooglePay": "Google Pay",
+    "paymentComingSoon": "More payment options coming soon",
+    "stripePaymentHint": "Pay with card, Apple Pay, or Google Pay. Your order is sent to the kitchen after payment.",
+    "savePaymentMethodHint": "You can optionally save your payment method during checkout for future orders.",
+    "payNow": "Pay now",
+    "processingPayment": "Processing payment…",
+    "paymentUnavailable": "Online payment is not set up for this branch yet.",
+    "placeOrderPayable": "Order with obligation to pay · {{amount}}",
+    "continueToPaymentPayable": "Continue to pay · {{amount}}",
+    "payNowPayable": "Pay now · {{amount}}",
+    "retryPaymentPayable": "Retry payment · {{amount}}",
+    "paypalLoading": "Loading PayPal…",
+    "paypalLoadFailed": "PayPal could not load. Please refresh the page or choose another payment method.",
+    "websiteDiscountFoodOnly": "Discount applies to food only — not delivery fees.",
+    "voucherNotCombinable": "The automatic website discount cannot be combined with voucher codes.",
+    "marketingPush": "Browser notifications (offers & discounts)",
+    "freeDeliveryNudge": "Add {{amount}} more for free delivery (food subtotal before discount).",
+    "freeDeliveryAddItems": "Add more items",
+    "implicitTermsNotice": "By clicking \"Order with obligation to pay\" you accept our <agbLink>Terms</agbLink> and acknowledge the <widerrufLink>cancellation policy</widerrufLink>.",
+    "useMyLocationHint": "Fills postcode, city and street automatically — saves time.",
+    "locationFilled": "Address filled from your location. Please check the house number.",
+    "paymentMethodUnavailable": "This payment method is not available. Please choose another option.",
+    "deliveryQuoteFailed": "We could not verify delivery to your address. Please check your details and try again.",
+    "paymentPendingRetry": "Your order was created but payment is still pending. Please complete payment below.",
+    "retryPayment": "Retry payment",
+    "paypalOrderSavedTitle": "Order saved — pay with PayPal now",
+    "paypalTapButtonHint": "Tap the gold PayPal button below. Your order is only sent to the kitchen after payment succeeds.",
+    "changePaymentMethod": "Choose a different payment method"
   },
   "item": {
     "loading": "Se încarcă preparatul…",
@@ -322,7 +384,9 @@
     "stepOnTheWay": "On the way",
     "stepDelivered": "Delivered",
     "stepReady": "Ready for pickup",
-    "stepDone": "Picked up"
+    "stepDone": "Picked up",
+    "confirmationLegal": "You will receive contract confirmation by email if you provided an address. Legal information: <impressumLink>Imprint</impressumLink>, <agbLink>Terms</agbLink>, <widerrufLink>Cancellation policy</widerrufLink>.",
+    "notFound": "We could not find this order. Please check the link or contact the restaurant."
   },
   "status": {
     "pending": "Primită",
@@ -365,7 +429,8 @@
       "terms": "Termeni",
       "impressum": "Legal notice",
       "privacy": "Privacy",
-      "agb": "Terms (AGB)"
+      "agb": "Terms (AGB)",
+      "widerruf": "Withdrawal"
     },
     "about": {
       "eyebrow": "Povestea noastră",
@@ -461,7 +526,9 @@
         "successBody": "Thank you — we have received your message and will reply as soon as we can.",
         "sendAnother": "Send another message",
         "error": "Could not send your message. Please try again or call us."
-      }
+      },
+      "generalTitle": "General enquiries",
+      "generalLead": "Questions about the website, partnerships, or anything not tied to a specific branch?"
     },
     "reviews": {
       "eyebrow": "Voci ale oaspeților",
@@ -515,10 +582,17 @@
       "step3Title": "Checkout și savurează",
       "step3Text": "Plătește cash la ridicare sau livrare — pregătim totul proaspăt pentru tine.",
       "promoNote": "Foame? Masa ta — sau ușa ta — e la câteva clicuri distanță.",
-      "giftTitle": "Cumpără un voucher cadou",
-      "giftText": "Oferă cuiva Concordia — alege €10, €20, €30 sau orice sumă. Codul funcționează doar la filiala unde cumperi (online sau personal).",
+      "giftTitle": "Cumpără voucher cadou",
+      "giftText": "Oferă cuiva Concordia — alege 10 €, 20 €, 30 € sau orice sumă. Codul funcționează doar la filiala unde îl cumperi (online sau la fața locului).",
       "giftCta": "Cumpără voucher",
-      "giftBadge": "Voucher cadou"
+      "giftBadge": "Voucher cadou",
+      "branchNote": "Offers for {{branch}} — pick your branch and order straight away.",
+      "heroAria": "Current online benefits",
+      "autoBadge": "Applied automatically at checkout",
+      "drinkFine": "Offered automatically once your cart reaches €35.",
+      "comingSoonTitle": "More deals coming — stay tuned!",
+      "comingSoonText": "We regularly launch new offers exclusively on our website and the Concordia app. Check back soon — you'll hear about them here first.",
+      "comingSoonApp": "Download the app and turn on notifications so you never miss a deal."
     },
     "delivery": {
       "eyebrow": "Până la ușa ta",
@@ -666,6 +740,11 @@
       "title": "General terms and conditions (AGB)",
       "lead": "Terms for online food orders at Pizzeria Concordia (from the previous Speisebaron shop, adapted for this website).",
       "loyaltyNote": "The loyalty programme is governed additionally on <termsLink>Terms & loyalty</termsLink>."
+    },
+    "widerruf": {
+      "eyebrow": "Legal",
+      "title": "Right of withdrawal",
+      "lead": "Information on withdrawal rights for online orders and gift vouchers."
     }
   },
   "giftVoucher": {
@@ -691,7 +770,9 @@
     "orderNow": "Comandă acum",
     "nameRequired": "Numele este obligatoriu.",
     "amountInvalid": "Alegeți o sumă între 5 € și 500 €.",
-    "purchaseFailed": "Voucherul nu a putut fi creat."
+    "purchaseFailed": "Voucherul nu a putut fi creat.",
+    "continuePayable": "Continue with obligation to pay · {{amount}}",
+    "payOnlinePayable": "Pay now · {{amount}}"
   },
   "account": {
     "ordersLoading": "Se încarcă comenzile…",
@@ -717,10 +798,34 @@
     "profileLoadError": "Could not load your profile.",
     "profileSyncError": "Showing saved account details. Some info may be outdated.",
     "addressesLoadError": "Could not load saved addresses.",
-    "ordersLoadError": "Could not load your orders."
+    "ordersLoadError": "Could not load your orders.",
+    "privacyTitle": "Privacy & marketing",
+    "privacyLead": "Manage your consents and GDPR rights.",
+    "marketingEmail": "Offers by email",
+    "marketingSMS": "Offers by SMS",
+    "marketingWhatsApp": "Offers by WhatsApp",
+    "marketingSaved": "Preferences saved.",
+    "savePreferences": "Save preferences",
+    "exportData": "Export my data (JSON)",
+    "exportDone": "Export downloaded.",
+    "deleteAccount": "Delete account",
+    "deleteAccountConfirm": "Delete your account permanently? This cannot be undone.",
+    "deleteAccountDone": "Your account has been deleted."
   },
   "legal": {
-    "localeNote": "The legally binding version of this page is provided in German below."
+    "localeNote": "The legally binding version of this page is provided in German below.",
+    "priceInclVat": "All prices in euros include statutory VAT.",
+    "priceInclVatShort": "incl. VAT",
+    "acceptTerms": "I have read and accept the <agbLink>Terms & Conditions (AGB)</agbLink>. I have taken note of the <widerrufLink>cancellation policy</widerrufLink>.",
+    "acceptTermsWithLoyalty": "I have read and accept the <agbLink>AGB</agbLink> and taken note of the <widerrufLink>cancellation policy</widerrufLink>. The <termsLink>loyalty programme</termsLink> applies additionally.",
+    "acceptTermsRequired": "Please confirm the terms and cancellation policy.",
+    "cookie": {
+      "title": "Cookies & storage",
+      "body": "We use essential storage for your cart, language, and login. With your consent we may also enable optional features such as offer notifications.",
+      "essentialOnly": "Essential only",
+      "acceptAll": "Accept all",
+      "settings": "Cookie settings"
+    }
   },
   "orderReview": {
     "title": "How was your order?",
@@ -763,5 +868,70 @@
     "countdownAria": "Mai sunt {{days}} zile, {{hours}} ore și {{minutes}} minute",
     "note": "Până atunci ne puteți contacta telefonic la Kempen și Straelen ca de obicei.",
     "footer": "Pizzeria Concordia · Căldură germană, pasiune italiană"
+  },
+  "coupons": {
+    "eyebrow": "Your rewards",
+    "title": "Coupons & wallet",
+    "lead": "Tap a coupon to save it to your account. Register free — then use your coupon at checkout.",
+    "sectionTitle": "Tap to save",
+    "sectionTitleKempen": "Kempen coupons",
+    "sectionTitleStraelen": "Straelen coupons",
+    "viewAllOffers": "All offers",
+    "tapToClaim": "Tap to claim",
+    "tapToActivate": "Tap to activate",
+    "activationCode": "Activation code",
+    "activateFailed": "Could not activate this coupon.",
+    "activeAtCheckout": "Active at checkout",
+    "chooseBranch": "Choose branch",
+    "branchOffersNote": "Coupons and offers for {{branch}} only — each branch has its own wallet.",
+    "branchRequired": "Please choose a branch first.",
+    "activeInWallet": "Active — use at checkout",
+    "inWallet": "In your wallet",
+    "allBranches": "All branches",
+    "thisBranch": "This branch",
+    "newCustomers": "New customers",
+    "minOrder": "Min. order €{{amount}}",
+    "percentOff": "{{value}}% off",
+    "amountOff": "€{{value}} off",
+    "freeDelivery": "Free delivery",
+    "claimFailed": "Could not claim this coupon.",
+    "loginHint": "Create a free account to save coupons to your wallet.",
+    "walletTitle": "Your wallet",
+    "walletEmpty": "No coupons saved yet — claim one below.",
+    "availableTitle": "Available coupons",
+    "noneAvailable": "No coupons available right now. Check back soon.",
+    "checkoutHint": "Your activated coupon will apply automatically at checkout.",
+    "orderCta": "Ready to order?",
+    "status": {
+      "available": "Saved",
+      "activated": "Active",
+      "redeemed": "Used"
+    }
+  },
+  "notifications": {
+    "promptAria": "Offer notifications",
+    "promptTitle": "Never miss an offer",
+    "promptLead": "Turn on browser notifications for Concordia discounts, promos, and seasonal deals.",
+    "enable": "Enable notifications",
+    "enabling": "Enabling…",
+    "notNow": "Not now",
+    "enableFailed": "Could not enable notifications. Please allow them in your browser settings.",
+    "enabled": "Offer notifications are on.",
+    "deniedHint": "Notifications are blocked. Please allow them for this site in your browser settings."
+  },
+  "nativeApp": {
+    "promoStrip": "App discount on every order",
+    "promoAria": "App offer",
+    "cartBar": {
+      "label": "Shopping cart",
+      "items": "{{count}} items"
+    },
+    "tabs": {
+      "label": "Main navigation",
+      "home": "Home",
+      "offers": "Offers",
+      "order": "Order",
+      "account": "Account"
+    }
   }
 }

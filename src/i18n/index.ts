@@ -72,8 +72,8 @@ export async function bootstrapI18n() {
     void loadLocale(lng)
   })
 
-  // German is bundled; other locales hydrate after first paint.
-  void loadLocale(i18n.language)
+  // Load the initial locale before first paint so browser language works (not only bundled German).
+  await loadLocale(i18n.language)
 }
 
 export default i18n

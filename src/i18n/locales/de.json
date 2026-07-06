@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "loading": "Laden…",
     "brand": "Concordia",
@@ -20,7 +20,7 @@
     "errorBody": "Bitte laden Sie die Seite neu. Wenn das Problem bleibt, versuchen Sie es in einem Moment erneut.",
     "refreshPage": "Seite neu laden",
     "logoAlt": "Pizzeria Concordia",
-    "logoHomeAlt": "Pizzeria Concordia — fünf Küchenchefs, Deutsche Herzlichkeit, Italienische Leidenschaft",
+    "logoHomeAlt": "Pizzeria Concordia — Pizza, Pasta, Grill",
     "siteTitle": "Pizzeria Concordia"
   },
   "lang": {

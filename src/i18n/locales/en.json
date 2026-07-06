@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "loading": "Loading…",
     "brand": "Concordia",
@@ -166,7 +166,8 @@
     "allergenTitle": "Allergens & additives",
     "allergenLead": "Allergen and additive information is available on request in the restaurant or via our contact form. If you have allergies, please add a note to your order.",
     "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
-    "allergenContact": "Request allergen details"
+    "allergenContact": "Request allergen details",
+    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
   },
   "cart": {
     "title": "Your cart",
