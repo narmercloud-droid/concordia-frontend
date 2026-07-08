@@ -2,12 +2,10 @@ import type { PaymentMethodId } from "./PaymentMethodOption"
 
 export const CHECKOUT_PAYMENT_METHOD_ORDER: PaymentMethodId[] = [
   "paypal",
-  "cash",
   "card",
   "apple_pay",
   "google_pay",
-  "klarna",
-  "sepa"
+  "cash"
 ]
 
 export type PaymentMethodsMap = Partial<Record<PaymentMethodId, boolean>>
@@ -20,17 +18,6 @@ export const GIFT_VOUCHER_PAYMENT_METHOD_ORDER: PaymentMethodId[] = [
   "cash"
 ]
 
-export function partitionPaymentMethods(order: PaymentMethodId[], methods: PaymentMethodsMap) {
-  const available: PaymentMethodId[] = []
-  const comingSoon: PaymentMethodId[] = []
-
-  for (const method of order) {
-    if (methods[method]) {
-      available.push(method)
-    } else {
-      comingSoon.push(method)
-    }
-  }
-
-  return { available, comingSoon }
+export function listAvailablePaymentMethods(order: PaymentMethodId[], methods: PaymentMethodsMap) {
+  return order.filter((method) => Boolean(methods[method]))
 }

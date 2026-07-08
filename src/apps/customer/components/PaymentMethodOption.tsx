@@ -12,50 +12,49 @@ export type PaymentMethodId =
 type Props = {
   method: PaymentMethodId
   label: string
+  hint?: string
   active: boolean
   enabled: boolean
-  compact?: boolean
-  comingSoon: string
+  name: string
   onSelect: () => void
 }
 
 export default function PaymentMethodOption({
   method,
   label,
+  hint,
   active,
   enabled,
-  compact = false,
-  comingSoon,
+  name,
   onSelect
 }: Props) {
   return (
-    <button
-      type="button"
-      disabled={!enabled}
+    <label
       className={[
-        "checkout-payment-option",
-        active ? "checkout-payment-option--active" : "",
-        !enabled ? "checkout-payment-option--disabled" : "",
-        compact ? "checkout-payment-option--compact" : ""
+        "checkout-payment-row",
+        active ? "checkout-payment-row--active" : "",
+        !enabled ? "checkout-payment-row--disabled" : ""
       ]
         .filter(Boolean)
         .join(" ")}
-      onClick={onSelect}
-      title={!enabled ? comingSoon : label}
-      aria-label={label}
-      aria-pressed={enabled ? active : undefined}
     >
-      {active && enabled && (
-        <span className="checkout-payment-option__check" aria-hidden="true">
-          ✓
-        </span>
-      )}
-      <span className="checkout-payment-option__icon-wrap">
+      <input
+        type="radio"
+        className="checkout-payment-row__radio"
+        name={name}
+        value={method}
+        checked={active}
+        disabled={!enabled}
+        onChange={() => onSelect()}
+      />
+      <span className="checkout-payment-row__icon" aria-hidden="true">
         <PaymentMethodIcon method={method} />
       </span>
-      <span className="checkout-payment-option__label">{label}</span>
-      {!enabled && <small className="checkout-payment-option__soon">{comingSoon}</small>}
-    </button>
+      <span className="checkout-payment-row__body">
+        <span className="checkout-payment-row__title">{label}</span>
+        {hint ? <span className="checkout-payment-row__hint">{hint}</span> : null}
+      </span>
+    </label>
   )
 }
 
@@ -157,27 +156,6 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
             fill="#012169"
             opacity="0.75"
           />
-        </svg>
-      )
-    case "klarna":
-      return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
-          <rect x="2" y="4" width="52" height="28" rx="6" fill="#ffb3c7" />
-          <text x="28" y="23" textAnchor="middle" fontSize="11" fontWeight="800" fill="#17120f" fontFamily="Arial, sans-serif">
-            Klarna
-          </text>
-        </svg>
-      )
-    case "sepa":
-      return (
-        <svg className="checkout-payment-icon checkout-payment-icon--brand" viewBox="0 0 56 36" aria-hidden="true">
-          <rect x="2" y="4" width="52" height="28" rx="6" fill="#0b4f8a" />
-          <text x="28" y="16" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ffcc00">
-            SEPA
-          </text>
-          <text x="28" y="26" textAnchor="middle" fontSize="5.5" fill="#fff">
-            Lastschrift
-          </text>
         </svg>
       )
     default:

@@ -292,6 +292,7 @@ export default function GiftVoucherPage() {
           }}
           selected={paymentChoice}
           methodOrder={GIFT_VOUCHER_PAYMENT_METHOD_ORDER}
+          cashHint={t("giftVoucher.cashNote")}
           isMethodEnabled={(method: PaymentMethodId) => {
             if (method === "cash") return true
             if (method === "paypal") return methods?.paypal ?? onlineEnabled
@@ -299,7 +300,6 @@ export default function GiftVoucherPage() {
           }}
           onSelect={(method) => setPaymentChoice(method as PaymentChoice)}
         />
-        <p className="customer-hint">{t("giftVoucher.cashNote")}</p>
       </div>
 
       {error && <p className="customer-error">{error}</p>}

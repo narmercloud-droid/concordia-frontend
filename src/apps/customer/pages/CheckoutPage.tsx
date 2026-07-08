@@ -1298,6 +1298,7 @@ export default function CheckoutPage() {
           methods={paymentMethods}
           selected={paymentChoice}
           paymentLocked={paymentLocked}
+          cashHint={t("checkout.payCashHint", { method: cashPaymentLabel })}
           onSelect={(method: PaymentMethodId) => {
             setPaymentChoice(method)
             setPendingCardOrderId(null)
