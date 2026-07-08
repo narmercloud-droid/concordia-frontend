@@ -114,7 +114,13 @@ export default function PlatformSettingsPage() {
     queryFn: getPlatformSettings
   })
 
-  const { data: branchSettings, isLoading: branchLoading } = useQuery({
+  const {
+    data: branchSettings,
+    isLoading: branchLoading,
+    isError: branchError,
+    error: branchQueryError,
+    refetch: refetchBranchSettings
+  } = useQuery({
     queryKey: ["superAdminBranchSettings", branchId],
     queryFn: () => getSuperAdminBranchSettings(branchId!),
     enabled: !!branchId
@@ -135,8 +141,27 @@ export default function PlatformSettingsPage() {
   }, [global])
 
   useEffect(() => {
+    setBranch(null)
+  }, [branchId])
+
+  useEffect(() => {
     if (branchSettings) setBranch(branchSettings)
   }, [branchSettings])
+
+  function branchSettingsErrorMessage() {
+    if (branchQueryError && typeof branchQueryError === "object" && "response" in branchQueryError) {
+      const data = (
+        branchQueryError as {
+          response?: { data?: { error?: { message?: string }; message?: string } }
+        }
+      ).response?.data
+      return data?.error?.message ?? data?.message ?? null
+    }
+    if (branchQueryError instanceof Error && branchQueryError.message) {
+      return branchQueryError.message
+    }
+    return null
+  }
 
   const saveGlobalMutation = useMutation({
     mutationFn: (payload: Parameters<typeof updatePlatformSettings>[0]) =>
@@ -506,8 +531,26 @@ export default function PlatformSettingsPage() {
             Use the branch switcher above. Profile, opening hours, and delivery zones are all
             editable below.
           </p>
-          {branchLoading || !branch ? (
+          {!branchId ? (
+            <p>Select a branch using the switcher above.</p>
+          ) : branchLoading ? (
             <p>Loading branch settings…</p>
+          ) : branchError ? (
+            <div>
+              <p style={{ color: "#b00020" }}>
+                Could not load branch settings
+                {branchSettingsErrorMessage() ? `: ${branchSettingsErrorMessage()}` : "."}
+              </p>
+              <button
+                type="button"
+                style={{ marginTop: 8, padding: "8px 14px" }}
+                onClick={() => refetchBranchSettings()}
+              >
+                Retry
+              </button>
+            </div>
+          ) : !branch ? (
+            <p>No branch settings were returned for this branch.</p>
           ) : (
             <>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
