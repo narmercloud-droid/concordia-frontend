@@ -26,6 +26,7 @@ export function invalidateCustomerWebsiteCaches(
     void queryClient.invalidateQueries({ queryKey: ["timeSlots", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["paymentConfig", branchId] })
     void queryClient.invalidateQueries({ queryKey: ["couponCampaigns", branchId] })
+    void queryClient.invalidateQueries({ queryKey: ["freeDrinkOptions", branchId] })
   } else {
     void queryClient.invalidateQueries({ queryKey: ["deliveryAreas"] })
     void queryClient.invalidateQueries({ queryKey: ["timeSlots"] })

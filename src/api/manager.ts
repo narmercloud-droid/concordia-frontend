@@ -575,6 +575,12 @@ export const getManagerPromotions = async (branchId?: string) => {
     freeDrinkMinOrder: number
     freeDrinkMessage: string
     websiteDiscountEnabled: boolean
+    freeDrinkEnabled: boolean
+    platform?: {
+      websiteOrderDiscountPct: number
+      freeDrinkCheckoutEnabled: boolean
+      showFreeDrinkCheckout: boolean
+    }
   }>(res)
 }
 
@@ -626,6 +632,7 @@ export const updateManagerPromotions = async (
     freeDrinkMinOrder?: number
     freeDrinkMessage?: string
     websiteDiscountEnabled?: boolean
+    freeDrinkEnabled?: boolean
   },
   branchId?: string
 ) => {

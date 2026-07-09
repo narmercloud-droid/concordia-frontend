@@ -8,10 +8,12 @@ import {
 import { getManagerPromotions, updateManagerPromotions } from "@/api/manager"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
 import { useAdminPermissions } from "@/hooks/useAdminPermissions"
+import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { invalidateCustomerWebsiteCaches } from "@/lib/invalidateCustomerCaches"
 
 export default function BranchOffersPage() {
   const { branchId } = useAdminBranch()
+  const platformPromo = usePlatformPromo()
   const { can } = useAdminPermissions()
   const queryClient = useQueryClient()
   const canEdit = can("offers_edit")
@@ -32,6 +34,7 @@ export default function BranchOffersPage() {
   const [freeDrinkMinOrder, setFreeDrinkMinOrder] = useState(35)
   const [freeDrinkMessage, setFreeDrinkMessage] = useState("")
   const [websiteDiscountEnabled, setWebsiteDiscountEnabled] = useState(true)
+  const [freeDrinkEnabled, setFreeDrinkEnabled] = useState(true)
 
   const [couponTitle, setCouponTitle] = useState("")
   const [couponDescription, setCouponDescription] = useState("")
@@ -45,12 +48,13 @@ export default function BranchOffersPage() {
     setFreeDrinkMinOrder(data.freeDrinkMinOrder)
     setFreeDrinkMessage(data.freeDrinkMessage)
     setWebsiteDiscountEnabled(data.websiteDiscountEnabled)
+    setFreeDrinkEnabled(data.freeDrinkEnabled !== false)
   }, [data])
 
   const saveMutation = useMutation({
     mutationFn: () =>
       updateManagerPromotions(
-        { freeDrinkMinOrder, freeDrinkMessage, websiteDiscountEnabled },
+        { freeDrinkMinOrder, freeDrinkMessage, websiteDiscountEnabled, freeDrinkEnabled },
         branchId
       ),
     onSuccess: () => {
@@ -107,6 +111,35 @@ export default function BranchOffersPage() {
         </p>
       )}
 
+      <div
+        style={{
+          marginTop: 16,
+          padding: 14,
+          borderRadius: 8,
+          background: "#f0f7f2",
+          border: "1px solid #d8e4dc",
+          fontSize: 14,
+          lineHeight: 1.5
+        }}
+      >
+        <strong>What customers see on the website</strong>
+        <ul style={{ margin: "8px 0 0", paddingLeft: 20 }}>
+          <li>
+            {websiteDiscountEnabled
+              ? `${platformPromo.websiteOrderDiscountPct}% online discount at checkout`
+              : "No website discount (disabled for this branch)"}
+          </li>
+          <li>
+            {platformPromo.freeDrinkCheckoutEnabled &&
+            platformPromo.showFreeDrinkCheckout &&
+            freeDrinkEnabled
+              ? `Free drink from €${freeDrinkMinOrder}${freeDrinkMessage ? ` — ${freeDrinkMessage}` : ""}`
+              : "Free drink hidden (disabled in Platform or branch settings)"}
+          </li>
+          <li>Delivery fees & free delivery thresholds: Delivery settings page</li>
+        </ul>
+      </div>
+
       <div style={{ marginTop: 20, display: "grid", gap: 16 }}>
         <label>
           <div style={{ marginBottom: 6 }}>Free drink minimum order (€)</div>
@@ -129,8 +162,18 @@ export default function BranchOffersPage() {
             disabled={!canEdit}
             onChange={(e) => setFreeDrinkMessage(e.target.value)}
             style={{ width: "100%", padding: 8, borderRadius: 6, border: "1px solid #ccc" }}
-            placeholder="e.g. Choose your complimentary 0.33l soft drink"
+            placeholder="e.g. Ab 35 € … 1,0 l Softdrink oder 0,5 l Durstlöscher"
           />
+        </label>
+
+        <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="checkbox"
+            checked={freeDrinkEnabled}
+            disabled={!canEdit}
+            onChange={(e) => setFreeDrinkEnabled(e.target.checked)}
+          />
+          <span>Free drink promotion enabled for this branch</span>
         </label>
 
         <label style={{ display: "flex", alignItems: "center", gap: 8 }}>

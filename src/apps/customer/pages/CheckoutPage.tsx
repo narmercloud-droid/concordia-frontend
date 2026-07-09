@@ -201,7 +201,8 @@ export default function CheckoutPage() {
     branchInfo != null && !branchInfo.comingSoon && branchInfo.isOpen === false
   const branchPromo = branchInfo?.promotions
   const freeDrinkMin = branchPromo?.freeDrinkMinOrder ?? 0
-  const showFreeDrinkCheckout = platformPromo.showFreeDrinkCheckout
+  const showFreeDrinkCheckout =
+    platformPromo.showFreeDrinkCheckout && platformPromo.freeDrinkCheckoutEnabled
   const showLoyaltyCheckout = platformPromo.showLoyaltyCheckout
   const websiteDiscountEnabled = branchPromo?.websiteDiscountEnabled !== false
   const checkoutDiscountPct = websiteDiscountEnabled ? platformPromo.websiteOrderDiscountPct : 0

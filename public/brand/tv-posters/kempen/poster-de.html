@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>Concordia Kempen — Deutsch</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+
+      width: 1920px;
+
+      height: 1080px;
+
+      overflow: hidden;
+
+      font-family: "DM Sans", Arial, sans-serif;
+
+      background: #FAF8F5;
+
+      color: #1A1F1C;
+
+    }
+
+    .poster {
+
+      width: 1920px;
+
+      height: 1080px;
+
+      display: grid;
+
+      grid-template-columns: 1.15fr 0.85fr;
+
+      background:
+
+        radial-gradient(1200px 700px at 0% 0%, rgba(139,26,43,.12), transparent 60%),
+
+        radial-gradient(900px 600px at 100% 100%, rgba(45,90,61,.10), transparent 55%),
+
+        #FAF8F5;
+
+    }
+
+    .left {
+
+      padding: 72px 64px 72px 88px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      gap: 28px;
+
+    }
+
+    .brand {
+
+      font-family: "Cormorant Garamond", Georgia, serif;
+
+      font-size: 58px;
+
+      font-weight: 700;
+
+      color: #8B1A2B;
+
+      line-height: 1.05;
+
+    }
+
+    .tagline {
+
+      font-size: 22px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+
+      color: #2D5A3D;
+
+    }
+
+    .headline {
+
+      font-size: 68px;
+
+      font-weight: 800;
+
+      line-height: 1;
+
+      color: #1A1F1C;
+
+    }
+
+    .subhead {
+
+      font-size: 26px;
+
+      color: #5C6B62;
+
+      font-weight: 600;
+
+    }
+
+    .discount-note {
+
+      display: inline-block;
+
+      margin-top: 2px;
+
+      padding: 14px 20px;
+
+      border-radius: 14px;
+
+      background: rgba(212,168,42,.18);
+
+      border: 3px solid #D4A82A;
+
+      font-size: 26px;
+
+      line-height: 1.3;
+
+      font-weight: 800;
+
+      color: #1A1F1C;
+
+      max-width: 920px;
+
+      box-shadow: 0 8px 24px rgba(26,31,28,.08);
+
+    }
+
+    .promos { display: grid; gap: 18px; margin-top: 10px; }
+
+    .promo {
+
+      display: grid;
+
+      grid-template-columns: 190px 1fr;
+
+      align-items: stretch;
+
+      overflow: hidden;
+
+      background: #fff;
+
+      border: 3px solid #D4A82A;
+
+      border-radius: 20px;
+
+      box-shadow: 0 14px 36px rgba(26,31,28,.14);
+
+    }
+
+    .promo__value {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 22px 16px;
+
+      font-size: 64px;
+
+      font-weight: 900;
+
+      line-height: 0.95;
+
+      text-align: center;
+
+      color: #fff;
+
+      background: linear-gradient(160deg, #8B1A2B 0%, #6d1220 100%);
+
+      letter-spacing: -0.02em;
+
+    }
+
+    .promo__text {
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      padding: 22px 28px;
+
+      gap: 8px;
+
+    }
+
+    .promo__text strong {
+
+      display: block;
+
+      font-size: 42px;
+
+      line-height: 1.05;
+
+      color: #8B1A2B;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.02em;
+
+    }
+
+    .promo__text span {
+
+      display: block;
+
+      font-size: 28px;
+
+      line-height: 1.25;
+
+      color: #1A1F1C;
+
+      font-weight: 700;
+
+    }
+
+    .right {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 72px 88px 72px 48px;
+
+      text-align: center;
+
+    }
+
+    .qr-wrap {
+
+      background: #fff;
+
+      border: 10px solid #D4A82A;
+
+      border-radius: 28px;
+
+      padding: 28px;
+
+      box-shadow: 0 18px 50px rgba(26,31,28,.12);
+
+    }
+
+    .qr-wrap img {
+
+      display: block;
+
+      width: 420px;
+
+      height: 420px;
+
+    }
+
+    .scan {
+
+      margin-top: 36px;
+
+      font-size: 42px;
+
+      font-weight: 800;
+
+      color: #2D5A3D;
+
+    }
+
+    .url {
+
+      margin-top: 14px;
+
+      font-size: 22px;
+
+      color: #5C6B62;
+
+      word-break: break-all;
+
+      max-width: 520px;
+
+    }
+
+    .footer {
+
+      margin-top: 36px;
+
+      width: 100%;
+
+      max-width: 560px;
+
+    }
+
+    .footer strong {
+
+      color: #8B1A2B;
+
+      font-size: 30px;
+
+      display: block;
+
+      margin-bottom: 18px;
+
+    }
+
+    .lang-callout {
+
+      background: linear-gradient(135deg, rgba(139,26,43,.08), rgba(45,90,61,.10));
+
+      border: 2px solid rgba(212,168,42,.45);
+
+      border-radius: 22px;
+
+      padding: 22px 26px 20px;
+
+      box-shadow: 0 12px 32px rgba(26,31,28,.08);
+
+    }
+
+    .lang-callout__line {
+
+      font-size: 30px;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+
+      color: #2D5A3D;
+
+      margin-bottom: 16px;
+
+    }
+
+    .lang-flags {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 10px 12px;
+
+    }
+
+    .lang-flag {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 56px;
+
+      height: 40px;
+
+      background: #fff;
+
+      border-radius: 10px;
+
+      overflow: hidden;
+
+      box-shadow: 0 6px 16px rgba(26,31,28,.10);
+
+      border: 1px solid rgba(26,31,28,.08);
+
+    }
+
+    .lang-flag img {
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="poster">
+
+    <section class="left">
+
+      <div class="brand">Pizzeria Concordia</div>
+
+      <div class="tagline">Deutsche Herzlichkeit · Italienische Leidenschaft</div>
+
+      <h1 class="headline">Deine Vorteile</h1>
+
+      <p class="subhead">Nur bei Online-Bestellung</p>
+
+      <p class="discount-note">Alle Rabatte gelten für Lieferung & Abholung über die Website</p>
+
+      <div class="promos">
+
+      <div class="promo">
+
+        <div class="promo__value">10%</div>
+
+        <div class="promo__text">
+
+          <strong>Online-Rabatt</strong>
+
+          <span>auf jede Website-Bestellung</span>
+
+        </div>
+
+      </div>
+
+      <div class="promo">
+
+        <div class="promo__value">0 €</div>
+
+        <div class="promo__text">
+
+          <strong>Gratis Lieferung</strong>
+
+          <span>ab 15 € Bestellwert</span>
+
+        </div>
+
+      </div>
+
+      <div class="promo">
+
+        <div class="promo__value">Gratis</div>
+
+        <div class="promo__text">
+
+          <strong>Getränk</strong>
+
+          <span>ab 35 € · 1,0 l Softdrink oder 0,5 l Durstlöscher</span>
+
+        </div>
+
+      </div></div>
+
+    </section>
+
+    <section class="right">
+
+      <div class="qr-wrap">
+
+        <img src="data:image/png;base64,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" alt="QR code" width="420" height="420" />
+
+      </div>
+
+      <p class="scan">Jetzt scannen & bestellen</p>
+
+      <p class="url">https://www.concordiapizza.de/branch/concordia-kempen</p>
+
+      <div class="footer">
+
+        <strong>Concordia Kempen</strong>
+
+        <div class="lang-callout">
+
+          <p class="lang-callout__line">Bestelle in deiner Sprache</p>
+
+          <div class="lang-flags"><span class="lang-flag" title="Deutsch"><img src="flags/de.png" alt="Deutsch" width="52" height="36" /></span><span class="lang-flag" title="English"><img src="flags/gb.png" alt="English" width="52" height="36" /></span><span class="lang-flag" title="Nederlands"><img src="flags/nl.png" alt="Nederlands" width="52" height="36" /></span><span class="lang-flag" title="Polski"><img src="flags/pl.png" alt="Polski" width="52" height="36" /></span><span class="lang-flag" title="Русский"><img src="flags/ru.png" alt="Русский" width="52" height="36" /></span><span class="lang-flag" title="Română"><img src="flags/ro.png" alt="Română" width="52" height="36" /></span><span class="lang-flag" title="हिन्दी"><img src="flags/in.png" alt="हिन्दी" width="52" height="36" /></span><span class="lang-flag" title="العربية"><img src="flags/sa.png" alt="العربية" width="52" height="36" /></span><span class="lang-flag" title="Türkçe"><img src="flags/tr.png" alt="Türkçe" width="52" height="36" /></span></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</body>
+
+</html>
