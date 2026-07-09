@@ -22,7 +22,9 @@ export default function LoginPage() {
       setUser(result.user)
 
       const redirect = searchParams.get("redirect")
-      navigate(redirect || "/customer/checkout")
+      const safeRedirect =
+        redirect && redirect.startsWith("/") && !redirect.startsWith("//") ? redirect : null
+      navigate(safeRedirect || "/customer/checkout")
     } catch (err: any) {
       const message =
         err.response?.data?.error?.message ??

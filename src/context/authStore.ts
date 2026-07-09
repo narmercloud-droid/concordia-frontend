@@ -1,5 +1,16 @@
 ﻿import { create } from "zustand"
 
+function readStoredUser() {
+  try {
+    const raw = localStorage.getItem("user")
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch {
+    localStorage.removeItem("user")
+    return null
+  }
+}
+
 interface AuthState {
   user: any | null
   token: string | null
@@ -9,7 +20,7 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: JSON.parse(localStorage.getItem("user") || "null"),
+  user: readStoredUser(),
   token: localStorage.getItem("accessToken"),
 
   setUser: (user) => {

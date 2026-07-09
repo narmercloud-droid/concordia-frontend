@@ -17,7 +17,7 @@ export type CheckoutDraftMode = "guest" | "account"
 export type CheckoutDraftVoucher = {
   code: string
   discountAmount: number
-  kind?: "promo" | "gift"
+  kind?: "promo" | "gift" | "customer_coupon"
   balanceRemaining?: number
 }
 

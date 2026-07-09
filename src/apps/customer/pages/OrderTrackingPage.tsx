@@ -65,18 +65,20 @@ export default function OrderTrackingPage() {
       })
     }
 
-    socket.on("order_status", onStatus)
-    socket.on("courier_location", onLocation)
-    socket.on("tracking_update", (payload: any) => {
+    const onTrackingUpdate = (payload: { courierLocation?: CourierLocation }) => {
       if (payload?.courierLocation) {
         setCourierLocation(payload.courierLocation)
       }
-    })
+    }
+
+    socket.on("order_status", onStatus)
+    socket.on("courier_location", onLocation)
+    socket.on("tracking_update", onTrackingUpdate)
 
     return () => {
       socket.off("order_status", onStatus)
       socket.off("courier_location", onLocation)
-      socket.off("tracking_update")
+      socket.off("tracking_update", onTrackingUpdate)
     }
   }, [order?.trackingToken, orderId, queryClient])
 

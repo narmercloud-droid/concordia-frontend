@@ -332,7 +332,13 @@
     "retryPayment": "Retry payment",
     "paypalOrderSavedTitle": "Order saved — pay with PayPal now",
     "paypalTapButtonHint": "Tap the gold PayPal button below. Your order is only sent to the kitchen after payment succeeds.",
-    "changePaymentMethod": "Choose a different payment method"
+    "changePaymentMethod": "Choose a different payment method",
+    "payCardHint": "Debit or credit card (Visa, Mastercard)",
+    "payPayPalHint": "Pay quickly and securely with your PayPal account",
+    "payApplePayHint": "Pay with Apple Pay on your device",
+    "payGooglePayHint": "Pay with Google Pay on your device",
+    "payCashHint": "Pay in cash on {{method}}",
+    "paymentSecureNote": "Secure payment — your data is encrypted via Stripe and PayPal"
   },
   "item": {
     "loading": "आइटम लोड हो रहा है…",

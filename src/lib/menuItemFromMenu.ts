@@ -11,6 +11,11 @@ export type FatMenuItem = {
   extraPricing?: { sizeBased?: boolean; hint?: string }
 }
 
-export function isFatMenuItem(item: unknown): item is FatMenuItem {
-  return !!item && typeof item === "object" && "variantGroups" in item
+export function isFatMenuItem(item: unknown): boolean {
+  if (!item || typeof item !== "object") return false
+  const row = item as FatMenuItem
+  return (
+    (Array.isArray(row.variantGroups) && row.variantGroups.length > 0) ||
+    (Array.isArray(row.addOnGroups) && row.addOnGroups.length > 0)
+  )
 }

@@ -115,8 +115,12 @@ export default function CheckoutPage() {
     allowed: boolean
     deliveryFee: number
     freeDelivery: boolean
-    message?: string
     minimumOrder?: number
+    freeDeliveryMinimum?: number
+    amountToFreeDelivery?: number
+    message?: string
+    method?: string
+    distanceKm?: number
   } | null>(null)
   const [quoteLoading, setQuoteLoading] = useState(false)
   const [orderNotes, setOrderNotes] = useState(() => savedDraft?.orderNotes ?? "")
@@ -236,12 +240,13 @@ export default function CheckoutPage() {
   const needsOnlinePayment = needsStripePayment || needsPayPalPayment
 
   useEffect(() => {
+    if (awaitingPaymentOrderId) return
     if (paymentMethods[paymentChoice]) return
     const fallback = (
       ["cash", "card", "apple_pay", "google_pay", "paypal"] as PaymentChoice[]
     ).find((method) => paymentMethods[method])
     if (fallback) setPaymentChoice(fallback)
-  }, [paymentConfig, paymentMethods, paymentChoice])
+  }, [paymentConfig, paymentMethods, paymentChoice, awaitingPaymentOrderId])
 
   useEffect(() => {
     if (!branchId) return
@@ -287,6 +292,7 @@ export default function CheckoutPage() {
       return
     }
 
+    let cancelled = false
     const timer = setTimeout(async () => {
       setQuoteLoading(true)
       try {
@@ -300,15 +306,18 @@ export default function CheckoutPage() {
             lng: addressFields.lng
           }
         )
-        setDeliveryQuote(quote)
+        if (!cancelled) setDeliveryQuote(quote)
       } catch {
-        setDeliveryQuote(null)
+        if (!cancelled) setDeliveryQuote(null)
       } finally {
-        setQuoteLoading(false)
+        if (!cancelled) setQuoteLoading(false)
       }
     }, 500)
 
-    return () => clearTimeout(timer)
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
   }, [addressFields, branchId, deliveryAddress, fulfillmentType, postalCode, total])
 
   useEffect(() => {
@@ -887,16 +896,6 @@ export default function CheckoutPage() {
     setAwaitingPaymentOrderId(null)
     setError("")
   }
-
-  useEffect(() => {
-    if (!awaitingPaymentOrderId || needsOnlinePayment) return
-    void cancelUnpaidOrder(awaitingPaymentOrderId, "customer_abandoned")
-      .catch(() => undefined)
-      .finally(() => {
-        setAwaitingPaymentOrderId(null)
-        setPendingCardOrderId(null)
-      })
-  }, [awaitingPaymentOrderId, needsOnlinePayment])
 
   useEffect(() => {
     if (!pendingCardOrderId || !needsPayPalPayment) return

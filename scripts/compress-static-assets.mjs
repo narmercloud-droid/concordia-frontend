@@ -106,6 +106,22 @@ async function recompressHeroVideo() {
   }
 }
 
+async function compressWebBrandLogos() {
+  const targets = [
+    { file: "concordia-logo-web-header.png", maxWidth: 480, quality: 82 },
+    { file: "concordia-logo-web-icon.png", maxWidth: 192, quality: 82 }
+  ];
+
+  console.log("\nWeb brand logos -> WebP");
+  for (const { file, maxWidth, quality } of targets) {
+    const inputPath = path.join(publicDir, "images", file);
+    if (!fs.existsSync(inputPath)) continue;
+    const base = file.replace(/\.png$/i, "");
+    const outputPath = path.join(publicDir, "images", `${base}.webp`);
+    await writeWebp(inputPath, outputPath, { maxWidth, quality });
+  }
+}
+
 async function compressBrandPngs() {
   const paletteTargets = ["concordia-logo-people-tiered.png", "concordia-logo-wordmark.png"];
   console.log("\nBrand PNGs (optimize in place)");
@@ -129,6 +145,7 @@ async function main() {
   await compressOwnerPortraits();
   await shrinkNotificationLogo();
   await recompressHeroVideo();
+  await compressWebBrandLogos();
   await compressBrandPngs();
   console.log("\nDone.");
 }

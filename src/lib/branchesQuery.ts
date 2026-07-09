@@ -21,5 +21,5 @@ export const branchesQueryOptions = {
   refetchOnWindowFocus: false,
   initialData: () => readBranchListCache() ?? undefined,
   initialDataUpdatedAt: () => readBranchListCacheUpdatedAt() ?? 0,
-  placeholderData: (previous: unknown) => previous ?? readBranchListCache() ?? undefined
-}
+  placeholderData: (previous: any[] | undefined) => previous ?? readBranchListCache() ?? undefined
+} as const

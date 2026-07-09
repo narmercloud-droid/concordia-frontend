@@ -14,6 +14,9 @@ export type CustomerUser = {
   loyaltyPoints: number
   loyaltyTier: string
   lifetimePoints?: number
+  marketingEmail?: boolean
+  marketingSMS?: boolean
+  marketingWhatsApp?: boolean
 }
 
 export const registerCustomer = async (data: {
