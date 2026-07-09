@@ -1,21 +1,23 @@
 import React, { Suspense } from "react"
 import AdminLayout from "./layouts/AdminLayout.js"
 import AdminAuthLayout from "./layouts/AdminAuthLayout.js"
-const AdminLoginPage = React.lazy(() => import("./pages/AdminLoginPage.js"))
-const DashboardPage = React.lazy(() => import("./pages/DashboardPage.js"))
-const MenuPage = React.lazy(() => import("./pages/MenuPage.js"))
-const OrdersPage = React.lazy(() => import("./pages/OrdersPage.js"))
-const HoursPage = React.lazy(() => import("./pages/HoursPage.js"))
-const DeliveryAreasPage = React.lazy(() => import("./pages/DeliveryAreasPage.js"))
-const CustomersPage = React.lazy(() => import("./pages/CustomersPage.js"))
-const StaffPage = React.lazy(() => import("./pages/StaffPage.js"))
-const PermissionsPage = React.lazy(() => import("./pages/PermissionsPage.js"))
-const PlatformSettingsPage = React.lazy(() => import("./pages/PlatformSettingsPage.js"))
-const BranchOffersPage = React.lazy(() => import("./pages/BranchOffersPage.js"))
-const AnalyticsPage = React.lazy(() => import("./pages/AnalyticsPage.js"))
-const ReportsPage = React.lazy(() => import("./pages/ReportsPage.js"))
-const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
-const SMSCampaignPage = React.lazy(() => import("./pages/SMSCampaignPage.js"))
+import { lazyWithRetry } from "@/lib/lazyWithRetry.js"
+import RouteChunkError from "@/components/RouteChunkError.js"
+const AdminLoginPage = lazyWithRetry(() => import("./pages/AdminLoginPage.js"))
+const DashboardPage = lazyWithRetry(() => import("./pages/DashboardPage.js"))
+const MenuPage = lazyWithRetry(() => import("./pages/MenuPage.js"))
+const OrdersPage = lazyWithRetry(() => import("./pages/OrdersPage.js"))
+const HoursPage = lazyWithRetry(() => import("./pages/HoursPage.js"))
+const DeliveryAreasPage = lazyWithRetry(() => import("./pages/DeliveryAreasPage.js"))
+const CustomersPage = lazyWithRetry(() => import("./pages/CustomersPage.js"))
+const StaffPage = lazyWithRetry(() => import("./pages/StaffPage.js"))
+const PermissionsPage = lazyWithRetry(() => import("./pages/PermissionsPage.js"))
+const PlatformSettingsPage = lazyWithRetry(() => import("./pages/PlatformSettingsPage.js"))
+const BranchOffersPage = lazyWithRetry(() => import("./pages/BranchOffersPage.js"))
+const AnalyticsPage = lazyWithRetry(() => import("./pages/AnalyticsPage.js"))
+const ReportsPage = lazyWithRetry(() => import("./pages/ReportsPage.js"))
+const ReviewsPage = lazyWithRetry(() => import("./pages/ReviewsPage.js"))
+const SMSCampaignPage = lazyWithRetry(() => import("./pages/SMSCampaignPage.js"))
 import AdminProtectedRoute from "@/router/AdminProtectedRoute"
 import AdminPermissionRoute, { AdminHomeRedirect } from "@/router/AdminPermissionRoute"
 
@@ -44,6 +46,7 @@ export const adminRoutes = {
           <AdminLayout />
         </AdminProtectedRoute>
       ),
+      errorElement: <RouteChunkError />,
       children: [
         { index: true, element: <AdminHomeRedirect /> },
         { path: "dashboard", element: guard("dashboard", <DashboardPage />) },

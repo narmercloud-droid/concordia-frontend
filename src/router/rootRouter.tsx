@@ -9,6 +9,7 @@ import { courierRoutes } from "@/apps/courier/routes.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 import ComingSoonPage from "@/pages/ComingSoonPage.js"
+import RouteChunkError from "@/components/RouteChunkError.js"
 import { hasComingSoonBypass, isComingSoonActive } from "@/lib/comingSoon.js"
 
 function RootLayout() {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <RouteChunkError />,
     children: [
       homeRoutes,
       infoRoutes,
