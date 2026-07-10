@@ -2,7 +2,7 @@ export const SITE_URL = "https://www.concordiapizza.de"
 export const SITE_NAME = "Pizzeria Concordia"
 export const DEFAULT_HOME_TITLE =
   "Pizzeria Concordia- Pizza Online Bestellen, Pizza - Pasta - Schnitzel - Salat - Imbiss"
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/concordia-logo-web-hero.png?v=20260627`
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/concordia-logo-web-hero.webp?v=20260709`
 
 export type PageSeo = {
   title: string

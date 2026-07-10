@@ -20,7 +20,8 @@ export default defineConfig({
             !dep.includes("/courier/") &&
             !dep.includes("charts") &&
             !dep.includes("maps") &&
-            !dep.includes("qr")
+            !dep.includes("qr") &&
+            !dep.includes("capacitor")
         )
       }
     },
