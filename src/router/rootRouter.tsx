@@ -1,19 +1,16 @@
 import React, { Suspense } from "react"
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom"
-import type { LazyRouteFunction, RouteObject } from "react-router-dom"
 import customerRoutes, { branchRoutes } from "../apps/customer/routes.js"
 import { RedirectLegacyTrack } from "../apps/customer/branchRedirects.js"
 import homeRoutes from "../apps/customer/homeRoutes.js"
 import infoRoutes from "../apps/customer/infoRoutes.js"
+import adminRoutes from "../apps/admin/routes.js"
+import { courierRoutes } from "@/apps/courier/routes.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 import ComingSoonPage from "@/pages/ComingSoonPage.js"
 import RouteChunkError from "@/components/RouteChunkError.js"
 import { hasComingSoonBypass, isComingSoonActive } from "@/lib/comingSoon.js"
-
-function lazyRoute(loader: () => Promise<RouteObject>): LazyRouteFunction<RouteObject> {
-  return loader as LazyRouteFunction<RouteObject>
-}
 
 function RootLayout() {
   if (isComingSoonActive() && !hasComingSoonBypass()) {
@@ -39,18 +36,8 @@ export const router = createBrowserRouter([
       customerRoutes,
       { path: "checkout", element: <Navigate to="/customer/checkout" replace /> },
       { path: "track/:orderId", element: <RedirectLegacyTrack /> },
-      {
-        lazy: lazyRoute(async () => {
-          const { adminRoutes } = await import("../apps/admin/routes.js")
-          return adminRoutes
-        })
-      },
-      {
-        lazy: lazyRoute(async () => {
-          const { courierRoutes } = await import("@/apps/courier/routes.js")
-          return courierRoutes
-        })
-      },
+      adminRoutes,
+      courierRoutes,
       {
         path: "*",
         element: <NotFoundPage />
