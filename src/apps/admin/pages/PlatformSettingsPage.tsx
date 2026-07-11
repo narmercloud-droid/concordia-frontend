@@ -195,6 +195,18 @@ export default function PlatformSettingsPage() {
 
   if (globalLoading) return <p>Loading platform settings…</p>
 
+  if (!global) {
+    return (
+      <div style={{ maxWidth: 720 }}>
+        <h2>Platform settings</h2>
+        <p style={{ color: "crimson" }}>
+          Could not load platform settings. Your session may have expired — try signing out and
+          back in.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div style={{ maxWidth: 900 }}>
       <h2>Platform settings</h2>

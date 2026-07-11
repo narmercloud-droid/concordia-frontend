@@ -1,5 +1,6 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
 import { isNativeApp, nativeApiBase, nativeSocketUrl } from "@/lib/nativeApp.js"
+import { isAdminApiUrl, redirectToAdminLogin } from "@/lib/adminSession.js"
 
 const isDev = import.meta.env.DEV
 /** Socket.IO and native apps hit the API host directly (Vercel only proxies HTTP /api). */
@@ -75,13 +76,7 @@ api.interceptors.request.use((config) => {
   }
 
   const url = config.url ?? ""
-  const isAdmin =
-    url.includes("/api/v1/manager") ||
-    url.includes("/api/v1/super-admin") ||
-    url.includes("/api/auth/admin") ||
-    url.includes("/api/v1/admin") ||
-    url.includes("/api/admin/") ||
-    url.includes("/api/payments/branches")
+  const isAdmin = isAdminApiUrl(url)
 
   const token = isAdmin
     ? localStorage.getItem("adminToken")
@@ -111,9 +106,13 @@ api.interceptors.response.use(
       return api(config)
     }
 
+    const requestUrl = config?.url ?? ""
+    if (isAdminApiUrl(requestUrl) && (status === 401 || status === 403)) {
+      redirectToAdminLogin(status === 403 ? "forbidden" : "expired")
+    }
+
     if (isDev) {
-      const url = config?.url
-      console.warn("[api]", status ?? "network", url ?? "unknown", error.message)
+      console.warn("[api]", status ?? "network", requestUrl || "unknown", error.message)
     }
     return Promise.reject(error)
   }

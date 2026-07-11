@@ -57,6 +57,15 @@ export default function BranchHoursEditor({
       invalidateCustomerWebsiteCaches(queryClient, branchId)
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
+    },
+    onError: (err: any) => {
+      const message =
+        err?.response?.data?.error?.message ??
+        err?.response?.data?.error ??
+        err?.response?.data?.message ??
+        err?.message ??
+        "Could not save opening hours"
+      window.alert(`Could not save opening hours: ${message}`)
     }
   })
 

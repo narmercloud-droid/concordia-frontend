@@ -31,23 +31,23 @@ export function permissionAllowed(
 export function useAdminPermissions() {
   const admin = useAdminAuthStore((s) => s.admin)
   const token = useAdminAuthStore((s) => s.token)
-  const isSuperAdmin = admin?.role === "admin"
 
-  const { data, isLoading: sessionLoading } = useQuery({
+  const { data, isLoading: sessionLoading, isError: sessionError } = useQuery({
     queryKey: ["managerSession"],
     queryFn: getManagerSession,
     staleTime: 5 * 60_000,
-    enabled: Boolean(token)
+    enabled: Boolean(token),
+    retry: false
   })
 
   const permissions = (data?.permissions ?? {}) as ManagerPermissions
+  const isSuperAdmin = data?.isSuperAdmin === true || admin?.role === "admin"
 
   const can = (key: string) => permissionAllowed(permissions, key, isSuperAdmin)
 
   const canAny = (keys: string[]) => keys.some((k) => can(k))
 
-  // Super admin role is already known from login — don't block the whole panel on session API
-  const isLoading = isSuperAdmin ? false : sessionLoading
+  const isLoading = Boolean(token) && sessionLoading
 
-  return { can, canAny, permissions, isLoading, sessionLoading, isSuperAdmin }
+  return { can, canAny, permissions, isLoading, sessionLoading, sessionError, isSuperAdmin }
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
+import { useSearchParams } from "react-router-dom"
 import Input from "@/components/ui/Input"
 import Button from "@/components/ui/Button"
 import { adminLogin } from "@/api/adminAuth"
@@ -10,12 +11,19 @@ import { useNavigate } from "react-router-dom"
 export default function AdminLoginPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const [searchParams] = useSearchParams()
   const setToken = useAdminAuthStore((s) => s.setToken)
   const setAdmin = useAdminAuthStore((s) => s.setAdmin)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const sessionNotice =
+    searchParams.get("session") === "expired"
+      ? "Your admin session expired. Please sign in again."
+      : searchParams.get("session") === "forbidden"
+        ? "Your admin session is no longer valid. Please sign in again."
+        : ""
 
   const handleLogin = async () => {
     try {
@@ -56,6 +64,8 @@ export default function AdminLoginPage() {
         value={password}
         onChange={(e: any) => setPassword(e.target.value)}
       />
+
+      {sessionNotice && <div style={{ color: "#b45309" }}>{sessionNotice}</div>}
 
       {error && <div style={{ color: "red" }}>{error}</div>}
 
