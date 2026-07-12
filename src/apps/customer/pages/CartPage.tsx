@@ -5,7 +5,8 @@ import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { useQuery } from "@tanstack/react-query"
-import { getBranches, getBranchDeliveryAreas } from "@/api/customer"
+import { getBranchDeliveryAreas } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { formatCurrency } from "@/utils/format"
 import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
@@ -24,8 +25,8 @@ export default function CartPage() {
   const branchId = items[0]?.branchId ?? ""
   const platformPromo = usePlatformPromo()
   const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions,
     enabled: !!branchId
   })
   const { data: deliveryInfo } = useQuery({

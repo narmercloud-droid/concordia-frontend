@@ -2,7 +2,8 @@ import React, { useMemo, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
-import { getBranchGoogleReviews, getBranches, type BranchGoogleReviewsResponse } from "@/api/customer"
+import { getBranchGoogleReviews, type BranchGoogleReviewsResponse } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import googleReviewsSnapshot from "@/data/googleReviewsSnapshot.json"
 
 const FALLBACK_REVIEW_KEYS = ["r1", "r2", "r3", "r4", "r5"] as const
@@ -43,9 +44,8 @@ function starsFor(rating: number) {
 export default function ReviewsPage() {
   const { t } = useTranslation()
   const { data: branches = [] } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
-    staleTime: 600_000
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions
   })
 
   const reviewBranches = useMemo(

@@ -26,9 +26,9 @@ export function usePlatformPromo() {
       const res = await api.get("/api/platform-promo")
       return unwrap<PlatformPromo>(res)
     },
-    staleTime: 0,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true
+    staleTime: 5 * 60_000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false
   })
 
   return data ?? DEFAULT

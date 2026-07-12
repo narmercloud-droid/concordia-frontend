@@ -6,13 +6,13 @@ import { Trans, useTranslation } from "react-i18next"
 import {
   createOrder,
   cancelUnpaidOrder,
-  getBranches,
   getBranchDeliveryAreas,
   getBranchTimeSlots,
   getDeliveryQuote,
   getFreeDrinkOptions,
   validatePromoCode
 } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { listAddresses, type SavedAddress } from "@/api/addresses"
 import { createStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
@@ -190,8 +190,8 @@ export default function CheckoutPage() {
   }
 
   const { data: branches, isLoading: branchesLoading } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions
   })
 
   const branchInfo = branches?.find(

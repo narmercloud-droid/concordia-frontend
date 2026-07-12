@@ -10,6 +10,7 @@ import { KEMPEN_BRANCH_ID } from "@/lib/customerPaths"
 
 import { categoryForItem, pickFeatured, type FeaturedMenuCategory } from "@/lib/featuredMenu"
 import { bestsellersQueryOptions, menuQueryOptionsFor } from "@/lib/customerQueryOptions"
+import { getMenuLang } from "@/lib/menuLang"
 
 import { dishImageForName } from "@/lib/foodImagery"
 
@@ -25,17 +26,19 @@ export default function HomeFeaturedMenu({ branchId }: Props) {
   const { t, i18n } = useTranslation()
   const activeBranch = branchId ?? KEMPEN_BRANCH_ID
 
-  const menuOpts = menuQueryOptionsFor(activeBranch, i18n.language)
+  const menuLang = getMenuLang()
+
+  const menuOpts = menuQueryOptionsFor(activeBranch, menuLang)
   const { data } = useQuery({
     ...menuOpts,
-    queryKey: ["branchMenu", activeBranch, i18n.language],
+    queryKey: ["branchMenu", activeBranch, menuLang],
     queryFn: () => getBranchMenu(activeBranch)
   })
 
   const menuReady = !!data?.categories?.length
 
   const { data: bestsellersData } = useQuery({
-    queryKey: ["branchBestsellers", activeBranch, i18n.language],
+    queryKey: ["branchBestsellers", activeBranch, menuLang],
     queryFn: () => getBranchBestsellers(activeBranch),
     enabled: menuReady,
     ...bestsellersQueryOptions

@@ -66,7 +66,7 @@ for (const branchId of branches) {
   results.push(
     await check(`menu:${branchId}`, async () => {
       const body = await fetchJson(`${apiUrl}/api/branches/${branchId}/menu`);
-      const categories = body?.categories ?? body?.menu?.categories ?? [];
+      const categories = body?.data?.categories ?? body?.categories ?? body?.menu?.categories ?? [];
       if (!Array.isArray(categories)) throw new Error("Invalid menu payload");
       return { categories: categories.length };
     })

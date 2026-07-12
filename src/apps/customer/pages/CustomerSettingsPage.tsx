@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranches } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import {
   addAddress,
   deleteAddress,
@@ -90,9 +90,8 @@ export default function CustomerSettingsPage() {
   }, [location.pathname])
 
   const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
-    staleTime: 10 * 60_000
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions
   })
   const geoBranchId =
     branches?.find((b: { id: string }) => b.id === KEMPEN_BRANCH_ID)?.id ??

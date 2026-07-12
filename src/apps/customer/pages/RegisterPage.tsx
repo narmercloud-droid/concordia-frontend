@@ -38,7 +38,12 @@ export default function RegisterPage() {
       setUser(result.user)
 
       const redirect = searchParams.get("redirect")
-      navigate(redirect || `/offers${searchParams.get("branchId") ? `?branchId=${searchParams.get("branchId")}` : ""}#coupons`)
+      const safeRedirect =
+        redirect && redirect.startsWith("/") && !redirect.startsWith("//") ? redirect : null
+      navigate(
+        safeRedirect ||
+          `/offers${searchParams.get("branchId") ? `?branchId=${searchParams.get("branchId")}` : ""}#coupons`
+      )
     } catch (err: any) {
       const message =
         err.response?.data?.error?.message ??

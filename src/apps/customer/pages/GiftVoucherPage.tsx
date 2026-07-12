@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { Trans, useTranslation } from "react-i18next"
-import { getBranches } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { purchaseGiftCard } from "@/api/giftCards"
 import { createGiftCardStripePaymentIntent, getPaymentConfig } from "@/api/payments"
 import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
@@ -44,8 +44,8 @@ export default function GiftVoucherPage() {
   const [acceptedTerms, setAcceptedTerms] = useState(false)
 
   const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions
   })
 
   const { data: paymentConfig } = useQuery({

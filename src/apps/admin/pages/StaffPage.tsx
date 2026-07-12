@@ -6,7 +6,7 @@ import {
   updateStaff,
   deleteStaff
 } from "@/api/staff"
-import { getBranches } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import AdminTable from "../components/AdminTable.js"
 import AdminModal from "../components/AdminModal.js"
 import AdminForm from "../components/AdminForm.js"
@@ -16,8 +16,8 @@ export default function StaffPage() {
 
   const { data: staff } = useQuery({ queryKey: ["staff"], queryFn: getStaff })
   const { data: branches } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions
   })
 
   const [formValues, setFormValues] = useState({

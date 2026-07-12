@@ -56,37 +56,43 @@ export default function AnalyticsPage() {
   const salesQuery = useQuery({
     queryKey: ["salesAnalytics", branchId],
     queryFn: () => getSalesAnalytics(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const volumeQuery = useQuery({
     queryKey: ["orderVolume", branchId],
     queryFn: () => getOrderVolumeAnalytics(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const categoriesQuery = useQuery({
     queryKey: ["categoryPerformance", branchId],
     queryFn: () => getCategoryPerformance(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const branchesQuery = useQuery({
     queryKey: ["branchPerformance", branchId],
     queryFn: () => getBranchPerformance(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const peakQuery = useQuery({
     queryKey: ["peakHours", branchId],
     queryFn: () => getPeakHours(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const topItemsQuery = useQuery({
     queryKey: ["topItems", branchId],
     queryFn: () => getTopItems(branchId),
-    enabled: !!branchId
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
   const queries = [
@@ -98,8 +104,8 @@ export default function AnalyticsPage() {
     topItemsQuery
   ]
 
-  const isLoading = queries.some((query) => query.isLoading)
   const failedQueries = queries.filter((query) => query.isError)
+  const isInitialLoad = queries.every((query) => query.isLoading)
 
   if (!branchId) {
     return (
@@ -110,7 +116,7 @@ export default function AnalyticsPage() {
     )
   }
 
-  if (isLoading) {
+  if (isInitialLoad) {
     return (
       <div style={{ padding: 20 }}>
         <h2>Analytics Dashboard</h2>
@@ -139,7 +145,9 @@ export default function AnalyticsPage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
         <ChartCard title="Sales Over Time">
-          {salesQuery.data?.labels?.length ? (
+          {salesQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : salesQuery.data?.labels?.length ? (
             <Line
               data={{
                 labels: salesQuery.data.labels,
@@ -159,7 +167,9 @@ export default function AnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Order Volume">
-          {volumeQuery.data?.labels?.length ? (
+          {volumeQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : volumeQuery.data?.labels?.length ? (
             <Bar
               data={{
                 labels: volumeQuery.data.labels,
@@ -178,7 +188,9 @@ export default function AnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Category Performance">
-          {categoriesQuery.data?.labels?.length ? (
+          {categoriesQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : categoriesQuery.data?.labels?.length ? (
             <Pie
               data={{
                 labels: categoriesQuery.data.labels,
@@ -196,7 +208,9 @@ export default function AnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Branch Performance">
-          {branchesQuery.data?.labels?.length ? (
+          {branchesQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : branchesQuery.data?.labels?.length ? (
             <Bar
               data={{
                 labels: branchesQuery.data.labels,
@@ -215,7 +229,9 @@ export default function AnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Peak Hours">
-          {peakQuery.data?.labels?.length ? (
+          {peakQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : peakQuery.data?.labels?.length ? (
             <Line
               data={{
                 labels: peakQuery.data.labels,
@@ -235,7 +251,9 @@ export default function AnalyticsPage() {
         </ChartCard>
 
         <ChartCard title="Top Items">
-          {topItemsQuery.data?.labels?.length ? (
+          {topItemsQuery.isLoading ? (
+            <p style={{ color: "#64748b" }}>Loading…</p>
+          ) : topItemsQuery.data?.labels?.length ? (
             <Bar
               data={{
                 labels: topItemsQuery.data.labels,

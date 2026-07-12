@@ -10,6 +10,7 @@ import { useCartStore, type CartItem, type CartSelection } from "@/store/cartSto
 
 import { readItemDetailsCache } from "@/lib/itemDetailsCache"
 import { isFatMenuItem } from "@/lib/menuItemFromMenu"
+import { getMenuLang } from "@/lib/menuLang"
 import { resolveAppLanguage } from "@/i18n/languages"
 
 import {
@@ -156,7 +157,7 @@ export function useItemOptions(
     isError,
     refetch
   } = useQuery({
-    queryKey: ["itemDetails", branchId, itemId, i18n.language],
+    queryKey: ["itemDetails", branchId, itemId, getMenuLang()],
     queryFn: () => getItemDetails(branchId, String(itemId)),
     enabled: !!branchId && !!itemId && !menuSeed,
     retry: 3,

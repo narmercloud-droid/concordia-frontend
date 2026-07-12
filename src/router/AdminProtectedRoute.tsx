@@ -1,5 +1,6 @@
-﻿import React, { useEffect, useState } from "react"
+﻿import React, { useEffect } from "react"
 import { Navigate } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 import { getManagerSession } from "@/api/manager"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import { useAdminAuthStore } from "@/context/adminAuthStore"
@@ -7,40 +8,24 @@ import { useAdminAuthStore } from "@/context/adminAuthStore"
 export default function AdminProtectedRoute({ children }: { children: React.ReactNode }) {
   const token = useAdminAuthStore((s) => s.token)
   const logout = useAdminAuthStore((s) => s.logout)
-  const [sessionState, setSessionState] = useState<"checking" | "ok" | "failed">(
-    token ? "checking" : "failed"
-  )
+
+  const { isLoading, isError } = useQuery({
+    queryKey: ["managerSession"],
+    queryFn: getManagerSession,
+    staleTime: 5 * 60_000,
+    enabled: Boolean(token),
+    retry: false
+  })
 
   useEffect(() => {
-    if (!token) {
-      setSessionState("failed")
-      return
-    }
+    if (isError) logout()
+  }, [isError, logout])
 
-    let cancelled = false
-    setSessionState("checking")
-
-    getManagerSession()
-      .then(() => {
-        if (!cancelled) setSessionState("ok")
-      })
-      .catch(() => {
-        if (!cancelled) {
-          logout()
-          setSessionState("failed")
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [token, logout])
-
-  if (!token || sessionState === "failed") {
+  if (!token || isError) {
     return <Navigate to="/admin/login" replace />
   }
 
-  if (sessionState === "checking") {
+  if (isLoading) {
     return <LoadingFallback />
   }
 

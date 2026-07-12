@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getBranches } from "@/api/customer"
+import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { useAdminAuthStore } from "@/context/adminAuthStore"
 import { useAdminBranchStore } from "@/context/adminBranchStore"
 
@@ -13,8 +13,8 @@ export function useAdminBranch() {
   const setSelectedBranchId = useAdminBranchStore((s) => s.setSelectedBranchId)
 
   const { data: branches = [] } = useQuery({
-    queryKey: ["branches"],
-    queryFn: getBranches,
+    queryKey: BRANCHES_QUERY_KEY,
+    ...branchesQueryOptions,
     enabled: isSuperAdmin
   })
 
