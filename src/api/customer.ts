@@ -276,6 +276,13 @@ export const reverseGeocodeLocation = async (branchId: string, lat: number, lng:
   }>(res)
 }
 
+export const lookupPostalCodeCity = async (branchId: string, postalCode: string) => {
+  const res = await api.get(`/api/branches/${branchId}/postal-code-lookup`, {
+    params: { postalCode }
+  })
+  return unwrap<{ postalCode: string; city: string }>(res)
+}
+
 export const suggestAddresses = async (
   branchId: string,
   query: string,

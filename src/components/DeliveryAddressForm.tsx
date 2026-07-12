@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import {
   getBranchDeliveryAreas,
+  lookupPostalCodeCity,
   reverseGeocodeLocation,
   suggestAddresses
 } from "@/api/customer"
@@ -51,9 +52,13 @@ export default function DeliveryAddressForm({
   const [locationFilled, setLocationFilled] = useState(false)
   const [showExtras, setShowExtras] = useState(Boolean(value.floor.trim()))
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [cityFromPlz, setCityFromPlz] = useState(false)
+  const [plzLookupLoading, setPlzLookupLoading] = useState(false)
   const streetContainerRef = useRef<HTMLDivElement>(null)
   const houseNumberRef = useRef<HTMLInputElement>(null)
   const requestId = useRef(0)
+  const valueRef = useRef(value)
+  valueRef.current = value
 
   const { data: deliveryAreasData } = useQuery({
     queryKey: ["deliveryAreas", branchId],
@@ -70,7 +75,7 @@ export default function DeliveryAddressForm({
     () => deliveryAreas.find((area) => area.postalCode === value.postalCode.trim()),
     [deliveryAreas, value.postalCode]
   )
-  const cityAutoFilled = Boolean(usePostcodeDropdown && matchedArea?.city)
+  const cityAutoFilled = Boolean((usePostcodeDropdown && matchedArea?.city) || cityFromPlz)
   const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
   const regionLabel = branchDisplayName(branchName) || branchCity || t("checkout.deliveryAreaFallback")
 
@@ -82,16 +87,57 @@ export default function DeliveryAddressForm({
     ) {
       setLocationFilled(false)
     }
-    onChange({ ...value, ...partial })
+    onChange({ ...valueRef.current, ...partial })
   }
 
   const handlePostalCodeChange = (postalCode: string) => {
     const area = deliveryAreas.find((a) => a.postalCode === postalCode)
+    if (area?.city) {
+      setCityFromPlz(true)
+      patch({
+        postalCode,
+        city: area.city
+      })
+      return
+    }
+
+    setCityFromPlz(false)
     patch({
       postalCode,
-      city: area?.city ?? (postalCode.length < 5 ? "" : value.city)
+      city: postalCode.length < 5 ? "" : value.city
     })
   }
+
+  useEffect(() => {
+    const plz = value.postalCode.trim()
+    if (!/^\d{5}$/.test(plz)) {
+      setPlzLookupLoading(false)
+      return
+    }
+    if (matchedArea?.city) return
+
+    let cancelled = false
+    const timer = window.setTimeout(async () => {
+      setPlzLookupLoading(true)
+      try {
+        const result = await lookupPostalCodeCity(branchId, plz)
+        if (cancelled) return
+        if (result.city) {
+          patch({ city: result.city })
+          setCityFromPlz(true)
+        }
+      } catch {
+        if (!cancelled) setCityFromPlz(false)
+      } finally {
+        if (!cancelled) setPlzLookupLoading(false)
+      }
+    }, 350)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+    }
+  }, [branchId, value.postalCode, matchedArea?.city])
 
   const handleUseLocation = () => {
     setLocationError("")
@@ -323,12 +369,18 @@ export default function DeliveryAddressForm({
             id="checkout-city"
             className={`customer-input${cityAutoFilled ? " customer-input--readonly" : ""}`}
             placeholder={t("checkout.addressCityPlaceholder")}
-            value={value.city}
-            onChange={(e) => patch({ city: e.target.value })}
+            value={plzLookupLoading && !value.city ? "" : value.city}
+            onChange={(e) => {
+              setCityFromPlz(false)
+              patch({ city: e.target.value })
+            }}
             readOnly={cityAutoFilled}
             autoComplete="address-level2"
             aria-readonly={cityAutoFilled}
           />
+          {plzLookupLoading && (
+            <p className="customer-hint">{t("checkout.cityLookupLoading")}</p>
+          )}
         </div>
 
         <div

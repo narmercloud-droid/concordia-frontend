@@ -239,6 +239,7 @@
     "addressSelectPostcode": "Postleitzahl wählen",
     "addressCity": "Stadt",
     "addressCityPlaceholder": "z. B. Kempen",
+    "cityLookupLoading": "Stadt wird ermittelt…",
     "addressStreet": "Straße",
     "addressStreetPlaceholder": "Straßenname eintippen",
     "addressHouseNumber": "Hausnummer",

@@ -239,6 +239,7 @@
     "addressSelectPostcode": "Select postal code",
     "addressCity": "City",
     "addressCityPlaceholder": "e.g. Kempen",
+    "cityLookupLoading": "Looking up city…",
     "addressStreet": "Street name",
     "addressStreetPlaceholder": "Start typing the street name",
     "addressHouseNumber": "House / building no.",
