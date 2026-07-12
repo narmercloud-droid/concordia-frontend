@@ -162,10 +162,21 @@ export default function CheckoutPage() {
   const [birthday, setBirthday] = useState(() => savedDraft?.birthday ?? "")
   const [birthdayError, setBirthdayError] = useState("")
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(() => {
-    const token = localStorage.getItem("accessToken")
-    const user = JSON.parse(localStorage.getItem("user") || "null")
-    const loggedIn = !!token && !!user?.id
-    if (loggedIn) return "account"
+    try {
+      const token = localStorage.getItem("accessToken")
+      const raw = localStorage.getItem("user")
+      let user: { id?: string } | null = null
+      if (raw) {
+        try {
+          user = JSON.parse(raw) as { id?: string }
+        } catch {
+          user = null
+        }
+      }
+      if (token && user?.id) return "account"
+    } catch {
+      /* ignore corrupt storage */
+    }
     return savedDraft?.checkoutMode ?? "guest"
   })
   const [validationModalOpen, setValidationModalOpen] = useState(false)
@@ -511,6 +522,24 @@ export default function CheckoutPage() {
     }
     return estimatedFreeDeliveryGap
   }, [fulfillmentType, deliveryQuote, estimatedFreeDeliveryGap])
+
+  const minimumOrderGap = useMemo(() => {
+    if (fulfillmentType !== "delivery" || !deliveryQuote?.allowed) return null
+    const min = deliveryQuote.minimumOrder
+    if (min == null || total >= min) return null
+    return Math.round((min - total) * 100) / 100
+  }, [fulfillmentType, deliveryQuote, total])
+
+  const freeDrinkGap = useMemo(() => {
+    if (!showFreeDrinkCheckout || freeDrinkMin <= 0 || qualifiesForFreeDrink) return null
+    return Math.round((freeDrinkMin - total) * 100) / 100
+  }, [showFreeDrinkCheckout, freeDrinkMin, qualifiesForFreeDrink, total])
+
+  const showCheckoutThresholds =
+    (fulfillmentType === "delivery" &&
+      (quoteLoading || deliveryQuote?.allowed || deliveryQuote?.minimumOrder != null)) ||
+    (showFreeDrinkCheckout && freeDrinkMin > 0) ||
+    freeDrinkGap != null
 
   if (items.length === 0) return null
 
@@ -992,215 +1021,6 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      <div className="customer-card">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-          <h3 className="customer-subtitle" style={{ margin: 0 }}>
-            {t("checkout.summary")}
-          </h3>
-          <Link to="/customer/cart" className="customer-hint" style={{ color: "var(--c-accent)" }}>
-            {t("cart.edit")}
-          </Link>
-        </div>
-        {items.map((i) => (
-          <div key={i.cartKey} className="customer-summary-line">
-            <div>
-              {i.name} × {i.quantity} = {formatCurrency(i.quantity * i.unitPrice)}
-            </div>
-            {i.variants.length > 0 && (
-              <div className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</div>
-            )}
-            {i.addOns.length > 0 && (
-              <div className="customer-card__meta">
-                + {i.addOns.map((a) => a.name).join(", ")}
-              </div>
-            )}
-            {i.notes && <div className="customer-card__meta">{i.notes}</div>}
-          </div>
-        ))}
-
-        {showFreeDrinkCheckout && qualifiesForFreeDrink && (
-          <p className="customer-alert customer-alert--success" style={{ marginTop: 12 }}>
-            {branchPromo?.freeDrinkMessage ??
-              t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
-          </p>
-        )}
-        {showFreeDrinkCheckout && needsFreeDrinkSelection && (
-          <div
-            ref={freeDrinkSectionRef}
-            className="checkout-free-drink checkout-free-drink--summary"
-            style={{ marginTop: 12 }}
-          >
-            <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
-            <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
-            {freeDrinkLoading ? (
-              <p className="customer-hint">{t("common.processing")}</p>
-            ) : (
-              <div className="checkout-free-drink__options" role="radiogroup">
-                {freeDrinkOptions.map((drink) => (
-                  <label
-                    key={drink.id}
-                    className={`checkout-free-drink__option${
-                      freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="freeDrink"
-                      value={drink.id}
-                      checked={freeDrinkChoice === drink.id}
-                      onChange={() => {
-                        setFreeDrinkChoice(drink.id)
-                        setFreeDrinkError("")
-                        setError("")
-                      }}
-                    />
-                    <span>{drink.label}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-            {!freeDrinkChosen && !freeDrinkLoading && (
-              <p className="customer-error">{t("checkout.freeDrinkRequired")}</p>
-            )}
-            {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
-          </div>
-        )}
-        {showFreeDrinkCheckout && freeDrinkMin > 0 && !qualifiesForFreeDrink && (
-          <p className="customer-hint">
-            {t("checkout.freeDrinkMore", { amount: (freeDrinkMin - total).toFixed(2) })}
-          </p>
-        )}
-        <p className="customer-hint checkout-summary__subtotal">
-          {t("common.subtotal")}: {formatCurrency(subtotal)}
-        </p>
-        {websiteDiscount > 0 && (
-          <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} compact />
-        )}
-        {websiteDiscount > 0 && (
-          <p className="customer-hint checkout-summary__food-note">
-            {t("checkout.websiteDiscountFoodOnly")}
-          </p>
-        )}
-        {voucherDiscount > 0 && appliedVoucher && (
-          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
-            {t("checkout.voucherApplied", {
-              code: appliedVoucher.code,
-              amount: formatCurrency(voucherDiscount)
-            })}
-          </p>
-        )}
-        {fulfillmentType === "delivery" && deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
-          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
-            {t("checkout.freeDeliveryQualify")}
-          </p>
-        )}
-        {fulfillmentType === "delivery" && freeDeliveryGap != null && freeDeliveryGap > 0 && (
-          <div className="customer-alert customer-alert--info" style={{ marginTop: 8 }}>
-            <p style={{ margin: 0 }}>
-              {t("checkout.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
-            </p>
-            <Link
-              to={`/branch/${branchId}`}
-              className="customer-btn"
-              style={{ marginTop: 8, display: "inline-block" }}
-            >
-              {t("checkout.freeDeliveryAddItems")}
-            </Link>
-          </div>
-        )}
-        {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
-          <p className="customer-hint">
-            {appliedVoucher?.freeDelivery || deliveryQuote.freeDelivery
-              ? t("checkout.deliveryFree")
-              : t("checkout.deliveryFee", {
-                  amount: formatCurrency(deliveryFee)
-                })}
-          </p>
-        )}
-        <p className="customer-total-line checkout-summary__total">
-          {websiteDiscount > 0 ? (
-            <>
-              <span className="checkout-summary__original">
-                {formatCurrency(grandTotal + websiteDiscount)}
-              </span>
-              {t("common.total")}: {formatCurrency(grandTotal)}
-            </>
-          ) : (
-            <>{t("common.total")}: {formatCurrency(grandTotal)}</>
-          )}
-        </p>
-        <p className="customer-hint">{paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)}</p>
-      </div>
-
-      <div className="customer-field">
-        {allowCheckoutVouchers ? (
-          <>
-        <label className="customer-label" htmlFor="checkout-voucher">
-          {t("checkout.voucherLabel")}
-        </label>
-        {isLoggedIn && walletData?.activatedCouponId && (
-          <p className="customer-hint" style={{ marginBottom: 8 }}>
-            {t("checkout.walletCouponHint")}
-          </p>
-        )}
-        <div className="checkout-voucher">
-          <input
-            id="checkout-voucher"
-            className="customer-input checkout-voucher__input"
-            placeholder={t("checkout.voucherPlaceholder")}
-            value={voucherInput}
-            onChange={(e) => {
-              setVoucherInput(e.target.value.toUpperCase())
-              if (appliedVoucher) setAppliedVoucher(null)
-              setVoucherError("")
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault()
-                void handleApplyVoucher()
-              }
-            }}
-            disabled={voucherLoading}
-          />
-          <button
-            type="button"
-            className="checkout-voucher__btn"
-            onClick={() => void handleApplyVoucher()}
-            disabled={voucherLoading || !voucherInput.trim()}
-          >
-            {voucherLoading ? t("common.processing") : t("checkout.voucherApply")}
-          </button>
-        </div>
-        {voucherError && <p className="customer-error">{voucherError}</p>}
-        {appliedVoucher && (
-          <div className="checkout-voucher__applied">
-            <span>
-              {appliedVoucher.kind === "gift" && appliedVoucher.balanceRemaining != null
-                ? t("checkout.giftCardActive", {
-                    code: appliedVoucher.code,
-                    amount: formatCurrency(appliedVoucher.discountAmount),
-                    remaining: formatCurrency(appliedVoucher.balanceRemaining)
-                  })
-                : t("checkout.voucherActive", {
-                    code: appliedVoucher.code,
-                    amount: formatCurrency(appliedVoucher.discountAmount)
-                  })}
-            </span>
-            <button
-              type="button"
-              className="checkout-voucher__remove"
-              onClick={handleRemoveVoucher}
-            >
-              {t("checkout.voucherRemove")}
-            </button>
-          </div>
-        )}
-          </>
-        ) : (
-          <p className="customer-hint">{t("checkout.voucherNotCombinable")}</p>
-        )}
-      </div>
-
       <div className="customer-field">
         <label className="customer-label">{t("checkout.orderType")}</label>
         <div className="checkout-choice-grid checkout-choice-grid--2">
@@ -1231,85 +1051,6 @@ export default function CheckoutPage() {
             onClick={() => setFulfillmentType("pickup")}
           />
         </div>
-      </div>
-
-      <div className="customer-field" ref={scheduleFieldRef}>
-        <label className="customer-label">{t("checkout.when")}</label>
-        <div className="checkout-choice-grid checkout-choice-grid--2">
-          <CheckoutChoiceCard
-            active={timingMode === "asap"}
-            disabled={branchClosed}
-            title={t("checkout.asap")}
-            hint={branchClosed ? t("checkout.asapUnavailableClosed") : t("checkout.asapHint")}
-            icon={
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 7v5l3 2" />
-              </svg>
-            }
-            onClick={() => !branchClosed && setTimingMode("asap")}
-          />
-          <CheckoutChoiceCard
-            active={timingMode === "scheduled"}
-            title={t("checkout.scheduled")}
-            hint={t("checkout.scheduledHint")}
-            icon={
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <rect x="4" y="5" width="16" height="15" rx="2" />
-                <path d="M8 3v4M16 3v4M4 10h16" />
-              </svg>
-            }
-            onClick={() => setTimingMode("scheduled")}
-          />
-        </div>
-
-        {timingMode === "scheduled" && (
-          <div className="checkout-schedule-picker">
-            <label className="customer-label" htmlFor="checkout-schedule-time">
-              {t("checkout.chooseTimeDetailed")}
-            </label>
-            <select
-              id="checkout-schedule-time"
-              className={`customer-select${scheduleError ? " customer-select--invalid" : ""}`}
-              value={scheduledFor}
-              onChange={(e) => {
-                setScheduledFor(e.target.value)
-                setScheduleError("")
-              }}
-            >
-              <option value="">{t("checkout.chooseTime")}</option>
-              {timeSlots.map((slot) => (
-                <option key={slot.value} value={slot.value}>
-                  {slot.label}
-                </option>
-              ))}
-            </select>
-            {scheduleError && <p className="customer-error">{scheduleError}</p>}
-            {branchClosed && !slotsLoading && timeSlots.length === 0 && (
-              <p className="customer-error">{t("checkout.noScheduleSlots")}</p>
-            )}
-          </div>
-        )}
-      </div>
-
-      <div className="customer-field">
-        <label className="customer-label">{t("checkout.paymentMethod")}</label>
-        <PaymentMethodPicker
-          methods={paymentMethods}
-          selected={paymentChoice}
-          paymentLocked={paymentLocked}
-          cashHint={t("checkout.payCashHint", { method: cashPaymentLabel })}
-          onSelect={(method: PaymentMethodId) => {
-            setPaymentChoice(method)
-            setPendingCardOrderId(null)
-            setPendingStripeSession(null)
-          }}
-        />
-        {isLoggedIn && needsStripePayment && (
-          <p className="customer-hint checkout-save-payment-hint">
-            {t("checkout.savePaymentMethodHint")}
-          </p>
-        )}
       </div>
 
       <div className="customer-field" ref={nameFieldRef}>
@@ -1398,17 +1139,340 @@ export default function CheckoutPage() {
           {deliveryQuote && !deliveryQuote.allowed && (
             <p className="customer-error">{deliveryQuote.message}</p>
           )}
-          {deliveryQuote?.allowed &&
+        </div>
+      )}
+
+      {showCheckoutThresholds ? (
+        <div className="customer-card checkout-thresholds">
+          <h3 className="customer-subtitle">{t("checkout.thresholdsTitle")}</h3>
+          {fulfillmentType === "delivery" && quoteLoading && (
+            <p className="customer-hint">{t("checkout.checkingDelivery")}</p>
+          )}
+          {fulfillmentType === "delivery" &&
+            deliveryQuote?.allowed &&
             deliveryQuote.minimumOrder != null &&
-            total < deliveryQuote.minimumOrder && (
-              <p className="customer-error">
-                {t("checkout.minimumOrder", {
+            minimumOrderGap == null && (
+              <p className="customer-alert customer-alert--success">
+                {t("checkout.minimumOrderMet", {
                   amount: formatCurrency(deliveryQuote.minimumOrder)
                 })}
               </p>
             )}
+          {fulfillmentType === "delivery" && minimumOrderGap != null && minimumOrderGap > 0 && (
+            <div className="customer-alert customer-alert--info">
+              <p style={{ margin: 0 }}>
+                {t("checkout.minimumOrderNudge", {
+                  amount: formatCurrency(minimumOrderGap)
+                })}
+              </p>
+              <Link
+                to={`/branch/${branchId}`}
+                className="customer-btn"
+                style={{ marginTop: 8, display: "inline-block" }}
+              >
+                {t("checkout.freeDeliveryAddItems")}
+              </Link>
+            </div>
+          )}
+          {fulfillmentType === "delivery" && deliveryQuote?.allowed && deliveryQuote.freeDelivery && (
+            <p className="customer-alert customer-alert--success">
+              {t("checkout.freeDeliveryQualify")}
+            </p>
+          )}
+          {fulfillmentType === "delivery" && freeDeliveryGap != null && freeDeliveryGap > 0 && (
+            <div className="customer-alert customer-alert--info">
+              <p style={{ margin: 0 }}>
+                {t("checkout.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
+              </p>
+              <Link
+                to={`/branch/${branchId}`}
+                className="customer-btn"
+                style={{ marginTop: 8, display: "inline-block" }}
+              >
+                {t("checkout.freeDeliveryAddItems")}
+              </Link>
+            </div>
+          )}
+          {showFreeDrinkCheckout && qualifiesForFreeDrink && (
+            <p className="customer-alert customer-alert--success">
+              {branchPromo?.freeDrinkMessage ??
+                t("checkout.freeDrinkQualify", { amount: freeDrinkMin })}
+            </p>
+          )}
+          {showFreeDrinkCheckout && freeDrinkGap != null && freeDrinkGap > 0 && (
+            <div className="customer-alert customer-alert--info">
+              <p style={{ margin: 0 }}>
+                {t("checkout.freeDrinkMore", { amount: freeDrinkGap.toFixed(2) })}
+              </p>
+              <Link
+                to={`/branch/${branchId}`}
+                className="customer-btn"
+                style={{ marginTop: 8, display: "inline-block" }}
+              >
+                {t("checkout.freeDeliveryAddItems")}
+              </Link>
+            </div>
+          )}
         </div>
-      )}
+      ) : null}
+
+      <div className="customer-field" ref={scheduleFieldRef}>
+        <label className="customer-label">{t("checkout.when")}</label>
+        <div className="checkout-choice-grid checkout-choice-grid--2">
+          <CheckoutChoiceCard
+            active={timingMode === "asap"}
+            disabled={branchClosed}
+            title={t("checkout.asap")}
+            hint={branchClosed ? t("checkout.asapUnavailableClosed") : t("checkout.asapHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+            }
+            onClick={() => !branchClosed && setTimingMode("asap")}
+          />
+          <CheckoutChoiceCard
+            active={timingMode === "scheduled"}
+            title={t("checkout.scheduled")}
+            hint={t("checkout.scheduledHint")}
+            icon={
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="4" y="5" width="16" height="15" rx="2" />
+                <path d="M8 3v4M16 3v4M4 10h16" />
+              </svg>
+            }
+            onClick={() => setTimingMode("scheduled")}
+          />
+        </div>
+
+        {timingMode === "scheduled" && (
+          <div className="checkout-schedule-picker">
+            <label className="customer-label" htmlFor="checkout-schedule-time">
+              {t("checkout.chooseTimeDetailed")}
+            </label>
+            <select
+              id="checkout-schedule-time"
+              className={`customer-select${scheduleError ? " customer-select--invalid" : ""}`}
+              value={scheduledFor}
+              onChange={(e) => {
+                setScheduledFor(e.target.value)
+                setScheduleError("")
+              }}
+            >
+              <option value="">{t("checkout.chooseTime")}</option>
+              {timeSlots.map((slot) => (
+                <option key={slot.value} value={slot.value}>
+                  {slot.label}
+                </option>
+              ))}
+            </select>
+            {scheduleError && <p className="customer-error">{scheduleError}</p>}
+            {branchClosed && !slotsLoading && timeSlots.length === 0 && (
+              <p className="customer-error">{t("checkout.noScheduleSlots")}</p>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="customer-field">
+        <label className="customer-label">{t("checkout.paymentMethod")}</label>
+        <PaymentMethodPicker
+          methods={paymentMethods}
+          selected={paymentChoice}
+          paymentLocked={paymentLocked}
+          cashHint={t("checkout.payCashHint", { method: cashPaymentLabel })}
+          onSelect={(method: PaymentMethodId) => {
+            setPaymentChoice(method)
+            setPendingCardOrderId(null)
+            setPendingStripeSession(null)
+          }}
+        />
+        {isLoggedIn && needsStripePayment && (
+          <p className="customer-hint checkout-save-payment-hint">
+            {t("checkout.savePaymentMethodHint")}
+          </p>
+        )}
+      </div>
+
+      <div className="customer-field">
+        {allowCheckoutVouchers ? (
+          <>
+        <label className="customer-label" htmlFor="checkout-voucher">
+          {t("checkout.voucherLabel")}
+        </label>
+        {isLoggedIn && walletData?.activatedCouponId && (
+          <p className="customer-hint" style={{ marginBottom: 8 }}>
+            {t("checkout.walletCouponHint")}
+          </p>
+        )}
+        <div className="checkout-voucher">
+          <input
+            id="checkout-voucher"
+            className="customer-input checkout-voucher__input"
+            placeholder={t("checkout.voucherPlaceholder")}
+            value={voucherInput}
+            onChange={(e) => {
+              setVoucherInput(e.target.value.toUpperCase())
+              if (appliedVoucher) setAppliedVoucher(null)
+              setVoucherError("")
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                void handleApplyVoucher()
+              }
+            }}
+            disabled={voucherLoading}
+          />
+          <button
+            type="button"
+            className="checkout-voucher__btn"
+            onClick={() => void handleApplyVoucher()}
+            disabled={voucherLoading || !voucherInput.trim()}
+          >
+            {voucherLoading ? t("common.processing") : t("checkout.voucherApply")}
+          </button>
+        </div>
+        {voucherError && <p className="customer-error">{voucherError}</p>}
+        {appliedVoucher && (
+          <div className="checkout-voucher__applied">
+            <span>
+              {appliedVoucher.kind === "gift" && appliedVoucher.balanceRemaining != null
+                ? t("checkout.giftCardActive", {
+                    code: appliedVoucher.code,
+                    amount: formatCurrency(appliedVoucher.discountAmount),
+                    remaining: formatCurrency(appliedVoucher.balanceRemaining)
+                  })
+                : t("checkout.voucherActive", {
+                    code: appliedVoucher.code,
+                    amount: formatCurrency(appliedVoucher.discountAmount)
+                  })}
+            </span>
+            <button
+              type="button"
+              className="checkout-voucher__remove"
+              onClick={handleRemoveVoucher}
+            >
+              {t("checkout.voucherRemove")}
+            </button>
+          </div>
+        )}
+          </>
+        ) : (
+          <p className="customer-hint">{t("checkout.voucherNotCombinable")}</p>
+        )}
+      </div>
+
+      <div className="customer-card">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+          <h3 className="customer-subtitle" style={{ margin: 0 }}>
+            {t("checkout.summary")}
+          </h3>
+          <Link to="/customer/cart" className="customer-hint" style={{ color: "var(--c-accent)" }}>
+            {t("cart.edit")}
+          </Link>
+        </div>
+        {items.map((i) => (
+          <div key={i.cartKey} className="customer-summary-line">
+            <div>
+              {i.name} × {i.quantity} = {formatCurrency(i.quantity * i.unitPrice)}
+            </div>
+            {i.variants.length > 0 && (
+              <div className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</div>
+            )}
+            {i.addOns.length > 0 && (
+              <div className="customer-card__meta">
+                + {i.addOns.map((a) => a.name).join(", ")}
+              </div>
+            )}
+            {i.notes && <div className="customer-card__meta">{i.notes}</div>}
+          </div>
+        ))}
+
+        {showFreeDrinkCheckout && needsFreeDrinkSelection && (
+          <div
+            ref={freeDrinkSectionRef}
+            className="checkout-free-drink checkout-free-drink--summary"
+            style={{ marginTop: 12 }}
+          >
+            <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
+            <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
+            {freeDrinkLoading ? (
+              <p className="customer-hint">{t("common.processing")}</p>
+            ) : (
+              <div className="checkout-free-drink__options" role="radiogroup">
+                {freeDrinkOptions.map((drink) => (
+                  <label
+                    key={drink.id}
+                    className={`checkout-free-drink__option${
+                      freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="freeDrink"
+                      value={drink.id}
+                      checked={freeDrinkChoice === drink.id}
+                      onChange={() => {
+                        setFreeDrinkChoice(drink.id)
+                        setFreeDrinkError("")
+                        setError("")
+                      }}
+                    />
+                    <span>{drink.label}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+            {!freeDrinkChosen && !freeDrinkLoading && (
+              <p className="customer-error">{t("checkout.freeDrinkRequired")}</p>
+            )}
+            {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
+          </div>
+        )}
+        <p className="customer-hint checkout-summary__subtotal">
+          {t("common.subtotal")}: {formatCurrency(subtotal)}
+        </p>
+        {websiteDiscount > 0 && (
+          <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} compact />
+        )}
+        {websiteDiscount > 0 && (
+          <p className="customer-hint checkout-summary__food-note">
+            {t("checkout.websiteDiscountFoodOnly")}
+          </p>
+        )}
+        {voucherDiscount > 0 && appliedVoucher && (
+          <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
+            {t("checkout.voucherApplied", {
+              code: appliedVoucher.code,
+              amount: formatCurrency(voucherDiscount)
+            })}
+          </p>
+        )}
+        {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
+          <p className="customer-hint">
+            {appliedVoucher?.freeDelivery || deliveryQuote.freeDelivery
+              ? t("checkout.deliveryFree")
+              : t("checkout.deliveryFee", {
+                  amount: formatCurrency(deliveryFee)
+                })}
+          </p>
+        )}
+        <p className="customer-total-line checkout-summary__total">
+          {websiteDiscount > 0 ? (
+            <>
+              <span className="checkout-summary__original">
+                {formatCurrency(grandTotal + websiteDiscount)}
+              </span>
+              {t("common.total")}: {formatCurrency(grandTotal)}
+            </>
+          ) : (
+            <>{t("common.total")}: {formatCurrency(grandTotal)}</>
+          )}
+        </p>
+        <p className="customer-hint">{paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)}</p>
+      </div>
 
       <div className="customer-field">
         <label className="customer-label">

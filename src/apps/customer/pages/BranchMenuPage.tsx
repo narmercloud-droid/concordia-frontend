@@ -75,22 +75,23 @@ function BranchMenuCategoryNav({
 
   return (
     <nav className="branch-menu__nav" aria-label={categoriesLabel}>
-      <p className="branch-menu__sidebar-label">{categoriesLabel}</p>
-      {bestSellers.length > 0 && (
-        <a
-          className={linkClass(BEST_SELLERS_SECTION_ID, true)}
-          href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
-        >
-          <span className="branch-menu__nav-text">{bestSellersLabel}</span>
-          <span className="branch-menu__nav-count">{bestSellers.length}</span>
-        </a>
-      )}
-      {categories.map((cat) => (
-        <a key={cat.id} className={linkClass(cat.id)} href={`#${categoryAnchor(cat.id)}`}>
-          <span className="branch-menu__nav-text">{cat.name}</span>
-          <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
-        </a>
-      ))}
+      <div className="branch-menu__nav-scroll">
+        {bestSellers.length > 0 && (
+          <a
+            className={linkClass(BEST_SELLERS_SECTION_ID, true)}
+            href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
+          >
+            <span className="branch-menu__nav-text">{bestSellersLabel}</span>
+            <span className="branch-menu__nav-count">{bestSellers.length}</span>
+          </a>
+        )}
+        {categories.map((cat) => (
+          <a key={cat.id} className={linkClass(cat.id)} href={`#${categoryAnchor(cat.id)}`}>
+            <span className="branch-menu__nav-text">{cat.name}</span>
+            <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
+          </a>
+        ))}
+      </div>
     </nav>
   )
 }
@@ -195,8 +196,20 @@ export default function BranchMenuPage() {
   useEffect(() => {
     if (!sectionIds.length) return
 
+    const scrollMarker = () => {
+      const siteNav = document.querySelector(".customer-site-nav-wrap")
+      const menuNav = document.querySelector(".branch-menu__nav-bar")
+      const siteH = siteNav?.getBoundingClientRect().height ?? 0
+      const menuH = menuNav?.getBoundingClientRect().height ?? 0
+      const siteStuck = siteNav != null && siteNav.getBoundingClientRect().top <= 0
+      const menuStuck = menuNav != null && menuNav.getBoundingClientRect().top <= (siteStuck ? siteH : 0)
+      const stickyH =
+        (siteStuck ? siteH : 0) + (menuStuck ? menuH : 0)
+      return stickyH + 12
+    }
+
     const updateActiveSection = () => {
-      const marker = window.innerWidth < 720 ? 96 : 80
+      const marker = scrollMarker()
       let current = sectionIds[0]
 
       for (const id of sectionIds) {
@@ -218,6 +231,12 @@ export default function BranchMenuPage() {
       window.removeEventListener("resize", updateActiveSection)
     }
   }, [sectionIds])
+
+  useEffect(() => {
+    if (activeSectionId == null) return
+    const activeLink = document.querySelector(".branch-menu__nav-link--active")
+    activeLink?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" })
+  }, [activeSectionId])
 
   useEffect(() => {
     if (activeSectionId != null || !sectionIds.length) return
@@ -311,18 +330,17 @@ export default function BranchMenuPage() {
         <h2 className="customer-title">{t("menu.title")}</h2>
       </header>
 
-      <div className="branch-menu__body">
-        <aside className="branch-menu__sidebar" aria-label={t("menu.categories")}>
-          <BranchMenuCategoryNav
-            activeSectionId={activeSectionId}
-            bestSellers={bestSellers}
-            categories={categories}
-            categoriesLabel={t("menu.categories")}
-            bestSellersLabel={t("menu.bestSellers")}
-          />
-        </aside>
+      <div className="branch-menu__nav-bar">
+        <BranchMenuCategoryNav
+          activeSectionId={activeSectionId}
+          bestSellers={bestSellers}
+          categories={categories}
+          categoriesLabel={t("menu.categories")}
+          bestSellersLabel={t("menu.bestSellers")}
+        />
+      </div>
 
-        <div className="branch-menu__content">
+      <div className="branch-menu__content">
       {bestSellers.length > 0 && (
         <section
           id={categoryAnchor(BEST_SELLERS_SECTION_ID)}
@@ -376,7 +394,6 @@ export default function BranchMenuPage() {
         </section>
       ))}
 
-          </div>
       </div>
 
       {branchId && selectedItem && (
