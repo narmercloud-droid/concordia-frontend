@@ -55,6 +55,7 @@ type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
 type PaymentChoice = "cash" | "card" | "apple_pay" | "google_pay" | "paypal" | "klarna" | "sepa"
 type CheckoutMode = "guest" | "account"
+type CheckoutStep = 1 | 2 | 3
 
 type CheckoutValidationIssue = {
   id: string
@@ -181,6 +182,15 @@ export default function CheckoutPage() {
   })
   const [validationModalOpen, setValidationModalOpen] = useState(false)
   const [validationIssues, setValidationIssues] = useState<CheckoutValidationIssue[]>([])
+  const [checkoutStep, setCheckoutStep] = useState<CheckoutStep>(1)
+  const [voucherExpanded, setVoucherExpanded] = useState(() =>
+    Boolean(savedDraft?.appliedVoucher || savedDraft?.voucherInput?.trim())
+  )
+  const [marketingExpanded, setMarketingExpanded] = useState(false)
+  const [notesExpanded, setNotesExpanded] = useState(() => Boolean(savedDraft?.orderNotes?.trim()))
+  const [expressDismissed, setExpressDismissed] = useState(false)
+  const defaultAddressAppliedRef = useRef(false)
+  const prevFulfillmentRef = useRef<FulfillmentType>(fulfillmentType)
 
   const deliveryAddress = formatDeliveryAddress(addressFields)
   const postalCode = addressFields.postalCode.trim() || null
@@ -289,6 +299,29 @@ export default function CheckoutPage() {
     enabled: !!branchId && fulfillmentType === "delivery",
     staleTime: 60_000
   })
+
+  useEffect(() => {
+    if (!isLoggedIn || fulfillmentType !== "delivery" || savedAddresses.length === 0) return
+    if (hadSavedDraft.current && isDeliveryAddressComplete(addressFields)) return
+    if (defaultAddressAppliedRef.current) return
+    const preferred = savedAddresses.find((a) => a.isDefault) ?? savedAddresses[0]
+    if (preferred) {
+      applySavedAddress(preferred)
+      defaultAddressAppliedRef.current = true
+    }
+  }, [isLoggedIn, savedAddresses, fulfillmentType])
+
+  useEffect(() => {
+    if (prevFulfillmentRef.current === fulfillmentType) return
+    prevFulfillmentRef.current = fulfillmentType
+    if (fulfillmentType === "pickup" && paymentMethods.cash && !awaitingPaymentOrderId) {
+      setPaymentChoice("cash")
+    }
+  }, [fulfillmentType, paymentMethods.cash, awaitingPaymentOrderId])
+
+  useEffect(() => {
+    if (appliedVoucher) setVoucherExpanded(true)
+  }, [appliedVoucher])
 
   const freeDrinkOptions = freeDrinkData?.options ?? []
   const needsFreeDrinkSelection = qualifiesForFreeDrink
@@ -628,7 +661,7 @@ export default function CheckoutPage() {
     }
   }
 
-  const validateCheckout = (): CheckoutValidationIssue[] => {
+  const validateCheckout = (forStep?: CheckoutStep): CheckoutValidationIssue[] => {
     setError("")
     setNameError("")
     setPhoneError("")
@@ -639,6 +672,7 @@ export default function CheckoutPage() {
     setBirthdayError("")
 
     const issues: CheckoutValidationIssue[] = []
+    const includeStep = (step: CheckoutStep) => forStep == null || forStep === step
     const addIssue = (
       id: string,
       message: string,
@@ -648,21 +682,21 @@ export default function CheckoutPage() {
       issues.push({ id, message, focus: options?.focus })
     }
 
-    if (!name.trim()) {
+    if (includeStep(1) && !name.trim()) {
       addIssue("name", t("checkout.nameRequired"), {
         setFieldError: setNameError,
         focus: () => scrollToField(nameFieldRef)
       })
     }
 
-    if (!phone.trim()) {
+    if (includeStep(1) && !phone.trim()) {
       addIssue("phone", t("checkout.phoneRequired"), {
         setFieldError: setPhoneError,
         focus: () => scrollToField(phoneFieldRef)
       })
     }
 
-    if (fulfillmentType === "delivery") {
+    if (includeStep(1) && fulfillmentType === "delivery") {
       if (quoteLoading) {
         addIssue("deliveryQuote", t("checkout.checkingDelivery"))
       } else if (!/^\d{5}$/.test(addressFields.postalCode.trim())) {
@@ -711,27 +745,27 @@ export default function CheckoutPage() {
       }
     }
 
-    if (timingMode === "scheduled" && !scheduledFor) {
+    if (includeStep(2) && timingMode === "scheduled" && !scheduledFor) {
       addIssue("schedule", t("checkout.scheduleRequired"), {
         setFieldError: setScheduleError,
         focus: () => scrollToField(scheduleFieldRef)
       })
     }
 
-    if (branchClosed && timingMode === "asap") {
+    if (includeStep(2) && branchClosed && timingMode === "asap") {
       addIssue("branchClosed", t("checkout.branchClosedAsap"), {
         focus: () => scrollToField(scheduleFieldRef)
       })
     }
 
-    if (timingMode === "scheduled" && !slotsLoading && timeSlots.length === 0) {
+    if (includeStep(2) && timingMode === "scheduled" && !slotsLoading && timeSlots.length === 0) {
       addIssue("noScheduleSlots", t("checkout.noScheduleSlots"), {
         setFieldError: setScheduleError,
         focus: () => scrollToField(scheduleFieldRef)
       })
     }
 
-    if (needsFreeDrinkSelection && !freeDrinkChosen) {
+    if (includeStep(1) && needsFreeDrinkSelection && !freeDrinkChosen) {
       const message = t("checkout.freeDrinkRequired")
       addIssue("freeDrink", message, {
         setFieldError: setFreeDrinkError,
@@ -739,25 +773,27 @@ export default function CheckoutPage() {
       })
     }
 
-    if (marketingEmail && !customerEmail.trim()) {
+    if (includeStep(3) && marketingEmail && !customerEmail.trim()) {
       addIssue("email", t("checkout.emailRequiredForOffers"), {
         setFieldError: setEmailError,
         focus: () => scrollToField(marketingSectionRef)
       })
     }
 
-    const hasMarketing = marketingEmail || marketingSMS || marketingWhatsApp
-    if (hasMarketing && birthday) {
-      const parsed = new Date(birthday)
-      if (Number.isNaN(parsed.getTime())) {
-        addIssue("birthday", t("checkout.birthdayInvalid"), {
-          setFieldError: setBirthdayError,
-          focus: () => scrollToField(marketingSectionRef)
-        })
+    if (includeStep(3)) {
+      const hasMarketing = marketingEmail || marketingSMS || marketingWhatsApp
+      if (hasMarketing && birthday) {
+        const parsed = new Date(birthday)
+        if (Number.isNaN(parsed.getTime())) {
+          addIssue("birthday", t("checkout.birthdayInvalid"), {
+            setFieldError: setBirthdayError,
+            focus: () => scrollToField(marketingSectionRef)
+          })
+        }
       }
     }
 
-    if (!paymentMethods[paymentChoice]) {
+    if (includeStep(2) && !paymentMethods[paymentChoice]) {
       addIssue("payment", t("checkout.paymentMethodUnavailable"))
     }
 
@@ -949,8 +985,180 @@ export default function CheckoutPage() {
   const cashPaymentLabel =
     fulfillmentType === "pickup" ? t("checkout.paymentPickup") : t("checkout.paymentDelivery")
 
+  const selectedAddressLabel = useMemo(() => {
+    if (fulfillmentType !== "delivery" || !isDeliveryAddressComplete(addressFields)) return null
+    const match = savedAddresses.find((address) => {
+      const parsed = parseLegacyAddress(address.street)
+      const street = parsed.houseNumber ? parsed.street : address.street
+      return (
+        address.postalCode.trim() === addressFields.postalCode.trim() &&
+        address.city.trim() === addressFields.city.trim() &&
+        street.trim() === addressFields.street.trim() &&
+        (parsed.houseNumber || "").trim() === addressFields.houseNumber.trim()
+      )
+    })
+    return match?.label ?? deliveryAddress
+  }, [savedAddresses, addressFields, fulfillmentType, deliveryAddress])
+
+  const canExpressCheckout = useMemo(() => {
+    if (!isLoggedIn || expressDismissed || paymentLocked) return false
+    if (!name.trim() || !phone.trim()) return false
+    if (fulfillmentType === "delivery") {
+      if (!isDeliveryAddressComplete(addressFields) || quoteLoading) return false
+      if (!deliveryQuote?.allowed) return false
+      if (deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder) return false
+    }
+    if (needsFreeDrinkSelection && !freeDrinkChosen) return false
+    if (timingMode === "scheduled" && !scheduledFor) return false
+    if (branchClosed && timingMode === "asap") return false
+    if (!paymentMethods[paymentChoice]) return false
+    return true
+  }, [
+    isLoggedIn,
+    expressDismissed,
+    paymentLocked,
+    name,
+    phone,
+    fulfillmentType,
+    addressFields,
+    quoteLoading,
+    deliveryQuote,
+    total,
+    needsFreeDrinkSelection,
+    freeDrinkChosen,
+    timingMode,
+    scheduledFor,
+    branchClosed,
+    paymentMethods,
+    paymentChoice
+  ])
+
+  const stepSummaries = useMemo(
+    () => ({
+      1:
+        fulfillmentType === "pickup"
+          ? t("checkout.stepSummaryPickup", { name: name.trim() || "—" })
+          : t("checkout.stepSummaryDelivery", {
+              name: name.trim() || "—",
+              address: selectedAddressLabel ?? t("checkout.completeAddress")
+            }),
+      2: t("checkout.stepSummaryPayment", {
+        timing: timingMode === "asap" ? t("checkout.asap") : t("checkout.scheduled"),
+        payment: paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)
+      }),
+      3: t("checkout.stepSummaryReview", { amount: formatCurrency(grandTotal) })
+    }),
+    [
+      fulfillmentType,
+      name,
+      selectedAddressLabel,
+      timingMode,
+      paymentChoice,
+      cashPaymentLabel,
+      grandTotal,
+      t
+    ]
+  )
+
+  const goToStep = (step: CheckoutStep) => {
+    setCheckoutStep(step)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const handleStepContinue = (fromStep: CheckoutStep) => {
+    const issues = validateCheckout(fromStep)
+    if (issues.length > 0) {
+      openValidationModal(issues)
+      return
+    }
+    if (fromStep < 3) goToStep((fromStep + 1) as CheckoutStep)
+  }
+
+  const stickyBarVisible =
+    !pendingStripeSession && !pendingCardOrderId && !validationModalOpen
+
+  const stickyCtaLabel =
+    checkoutStep < 3
+      ? t("checkout.stepContinue")
+      : createMutation.isPending || branchesLoading
+        ? t("common.processing")
+        : awaitingPaymentOrderId && !pendingStripeSession && !pendingCardOrderId
+          ? t("checkout.retryPaymentPayable", { amount: formatCurrency(grandTotal) })
+          : needsOnlinePayment
+            ? t("checkout.continueToPaymentPayable", { amount: formatCurrency(grandTotal) })
+            : t("checkout.placeOrderPayable", { amount: formatCurrency(grandTotal) })
+
+  const handleStickyAction = () => {
+    if (checkoutStep < 3) {
+      handleStepContinue(checkoutStep)
+      return
+    }
+    void handleSubmit()
+  }
+
+  const selectedFreeDrinkLabel =
+    freeDrinkChosen && typeof freeDrinkChoice === "number"
+      ? freeDrinkOptions.find((d) => d.id === freeDrinkChoice)?.label
+      : null
+
+  const renderFreeDrinkPicker = (className?: string) => (
+    <div
+      ref={freeDrinkSectionRef}
+      className={`checkout-free-drink${className ? ` ${className}` : ""}`}
+    >
+      <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
+      <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
+      {freeDrinkLoading ? (
+        <p className="customer-hint">{t("common.processing")}</p>
+      ) : (
+        <div className="checkout-free-drink__options" role="radiogroup">
+          {freeDrinkOptions.map((drink) => (
+            <label
+              key={drink.id}
+              className={`checkout-free-drink__option${
+                freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
+              }`}
+            >
+              <input
+                type="radio"
+                name="freeDrink"
+                value={drink.id}
+                checked={freeDrinkChoice === drink.id}
+                onChange={() => {
+                  setFreeDrinkChoice(drink.id)
+                  setFreeDrinkError("")
+                  setError("")
+                }}
+              />
+              <span>{drink.label}</span>
+            </label>
+          ))}
+        </div>
+      )}
+      {!freeDrinkChosen && !freeDrinkLoading && (
+        <p className="customer-error">{t("checkout.freeDrinkRequired")}</p>
+      )}
+      {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
+    </div>
+  )
+
+  const isAddressChipActive = (address: SavedAddress) => {
+    const parsed = parseLegacyAddress(address.street)
+    const street = parsed.houseNumber ? parsed.street : address.street
+    return (
+      address.postalCode.trim() === addressFields.postalCode.trim() &&
+      address.city.trim() === addressFields.city.trim() &&
+      street.trim() === addressFields.street.trim() &&
+      (parsed.houseNumber || "").trim() === addressFields.houseNumber.trim()
+    )
+  }
+
   return (
-    <div className="customer-page customer-page--checkout">
+    <div
+      className={`customer-page customer-page--checkout${
+        stickyBarVisible ? " customer-page--checkout-sticky" : ""
+      }`}
+    >
       <h2 className="customer-title">{t("checkout.title")}</h2>
 
       {error && <div className="customer-alert customer-alert--error">{error}</div>}
@@ -966,6 +1174,90 @@ export default function CheckoutPage() {
           {t("checkout.branchClosedBanner")}
         </div>
       )}
+
+      <nav className="checkout-progress" aria-label={t("checkout.stepProgressLabel")}>
+        {([1, 2, 3] as CheckoutStep[]).map((step) => (
+          <button
+            key={step}
+            type="button"
+            className={`checkout-progress__step${
+              checkoutStep === step ? " checkout-progress__step--active" : ""
+            }${checkoutStep > step ? " checkout-progress__step--done" : ""}`}
+            onClick={() => {
+              if (step < checkoutStep) goToStep(step)
+            }}
+            disabled={step > checkoutStep}
+            aria-current={checkoutStep === step ? "step" : undefined}
+          >
+            <span className="checkout-progress__dot" aria-hidden />
+            <span className="checkout-progress__label">
+              {step === 1
+                ? t("checkout.stepDelivery")
+                : step === 2
+                  ? t("checkout.stepPayment")
+                  : t("checkout.stepReview")}
+            </span>
+          </button>
+        ))}
+      </nav>
+
+      {canExpressCheckout && (
+        <div className="customer-card checkout-express">
+          <p className="checkout-express__title">{t("checkout.expressTitle")}</p>
+          <p className="checkout-express__detail">
+            {fulfillmentType === "pickup"
+              ? t("checkout.expressPickup", {
+                  name: name.trim(),
+                  payment: paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)
+                })
+              : t("checkout.expressDeliveryTo", {
+                  address: selectedAddressLabel ?? deliveryAddress,
+                  payment: paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)
+                })}
+          </p>
+          <div className="checkout-express__actions">
+            <button
+              type="button"
+              className="customer-btn customer-btn--primary"
+              onClick={() => void handleSubmit()}
+              disabled={createMutation.isPending || branchesLoading}
+            >
+              {createMutation.isPending
+                ? t("common.processing")
+                : t("checkout.expressOrder", { amount: formatCurrency(grandTotal) })}
+            </button>
+            <button
+              type="button"
+              className="customer-btn checkout-express__change"
+              onClick={() => setExpressDismissed(true)}
+            >
+              {t("checkout.expressChange")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      <section
+        className={`checkout-step${
+          checkoutStep === 1 ? " checkout-step--active" : " checkout-step--collapsed"
+        }`}
+        aria-labelledby="checkout-step-1-title"
+      >
+        <button
+          type="button"
+          id="checkout-step-1-title"
+          className="checkout-step__header"
+          onClick={() => checkoutStep !== 1 && goToStep(1)}
+          disabled={checkoutStep === 1}
+        >
+          <span className="checkout-step__title">{t("checkout.stepDelivery")}</span>
+          {checkoutStep !== 1 && (
+            <span className="checkout-step__summary">{stepSummaries[1]}</span>
+          )}
+        </button>
+
+        {checkoutStep === 1 && (
+          <div className="checkout-step__body">
 
       <div className="customer-card checkout-account">
         {isLoggedIn && authUser ? (
@@ -1122,7 +1414,9 @@ export default function CheckoutPage() {
                   <button
                     key={address.id}
                     type="button"
-                    className="checkout-saved-addresses__chip"
+                    className={`checkout-saved-addresses__chip${
+                      isAddressChipActive(address) ? " checkout-saved-addresses__chip--active" : ""
+                    }`}
                     onClick={() => applySavedAddress(address)}
                   >
                     {address.label}
@@ -1233,8 +1527,35 @@ export default function CheckoutPage() {
               </Link>
             </div>
           )}
+          {showFreeDrinkCheckout && needsFreeDrinkSelection && renderFreeDrinkPicker("checkout-free-drink--thresholds")}
         </div>
       ) : null}
+
+          </div>
+        )}
+      </section>
+
+      <section
+        className={`checkout-step${
+          checkoutStep === 2 ? " checkout-step--active" : " checkout-step--collapsed"
+        }`}
+        aria-labelledby="checkout-step-2-title"
+      >
+        <button
+          type="button"
+          id="checkout-step-2-title"
+          className="checkout-step__header"
+          onClick={() => checkoutStep > 2 && goToStep(2)}
+          disabled={checkoutStep <= 1}
+        >
+          <span className="checkout-step__title">{t("checkout.stepPayment")}</span>
+          {checkoutStep !== 2 && (
+            <span className="checkout-step__summary">{stepSummaries[2]}</span>
+          )}
+        </button>
+
+        {checkoutStep === 2 && (
+          <div className="checkout-step__body">
 
       <div className="customer-field" ref={scheduleFieldRef}>
         <label className="customer-label">{t("checkout.when")}</label>
@@ -1315,12 +1636,29 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      <div className="customer-field">
+      <div className="customer-field checkout-collapsible">
         {allowCheckoutVouchers ? (
           <>
-        <label className="customer-label" htmlFor="checkout-voucher">
-          {t("checkout.voucherLabel")}
-        </label>
+            <button
+              type="button"
+              className="checkout-collapsible__trigger"
+              onClick={() => setVoucherExpanded((open) => !open)}
+              aria-expanded={voucherExpanded}
+            >
+              <span className="customer-label" style={{ margin: 0 }}>
+                {appliedVoucher
+                  ? t("checkout.voucherActive", {
+                      code: appliedVoucher.code,
+                      amount: formatCurrency(appliedVoucher.discountAmount)
+                    })
+                  : t("checkout.addVoucher")}
+              </span>
+              <span className="checkout-collapsible__chevron" aria-hidden>
+                {voucherExpanded ? "−" : "+"}
+              </span>
+            </button>
+            {voucherExpanded && (
+              <div className="checkout-collapsible__body">
         {isLoggedIn && walletData?.activatedCouponId && (
           <p className="customer-hint" style={{ marginBottom: 8 }}>
             {t("checkout.walletCouponHint")}
@@ -1378,11 +1716,39 @@ export default function CheckoutPage() {
             </button>
           </div>
         )}
+              </div>
+            )}
           </>
         ) : (
           <p className="customer-hint">{t("checkout.voucherNotCombinable")}</p>
         )}
       </div>
+
+          </div>
+        )}
+      </section>
+
+      <section
+        className={`checkout-step${
+          checkoutStep === 3 ? " checkout-step--active" : " checkout-step--collapsed"
+        }`}
+        aria-labelledby="checkout-step-3-title"
+      >
+        <button
+          type="button"
+          id="checkout-step-3-title"
+          className="checkout-step__header"
+          onClick={() => checkoutStep > 3 && goToStep(3)}
+          disabled={checkoutStep <= 2}
+        >
+          <span className="checkout-step__title">{t("checkout.stepReview")}</span>
+          {checkoutStep !== 3 && (
+            <span className="checkout-step__summary">{stepSummaries[3]}</span>
+          )}
+        </button>
+
+        {checkoutStep === 3 && (
+          <div className="checkout-step__body">
 
       <div className="customer-card">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
@@ -1410,46 +1776,10 @@ export default function CheckoutPage() {
           </div>
         ))}
 
-        {showFreeDrinkCheckout && needsFreeDrinkSelection && (
-          <div
-            ref={freeDrinkSectionRef}
-            className="checkout-free-drink checkout-free-drink--summary"
-            style={{ marginTop: 12 }}
-          >
-            <label className="customer-label">{t("checkout.freeDrinkTitle")}</label>
-            <p className="customer-hint">{t("checkout.freeDrinkHint")}</p>
-            {freeDrinkLoading ? (
-              <p className="customer-hint">{t("common.processing")}</p>
-            ) : (
-              <div className="checkout-free-drink__options" role="radiogroup">
-                {freeDrinkOptions.map((drink) => (
-                  <label
-                    key={drink.id}
-                    className={`checkout-free-drink__option${
-                      freeDrinkChoice === drink.id ? " checkout-free-drink__option--active" : ""
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="freeDrink"
-                      value={drink.id}
-                      checked={freeDrinkChoice === drink.id}
-                      onChange={() => {
-                        setFreeDrinkChoice(drink.id)
-                        setFreeDrinkError("")
-                        setError("")
-                      }}
-                    />
-                    <span>{drink.label}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-            {!freeDrinkChosen && !freeDrinkLoading && (
-              <p className="customer-error">{t("checkout.freeDrinkRequired")}</p>
-            )}
-            {freeDrinkError && <p className="customer-error">{freeDrinkError}</p>}
-          </div>
+        {showFreeDrinkCheckout && needsFreeDrinkSelection && selectedFreeDrinkLabel && (
+          <p className="customer-hint checkout-summary__free-drink">
+            {t("checkout.freeDrinkTitle")}: {selectedFreeDrinkLabel}
+          </p>
         )}
         <p className="customer-hint checkout-summary__subtotal">
           {t("common.subtotal")}: {formatCurrency(subtotal)}
@@ -1494,23 +1824,55 @@ export default function CheckoutPage() {
         <p className="customer-hint">{paymentSummaryLabel(t, paymentChoice, cashPaymentLabel)}</p>
       </div>
 
-      <div className="customer-field">
-        <label className="customer-label">
-          {t("checkout.notes")} ({t("common.optional")})
-        </label>
-        <textarea
-          className="customer-textarea"
-          placeholder={t("checkout.notesPlaceholder")}
-          value={orderNotes}
-          onChange={(e) => setOrderNotes(e.target.value)}
-          rows={2}
-          maxLength={300}
-        />
+      <div className="customer-field checkout-collapsible">
+        <button
+          type="button"
+          className="checkout-collapsible__trigger"
+          onClick={() => setNotesExpanded((open) => !open)}
+          aria-expanded={notesExpanded}
+        >
+          <span className="customer-label" style={{ margin: 0 }}>
+            {orderNotes.trim() ? t("checkout.notes") : t("checkout.addNotes")}
+          </span>
+          <span className="checkout-collapsible__chevron" aria-hidden>
+            {notesExpanded ? "−" : "+"}
+          </span>
+        </button>
+        {notesExpanded && (
+          <div className="checkout-collapsible__body">
+            <textarea
+              className="customer-textarea"
+              placeholder={t("checkout.notesPlaceholder")}
+              value={orderNotes}
+              onChange={(e) => setOrderNotes(e.target.value)}
+              rows={2}
+              maxLength={300}
+            />
+          </div>
+        )}
       </div>
 
-      <div className="customer-card checkout-marketing" ref={marketingSectionRef}>
-        <h3 className="customer-subtitle">{t("checkout.marketingTitle")}</h3>
-        <p className="customer-hint">{t("checkout.marketingHint")}</p>
+      <div className="customer-card checkout-marketing checkout-collapsible" ref={marketingSectionRef}>
+        <button
+          type="button"
+          className="checkout-collapsible__trigger checkout-collapsible__trigger--card"
+          onClick={() => setMarketingExpanded((open) => !open)}
+          aria-expanded={marketingExpanded}
+        >
+          <span>
+            <span className="customer-subtitle checkout-collapsible__card-title">
+              {t("checkout.offersOptional")}
+            </span>
+            <span className="customer-hint checkout-collapsible__card-hint">
+              {t("checkout.marketingHint")}
+            </span>
+          </span>
+          <span className="checkout-collapsible__chevron" aria-hidden>
+            {marketingExpanded ? "−" : "+"}
+          </span>
+        </button>
+        {marketingExpanded && (
+          <div className="checkout-collapsible__body">
         <div className="checkout-marketing__channels">
           <label className="checkout-marketing__channel">
             <input
@@ -1573,9 +1935,11 @@ export default function CheckoutPage() {
           </div>
         )}
         <p className="customer-hint checkout-marketing__legal">{t("checkout.marketingLegal")}</p>
+          </div>
+        )}
       </div>
 
-      {!pendingCardOrderId && !pendingStripeSession && (
+      {!pendingCardOrderId && !pendingStripeSession && checkoutStep === 3 && (
         <>
         <PriceVatNote className="customer-hint checkout-price-vat" />
         <p className="customer-hint checkout-terms-notice checkout-terms-notice--implicit">
@@ -1587,22 +1951,36 @@ export default function CheckoutPage() {
             }}
           />
         </p>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={createMutation.isPending || branchesLoading}
-          className="customer-btn customer-btn--primary"
-        >
-          {createMutation.isPending || branchesLoading
-            ? t("common.processing")
-            : awaitingPaymentOrderId && !pendingStripeSession && !pendingCardOrderId
-              ? t("checkout.retryPaymentPayable", { amount: formatCurrency(grandTotal) })
-              : needsOnlinePayment
-                ? t("checkout.continueToPaymentPayable", { amount: formatCurrency(grandTotal) })
-                : t("checkout.placeOrderPayable", { amount: formatCurrency(grandTotal) })}
-        </button>
         <CheckoutLegalFooter />
         </>
+      )}
+
+          </div>
+        )}
+      </section>
+
+      {stickyBarVisible && (
+        <div className="checkout-sticky-bar" role="region" aria-label={t("checkout.stickyBarLabel")}>
+          <div className="checkout-sticky-bar__info">
+            <span className="checkout-sticky-bar__total">
+              {t("common.total")}: {formatCurrency(grandTotal)}
+            </span>
+            <span className="checkout-sticky-bar__meta">
+              {fulfillmentType === "pickup" ? t("checkout.pickup") : t("checkout.delivery")}
+              {checkoutStep < 3
+                ? ` · ${t("checkout.stepOf", { current: checkoutStep, total: 3 })}`
+                : ""}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={handleStickyAction}
+            disabled={createMutation.isPending || branchesLoading}
+            className="customer-btn customer-btn--primary checkout-sticky-bar__cta"
+          >
+            {stickyCtaLabel}
+          </button>
+        </div>
       )}
 
       {pendingStripeSession && needsStripePayment && (
