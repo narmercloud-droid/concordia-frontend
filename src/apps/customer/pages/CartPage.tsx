@@ -13,9 +13,16 @@ import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
+import FulfillmentPicker from "@/apps/customer/components/FulfillmentPicker"
 import CartSuggestionsModal, {
   type SuggestionItem
 } from "@/apps/customer/components/CartSuggestionsModal"
+import {
+  loadFulfillmentIntent,
+  saveFulfillmentIntent,
+  type FulfillmentIntent
+} from "@/lib/fulfillmentIntent"
+import { estimateCartDisplay } from "@/lib/cartEstimate"
 
 export default function CartPage() {
   const { t } = useTranslation()
@@ -35,7 +42,23 @@ export default function CartPage() {
     enabled: !!branchId,
     staleTime: 60_000
   })
+
+  const branch = branches?.find(
+    (b: { id: string; name?: string; city?: string; supportsDelivery?: boolean; supportsPickup?: boolean }) =>
+      b.id === branchId
+  )
+
+  const [fulfillment, setFulfillment] = useState<FulfillmentIntent>(() =>
+    branchId ? loadFulfillmentIntent(branchId) ?? "delivery" : "delivery"
+  )
+
+  const handleFulfillmentChange = (next: FulfillmentIntent) => {
+    setFulfillment(next)
+    if (branchId) saveFulfillmentIntent(branchId, next)
+  }
+
   const freeDeliveryGap = useMemo(() => {
+    if (fulfillment !== "delivery") return null
     const zones = deliveryInfo?.radiusZones ?? []
     if (!zones.length) return null
     const gaps = zones
@@ -48,32 +71,37 @@ export default function CartPage() {
       })
       .filter((gap): gap is number => gap != null && gap > 0)
     return gaps.length ? Math.min(...gaps) : null
-  }, [deliveryInfo, subtotal])
-  const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
+  }, [deliveryInfo, subtotal, fulfillment])
+
+  const branchPromo = branch?.promotions
   const discountPct =
     branchPromo?.websiteDiscountEnabled !== false ? platformPromo.websiteOrderDiscountPct : 0
   const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
   const discountedSubtotal = calcDiscountedSubtotal(subtotal, discountPct)
+
+  const estimate = useMemo(
+    () =>
+      estimateCartDisplay({
+        subtotal,
+        discountPct,
+        fulfillment,
+        zones: deliveryInfo?.radiusZones ?? []
+      }),
+    [subtotal, discountPct, fulfillment, deliveryInfo?.radiusZones]
+  )
+
   const updateQuantity = useCartStore((s) => s.updateQuantity)
   const removeItem = useCartStore((s) => s.removeItem)
   const clearCart = useCartStore((s) => s.clearCart)
   const addItem = useCartStore((s) => s.addItem)
 
   const cartItemIds = useMemo(() => items.map((i) => i.id), [items])
-  const [checkoutExtrasOpen, setCheckoutExtrasOpen] = useState(false)
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false)
   const [addingItemId, setAddingItemId] = useState<number | null>(null)
-  const [selectedItem, setSelectedItem] = useState<SuggestionItem | null>(null)
+  const [selectedSuggestion, setSelectedSuggestion] = useState<SuggestionItem | null>(null)
+  const [editLine, setEditLine] = useState<(typeof items)[number] | null>(null)
 
   const goToCheckout = () => navigate("/customer/checkout")
-
-  const handleCheckoutClick = () => {
-    setCheckoutExtrasOpen(true)
-  }
-
-  const handleExtrasFinished = () => {
-    setCheckoutExtrasOpen(false)
-    goToCheckout()
-  }
 
   const handleQuickAdd = async (item: SuggestionItem) => {
     if (!branchId || addingItemId != null) return
@@ -82,25 +110,51 @@ export default function CartPage() {
     try {
       const result = await quickAddItemToCart(branchId, item.id, addItem)
       if (result === "needs_options") {
-        setSelectedItem(item)
+        setSelectedSuggestion(item)
       }
     } finally {
       setAddingItemId(null)
     }
   }
 
+  const branchLabel =
+    branch?.name?.replace(/^Concordia\s+/i, "").trim() || branch?.city || ""
+
   if (items.length === 0) {
     return (
       <div className="customer-page">
         <h2 className="customer-title">{t("cart.title")}</h2>
         <p className="customer-text">{t("cart.empty")}</p>
+        <div className="customer-btn-row" style={{ marginTop: 16 }}>
+          <Link to="/" className="customer-btn customer-btn--primary">
+            {t("cart.backToMenu")}
+          </Link>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="customer-page">
+    <div className="customer-page customer-page--cart">
       <h2 className="customer-title">{t("cart.title")}</h2>
+      {branchLabel && (
+        <p className="customer-hint cart-page__branch">
+          {t("cart.branchLabel", { branch: branchLabel })}
+        </p>
+      )}
+
+      <div className="customer-card cart-page__fulfillment">
+        <p className="customer-hint" style={{ margin: "0 0 10px" }}>
+          {t("menu.fulfillmentLead")}
+        </p>
+        <FulfillmentPicker
+          value={fulfillment}
+          onChange={handleFulfillmentChange}
+          supportsDelivery={branch?.supportsDelivery !== false}
+          supportsPickup={branch?.supportsPickup !== false}
+          compact
+        />
+      </div>
 
       {items.map((i) => (
         <div key={i.cartKey} className="customer-card cart-line">
@@ -156,9 +210,7 @@ export default function CartPage() {
             <button
               type="button"
               className="customer-btn"
-              onClick={() =>
-                navigate(`/branch/${i.branchId}/item/${i.id}?edit=${encodeURIComponent(i.cartKey)}`)
-              }
+              onClick={() => setEditLine(i)}
             >
               {t("cart.edit")}
             </button>
@@ -178,18 +230,32 @@ export default function CartPage() {
           <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
         )}
 
-        {websiteDiscount > 0 && (
-          <div className="cart-summary__total">
-            <span className="cart-summary__total-label">{t("cart.afterDiscount")}</span>
-            <div className="cart-summary__total-prices">
-              <span className="cart-summary__original">{formatCurrency(subtotal)}</span>
-              <span className="cart-summary__final">{formatCurrency(discountedSubtotal)}</span>
-            </div>
-          </div>
+        {fulfillment === "delivery" && estimate.estimatedDeliveryFee != null && (
+          <p className="customer-hint cart-summary__delivery-estimate">
+            {t("cart.deliveryEstimate", {
+              fee: formatCurrency(estimate.estimatedDeliveryFee)
+            })}
+          </p>
         )}
 
-        {websiteDiscount <= 0 && (
-          <p className="customer-total-line">{t("common.total")}: {formatCurrency(subtotal)}</p>
+        <div className="cart-summary__total">
+          <span className="cart-summary__total-label">
+            {fulfillment === "delivery" ? t("cart.estimatedTotal") : t("common.total")}
+          </span>
+          <div className="cart-summary__total-prices">
+            {websiteDiscount > 0 && (
+              <span className="cart-summary__original">{formatCurrency(subtotal)}</span>
+            )}
+            <span className="cart-summary__final">
+              {fulfillment === "delivery"
+                ? formatCurrency(estimate.estimatedTotal)
+                : formatCurrency(discountedSubtotal)}
+            </span>
+          </div>
+        </div>
+
+        {fulfillment === "delivery" && (
+          <p className="customer-hint cart-summary__delivery-note">{t("cart.deliveryFinalNote")}</p>
         )}
       </div>
 
@@ -200,7 +266,7 @@ export default function CartPage() {
           </p>
           {branchId && (
             <Link
-              to={`/branch/${branchId}`}
+              to={`/branch/${branchId}?fulfillment=delivery`}
               className="customer-btn"
               style={{ marginTop: 8, display: "inline-block" }}
             >
@@ -209,14 +275,23 @@ export default function CartPage() {
           )}
         </div>
       )}
-      <div className="customer-btn-row">
+
+      <button
+        type="button"
+        className="customer-btn"
+        onClick={() => setSuggestionsOpen(true)}
+      >
+        {t("cart.addDrinks")}
+      </button>
+
+      <div className="customer-btn-row cart-page__actions">
         <button type="button" className="customer-btn" onClick={clearCart}>
           {t("cart.clear")}
         </button>
         <button
           type="button"
           className="customer-btn customer-btn--primary"
-          onClick={handleCheckoutClick}
+          onClick={goToCheckout}
         >
           {t("cart.checkout")}
         </button>
@@ -224,36 +299,45 @@ export default function CartPage() {
       <PriceVatNote className="customer-hint cart-vat-note" />
       <CheckoutLegalFooter />
 
-      {branchId && checkoutExtrasOpen && (
+      {branchId && suggestionsOpen && (
         <CartSuggestionsModal
-          open={!selectedItem}
+          open={!selectedSuggestion}
           branchId={branchId}
           excludeItemIds={cartItemIds}
           addingItemId={addingItemId}
-          onClose={handleExtrasFinished}
-          continueLabel={t("cart.suggestionsContinueCheckout")}
-          onContinue={handleExtrasFinished}
+          onClose={() => setSuggestionsOpen(false)}
+          continueLabel={t("cart.suggestionsContinueCart")}
+          onContinue={() => setSuggestionsOpen(false)}
           onQuickAdd={handleQuickAdd}
         />
       )}
 
-      {branchId && selectedItem && (
+      {branchId && selectedSuggestion && (
         <ItemOptionsModal
-          open={!!selectedItem}
+          open={!!selectedSuggestion}
           branchId={branchId}
-          itemId={selectedItem.id}
-          itemName={selectedItem.name}
-          itemNumber={selectedItem.itemNumber}
-          categoryName={selectedItem.categoryName ?? ""}
-          description={selectedItem.description}
-          imageUrl={selectedItem.imageUrl}
-          onClose={() => setSelectedItem(null)}
-          onAdded={() => {
-            setSelectedItem(null)
-          }}
+          itemId={selectedSuggestion.id}
+          itemName={selectedSuggestion.name}
+          itemNumber={selectedSuggestion.itemNumber}
+          categoryName={selectedSuggestion.categoryName ?? ""}
+          description={selectedSuggestion.description}
+          imageUrl={selectedSuggestion.imageUrl}
+          onClose={() => setSelectedSuggestion(null)}
+          onAdded={() => setSelectedSuggestion(null)}
         />
       )}
 
+      {branchId && editLine && (
+        <ItemOptionsModal
+          open={!!editLine}
+          branchId={branchId}
+          itemId={editLine.id}
+          itemName={editLine.name}
+          editCartKey={editLine.cartKey}
+          onClose={() => setEditLine(null)}
+          onAdded={() => setEditLine(null)}
+        />
+      )}
     </div>
   )
 }

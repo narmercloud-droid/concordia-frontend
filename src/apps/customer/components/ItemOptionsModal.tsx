@@ -16,6 +16,7 @@ type Props = {
   description?: string | null
   imageUrl?: string | null
   menuItem?: Record<string, unknown> | null
+  editCartKey?: string | null
   onClose: () => void
   onAdded: (itemName: string) => void
 }
@@ -30,16 +31,17 @@ export default function ItemOptionsModal({
   description = null,
   imageUrl,
   menuItem,
+  editCartKey,
   onClose,
   onAdded
 }: Props) {
   const { t } = useTranslation()
   const panelRef = useRef<HTMLDivElement>(null)
-  const options = useItemOptions(branchId, itemId, undefined, menuItem)
+  const options = useItemOptions(branchId, itemId, editCartKey, menuItem)
 
   useEffect(() => {
-    if (open) options.reset()
-  }, [open, itemId])
+    if (open && !editCartKey) options.reset()
+  }, [open, itemId, editCartKey])
 
   useEffect(() => {
     if (!open) return
@@ -124,7 +126,12 @@ export default function ItemOptionsModal({
         </div>
 
         {!options.isLoading && options.item && (
-          <ItemOptionsFooter options={options} onAdd={handleAdd} compact />
+          <ItemOptionsFooter
+            options={options}
+            onAdd={handleAdd}
+            compact
+            editMode={options.isEditMode}
+          />
         )}
       </div>
     </div>

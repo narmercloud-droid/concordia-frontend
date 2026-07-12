@@ -119,6 +119,8 @@
     "reviewsSectionTitle": "What our guests say",
     "reviewsSectionLead": "Real reviews from Google — Kempen & Straelen.",
     "orderNow": "Order now",
+    "orderDelivery": "Delivery",
+    "orderPickup": "Pickup",
     "comingSoonLabel": "Coming soon",
     "moreLocations": "More locations on the way",
     "footerCash": "Cash on pickup or delivery",
@@ -167,7 +169,8 @@
     "allergenLead": "Allergen and additive information is available on request in the restaurant or via our contact form. If you have allergies, please add a note to your order.",
     "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
     "allergenContact": "Request allergen details",
-    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
+    "allergenItemHint": "If you have allergies, add an order note or contact us before ordering.",
+    "fulfillmentLead": "How would you like to order?"
   },
   "cart": {
     "title": "Your cart",
@@ -188,7 +191,14 @@
     "suggestionsContinueCheckout": "Continue to checkout",
     "suggestionsContinueCart": "Back to cart",
     "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order.",
-    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount)."
+    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount).",
+    "backToMenu": "Back to menu",
+    "branchLabel": "{{branch}} branch",
+    "addDrinks": "Add a drink or side",
+    "estimatedTotal": "Estimated total",
+    "deliveryEstimate": "+ delivery from {{fee}}",
+    "deliveryFinalNote": "Final delivery fee is calculated after you enter your address.",
+    "barTotalDelivery": "{{food}} + from {{fee}}"
   },
   "checkout": {
     "title": "Checkout",

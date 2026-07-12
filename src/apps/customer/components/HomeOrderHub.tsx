@@ -4,6 +4,10 @@ import { useTranslation } from "react-i18next"
 import { branchPath } from "@/lib/customerPaths"
 import { prefetchBranchMenu } from "@/lib/prefetchCustomerData"
 import { useBranchStore } from "@/store/branchStore"
+import {
+  saveFulfillmentIntent,
+  type FulfillmentIntent
+} from "@/lib/fulfillmentIntent"
 
 export type HomeBranch = {
   id: string
@@ -65,9 +69,11 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
   const navigate = useNavigate()
   const setSelectedBranchId = useBranchStore((s) => s.setSelectedBranchId)
 
-  const goToBranch = (id: string) => {
+  const goToBranch = (id: string, fulfillment?: FulfillmentIntent) => {
     setSelectedBranchId(id)
-    navigate(branchPath(id))
+    if (fulfillment) saveFulfillmentIntent(id, fulfillment)
+    const query = fulfillment ? `?fulfillment=${fulfillment}` : ""
+    navigate(`${branchPath(id)}${query}`)
   }
 
   const [query, setQuery] = useState("")
@@ -231,13 +237,22 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
                 </span>
               )}
             </p>
+            <div className="home-nearest-actions">
             <button
               type="button"
               className="home-cta home-cta--compact"
-              onClick={() => goToBranch(nearestId)}
+              onClick={() => goToBranch(nearestId, "delivery")}
             >
-              {t("home.orderHere")}
+              {t("home.orderDelivery")}
             </button>
+            <button
+              type="button"
+              className="home-cta home-cta--compact home-cta--ghost"
+              onClick={() => goToBranch(nearestId, "pickup")}
+            >
+              {t("home.orderPickup")}
+            </button>
+            </div>
           </div>
         )}
         {(locationState === "denied" || locationState === "unsupported") && (
@@ -305,15 +320,30 @@ export default function HomeOrderHub({ branches, primary = false }: Props) {
                   {b.comingSoon ? (
                     <span className="home-branch-btn home-branch-btn--soon">{t("home.comingSoonLabel")}</span>
                   ) : (
-                    <button
-                      type="button"
-                      className="home-branch-btn home-branch-btn--primary"
-                      onMouseEnter={() => prefetchBranchMenu(b.id)}
-                      onFocus={() => prefetchBranchMenu(b.id)}
-                      onClick={() => goToBranch(b.id)}
-                    >
-                      {t("home.orderNow")}
-                    </button>
+                    <div className="home-branch-actions__split">
+                      {b.supportsDelivery !== false && (
+                        <button
+                          type="button"
+                          className="home-branch-btn home-branch-btn--primary"
+                          onMouseEnter={() => prefetchBranchMenu(b.id)}
+                          onFocus={() => prefetchBranchMenu(b.id)}
+                          onClick={() => goToBranch(b.id, "delivery")}
+                        >
+                          {t("home.orderDelivery")}
+                        </button>
+                      )}
+                      {b.supportsPickup !== false && (
+                        <button
+                          type="button"
+                          className="home-branch-btn home-branch-btn--secondary"
+                          onMouseEnter={() => prefetchBranchMenu(b.id)}
+                          onFocus={() => prefetchBranchMenu(b.id)}
+                          onClick={() => goToBranch(b.id, "pickup")}
+                        >
+                          {t("home.orderPickup")}
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>

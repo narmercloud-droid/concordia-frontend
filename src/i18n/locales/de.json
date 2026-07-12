@@ -119,6 +119,8 @@
     "reviewsSectionTitle": "Das sagen unsere Gäste",
     "reviewsSectionLead": "Echte Google-Bewertungen — Kempen & Straelen.",
     "orderNow": "Jetzt bestellen",
+    "orderDelivery": "Liefern",
+    "orderPickup": "Abholen",
     "comingSoonLabel": "Bald verfügbar",
     "moreLocations": "Weitere Standorte folgen",
     "footerCash": "Barzahlung bei Abholung oder Lieferung",
@@ -167,7 +169,8 @@
     "allergenLead": "Bei Allergien oder Unverträglichkeiten geben Sie bitte eine Anmerkung zur Bestellung an oder kontaktieren Sie uns vor der Bestellung. Detaillierte Angaben zu Allergenen und Zusatzstoffen der einzelnen Gerichte erhalten Sie in der Filiale und auf Anfrage per Kontaktformular.",
     "allergenLegend": "Die 14 Hauptallergene nach LMIV/InfoV: A Gluten, B Krebstiere, C Eier, D Fisch, E Erdnüsse, F Soja, G Milch, H Schalenfrüchte, L Sellerie, M Senf, N Sesam, O Schwefeldioxid/Sulfite, P Lupinen, R Weichtiere.",
     "allergenContact": "Allergen-Details anfragen",
-    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
+    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren.",
+    "fulfillmentLead": "Wie möchten Sie bestellen?"
   },
   "cart": {
     "title": "Ihr Warenkorb",
@@ -188,7 +191,14 @@
     "suggestionsContinueCheckout": "Weiter zur Kasse",
     "suggestionsContinueCart": "Weiter im Warenkorb",
     "branchMismatch": "Ihr Warenkorb enthielt Artikel von mehr als einer Filiale. Es wurden nur die Artikel für diese Bestellung behalten.",
-    "freeDeliveryNudge": "Noch {{amount}} für gratis Lieferung (nur Essen, vor Rabatt)."
+    "freeDeliveryNudge": "Noch {{amount}} für gratis Lieferung (nur Essen, vor Rabatt).",
+    "backToMenu": "Zur Speisekarte",
+    "branchLabel": "Filiale {{branch}}",
+    "addDrinks": "Getränk oder Beilage hinzufügen",
+    "estimatedTotal": "Geschätzter Gesamtbetrag",
+    "deliveryEstimate": "+ Lieferung ab {{fee}}",
+    "deliveryFinalNote": "Die endgültige Liefergebühr wird nach Ihrer Adresse berechnet.",
+    "barTotalDelivery": "{{food}} + ab {{fee}}"
   },
   "checkout": {
     "title": "Kasse",

@@ -13,7 +13,7 @@ import SiteNav from "@/apps/customer/components/SiteNav"
 import StickyOrderFab from "@/apps/customer/components/StickyOrderFab"
 import NativeTabBar from "@/apps/customer/components/NativeTabBar"
 import NativeCartButton from "@/apps/customer/components/NativeCartButton"
-import NativeCartBar from "@/apps/customer/components/NativeCartBar"
+import CustomerCartBar from "@/apps/customer/components/CustomerCartBar"
 import NativePromoStrip from "@/apps/customer/components/NativePromoStrip"
 import OfferNotificationsPrompt from "@/apps/customer/components/OfferNotificationsPrompt"
 import CookieConsent from "@/apps/customer/components/CookieConsent"
@@ -40,7 +40,6 @@ export default function CustomerLayout() {
   const onCartPage = location.pathname === "/customer/cart"
   const onCheckoutPage = location.pathname.startsWith("/customer/checkout")
   const showCartBar =
-    nativeApp &&
     itemCount > 0 &&
     !onCheckoutPage &&
     (location.pathname.startsWith("/branch/") || onCartPage)
@@ -85,7 +84,9 @@ export default function CustomerLayout() {
     <div
       className={`customer-shell customer-shell--layout${
         nativeApp ? " customer-shell--native" : ""
-      }${showCartBar ? " native-app--has-cart-bar" : ""}${
+      }${showCartBar ? " customer-shell--has-cart-bar" : ""}${
+        showCartBar && nativeApp ? " native-app--has-cart-bar" : ""
+      }${
         onCheckoutPage ? " customer-shell--checkout" : ""
       }${isWidePage ? " customer-shell--home customer-shell--wide" : ""}`}
     >
@@ -152,7 +153,7 @@ export default function CustomerLayout() {
           <CheckoutLegalFooter />
         </div>
       ) : null}
-      <NativeCartBar />
+      <CustomerCartBar />
       <NativeTabBar />
       <CookieConsent />
     </div>

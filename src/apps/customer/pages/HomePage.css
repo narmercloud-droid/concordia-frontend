@@ -292,6 +292,26 @@
   flex-shrink: 0;
 }
 
+.home-branch-actions__split {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.home-nearest-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.home-branch-btn--secondary {
+  background: #fff;
+  color: var(--home-ink);
+  border: 1px solid var(--home-line);
+}
+
 .home-branch-btn--primary {
   background: linear-gradient(135deg, var(--home-accent) 0%, var(--home-accent-deep) 100%);
   color: #fff;

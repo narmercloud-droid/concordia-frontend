@@ -19,9 +19,12 @@ import { prefetchItemDetails, prefetchItemDetailsBatch } from "@/lib/prefetchIte
 import { isFatMenuItem } from "@/lib/menuItemFromMenu"
 import { formatCurrency } from "@/utils/format"
 import {
+  loadFulfillmentIntent,
   parseFulfillmentParam,
-  saveFulfillmentIntent
+  saveFulfillmentIntent,
+  type FulfillmentIntent
 } from "@/lib/fulfillmentIntent"
+import FulfillmentPicker from "@/apps/customer/components/FulfillmentPicker"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import "./BranchMenuPage.css"
@@ -116,15 +119,23 @@ export default function BranchMenuPage() {
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null)
   const [toastName, setToastName] = useState<string | null>(null)
   const [activeSectionId, setActiveSectionId] = useState<string | number | null>(null)
+  const [fulfillment, setFulfillment] = useState<FulfillmentIntent>("delivery")
 
   useEffect(() => {
-    const fulfillment = parseFulfillmentParam(
+    if (!branchId) return
+    const fromUrl = parseFulfillmentParam(
       new URLSearchParams(location.search).get("fulfillment")
     )
-    if (branchId && fulfillment) {
-      saveFulfillmentIntent(branchId, fulfillment)
-    }
+    const fromStored = loadFulfillmentIntent(branchId)
+    const next = fromUrl ?? fromStored ?? "delivery"
+    setFulfillment(next)
+    if (fromUrl) saveFulfillmentIntent(branchId, fromUrl)
   }, [branchId, location.search])
+
+  const handleFulfillmentChange = (next: FulfillmentIntent) => {
+    setFulfillment(next)
+    if (branchId) saveFulfillmentIntent(branchId, next)
+  }
 
   const { data: branches } = useQuery({
     ...branchesQueryOptions,
@@ -328,6 +339,18 @@ export default function BranchMenuPage() {
       <header className="branch-menu__header">
         <p className="customer-eyebrow branch-menu__eyebrow">{branchMenuEyebrow(branch)}</p>
         <h2 className="customer-title">{t("menu.title")}</h2>
+        {!orderingDisabled && (
+          <div className="branch-menu__fulfillment">
+            <p className="customer-hint branch-menu__fulfillment-lead">{t("menu.fulfillmentLead")}</p>
+            <FulfillmentPicker
+              value={fulfillment}
+              onChange={handleFulfillmentChange}
+              supportsDelivery={branch?.supportsDelivery !== false}
+              supportsPickup={branch?.supportsPickup !== false}
+              compact
+            />
+          </div>
+        )}
       </header>
 
       <div className="branch-menu__nav-bar">
