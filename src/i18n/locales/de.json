@@ -240,6 +240,7 @@
     "addressCity": "Stadt",
     "addressCityPlaceholder": "z. B. Kempen",
     "cityLookupLoading": "Stadt wird ermittelt…",
+    "cityLookupInvalidPlz": "Diese Postleitzahl ist in Deutschland nicht vergeben.",
     "addressStreet": "Straße",
     "addressStreetPlaceholder": "Straßenname eintippen",
     "addressHouseNumber": "Hausnummer",

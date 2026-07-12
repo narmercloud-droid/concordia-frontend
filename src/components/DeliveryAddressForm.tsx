@@ -54,6 +54,7 @@ export default function DeliveryAddressForm({
   const [activeIndex, setActiveIndex] = useState(-1)
   const [cityFromPlz, setCityFromPlz] = useState(false)
   const [plzLookupLoading, setPlzLookupLoading] = useState(false)
+  const [plzLookupError, setPlzLookupError] = useState("")
   const streetContainerRef = useRef<HTMLDivElement>(null)
   const houseNumberRef = useRef<HTMLInputElement>(null)
   const requestId = useRef(0)
@@ -102,6 +103,7 @@ export default function DeliveryAddressForm({
     }
 
     setCityFromPlz(false)
+    setPlzLookupError("")
     patch({
       postalCode,
       city: postalCode.length < 5 ? "" : value.city
@@ -112,6 +114,7 @@ export default function DeliveryAddressForm({
     const plz = value.postalCode.trim()
     if (!/^\d{5}$/.test(plz)) {
       setPlzLookupLoading(false)
+      setPlzLookupError("")
       return
     }
     if (matchedArea?.city) return
@@ -119,6 +122,7 @@ export default function DeliveryAddressForm({
     let cancelled = false
     const timer = window.setTimeout(async () => {
       setPlzLookupLoading(true)
+      setPlzLookupError("")
       try {
         const result = await lookupPostalCodeCity(branchId, plz)
         if (cancelled) return
@@ -126,8 +130,15 @@ export default function DeliveryAddressForm({
           patch({ city: result.city })
           setCityFromPlz(true)
         }
-      } catch {
-        if (!cancelled) setCityFromPlz(false)
+      } catch (err: unknown) {
+        if (cancelled) return
+        setCityFromPlz(false)
+        const code =
+          (err as { response?: { data?: { error?: { code?: string } } } })?.response?.data?.error
+            ?.code ?? ""
+        if (code === "INVALID_POSTAL_CODE") {
+          setPlzLookupError(t("checkout.cityLookupInvalidPlz"))
+        }
       } finally {
         if (!cancelled) setPlzLookupLoading(false)
       }
@@ -381,6 +392,7 @@ export default function DeliveryAddressForm({
           {plzLookupLoading && (
             <p className="customer-hint">{t("checkout.cityLookupLoading")}</p>
           )}
+          {plzLookupError && <p className="customer-error">{plzLookupError}</p>}
         </div>
 
         <div

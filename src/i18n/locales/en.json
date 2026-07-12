@@ -240,6 +240,7 @@
     "addressCity": "City",
     "addressCityPlaceholder": "e.g. Kempen",
     "cityLookupLoading": "Looking up city…",
+    "cityLookupInvalidPlz": "This postal code is not valid in Germany.",
     "addressStreet": "Street name",
     "addressStreetPlaceholder": "Start typing the street name",
     "addressHouseNumber": "House / building no.",
