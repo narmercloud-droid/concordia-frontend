@@ -512,6 +512,9 @@ export default function CheckoutPage() {
 
   const freeDeliveryGap = useMemo(() => {
     if (fulfillmentType !== "delivery") return null
+    const min = deliveryQuote?.minimumOrder
+    if (min != null && total < min) return null
+
     if (deliveryQuote?.allowed && deliveryQuote.freeDelivery) return null
     if (
       deliveryQuote?.allowed &&
@@ -520,15 +523,21 @@ export default function CheckoutPage() {
     ) {
       return deliveryQuote.amountToFreeDelivery!
     }
-    return estimatedFreeDeliveryGap
-  }, [fulfillmentType, deliveryQuote, estimatedFreeDeliveryGap])
+    if (!deliveryQuote) return estimatedFreeDeliveryGap
+    return null
+  }, [fulfillmentType, deliveryQuote, estimatedFreeDeliveryGap, total])
 
   const minimumOrderGap = useMemo(() => {
-    if (fulfillmentType !== "delivery" || !deliveryQuote?.allowed) return null
+    if (fulfillmentType !== "delivery" || deliveryQuote?.minimumOrder == null) return null
     const min = deliveryQuote.minimumOrder
-    if (min == null || total >= min) return null
+    if (total >= min) return null
     return Math.round((min - total) * 100) / 100
-  }, [fulfillmentType, deliveryQuote, total])
+  }, [fulfillmentType, deliveryQuote?.minimumOrder, total])
+
+  const freeDeliveryThreshold =
+    deliveryQuote?.allowed && deliveryQuote.freeDeliveryMinimum != null
+      ? deliveryQuote.freeDeliveryMinimum
+      : null
 
   const freeDrinkGap = useMemo(() => {
     if (!showFreeDrinkCheckout || freeDrinkMin <= 0 || qualifiesForFreeDrink) return null
@@ -1137,7 +1146,13 @@ export default function CheckoutPage() {
           />
           {quoteLoading && <p className="customer-hint">{t("checkout.checkingDelivery")}</p>}
           {deliveryQuote && !deliveryQuote.allowed && (
-            <p className="customer-error">{deliveryQuote.message}</p>
+            <p className="customer-error">
+              {deliveryQuote.minimumOrder != null && total < deliveryQuote.minimumOrder
+                ? t("checkout.minimumOrderRequired", {
+                    amount: formatCurrency(deliveryQuote.minimumOrder)
+                  })
+                : deliveryQuote.message}
+            </p>
           )}
         </div>
       )}
@@ -1182,7 +1197,12 @@ export default function CheckoutPage() {
           {fulfillmentType === "delivery" && freeDeliveryGap != null && freeDeliveryGap > 0 && (
             <div className="customer-alert customer-alert--info">
               <p style={{ margin: 0 }}>
-                {t("checkout.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
+                {freeDeliveryThreshold != null
+                  ? t("checkout.freeDeliveryNudgeWithThreshold", {
+                      amount: formatCurrency(freeDeliveryGap),
+                      threshold: formatCurrency(freeDeliveryThreshold)
+                    })
+                  : t("checkout.freeDeliveryNudge", { amount: formatCurrency(freeDeliveryGap) })}
               </p>
               <Link
                 to={`/branch/${branchId}`}
