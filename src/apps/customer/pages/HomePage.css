@@ -60,6 +60,13 @@
   margin-bottom: 52px;
 }
 
+.home-featured--placeholder {
+  min-height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 .home-featured__track {
   display: flex;
   gap: 16px;

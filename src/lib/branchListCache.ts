@@ -1,6 +1,6 @@
 const STORAGE_KEY = "concordia-branches-v1"
-/** Max age for offline bootstrap — admin changes must not linger in localStorage. */
-const MAX_AGE_MS = 5 * 60 * 1000
+/** Serve cached branches instantly; background refresh updates when stale. */
+const MAX_AGE_MS = 15 * 60 * 1000
 
 type CachedBranches = {
   data: unknown[]

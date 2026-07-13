@@ -1,5 +1,6 @@
 const STORAGE_PREFIX = "concordia-menu-v1:"
-const MAX_AGE_MS = 5 * 60 * 1000
+/** Serve cached menus instantly on repeat visits; refetch when stale. */
+const MAX_AGE_MS = 15 * 60 * 1000
 
 type CachedMenu = {
   data: { categories: unknown[] }
