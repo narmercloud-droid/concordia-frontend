@@ -22,7 +22,7 @@ import {
   saveFulfillmentIntent,
   type FulfillmentIntent
 } from "@/lib/fulfillmentIntent"
-import { estimateCartDisplay } from "@/lib/cartEstimate"
+import { estimateCartDisplay, coerceRadiusZones } from "@/lib/cartEstimate"
 
 export default function CartPage() {
   const { t } = useTranslation()
@@ -43,7 +43,8 @@ export default function CartPage() {
     staleTime: 60_000
   })
 
-  const branch = branches?.find(
+  const branchList = Array.isArray(branches) ? branches : []
+  const branch = branchList.find(
     (b: { id: string; name?: string; city?: string; supportsDelivery?: boolean; supportsPickup?: boolean }) =>
       b.id === branchId
   )
@@ -59,7 +60,7 @@ export default function CartPage() {
 
   const freeDeliveryGap = useMemo(() => {
     if (fulfillment !== "delivery") return null
-    const zones = deliveryInfo?.radiusZones ?? []
+    const zones = coerceRadiusZones(deliveryInfo?.radiusZones)
     if (!zones.length) return null
     const gaps = zones
       .map((zone) => {
@@ -75,7 +76,9 @@ export default function CartPage() {
 
   const branchPromo = branch?.promotions
   const discountPct =
-    branchPromo?.websiteDiscountEnabled !== false ? platformPromo.websiteOrderDiscountPct : 0
+    branchPromo?.websiteDiscountEnabled !== false
+      ? Number(platformPromo.websiteOrderDiscountPct) || 0
+      : 0
   const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
   const discountedSubtotal = calcDiscountedSubtotal(subtotal, discountPct)
 
@@ -85,7 +88,7 @@ export default function CartPage() {
         subtotal,
         discountPct,
         fulfillment,
-        zones: deliveryInfo?.radiusZones ?? []
+        zones: coerceRadiusZones(deliveryInfo?.radiusZones)
       }),
     [subtotal, discountPct, fulfillment, deliveryInfo?.radiusZones]
   )
@@ -159,13 +162,13 @@ export default function CartPage() {
       {items.map((i) => (
         <div key={i.cartKey} className="customer-card cart-line">
           <h4 className="customer-card__title">{i.name}</h4>
-          {i.variants.length > 0 && (
-            <p className="customer-card__meta">{i.variants.map((v) => v.name).join(", ")}</p>
+          {i.variants?.length > 0 && (
+            <p className="customer-card__meta">{(i.variants ?? []).map((v) => v.name).join(", ")}</p>
           )}
-          {i.addOns.length > 0 && (
+          {i.addOns?.length > 0 && (
             <p className="customer-card__meta">
               {t("common.extras")}:{" "}
-              {i.addOns.map((a) => `${a.name} (+${formatCurrency(a.price)})`).join(", ")}
+              {(i.addOns ?? []).map((a) => `${a.name} (+${formatCurrency(a.price)})`).join(", ")}
             </p>
           )}
           {i.notes && (

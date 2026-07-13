@@ -8,18 +8,20 @@ type Props = {
 
 type State = {
   hasError: boolean
+  errorMessage: string
 }
 
 export default class CustomerErrorBoundary extends React.Component<Props, State> {
-  state: State = { hasError: false }
+  state: State = { hasError: false, errorMessage: "" }
 
-  static getDerivedStateFromError() {
-    return { hasError: true }
+  static getDerivedStateFromError(error: unknown) {
+    const message = error instanceof Error ? error.message : String(error ?? "Unknown error")
+    return { hasError: true, errorMessage: message }
   }
 
   componentDidUpdate(prevProps: Props) {
     if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
-      this.setState({ hasError: false })
+      this.setState({ hasError: false, errorMessage: "" })
     }
   }
 
@@ -35,11 +37,23 @@ export default class CustomerErrorBoundary extends React.Component<Props, State>
             {i18n.t("common.errorTitle")}
           </h2>
           <p style={{ color: "var(--c-muted)", marginBottom: 20 }}>{i18n.t("common.errorBody")}</p>
+          {import.meta.env.DEV && this.state.errorMessage ? (
+            <p
+              style={{
+                color: "#b45309",
+                marginBottom: 20,
+                fontSize: "0.85rem",
+                wordBreak: "break-word"
+              }}
+            >
+              {this.state.errorMessage}
+            </p>
+          ) : null}
           <button
             type="button"
             className="home-cta"
             onClick={() => {
-              this.setState({ hasError: false })
+              this.setState({ hasError: false, errorMessage: "" })
               window.location.reload()
             }}
           >

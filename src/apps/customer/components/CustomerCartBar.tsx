@@ -9,7 +9,7 @@ import { loadFulfillmentIntent } from "@/lib/fulfillmentIntent"
 import { getBranchDeliveryAreas } from "@/api/customer"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
-import { estimateCartDisplay } from "@/lib/cartEstimate"
+import { estimateCartDisplay, coerceRadiusZones } from "@/lib/cartEstimate"
 
 export default function CustomerCartBar() {
   const { t } = useTranslation()
@@ -35,9 +35,12 @@ export default function CustomerCartBar() {
   })
 
   const fulfillment = branchId ? loadFulfillmentIntent(branchId) ?? "delivery" : "delivery"
-  const branchPromo = branches?.find((b: { id: string }) => b.id === branchId)?.promotions
+  const branchList = Array.isArray(branches) ? branches : []
+  const branchPromo = branchList.find((b: { id: string }) => b.id === branchId)?.promotions
   const discountPct =
-    branchPromo?.websiteDiscountEnabled !== false ? platformPromo.websiteOrderDiscountPct : 0
+    branchPromo?.websiteDiscountEnabled !== false
+      ? Number(platformPromo.websiteOrderDiscountPct) || 0
+      : 0
 
   const estimate = useMemo(
     () =>
@@ -45,7 +48,7 @@ export default function CustomerCartBar() {
         subtotal,
         discountPct,
         fulfillment,
-        zones: deliveryInfo?.radiusZones ?? []
+        zones: coerceRadiusZones(deliveryInfo?.radiusZones)
       }),
     [subtotal, discountPct, fulfillment, deliveryInfo?.radiusZones]
   )

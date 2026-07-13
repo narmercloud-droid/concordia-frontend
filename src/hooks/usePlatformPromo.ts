@@ -31,5 +31,5 @@ export function usePlatformPromo() {
     refetchOnWindowFocus: false
   })
 
-  return data ?? DEFAULT
+  return { ...DEFAULT, ...(data ?? {}) }
 }

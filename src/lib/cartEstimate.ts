@@ -7,13 +7,18 @@ export type DeliveryZoneLike = {
   freeDeliveryMinimum?: number
 }
 
+export function coerceRadiusZones(zones: unknown): DeliveryZoneLike[] {
+  return Array.isArray(zones) ? zones : []
+}
+
 export function estimateCartDisplay(params: {
   subtotal: number
   discountPct: number
   fulfillment: FulfillmentIntent | null
-  zones: DeliveryZoneLike[]
+  zones: unknown
 }) {
-  const { subtotal, discountPct, fulfillment, zones } = params
+  const { subtotal, discountPct, fulfillment, zones: rawZones } = params
+  const zones = coerceRadiusZones(rawZones)
   const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
   const foodTotal = calcDiscountedSubtotal(subtotal, discountPct)
 

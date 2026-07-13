@@ -7,7 +7,10 @@ import {
   reverseGeocodeLocation,
   suggestAddresses
 } from "@/api/customer"
-import type { DeliveryAddressFields } from "@/lib/deliveryAddress"
+import {
+  normalizeDeliveryAddressFields,
+  type DeliveryAddressFields
+} from "@/lib/deliveryAddress"
 
 export type StreetSuggestion = {
   label: string
@@ -50,7 +53,8 @@ export default function DeliveryAddressForm({
   const [locating, setLocating] = useState(false)
   const [locationError, setLocationError] = useState("")
   const [locationFilled, setLocationFilled] = useState(false)
-  const [showExtras, setShowExtras] = useState(Boolean(value.floor.trim()))
+  const safeValue = useMemo(() => normalizeDeliveryAddressFields(value), [value])
+  const [showExtras, setShowExtras] = useState(Boolean(safeValue.floor.trim()))
   const [activeIndex, setActiveIndex] = useState(-1)
   const [cityFromPlz, setCityFromPlz] = useState(false)
   const [plzLookupLoading, setPlzLookupLoading] = useState(false)
@@ -58,8 +62,8 @@ export default function DeliveryAddressForm({
   const streetContainerRef = useRef<HTMLDivElement>(null)
   const houseNumberRef = useRef<HTMLInputElement>(null)
   const requestId = useRef(0)
-  const valueRef = useRef(value)
-  valueRef.current = value
+  const valueRef = useRef(safeValue)
+  valueRef.current = safeValue
 
   const { data: deliveryAreasData } = useQuery({
     queryKey: ["deliveryAreas", branchId],
@@ -73,11 +77,12 @@ export default function DeliveryAddressForm({
   const usePostcodeDropdown =
     deliveryAreas.length > 0 && deliveryMode === "postcodes"
   const matchedArea = useMemo(
-    () => deliveryAreas.find((area) => area.postalCode === value.postalCode.trim()),
-    [deliveryAreas, value.postalCode]
+    () => deliveryAreas.find((area) => area.postalCode === safeValue.postalCode.trim()),
+    [deliveryAreas, safeValue.postalCode]
   )
   const cityAutoFilled = Boolean((usePostcodeDropdown && matchedArea?.city) || cityFromPlz)
-  const canSearchStreets = /^\d{5}$/.test(value.postalCode.trim()) && value.street.trim().length >= 2
+  const canSearchStreets =
+    /^\d{5}$/.test(safeValue.postalCode.trim()) && safeValue.street.trim().length >= 2
   const regionLabel = branchDisplayName(branchName) || branchCity || t("checkout.deliveryAreaFallback")
 
   const patch = (partial: Partial<DeliveryAddressFields>) => {
@@ -106,12 +111,13 @@ export default function DeliveryAddressForm({
     setPlzLookupError("")
     patch({
       postalCode,
-      city: postalCode.length < 5 ? "" : value.city
+      city: postalCode.length < 5 ? "" : safeValue.city
     })
   }
 
   useEffect(() => {
-    const plz = value.postalCode.trim()
+    const plz = safeValue.postalCode.trim()
+    if (safeValue.city.trim()) return
     if (!/^\d{5}$/.test(plz)) {
       setPlzLookupLoading(false)
       setPlzLookupError("")
@@ -148,7 +154,7 @@ export default function DeliveryAddressForm({
       cancelled = true
       window.clearTimeout(timer)
     }
-  }, [branchId, value.postalCode, matchedArea?.city])
+  }, [branchId, safeValue.postalCode, safeValue.city, matchedArea?.city])
 
   const handleUseLocation = () => {
     setLocationError("")
@@ -220,11 +226,11 @@ export default function DeliveryAddressForm({
       try {
         const res = await suggestAddresses(
           branchId,
-          value.street.trim(),
-          value.postalCode.trim(),
-          value.city.trim() || branchCity,
-          value.lat != null && value.lng != null
-            ? { lat: value.lat, lng: value.lng }
+          safeValue.street.trim(),
+          safeValue.postalCode.trim(),
+          safeValue.city.trim() || branchCity,
+          safeValue.lat != null && safeValue.lng != null
+            ? { lat: safeValue.lat, lng: safeValue.lng }
             : branchLat != null && branchLng != null
               ? { lat: branchLat, lng: branchLng }
               : undefined
@@ -258,11 +264,11 @@ export default function DeliveryAddressForm({
     branchCity,
     branchLat,
     branchLng,
-    value.street,
-    value.postalCode,
-    value.city,
-    value.lat,
-    value.lng,
+    safeValue.street,
+    safeValue.postalCode,
+    safeValue.city,
+    safeValue.lat,
+    safeValue.lng,
     canSearchStreets
   ])
 
@@ -279,10 +285,10 @@ export default function DeliveryAddressForm({
   const pickSuggestion = (suggestion: StreetSuggestion) => {
     patch({
       street: suggestion.street,
-      city: suggestion.city || value.city,
-      postalCode: suggestion.postalCode || value.postalCode,
-      lat: suggestion.lat ?? value.lat,
-      lng: suggestion.lng ?? value.lng
+      city: suggestion.city || safeValue.city,
+      postalCode: suggestion.postalCode || safeValue.postalCode,
+      lat: suggestion.lat ?? safeValue.lat,
+      lng: suggestion.lng ?? safeValue.lng
     })
     setOpen(false)
     setActiveIndex(-1)
@@ -308,7 +314,7 @@ export default function DeliveryAddressForm({
   }
 
   const showDropdown = open && (loading || suggestions.length > 0)
-  const postcodeReady = /^\d{5}$/.test(value.postalCode.trim())
+  const postcodeReady = /^\d{5}$/.test(safeValue.postalCode.trim())
 
   return (
     <div className="delivery-address-form delivery-address-form--compact">
@@ -345,7 +351,7 @@ export default function DeliveryAddressForm({
             <select
               id="checkout-postal-code"
               className="customer-select"
-              value={value.postalCode}
+              value={safeValue.postalCode}
               onChange={(e) => handlePostalCodeChange(e.target.value)}
             >
               <option value="">{t("checkout.addressSelectPostcode")}</option>
@@ -363,7 +369,7 @@ export default function DeliveryAddressForm({
               inputMode="numeric"
               maxLength={5}
               placeholder={t("checkout.addressPostalCodePlaceholder")}
-              value={value.postalCode}
+              value={safeValue.postalCode}
               onChange={(e) =>
                 handlePostalCodeChange(e.target.value.replace(/\D/g, "").slice(0, 5))
               }
@@ -380,7 +386,7 @@ export default function DeliveryAddressForm({
             id="checkout-city"
             className={`customer-input${cityAutoFilled ? " customer-input--readonly" : ""}`}
             placeholder={t("checkout.addressCityPlaceholder")}
-            value={plzLookupLoading && !value.city ? "" : value.city}
+            value={plzLookupLoading && !safeValue.city ? "" : safeValue.city}
             onChange={(e) => {
               setCityFromPlz(false)
               patch({ city: e.target.value })
@@ -407,7 +413,7 @@ export default function DeliveryAddressForm({
               id="checkout-street"
               className="customer-input"
               placeholder={t("checkout.addressStreetPlaceholder")}
-              value={value.street}
+              value={safeValue.street}
               onChange={(e) => patch({ street: e.target.value })}
               onFocus={() => {
                 if (canSearchStreets && (loading || suggestions.length > 0)) {
@@ -462,7 +468,7 @@ export default function DeliveryAddressForm({
             ref={houseNumberRef}
             className="customer-input"
             placeholder={t("checkout.addressHouseNumberPlaceholder")}
-            value={value.houseNumber}
+            value={safeValue.houseNumber}
             onChange={(e) => patch({ houseNumber: e.target.value })}
             autoComplete="off"
           />
@@ -486,7 +492,7 @@ export default function DeliveryAddressForm({
             id="checkout-floor"
             className="customer-input"
             placeholder={t("checkout.addressFloorPlaceholder")}
-            value={value.floor}
+            value={safeValue.floor}
             onChange={(e) => patch({ floor: e.target.value })}
             autoComplete="off"
           />

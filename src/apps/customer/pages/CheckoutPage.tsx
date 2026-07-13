@@ -50,6 +50,7 @@ import {
   loadFulfillmentIntent,
   parseFulfillmentParam
 } from "@/lib/fulfillmentIntent"
+import { coerceRadiusZones } from "@/lib/cartEstimate"
 
 type FulfillmentType = "pickup" | "delivery"
 type TimingMode = "asap" | "scheduled"
@@ -529,7 +530,7 @@ export default function CheckoutPage() {
 
   const estimatedFreeDeliveryGap = useMemo(() => {
     if (fulfillmentType !== "delivery") return null
-    const zones = deliveryInfo?.radiusZones ?? []
+    const zones = coerceRadiusZones(deliveryInfo?.radiusZones)
     if (!zones.length) return null
     const gaps = zones
       .map((zone) => {

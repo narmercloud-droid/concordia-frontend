@@ -76,14 +76,32 @@ export function parseLegacyAddress(address: string): DeliveryAddressFields {
   }
 }
 
+export function normalizeDeliveryAddressFields(
+  fields: Partial<DeliveryAddressFields> | null | undefined
+): DeliveryAddressFields {
+  const source = fields ?? {}
+  return {
+    street: String(source.street ?? ""),
+    houseNumber: String(source.houseNumber ?? ""),
+    floor: String(source.floor ?? ""),
+    city: String(source.city ?? ""),
+    postalCode: String(source.postalCode ?? ""),
+    lat: typeof source.lat === "number" ? source.lat : undefined,
+    lng: typeof source.lng === "number" ? source.lng : undefined
+  }
+}
+
 export function loadAddressFields(
   draft: { address?: string; addressFields?: DeliveryAddressFields } | null | undefined
 ): DeliveryAddressFields {
   if (draft?.addressFields) {
-    return { ...EMPTY_DELIVERY_ADDRESS, ...draft.addressFields }
+    return normalizeDeliveryAddressFields({
+      ...EMPTY_DELIVERY_ADDRESS,
+      ...draft.addressFields
+    })
   }
   if (draft?.address?.trim()) {
-    return parseLegacyAddress(draft.address)
+    return normalizeDeliveryAddressFields(parseLegacyAddress(draft.address))
   }
   return { ...EMPTY_DELIVERY_ADDRESS }
 }
