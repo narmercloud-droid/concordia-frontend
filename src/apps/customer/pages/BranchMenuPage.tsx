@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
@@ -50,12 +50,45 @@ type MenuCategory = {
 
 type SelectedItem = MenuItem & { categoryName: string }
 
+function categoryAnchor(id: string | number) {
+  return `menu-cat-${id}`
+}
+
+function getMenuStickyOffset(): number {
+  const siteNav = document.querySelector(".customer-site-nav-wrap")
+  const menuNav = document.querySelector(".branch-menu__nav-bar")
+  const siteH = siteNav?.getBoundingClientRect().height ?? 0
+  const menuH = menuNav?.getBoundingClientRect().height ?? 0
+  const siteStuck = siteNav != null && siteNav.getBoundingClientRect().top <= 0
+  const menuStuck =
+    menuNav != null && menuNav.getBoundingClientRect().top <= (siteStuck ? siteH : 0)
+  return (siteStuck ? siteH : 0) + (menuStuck ? menuH : 0) + 12
+}
+
+function scrollToMenuSection(id: string | number) {
+  const section = document.getElementById(categoryAnchor(id))
+  if (!section) return
+  const top = section.getBoundingClientRect().top + window.scrollY - getMenuStickyOffset()
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" })
+}
+
+function centerActiveNavLink(navScroll: HTMLElement | null) {
+  if (!navScroll) return
+  const activeLink = navScroll.querySelector(".branch-menu__nav-link--active")
+  if (!(activeLink instanceof HTMLElement)) return
+  const target =
+    activeLink.offsetLeft - navScroll.clientWidth / 2 + activeLink.offsetWidth / 2
+  navScroll.scrollTo({ left: Math.max(0, target), behavior: "smooth" })
+}
+
 type CategoryNavProps = {
   activeSectionId: string | number | null
   bestSellers: MenuItem[]
   categories: MenuCategory[]
   categoriesLabel: string
   bestSellersLabel: string
+  navScrollRef: React.RefObject<HTMLDivElement | null>
+  onCategorySelect: (id: string | number) => void
 }
 
 function BranchMenuCategoryNav({
@@ -63,7 +96,9 @@ function BranchMenuCategoryNav({
   bestSellers,
   categories,
   categoriesLabel,
-  bestSellersLabel
+  bestSellersLabel,
+  navScrollRef,
+  onCategorySelect
 }: CategoryNavProps) {
   const linkClass = (id: string | number, isBest = false) => {
     const active = activeSectionId != null && String(activeSectionId) === String(id)
@@ -78,18 +113,30 @@ function BranchMenuCategoryNav({
 
   return (
     <nav className="branch-menu__nav" aria-label={categoriesLabel}>
-      <div className="branch-menu__nav-scroll">
+      <div className="branch-menu__nav-scroll" ref={navScrollRef}>
         {bestSellers.length > 0 && (
           <a
             className={linkClass(BEST_SELLERS_SECTION_ID, true)}
             href={`#${categoryAnchor(BEST_SELLERS_SECTION_ID)}`}
+            onClick={(e) => {
+              e.preventDefault()
+              onCategorySelect(BEST_SELLERS_SECTION_ID)
+            }}
           >
             <span className="branch-menu__nav-text">{bestSellersLabel}</span>
             <span className="branch-menu__nav-count">{bestSellers.length}</span>
           </a>
         )}
         {categories.map((cat) => (
-          <a key={cat.id} className={linkClass(cat.id)} href={`#${categoryAnchor(cat.id)}`}>
+          <a
+            key={cat.id}
+            className={linkClass(cat.id)}
+            href={`#${categoryAnchor(cat.id)}`}
+            onClick={(e) => {
+              e.preventDefault()
+              onCategorySelect(cat.id)
+            }}
+          >
             <span className="branch-menu__nav-text">{cat.name}</span>
             <span className="branch-menu__nav-count">{cat.items?.length ?? 0}</span>
           </a>
@@ -97,10 +144,6 @@ function BranchMenuCategoryNav({
       </div>
     </nav>
   )
-}
-
-function categoryAnchor(id: string | number) {
-  return `menu-cat-${id}`
 }
 
 function branchMenuEyebrow(branch?: { name?: string; city?: string | null }) {
@@ -120,6 +163,9 @@ export default function BranchMenuPage() {
   const [toastName, setToastName] = useState<string | null>(null)
   const [activeSectionId, setActiveSectionId] = useState<string | number | null>(null)
   const [fulfillment, setFulfillment] = useState<FulfillmentIntent>("delivery")
+  const navScrollRef = useRef<HTMLDivElement>(null)
+  const programmaticScrollRef = useRef(false)
+  const programmaticScrollTimerRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (!branchId) return
@@ -204,23 +250,26 @@ export default function BranchMenuPage() {
     return ids
   }, [bestSellers.length, categories])
 
+  const handleCategorySelect = useCallback((id: string | number) => {
+    setActiveSectionId(id)
+    programmaticScrollRef.current = true
+    if (programmaticScrollTimerRef.current != null) {
+      window.clearTimeout(programmaticScrollTimerRef.current)
+    }
+    scrollToMenuSection(id)
+    programmaticScrollTimerRef.current = window.setTimeout(() => {
+      programmaticScrollRef.current = false
+      programmaticScrollTimerRef.current = null
+    }, 700)
+  }, [])
+
   useEffect(() => {
     if (!sectionIds.length) return
 
-    const scrollMarker = () => {
-      const siteNav = document.querySelector(".customer-site-nav-wrap")
-      const menuNav = document.querySelector(".branch-menu__nav-bar")
-      const siteH = siteNav?.getBoundingClientRect().height ?? 0
-      const menuH = menuNav?.getBoundingClientRect().height ?? 0
-      const siteStuck = siteNav != null && siteNav.getBoundingClientRect().top <= 0
-      const menuStuck = menuNav != null && menuNav.getBoundingClientRect().top <= (siteStuck ? siteH : 0)
-      const stickyH =
-        (siteStuck ? siteH : 0) + (menuStuck ? menuH : 0)
-      return stickyH + 12
-    }
-
     const updateActiveSection = () => {
-      const marker = scrollMarker()
+      if (programmaticScrollRef.current) return
+
+      const marker = getMenuStickyOffset()
       let current = sectionIds[0]
 
       for (const id of sectionIds) {
@@ -240,13 +289,15 @@ export default function BranchMenuPage() {
     return () => {
       window.removeEventListener("scroll", updateActiveSection)
       window.removeEventListener("resize", updateActiveSection)
+      if (programmaticScrollTimerRef.current != null) {
+        window.clearTimeout(programmaticScrollTimerRef.current)
+      }
     }
   }, [sectionIds])
 
   useEffect(() => {
     if (activeSectionId == null) return
-    const activeLink = document.querySelector(".branch-menu__nav-link--active")
-    activeLink?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" })
+    centerActiveNavLink(navScrollRef.current)
   }, [activeSectionId])
 
   useEffect(() => {
@@ -360,6 +411,8 @@ export default function BranchMenuPage() {
           categories={categories}
           categoriesLabel={t("menu.categories")}
           bestSellersLabel={t("menu.bestSellers")}
+          navScrollRef={navScrollRef}
+          onCategorySelect={handleCategorySelect}
         />
       </div>
 
