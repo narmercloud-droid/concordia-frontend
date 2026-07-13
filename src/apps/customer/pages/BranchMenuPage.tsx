@@ -183,7 +183,7 @@ export default function BranchMenuPage() {
     if (branchId) saveFulfillmentIntent(branchId, next)
   }
 
-  const { data: branches } = useQuery({
+  const { data: branches, isSuccess: branchesReady } = useQuery({
     ...branchesQueryOptions,
     queryKey: BRANCHES_QUERY_KEY
   })
@@ -356,7 +356,19 @@ export default function BranchMenuPage() {
     [orderingDisabled]
   )
 
+  const branchNotFound = branchesReady && !!branchId && !branch
+
   if (!data?.categories?.length) {
+    if (branchNotFound) {
+      return (
+        <div className="customer-page">
+          <p className="customer-hint">{t("common.notFound")}</p>
+          <Link to="/" className="customer-btn customer-btn--primary" style={{ marginTop: 16, display: "inline-block" }}>
+            {t("cart.backToMenu")}
+          </Link>
+        </div>
+      )
+    }
     const showMenuError = menuError && !menuFetching && !menuPending
     if (showMenuError) {
       return (

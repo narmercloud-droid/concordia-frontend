@@ -37,7 +37,7 @@ function itemsByNumbers(categories: FeaturedMenuCategory[], numbers: string[]) {
   return numbers
     .map((number) => {
       for (const cat of categories) {
-        const item = cat.items.find((entry) => entry.itemNumber === number)
+        const item = (cat.items ?? []).find((entry) => entry.itemNumber === number)
         if (item) return item
       }
       return null
@@ -49,7 +49,7 @@ function itemsByIds(categories: FeaturedMenuCategory[], ids: number[]) {
   return ids
     .map((id) => {
       for (const cat of categories) {
-        const item = cat.items.find((entry) => entry.id === id)
+        const item = (cat.items ?? []).find((entry) => entry.id === id)
         if (item) return item
       }
       return null
@@ -91,5 +91,5 @@ export function pickFeatured(
 }
 
 export function categoryForItem(categories: FeaturedMenuCategory[], item: FeaturedMenuItem) {
-  return categories.find((c) => c.items.some((i) => i.id === item.id))?.name ?? ""
+  return categories.find((c) => (c.items ?? []).some((i) => i.id === item.id))?.name ?? ""
 }

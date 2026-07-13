@@ -104,7 +104,10 @@ export default function CartPage() {
   const [selectedSuggestion, setSelectedSuggestion] = useState<SuggestionItem | null>(null)
   const [editLine, setEditLine] = useState<(typeof items)[number] | null>(null)
 
-  const goToCheckout = () => navigate("/customer/checkout")
+  const goToCheckout = () => {
+    if (!branchId) return
+    navigate("/customer/checkout")
+  }
 
   const handleQuickAdd = async (item: SuggestionItem) => {
     if (!branchId || addingItemId != null) return
@@ -295,6 +298,7 @@ export default function CartPage() {
           type="button"
           className="customer-btn customer-btn--primary"
           onClick={goToCheckout}
+          disabled={!branchId}
         >
           {t("cart.checkout")}
         </button>

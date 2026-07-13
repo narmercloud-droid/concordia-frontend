@@ -59,6 +59,15 @@ export type ItemOptionGroup = {
 
 
 
+function safeOptionGroups(groups: ItemOptionGroup[] | undefined): ItemOptionGroup[] {
+  return (groups ?? []).map((group) => ({
+    ...group,
+    options: Array.isArray(group.options) ? group.options : []
+  }))
+}
+
+
+
 function choicesFromCartItem(
 
   cartItem: CartItem,
@@ -174,9 +183,9 @@ export function useItemOptions(
 
 
 
-  const variantGroups: ItemOptionGroup[] = item?.variantGroups ?? []
+  const variantGroups: ItemOptionGroup[] = safeOptionGroups(item?.variantGroups)
 
-  const addOnGroups: ItemOptionGroup[] = item?.addOnGroups ?? []
+  const addOnGroups: ItemOptionGroup[] = safeOptionGroups(item?.addOnGroups)
 
   const sizeBasedExtras = item?.extraPricing?.sizeBased === true
   const requiresSizeForExtras = sizeBasedExtras && hasSizeVariantGroup(variantGroups)

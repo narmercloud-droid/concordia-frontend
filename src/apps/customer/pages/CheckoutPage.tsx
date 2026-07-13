@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { getStoredPushToken, isPushConfigured, subscribeToPush } from "@/utils/pushNotifications"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -14,9 +14,8 @@ import {
 } from "@/api/customer"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { listAddresses, type SavedAddress } from "@/api/addresses"
-import { createStripePaymentIntent, getPaymentConfig } from "@/api/payments"
-import PayPalCheckout from "@/apps/customer/components/PayPalCheckout"
-import StripeCheckout from "@/apps/customer/components/StripeCheckout"
+const StripeCheckout = React.lazy(() => import("@/apps/customer/components/StripeCheckout"))
+const PayPalCheckout = React.lazy(() => import("@/apps/customer/components/PayPalCheckout"))
 import PaymentMethodPicker from "@/apps/customer/components/PaymentMethodPicker"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CheckoutChoiceCard from "@/apps/customer/components/CheckoutChoiceCard"
@@ -242,7 +241,10 @@ export default function CheckoutPage() {
 
   const { data: paymentConfig } = useQuery({
     queryKey: ["paymentConfig", branchId],
-    queryFn: () => getPaymentConfig(branchId!),
+    queryFn: async () => {
+      const { getPaymentConfig } = await import("@/api/payments")
+      return getPaymentConfig(branchId!)
+    },
     enabled: !!branchId,
     staleTime: 60_000
   })
@@ -387,7 +389,7 @@ export default function CheckoutPage() {
       return
     }
 
-    const activated = walletData.coupons.find((c) => c.id === walletData.activatedCouponId)
+    const activated = walletData.coupons?.find((c) => c.id === walletData.activatedCouponId)
     if (!activated) return
 
     autoCouponAppliedRef.current = true
@@ -804,6 +806,7 @@ export default function CheckoutPage() {
   const beginOnlinePayment = async (orderId: string) => {
     if (needsStripePayment) {
       try {
+        const { createStripePaymentIntent } = await import("@/api/payments")
         const session = await createStripePaymentIntent(orderId)
         if (!session.publishableKey) {
           setAwaitingPaymentOrderId(orderId)
@@ -1986,6 +1989,7 @@ export default function CheckoutPage() {
 
       {pendingStripeSession && needsStripePayment && (
         <>
+        <Suspense fallback={<p className="customer-loading">{t("menu.loading")}</p>}>
         <StripeCheckout
           orderId={pendingStripeSession.orderId}
           publishableKey={pendingStripeSession.publishableKey}
@@ -1997,6 +2001,7 @@ export default function CheckoutPage() {
           onSuccess={handleCardPaymentSuccess}
           onError={abandonOnlinePayment}
         />
+        </Suspense>
         <CheckoutLegalFooter />
         </>
       )}
@@ -2015,6 +2020,7 @@ export default function CheckoutPage() {
             <p className="checkout-paypal-step__hint">{t("checkout.paypalTapButtonHint")}</p>
           </div>
           <h3 className="customer-subtitle">{t("checkout.onlinePaymentTitle")}</h3>
+          <Suspense fallback={<p className="customer-loading">{t("menu.loading")}</p>}>
           <PayPalCheckout
             orderId={pendingCardOrderId}
             paypalClientId={paymentConfig.paypalClientId}
@@ -2025,6 +2031,7 @@ export default function CheckoutPage() {
             onSuccess={handleCardPaymentSuccess}
             onError={abandonOnlinePayment}
           />
+          </Suspense>
           <button
             type="button"
             className="customer-btn checkout-paypal-step__change"

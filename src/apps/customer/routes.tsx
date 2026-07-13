@@ -1,18 +1,19 @@
 import React, { Suspense } from "react"
 import { Navigate } from "react-router-dom"
+import { lazyWithRetry } from "@/lib/lazyWithRetry"
 import CustomerLayout from "./layouts/CustomerLayout.js"
 import AuthLayout from "./layouts/AuthLayout.js"
-const BranchMenuPage = React.lazy(() => import("./pages/BranchMenuPage.js"))
-const BranchCheckoutEntry = React.lazy(() => import("./pages/BranchCheckoutEntry.js"))
-const ItemDetailsPage = React.lazy(() => import("./pages/ItemDetailsPage.js"))
-const CartPage = React.lazy(() => import("./pages/CartPage.js"))
-const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage.js"))
-const OrderTrackingPage = React.lazy(() => import("./pages/OrderTrackingPage.js"))
-const LoginPage = React.lazy(() => import("./pages/LoginPage.js"))
-const RegisterPage = React.lazy(() => import("./pages/RegisterPage.js"))
-const CouponsPage = React.lazy(() => import("./pages/CouponsPage.js"))
-const OrderDetailsPage = React.lazy(() => import("./pages/OrderDetailsPage.js"))
-const CustomerSettingsPage = React.lazy(() => import("./pages/CustomerSettingsPage.js"))
+const BranchMenuPage = lazyWithRetry(() => import("./pages/BranchMenuPage.js"))
+const BranchCheckoutEntry = lazyWithRetry(() => import("./pages/BranchCheckoutEntry.js"))
+const ItemDetailsPage = lazyWithRetry(() => import("./pages/ItemDetailsPage.js"))
+const CartPage = lazyWithRetry(() => import("./pages/CartPage.js"))
+const CheckoutPage = lazyWithRetry(() => import("./pages/CheckoutPage.js"))
+const OrderTrackingPage = lazyWithRetry(() => import("./pages/OrderTrackingPage.js"))
+const LoginPage = lazyWithRetry(() => import("./pages/LoginPage.js"))
+const RegisterPage = lazyWithRetry(() => import("./pages/RegisterPage.js"))
+const CouponsPage = lazyWithRetry(() => import("./pages/CouponsPage.js"))
+const OrderDetailsPage = lazyWithRetry(() => import("./pages/OrderDetailsPage.js"))
+const CustomerSettingsPage = lazyWithRetry(() => import("./pages/CustomerSettingsPage.js"))
 import LoadingFallback from "./components/LoadingFallback.js"
 import ProtectedRoute from "@/router/ProtectedRoute"
 import {
