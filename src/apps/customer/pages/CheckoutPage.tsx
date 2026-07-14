@@ -227,7 +227,7 @@ export default function CheckoutPage() {
   const showLoyaltyCheckout = platformPromo.showLoyaltyCheckout
   const websiteDiscountEnabled = branchPromo?.websiteDiscountEnabled !== false
   const checkoutDiscountPct = websiteDiscountEnabled ? platformPromo.websiteOrderDiscountPct : 0
-  const allowCheckoutVouchers = !(websiteDiscountEnabled && checkoutDiscountPct > 0)
+  const allowCheckoutVouchers = true
   const qualifiesForFreeDrink =
     showFreeDrinkCheckout && freeDrinkMin > 0 && total >= freeDrinkMin
 
@@ -590,8 +590,8 @@ export default function CheckoutPage() {
 
   const subtotal = total
   const discountPct = checkoutDiscountPct
-  const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
-  const voucherDiscount = allowCheckoutVouchers ? (appliedVoucher?.discountAmount ?? 0) : 0
+  const websiteDiscount = appliedVoucher ? 0 : calcWebsiteDiscount(subtotal, discountPct)
+  const voucherDiscount = appliedVoucher?.discountAmount ?? 0
   const discountedSubtotal = Math.max(0, subtotal - websiteDiscount - voucherDiscount)
   const quotedDeliveryFee =
     fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
