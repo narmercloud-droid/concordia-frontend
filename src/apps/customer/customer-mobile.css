@@ -185,8 +185,16 @@
   }
 
   .branch-menu__order-btn {
+    width: 48px;
+    height: 48px;
     min-height: 48px;
-    font-size: 13px;
+    font-size: 28px;
+  }
+
+  .branch-menu__order-btn--disabled {
+    width: auto;
+    height: auto;
+    font-size: 12px;
   }
 }
 

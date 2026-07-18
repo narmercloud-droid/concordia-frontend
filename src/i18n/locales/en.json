@@ -170,7 +170,14 @@
     "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
     "allergenContact": "Request allergen details",
     "allergenItemHint": "If you have allergies, add an order note or contact us before ordering.",
-    "fulfillmentLead": "How would you like to order?"
+    "fulfillmentLead": "How would you like to order?",
+    "searchLabel": "Search the menu",
+    "searchPlaceholder": "Search in {{name}}",
+    "searchClear": "Clear search",
+    "searchResults": "{{count}} results",
+    "searchEmpty": "No results",
+    "searchEmptyHint": "No dishes found. Try a different search term.",
+    "quickAddAria": "Order {{name}}"
   },
   "cart": {
     "title": "Your cart",

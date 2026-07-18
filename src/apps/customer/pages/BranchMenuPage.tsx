@@ -154,6 +154,22 @@ function branchMenuEyebrow(branch?: { name?: string; city?: string | null }) {
   return location ? `Pizzeria Concordia - ${location}` : "Pizzeria Concordia"
 }
 
+function normalizeMenuSearch(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+}
+
+function itemMatchesMenuSearch(item: MenuItem, query: string) {
+  if (!query) return true
+  const haystack = normalizeMenuSearch(
+    [item.itemNumber, item.name, item.description].filter(Boolean).join(" ")
+  )
+  return haystack.includes(query)
+}
+
 export default function BranchMenuPage() {
   const { t, i18n } = useTranslation()
   const { branchId } = useParams()
@@ -163,7 +179,9 @@ export default function BranchMenuPage() {
   const [toastName, setToastName] = useState<string | null>(null)
   const [activeSectionId, setActiveSectionId] = useState<string | number | null>(null)
   const [fulfillment, setFulfillment] = useState<FulfillmentIntent>("delivery")
+  const [menuSearch, setMenuSearch] = useState("")
   const navScrollRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const programmaticScrollRef = useRef(false)
   const programmaticScrollTimerRef = useRef<number | null>(null)
 
@@ -237,18 +255,48 @@ export default function BranchMenuPage() {
   })
 
   const categories = (data?.categories ?? []) as MenuCategory[]
+  const searchQuery = useMemo(() => normalizeMenuSearch(menuSearch), [menuSearch])
+  const isSearching = searchQuery.length > 0
 
   const bestSellers = useMemo(
     () => pickFeatured(categories, 6, { salesItemIds: bestsellersData?.itemIds }),
     [categories, bestsellersData?.itemIds]
   )
 
+  const filteredBestSellers = useMemo(
+    () =>
+      isSearching
+        ? bestSellers.filter((item) => itemMatchesMenuSearch(item, searchQuery))
+        : bestSellers,
+    [bestSellers, isSearching, searchQuery]
+  )
+
+  const filteredCategories = useMemo(() => {
+    if (!isSearching) return categories
+    return categories
+      .map((cat) => ({
+        ...cat,
+        items: (cat.items ?? []).filter((item) => itemMatchesMenuSearch(item, searchQuery))
+      }))
+      .filter((cat) => (cat.items?.length ?? 0) > 0)
+  }, [categories, isSearching, searchQuery])
+
+  const searchResultCount = useMemo(() => {
+    if (!isSearching) return 0
+    const ids = new Set<number>()
+    for (const item of filteredBestSellers) ids.add(item.id)
+    for (const cat of filteredCategories) {
+      for (const item of cat.items ?? []) ids.add(item.id)
+    }
+    return ids.size
+  }, [filteredBestSellers, filteredCategories, isSearching])
+
   const sectionIds = useMemo(() => {
     const ids: Array<string | number> = []
-    if (bestSellers.length > 0) ids.push(BEST_SELLERS_SECTION_ID)
-    for (const cat of categories) ids.push(cat.id)
+    if (filteredBestSellers.length > 0) ids.push(BEST_SELLERS_SECTION_ID)
+    for (const cat of filteredCategories) ids.push(cat.id)
     return ids
-  }, [bestSellers.length, categories])
+  }, [filteredBestSellers.length, filteredCategories])
 
   const handleCategorySelect = useCallback((id: string | number) => {
     setActiveSectionId(id)
@@ -336,7 +384,19 @@ export default function BranchMenuPage() {
     )
     cards.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [branchId, categories, orderingDisabled, menuHasItemOptions, i18n.language])
+  }, [
+    branchId,
+    filteredCategories,
+    filteredBestSellers,
+    orderingDisabled,
+    menuHasItemOptions,
+    i18n.language
+  ])
+
+  useEffect(() => {
+    if (!isSearching || !sectionIds.length) return
+    setActiveSectionId(sectionIds[0])
+  }, [isSearching, searchQuery, sectionIds])
 
   useEffect(() => {
     if (!toastName) return
@@ -347,6 +407,10 @@ export default function BranchMenuPage() {
   useEffect(() => {
     if (branchId) setSelectedBranchId(branchId)
   }, [branchId, setSelectedBranchId])
+
+  useEffect(() => {
+    setMenuSearch("")
+  }, [branchId])
 
   const openItem = useCallback(
     (item: MenuItem, categoryName: string) => {
@@ -417,34 +481,105 @@ export default function BranchMenuPage() {
       </header>
 
       <div className="branch-menu__nav-bar">
-        <BranchMenuCategoryNav
-          activeSectionId={activeSectionId}
-          bestSellers={bestSellers}
-          categories={categories}
-          categoriesLabel={t("menu.categories")}
-          bestSellersLabel={t("menu.bestSellers")}
-          navScrollRef={navScrollRef}
-          onCategorySelect={handleCategorySelect}
-        />
+        <div className="branch-menu__search">
+          <label className="branch-menu__search-label" htmlFor="branch-menu-search">
+            <span className="branch-menu__search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" />
+                <path
+                  d="M16.5 16.5L20 20"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+            <span className="visually-hidden">{t("menu.searchLabel")}</span>
+          </label>
+          <input
+            ref={searchInputRef}
+            id="branch-menu-search"
+            className="branch-menu__search-input"
+            type="search"
+            value={menuSearch}
+            onChange={(e) => setMenuSearch(e.target.value)}
+            placeholder={t("menu.searchPlaceholder", {
+              name: branch?.name ?? "Concordia"
+            })}
+            autoComplete="off"
+            enterKeyHint="search"
+          />
+          {menuSearch.trim() && (
+            <button
+              type="button"
+              className="branch-menu__search-clear"
+              onClick={() => {
+                setMenuSearch("")
+                searchInputRef.current?.focus()
+              }}
+              aria-label={t("menu.searchClear")}
+            >
+              ×
+            </button>
+          )}
+        </div>
+
+        {(isSearching ? filteredCategories.length > 0 || filteredBestSellers.length > 0 : true) && (
+          <BranchMenuCategoryNav
+            activeSectionId={activeSectionId}
+            bestSellers={isSearching ? filteredBestSellers : bestSellers}
+            categories={isSearching ? filteredCategories : categories}
+            categoriesLabel={t("menu.categories")}
+            bestSellersLabel={t("menu.bestSellers")}
+            navScrollRef={navScrollRef}
+            onCategorySelect={handleCategorySelect}
+          />
+        )}
+
+        {isSearching && (
+          <p className="branch-menu__search-meta" role="status">
+            {searchResultCount > 0
+              ? t("menu.searchResults", { count: searchResultCount })
+              : t("menu.searchEmpty")}
+          </p>
+        )}
       </div>
 
       <div className="branch-menu__content">
-      {bestSellers.length > 0 && (
+      {isSearching && searchResultCount === 0 ? (
+        <div className="branch-menu__search-empty" role="status">
+          <p className="customer-hint">{t("menu.searchEmptyHint")}</p>
+          <button
+            type="button"
+            className="customer-btn"
+            onClick={() => {
+              setMenuSearch("")
+              searchInputRef.current?.focus()
+            }}
+          >
+            {t("menu.searchClear")}
+          </button>
+        </div>
+      ) : (
+        <>
+      {filteredBestSellers.length > 0 && (
         <section
           id={categoryAnchor(BEST_SELLERS_SECTION_ID)}
           className="branch-menu__section branch-menu__section--best"
         >
           <div className="branch-menu__section-head">
             <h3 className="branch-menu__section-title">{t("menu.bestSellers")}</h3>
-            <p className="branch-menu__section-desc">
-              {bestsellersData?.hasSalesData
-                ? t("menu.bestSellersFromSales")
-                : t("menu.bestSellersDesc")}
-            </p>
+            {!isSearching && (
+              <p className="branch-menu__section-desc">
+                {bestsellersData?.hasSalesData
+                  ? t("menu.bestSellersFromSales")
+                  : t("menu.bestSellersDesc")}
+              </p>
+            )}
           </div>
 
           <div className="branch-menu__grid">
-            {bestSellers.map((item) => (
+            {filteredBestSellers.map((item) => (
               <BranchMenuItemCard
                 key={item.id}
                 branchId={branchId!}
@@ -458,11 +593,11 @@ export default function BranchMenuPage() {
         </section>
       )}
 
-      {categories.map((cat) => (
+      {filteredCategories.map((cat) => (
         <section key={cat.id} id={categoryAnchor(cat.id)} className="branch-menu__section">
           <div className="branch-menu__section-head">
             <h3 className="branch-menu__section-title">{cat.name}</h3>
-            {cat.description && (
+            {!isSearching && cat.description && (
               <p className="branch-menu__section-desc">{cat.description}</p>
             )}
           </div>
@@ -481,6 +616,8 @@ export default function BranchMenuPage() {
           </div>
         </section>
       ))}
+        </>
+      )}
 
       </div>
 
@@ -570,8 +707,13 @@ const BranchMenuItemCard = React.memo(function BranchMenuItemCard({
         onTouchStart={warmItemOptions}
         onFocus={warmItemOptions}
         disabled={orderingDisabled}
+        aria-label={
+          orderingDisabled
+            ? t("home.comingSoonLabel")
+            : t("menu.quickAddAria", { name: item.name })
+        }
       >
-        {orderingDisabled ? t("home.comingSoonLabel") : t("home.orderNow")}
+        {orderingDisabled ? t("home.comingSoonLabel") : <span aria-hidden="true">+</span>}
       </button>
     </article>
   )

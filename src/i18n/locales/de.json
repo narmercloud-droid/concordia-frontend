@@ -170,7 +170,14 @@
     "allergenLegend": "Die 14 Hauptallergene nach LMIV/InfoV: A Gluten, B Krebstiere, C Eier, D Fisch, E Erdnüsse, F Soja, G Milch, H Schalenfrüchte, L Sellerie, M Senf, N Sesam, O Schwefeldioxid/Sulfite, P Lupinen, R Weichtiere.",
     "allergenContact": "Allergen-Details anfragen",
     "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren.",
-    "fulfillmentLead": "Wie möchten Sie bestellen?"
+    "fulfillmentLead": "Wie möchten Sie bestellen?",
+    "searchLabel": "Speisekarte durchsuchen",
+    "searchPlaceholder": "Suchen in {{name}}",
+    "searchClear": "Suche löschen",
+    "searchResults": "{{count}} Treffer",
+    "searchEmpty": "Keine Treffer",
+    "searchEmptyHint": "Kein Gericht gefunden. Versuchen Sie einen anderen Suchbegriff.",
+    "quickAddAria": "{{name}} bestellen"
   },
   "cart": {
     "title": "Ihr Warenkorb",
