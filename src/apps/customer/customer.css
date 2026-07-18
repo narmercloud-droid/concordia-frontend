@@ -35,7 +35,8 @@
   --c-sans: "DM Sans", system-ui, -apple-system, sans-serif;
   color: var(--c-ink);
   font-family: var(--c-sans);
-  overflow-x: hidden;
+  /* clip keeps horizontal bleed cut off without breaking position:sticky (hidden does). */
+  overflow-x: clip;
 }
 
 .customer-shell--layout {
