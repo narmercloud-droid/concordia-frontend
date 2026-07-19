@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
   getSalesAnalytics,
@@ -52,9 +52,18 @@ function ChartCard({
   )
 }
 
+const MAP_FOCUS_BRANCHES = ["concordia-kempen", "concordia-straelen"] as const
+
 export default function AnalyticsPage() {
   const { branchId } = useAdminBranch()
   const [mapDays, setMapDays] = useState(90)
+  const [mapBranchId, setMapBranchId] = useState<string>("concordia-kempen")
+
+  useEffect(() => {
+    if (branchId && MAP_FOCUS_BRANCHES.includes(branchId as (typeof MAP_FOCUS_BRANCHES)[number])) {
+      setMapBranchId(branchId)
+    }
+  }, [branchId])
 
   const salesQuery = useQuery({
     queryKey: ["salesAnalytics", branchId],
@@ -99,9 +108,9 @@ export default function AnalyticsPage() {
   })
 
   const locationsQuery = useQuery({
-    queryKey: ["orderLocations", branchId, mapDays],
-    queryFn: () => getOrderLocationAnalytics(branchId, mapDays),
-    enabled: !!branchId,
+    queryKey: ["orderLocations", mapBranchId, mapDays],
+    queryFn: () => getOrderLocationAnalytics(mapBranchId, mapDays),
+    enabled: !!mapBranchId,
     staleTime: 60_000
   })
 
@@ -168,6 +177,8 @@ export default function AnalyticsPage() {
           data={locationsQuery.data}
           days={mapDays}
           onDaysChange={setMapDays}
+          focusBranchId={mapBranchId}
+          onFocusBranchChange={setMapBranchId}
         />
       ) : null}
 
