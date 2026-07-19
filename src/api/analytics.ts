@@ -8,6 +8,8 @@ export type OrderLocationPoint = {
   count: number
   revenue: number
   postalCode: string | null
+  street: string | null
+  sampleAddress: string | null
 }
 
 export type OrderPostalArea = {
@@ -16,6 +18,16 @@ export type OrderPostalArea = {
   revenue: number
   lat: number | null
   lng: number | null
+}
+
+export type OrderStreetArea = {
+  street: string
+  postalCode: string | null
+  count: number
+  revenue: number
+  lat: number | null
+  lng: number | null
+  sampleAddress: string | null
 }
 
 export type OrderLocationBranch = {
@@ -28,12 +40,14 @@ export type OrderLocationBranch = {
 export type OrderLocationAnalytics = {
   points: OrderLocationPoint[]
   postalAreas: OrderPostalArea[]
+  streetAreas: OrderStreetArea[]
   branches: OrderLocationBranch[]
   meta: {
     days: number
     deliveryOrders: number
     withCoords: number
     postalOnly: number
+    withStreet: number
     totalRevenue: number
   }
 }

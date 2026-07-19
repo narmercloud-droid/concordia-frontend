@@ -1,11 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
-import type {
-  OrderLocationAnalytics,
-  OrderLocationPoint,
-  OrderPostalArea
-} from "@/api/analytics"
+import type { OrderLocationAnalytics, OrderLocationPoint } from "@/api/analytics"
 import "./OrderDensityMap.css"
 
 type Props = {
@@ -14,19 +10,22 @@ type Props = {
   onDaysChange: (days: number) => void
 }
 
-function markerRadius(count: number, maxCount: number) {
-  const min = 10
-  const max = 34
-  if (maxCount <= 1) return min + 6
+type SideTab = "streets" | "postal"
+
+function markerRadius(count: number, maxCount: number, zoom: number) {
+  const zoomBoost = Math.max(0, zoom - 13) * 0.6
+  const min = 7 + zoomBoost
+  const max = 22 + zoomBoost * 1.5
+  if (maxCount <= 1) return min + 4
   const t = Math.sqrt(count / maxCount)
   return Math.round(min + t * (max - min))
 }
 
 function markerColor(count: number, maxCount: number) {
-  const t = maxCount <= 1 ? 0.5 : count / maxCount
-  if (t >= 0.7) return "#9e0c24"
-  if (t >= 0.4) return "#c8102e"
-  if (t >= 0.2) return "#e85d04"
+  const t = maxCount <= 1 ? 0.45 : count / maxCount
+  if (t >= 0.75) return "#7f1d1d"
+  if (t >= 0.5) return "#c8102e"
+  if (t >= 0.25) return "#ea580c"
   return "#1b7340"
 }
 
@@ -37,16 +36,28 @@ function formatEuro(value: number) {
   }).format(value)
 }
 
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
 export default function OrderDensityMap({ data, days, onDaysChange }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstance = useRef<L.Map | null>(null)
-  const layerGroup = useRef<L.LayerGroup | null>(null)
+  const heatLayer = useRef<L.LayerGroup | null>(null)
+  const pinLayer = useRef<L.LayerGroup | null>(null)
+  const didFitRef = useRef(false)
   const [mapReady, setMapReady] = useState(false)
-  const [selectedPostal, setSelectedPostal] = useState<string | null>(null)
+  const [zoom, setZoom] = useState(14)
+  const [sideTab, setSideTab] = useState<SideTab>("streets")
+  const [selectedKey, setSelectedKey] = useState<string | null>(null)
 
   const maxCount = useMemo(
-    () => Math.max(1, ...data.points.map((p) => p.count), ...data.postalAreas.map((p) => p.count)),
-    [data.points, data.postalAreas]
+    () => Math.max(1, ...data.points.map((p) => p.count)),
+    [data.points]
   )
 
   const defaultCenter = useMemo(() => {
@@ -63,126 +74,154 @@ export default function OrderDensityMap({ data, days, onDaysChange }: Props) {
 
     const map = L.map(mapRef.current, {
       center: [defaultCenter.lat, defaultCenter.lng],
-      zoom: 12,
-      scrollWheelZoom: true
+      zoom: 14,
+      scrollWheelZoom: true,
+      maxZoom: 19
     })
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 20
     }).addTo(map)
 
-    layerGroup.current = L.layerGroup().addTo(map)
+    heatLayer.current = L.layerGroup().addTo(map)
+    pinLayer.current = L.layerGroup().addTo(map)
     mapInstance.current = map
+    setZoom(map.getZoom())
     setMapReady(true)
 
+    const onZoom = () => setZoom(map.getZoom())
+    map.on("zoomend", onZoom)
+
     return () => {
+      map.off("zoomend", onZoom)
       map.remove()
       mapInstance.current = null
-      layerGroup.current = null
+      heatLayer.current = null
+      pinLayer.current = null
+      didFitRef.current = false
       setMapReady(false)
     }
   }, [defaultCenter.lat, defaultCenter.lng])
 
   useEffect(() => {
-    const map = mapInstance.current
-    const layers = layerGroup.current
-    if (!map || !layers || !mapReady) return
+    didFitRef.current = false
+  }, [data])
 
-    layers.clearLayers()
+  useEffect(() => {
+    const map = mapInstance.current
+    const heat = heatLayer.current
+    const pins = pinLayer.current
+    if (!map || !heat || !pins || !mapReady) return
+
+    heat.clearLayers()
+    pins.clearLayers()
     const bounds = L.latLngBounds([])
 
     for (const branch of data.branches) {
       if (branch.lat == null || branch.lng == null) continue
       const marker = L.circleMarker([branch.lat, branch.lng], {
-        radius: 9,
+        radius: 10,
         color: "#145a32",
-        weight: 2,
-        fillColor: "#1b7340",
-        fillOpacity: 0.95
+        weight: 3,
+        fillColor: "#22c55e",
+        fillOpacity: 1
       })
       marker.bindPopup(
-        `<strong>${branch.name}</strong><br/>Filiale / Restaurant location`
+        `<strong>${escapeHtml(branch.name)}</strong><br/>Restaurant`
       )
-      layers.addLayer(marker)
+      pins.addLayer(marker)
       bounds.extend([branch.lat, branch.lng])
     }
 
-    const addPoint = (point: OrderLocationPoint | OrderPostalArea, kind: "point" | "postal") => {
-      if (point.lat == null || point.lng == null) return
-      const count = point.count
-      const isSelected =
-        kind === "postal" &&
-        selectedPostal != null &&
-        "postalCode" in point &&
-        point.postalCode === selectedPostal
+    for (const point of data.points) {
+      const halo = L.circleMarker([point.lat, point.lng], {
+        radius: markerRadius(point.count, maxCount, zoom) * 2.2,
+        color: markerColor(point.count, maxCount),
+        weight: 0,
+        fillColor: markerColor(point.count, maxCount),
+        fillOpacity: zoom >= 15 ? 0.12 : 0.22,
+        interactive: false
+      })
+      heat.addLayer(halo)
+    }
 
+    const focusPoint = (point: OrderLocationPoint) => {
+      const key = `${point.lat},${point.lng}`
+      setSelectedKey(key)
+      map.setView([point.lat, point.lng], Math.max(map.getZoom(), 17))
+    }
+
+    for (const point of data.points) {
+      const key = `${point.lat},${point.lng}`
+      const selected = selectedKey === key
       const marker = L.circleMarker([point.lat, point.lng], {
-        radius: markerRadius(count, maxCount) + (isSelected ? 4 : 0),
-        color: isSelected ? "#111827" : markerColor(count, maxCount),
-        weight: isSelected ? 3 : 1,
-        fillColor: markerColor(count, maxCount),
-        fillOpacity: 0.55
+        radius: markerRadius(point.count, maxCount, zoom) + (selected ? 3 : 0),
+        color: selected ? "#111827" : "#fff",
+        weight: selected ? 3 : 1.5,
+        fillColor: markerColor(point.count, maxCount),
+        fillOpacity: 0.88
       })
 
-      const plz =
-        "postalCode" in point && point.postalCode
-          ? `<br/>PLZ ${point.postalCode}`
-          : ""
+      const streetLine = point.street
+        ? `<br/><strong>${escapeHtml(point.street)}</strong>`
+        : ""
+      const addressLine = point.sampleAddress
+        ? `<br/>${escapeHtml(point.sampleAddress)}`
+        : ""
+      const plzLine = point.postalCode ? `<br/>PLZ ${escapeHtml(point.postalCode)}` : ""
+
       marker.bindPopup(
-        `<strong>${count} Bestellung${count === 1 ? "" : "en"}</strong>${plz}<br/>${formatEuro(point.revenue)}`
+        `<strong>${point.count} Bestellung${point.count === 1 ? "" : "en"}</strong>` +
+          streetLine +
+          addressLine +
+          plzLine +
+          `<br/>${formatEuro(point.revenue)}`
       )
+      marker.on("click", () => focusPoint(point))
 
-      if (kind === "postal" && "postalCode" in point) {
-        marker.on("click", () => setSelectedPostal(point.postalCode))
-      }
-
-      layers.addLayer(marker)
+      pins.addLayer(marker)
       bounds.extend([point.lat, point.lng])
     }
 
-    for (const point of data.points) addPoint(point, "point")
-
-    // PLZ centroids that don't already sit on a dense point cluster
-    for (const area of data.postalAreas) {
-      if (area.lat == null || area.lng == null) continue
-      const alreadyCovered = data.points.some(
-        (p) =>
-          Math.abs(p.lat - area.lat!) < 0.004 &&
-          Math.abs(p.lng - area.lng!) < 0.004 &&
-          p.count >= area.count
-      )
-      if (!alreadyCovered) addPoint(area, "postal")
-    }
-
-    if (bounds.isValid()) {
-      map.fitBounds(bounds.pad(0.2), { maxZoom: 14 })
-    } else {
-      map.setView([defaultCenter.lat, defaultCenter.lng], 12)
+    if (!didFitRef.current) {
+      if (bounds.isValid()) {
+        map.fitBounds(bounds.pad(0.15), { maxZoom: 16 })
+      } else {
+        map.setView([defaultCenter.lat, defaultCenter.lng], 14)
+      }
+      didFitRef.current = true
     }
 
     window.setTimeout(() => map.invalidateSize(), 60)
-  }, [data, mapReady, maxCount, selectedPostal, defaultCenter.lat, defaultCenter.lng])
+  }, [data, mapReady, maxCount, selectedKey, zoom, defaultCenter.lat, defaultCenter.lng])
 
-  const topAreas = data.postalAreas.slice(0, 12)
-  const weakAreas = [...data.postalAreas].filter((a) => a.count <= 2).slice(0, 8)
+  const topStreets = data.streetAreas ?? []
+  const hottestStreets = topStreets.slice(0, 15)
+  const quietStreets = topStreets.filter((s) => s.count === 1).slice(0, 10)
+  const topAreas = data.postalAreas.slice(0, 10)
+
+  const zoomTo = (lat: number | null, lng: number | null, key: string) => {
+    setSelectedKey(key)
+    if (lat == null || lng == null || !mapInstance.current) return
+    mapInstance.current.setView([lat, lng], 17)
+  }
 
   return (
     <div className="order-density-map">
       <div className="order-density-map__toolbar">
         <div>
-          <h3 className="order-density-map__title">Orders by location</h3>
+          <h3 className="order-density-map__title">Orders by street &amp; neighbourhood</h3>
           <p className="order-density-map__lead">
-            Delivery density for the last {data.meta.days} days — use this to see where you already
-            win and where marketing can grow presence.
+            Street-level delivery pins for the last {data.meta.days} days. Zoom in to read street
+            names — use the lists to decide where flyers / Meta ads should focus.
           </p>
         </div>
         <label className="order-density-map__days">
           Period
-          <select
-            value={days}
-            onChange={(e) => onDaysChange(Number(e.target.value))}
-          >
+          <select value={days} onChange={(e) => onDaysChange(Number(e.target.value))}>
             <option value={30}>30 days</option>
             <option value={90}>90 days</option>
             <option value={180}>180 days</option>
@@ -197,12 +236,12 @@ export default function OrderDensityMap({ data, days, onDaysChange }: Props) {
           <strong>{data.meta.deliveryOrders}</strong>
         </div>
         <div>
-          <span className="order-density-map__stat-label">With map pin</span>
+          <span className="order-density-map__stat-label">Exact pins</span>
           <strong>{data.meta.withCoords}</strong>
         </div>
         <div>
-          <span className="order-density-map__stat-label">PLZ only</span>
-          <strong>{data.meta.postalOnly}</strong>
+          <span className="order-density-map__stat-label">Streets found</span>
+          <strong>{data.meta.withStreet ?? 0}</strong>
         </div>
         <div>
           <span className="order-density-map__stat-label">Revenue</span>
@@ -214,55 +253,126 @@ export default function OrderDensityMap({ data, days, onDaysChange }: Props) {
         <div className="order-density-map__canvas" ref={mapRef} />
 
         <aside className="order-density-map__side">
-          <h4>Strongest PLZ areas</h4>
-          {topAreas.length === 0 ? (
-            <p className="order-density-map__empty">No delivery PLZ data in this period.</p>
+          <div className="order-density-map__tabs">
+            <button
+              type="button"
+              className={sideTab === "streets" ? "is-active" : undefined}
+              onClick={() => setSideTab("streets")}
+            >
+              Streets
+            </button>
+            <button
+              type="button"
+              className={sideTab === "postal" ? "is-active" : undefined}
+              onClick={() => setSideTab("postal")}
+            >
+              PLZ
+            </button>
+          </div>
+
+          {sideTab === "streets" ? (
+            <>
+              <h4>Hottest streets</h4>
+              {hottestStreets.length === 0 ? (
+                <p className="order-density-map__empty">
+                  No street names yet — need delivery addresses with geocoded pins.
+                </p>
+              ) : (
+                <ul className="order-density-map__list">
+                  {hottestStreets.map((area) => {
+                    const key = `street:${area.street}:${area.postalCode ?? ""}`
+                    return (
+                      <li key={key}>
+                        <button
+                          type="button"
+                          className={
+                            selectedKey === key
+                              ? "order-density-map__plz is-active"
+                              : "order-density-map__plz"
+                          }
+                          onClick={() => zoomTo(area.lat, area.lng, key)}
+                        >
+                          <span className="order-density-map__plz-code">{area.street}</span>
+                          <span className="order-density-map__plz-meta">
+                            {area.postalCode ? `PLZ ${area.postalCode} · ` : ""}
+                            {area.count} orders · {formatEuro(area.revenue)}
+                          </span>
+                          {area.sampleAddress ? (
+                            <span className="order-density-map__plz-address">
+                              {area.sampleAddress}
+                            </span>
+                          ) : null}
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+
+              {quietStreets.length > 0 ? (
+                <>
+                  <h4>Only 1 order (growth targets)</h4>
+                  <ul className="order-density-map__list order-density-map__list--muted">
+                    {quietStreets.map((area) => (
+                      <li key={`quiet-${area.street}-${area.postalCode ?? ""}`}>
+                        <button
+                          type="button"
+                          className="order-density-map__quiet"
+                          onClick={() =>
+                            zoomTo(
+                              area.lat,
+                              area.lng,
+                              `street:${area.street}:${area.postalCode ?? ""}`
+                            )
+                          }
+                        >
+                          <span className="order-density-map__plz-code">{area.street}</span>
+                          <span className="order-density-map__plz-meta">
+                            {area.postalCode ?? "—"}
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+            </>
           ) : (
-            <ul className="order-density-map__list">
-              {topAreas.map((area) => (
-                <li key={area.postalCode}>
-                  <button
-                    type="button"
-                    className={
-                      selectedPostal === area.postalCode
-                        ? "order-density-map__plz is-active"
-                        : "order-density-map__plz"
-                    }
-                    onClick={() => {
-                      setSelectedPostal(area.postalCode)
-                      if (area.lat != null && area.lng != null && mapInstance.current) {
-                        mapInstance.current.setView([area.lat, area.lng], 14)
-                      }
-                    }}
-                  >
-                    <span className="order-density-map__plz-code">{area.postalCode}</span>
-                    <span className="order-density-map__plz-meta">
-                      {area.count} orders · {formatEuro(area.revenue)}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <>
+              <h4>Strongest PLZ areas</h4>
+              {topAreas.length === 0 ? (
+                <p className="order-density-map__empty">No delivery PLZ data in this period.</p>
+              ) : (
+                <ul className="order-density-map__list">
+                  {topAreas.map((area) => {
+                    const key = `plz:${area.postalCode}`
+                    return (
+                      <li key={key}>
+                        <button
+                          type="button"
+                          className={
+                            selectedKey === key
+                              ? "order-density-map__plz is-active"
+                              : "order-density-map__plz"
+                          }
+                          onClick={() => zoomTo(area.lat, area.lng, key)}
+                        >
+                          <span className="order-density-map__plz-code">{area.postalCode}</span>
+                          <span className="order-density-map__plz-meta">
+                            {area.count} orders · {formatEuro(area.revenue)}
+                          </span>
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </>
           )}
 
-          {weakAreas.length > 0 ? (
-            <>
-              <h4>Low activity (marketing opportunity)</h4>
-              <ul className="order-density-map__list order-density-map__list--muted">
-                {weakAreas.map((area) => (
-                  <li key={`weak-${area.postalCode}`}>
-                    <span className="order-density-map__plz-code">{area.postalCode}</span>
-                    <span className="order-density-map__plz-meta">
-                      {area.count} order{area.count === 1 ? "" : "s"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
-
           <p className="order-density-map__hint">
-            Larger / darker circles = more orders. Green pin = restaurant. Click a PLZ to zoom.
+            Zoom in to street level. Darker / larger pins = more orders. Green pin = restaurant.
+            Click a street or PLZ to jump there.
           </p>
         </aside>
       </div>
