@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import {
   getSalesAnalytics,
@@ -6,9 +6,11 @@ import {
   getCategoryPerformance,
   getBranchPerformance,
   getPeakHours,
-  getTopItems
+  getTopItems,
+  getOrderLocationAnalytics
 } from "@/api/analytics"
 import { useAdminBranch } from "@/hooks/useAdminBranch"
+import OrderDensityMap from "@/apps/admin/components/OrderDensityMap"
 
 import { Line, Bar, Pie } from "react-chartjs-2"
 
@@ -52,6 +54,7 @@ function ChartCard({
 
 export default function AnalyticsPage() {
   const { branchId } = useAdminBranch()
+  const [mapDays, setMapDays] = useState(90)
 
   const salesQuery = useQuery({
     queryKey: ["salesAnalytics", branchId],
@@ -91,6 +94,13 @@ export default function AnalyticsPage() {
   const topItemsQuery = useQuery({
     queryKey: ["topItems", branchId],
     queryFn: () => getTopItems(branchId),
+    enabled: !!branchId,
+    staleTime: 60_000
+  })
+
+  const locationsQuery = useQuery({
+    queryKey: ["orderLocations", branchId, mapDays],
+    queryFn: () => getOrderLocationAnalytics(branchId, mapDays),
     enabled: !!branchId,
     staleTime: 60_000
   })
@@ -141,6 +151,24 @@ export default function AnalyticsPage() {
         <p style={{ color: "#b45309", marginBottom: 16 }}>
           Some charts could not be loaded. Showing available data.
         </p>
+      ) : null}
+
+      {locationsQuery.isLoading ? (
+        <div className="order-density-map" style={{ padding: 18, marginBottom: 20 }}>
+          <p style={{ color: "#64748b", margin: 0 }}>Loading order location map…</p>
+        </div>
+      ) : locationsQuery.isError ? (
+        <div className="order-density-map" style={{ padding: 18, marginBottom: 20 }}>
+          <p style={{ color: "#b45309", margin: 0 }}>
+            Could not load the order location map.
+          </p>
+        </div>
+      ) : locationsQuery.data ? (
+        <OrderDensityMap
+          data={locationsQuery.data}
+          days={mapDays}
+          onDaysChange={setMapDays}
+        />
       ) : null}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
