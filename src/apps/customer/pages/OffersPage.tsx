@@ -65,7 +65,10 @@ export default function OffersPage() {
           title={t("coupons.activeOffersTitle")}
           showViewAll={false}
         />
-        <p className="customer-hint customer-alert customer-alert--success" style={{ marginTop: 16 }}>
+        <p className="customer-hint" style={{ marginTop: 14 }}>
+          {t("coupons.multiActivateHint")}
+        </p>
+        <p className="customer-hint customer-alert customer-alert--success" style={{ marginTop: 12 }}>
           {t("coupons.checkoutAutoHint")}
         </p>
       </div>

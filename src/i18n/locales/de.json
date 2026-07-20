@@ -205,7 +205,8 @@
     "estimatedTotal": "Geschätzter Gesamtbetrag",
     "deliveryEstimate": "+ Lieferung ab {{fee}}",
     "deliveryFinalNote": "Die endgültige Liefergebühr wird nach Ihrer Adresse berechnet.",
-    "barTotalDelivery": "{{food}} + ab {{fee}}"
+    "barTotalDelivery": "{{food}} + ab {{fee}}",
+    "couponApplied": "{{title}}: −{{amount}}"
   },
   "checkout": {
     "title": "Kasse",
@@ -562,17 +563,18 @@
     "title": "Gutscheine & Wallet",
     "lead": "Ihre Vorteile sind bereits aktiv — wie bei Lidl Plus, ohne Code und ohne Aktivieren.",
     "activeOffersTitle": "Aktive Angebote",
-    "alwaysActive": "Aktiv",
+    "alwaysActive": "Aktiviert",
     "alwaysActiveHint": "Diese Vorteile gelten automatisch bei jeder Bestellung — keine Codes, kein Extra-Schritt.",
     "checkoutAutoHint": "10 % Online-Rabatt und Gratisgetränk ab 35 € werden an der Kasse automatisch berücksichtigt.",
     "freeDrinkOffer": "Gratisgetränk",
+    "comboPrice": "{{value}} € Menü",
     "sectionTitle": "Ihre Vorteile",
     "sectionTitleKempen": "Gutscheine Kempen",
     "sectionTitleStraelen": "Gutscheine Straelen",
     "viewAllOffers": "Alle Angebote",
     "tapToClaim": "Tippen zum Speichern",
     "tapToActivate": "Tippen zum Aktivieren",
-    "tapToDeactivate": "Aktiv — tippen zum Deaktivieren",
+    "tapToDeactivate": "Aktiviert — tippen zum Deaktivieren",
     "deactivate": "Deaktivieren",
     "activationCode": "Aktivierungscode",
     "activateFailed": "Gutschein konnte nicht aktiviert werden.",
@@ -610,7 +612,7 @@
     "orderCta": "Bereit zu bestellen?",
     "status": {
       "available": "Gespeichert",
-      "activated": "Aktiv",
+      "activated": "Aktiviert",
       "redeemed": "Eingelöst"
     }
   },
@@ -762,7 +764,7 @@
     "offers": {
       "eyebrow": "Sparen bei uns",
       "title": "Angebote & Aktionen",
-      "lead": "Zwei Vorteile, die bei jeder Online-Bestellung automatisch gelten — Kempen und Straelen.",
+      "lead": "Zwei Vorteile gelten automatisch bei jeder Online-Bestellung — Kempen und Straelen. Weitere Filial-Gutscheine tippen Sie zum Aktivieren an.",
       "branchNote": "Aktionen für {{branch}} — wählen Sie Ihre Filiale und bestellen Sie direkt.",
       "heroAria": "Aktuelle Online-Vorteile",
       "autoBadge": "Automatisch an der Kasse",

@@ -1,13 +1,15 @@
 import React, { useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { useQuery } from "@tanstack/react-query"
+import { formatCurrency } from "@/utils/format"
+import { listMyCoupons, validateCouponStack } from "@/api/coupons"
 import { getBranchDeliveryAreas } from "@/api/customer"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
-import { formatCurrency } from "@/utils/format"
 import { quickAddItemToCart } from "@/utils/quickAddToCart"
 import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
@@ -30,6 +32,8 @@ export default function CartPage() {
   const items = useCartStore((s) => s.items)
   const subtotal = useCartStore((s) => s.total())
   const branchId = items[0]?.branchId ?? ""
+  const authToken = useAuthStore((s) => s.token)
+  const isLoggedIn = !!authToken
   const platformPromo = usePlatformPromo()
   const { data: branches } = useQuery({
     queryKey: BRANCHES_QUERY_KEY,
@@ -82,15 +86,37 @@ export default function CartPage() {
   const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
   const discountedSubtotal = calcDiscountedSubtotal(subtotal, discountPct)
 
+  const { data: walletData } = useQuery({
+    queryKey: ["customerCoupons", branchId],
+    queryFn: () => listMyCoupons(branchId),
+    enabled: isLoggedIn && !!branchId
+  })
+
+  const activatedCouponIds = useMemo(() => {
+    if (walletData?.activatedCouponIds?.length) return walletData.activatedCouponIds
+    if (walletData?.activatedCouponId) return [walletData.activatedCouponId]
+    return [] as string[]
+  }, [walletData?.activatedCouponIds, walletData?.activatedCouponId])
+
+  const { data: couponPreview } = useQuery({
+    queryKey: ["cartCouponPreview", branchId, activatedCouponIds.join(","), subtotal],
+    queryFn: () => validateCouponStack(activatedCouponIds, branchId, subtotal),
+    enabled: isLoggedIn && !!branchId && activatedCouponIds.length > 0 && subtotal > 0,
+    staleTime: 15_000
+  })
+
+  const couponDiscount = couponPreview?.discountAmount ?? 0
+  const afterCoupons = Math.max(0, discountedSubtotal - couponDiscount)
+
   const estimate = useMemo(
     () =>
       estimateCartDisplay({
-        subtotal,
-        discountPct,
+        subtotal: afterCoupons,
+        discountPct: 0,
         fulfillment,
         zones: coerceRadiusZones(deliveryInfo?.radiusZones)
       }),
-    [subtotal, discountPct, fulfillment, deliveryInfo?.radiusZones]
+    [afterCoupons, fulfillment, deliveryInfo?.radiusZones]
   )
 
   const updateQuantity = useCartStore((s) => s.updateQuantity)
@@ -237,6 +263,21 @@ export default function CartPage() {
           <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
         )}
 
+        {couponDiscount > 0 && couponPreview && (
+          <p className="customer-hint cart-summary__coupon">
+            {t("cart.couponApplied", {
+              title: couponPreview.title ?? couponPreview.code,
+              amount: formatCurrency(couponDiscount)
+            })}
+          </p>
+        )}
+
+        {activatedCouponIds.length > 0 && couponDiscount <= 0 && (
+          <p className="customer-hint cart-summary__coupon">
+            {t("coupons.checkoutHintMulti", { count: activatedCouponIds.length })}
+          </p>
+        )}
+
         {fulfillment === "delivery" && estimate.estimatedDeliveryFee != null && (
           <p className="customer-hint cart-summary__delivery-estimate">
             {t("cart.deliveryEstimate", {
@@ -256,7 +297,7 @@ export default function CartPage() {
             <span className="cart-summary__final">
               {fulfillment === "delivery"
                 ? formatCurrency(estimate.estimatedTotal)
-                : formatCurrency(discountedSubtotal)}
+                : formatCurrency(afterCoupons)}
             </span>
           </div>
         </div>

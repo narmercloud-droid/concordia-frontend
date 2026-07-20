@@ -487,6 +487,7 @@ export default function BranchMenuPage() {
           branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
           title={t("coupons.activeOffersTitle")}
           showViewAll={false}
+          scroll
         />
       ) : null}
 

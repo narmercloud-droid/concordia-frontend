@@ -11,13 +11,15 @@ type Props = {
   branchName?: string
   title?: string
   showViewAll?: boolean
+  scroll?: boolean
 }
 
 export default function CouponCampaignStrip({
   branchId,
   branchName,
   title,
-  showViewAll = true
+  showViewAll = true,
+  scroll = false
 }: Props) {
   const { t } = useTranslation()
   const { data, isLoading } = useQuery({
@@ -31,7 +33,10 @@ export default function CouponCampaignStrip({
   if (!isLoading && campaigns.length === 0) return null
 
   return (
-    <section className="coupon-strip" aria-label={title ?? t("coupons.sectionTitle")}>
+    <section
+      className={`coupon-strip${scroll ? " coupon-strip--scroll" : ""}`}
+      aria-label={title ?? t("coupons.sectionTitle")}
+    >
       <div className="coupon-strip__head">
         <h2 className="coupon-strip__title">{title ?? t("coupons.activeOffersTitle")}</h2>
         {showViewAll && (

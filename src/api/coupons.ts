@@ -174,6 +174,9 @@ export function formatCouponDiscount(
   if (type === "platform_free_drink" || type === "free_drink") {
     return t("coupons.freeDrinkOffer")
   }
+  if (type === "combo") {
+    return t("coupons.comboPrice", { value: discountValue.toFixed(2).replace(".", ",") })
+  }
   if (type === "free_delivery") return t("coupons.freeDelivery")
   if (type === "percent" || type === "percentage") {
     return t("coupons.percentOff", { value: discountValue })

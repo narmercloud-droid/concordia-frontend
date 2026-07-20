@@ -120,6 +120,7 @@ export default function HomePage() {
         <CouponCampaignStrip
           branchId={defaultBranchId}
           title={t("coupons.activeOffersTitle")}
+          scroll
         />
       </div>
 

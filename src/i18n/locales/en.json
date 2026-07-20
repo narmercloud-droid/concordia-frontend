@@ -205,7 +205,8 @@
     "estimatedTotal": "Estimated total",
     "deliveryEstimate": "+ delivery from {{fee}}",
     "deliveryFinalNote": "Final delivery fee is calculated after you enter your address.",
-    "barTotalDelivery": "{{food}} + from {{fee}}"
+    "barTotalDelivery": "{{food}} + from {{fee}}",
+    "couponApplied": "{{title}}: −{{amount}}"
   },
   "checkout": {
     "title": "Checkout",
@@ -524,17 +525,18 @@
     "title": "Coupons & wallet",
     "lead": "Your perks are already active — like Lidl Plus, no codes and nothing to activate.",
     "activeOffersTitle": "Active offers",
-    "alwaysActive": "Active",
+    "alwaysActive": "Activated",
     "alwaysActiveHint": "These perks apply automatically on every order — no codes, no extra steps.",
     "checkoutAutoHint": "10% online discount and free drink from €35 are applied automatically at checkout.",
     "freeDrinkOffer": "Free drink",
+    "comboPrice": "€{{value}} combo",
     "sectionTitle": "Your perks",
     "sectionTitleKempen": "Kempen coupons",
     "sectionTitleStraelen": "Straelen coupons",
     "viewAllOffers": "All offers",
     "tapToClaim": "Tap to claim",
     "tapToActivate": "Tap to activate",
-    "tapToDeactivate": "Active — tap to deactivate",
+    "tapToDeactivate": "Activated — tap to deactivate",
     "deactivate": "Deactivate",
     "activationCode": "Activation code",
     "activateFailed": "Could not activate this coupon.",
@@ -572,7 +574,7 @@
     "orderCta": "Ready to order?",
     "status": {
       "available": "Saved",
-      "activated": "Active",
+      "activated": "Activated",
       "redeemed": "Used"
     }
   },
@@ -724,7 +726,7 @@
     "offers": {
       "eyebrow": "Save with us",
       "title": "Offers & deals",
-      "lead": "Two perks that apply automatically on every online order — Kempen and Straelen.",
+      "lead": "Two perks apply automatically on every online order — Kempen and Straelen. Tap extra branch coupons to activate them for your basket.",
       "branchNote": "Offers for {{branch}} — pick your branch and order straight away.",
       "heroAria": "Current online benefits",
       "autoBadge": "Applied automatically at checkout",
