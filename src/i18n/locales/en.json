@@ -841,7 +841,7 @@
         },
         "prices": {
           "title": "3. Prices, payment, and website discount",
-          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders through our website may receive a 10% website discount when active at the time of order. Activated branch coupons in your wallet are applied automatically, subject to combination rules (see Part 3). Manual discount codes, gift vouchers, and loyalty benefits are generally not combinable unless expressly stated."
+          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders may receive a 10% website discount when active and no branch coupons from your wallet are activated (see Part 3). Activated wallet coupons are applied automatically. Manual discount codes, gift vouchers, and loyalty benefits are generally not combinable unless expressly stated."
         },
         "delivery": {
           "title": "4. Pickup, delivery, and timing",
@@ -868,7 +868,7 @@
           "body": "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods (CISG), subject to mandatory consumer protection rules of the country where the consumer habitually resides. If the customer is a merchant, legal entity under public law, or special fund under public law, Kempen shall be the exclusive place of jurisdiction for all disputes where permitted by law."
         }
       },
-      "updated": "Last updated: July 2026",
+      "updated": "Last updated: 20 July 2026",
       "contact": "Questions about these terms: contact us via our contact page (/contact) or visit the restaurant at Concordienplatz 1, Kempen.",
       "loyaltyPartTitle": "Part 2: Loyalty programme",
       "loyaltyPartLead": "The following terms apply additionally to our free loyalty programme.",
@@ -895,7 +895,7 @@
         },
         "promotions": {
           "title": "6. Loyalty promotions",
-          "body": "Additional loyalty promotions, bonus points, or limited-time offers may be published and are subject to their specific terms. Website discounts, vouchers, and loyalty benefits are generally not combinable unless expressly stated. Gift vouchers and marketing offers remain governed by the general Terms of Service."
+          "body": "Additional loyalty promotions, bonus points, or limited-time offers may be published and are subject to their specific terms. The 10% website discount cannot be combined with activated wallet coupons. Website discounts, vouchers, and loyalty benefits are generally not combinable unless expressly stated. Gift vouchers and marketing offers remain governed by the general Terms of Service."
         },
         "misuse": {
           "title": "7. Misuse and sanctions",
@@ -911,19 +911,19 @@
       "couponSections": {
         "overview": {
           "title": "1. Overview",
-          "body": "Registered customers can save and activate branch-specific coupons and deals (Kempen or Straelen) on the Offers page. In addition, always-active online perks such as the 10% website discount and a free drink from €35 order value apply automatically on eligible online orders — no code and no manual activation required. The wallet is free, non-transferable, and tied to your customer account."
+          "body": "Registered customers can save and activate branch-specific coupons and deals (Kempen or Straelen) on the Offers page once they are available. Offers marked “Coming soon” are previews and cannot be redeemed yet. When no wallet coupons are activated, automatic online perks such as the 10% website discount and a free drink from €35 order value apply on eligible orders. The wallet is free, non-transferable, and tied to your customer account."
         },
         "wallet": {
           "title": "2. Save, activate, and redeem",
-          "body": "Available branch coupons can be saved to your wallet by tapping and then activated for checkout. Activated coupons are applied automatically at checkout when conditions are met (e.g. minimum order, validity period, new customers only, matching branch). After redemption on an order, the coupon is considered used. We may refuse or revoke coupons in cases of misuse, technical errors, or obvious pricing mistakes."
+          "body": "Available branch coupons can be saved to your wallet by tapping and then activated for checkout. Coming-soon offers cannot be saved or activated until they go live. Activated coupons are applied automatically at checkout when conditions are met (e.g. minimum order, validity period, new customers only, matching branch). After redemption on an order, the coupon is considered used. We may refuse or revoke coupons in cases of misuse, technical errors, or obvious pricing mistakes."
         },
         "platformPerks": {
           "title": "3. Always-active online perks",
-          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app. The free drink is offered at checkout once your cart reaches the minimum value. These perks are separate from wallet coupons and cannot be manually deactivated."
+          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app — but only while no branch coupons from your wallet are activated. If at least one wallet coupon is activated, the 10% discount does not apply to that order; the free drink may still apply when your cart reaches the minimum value. These perks require no code and no manual activation."
         },
         "stacking": {
           "title": "4. Combination and cap",
-          "body": "Multiple activated branch coupons for the same branch may be combined. However, the total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. Manual discount codes and the automatic 10% website discount cannot be combined. Gift vouchers are subject to their own terms."
+          "body": "Multiple activated branch coupons for the same branch may be combined. The total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. The automatic 10% website discount cannot be combined with activated wallet coupons or manual discount codes — only one discount system applies per order. Gift vouchers are subject to their own terms."
         },
         "marketing": {
           "title": "5. Marketing and notifications",

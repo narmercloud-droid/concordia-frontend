@@ -879,7 +879,7 @@
         },
         "prices": {
           "title": "3. Preise, Zahlung und Website-Rabatt",
-          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen über unsere Website kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser zum Zeitpunkt der Bestellung aktiv ist. Aktivierte Filial-Gutscheine aus Ihrem Wallet werden automatisch berücksichtigt, unterliegen jedoch Kombinationsregeln (siehe Teil 3). Manuelle Rabattcodes, Geschenkgutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
+          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser aktiv ist und keine Filial-Gutscheine aus Ihrem Wallet aktiviert sind (siehe Teil 3). Aktivierte Wallet-Gutscheine werden automatisch berücksichtigt. Manuelle Rabattcodes, Geschenkgutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
         },
         "delivery": {
           "title": "4. Abholung, Lieferung und Lieferzeiten",
@@ -906,7 +906,7 @@
           "body": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG), soweit dem keine zwingenden verbraucherschutzrechtlichen Vorschriften des Staates entgegenstehen, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat. Ist der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle Streitigkeiten Kempen, sofern gesetzlich zulässig."
         }
       },
-      "updated": "Zuletzt aktualisiert: Juli 2026",
+      "updated": "Zuletzt aktualisiert: 20. Juli 2026",
       "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen.",
       "loyaltyPartTitle": "Teil 2: Treueprogramm",
       "loyaltyPartLead": "Die folgenden Bedingungen gelten zusätzlich für unser kostenloses Treueprogramm.",
@@ -933,7 +933,7 @@
         },
         "promotions": {
           "title": "6. Aktionen im Treueprogramm",
-          "body": "Zusätzliche Treueaktionen, Bonuspunkte oder zeitlich begrenzte Angebote können veröffentlicht werden und unterliegen den jeweiligen Aktionsbedingungen. Website-Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Geschenkgutscheine und Marketing-Angebote bleiben von den allgemeinen AGB unberührt."
+          "body": "Zusätzliche Treueaktionen, Bonuspunkte oder zeitlich begrenzte Angebote können veröffentlicht werden und unterliegen den jeweiligen Aktionsbedingungen. Der 10-%-Website-Rabatt ist nicht mit aktivierten Wallet-Gutscheinen kombinierbar. Website-Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Geschenkgutscheine und Marketing-Angebote bleiben von den allgemeinen AGB unberührt."
         },
         "misuse": {
           "title": "7. Missbrauch und Sanktionen",
@@ -949,19 +949,19 @@
       "couponSections": {
         "overview": {
           "title": "1. Überblick",
-          "body": "Registrierte Kunden können filialspezifische Gutscheine und Aktionen (Kempen oder Straelen) auf der Seite „Angebote“ speichern und für die Kasse aktivieren. Zusätzlich gelten bei Online-Bestellungen immer aktive Vorteile wie der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert — ohne Code und ohne manuelles Aktivieren. Das Wallet ist kostenlos, nicht übertragbar und an Ihr Kundenkonto gebunden."
+          "body": "Registrierte Kunden können filialspezifische Gutscheine und Aktionen (Kempen oder Straelen) auf der Seite „Angebote“ speichern und für die Kasse aktivieren, sobald sie verfügbar sind. Als „Demnächst“ markierte Angebote sind Vorschauen und noch nicht einlösbar. Zusätzlich gelten bei Online-Bestellungen ohne aktivierte Wallet-Gutscheine automatische Vorteile wie der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert. Das Wallet ist kostenlos, nicht übertragbar und an Ihr Kundenkonto gebunden."
         },
         "wallet": {
           "title": "2. Speichern, Aktivieren und Einlösen",
-          "body": "Verfügbare Filial-Gutscheine können Sie durch Antippen in Ihr Wallet speichern und anschließend aktivieren. Aktivierte Gutscheine werden beim Checkout automatisch angewendet, sofern die Bedingungen erfüllt sind (z. B. Mindestbestellwert, Gültigkeitszeitraum, Neukunden-only, passende Filiale). Nach Einlösung bei einer Bestellung gilt der Gutschein als verbraucht. Wir können Gutscheine bei Missbrauch, technischen Fehlern oder offensichtlichen Preisfehlern ablehnen oder zurücknehmen."
+          "body": "Verfügbare Filial-Gutscheine können Sie durch Antippen in Ihr Wallet speichern und anschließend aktivieren. Demnächst-Angebote können vor der Freischaltung weder gespeichert noch aktiviert werden. Aktivierte Gutscheine werden beim Checkout automatisch angewendet, sofern die Bedingungen erfüllt sind (z. B. Mindestbestellwert, Gültigkeitszeitraum, Neukunden-only, passende Filiale). Nach Einlösung bei einer Bestellung gilt der Gutschein als verbraucht. Wir können Gutscheine bei Missbrauch, technischen Fehlern oder offensichtlichen Preisfehlern ablehnen oder zurücknehmen."
         },
         "platformPerks": {
           "title": "3. Immer aktive Online-Vorteile",
-          "body": "Der 10-%-Online-Rabatt und das Gratisgetränk ab 35 € Bestellwert werden bei berechtigten Bestellungen über Website oder App automatisch berücksichtigt. Das Gratisgetränk wird an der Kasse zur Auswahl angeboten, sobald der Warenkorb den Mindestwert erreicht. Diese Vorteile sind von Filial-Gutscheinen im Wallet getrennt und können nicht manuell deaktiviert werden."
+          "body": "Der 10-%-Online-Rabatt und das Gratisgetränk ab 35 € Bestellwert werden bei berechtigten Bestellungen über Website oder App automatisch berücksichtigt — jedoch nur, solange keine Filial-Gutscheine aus Ihrem Wallet aktiviert sind. Ist mindestens ein Wallet-Gutschein aktiviert, entfällt der 10-%-Rabatt für diese Bestellung; das Gratisgetränk kann weiterhin gelten, wenn der Warenkorb den Mindestwert erreicht. Diese Vorteile erfordern keinen Code und keine manuelle Aktivierung."
         },
         "stacking": {
           "title": "4. Kombination und Obergrenze",
-          "body": "Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden. Der Gesamtrabatt aus Wallet-Gutscheinen ist jedoch auf maximal 8 € oder 25 % des Warenwerts begrenzt (je nachdem, was höher ist), sofern nicht ausdrücklich anders angegeben. Manuelle Rabattcodes und der automatische 10-%-Website-Rabatt sind nicht kombinierbar. Geschenkgutscheine unterliegen den jeweiligen Gutscheinbedingungen."
+          "body": "Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden. Der Gesamtrabatt aus Wallet-Gutscheinen ist auf maximal 8 € oder 25 % des Warenwerts begrenzt (je nachdem, was höher ist), sofern nicht ausdrücklich anders angegeben. Der automatische 10-%-Website-Rabatt ist nicht mit aktivierten Wallet-Gutscheinen oder manuellen Rabattcodes kombinierbar — es gilt jeweils nur ein Rabattsystem pro Bestellung. Geschenkgutscheine unterliegen den jeweiligen Gutscheinbedingungen."
         },
         "marketing": {
           "title": "5. Marketing und Benachrichtigungen",

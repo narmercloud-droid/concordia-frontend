@@ -53,7 +53,7 @@
     ]
   },
   "datenschutz": {
-    "updated": "Stand: Juli 2026",
+    "updated": "Stand: 20. Juli 2026",
     "sections": [
       {
         "title": "1. Datenschutz auf einen Blick",
@@ -223,7 +223,7 @@
     ]
   },
   "agb": {
-    "updated": "Stand: Juli 2026 (ergänzt um Gutschein-Wallet und Marketing)",
+    "updated": "Stand: 20. Juli 2026",
     "intro": "Allgemeine Geschäftsbedingungen (AGB) — Online-Shop für Lebensmittel",
     "sections": [
       {
@@ -314,10 +314,10 @@
       {
         "title": "§13 Gutschein-Wallet, Filial-Angebote und Marketing",
         "paragraphs": [
-          "(1) Mit kostenlosem Kundenkonto können Sie filialspezifische Gutscheine und Aktionen (z. B. für Kempen oder Straelen) auf der Website speichern und für die Kasse aktivieren. Jedes Wallet gilt nur für die jeweilige Filiale.",
-          "(2) Immer aktive Online-Vorteile — insbesondere der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert — werden bei berechtigten Online-Bestellungen automatisch berücksichtigt, sofern die jeweiligen Bedingungen erfüllt sind.",
-          "(3) Mehrere aktivierte Filial-Gutscheine können kombiniert werden; der Gesamtrabatt aus Wallet-Gutscheinen ist jedoch auf maximal 8 € oder 25 % des Warenwerts (je nachdem, was höher ist) begrenzt, sofern nicht ausdrücklich anders angegeben. Gutscheine sind grundsätzlich nicht bar auszahlbar.",
-          "(4) Manuelle Rabattcodes, Geschenkgutscheine und automatische Website-Vorteile sind nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Einlösebedingungen (Mindestbestellwert, Gültigkeit, Neukunden-only, Filiale) ergeben sich aus der jeweiligen Angebotsbeschreibung.",
+          "(1) Mit kostenlosem Kundenkonto können Sie filialspezifische Gutscheine und Aktionen (z. B. für Kempen oder Straelen) auf der Website speichern und für die Kasse aktivieren, sobald sie verfügbar sind. Als „Demnächst“ gekennzeichnete Angebote sind unverbindliche Vorschauen und können bis zur Freischaltung nicht gespeichert, aktiviert oder eingelöst werden. Jedes Wallet gilt nur für die jeweilige Filiale.",
+          "(2) Immer aktive Online-Vorteile — insbesondere der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert — werden bei berechtigten Online-Bestellungen automatisch berücksichtigt, sofern die jeweiligen Bedingungen erfüllt sind und keine Filial-Gutscheine aus Ihrem Wallet aktiviert sind (siehe Abs. 4).",
+          "(3) Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden; der Gesamtrabatt aus Wallet-Gutscheinen ist jedoch auf maximal 8 € oder 25 % des Warenwerts (je nachdem, was höher ist) begrenzt, sofern nicht ausdrücklich anders angegeben. Gutscheine sind grundsätzlich nicht bar auszahlbar.",
+          "(4) Sobald Sie Filial-Gutscheine aus Ihrem Wallet aktiviert haben, entfällt der automatische 10-%-Website-Rabatt für diese Bestellung — es gilt der Wallet-Rabatt. Manuelle Rabattcodes, Geschenkgutscheine und der 10-%-Website-Rabatt sind untereinander nicht kombinierbar. Das Gratisgetränk ab 35 € kann weiterhin gelten, wenn der Warenkorb den Mindestwert erreicht und die übrigen Bedingungen erfüllt sind. Einlösebedingungen (Mindestbestellwert, Gültigkeit, Neukunden-only, Filiale) ergeben sich aus der jeweiligen Angebotsbeschreibung.",
           "(5) Marketing-Mitteilungen (E-Mail, SMS, WhatsApp, Browser-Benachrichtigungen) erfolgen nur nach Ihrer freiwilligen Einwilligung und können jederzeit widerrufen werden. Details zur Datenverarbeitung finden Sie in der Datenschutzerklärung."
         ]
       },
@@ -333,7 +333,7 @@
     ]
   },
   "widerruf": {
-    "updated": "Stand: Juli 2026",
+    "updated": "Stand: 20. Juli 2026",
     "sections": [
       {
         "title": "Widerrufsrecht",
