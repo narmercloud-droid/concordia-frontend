@@ -7,7 +7,7 @@ import {
   claimCouponCampaign,
   activateCoupon,
   deactivateCoupon,
-  formatCouponDiscount
+  formatCouponCardHeadline
 } from "@/api/coupons"
 import { useAuthStore } from "@/context/authStore"
 
@@ -37,11 +37,7 @@ export default function CouponCard({
   const isActivated = alwaysActive || campaign.status === "activated"
   const isClaimed = campaign.claimed && !isActivated
 
-  const discountLabel = formatCouponDiscount(
-    campaign.discountType,
-    campaign.discountValue,
-    t
-  )
+  const discountLabel = formatCouponCardHeadline(campaign, t)
 
   const invalidate = () => {
     void queryClient.invalidateQueries({ queryKey: ["customerCoupons", branchId] })
@@ -171,10 +167,14 @@ export default function CouponCard({
         </span>
       </div>
 
-      <p className="coupon-card__value">{discountLabel}</p>
-      <h3 className="coupon-card__title">{campaign.title}</h3>
+      <p className="coupon-card__value">{discountLabel.value}</p>
+      <h3 className="coupon-card__title">{discountLabel.title}</h3>
 
-      {campaign.description && !compact && (
+      {discountLabel.detail && (!compact || campaign.id === "straelen-doner-menu-combo") && (
+        <p className="coupon-card__desc">{discountLabel.detail}</p>
+      )}
+
+      {campaign.description && !compact && !discountLabel.detail && (
         <p className="coupon-card__desc">{campaign.description}</p>
       )}
 

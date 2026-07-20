@@ -183,3 +183,23 @@ export function formatCouponDiscount(
   }
   return t("coupons.amountOff", { value: discountValue.toFixed(2).replace(".", ",") })
 }
+
+/** Headline shown on coupon cards (value + title may differ from raw campaign fields). */
+export function formatCouponCardHeadline(
+  campaign: Pick<CouponCampaign, "id" | "title" | "description" | "discountType" | "discountValue">,
+  t: (key: string, opts?: Record<string, unknown>) => string
+): { value: string; title: string; detail?: string | null } {
+  if (campaign.id === "straelen-doner-menu-combo") {
+    return {
+      value: t("coupons.donerMenuPrice"),
+      title: t("coupons.donerMenuTitle"),
+      detail: t("coupons.donerMenuDetail")
+    }
+  }
+
+  return {
+    value: formatCouponDiscount(campaign.discountType, campaign.discountValue, t),
+    title: campaign.title,
+    detail: campaign.description
+  }
+}
