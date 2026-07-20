@@ -83,9 +83,6 @@ export default function CartPage() {
     branchPromo?.websiteDiscountEnabled !== false
       ? Number(platformPromo.websiteOrderDiscountPct) || 0
       : 0
-  const websiteDiscount = calcWebsiteDiscount(subtotal, discountPct)
-  const discountedSubtotal = calcDiscountedSubtotal(subtotal, discountPct)
-
   const { data: walletData } = useQuery({
     queryKey: ["customerCoupons", branchId],
     queryFn: () => listMyCoupons(branchId),
@@ -105,8 +102,14 @@ export default function CartPage() {
     staleTime: 15_000
   })
 
+  const hasActiveWalletCoupons = activatedCouponIds.length > 0
+  const websiteDiscount = hasActiveWalletCoupons
+    ? 0
+    : calcWebsiteDiscount(subtotal, discountPct)
   const couponDiscount = couponPreview?.discountAmount ?? 0
-  const afterCoupons = Math.max(0, discountedSubtotal - couponDiscount)
+  const afterCoupons = hasActiveWalletCoupons
+    ? Math.max(0, subtotal - couponDiscount)
+    : calcDiscountedSubtotal(subtotal, discountPct)
 
   const estimate = useMemo(
     () =>
@@ -261,6 +264,12 @@ export default function CartPage() {
 
         {websiteDiscount > 0 && (
           <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
+        )}
+
+        {hasActiveWalletCoupons && (
+          <p className="customer-hint cart-summary__coupon">
+            {t("checkout.voucherNotCombinable")}
+          </p>
         )}
 
         {couponDiscount > 0 && couponPreview && (
