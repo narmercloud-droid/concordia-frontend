@@ -17,6 +17,7 @@ export type CouponCampaign = {
   validUntil: string | null
   newCustomersOnly: boolean
   sortOrder?: number
+  alwaysActive?: boolean
   claimed?: boolean
   customerCouponId?: string | null
   claimCode?: string | null
@@ -167,6 +168,12 @@ export function formatCouponDiscount(
   t: (key: string, opts?: Record<string, unknown>) => string
 ): string {
   const type = discountType.toLowerCase()
+  if (type === "platform_online" || type === "platform_online_percent") {
+    return t("coupons.percentOff", { value: discountValue })
+  }
+  if (type === "platform_free_drink" || type === "free_drink") {
+    return t("coupons.freeDrinkOffer")
+  }
   if (type === "free_delivery") return t("coupons.freeDelivery")
   if (type === "percent" || type === "percentage") {
     return t("coupons.percentOff", { value: discountValue })

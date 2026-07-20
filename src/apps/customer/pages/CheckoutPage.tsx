@@ -22,7 +22,6 @@ import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CheckoutChoiceCard from "@/apps/customer/components/CheckoutChoiceCard"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
-import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
@@ -1365,14 +1364,14 @@ export default function CheckoutPage() {
         </div>
 
         {checkoutMode === "guest" && !isLoggedIn && (
-          <CouponSignupPromo branchId={branchId} variant="checkout" />
+          <p className="customer-hint">{t("coupons.checkoutAutoHint")}</p>
         )}
 
         {checkoutMode === "account" && !isLoggedIn && (
           <div className="checkout-account__prompt">
             <p className="customer-hint">{t("checkout.accountBenefits")}</p>
             <ul className="checkout-marketing__perks">
-              <li>{t("coupons.promoCheckoutText")}</li>
+              <li>{t("coupons.checkoutAutoHint")}</li>
               {showLoyaltyCheckout ? (
                 <>
                   <li>{t("checkout.loyaltyPerkPoints")}</li>

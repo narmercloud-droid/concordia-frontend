@@ -9,17 +9,12 @@ import BranchCouponTabs, {
   useDefaultCouponBranch
 } from "@/apps/customer/components/BranchCouponTabs"
 import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
-import CouponWalletSection from "@/apps/customer/components/CouponWalletSection"
-import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import { branchPath } from "@/lib/customerPaths"
 import { useSelectedBranch } from "@/hooks/useSelectedBranch"
-import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
-import { FOOD_IMAGES } from "@/lib/foodImagery"
 import { isNativeApp } from "@/lib/nativeApp"
 
 const STEP_KEYS = ["step1", "step2", "step3"] as const
-const FREE_DRINK_MIN = 35
 
 function branchShortName(name: string) {
   return name.replace(/^Concordia\s+/i, "").replace(/^Pizzeria\s+/i, "")
@@ -30,7 +25,6 @@ export default function OffersPage() {
   const defaultBranch = useDefaultCouponBranch()
   const { branchId: resolvedBranchId, setBranchId } = useSelectedBranch()
   const activeBranchId = resolvedBranchId ?? defaultBranch
-  const platformPromo = usePlatformPromo()
 
   const { data: branches } = useQuery({
     ...branchesQueryOptions,
@@ -46,7 +40,6 @@ export default function OffersPage() {
   )
 
   const branchName = activeBranch?.name ? branchShortName(activeBranch.name) : activeBranchId
-  const discountPct = platformPromo.websiteOrderDiscountPct || 10
 
   const selectBranch = (branchId: string) => {
     setBranchId(branchId)
@@ -57,8 +50,6 @@ export default function OffersPage() {
       <OfferNotificationsPrompt />
       <p className="offers-lead">{t("pages.offers.lead")}</p>
 
-      <CouponSignupPromo branchId={activeBranchId} variant="home" />
-
       <BranchCouponTabs branchId={activeBranchId} onSelect={selectBranch} />
 
       {activeBranch && (
@@ -67,53 +58,17 @@ export default function OffersPage() {
         </p>
       )}
 
-      <section className="offers-hero" aria-label={t("pages.offers.heroAria")}>
-        <article className="offers-hero-card offers-hero-card--discount">
-          <div
-            className="offers-hero-card__bg"
-            style={{ backgroundImage: `url(${FOOD_IMAGES.pizzaMargherita})` }}
-            aria-hidden="true"
-          />
-          <div className="offers-hero-card__overlay" aria-hidden="true" />
-          <div className="offers-hero-card__content">
-            <span className="offers-hero-card__pill">{t("pages.offers.autoBadge")}</span>
-            <p className="offers-hero-card__percent" aria-hidden="true">
-              −{discountPct}%
-            </p>
-            <h2 className="offers-hero-card__title">{t("pages.offers.discountTitle")}</h2>
-            <p className="offers-hero-card__text">{t("pages.offers.discountText")}</p>
-            <Link to={branchPath(activeBranchId)} className="offers-hero-card__cta">
-              {t("home.orderNow")}
-            </Link>
-          </div>
-        </article>
-
-        <article className="offers-hero-card offers-hero-card--drink">
-          <div className="offers-hero-card__drink-visual" aria-hidden="true">
-            <span className="offers-hero-card__drink-icon">🥤</span>
-            <span className="offers-hero-card__drink-min">€{FREE_DRINK_MIN}+</span>
-          </div>
-          <div className="offers-hero-card__content offers-hero-card__content--plain">
-            <span className="offers-hero-card__pill offers-hero-card__pill--gold">
-              {t("common.free")}
-            </span>
-            <h2 className="offers-hero-card__title">{t("pages.offers.drinkTitle")}</h2>
-            <p className="offers-hero-card__text">{t("pages.offers.drinkText")}</p>
-            <p className="offers-hero-card__fine">{t("pages.offers.drinkFine")}</p>
-          </div>
-        </article>
-      </section>
-
       <div id="coupons">
         <CouponCampaignStrip
           branchId={activeBranchId}
           branchName={branchName}
-          title={t("coupons.sectionTitle")}
+          title={t("coupons.activeOffersTitle")}
           showViewAll={false}
         />
+        <p className="customer-hint customer-alert customer-alert--success" style={{ marginTop: 16 }}>
+          {t("coupons.checkoutAutoHint")}
+        </p>
       </div>
-
-      <CouponWalletSection branchId={activeBranchId} id="wallet" />
 
       <div className="offers-secondary">
         <article className="offers-card offers-card--gift">
@@ -153,11 +108,7 @@ export default function OffersPage() {
 
       {!isNativeApp() && <AppDownloadSection />}
 
-      <section
-        className="offers-cta-banner"
-        style={{ backgroundImage: `url(${FOOD_IMAGES.dining})` }}
-      >
-        <div className="offers-cta-banner__overlay" aria-hidden="true" />
+      <section className="offers-cta-banner offers-cta-banner--plain">
         <div className="offers-cta-banner__copy">
           <p className="offers-cta-banner__note">{t("pages.offers.promoNote")}</p>
           <Link to={branchPath(activeBranchId)} className="info-cta">

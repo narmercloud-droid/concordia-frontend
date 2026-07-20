@@ -1423,6 +1423,31 @@
     inset 0 0 0 2px var(--c-green);
 }
 
+.coupon-card--always-active {
+  cursor: default;
+  box-shadow:
+    0 8px 24px rgb(var(--c-green-rgb) / 0.12),
+    inset 0 0 0 2px rgb(var(--c-green-rgb) / 0.45);
+}
+
+.coupon-card--always-active:hover {
+  transform: none;
+}
+
+.coupon-card__cta--locked {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--c-green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .coupon-card--claimed {
   box-shadow:
     0 8px 24px rgb(var(--c-red-rgb) / 0.1),

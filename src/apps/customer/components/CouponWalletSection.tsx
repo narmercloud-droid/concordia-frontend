@@ -1,14 +1,7 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import {
-  activateCoupon,
-  deactivateCoupon,
-  formatCouponDiscount,
-  listMyCoupons
-} from "@/api/coupons"
-import { useAuthStore } from "@/context/authStore"
+import { formatCouponDiscount, getBranchCouponCampaigns } from "@/api/coupons"
 
 type Props = {
   branchId: string
@@ -17,124 +10,56 @@ type Props = {
 
 export default function CouponWalletSection({ branchId, id = "wallet" }: Props) {
   const { t } = useTranslation()
-  const queryClient = useQueryClient()
-  const isLoggedIn = !!useAuthStore((s) => s.token)
 
-  const { data: walletData, isLoading } = useQuery({
-    queryKey: ["customerCoupons", branchId],
-    queryFn: () => listMyCoupons(branchId),
-    enabled: isLoggedIn && !!branchId
+  const { data, isLoading } = useQuery({
+    queryKey: ["couponCampaigns", branchId, "active"],
+    queryFn: () => getBranchCouponCampaigns(branchId),
+    enabled: !!branchId,
+    staleTime: 60_000
   })
 
-  const invalidate = () => {
-    void queryClient.invalidateQueries({ queryKey: ["customerCoupons", branchId] })
-    void queryClient.invalidateQueries({ queryKey: ["couponCampaigns", branchId] })
-  }
-
-  const activateMutation = useMutation({
-    mutationFn: (customerCouponId: string) => activateCoupon(customerCouponId),
-    onSuccess: invalidate
-  })
-
-  const deactivateMutation = useMutation({
-    mutationFn: (customerCouponId: string) => deactivateCoupon(customerCouponId),
-    onSuccess: invalidate
-  })
-
-  if (!isLoggedIn) {
-    return (
-      <section id={id} className="coupon-page__section offers-wallet-guest">
-        <p className="customer-alert customer-alert--info">
-          {t("coupons.loginHint")}{" "}
-          <Link
-            to={`/customer/register?branchId=${branchId}&redirect=${encodeURIComponent(`/offers?branchId=${branchId}#wallet`)}`}
-          >
-            {t("auth.register")}
-          </Link>
-        </p>
-      </section>
-    )
-  }
-
-  const wallet = walletData?.coupons ?? []
-  const activatedCount =
-    walletData?.activatedCouponIds?.length ??
-    (walletData?.activatedCouponId ? 1 : 0)
+  const perks = (data?.campaigns ?? []).filter((c) => c.alwaysActive || c.status === "activated")
 
   return (
     <section id={id} className="coupon-page__section offers-wallet">
       <h2 className="coupon-page__section-title">{t("coupons.walletTitle")}</h2>
       <p className="customer-hint" style={{ marginTop: 0 }}>
-        {t("coupons.multiActivateHint", {
-          defaultValue:
-            "Activate as many coupons as you like for this branch. They stack at checkout (max €8 or 25% of your cart)."
-        })}
+        {t("coupons.alwaysActiveHint")}
       </p>
       {isLoading ? (
         <p className="customer-hint">{t("common.loading")}</p>
-      ) : wallet.length === 0 ? (
+      ) : perks.length === 0 ? (
         <p className="customer-hint">{t("coupons.walletEmpty")}</p>
       ) : (
         <ul className="coupon-wallet">
-          {wallet.map((coupon) => (
-            <li
-              key={coupon.id}
-              className={`coupon-wallet__item${coupon.status === "activated" ? " coupon-wallet__item--active" : ""}`}
-            >
+          {perks.map((coupon) => (
+            <li key={coupon.id} className="coupon-wallet__item coupon-wallet__item--active">
               <div className="coupon-wallet__main">
-                <strong>{coupon.campaign.title}</strong>
+                <strong>{coupon.title}</strong>
                 <p className="customer-hint">
-                  {formatCouponDiscount(
-                    coupon.campaign.discountType,
-                    coupon.campaign.discountValue,
-                    t
-                  )}
-                  {coupon.campaign.minOrder > 0 &&
+                  {formatCouponDiscount(coupon.discountType, coupon.discountValue, t)}
+                  {coupon.minOrder > 0 &&
                     ` · ${t("coupons.minOrder", {
-                      amount: coupon.campaign.minOrder.toFixed(2).replace(".", ",")
+                      amount: coupon.minOrder.toFixed(2).replace(".", ",")
                     })}`}
                 </p>
-                <div className="coupon-wallet__code-row">
-                  <span className="coupon-wallet__code-label">{t("coupons.activationCode")}</span>
-                  <span className="coupon-wallet__code">{coupon.claimCode}</span>
-                </div>
+                {coupon.description ? (
+                  <p className="customer-hint" style={{ marginTop: 4 }}>
+                    {coupon.description}
+                  </p>
+                ) : null}
               </div>
               <div className="coupon-wallet__actions">
-                <span className={`coupon-wallet__status coupon-wallet__status--${coupon.status}`}>
-                  {t(`coupons.status.${coupon.status}`, { defaultValue: coupon.status })}
+                <span className="coupon-wallet__status coupon-wallet__status--activated">
+                  {t("coupons.alwaysActive")}
                 </span>
-                {coupon.status === "available" && (
-                  <button
-                    type="button"
-                    className="coupon-wallet__activate"
-                    disabled={activateMutation.isPending || deactivateMutation.isPending}
-                    onClick={() => activateMutation.mutate(coupon.id)}
-                  >
-                    {t("coupons.tapToActivate")}
-                  </button>
-                )}
-                {coupon.status === "activated" && (
-                  <button
-                    type="button"
-                    className="coupon-wallet__activate"
-                    disabled={activateMutation.isPending || deactivateMutation.isPending}
-                    onClick={() => deactivateMutation.mutate(coupon.id)}
-                  >
-                    {t("coupons.deactivate", { defaultValue: "Deactivate" })}
-                  </button>
-                )}
               </div>
             </li>
           ))}
         </ul>
       )}
-      {activatedCount > 0 && (
-        <p className="customer-alert customer-alert--success">
-          {t("coupons.checkoutHintMulti", {
-            count: activatedCount,
-            defaultValue: `${activatedCount} coupon(s) active — applied automatically at checkout.`
-          })}
-        </p>
+      {perks.length > 0 && (
+        <p className="customer-alert customer-alert--success">{t("coupons.checkoutAutoHint")}</p>
       )}
     </section>
   )

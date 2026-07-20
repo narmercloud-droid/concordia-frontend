@@ -2,8 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchCouponCampaigns, listAvailableCoupons } from "@/api/coupons"
-import { useAuthStore } from "@/context/authStore"
+import { getBranchCouponCampaigns } from "@/api/coupons"
 import CouponCard from "./CouponCard"
 import "./InfoPages.css"
 
@@ -21,11 +20,9 @@ export default function CouponCampaignStrip({
   showViewAll = true
 }: Props) {
   const { t } = useTranslation()
-  const isLoggedIn = !!useAuthStore((s) => s.token)
   const { data, isLoading } = useQuery({
-    queryKey: ["couponCampaigns", branchId, isLoggedIn ? "auth" : "guest"],
-    queryFn: () =>
-      isLoggedIn ? listAvailableCoupons(branchId) : getBranchCouponCampaigns(branchId),
+    queryKey: ["couponCampaigns", branchId, "active"],
+    queryFn: () => getBranchCouponCampaigns(branchId),
     enabled: !!branchId,
     staleTime: 60_000
   })
@@ -36,7 +33,7 @@ export default function CouponCampaignStrip({
   return (
     <section className="coupon-strip" aria-label={title ?? t("coupons.sectionTitle")}>
       <div className="coupon-strip__head">
-        <h2 className="coupon-strip__title">{title ?? t("coupons.sectionTitle")}</h2>
+        <h2 className="coupon-strip__title">{title ?? t("coupons.activeOffersTitle")}</h2>
         {showViewAll && (
           <Link
             to={`/offers?branchId=${branchId}#coupons`}

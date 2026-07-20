@@ -13,7 +13,6 @@ import ItemOptionsModal from "@/apps/customer/components/ItemOptionsModal"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
-import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import FulfillmentPicker from "@/apps/customer/components/FulfillmentPicker"
 import CartSuggestionsModal, {
   type SuggestionItem
@@ -233,11 +232,10 @@ export default function CartPage() {
           {t("common.subtotal")}: {formatCurrency(subtotal)}
         </p>
 
+
         {websiteDiscount > 0 && (
           <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
         )}
-
-        <CouponSignupPromo branchId={branchId || null} variant="cart" />
 
         {fulfillment === "delivery" && estimate.estimatedDeliveryFee != null && (
           <p className="customer-hint cart-summary__delivery-estimate">

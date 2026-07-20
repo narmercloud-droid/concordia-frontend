@@ -28,7 +28,6 @@ import FulfillmentPicker from "@/apps/customer/components/FulfillmentPicker"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
-import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -483,14 +482,12 @@ export default function BranchMenuPage() {
       </header>
 
       {!orderingDisabled && branchId ? (
-        <>
-          <CouponSignupPromo branchId={branchId} variant="menu" />
-          <CouponCampaignStrip
-            branchId={branchId}
-            branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
-            title={t("coupons.sectionTitle")}
-          />
-        </>
+        <CouponCampaignStrip
+          branchId={branchId}
+          branchName={branch?.name?.replace(/^Concordia\s+/i, "")}
+          title={t("coupons.activeOffersTitle")}
+          showViewAll={false}
+        />
       ) : null}
 
       <div className="branch-menu__nav-bar">

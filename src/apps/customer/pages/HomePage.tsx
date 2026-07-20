@@ -6,7 +6,8 @@ import HomeHeroMotion from "@/apps/customer/components/HomeHeroMotion"
 import HomeOrderHub, { type HomeBranch } from "@/apps/customer/components/HomeOrderHub"
 import HomeReviewSnippet from "@/apps/customer/components/HomeReviewSnippet"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
-import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
+import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
+import { useDefaultCouponBranch } from "@/apps/customer/components/BranchCouponTabs"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import SiteFooter from "@/apps/customer/components/SiteFooter"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
@@ -21,6 +22,7 @@ const MenuShowcase = React.lazy(() => import("@/apps/customer/components/MenuSho
 export default function HomePage() {
   const { t } = useTranslation()
   const location = useLocation()
+  const defaultBranchId = useDefaultCouponBranch()
   const { data, isLoading, isError, isFetching, isPending, refetch } = useQuery({
     ...branchesQueryOptions,
     queryKey: BRANCHES_QUERY_KEY
@@ -115,7 +117,10 @@ export default function HomePage() {
       {orderHub}
 
       <div className="home-coupon-promo-wrap">
-        <CouponSignupPromo variant="home" />
+        <CouponCampaignStrip
+          branchId={defaultBranchId}
+          title={t("coupons.activeOffersTitle")}
+        />
       </div>
 
       <Suspense fallback={null}>
