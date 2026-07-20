@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import InfoPageShell from "@/apps/customer/components/InfoPageShell"
@@ -22,9 +22,10 @@ function branchShortName(name: string) {
 
 export default function OffersPage() {
   const { t } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams()
   const defaultBranch = useDefaultCouponBranch()
-  const { branchId: resolvedBranchId, setBranchId } = useSelectedBranch()
-  const activeBranchId = resolvedBranchId ?? defaultBranch
+  const { setBranchId } = useSelectedBranch()
+  const activeBranchId = searchParams.get("branchId")?.trim() || defaultBranch
 
   const { data: branches } = useQuery({
     ...branchesQueryOptions,
@@ -42,6 +43,7 @@ export default function OffersPage() {
   const branchName = activeBranch?.name ? branchShortName(activeBranch.name) : activeBranchId
 
   const selectBranch = (branchId: string) => {
+    setSearchParams({ branchId }, { replace: true })
     setBranchId(branchId)
   }
 
