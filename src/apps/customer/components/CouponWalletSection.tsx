@@ -38,7 +38,7 @@ export default function CouponWalletSection({ branchId, id = "wallet" }: Props) 
         : []
   )
 
-  const claimable = (data?.campaigns ?? []).filter((c) => !c.alwaysActive)
+  const claimable = (data?.campaigns ?? []).filter((c) => !c.alwaysActive && !c.comingSoon)
 
   return (
     <section id={id} className="coupon-page__section offers-wallet">

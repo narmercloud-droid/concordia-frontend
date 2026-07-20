@@ -526,12 +526,14 @@
     "lead": "Your perks are already active — like Lidl Plus, no codes and nothing to activate.",
     "activeOffersTitle": "Active offers",
     "alwaysActive": "Activated",
+    "comingSoon": "Coming soon",
+    "comingSoonHint": "This offer launches soon — check back for updates.",
     "alwaysActiveHint": "These perks apply automatically on every order — no codes, no extra steps.",
     "checkoutAutoHint": "10% online discount and free drink from €35 are applied automatically at checkout.",
     "freeDrinkOffer": "Free drink",
     "comboPrice": "€{{value}} combo",
     "donerMenuPrice": "10 €",
-    "donerMenuTitle": "Döner sandwich + fries + drink of choice",
+    "donerMenuTitle": "Dönertasche + fries + drink of choice",
     "donerMenuDetail": "Choose any 0.33 l drink — full menu for 10 € when this coupon is activated.",
     "sectionTitle": "Your perks",
     "sectionTitleKempen": "Kempen coupons",
@@ -826,12 +828,12 @@
     "terms": {
       "eyebrow": "Legal",
       "title": "Terms & Conditions",
-      "lead": "These terms govern online orders on the Concordia website and the loyalty programme.",
+      "lead": "These terms govern online orders on the Concordia website (Kempen and Straelen), the coupon wallet, and the loyalty programme.",
       "relatedLegal": "See also: <impressumLink>Legal notice</impressumLink> · <privacyLink>Privacy</privacyLink> · <agbLink>AGB</agbLink>",
       "sections": {
         "operator": {
           "title": "1. Operator and scope",
-          "body": "The website and online ordering system are operated by Pizzeria Concordia (family-run), Concordienplatz 1, 47906 Kempen, Germany. These terms apply to all orders placed through our website and related services such as pickup, delivery, gift vouchers, and the loyalty programme, unless expressly agreed otherwise. Conflicting customer terms are not accepted unless we expressly agree to them in writing."
+          "body": "The website and online ordering system are operated by Pizzeria Concordia (family-run), Concordienplatz 1, 47906 Kempen, Germany. These terms apply to all orders placed through our website and related services such as pickup, delivery, gift vouchers, the branch coupon wallet, and the loyalty programme, unless expressly agreed otherwise. Conflicting customer terms are not accepted unless we expressly agree to them in writing."
         },
         "ordering": {
           "title": "2. Contract formation and order process",
@@ -839,7 +841,7 @@
         },
         "prices": {
           "title": "3. Prices, payment, and website discount",
-          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders through our website may receive a 10% website discount when active at the time of order and subject to the applicable promotion terms. Discounts, vouchers, and loyalty benefits are generally not combinable unless expressly stated."
+          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders through our website may receive a 10% website discount when active at the time of order. Activated branch coupons in your wallet are applied automatically, subject to combination rules (see Part 3). Manual discount codes, gift vouchers, and loyalty benefits are generally not combinable unless expressly stated."
         },
         "delivery": {
           "title": "4. Pickup, delivery, and timing",
@@ -850,8 +852,8 @@
           "body": "Short-notice cancellations or changes are only possible while preparation has not yet started. Contact us immediately by phone or via the channels stated in your order confirmation. Where cancellation or withdrawal is justified, we refund payments for services not provided. Statutory withdrawal rights for distance contracts remain unaffected where applicable; exceptions may apply to perishable food."
         },
         "promotions": {
-          "title": "6. Promotions, vouchers, and marketing",
-          "body": "Promotional offers, discount codes, gift vouchers, and loyalty benefits are subject to published terms, validity periods, and availability. Vouchers are generally not redeemable for cash and may only be used up to their stated value. By voluntarily opting in to marketing communications (e.g. newsletter), you consent to receive information about offers and news; you may withdraw consent at any time."
+          "title": "6. Promotions, gift vouchers, and marketing",
+          "body": "Promotional offers, gift vouchers, and loyalty benefits are subject to published terms, validity periods, and availability. Gift vouchers are generally not redeemable for cash. Branch coupons in the wallet, automatic online perks, and marketing communications are covered in Part 3 and the privacy policy. By voluntarily opting in to marketing (email, SMS, WhatsApp, or browser notifications), you consent to receive information about offers; you may withdraw consent at any time."
         },
         "liability": {
           "title": "7. Liability",
@@ -866,7 +868,7 @@
           "body": "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods (CISG), subject to mandatory consumer protection rules of the country where the consumer habitually resides. If the customer is a merchant, legal entity under public law, or special fund under public law, Kempen shall be the exclusive place of jurisdiction for all disputes where permitted by law."
         }
       },
-      "updated": "Last updated: 8 June 2026",
+      "updated": "Last updated: July 2026",
       "contact": "Questions about these terms: contact us via our contact page (/contact) or visit the restaurant at Concordienplatz 1, Kempen.",
       "loyaltyPartTitle": "Part 2: Loyalty programme",
       "loyaltyPartLead": "The following terms apply additionally to our free loyalty programme.",
@@ -902,6 +904,38 @@
         "changes": {
           "title": "8. Changes and termination",
           "body": "We may change these programme terms, point rules, tiers, and benefits with future effect. Material changes will be communicated via the website or email where possible. Continued use after changes take effect constitutes acceptance unless an opt-out is offered. The programme may be discontinued entirely; any remaining points will be handled under the rules then in force."
+        }
+      },
+      "couponsPartTitle": "Part 3: Coupon wallet & branch offers",
+      "couponsPartLead": "The following terms apply to the free coupon wallet, automatic online perks, and marketing offers on the Concordia website.",
+      "couponSections": {
+        "overview": {
+          "title": "1. Overview",
+          "body": "Registered customers can save and activate branch-specific coupons and deals (Kempen or Straelen) on the Offers page. In addition, always-active online perks such as the 10% website discount and a free drink from €35 order value apply automatically on eligible online orders — no code and no manual activation required. The wallet is free, non-transferable, and tied to your customer account."
+        },
+        "wallet": {
+          "title": "2. Save, activate, and redeem",
+          "body": "Available branch coupons can be saved to your wallet by tapping and then activated for checkout. Activated coupons are applied automatically at checkout when conditions are met (e.g. minimum order, validity period, new customers only, matching branch). After redemption on an order, the coupon is considered used. We may refuse or revoke coupons in cases of misuse, technical errors, or obvious pricing mistakes."
+        },
+        "platformPerks": {
+          "title": "3. Always-active online perks",
+          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app. The free drink is offered at checkout once your cart reaches the minimum value. These perks are separate from wallet coupons and cannot be manually deactivated."
+        },
+        "stacking": {
+          "title": "4. Combination and cap",
+          "body": "Multiple activated branch coupons for the same branch may be combined. However, the total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. Manual discount codes and the automatic 10% website discount cannot be combined. Gift vouchers are subject to their own terms."
+        },
+        "marketing": {
+          "title": "5. Marketing and notifications",
+          "body": "You may voluntarily opt in to marketing via email, SMS, WhatsApp, and/or browser notifications to receive information about new promotions, coupons, and seasonal offers. This is optional — you can order without marketing consent. You may withdraw consent at any time in your account settings or by contacting info@concordiapizza.de. Details on data processing are in the privacy policy."
+        },
+        "misuse": {
+          "title": "6. Misuse",
+          "body": "Multiple accounts, automated access, sharing coupons with third parties, or attempts to unlawfully increase discounts are prohibited. We may block coupons, revoke benefits, refuse orders, and close accounts for violations."
+        },
+        "changes": {
+          "title": "7. Changes",
+          "body": "We may adjust or discontinue offers, coupon terms, combination rules, and marketing channels. Material changes will be published on the website. For coupons already activated, the terms published at the time of activation apply where permitted by law."
         }
       }
     }

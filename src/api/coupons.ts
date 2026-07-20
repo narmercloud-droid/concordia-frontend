@@ -18,6 +18,7 @@ export type CouponCampaign = {
   newCustomersOnly: boolean
   sortOrder?: number
   alwaysActive?: boolean
+  comingSoon?: boolean
   claimed?: boolean
   customerCouponId?: string | null
   claimCode?: string | null

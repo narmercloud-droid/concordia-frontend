@@ -53,7 +53,7 @@
     ]
   },
   "datenschutz": {
-    "updated": "Stand: Juni 2026",
+    "updated": "Stand: Juli 2026",
     "sections": [
       {
         "title": "1. Datenschutz auf einen Blick",
@@ -149,8 +149,15 @@
           {
             "title": "Registrierung und Kundenkonto",
             "paragraphs": [
-              "Sie können sich auf unserer Website registrieren, um Bestellungen zu verfolgen und am Treueprogramm teilzunehmen. Die bei der Registrierung abgefragten Pflichtangaben müssen vollständig angegeben werden.",
+              "Sie können sich auf unserer Website registrieren, um Bestellungen zu verfolgen, am Treueprogramm teilzunehmen und Filial-Gutscheine in Ihrem persönlichen Wallet zu speichern und zu aktivieren. Die bei der Registrierung abgefragten Pflichtangaben müssen vollständig angegeben werden.",
               "Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) bzw. zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)."
+            ]
+          },
+          {
+            "title": "Gutschein-Wallet und Filial-Angebote",
+            "paragraphs": [
+              "Mit Kundenkonto können Sie filialspezifische Gutscheine und Aktionen auf der Seite „Angebote“ speichern („Claim“) und für die Kasse aktivieren. Dabei verarbeiten wir Ihre Kunden-ID, die gewählte Filiale (Kempen oder Straelen), den Status gespeicherter und aktivierter Gutscheine sowie Einlösevorgänge im Zusammenhang mit Bestellungen.",
+              "Immer aktive Online-Vorteile (z. B. 10 % Website-Rabatt, Gratisgetränk ab 35 € Bestellwert) werden automatisch berücksichtigt und erfordern keine separate Speicherung. Die Verarbeitung dient der Vertragserfüllung und dem berechtigten Interesse an einer fairen Abwicklung von Rabatten (Art. 6 Abs. 1 lit. b und f DSGVO)."
             ]
           },
           {
@@ -171,7 +178,7 @@
           {
             "title": "Ihre Rechte (DSGVO)",
             "paragraphs": [
-              "In Ihrem Kundenkonto können Sie Marketing-Einstellungen verwalten, Ihre Daten exportieren und Ihr Konto löschen (Recht auf Löschung gemäß Art. 17 DSGVO, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen).",
+              "In Ihrem Kundenkonto können Sie Marketing-Einstellungen (E-Mail, SMS, WhatsApp), gespeicherte Gutscheine und Ihr Profil verwalten, Ihre Daten exportieren und Ihr Konto löschen (Recht auf Löschung gemäß Art. 17 DSGVO, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen).",
               "Bestelldaten können aus steuer- und handelsrechtlichen Gründen auch nach Kontolöschung in anonymisierter Form aufbewahrt werden."
             ]
           }
@@ -189,15 +196,34 @@
         ]
       },
       {
-        "title": "6. Newsletter und Marketing",
-        "paragraphs": [
-          "Sofern Sie sich freiwillig für Marketing-Mitteilungen (z. B. Newsletter) anmelden, verarbeiten wir Ihre E-Mail-Adresse auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen."
+        "title": "6. Newsletter, Marketing und Angebots-Benachrichtigungen",
+        "subsections": [
+          {
+            "title": "Marketing per E-Mail, SMS und WhatsApp",
+            "paragraphs": [
+              "Sofern Sie sich freiwillig für Marketing-Mitteilungen anmelden (z. B. bei Registrierung, im Kundenkonto oder an der Kasse), verarbeiten wir die von Ihnen gewählten Kontaktdaten (E-Mail-Adresse und/oder Telefonnummer) sowie Ihre Marketing-Präferenzen, um Sie über Aktionen, neue Gerichte, Gutscheine und saisonale Angebote zu informieren.",
+              "Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen — z. B. über die Einstellungen in Ihrem Kundenkonto, per E-Mail an info@concordiapizza.de oder über Abmeldelinks in unseren Nachrichten."
+            ]
+          },
+          {
+            "title": "Browser-Benachrichtigungen (Push)",
+            "paragraphs": [
+              "Wenn Sie Push-Benachrichtigungen für Angebote aktivieren, speichern wir ein technisches Geräte-Token, um Ihnen Hinweise zu Rabatten und Aktionen senden zu können. Dies erfolgt nur nach Ihrer Einwilligung über das Cookie-Banner bzw. die entsprechende Browser-Abfrage (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Sie können Benachrichtigungen jederzeit in den Browser- oder Geräteeinstellungen deaktivieren."
+            ]
+          },
+          {
+            "title": "Gutschein-Wallet und personalisierte Angebote",
+            "paragraphs": [
+              "Filial-Gutscheine, die Sie in Ihr Wallet speichern oder aktivieren, werden Ihrem Kundenkonto zugeordnet. Diese Daten nutzen wir, um Ihnen die jeweiligen Rabatte an der Kasse anzuwenden, Missbrauch zu verhindern und — sofern Sie dem Marketing zugestimmt haben — passende Angebote für Ihre Filiale mitzuteilen.",
+              "Rechtsgrundlage ist die Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO) bzw. Ihre Marketing-Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), soweit wir Sie gezielt über neue Gutscheine informieren."
+            ]
+          }
         ]
       }
     ]
   },
   "agb": {
-    "updated": "Stand: 27. Januar 2020 (übernommen vom bisherigen Online-Shop); ergänzt für die Concordia-Website",
+    "updated": "Stand: Juli 2026 (ergänzt um Gutschein-Wallet und Marketing)",
     "intro": "Allgemeine Geschäftsbedingungen (AGB) — Online-Shop für Lebensmittel",
     "sections": [
       {
@@ -286,7 +312,17 @@
         ]
       },
       {
-        "title": "§13 Schlussbestimmungen",
+        "title": "§13 Gutschein-Wallet, Filial-Angebote und Marketing",
+        "paragraphs": [
+          "(1) Mit kostenlosem Kundenkonto können Sie filialspezifische Gutscheine und Aktionen (z. B. für Kempen oder Straelen) auf der Website speichern und für die Kasse aktivieren. Jedes Wallet gilt nur für die jeweilige Filiale.",
+          "(2) Immer aktive Online-Vorteile — insbesondere der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert — werden bei berechtigten Online-Bestellungen automatisch berücksichtigt, sofern die jeweiligen Bedingungen erfüllt sind.",
+          "(3) Mehrere aktivierte Filial-Gutscheine können kombiniert werden; der Gesamtrabatt aus Wallet-Gutscheinen ist jedoch auf maximal 8 € oder 25 % des Warenwerts (je nachdem, was höher ist) begrenzt, sofern nicht ausdrücklich anders angegeben. Gutscheine sind grundsätzlich nicht bar auszahlbar.",
+          "(4) Manuelle Rabattcodes, Geschenkgutscheine und automatische Website-Vorteile sind nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Einlösebedingungen (Mindestbestellwert, Gültigkeit, Neukunden-only, Filiale) ergeben sich aus der jeweiligen Angebotsbeschreibung.",
+          "(5) Marketing-Mitteilungen (E-Mail, SMS, WhatsApp, Browser-Benachrichtigungen) erfolgen nur nach Ihrer freiwilligen Einwilligung und können jederzeit widerrufen werden. Details zur Datenverarbeitung finden Sie in der Datenschutzerklärung."
+        ]
+      },
+      {
+        "title": "§14 Schlussbestimmungen",
         "paragraphs": [
           "(1) Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.",
           "(2) Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.",

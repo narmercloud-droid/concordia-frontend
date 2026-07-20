@@ -27,6 +27,16 @@ const LOYALTY_SECTIONS = [
   "changes"
 ] as const
 
+const COUPON_SECTIONS = [
+  "overview",
+  "wallet",
+  "platformPerks",
+  "stacking",
+  "marketing",
+  "misuse",
+  "changes"
+] as const
+
 export default function TermsPage() {
   const { t } = useTranslation()
   const base = "pages.terms"
@@ -77,6 +87,18 @@ export default function TermsPage() {
         <div key={`loyalty-${key}`} className="info-block info-legal__section">
           <h2 className="info-block__title">{t(`${base}.loyaltySections.${key}.title`)}</h2>
           <p>{t(`${base}.loyaltySections.${key}.body`)}</p>
+        </div>
+      ))}
+
+      <div className="info-legal__part-divider">
+        <h2 className="info-legal__part-title">{t(`${base}.couponsPartTitle`)}</h2>
+        <p>{t(`${base}.couponsPartLead`)}</p>
+      </div>
+
+      {COUPON_SECTIONS.map((key) => (
+        <div key={`coupon-${key}`} className="info-block info-legal__section">
+          <h2 className="info-block__title">{t(`${base}.couponSections.${key}.title`)}</h2>
+          <p>{t(`${base}.couponSections.${key}.body`)}</p>
         </div>
       ))}
 

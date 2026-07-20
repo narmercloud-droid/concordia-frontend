@@ -34,8 +34,9 @@ export default function CouponCard({
   const [localCode, setLocalCode] = useState<string | null>(null)
 
   const alwaysActive = Boolean(campaign.alwaysActive) || isPlatformPerk(campaign)
-  const isActivated = alwaysActive || campaign.status === "activated"
-  const isClaimed = campaign.claimed && !isActivated
+  const comingSoon = Boolean(campaign.comingSoon)
+  const isActivated = !comingSoon && (alwaysActive || campaign.status === "activated")
+  const isClaimed = !comingSoon && campaign.claimed && !isActivated
 
   const discountLabel = formatCouponCardHeadline(campaign, t)
 
@@ -106,7 +107,7 @@ export default function CouponCard({
   })
 
   const handleClick = () => {
-    if (alwaysActive) return
+    if (alwaysActive || comingSoon) return
     setError("")
     if (!isLoggedIn) {
       claimMutation.mutate()
@@ -127,7 +128,9 @@ export default function CouponCard({
     claimMutation.isPending || activateMutation.isPending || deactivateMutation.isPending
 
   let statusLabel = t("coupons.tapToClaim")
-  if (alwaysActive || isActivated) {
+  if (comingSoon) {
+    statusLabel = t("coupons.comingSoon")
+  } else if (alwaysActive || isActivated) {
     statusLabel = t("coupons.status.activated")
   } else if (isLoggedIn && isClaimed) {
     statusLabel = t("coupons.tapToActivate")
@@ -140,27 +143,32 @@ export default function CouponCard({
     "coupon-card",
     compact ? "coupon-card--compact" : "",
     alwaysActive ? "coupon-card--platform" : "",
+    comingSoon ? "coupon-card--coming-soon" : "",
     isActivated && !alwaysActive ? "coupon-card--activated" : "",
     isClaimed ? "coupon-card--claimed" : ""
   ]
     .filter(Boolean)
     .join(" ")
 
-  const Wrapper = alwaysActive ? "div" : "button"
+  const Wrapper = alwaysActive || comingSoon ? "div" : "button"
 
   return (
     <Wrapper
-      type={alwaysActive ? undefined : "button"}
+      type={alwaysActive || comingSoon ? undefined : "button"}
       className={cardClass}
-      onClick={alwaysActive ? undefined : handleClick}
-      disabled={alwaysActive ? undefined : busy}
+      onClick={alwaysActive || comingSoon ? undefined : handleClick}
+      disabled={alwaysActive || comingSoon ? undefined : busy}
       aria-label={campaign.title}
     >
       <div className="coupon-card__header">
         {branchName && <span className="coupon-card__scope">{branchName}</span>}
         <span
           className={`coupon-card__status${
-            isActivated || alwaysActive ? " coupon-card__status--on" : ""
+            comingSoon
+              ? " coupon-card__status--soon"
+              : isActivated || alwaysActive
+                ? " coupon-card__status--on"
+                : ""
           }`}
         >
           {busy ? t("common.processing") : statusLabel}
@@ -197,6 +205,10 @@ export default function CouponCard({
 
       {!alwaysActive && isActivated && isLoggedIn && (
         <span className="coupon-card__hint">{t("coupons.tapToDeactivate")}</span>
+      )}
+
+      {comingSoon && (
+        <span className="coupon-card__hint">{t("coupons.comingSoonHint")}</span>
       )}
 
       {error && <span className="coupon-card__error">{error}</span>}

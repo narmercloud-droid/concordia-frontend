@@ -564,12 +564,14 @@
     "lead": "Ihre Vorteile sind bereits aktiv — wie bei Lidl Plus, ohne Code und ohne Aktivieren.",
     "activeOffersTitle": "Aktive Angebote",
     "alwaysActive": "Aktiviert",
+    "comingSoon": "Demnächst",
+    "comingSoonHint": "Dieses Angebot startet bald — bleiben Sie dran.",
     "alwaysActiveHint": "Diese Vorteile gelten automatisch bei jeder Bestellung — keine Codes, kein Extra-Schritt.",
     "checkoutAutoHint": "10 % Online-Rabatt und Gratisgetränk ab 35 € werden an der Kasse automatisch berücksichtigt.",
     "freeDrinkOffer": "Gratisgetränk",
     "comboPrice": "{{value}} € Menü",
     "donerMenuPrice": "10 €",
-    "donerMenuTitle": "Dönersandwich + Pommes + Getränk nach Wahl",
+    "donerMenuTitle": "Dönertasche + Pommes + Getränk nach Wahl",
     "donerMenuDetail": "Getränk 0,33 l frei wählbar — das komplette Menü für 10 € mit aktiviertem Gutschein.",
     "sectionTitle": "Ihre Vorteile",
     "sectionTitleKempen": "Gutscheine Kempen",
@@ -854,7 +856,7 @@
       "eyebrow": "Rechtliches",
       "title": "Allgemeine Geschäftsbedingungen",
       "lead": "AGB für Online-Bestellungen bei Pizzeria Concordia (übernommen vom bisherigen Speisebaron-Shop, angepasst für diese Website).",
-      "loyaltyNote": "Ergänzend gelten die Bedingungen des Treueprogramms auf der Seite <termsLink>AGB & Treue</termsLink>."
+      "loyaltyNote": "Ergänzend gelten die Bedingungen des Treueprogramms und Gutschein-Wallets auf der Seite <termsLink>AGB & Treue</termsLink>."
     },
     "widerruf": {
       "eyebrow": "Rechtliches",
@@ -864,12 +866,12 @@
     "terms": {
       "eyebrow": "Rechtliches",
       "title": "AGB & Treueprogramm",
-      "lead": "Diese Bedingungen regeln Online-Bestellungen über die Concordia-Website sowie das Treueprogramm für Pizzeria Concordia in Kempen.",
+      "lead": "Diese Bedingungen regeln Online-Bestellungen über die Concordia-Website (Kempen und Straelen), das Gutschein-Wallet sowie das Treueprogramm.",
       "relatedLegal": "Siehe auch: <impressumLink>Impressum</impressumLink> · <privacyLink>Datenschutz</privacyLink> · <agbLink>AGB</agbLink>",
       "sections": {
         "operator": {
           "title": "1. Anbieter und Geltungsbereich",
-          "body": "Anbieter der Website und des Online-Bestellsystems ist Pizzeria Concordia (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Gutscheine und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
+          "body": "Anbieter der Website und des Online-Bestellsystems ist Pizzeria Concordia (familiengeführt), Concordienplatz 1, 47906 Kempen, Deutschland. Diese AGB gelten für alle Bestellungen über unsere Website sowie für damit verbundene Leistungen wie Abholung, Lieferung, Geschenkgutscheine, das Gutschein-Wallet mit Filial-Angeboten und das Treueprogramm, soweit nicht ausdrücklich etwas anderes vereinbart wurde. Abweichende Bedingungen des Kunden werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu."
         },
         "ordering": {
           "title": "2. Vertragsschluss und Bestellablauf",
@@ -877,7 +879,7 @@
         },
         "prices": {
           "title": "3. Preise, Zahlung und Website-Rabatt",
-          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen über unsere Website kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser zum Zeitpunkt der Bestellung aktiv ist und die jeweiligen Aktionsbedingungen erfüllt sind. Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
+          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen über unsere Website kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser zum Zeitpunkt der Bestellung aktiv ist. Aktivierte Filial-Gutscheine aus Ihrem Wallet werden automatisch berücksichtigt, unterliegen jedoch Kombinationsregeln (siehe Teil 3). Manuelle Rabattcodes, Geschenkgutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
         },
         "delivery": {
           "title": "4. Abholung, Lieferung und Lieferzeiten",
@@ -888,8 +890,8 @@
           "body": "Kurzfristige Stornierungen oder Änderungen sind nur möglich, solange die Zubereitung noch nicht begonnen hat. Kontaktieren Sie uns dafür unverzüglich telefonisch oder über die in der Bestellbestätigung genannten Kanäle. Bei berechtigtem Rücktritt oder Stornierung erstatten wir bereits geleistete Zahlungen für nicht erbrachte Leistungen. Gesetzliche Widerrufsrechte für Fernabsatzverträge bleiben unberührt, soweit anwendbar; bei verderblichen Lebensmitteln können gesetzliche Ausnahmen gelten."
         },
         "promotions": {
-          "title": "6. Aktionen, Gutscheine und Marketing",
-          "body": "Aktionsangebote, Rabattcodes, Geschenkgutscheine und Treuevorteile unterliegen den jeweils veröffentlichten Bedingungen, Gültigkeitszeiträumen und Verfügbarkeiten. Gutscheine sind grundsätzlich nicht bar auszahlbar und können nur im Rahmen des angegebenen Wertes eingelöst werden. Mit freiwilliger Anmeldung zu Marketing-Mitteilungen (z. B. Newsletter) willigen Sie in den Erhalt von Informationen zu Angeboten und Neuigkeiten ein; Sie können diese Einwilligung jederzeit widerrufen."
+          "title": "6. Aktionen, Geschenkgutscheine und Marketing",
+          "body": "Aktionsangebote, Geschenkgutscheine und Treuevorteile unterliegen den jeweils veröffentlichten Bedingungen, Gültigkeitszeiträumen und Verfügbarkeiten. Geschenkgutscheine sind grundsätzlich nicht bar auszahlbar. Filial-Gutscheine im Wallet, automatische Online-Vorteile und Marketing-Mitteilungen sind in Teil 3 und in der Datenschutzerklärung geregelt. Mit freiwilliger Anmeldung zu Marketing (E-Mail, SMS, WhatsApp oder Browser-Benachrichtigungen) willigen Sie in den Erhalt von Informationen zu Angeboten ein; Sie können diese Einwilligung jederzeit widerrufen."
         },
         "liability": {
           "title": "7. Haftung",
@@ -904,7 +906,7 @@
           "body": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG), soweit dem keine zwingenden verbraucherschutzrechtlichen Vorschriften des Staates entgegenstehen, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat. Ist der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle Streitigkeiten Kempen, sofern gesetzlich zulässig."
         }
       },
-      "updated": "Zuletzt aktualisiert: 8. Juni 2026",
+      "updated": "Zuletzt aktualisiert: Juli 2026",
       "contact": "Fragen zu diesen Bedingungen: Kontakt über unsere Kontaktseite (/contact) oder direkt im Restaurant, Concordienplatz 1, Kempen.",
       "loyaltyPartTitle": "Teil 2: Treueprogramm",
       "loyaltyPartLead": "Die folgenden Bedingungen gelten zusätzlich für unser kostenloses Treueprogramm.",
@@ -940,6 +942,38 @@
         "changes": {
           "title": "8. Änderungen und Beendigung",
           "body": "Wir können diese Programmbedingungen, Punkteregeln, Stufen und Vorteile mit Wirkung für die Zukunft ändern. Wesentliche Änderungen werden über die Website oder per E-Mail kommuniziert, soweit möglich. Die fortgesetzte Nutzung des Programms nach Inkrafttreten gilt als Zustimmung, sofern keine Widerspruchsmöglichkeit angeboten wird. Das Programm kann insgesamt beendet werden; in diesem Fall werden offene Punkte nach den dann geltenden Regeln behandelt."
+        }
+      },
+      "couponsPartTitle": "Teil 3: Gutschein-Wallet & Filial-Angebote",
+      "couponsPartLead": "Die folgenden Bedingungen gelten für das kostenlose Gutschein-Wallet, automatische Online-Vorteile und Marketing-Angebote auf der Concordia-Website.",
+      "couponSections": {
+        "overview": {
+          "title": "1. Überblick",
+          "body": "Registrierte Kunden können filialspezifische Gutscheine und Aktionen (Kempen oder Straelen) auf der Seite „Angebote“ speichern und für die Kasse aktivieren. Zusätzlich gelten bei Online-Bestellungen immer aktive Vorteile wie der 10-%-Website-Rabatt und das Gratisgetränk ab 35 € Bestellwert — ohne Code und ohne manuelles Aktivieren. Das Wallet ist kostenlos, nicht übertragbar und an Ihr Kundenkonto gebunden."
+        },
+        "wallet": {
+          "title": "2. Speichern, Aktivieren und Einlösen",
+          "body": "Verfügbare Filial-Gutscheine können Sie durch Antippen in Ihr Wallet speichern und anschließend aktivieren. Aktivierte Gutscheine werden beim Checkout automatisch angewendet, sofern die Bedingungen erfüllt sind (z. B. Mindestbestellwert, Gültigkeitszeitraum, Neukunden-only, passende Filiale). Nach Einlösung bei einer Bestellung gilt der Gutschein als verbraucht. Wir können Gutscheine bei Missbrauch, technischen Fehlern oder offensichtlichen Preisfehlern ablehnen oder zurücknehmen."
+        },
+        "platformPerks": {
+          "title": "3. Immer aktive Online-Vorteile",
+          "body": "Der 10-%-Online-Rabatt und das Gratisgetränk ab 35 € Bestellwert werden bei berechtigten Bestellungen über Website oder App automatisch berücksichtigt. Das Gratisgetränk wird an der Kasse zur Auswahl angeboten, sobald der Warenkorb den Mindestwert erreicht. Diese Vorteile sind von Filial-Gutscheinen im Wallet getrennt und können nicht manuell deaktiviert werden."
+        },
+        "stacking": {
+          "title": "4. Kombination und Obergrenze",
+          "body": "Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden. Der Gesamtrabatt aus Wallet-Gutscheinen ist jedoch auf maximal 8 € oder 25 % des Warenwerts begrenzt (je nachdem, was höher ist), sofern nicht ausdrücklich anders angegeben. Manuelle Rabattcodes und der automatische 10-%-Website-Rabatt sind nicht kombinierbar. Geschenkgutscheine unterliegen den jeweiligen Gutscheinbedingungen."
+        },
+        "marketing": {
+          "title": "5. Marketing und Benachrichtigungen",
+          "body": "Sie können freiwillig Marketing per E-Mail, SMS, WhatsApp und/oder Browser-Benachrichtigungen aktivieren, um über neue Aktionen, Gutscheine und saisonale Angebote informiert zu werden. Dies ist optional — Bestellungen sind auch ohne Marketing-Einwilligung möglich. Einwilligungen können jederzeit im Kundenkonto oder per Kontakt an info@concordiapizza.de widerrufen werden. Details zur Datenverarbeitung finden Sie in der Datenschutzerklärung."
+        },
+        "misuse": {
+          "title": "6. Missbrauch",
+          "body": "Mehrfachkonten, automatisierte Zugriffe, Weitergabe von Gutscheinen an Dritte oder der Versuch, Rabatte unrechtmäßig zu mehren, sind untersagt. Bei Verstößen können wir Gutscheine sperren, Vorteile entziehen, Bestellungen ablehnen und Konten schließen."
+        },
+        "changes": {
+          "title": "7. Änderungen",
+          "body": "Wir können Angebote, Gutscheinbedingungen, Kombinationsregeln und Marketing-Kanäle anpassen oder beenden. Wesentliche Änderungen werden auf der Website bekannt gegeben. Für bereits aktivierte Gutscheine gelten die zum Zeitpunkt der Aktivierung veröffentlichten Bedingungen, soweit gesetzlich zulässig."
         }
       }
     }
