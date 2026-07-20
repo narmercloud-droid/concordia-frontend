@@ -28,7 +28,7 @@ import DeliveryAddressForm from "@/components/DeliveryAddressForm"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
 import { saveCartItems } from "@/lib/cartStorage"
-import { calcWebsiteDiscount } from "@/lib/websitePromo"
+import { calcWebsiteDiscount, calcWebsiteDiscountAfterCouponSavings } from "@/lib/websitePromo"
 import {
   clearCheckoutDraft,
   loadCheckoutDraft,
@@ -633,12 +633,15 @@ export default function CheckoutPage() {
   const subtotal = total
   const discountPct = checkoutDiscountPct
   const hasWalletCoupons = Boolean(walletStack && walletStack.customerCouponIds.length > 0)
+  const walletCouponDiscount = walletStack?.discountAmount ?? 0
   const websiteDiscount =
-    hasWalletCoupons || (appliedVoucher && appliedVoucher.kind !== "gift")
-      ? 0
-      : calcWebsiteDiscount(subtotal, discountPct)
+    hasWalletCoupons
+      ? calcWebsiteDiscountAfterCouponSavings(subtotal, walletCouponDiscount, discountPct)
+      : appliedVoucher && appliedVoucher.kind !== "gift"
+        ? 0
+        : calcWebsiteDiscount(subtotal, discountPct)
   const voucherDiscount =
-    (walletStack?.discountAmount ?? 0) +
+    walletCouponDiscount +
     (appliedVoucher?.kind === "gift"
       ? appliedVoucher.discountAmount
       : !hasWalletCoupons

@@ -566,6 +566,7 @@
     "alwaysActive": "Aktiviert",
     "comingSoon": "Demnächst",
     "comingSoonHint": "Dieses Angebot startet bald — bleiben Sie dran.",
+    "websiteDiscountPartial": "10 % Online-Rabatt gilt auf den Warenwert nach Abzug Ihrer Wallet-Gutscheine.",
     "alwaysActiveHint": "Diese Vorteile gelten automatisch bei jeder Bestellung — keine Codes, kein Extra-Schritt.",
     "checkoutAutoHint": "10 % Online-Rabatt und Gratisgetränk ab 35 € werden an der Kasse automatisch berücksichtigt.",
     "freeDrinkOffer": "Gratisgetränk",
@@ -879,7 +880,7 @@
         },
         "prices": {
           "title": "3. Preise, Zahlung und Website-Rabatt",
-          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser aktiv ist und keine Filial-Gutscheine aus Ihrem Wallet aktiviert sind (siehe Teil 3). Aktivierte Wallet-Gutscheine werden automatisch berücksichtigt. Manuelle Rabattcodes, Geschenkgutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
+          "body": "Alle angegebenen Preise verstehen sich in Euro und enthalten die gesetzliche Mehrwertsteuer, sofern nicht anders ausgewiesen. Zusätzliche Kosten (z. B. Liefergebühren) werden vor Abschluss der Bestellung transparent ausgewiesen. Für berechtigte Online-Bestellungen kann ein Website-Rabatt von 10 % gewährt werden, sofern dieser aktiv ist. Aktivierte Wallet-Gutscheine werden zuerst angewendet; der 10-%-Rabatt gilt auf den verbleibenden Warenwert (siehe Teil 3). Manuelle Rabattcodes, Geschenkgutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben."
         },
         "delivery": {
           "title": "4. Abholung, Lieferung und Lieferzeiten",
@@ -933,7 +934,7 @@
         },
         "promotions": {
           "title": "6. Aktionen im Treueprogramm",
-          "body": "Zusätzliche Treueaktionen, Bonuspunkte oder zeitlich begrenzte Angebote können veröffentlicht werden und unterliegen den jeweiligen Aktionsbedingungen. Der 10-%-Website-Rabatt ist nicht mit aktivierten Wallet-Gutscheinen kombinierbar. Website-Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Geschenkgutscheine und Marketing-Angebote bleiben von den allgemeinen AGB unberührt."
+          "body": "Zusätzliche Treueaktionen, Bonuspunkte oder zeitlich begrenzte Angebote können veröffentlicht werden und unterliegen den jeweiligen Aktionsbedingungen. Der 10-%-Website-Rabatt wird bei aktivierten Wallet-Gutscheinen auf den verbleibenden Warenwert berechnet. Website-Rabatte, Gutscheine und Treuevorteile sind grundsätzlich nicht kombinierbar, sofern nicht ausdrücklich anders angegeben. Geschenkgutscheine und Marketing-Angebote bleiben von den allgemeinen AGB unberührt."
         },
         "misuse": {
           "title": "7. Missbrauch und Sanktionen",
@@ -957,11 +958,11 @@
         },
         "platformPerks": {
           "title": "3. Immer aktive Online-Vorteile",
-          "body": "Der 10-%-Online-Rabatt und das Gratisgetränk ab 35 € Bestellwert werden bei berechtigten Bestellungen über Website oder App automatisch berücksichtigt — jedoch nur, solange keine Filial-Gutscheine aus Ihrem Wallet aktiviert sind. Ist mindestens ein Wallet-Gutschein aktiviert, entfällt der 10-%-Rabatt für diese Bestellung; das Gratisgetränk kann weiterhin gelten, wenn der Warenkorb den Mindestwert erreicht. Diese Vorteile erfordern keinen Code und keine manuelle Aktivierung."
+          "body": "Der 10-%-Online-Rabatt und das Gratisgetränk ab 35 € Bestellwert werden bei berechtigten Bestellungen über Website oder App automatisch berücksichtigt. Bei aktivierten Wallet-Gutscheinen gilt der 10-%-Rabatt auf den Warenwert nach Abzug des Wallet-Rabatts — nicht doppelt auf dieselben Euro. Das Gratisgetränk kann weiterhin gelten, wenn der Warenkorb den Mindestwert erreicht. Diese Vorteile erfordern keinen Code und keine manuelle Aktivierung."
         },
         "stacking": {
           "title": "4. Kombination und Obergrenze",
-          "body": "Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden. Der Gesamtrabatt aus Wallet-Gutscheinen ist auf maximal 8 € oder 25 % des Warenwerts begrenzt (je nachdem, was höher ist), sofern nicht ausdrücklich anders angegeben. Der automatische 10-%-Website-Rabatt ist nicht mit aktivierten Wallet-Gutscheinen oder manuellen Rabattcodes kombinierbar — es gilt jeweils nur ein Rabattsystem pro Bestellung. Geschenkgutscheine unterliegen den jeweiligen Gutscheinbedingungen."
+          "body": "Mehrere aktivierte Filial-Gutscheine derselben Filiale können kombiniert werden. Der Gesamtrabatt aus Wallet-Gutscheinen ist auf maximal 8 € oder 25 % des Warenwerts begrenzt (je nachdem, was höher ist), sofern nicht ausdrücklich anders angegeben. Der automatische 10-%-Website-Rabatt wird zusätzlich auf den Warenwert nach Wallet-Rabatt berechnet; manuelle Rabattcodes sind weiterhin nicht kombinierbar. Geschenkgutscheine unterliegen den jeweiligen Gutscheinbedingungen."
         },
         "marketing": {
           "title": "5. Marketing und Benachrichtigungen",

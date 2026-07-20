@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useAuthStore } from "@/context/authStore"
 import { useCartStore } from "@/store/cartStore"
-import { calcDiscountedSubtotal, calcWebsiteDiscount } from "@/lib/websitePromo"
+import { calcWebsiteDiscount, calcWebsiteDiscountAfterCouponSavings } from "@/lib/websitePromo"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
 import { useQuery } from "@tanstack/react-query"
 import { formatCurrency } from "@/utils/format"
@@ -102,14 +102,12 @@ export default function CartPage() {
     staleTime: 15_000
   })
 
-  const hasActiveWalletCoupons = activatedCouponIds.length > 0
-  const websiteDiscount = hasActiveWalletCoupons
-    ? 0
-    : calcWebsiteDiscount(subtotal, discountPct)
   const couponDiscount = couponPreview?.discountAmount ?? 0
-  const afterCoupons = hasActiveWalletCoupons
-    ? Math.max(0, subtotal - couponDiscount)
-    : calcDiscountedSubtotal(subtotal, discountPct)
+  const websiteDiscount =
+    activatedCouponIds.length > 0
+      ? calcWebsiteDiscountAfterCouponSavings(subtotal, couponDiscount, discountPct)
+      : calcWebsiteDiscount(subtotal, discountPct)
+  const afterCoupons = Math.max(0, subtotal - couponDiscount - websiteDiscount)
 
   const estimate = useMemo(
     () =>
@@ -266,9 +264,9 @@ export default function CartPage() {
           <WebsiteDiscountBanner percent={discountPct} amount={websiteDiscount} />
         )}
 
-        {hasActiveWalletCoupons && (
+        {activatedCouponIds.length > 0 && couponDiscount > 0 && websiteDiscount > 0 && (
           <p className="customer-hint cart-summary__coupon">
-            {t("checkout.voucherNotCombinable")}
+            {t("coupons.websiteDiscountPartial")}
           </p>
         )}
 

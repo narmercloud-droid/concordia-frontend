@@ -5,6 +5,15 @@ export function calcWebsiteDiscount(subtotal: number, discountPct = WEBSITE_ORDE
   return Math.round(subtotal * discountPct) / 100
 }
 
+export function calcWebsiteDiscountAfterCouponSavings(
+  subtotal: number,
+  couponDiscount: number,
+  discountPct = WEBSITE_ORDER_DISCOUNT_PCT
+) {
+  const base = Math.max(0, subtotal - Math.max(0, couponDiscount))
+  return calcWebsiteDiscount(base, discountPct)
+}
+
 export function calcDiscountedSubtotal(subtotal: number, discountPct = WEBSITE_ORDER_DISCOUNT_PCT) {
   return Math.max(0, subtotal - calcWebsiteDiscount(subtotal, discountPct))
 }

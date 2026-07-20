@@ -528,6 +528,7 @@
     "alwaysActive": "Activated",
     "comingSoon": "Coming soon",
     "comingSoonHint": "This offer launches soon — check back for updates.",
+    "websiteDiscountPartial": "10% online discount applies to your cart after wallet coupon savings.",
     "alwaysActiveHint": "These perks apply automatically on every order — no codes, no extra steps.",
     "checkoutAutoHint": "10% online discount and free drink from €35 are applied automatically at checkout.",
     "freeDrinkOffer": "Free drink",
@@ -841,7 +842,7 @@
         },
         "prices": {
           "title": "3. Prices, payment, and website discount",
-          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders may receive a 10% website discount when active and no branch coupons from your wallet are activated (see Part 3). Activated wallet coupons are applied automatically. Manual discount codes, gift vouchers, and loyalty benefits are generally not combinable unless expressly stated."
+          "body": "All prices are shown in euros and include statutory VAT unless stated otherwise. Additional costs (e.g. delivery fees) are displayed transparently before checkout. Eligible online orders may receive a 10% website discount when active. Activated wallet coupons are applied first; the 10% discount then applies to the remaining cart value (see Part 3). Manual discount codes, gift vouchers, and loyalty benefits are generally not combinable unless expressly stated."
         },
         "delivery": {
           "title": "4. Pickup, delivery, and timing",
@@ -895,7 +896,7 @@
         },
         "promotions": {
           "title": "6. Loyalty promotions",
-          "body": "Additional loyalty promotions, bonus points, or limited-time offers may be published and are subject to their specific terms. The 10% website discount cannot be combined with activated wallet coupons. Website discounts, vouchers, and loyalty benefits are generally not combinable unless expressly stated. Gift vouchers and marketing offers remain governed by the general Terms of Service."
+          "body": "Additional loyalty promotions, bonus points, or limited-time offers may be published and are subject to their specific terms. When wallet coupons are active, the 10% website discount applies to the remaining cart value. Website discounts, vouchers, and loyalty benefits are generally not combinable unless expressly stated. Gift vouchers and marketing offers remain governed by the general Terms of Service."
         },
         "misuse": {
           "title": "7. Misuse and sanctions",
@@ -919,11 +920,11 @@
         },
         "platformPerks": {
           "title": "3. Always-active online perks",
-          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app — but only while no branch coupons from your wallet are activated. If at least one wallet coupon is activated, the 10% discount does not apply to that order; the free drink may still apply when your cart reaches the minimum value. These perks require no code and no manual activation."
+          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app. When wallet coupons are active, the 10% discount applies to the cart value after wallet savings — not twice on the same amount. The free drink may still apply when your cart reaches the minimum value. These perks require no code and no manual activation."
         },
         "stacking": {
           "title": "4. Combination and cap",
-          "body": "Multiple activated branch coupons for the same branch may be combined. The total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. The automatic 10% website discount cannot be combined with activated wallet coupons or manual discount codes — only one discount system applies per order. Gift vouchers are subject to their own terms."
+          "body": "Multiple activated branch coupons for the same branch may be combined. The total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. The automatic 10% website discount is then applied to the remaining cart value; manual discount codes still cannot be combined. Gift vouchers are subject to their own terms."
         },
         "marketing": {
           "title": "5. Marketing and notifications",
