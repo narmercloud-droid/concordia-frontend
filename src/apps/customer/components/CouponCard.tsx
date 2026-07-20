@@ -6,6 +6,7 @@ import {
   type CouponCampaign,
   claimCouponCampaign,
   activateCoupon,
+  deactivateCoupon,
   formatCouponDiscount
 } from "@/api/coupons"
 import { useAuthStore } from "@/context/authStore"
@@ -53,7 +54,9 @@ export default function CouponCard({
         navigate(`/customer/register?${params.toString()}`)
         return null
       }
-      return claimCouponCampaign(campaign.id, branchId)
+      const claimed = await claimCouponCampaign(campaign.id, branchId)
+      const activated = await activateCoupon(claimed.id)
+      return { ...claimed, claimCode: activated.claimCode ?? claimed.claimCode, status: "activated" }
     },
     onSuccess: (result) => {
       if (!result) return
@@ -86,6 +89,21 @@ export default function CouponCard({
     }
   })
 
+  const deactivateMutation = useMutation({
+    mutationFn: async (customerCouponId: string) => deactivateCoupon(customerCouponId),
+    onSuccess: () => {
+      invalidate()
+      onClaimed?.()
+    },
+    onError: (err: any) => {
+      const message =
+        err?.response?.data?.error?.message ??
+        err?.response?.data?.message ??
+        t("coupons.activateFailed")
+      setError(message)
+    }
+  })
+
   const isActivated = campaign.status === "activated"
   const isClaimed = campaign.claimed && !isActivated
 
@@ -95,7 +113,10 @@ export default function CouponCard({
       claimMutation.mutate()
       return
     }
-    if (isActivated) return
+    if (isActivated && campaign.customerCouponId) {
+      deactivateMutation.mutate(campaign.customerCouponId)
+      return
+    }
     if (isClaimed && campaign.customerCouponId) {
       activateMutation.mutate(campaign.customerCouponId)
       return
@@ -103,11 +124,13 @@ export default function CouponCard({
     claimMutation.mutate()
   }
 
-  const busy = claimMutation.isPending || activateMutation.isPending
+  const busy =
+    claimMutation.isPending || activateMutation.isPending || deactivateMutation.isPending
 
   let actionLabel = t("coupons.tapToClaim")
-  if (isLoggedIn && isActivated) actionLabel = t("coupons.activeAtCheckout")
-  else if (isLoggedIn && isClaimed) actionLabel = t("coupons.tapToActivate")
+  if (isLoggedIn && isActivated) {
+    actionLabel = t("coupons.tapToDeactivate", { defaultValue: "Active — tap to deactivate" })
+  } else if (isLoggedIn && isClaimed) actionLabel = t("coupons.tapToActivate")
 
   const displayCode =
     localCode ?? ((isActivated || isClaimed) ? campaign.claimCode : null)
@@ -117,7 +140,7 @@ export default function CouponCard({
       type="button"
       className={`coupon-card${compact ? " coupon-card--compact" : ""}${isActivated ? " coupon-card--active" : ""}${isClaimed ? " coupon-card--claimed" : ""}`}
       onClick={handleClick}
-      disabled={busy || (isLoggedIn && isActivated)}
+      disabled={busy}
     >
       <div className="coupon-card__tear" aria-hidden="true" />
       <div className="coupon-card__body">

@@ -6,6 +6,7 @@ import HomeHeroMotion from "@/apps/customer/components/HomeHeroMotion"
 import HomeOrderHub, { type HomeBranch } from "@/apps/customer/components/HomeOrderHub"
 import HomeReviewSnippet from "@/apps/customer/components/HomeReviewSnippet"
 import OrderNowLink from "@/apps/customer/components/OrderNowLink"
+import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import SiteFooter from "@/apps/customer/components/SiteFooter"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
@@ -112,6 +113,10 @@ export default function HomePage() {
       </section>
 
       {orderHub}
+
+      <div className="home-coupon-promo-wrap">
+        <CouponSignupPromo variant="home" />
+      </div>
 
       <Suspense fallback={null}>
         <HomeFeaturedMenu branchId={null} />

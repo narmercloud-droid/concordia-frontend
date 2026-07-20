@@ -12,6 +12,7 @@ import {
   getFreeDrinkOptions,
   validatePromoCode
 } from "@/api/customer"
+import { listMyCoupons, validateCouponStack } from "@/api/coupons"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { listAddresses, type SavedAddress } from "@/api/addresses"
 const StripeCheckout = React.lazy(() => import("@/apps/customer/components/StripeCheckout"))
@@ -21,6 +22,7 @@ import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CheckoutChoiceCard from "@/apps/customer/components/CheckoutChoiceCard"
 import PriceVatNote from "@/apps/customer/components/PriceVatNote"
 import WebsiteDiscountBanner from "@/apps/customer/components/WebsiteDiscountBanner"
+import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import { hasMarketingConsent } from "@/apps/customer/components/CookieConsent"
 import type { PaymentMethodId } from "@/apps/customer/components/PaymentMethodOption"
 import DeliveryAddressForm from "@/components/DeliveryAddressForm"
@@ -44,7 +46,6 @@ import {
 } from "@/lib/deliveryAddress"
 import { formatCurrency } from "@/utils/format"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
-import { listMyCoupons } from "@/api/coupons"
 import {
   loadFulfillmentIntent,
   parseFulfillmentParam
@@ -85,7 +86,6 @@ export default function CheckoutPage() {
   const scheduleFieldRef = useRef<HTMLDivElement>(null)
   const marketingSectionRef = useRef<HTMLDivElement>(null)
   const orderSubmittedRef = useRef(false)
-  const autoCouponAppliedRef = useRef(Boolean(savedDraft?.appliedVoucher))
 
   const authUser = useAuthStore((s) => s.user)
   const authToken = useAuthStore((s) => s.token)
@@ -146,6 +146,14 @@ export default function CheckoutPage() {
     balanceRemaining?: number
     freeDelivery?: boolean
   } | null>(() => savedDraft?.appliedVoucher ?? null)
+  const [walletStack, setWalletStack] = useState<{
+    customerCouponIds: string[]
+    code: string
+    title: string
+    discountAmount: number
+    freeDelivery: boolean
+    capped: boolean
+  } | null>(null)
   const [voucherError, setVoucherError] = useState("")
   const [voucherLoading, setVoucherLoading] = useState(false)
   const [freeDrinkChoice, setFreeDrinkChoice] = useState<number | "">(
@@ -376,42 +384,77 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (allowCheckoutVouchers) return
-    if (appliedVoucher || voucherInput) {
+    if (appliedVoucher || voucherInput || walletStack) {
       setAppliedVoucher(null)
+      setWalletStack(null)
       setVoucherInput("")
       setVoucherError("")
     }
   }, [allowCheckoutVouchers])
 
+  const activatedCouponIds = useMemo(() => {
+    if (walletData?.activatedCouponIds?.length) return walletData.activatedCouponIds
+    if (walletData?.activatedCouponId) return [walletData.activatedCouponId]
+    return [] as string[]
+  }, [walletData?.activatedCouponIds, walletData?.activatedCouponId])
+
   useEffect(() => {
-    if (!allowCheckoutVouchers) return
-    if (autoCouponAppliedRef.current || appliedVoucher || !walletData?.activatedCouponId || !branchId) {
+    if (!allowCheckoutVouchers || !branchId || !isLoggedIn) {
+      setWalletStack(null)
+      return
+    }
+    if (activatedCouponIds.length === 0) {
+      setWalletStack(null)
       return
     }
 
-    const activated = walletData.coupons?.find((c) => c.id === walletData.activatedCouponId)
-    if (!activated) return
-
-    autoCouponAppliedRef.current = true
-    void validatePromoCode(activated.claimCode, total, branchId)
-      .then((result) => {
-        setAppliedVoucher({
-          code: result.code,
-          discountAmount: result.discountAmount,
-          kind: result.kind,
-          freeDelivery: result.freeDelivery,
-          balanceRemaining: result.balanceRemaining
+    let cancelled = false
+    const timer = setTimeout(() => {
+      void validateCouponStack(activatedCouponIds, branchId, total)
+        .then((result) => {
+          if (cancelled) return
+          const ids =
+            result.customerCouponIds ??
+            (result.customerCouponId ? [result.customerCouponId] : activatedCouponIds)
+          setWalletStack({
+            customerCouponIds: ids,
+            code: result.code,
+            title: result.title ?? result.code,
+            discountAmount: result.discountAmount,
+            freeDelivery: Boolean(result.freeDelivery),
+            capped: Boolean(result.capped)
+          })
+          // Wallet coupons win over typed promo/customer codes (gift cards stay).
+          setAppliedVoucher((prev) => (prev && prev.kind !== "gift" ? null : prev))
+          setVoucherError("")
         })
-        setVoucherInput(result.code)
-        setVoucherError("")
-      })
-      .catch(() => {
-        autoCouponAppliedRef.current = false
-      })
-  }, [walletData, appliedVoucher, branchId, total])
+        .catch((err: any) => {
+          if (cancelled) return
+          setWalletStack(null)
+          const message =
+            err?.response?.data?.error?.message ??
+            err?.response?.data?.message ??
+            t("checkout.voucherInvalid")
+          setVoucherError(message)
+        })
+    }, 250)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
+  }, [
+    allowCheckoutVouchers,
+    activatedCouponIds,
+    branchId,
+    isLoggedIn,
+    total,
+    t
+  ])
 
   useEffect(() => {
-    if (!allowCheckoutVouchers || !appliedVoucher) return
+    if (!allowCheckoutVouchers || !appliedVoucher || walletStack) return
+    if (appliedVoucher.kind === "customer_coupon") return
 
     const timer = setTimeout(async () => {
       try {
@@ -436,7 +479,7 @@ export default function CheckoutPage() {
     }, 300)
 
     return () => clearTimeout(timer)
-  }, [total, appliedVoucher?.code, t])
+  }, [total, appliedVoucher?.code, appliedVoucher?.kind, walletStack, t, allowCheckoutVouchers, branchId])
 
   useEffect(() => {
     if (orderSubmittedRef.current) return
@@ -590,14 +633,27 @@ export default function CheckoutPage() {
 
   const subtotal = total
   const discountPct = checkoutDiscountPct
-  const websiteDiscount = appliedVoucher ? 0 : calcWebsiteDiscount(subtotal, discountPct)
-  const voucherDiscount = appliedVoucher?.discountAmount ?? 0
+  const hasWalletCoupons = Boolean(walletStack && walletStack.customerCouponIds.length > 0)
+  const websiteDiscount =
+    hasWalletCoupons || (appliedVoucher && appliedVoucher.kind !== "gift")
+      ? 0
+      : calcWebsiteDiscount(subtotal, discountPct)
+  const voucherDiscount =
+    (walletStack?.discountAmount ?? 0) +
+    (appliedVoucher?.kind === "gift"
+      ? appliedVoucher.discountAmount
+      : !hasWalletCoupons
+        ? appliedVoucher?.discountAmount ?? 0
+        : 0)
   const discountedSubtotal = Math.max(0, subtotal - websiteDiscount - voucherDiscount)
   const quotedDeliveryFee =
     fulfillmentType === "delivery" && deliveryQuote?.allowed ? deliveryQuote.deliveryFee : 0
+  const couponFreeDelivery = Boolean(
+    walletStack?.freeDelivery || appliedVoucher?.freeDelivery
+  )
   const deliveryFee =
     allowCheckoutVouchers &&
-    appliedVoucher?.freeDelivery &&
+    couponFreeDelivery &&
     fulfillmentType === "delivery" &&
     deliveryQuote?.allowed
       ? 0
@@ -910,7 +966,16 @@ export default function CheckoutPage() {
         postalCode: fulfillmentType === "delivery" ? postalCode ?? undefined : undefined,
         scheduledFor: timingMode === "scheduled" ? scheduledFor : null,
         paymentMethod: paymentChoice,
-        promoCode: allowCheckoutVouchers ? appliedVoucher?.code : undefined,
+        promoCode:
+          allowCheckoutVouchers && !hasWalletCoupons
+            ? appliedVoucher?.code
+            : appliedVoucher?.kind === "gift"
+              ? appliedVoucher.code
+              : undefined,
+        customerCouponIds:
+          allowCheckoutVouchers && hasWalletCoupons
+            ? walletStack?.customerCouponIds
+            : undefined,
         notes: orderNotes.trim() || undefined,
         pushToken: pushToken ?? undefined,
         termsAccepted: true
@@ -1299,16 +1364,23 @@ export default function CheckoutPage() {
           </button>
         </div>
 
+        {checkoutMode === "guest" && !isLoggedIn && (
+          <CouponSignupPromo branchId={branchId} variant="checkout" />
+        )}
+
         {checkoutMode === "account" && !isLoggedIn && (
           <div className="checkout-account__prompt">
             <p className="customer-hint">{t("checkout.accountBenefits")}</p>
-            {showLoyaltyCheckout ? (
-              <ul className="checkout-marketing__perks">
-                <li>{t("checkout.loyaltyPerkPoints")}</li>
-                <li>{t("checkout.loyaltyPerkTier")}</li>
-                <li>{t("checkout.marketingPerkBirthday")}</li>
-              </ul>
-            ) : null}
+            <ul className="checkout-marketing__perks">
+              <li>{t("coupons.promoCheckoutText")}</li>
+              {showLoyaltyCheckout ? (
+                <>
+                  <li>{t("checkout.loyaltyPerkPoints")}</li>
+                  <li>{t("checkout.loyaltyPerkTier")}</li>
+                  <li>{t("checkout.marketingPerkBirthday")}</li>
+                </>
+              ) : null}
+            </ul>
             <div className="customer-btn-row">
               <Link
                 to="/customer/login?redirect=%2Fcustomer%2Fcheckout"
@@ -1316,7 +1388,12 @@ export default function CheckoutPage() {
               >
                 {t("auth.login")}
               </Link>
-              <Link to="/customer/register?redirect=%2Fcustomer%2Fcheckout" className="customer-btn">
+              <Link
+                to={`/customer/register?redirect=${encodeURIComponent("/customer/checkout")}${
+                  branchId ? `&branchId=${encodeURIComponent(branchId)}` : ""
+                }`}
+                className="customer-btn"
+              >
                 {t("auth.register")}
               </Link>
             </div>
@@ -1650,12 +1727,17 @@ export default function CheckoutPage() {
               aria-expanded={voucherExpanded}
             >
               <span className="customer-label" style={{ margin: 0 }}>
-                {appliedVoucher
+                {walletStack
                   ? t("checkout.voucherActive", {
-                      code: appliedVoucher.code,
-                      amount: formatCurrency(appliedVoucher.discountAmount)
+                      code: walletStack.title,
+                      amount: formatCurrency(walletStack.discountAmount)
                     })
-                  : t("checkout.addVoucher")}
+                  : appliedVoucher
+                    ? t("checkout.voucherActive", {
+                        code: appliedVoucher.code,
+                        amount: formatCurrency(appliedVoucher.discountAmount)
+                      })
+                    : t("checkout.addVoucher")}
               </span>
               <span className="checkout-collapsible__chevron" aria-hidden>
                 {voucherExpanded ? "−" : "+"}
@@ -1663,9 +1745,17 @@ export default function CheckoutPage() {
             </button>
             {voucherExpanded && (
               <div className="checkout-collapsible__body">
-        {isLoggedIn && walletData?.activatedCouponId && (
+        {isLoggedIn && activatedCouponIds.length > 0 && (
           <p className="customer-hint" style={{ marginBottom: 8 }}>
-            {t("checkout.walletCouponHint")}
+            {t("checkout.walletCouponHintMulti", {
+              count: activatedCouponIds.length,
+              defaultValue: `${activatedCouponIds.length} activated coupon(s) will apply automatically.`
+            })}
+            {walletStack?.capped
+              ? ` ${t("checkout.couponCapHint", {
+                  defaultValue: "Discount capped at max(€8, 25% of cart)."
+                })}`
+              : ""}
           </p>
         )}
         <div className="checkout-voucher">
@@ -1796,17 +1886,17 @@ export default function CheckoutPage() {
             {t("checkout.websiteDiscountFoodOnly")}
           </p>
         )}
-        {voucherDiscount > 0 && appliedVoucher && (
+        {voucherDiscount > 0 && (walletStack || appliedVoucher) && (
           <p className="customer-alert customer-alert--success" style={{ marginTop: 8 }}>
             {t("checkout.voucherApplied", {
-              code: appliedVoucher.code,
+              code: walletStack?.title ?? appliedVoucher?.code ?? "",
               amount: formatCurrency(voucherDiscount)
             })}
           </p>
         )}
         {fulfillmentType === "delivery" && deliveryQuote?.allowed && (
           <p className="customer-hint">
-            {appliedVoucher?.freeDelivery || deliveryQuote.freeDelivery
+            {couponFreeDelivery || deliveryQuote.freeDelivery
               ? t("checkout.deliveryFree")
               : t("checkout.deliveryFee", {
                   amount: formatCurrency(deliveryFee)

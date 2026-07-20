@@ -50,7 +50,11 @@ export const listMyCoupons = async (branchId: string) => {
   const res = await api.get("/api/v1/customers/coupons", {
     params: { branchId }
   })
-  return unwrap<{ coupons: CustomerCoupon[]; activatedCouponId: string | null }>(res)
+  return unwrap<{
+    coupons: CustomerCoupon[]
+    activatedCouponIds: string[]
+    activatedCouponId: string | null
+  }>(res)
 }
 
 export const listAvailableCoupons = async (branchId: string) => {
@@ -70,6 +74,43 @@ export const claimCouponCampaign = async (campaignId: string, branchId: string) 
 export const activateCoupon = async (customerCouponId: string) => {
   const res = await api.post(`/api/v1/customers/coupons/${customerCouponId}/activate`)
   return unwrap<{ id: string; claimCode: string; status: string }>(res)
+}
+
+export const deactivateCoupon = async (customerCouponId: string) => {
+  const res = await api.post(`/api/v1/customers/coupons/${customerCouponId}/deactivate`)
+  return unwrap<{ id: string; claimCode: string; status: string }>(res)
+}
+
+export const validateCouponStack = async (
+  customerCouponIds: string[],
+  branchId: string,
+  orderTotal: number
+) => {
+  const res = await api.post("/api/v1/customers/coupons/validate", {
+    customerCouponIds,
+    branchId,
+    orderTotal
+  })
+  return unwrap<{
+    kind: "customer_coupon" | "customer_coupon_stack"
+    customerCouponId?: string
+    customerCouponIds?: string[]
+    code: string
+    discountAmount: number
+    freeDelivery?: boolean
+    title?: string
+    capped?: boolean
+    cap?: number
+    uncappedDiscountAmount?: number
+    coupons?: Array<{
+      customerCouponId: string
+      code: string
+      title: string
+      discountType: string
+      rawDiscountAmount: number
+      freeDelivery: boolean
+    }>
+  }>(res)
 }
 
 export type ManagerCouponCampaign = CouponCampaign & { isActive: boolean }

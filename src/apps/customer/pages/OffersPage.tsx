@@ -8,6 +8,9 @@ import AppDownloadSection from "@/apps/customer/components/AppDownloadSection"
 import BranchCouponTabs, {
   useDefaultCouponBranch
 } from "@/apps/customer/components/BranchCouponTabs"
+import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
+import CouponWalletSection from "@/apps/customer/components/CouponWalletSection"
+import CouponSignupPromo from "@/apps/customer/components/CouponSignupPromo"
 import { branchPath } from "@/lib/customerPaths"
 import { useSelectedBranch } from "@/hooks/useSelectedBranch"
 import { usePlatformPromo } from "@/hooks/usePlatformPromo"
@@ -54,6 +57,8 @@ export default function OffersPage() {
       <OfferNotificationsPrompt />
       <p className="offers-lead">{t("pages.offers.lead")}</p>
 
+      <CouponSignupPromo branchId={activeBranchId} variant="home" />
+
       <BranchCouponTabs branchId={activeBranchId} onSelect={selectBranch} />
 
       {activeBranch && (
@@ -99,18 +104,16 @@ export default function OffersPage() {
         </article>
       </section>
 
-      <section className="offers-coming-soon">
-        <div className="offers-coming-soon__icon" aria-hidden="true">
-          ✨
-        </div>
-        <div>
-          <h2 className="offers-coming-soon__title">{t("pages.offers.comingSoonTitle")}</h2>
-          <p className="offers-coming-soon__text">{t("pages.offers.comingSoonText")}</p>
-          {!isNativeApp() && (
-            <p className="offers-coming-soon__hint">{t("pages.offers.comingSoonApp")}</p>
-          )}
-        </div>
-      </section>
+      <div id="coupons">
+        <CouponCampaignStrip
+          branchId={activeBranchId}
+          branchName={branchName}
+          title={t("coupons.sectionTitle")}
+          showViewAll={false}
+        />
+      </div>
+
+      <CouponWalletSection branchId={activeBranchId} id="wallet" />
 
       <div className="offers-secondary">
         <article className="offers-card offers-card--gift">

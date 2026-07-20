@@ -166,6 +166,7 @@ export const createOrder = (data: {
   scheduledFor?: string | null
   paymentMethod?: string
   promoCode?: string
+  customerCouponIds?: string[]
   notes?: string
   isGuest?: boolean
   customerId?: string
@@ -194,6 +195,7 @@ export const createOrder = (data: {
       paymentMethod: data.paymentMethod ?? "cash",
       paymentStatus: "pending",
       promoCode: data.promoCode,
+      customerCouponIds: data.customerCouponIds,
       notes: data.notes,
       pushToken: data.pushToken,
       termsAccepted: data.termsAccepted ?? false,

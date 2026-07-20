@@ -2,7 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { getBranchCouponCampaigns } from "@/api/coupons"
+import { getBranchCouponCampaigns, listAvailableCoupons } from "@/api/coupons"
+import { useAuthStore } from "@/context/authStore"
 import CouponCard from "./CouponCard"
 import "./InfoPages.css"
 
@@ -20,9 +21,11 @@ export default function CouponCampaignStrip({
   showViewAll = true
 }: Props) {
   const { t } = useTranslation()
+  const isLoggedIn = !!useAuthStore((s) => s.token)
   const { data, isLoading } = useQuery({
-    queryKey: ["couponCampaigns", branchId],
-    queryFn: () => getBranchCouponCampaigns(branchId),
+    queryKey: ["couponCampaigns", branchId, isLoggedIn ? "auth" : "guest"],
+    queryFn: () =>
+      isLoggedIn ? listAvailableCoupons(branchId) : getBranchCouponCampaigns(branchId),
     enabled: !!branchId,
     staleTime: 60_000
   })

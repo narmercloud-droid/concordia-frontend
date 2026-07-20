@@ -1758,6 +1758,120 @@
   letter-spacing: 0.04em;
 }
 
+.coupon-signup-promo {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 16px 0 20px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fdecef 0%, #fff5f6 55%, #f8e8eb 100%);
+  border: 1px solid #f0c9d0;
+  position: relative;
+  overflow: hidden;
+}
+
+.coupon-signup-promo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgb(255 255 255 / 0.55), transparent 55%);
+  pointer-events: none;
+}
+
+.coupon-signup-promo--home {
+  margin: 8px auto 28px;
+  max-width: 920px;
+}
+
+.coupon-signup-promo--cart,
+.coupon-signup-promo--checkout {
+  margin: 12px 0 16px;
+  padding: 14px 16px;
+}
+
+.coupon-signup-promo__badge {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #c8102e;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.coupon-signup-promo__body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  flex: 1;
+}
+
+.coupon-signup-promo__title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1a1f1c;
+  line-height: 1.25;
+}
+
+.coupon-signup-promo__text {
+  margin: 0 0 12px;
+  color: #5c6b62;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.coupon-signup-promo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.coupon-signup-promo__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #c8102e;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.coupon-signup-promo__cta:hover {
+  background: #9e0c24;
+}
+
+.coupon-signup-promo__link {
+  color: #c8102e;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .coupon-signup-promo {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .coupon-signup-promo__badge {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+}
+
 .cart-summary {
   margin-top: 8px;
 }
