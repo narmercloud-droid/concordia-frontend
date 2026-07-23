@@ -30,6 +30,12 @@ async function startApp() {
         inject?.()
       })
       .catch(() => undefined)
+    void import("@vercel/speed-insights")
+      .then((mod) => {
+        const injectSpeedInsights = (mod as { injectSpeedInsights?: () => void }).injectSpeedInsights
+        injectSpeedInsights?.()
+      })
+      .catch(() => undefined)
 
     await bootstrapI18n()
 
