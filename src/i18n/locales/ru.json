@@ -112,7 +112,9 @@
     "leadShort": "Italian cuisine from our oven — order online for pickup or delivery.",
     "moreReviewsShort": "All reviews",
     "reviewsSectionTitle": "What our guests say",
-    "reviewsSectionLead": "Real reviews from Google — Kempen & Straelen."
+    "reviewsSectionLead": "Real reviews from Google — Kempen & Straelen.",
+    "orderDelivery": "Delivery",
+    "orderPickup": "Pickup"
   },
   "branchOwner": {
     "eyebrow": "Ваши шеф-повара",
@@ -144,7 +146,15 @@
     "allergenLead": "Allergen and additive information is available on request in the restaurant or via our contact form. If you have allergies, please add a note to your order.",
     "allergenLegend": "Common allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin, molluscs.",
     "allergenContact": "Request allergen details",
-    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren."
+    "allergenItemHint": "Bei Allergien bitte Anmerkung zur Bestellung hinzufügen oder uns vorab kontaktieren.",
+    "fulfillmentLead": "How would you like to order?",
+    "searchLabel": "Search the menu",
+    "searchPlaceholder": "Search in {{name}}",
+    "searchClear": "Clear search",
+    "searchResults": "{{count}} results",
+    "searchEmpty": "No results",
+    "searchEmptyHint": "No dishes found. Try a different search term.",
+    "quickAddAria": "Order {{name}}"
   },
   "cart": {
     "title": "Ваша корзина",
@@ -165,7 +175,15 @@
     "discountYouSave": "You save {{amount}} online!",
     "suggestionsContinueCheckout": "Continue to checkout",
     "branchMismatch": "Your cart had items from more than one branch. We kept only the items for this order.",
-    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount)."
+    "freeDeliveryNudge": "Add {{amount}} more to your order for free delivery (food only, before discount).",
+    "backToMenu": "Back to menu",
+    "branchLabel": "{{branch}} branch",
+    "addDrinks": "Add a drink or side",
+    "estimatedTotal": "Estimated total",
+    "deliveryEstimate": "+ delivery from {{fee}}",
+    "deliveryFinalNote": "Final delivery fee is calculated after you enter your address.",
+    "barTotalDelivery": "{{food}} + from {{fee}}",
+    "couponApplied": "{{title}}: −{{amount}}"
   },
   "checkout": {
     "title": "Оформление",
@@ -338,7 +356,36 @@
     "payApplePayHint": "Pay with Apple Pay on your device",
     "payGooglePayHint": "Pay with Google Pay on your device",
     "payCashHint": "Pay in cash on {{method}}",
-    "paymentSecureNote": "Secure payment — your data is encrypted via Stripe and PayPal"
+    "paymentSecureNote": "Secure payment — your data is encrypted via Stripe and PayPal",
+    "cityLookupLoading": "Looking up city…",
+    "cityLookupInvalidPlz": "This postal code is not valid in Germany.",
+    "walletCouponHintMulti": "{{count}} activated coupons will apply automatically at checkout.",
+    "couponCapHint": "Discount capped at max €8 or 25% of cart.",
+    "thresholdsTitle": "Your order benefits",
+    "stepDelivery": "Delivery",
+    "stepPayment": "Payment",
+    "stepReview": "Review",
+    "stepContinue": "Continue",
+    "stepProgressLabel": "Checkout steps",
+    "stepOf": "Step {{current}} of {{total}}",
+    "stepSummaryPickup": "{{name}} · Pickup",
+    "stepSummaryDelivery": "{{name}} · {{address}}",
+    "stepSummaryPayment": "{{timing}} · {{payment}}",
+    "stepSummaryReview": "Total {{amount}}",
+    "expressTitle": "Quick order",
+    "expressPickup": "Pickup for {{name}} · {{payment}}",
+    "expressDeliveryTo": "Deliver to {{address}} · {{payment}}",
+    "expressChange": "Change details",
+    "expressOrder": "Order now · {{amount}}",
+    "addVoucher": "Add voucher code",
+    "offersOptional": "Get offers (optional)",
+    "addNotes": "Add order note",
+    "stickyBarLabel": "Order summary",
+    "minimumOrderNudge": "Add {{amount}} more to reach the minimum order.",
+    "minimumOrderRequired": "Minimum order for delivery: {{amount}} (food subtotal before discount).",
+    "minimumOrderMet": "Minimum order {{amount}} reached.",
+    "freeDeliveryNudgeWithThreshold": "Add {{amount}} more for free delivery (from {{threshold}} food subtotal).",
+    "paymentConfirmPending": "Payment received. Confirming your order — please wait or check order status."
   },
   "item": {
     "loading": "Загрузка блюда…",
@@ -728,7 +775,39 @@
           "body": "Мы можем изменять условия программы, правила баллов, уровни и преимущества с будущей силой. Существенные изменения будут сообщаться через сайт или электронную почту, где возможно. Продолжение использования после вступления изменений в силу означает принятие, если не предлагается отказ. Программа может быть полностью прекращена; оставшиеся баллы обрабатываются по действующим на тот момент правилам."
         }
       },
-      "relatedLegal": "See also: <impressumLink>Legal notice</impressumLink> · <privacyLink>Privacy</privacyLink> · <agbLink>AGB</agbLink>"
+      "relatedLegal": "See also: <impressumLink>Legal notice</impressumLink> · <privacyLink>Privacy</privacyLink> · <agbLink>AGB</agbLink>",
+      "couponsPartTitle": "Part 3: Coupon wallet & branch offers",
+      "couponsPartLead": "The following terms apply to the free coupon wallet, automatic online perks, and marketing offers on the Concordia website.",
+      "couponSections": {
+        "overview": {
+          "title": "1. Overview",
+          "body": "Registered customers can save and activate branch-specific coupons and deals (Kempen or Straelen) on the Offers page once they are available. Offers marked “Coming soon” are previews and cannot be redeemed yet. When no wallet coupons are activated, automatic online perks such as the 10% website discount and a free drink from €35 order value apply on eligible orders. The wallet is free, non-transferable, and tied to your customer account."
+        },
+        "wallet": {
+          "title": "2. Save, activate, and redeem",
+          "body": "Available branch coupons can be saved to your wallet by tapping and then activated for checkout. Coming-soon offers cannot be saved or activated until they go live. Activated coupons are applied automatically at checkout when conditions are met (e.g. minimum order, validity period, new customers only, matching branch). After redemption on an order, the coupon is considered used. We may refuse or revoke coupons in cases of misuse, technical errors, or obvious pricing mistakes."
+        },
+        "platformPerks": {
+          "title": "3. Always-active online perks",
+          "body": "The 10% online discount and free drink from €35 order value are applied automatically on eligible orders via the website or app. When wallet coupons are active, the 10% discount applies to the cart value after wallet savings — not twice on the same amount. The free drink may still apply when your cart reaches the minimum value. These perks require no code and no manual activation."
+        },
+        "stacking": {
+          "title": "4. Combination and cap",
+          "body": "Multiple activated branch coupons for the same branch may be combined. The total discount from wallet coupons is capped at €8 or 25% of the cart value (whichever is higher), unless expressly stated otherwise. The automatic 10% website discount is then applied to the remaining cart value; manual discount codes still cannot be combined. Gift vouchers are subject to their own terms."
+        },
+        "marketing": {
+          "title": "5. Marketing and notifications",
+          "body": "You may voluntarily opt in to marketing via email, SMS, WhatsApp, and/or browser notifications to receive information about new promotions, coupons, and seasonal offers. This is optional — you can order without marketing consent. You may withdraw consent at any time in your account settings or by contacting info@concordiapizza.de. Details on data processing are in the privacy policy."
+        },
+        "misuse": {
+          "title": "6. Misuse",
+          "body": "Multiple accounts, automated access, sharing coupons with third parties, or attempts to unlawfully increase discounts are prohibited. We may block coupons, revoke benefits, refuse orders, and close accounts for violations."
+        },
+        "changes": {
+          "title": "7. Changes",
+          "body": "We may adjust or discontinue offers, coupon terms, combination rules, and marketing channels. Material changes will be published on the website. For coupons already activated, the terms published at the time of activation apply where permitted by law."
+        }
+      }
     },
     "legalNavLabel": "Legal",
     "impressum": {
@@ -912,7 +991,32 @@
       "available": "Saved",
       "activated": "Active",
       "redeemed": "Used"
-    }
+    },
+    "activeOffersTitle": "Active offers",
+    "alwaysActive": "Activated",
+    "comingSoon": "Coming soon",
+    "comingSoonHint": "This offer launches soon — check back for updates.",
+    "websiteDiscountPartial": "10% online discount applies to your cart after wallet coupon savings.",
+    "alwaysActiveHint": "These perks apply automatically on every order — no codes, no extra steps.",
+    "checkoutAutoHint": "10% online discount and free drink from €35 are applied automatically at checkout.",
+    "freeDrinkOffer": "Free drink",
+    "comboPrice": "€{{value}} combo",
+    "donerMenuPrice": "10 €",
+    "donerMenuTitle": "Dönertasche + fries + drink of choice",
+    "donerMenuDetail": "Choose any 0.33 l drink — full menu for 10 € when this coupon is activated.",
+    "tapToDeactivate": "Activated — tap to deactivate",
+    "deactivate": "Deactivate",
+    "multiActivateHint": "Activate as many coupons as you like for this branch. They stack at checkout (max €8 or 25% of your cart).",
+    "checkoutHintMulti": "{{count}} coupon(s) active — applied automatically at checkout.",
+    "promoAria": "Save coupons with a free account",
+    "promoHomeTitle": "Coupons only with a free account",
+    "promoHomeText": "Create an account in under a minute, activate your branch deals, and save on your next order — just like Lidl Plus.",
+    "promoMenuTitle": "Unlock this branch’s coupons",
+    "promoMenuText": "Register free, tap to activate offers, then they apply automatically at checkout.",
+    "promoCheckoutTitle": "Don’t miss your coupons",
+    "promoCheckoutText": "Guests can’t use personal coupons. Free signup unlocks welcome deals, free delivery offers, and stacked discounts.",
+    "promoRegisterCta": "Create free account",
+    "promoSeeOffers": "See current offers"
   },
   "notifications": {
     "promptAria": "Offer notifications",

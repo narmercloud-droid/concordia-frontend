@@ -1,7 +1,7 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useRef } from "react"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useTranslation } from "react-i18next"
-import { capturePayPalOrder, createPayPalOrder } from "@/api/payments"
+import { capturePayPalOrder, createPayPalOrder, reconcileOrderPayment } from "@/api/payments"
 
 type Props = {
   orderId: string
@@ -9,6 +9,7 @@ type Props = {
   currency: string
   onSuccess: () => void
   onError: (message: string) => void
+  onConfirmPending?: (message: string) => void
 }
 
 export default function PayPalCardCheckout({
@@ -16,9 +17,11 @@ export default function PayPalCardCheckout({
   paypalClientId,
   currency,
   onSuccess,
-  onError
+  onError,
+  onConfirmPending
 }: Props) {
   const { t } = useTranslation()
+  const approvedRef = useRef(false)
 
   const options = useMemo(
     () => ({
@@ -52,19 +55,48 @@ export default function PayPalCardCheckout({
             }
           }}
           onApprove={async () => {
+            approvedRef.current = true
             try {
               await capturePayPalOrder(orderId)
               onSuccess()
             } catch (err: any) {
+              try {
+                const reconciled = await reconcileOrderPayment(orderId)
+                if (reconciled.settled) {
+                  onSuccess()
+                  return
+                }
+              } catch {
+                // fall through
+              }
               const message =
                 err?.response?.data?.error?.message ??
                 err?.response?.data?.message ??
-                t("checkout.paymentFailed")
-              onError(message)
+                err?.message ??
+                t("checkout.paymentConfirmPending", {
+                  defaultValue:
+                    "Payment received. Confirming your order — please wait or check order status."
+                })
+              if (onConfirmPending) onConfirmPending(message)
+              else onSuccess()
             }
           }}
-          onCancel={() => onError(t("checkout.paymentCancelled"))}
-          onError={() => onError(t("checkout.paymentFailed"))}
+          onCancel={() => {
+            if (approvedRef.current) return
+            onError(t("checkout.paymentCancelled"))
+          }}
+          onError={() => {
+            if (approvedRef.current) {
+              const message = t("checkout.paymentConfirmPending", {
+                defaultValue:
+                  "Payment received. Confirming your order — please wait or check order status."
+              })
+              if (onConfirmPending) onConfirmPending(message)
+              else onSuccess()
+              return
+            }
+            onError(t("checkout.paymentFailed"))
+          }}
         />
       </PayPalScriptProvider>
     </div>

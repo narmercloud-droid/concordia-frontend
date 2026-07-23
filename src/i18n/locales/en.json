@@ -407,7 +407,8 @@
     "retryPayment": "Retry payment",
     "paypalOrderSavedTitle": "Order saved — pay with PayPal now",
     "paypalTapButtonHint": "Tap the gold PayPal button below. Your order is only sent to the kitchen after payment succeeds.",
-    "changePaymentMethod": "Choose a different payment method"
+    "changePaymentMethod": "Choose a different payment method",
+    "paymentConfirmPending": "Payment received. Confirming your order — please wait or check order status."
   },
   "giftVoucher": {
     "title": "Gift voucher",

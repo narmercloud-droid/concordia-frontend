@@ -2,7 +2,11 @@ import React, { useMemo, useState } from "react"
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { loadStripe, type StripeElementsOptions } from "@stripe/stripe-js"
 import { useTranslation } from "react-i18next"
-import { confirmGiftCardStripePayment, confirmStripePayment } from "@/api/payments"
+import {
+  confirmGiftCardStripePayment,
+  confirmStripePayment,
+  reconcileOrderPayment
+} from "@/api/payments"
 
 type Props = {
   publishableKey: string
@@ -15,6 +19,7 @@ type Props = {
   payableAmount?: string
   onSuccess: (result?: { code?: string }) => void
   onError: (message: string) => void
+  onConfirmPending?: (message: string) => void
 }
 
 function StripePaymentForm({
@@ -22,7 +27,8 @@ function StripePaymentForm({
   giftPurchaseId,
   payableAmount,
   onSuccess,
-  onError
+  onError,
+  onConfirmPending
 }: Omit<Props, "publishableKey" | "stripeAccountId" | "clientSecret">) {
   const { t } = useTranslation()
   const stripe = useStripe()
@@ -34,6 +40,7 @@ function StripePaymentForm({
     if (!stripe || !elements) return
 
     setSubmitting(true)
+    let charged = false
     try {
       const result = await stripe.confirmPayment({
         elements,
@@ -51,6 +58,8 @@ function StripePaymentForm({
         return
       }
 
+      charged = true
+
       if (giftPurchaseId) {
         const confirmed = await confirmGiftCardStripePayment(giftPurchaseId)
         onSuccess({ code: confirmed.code })
@@ -58,8 +67,30 @@ function StripePaymentForm({
       }
 
       if (orderId) {
-        await confirmStripePayment(orderId)
-        onSuccess()
+        try {
+          await confirmStripePayment(orderId)
+          onSuccess()
+        } catch (confirmErr: any) {
+          try {
+            const reconciled = await reconcileOrderPayment(orderId)
+            if (reconciled.settled) {
+              onSuccess()
+              return
+            }
+          } catch {
+            // fall through
+          }
+          const message =
+            confirmErr?.response?.data?.error?.message ??
+            confirmErr?.response?.data?.message ??
+            confirmErr?.message ??
+            t("checkout.paymentConfirmPending", {
+              defaultValue:
+                "Payment received. Confirming your order — please wait or check order status."
+            })
+          if (onConfirmPending) onConfirmPending(message)
+          else onSuccess()
+        }
       }
     } catch (err: any) {
       const message =
@@ -67,6 +98,22 @@ function StripePaymentForm({
         err?.response?.data?.message ??
         err?.message ??
         t("checkout.paymentFailed")
+      if (charged) {
+        if (orderId) {
+          try {
+            const reconciled = await reconcileOrderPayment(orderId)
+            if (reconciled.settled) {
+              onSuccess()
+              return
+            }
+          } catch {
+            // ignore
+          }
+        }
+        if (onConfirmPending) onConfirmPending(message)
+        else onSuccess()
+        return
+      }
       onError(message)
     } finally {
       setSubmitting(false)
@@ -109,7 +156,8 @@ export default function StripeCheckout({
   giftPurchaseId,
   payableAmount,
   onSuccess,
-  onError
+  onError,
+  onConfirmPending
 }: Props) {
   const { t } = useTranslation()
 
@@ -121,14 +169,10 @@ export default function StripeCheckout({
   const options = useMemo<StripeElementsOptions>(
     () => ({
       clientSecret,
-      ...(customerSessionClientSecret
-        ? { customerSessionClientSecret }
-        : {}),
+      ...(customerSessionClientSecret ? { customerSessionClientSecret } : {}),
       appearance: {
         theme: "stripe",
-        variables: {
-          colorPrimary: "#2d6a4f"
-        }
+        variables: { colorPrimary: "#2d6a4f" }
       }
     }),
     [clientSecret, customerSessionClientSecret]
@@ -152,6 +196,7 @@ export default function StripeCheckout({
           payableAmount={payableAmount}
           onSuccess={onSuccess}
           onError={onError}
+          onConfirmPending={onConfirmPending}
         />
       </Elements>
     </div>

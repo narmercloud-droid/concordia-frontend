@@ -130,7 +130,7 @@ Uses `STRIPE_SECRET_KEY` from `.env` to register payment domains and prints the 
 - URL: **`/admin/login`** on the website
 - **Kempen manager:** `kempen@concordia.de`
 - **Super admin (you):** `owner@concordia.de`
-- Default password (change after first login): **Kempen2026!**
+- Default password: set via secure seed (`SEED_ADMIN_PASSWORD`) / ops vault — **never** store real passwords in this guide. Change immediately after first login.
 
 From the panel you can:
 

@@ -407,7 +407,8 @@
     "retryPayment": "Zahlung erneut versuchen",
     "paypalOrderSavedTitle": "Bestellung gespeichert — jetzt mit PayPal bezahlen",
     "paypalTapButtonHint": "Tippen Sie auf den goldenen PayPal-Button unten. Erst nach erfolgreicher Zahlung geht Ihre Bestellung an die Küche.",
-    "changePaymentMethod": "Andere Zahlungsart wählen"
+    "changePaymentMethod": "Andere Zahlungsart wählen",
+    "paymentConfirmPending": "Zahlung erhalten. Bestellung wird bestätigt — bitte warten oder Bestellstatus prüfen."
   },
   "giftVoucher": {
     "title": "Geschenkgutschein",

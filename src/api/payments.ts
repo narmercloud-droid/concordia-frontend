@@ -128,6 +128,16 @@ export const capturePayPalOrder = async (orderId: string) => {
   return unwrap<{ success: boolean; captureId?: string; alreadyPaid?: boolean }>(res)
 }
 
+export const reconcileOrderPayment = async (orderId: string) => {
+  const res = await api.post(`/api/payments/orders/${orderId}/reconcile`)
+  return unwrap<{
+    settled: boolean
+    alreadyPaid?: boolean
+    provider?: string | null
+    status?: string
+  }>(res)
+}
+
 export const createGiftCardPayPalOrder = async (purchaseId: string) => {
   const res = await api.post("/api/payments/gift-card/paypal/create-order", { purchaseId })
   return unwrap<{ paypalOrderId: string; purchaseId: string }>(res)

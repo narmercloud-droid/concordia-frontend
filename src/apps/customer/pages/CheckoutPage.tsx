@@ -1014,25 +1014,52 @@ export default function CheckoutPage() {
     if (orderId) goToOrderConfirmation(orderId)
   }
 
+  /** True abandon only — never call after PSP has charged/approved. */
   const abandonOnlinePayment = async (message: string) => {
     setError(message)
     const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
     if (orderId) {
       try {
-        await cancelUnpaidOrder(orderId, "payment_failed")
+        const result = await cancelUnpaidOrder(orderId, "payment_failed")
+        if (result && result.cancelled === false && result.reason === "already_paid") {
+          setPendingCardOrderId(null)
+          setPendingStripeSession(null)
+          setAwaitingPaymentOrderId(null)
+          goToOrderConfirmation(orderId)
+          return
+        }
       } catch {
         // Best effort — kitchen filter also blocks unpaid online orders.
       }
     }
     setPendingCardOrderId(null)
+    setPendingStripeSession(null)
     setAwaitingPaymentOrderId(null)
+  }
+
+  /** Charge succeeded but server confirm lagged — do not cancel. */
+  const handlePaymentConfirmPending = (message: string) => {
+    const orderId =
+      pendingCardOrderId ?? pendingStripeSession?.orderId ?? awaitingPaymentOrderId ?? null
+    setError(message)
+    setPendingCardOrderId(null)
+    setPendingStripeSession(null)
+    setAwaitingPaymentOrderId(null)
+    if (orderId) goToOrderConfirmation(orderId)
   }
 
   const changePaymentMethod = async () => {
     const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
     if (orderId) {
       try {
-        await cancelUnpaidOrder(orderId, "changed_payment")
+        const result = await cancelUnpaidOrder(orderId, "changed_payment")
+        if (result && result.cancelled === false && result.reason === "already_paid") {
+          setPendingCardOrderId(null)
+          setPendingStripeSession(null)
+          setAwaitingPaymentOrderId(null)
+          goToOrderConfirmation(orderId)
+          return
+        }
       } catch {
         // Best effort
       }
@@ -2092,6 +2119,7 @@ export default function CheckoutPage() {
           payableAmount={formatCurrency(grandTotal)}
           onSuccess={handleCardPaymentSuccess}
           onError={abandonOnlinePayment}
+          onConfirmPending={handlePaymentConfirmPending}
         />
         </Suspense>
         <CheckoutLegalFooter />
@@ -2122,6 +2150,7 @@ export default function CheckoutPage() {
             payableAmount={formatCurrency(grandTotal)}
             onSuccess={handleCardPaymentSuccess}
             onError={abandonOnlinePayment}
+            onConfirmPending={handlePaymentConfirmPending}
           />
           </Suspense>
           <button

@@ -9,7 +9,8 @@ import {
   captureGiftCardPayPalOrder,
   capturePayPalOrder,
   createGiftCardPayPalOrder,
-  createPayPalOrder
+  createPayPalOrder,
+  reconcileOrderPayment
 } from "@/api/payments"
 
 type Props = {
@@ -22,6 +23,7 @@ type Props = {
   payableAmount?: string
   onSuccess: (result?: { code?: string }) => void
   onError: (message: string) => void
+  onConfirmPending?: (message: string) => void
 }
 
 type ButtonProps = Omit<Props, "paypalClientId" | "paypalMode" | "currency">
@@ -32,10 +34,12 @@ function PayPalButtonsPanel({
   giftPurchaseId,
   payableAmount,
   onSuccess,
-  onError
+  onError,
+  onConfirmPending
 }: ButtonProps) {
   const { t } = useTranslation()
   const captureInFlightRef = useRef(false)
+  const approvedRef = useRef(false)
   const [{ isPending, isRejected, isResolved }] = usePayPalScriptReducer()
 
   if (isPending) {
@@ -54,9 +58,7 @@ function PayPalButtonsPanel({
     )
   }
 
-  if (!isResolved) {
-    return null
-  }
+  if (!isResolved) return null
 
   return (
     <>
@@ -90,6 +92,7 @@ function PayPalButtonsPanel({
           onApprove={async () => {
             if (captureInFlightRef.current) return
             captureInFlightRef.current = true
+            approvedRef.current = true
             try {
               if (giftPurchaseId) {
                 const result = await captureGiftCardPayPalOrder(giftPurchaseId)
@@ -100,17 +103,47 @@ function PayPalButtonsPanel({
               await capturePayPalOrder(orderId)
               onSuccess()
             } catch (err: any) {
+              if (orderId) {
+                try {
+                  const reconciled = await reconcileOrderPayment(orderId)
+                  if (reconciled.settled) {
+                    onSuccess()
+                    return
+                  }
+                } catch {
+                  // fall through
+                }
+              }
               const message =
                 err?.response?.data?.error?.message ??
                 err?.response?.data?.message ??
-                t("checkout.paymentFailed")
-              onError(message)
+                err?.message ??
+                t("checkout.paymentConfirmPending", {
+                  defaultValue:
+                    "Payment received. Confirming your order — please wait or check order status."
+                })
+              if (onConfirmPending) onConfirmPending(message)
+              else onSuccess()
             } finally {
               captureInFlightRef.current = false
             }
           }}
-          onCancel={() => onError(t("checkout.paymentCancelled"))}
-          onError={() => onError(t("checkout.paymentFailed"))}
+          onCancel={() => {
+            if (approvedRef.current) return
+            onError(t("checkout.paymentCancelled"))
+          }}
+          onError={() => {
+            if (approvedRef.current) {
+              const message = t("checkout.paymentConfirmPending", {
+                defaultValue:
+                  "Payment received. Confirming your order — please wait or check order status."
+              })
+              if (onConfirmPending) onConfirmPending(message)
+              else onSuccess()
+              return
+            }
+            onError(t("checkout.paymentFailed"))
+          }}
         />
       </div>
     </>
@@ -126,7 +159,8 @@ export default function PayPalCheckout({
   giftPurchaseId,
   payableAmount,
   onSuccess,
-  onError
+  onError,
+  onConfirmPending
 }: Props) {
   const options = useMemo(
     () => ({
@@ -151,6 +185,7 @@ export default function PayPalCheckout({
         payableAmount={payableAmount}
         onSuccess={onSuccess}
         onError={onError}
+        onConfirmPending={onConfirmPending}
       />
     </PayPalScriptProvider>
   )
