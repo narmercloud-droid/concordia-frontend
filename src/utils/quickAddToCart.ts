@@ -38,11 +38,11 @@ type CartLineInput = {
 }
 
 function buildDefaultChoices(variantGroups: ItemOptionGroup[]) {
-  const variantChoices: Record<string, string> = {}
+  const variantChoices: Record<string, string[]> = {}
 
   for (const group of variantGroups) {
     if (group.options.length > 0) {
-      variantChoices[group.id] = group.options[0].id
+      variantChoices[group.id] = [group.options[0].id]
     }
   }
 
@@ -52,19 +52,21 @@ function buildDefaultChoices(variantGroups: ItemOptionGroup[]) {
 function buildSelections(
   variantGroups: ItemOptionGroup[],
   addOnGroups: ItemOptionGroup[],
-  variantChoices: Record<string, string>,
+  variantChoices: Record<string, string[]>,
   addOnChoices: Record<string, string[]>
 ) {
   const variants: CartSelection[] = []
   for (const group of variantGroups) {
-    const choiceId = variantChoices[group.id]
-    const opt = group.options.find((o) => o.id === choiceId)
-    if (opt) {
-      variants.push({
-        id: opt.id,
-        name: opt.name,
-        price: opt.included ? 0 : opt.price
-      })
+    const ids = variantChoices[group.id] ?? []
+    for (const choiceId of ids) {
+      const opt = group.options.find((o) => o.id === choiceId)
+      if (opt) {
+        variants.push({
+          id: opt.id,
+          name: opt.name,
+          price: opt.included ? 0 : opt.price
+        })
+      }
     }
   }
 
@@ -106,6 +108,7 @@ function needsManualOptions(
 ) {
   for (const group of variantGroups) {
     if (group.required && group.options.length === 0) return true
+    if (group.maxSelect > 1) return true
   }
 
   if (variantGroups.length > 2) return true

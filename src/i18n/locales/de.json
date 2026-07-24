@@ -439,11 +439,12 @@
   },
   "item": {
     "loading": "Gericht wird geladen…",
-    "includedTitle": "Im Preis inbegriffen — bitte eine Option wählen",
+    "includedTitle": "Im Preis inbegriffen",
     "paidExtras": "Kostenpflichtige Extras",
     "extrasSizeHint": "Zuerst Größe wählen — Extrapreise hängt von klein / groß ab",
     "extrasSizeSelected": "Preise für {{size}}",
     "extrasOptional": "Optionale Extras — aus allen Kategorien wählen",
+    "multiSelectHint": "Mehrfachauswahl möglich",
     "instructions": "Besondere Wünsche",
     "instructionsPlaceholder": "z. B. ohne Zwiebeln, extra knusprig…",
     "addToCart": "In den Warenkorb",

@@ -439,11 +439,12 @@
   },
   "item": {
     "loading": "Loading item…",
-    "includedTitle": "Included with your order — please choose one option",
+    "includedTitle": "Included with your order",
     "paidExtras": "Paid extras",
     "extrasSizeHint": "Choose your size first — extra prices depend on small / large",
     "extrasSizeSelected": "Prices for {{size}}",
     "extrasOptional": "Optional add-ons — pick from any category below",
+    "multiSelectHint": "You can select more than one",
     "instructions": "Special instructions",
     "instructionsPlaceholder": "e.g. no onions, extra crispy…",
     "addToCart": "Add to cart",

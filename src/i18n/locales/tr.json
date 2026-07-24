@@ -416,7 +416,7 @@
   },
   "item": {
     "loading": "Yemek yükleniyor…",
-    "includedTitle": "Fiyata dahil — bir seçenek seçin",
+    "includedTitle": "Fiyata dahil",
     "paidExtras": "Ücretli ekstralar",
     "extrasSizeHint": "Önce boyut seçin — ekstra fiyat küçük / büyük boyuta bağlıdır",
     "extrasSizeSelected": "{{size}} için fiyatlar",
@@ -435,7 +435,8 @@
     "increaseQty": "Adedi artır",
     "addedToCart": "{{name}} eklendi",
     "viewCart": "Sepeti görüntüle",
-    "loadError": "Seçenekler yüklenemedi. Sunucu başlatılıyor olabilir — lütfen tekrar deneyin."
+    "loadError": "Seçenekler yüklenemedi. Sunucu başlatılıyor olabilir — lütfen tekrar deneyin.",
+    "multiSelectHint": "Birden fazla seçebilirsiniz"
   },
   "account": {
     "ordersLoading": "Siparişler yükleniyor…",

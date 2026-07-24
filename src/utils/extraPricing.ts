@@ -74,19 +74,28 @@ export function getAddOnDisplayPrice(
   return option.price
 }
 
+function firstVariantChoiceId(
+  variantChoices: Record<string, string | string[]>,
+  groupId: string
+): string | undefined {
+  const choice = variantChoices[groupId]
+  if (Array.isArray(choice)) return choice[0]
+  return choice
+}
+
 export function findSizeVariantName(
   variantGroups: VariantGroupLike[],
-  variantChoices: Record<string, string>
+  variantChoices: Record<string, string | string[]>
 ): string | null {
   const sizeGroup = variantGroups.find(isSizeVariantGroup)
   if (sizeGroup) {
-    const choiceId = variantChoices[sizeGroup.id]
+    const choiceId = firstVariantChoiceId(variantChoices, sizeGroup.id)
     const selected = sizeGroup.options.find((o) => o.id === choiceId)
     if (selected) return selected.name
   }
 
   for (const group of variantGroups) {
-    const choiceId = variantChoices[group.id]
+    const choiceId = firstVariantChoiceId(variantChoices, group.id)
     if (!choiceId) continue
     const selected = group.options.find((o) => o.id === choiceId)
     if (selected && isSizeLikeOptionName(selected.name)) {

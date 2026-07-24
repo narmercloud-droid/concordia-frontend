@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from "react"
-import { useQuery } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 import HomeHeroMotion from "@/apps/customer/components/HomeHeroMotion"
 import HomeOrderHub, { type HomeBranch } from "@/apps/customer/components/HomeOrderHub"
 import HomeReviewSnippet from "@/apps/customer/components/HomeReviewSnippet"

@@ -1,5 +1,5 @@
 import React from "react"
-import { useItemOptions } from "@/apps/customer/hooks/useItemOptions"
+import { useItemOptions, type ItemOptionGroup } from "@/apps/customer/hooks/useItemOptions"
 import { getAddOnDisplayPrice } from "@/utils/extraPricing"
 import { formatCurrency } from "@/utils/format"
 
@@ -11,13 +11,69 @@ type Props = {
   showTitle?: boolean
 }
 
+function VariantGroupFields({
+  group,
+  variantChoices,
+  setSingleVariant,
+  toggleVariant,
+  showPrice,
+  formatOptionPrice,
+  multiSelectHint
+}: {
+  group: ItemOptionGroup
+  variantChoices: Record<string, string[]>
+  setSingleVariant: (groupId: string, optionId: string) => void
+  toggleVariant: (group: ItemOptionGroup, optionId: string) => void
+  showPrice?: boolean
+  formatOptionPrice: (price: number, included?: boolean) => string
+  multiSelectHint: string
+}) {
+  const multi = group.maxSelect > 1
+  const selected = variantChoices[group.id] ?? []
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {multi && (
+        <p className="customer-hint" style={{ margin: 0 }}>
+          {multiSelectHint}
+        </p>
+      )}
+      {group.options.map((opt) => {
+        const checked = selected.includes(opt.id)
+        return (
+          <label
+            key={opt.id}
+            className={`customer-option${showPrice ? "" : " customer-option--free"}${
+              checked ? " customer-option--selected" : ""
+            }`}
+          >
+            <input
+              type={multi ? "checkbox" : "radio"}
+              name={multi ? undefined : group.id}
+              checked={checked}
+              onChange={() =>
+                multi ? toggleVariant(group, opt.id) : setSingleVariant(group.id, opt.id)
+              }
+            />
+            <span className="customer-option__name">{opt.name}</span>
+            {showPrice && (
+              <span className="customer-option__price">{formatOptionPrice(opt.price)}</span>
+            )}
+          </label>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function ItemOptionsFields({ options, compact = false, showTitle = true }: Props) {
   const {
     item,
     notes,
     setNotes,
     variantChoices,
-    setVariantChoices,
+    setSingleVariant,
+    toggleVariant,
     includedGroups,
     paidVariantGroups,
     addOnGroups,
@@ -72,26 +128,14 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
                 {group.name}
                 {group.required && <span style={{ color: "var(--c-accent)" }}> *</span>}
               </h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {group.options.map((opt) => (
-                  <label
-                    key={opt.id}
-                    className={`customer-option customer-option--free${
-                      variantChoices[group.id] === opt.id ? " customer-option--selected" : ""
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name={group.id}
-                      checked={variantChoices[group.id] === opt.id}
-                      onChange={() =>
-                        setVariantChoices((prev) => ({ ...prev, [group.id]: opt.id }))
-                      }
-                    />
-                    <span className="customer-option__name">{opt.name}</span>
-                  </label>
-                ))}
-              </div>
+              <VariantGroupFields
+                group={group}
+                variantChoices={variantChoices}
+                setSingleVariant={setSingleVariant}
+                toggleVariant={toggleVariant}
+                formatOptionPrice={formatOptionPrice}
+                multiSelectHint={t("item.multiSelectHint")}
+              />
             </div>
           ))}
         </div>
@@ -103,27 +147,15 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
             {group.name}
             {group.required && <span style={{ color: "var(--c-accent)" }}> *</span>}
           </h4>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {group.options.map((opt) => (
-              <label
-                key={opt.id}
-                className={`customer-option${
-                  variantChoices[group.id] === opt.id ? " customer-option--selected" : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={group.id}
-                  checked={variantChoices[group.id] === opt.id}
-                  onChange={() =>
-                    setVariantChoices((prev) => ({ ...prev, [group.id]: opt.id }))
-                  }
-                />
-                <span className="customer-option__name">{opt.name}</span>
-                <span className="customer-option__price">{formatOptionPrice(opt.price)}</span>
-              </label>
-            ))}
-          </div>
+          <VariantGroupFields
+            group={group}
+            variantChoices={variantChoices}
+            setSingleVariant={setSingleVariant}
+            toggleVariant={toggleVariant}
+            showPrice
+            formatOptionPrice={formatOptionPrice}
+            multiSelectHint={t("item.multiSelectHint")}
+          />
         </div>
       ))}
 
@@ -176,7 +208,6 @@ export default function ItemOptionsFields({ options, compact = false, showTitle 
           </div>
         </div>
       ))}
-
     </>
   )
 }

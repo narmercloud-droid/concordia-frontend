@@ -389,7 +389,7 @@
   },
   "item": {
     "loading": "Gerecht laden…",
-    "includedTitle": "Inbegrepen bij uw bestelling — kies één optie",
+    "includedTitle": "Inbegrepen bij uw bestelling",
     "paidExtras": "Betaalde extra's",
     "extrasSizeHint": "Kies eerst de maat — extraprijzen hangen af van klein / groot",
     "extrasSizeSelected": "Prijzen voor {{size}}",
@@ -408,7 +408,8 @@
     "addedToCart": "{{name}} toegevoegd",
     "viewCart": "Winkelwagen",
     "updateCart": "Winkelwagen bijwerken",
-    "loadError": "Opties konden niet worden geladen. De server start mogelijk op — probeer het opnieuw."
+    "loadError": "Opties konden niet worden geladen. De server start mogelijk op — probeer het opnieuw.",
+    "multiSelectHint": "U kunt er meer dan één kiezen"
   },
   "order": {
     "tracking": "Bestelling volgen",

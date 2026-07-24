@@ -1,19 +1,13 @@
-import React, { Suspense } from "react"
 import CustomerLayout from "./layouts/CustomerLayout.js"
-import LoadingFallback from "./components/LoadingFallback.js"
+import HomePage from "./pages/HomePage.js"
 
-const HomePage = React.lazy(() => import("./pages/HomePage.js"))
-
+/** Homepage is eager so post-deploy chunk 404s cannot blank the landing page. */
 export const homeRoutes = {
   element: <CustomerLayout />,
   children: [
     {
       index: true,
-      element: (
-        <Suspense fallback={<LoadingFallback />}>
-          <HomePage />
-        </Suspense>
-      )
+      element: <HomePage />
     }
   ]
 }

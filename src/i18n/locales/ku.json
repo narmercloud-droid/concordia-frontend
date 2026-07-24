@@ -389,7 +389,7 @@
   },
   "item": {
     "loading": "Xwarin tê barkirin…",
-    "includedTitle": "Di bihayê de heye — yekê hilbijêrin",
+    "includedTitle": "Di bihayê de heye",
     "paidExtras": "Zêdeyên bi pere",
     "extrasSizeHint": "Pêşî mezinahiyê hilbijêrin — bihayên zêde li gor biçûk / mezin in",
     "extrasSizeSelected": "Bihayên ji bo {{size}}",
@@ -408,7 +408,8 @@
     "addedToCart": "{{name}} hate zêdekirin selikê",
     "viewCart": "Selikê bibîne",
     "updateCart": "سەبەتە نوێ بکەوە",
-    "loadError": "هەڵبژاردنەکان بارنەکران. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە."
+    "loadError": "هەڵبژاردنەکان بارنەکران. ڕەنگە سێرڤەر دەستپێبکات — تکایە دووبارە هەوڵ بدەوە.",
+    "multiSelectHint": "Hûn dikarin zêdetirî yekê hilbijêrin"
   },
   "order": {
     "tracking": "Şopandina fermana",

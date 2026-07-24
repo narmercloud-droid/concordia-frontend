@@ -389,7 +389,7 @@
   },
   "item": {
     "loading": "Se încarcă preparatul…",
-    "includedTitle": "Inclus în comandă — alegeți o opțiune",
+    "includedTitle": "Inclus în comandă",
     "paidExtras": "Extra cu plată",
     "extrasSizeHint": "Alegeți mai întâi mărimea — prețurile extra depind de mică / mare",
     "extrasSizeSelected": "Prețuri pentru {{size}}",
@@ -408,7 +408,8 @@
     "addedToCart": "{{name}} adăugat în coș",
     "viewCart": "Coș",
     "updateCart": "Actualizează coșul",
-    "loadError": "Opțiunile nu au putut fi încărcate. Serverul se poate porni — încercați din nou."
+    "loadError": "Opțiunile nu au putut fi încărcate. Serverul se poate porni — încercați din nou.",
+    "multiSelectHint": "Puteți selecta mai multe"
   },
   "order": {
     "tracking": "Urmărire comandă",

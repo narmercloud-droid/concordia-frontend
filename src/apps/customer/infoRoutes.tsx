@@ -1,21 +1,22 @@
-import React, { Suspense } from "react"
+import { Suspense, type ReactElement } from "react"
 import { Navigate } from "react-router-dom"
 import CustomerLayout from "./layouts/CustomerLayout.js"
 import LoadingFallback from "./components/LoadingFallback.js"
+import { lazyWithRetry } from "@/lib/lazyWithRetry"
 
-const AboutPage = React.lazy(() => import("./pages/AboutPage.js"))
-const ContactPage = React.lazy(() => import("./pages/ContactPage.js"))
-const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage.js"))
-const OffersPage = React.lazy(() => import("./pages/OffersPage.js"))
-const GiftVoucherPage = React.lazy(() => import("./pages/GiftVoucherPage.js"))
-const FaqPage = React.lazy(() => import("./pages/FaqPage.js"))
-const TermsPage = React.lazy(() => import("./pages/TermsPage.js"))
-const ImpressumPage = React.lazy(() => import("./pages/ImpressumPage.js"))
-const PrivacyPage = React.lazy(() => import("./pages/PrivacyPage.js"))
-const AgbPage = React.lazy(() => import("./pages/AgbPage.js"))
-const WiderrufPage = React.lazy(() => import("./pages/WiderrufPage.js"))
+const AboutPage = lazyWithRetry(() => import("./pages/AboutPage.js"))
+const ContactPage = lazyWithRetry(() => import("./pages/ContactPage.js"))
+const ReviewsPage = lazyWithRetry(() => import("./pages/ReviewsPage.js"))
+const OffersPage = lazyWithRetry(() => import("./pages/OffersPage.js"))
+const GiftVoucherPage = lazyWithRetry(() => import("./pages/GiftVoucherPage.js"))
+const FaqPage = lazyWithRetry(() => import("./pages/FaqPage.js"))
+const TermsPage = lazyWithRetry(() => import("./pages/TermsPage.js"))
+const ImpressumPage = lazyWithRetry(() => import("./pages/ImpressumPage.js"))
+const PrivacyPage = lazyWithRetry(() => import("./pages/PrivacyPage.js"))
+const AgbPage = lazyWithRetry(() => import("./pages/AgbPage.js"))
+const WiderrufPage = lazyWithRetry(() => import("./pages/WiderrufPage.js"))
 
-const lazy = (element: React.ReactElement) => (
+const lazy = (element: ReactElement) => (
   <Suspense fallback={<LoadingFallback />}>{element}</Suspense>
 )
 

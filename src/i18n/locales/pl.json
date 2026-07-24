@@ -389,7 +389,7 @@
   },
   "item": {
     "loading": "Ładowanie dania…",
-    "includedTitle": "W cenie — wybierz jedną opcję",
+    "includedTitle": "W cenie",
     "paidExtras": "Płatne dodatki",
     "extrasSizeHint": "Najpierw wybierz rozmiar — ceny dodatków zależą od małej / dużej",
     "extrasSizeSelected": "Ceny dla {{size}}",
@@ -408,7 +408,8 @@
     "addedToCart": "{{name}} dodano do koszyka",
     "viewCart": "Koszyk",
     "updateCart": "Zaktualizuj koszyk",
-    "loadError": "Nie udało się załadować opcji. Serwer może się uruchamiać — spróbuj ponownie."
+    "loadError": "Nie udało się załadować opcji. Serwer może się uruchamiać — spróbuj ponownie.",
+    "multiSelectHint": "Możesz wybrać więcej niż jedną"
   },
   "order": {
     "tracking": "Śledzenie zamówienia",

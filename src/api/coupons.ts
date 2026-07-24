@@ -164,25 +164,26 @@ export const updateManagerCouponCampaign = async (
 }
 
 export function formatCouponDiscount(
-  discountType: string,
-  discountValue: number,
+  discountType: string | null | undefined,
+  discountValue: number | null | undefined,
   t: (key: string, opts?: Record<string, unknown>) => string
 ): string {
-  const type = discountType.toLowerCase()
+  const type = String(discountType ?? "").toLowerCase()
+  const value = typeof discountValue === "number" && Number.isFinite(discountValue) ? discountValue : 0
   if (type === "platform_online" || type === "platform_online_percent") {
-    return t("coupons.percentOff", { value: discountValue })
+    return t("coupons.percentOff", { value })
   }
   if (type === "platform_free_drink" || type === "free_drink") {
     return t("coupons.freeDrinkOffer")
   }
   if (type === "combo") {
-    return t("coupons.comboPrice", { value: discountValue.toFixed(2).replace(".", ",") })
+    return t("coupons.comboPrice", { value: value.toFixed(2).replace(".", ",") })
   }
   if (type === "free_delivery") return t("coupons.freeDelivery")
   if (type === "percent" || type === "percentage") {
-    return t("coupons.percentOff", { value: discountValue })
+    return t("coupons.percentOff", { value })
   }
-  return t("coupons.amountOff", { value: discountValue.toFixed(2).replace(".", ",") })
+  return t("coupons.amountOff", { value: value.toFixed(2).replace(".", ",") })
 }
 
 /** Headline shown on coupon cards (value + title may differ from raw campaign fields). */
