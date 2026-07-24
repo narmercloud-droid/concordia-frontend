@@ -10,6 +10,7 @@ import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
 import { useDefaultCouponBranch } from "@/apps/customer/components/BranchCouponTabs"
 import { WEBSITE_ORDER_DISCOUNT_PCT } from "@/lib/websitePromo"
 import SiteFooter from "@/apps/customer/components/SiteFooter"
+import HomeLocalSeo from "@/apps/customer/components/HomeLocalSeo"
 import { BRANCHES_QUERY_KEY, branchesQueryOptions } from "@/lib/branchesQuery"
 import { scrollToBranchChoice } from "@/lib/scrollToBranchChoice"
 import "./HomePage.css"
@@ -131,6 +132,8 @@ export default function HomePage() {
       <Suspense fallback={null}>
         <MenuShowcase />
       </Suspense>
+
+      <HomeLocalSeo />
 
       <SiteFooter />
     </div>

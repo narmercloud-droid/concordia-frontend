@@ -28,6 +28,7 @@ import FulfillmentPicker from "@/apps/customer/components/FulfillmentPicker"
 import AllergenNotice from "@/apps/customer/components/AllergenNotice"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CouponCampaignStrip from "@/apps/customer/components/CouponCampaignStrip"
+import { BRANCH_SEO } from "@/lib/branchSeo"
 import "./BranchMenuPage.css"
 
 type MenuItem = {
@@ -467,6 +468,13 @@ export default function BranchMenuPage() {
       <header className="branch-menu__header">
         <p className="customer-eyebrow branch-menu__eyebrow">{branchMenuEyebrow(branch)}</p>
         <h2 className="customer-title">{t("menu.title")}</h2>
+        {branchId && BRANCH_SEO[branchId] ? (
+          <p className="customer-hint branch-menu__seo-intro">
+            {BRANCH_SEO[branchId].name} – Pizza, Pasta und mehr online bestellen zur Lieferung oder
+            Abholung. {BRANCH_SEO[branchId].streetAddress}, {BRANCH_SEO[branchId].postalCode}{" "}
+            {BRANCH_SEO[branchId].addressLocality}.
+          </p>
+        ) : null}
         {!orderingDisabled && (
           <div className="branch-menu__fulfillment">
             <p className="customer-hint branch-menu__fulfillment-lead">{t("menu.fulfillmentLead")}</p>

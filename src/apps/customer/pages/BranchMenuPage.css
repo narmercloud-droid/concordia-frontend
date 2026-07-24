@@ -13,6 +13,12 @@
   margin-bottom: 12px;
 }
 
+.branch-menu__seo-intro {
+  max-width: 40rem;
+  margin: 0.35rem 0 0.75rem;
+  line-height: 1.5;
+}
+
 .branch-menu__eyebrow {
   font-size: 13px;
   font-weight: 700;
