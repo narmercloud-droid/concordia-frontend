@@ -6,6 +6,7 @@ import { Trans, useTranslation } from "react-i18next"
 import {
   createOrder,
   cancelUnpaidOrder,
+  reportPaymentIssue,
   getBranchDeliveryAreas,
   getBranchTimeSlots,
   getDeliveryQuote,
@@ -1014,33 +1015,23 @@ export default function CheckoutPage() {
     if (orderId) goToOrderConfirmation(orderId)
   }
 
-  /** True abandon only — never call after PSP has charged/approved. */
-  const abandonOnlinePayment = async (message: string) => {
+  const pendingOnlineOrderId =
+    pendingCardOrderId ?? pendingStripeSession?.orderId ?? awaitingPaymentOrderId ?? null
+
+  /** Soft PSP failure — keep the unpaid order so the customer can retry. */
+  const handleOnlinePaymentError = (message: string) => {
     setError(message)
-    const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
+    const orderId = pendingOnlineOrderId
     if (orderId) {
-      try {
-        const result = await cancelUnpaidOrder(orderId, "payment_failed")
-        if (result && result.cancelled === false && result.reason === "already_paid") {
-          setPendingCardOrderId(null)
-          setPendingStripeSession(null)
-          setAwaitingPaymentOrderId(null)
-          goToOrderConfirmation(orderId)
-          return
-        }
-      } catch {
-        // Best effort — kitchen filter also blocks unpaid online orders.
-      }
+      void reportPaymentIssue(orderId).catch(() => {
+        // Best effort — terminal alert is secondary to checkout UX
+      })
     }
-    setPendingCardOrderId(null)
-    setPendingStripeSession(null)
-    setAwaitingPaymentOrderId(null)
   }
 
   /** Charge succeeded but server confirm lagged — do not cancel. */
   const handlePaymentConfirmPending = (message: string) => {
-    const orderId =
-      pendingCardOrderId ?? pendingStripeSession?.orderId ?? awaitingPaymentOrderId ?? null
+    const orderId = pendingOnlineOrderId
     setError(message)
     setPendingCardOrderId(null)
     setPendingStripeSession(null)
@@ -1048,8 +1039,9 @@ export default function CheckoutPage() {
     if (orderId) goToOrderConfirmation(orderId)
   }
 
+  /** Explicit abandon — cancel unpaid order and unlock payment method picker. */
   const changePaymentMethod = async () => {
-    const orderId = pendingCardOrderId ?? awaitingPaymentOrderId
+    const orderId = pendingOnlineOrderId
     if (orderId) {
       try {
         const result = await cancelUnpaidOrder(orderId, "changed_payment")
@@ -2118,10 +2110,17 @@ export default function CheckoutPage() {
           savePaymentMethodOffered={pendingStripeSession.savePaymentMethodOffered}
           payableAmount={formatCurrency(grandTotal)}
           onSuccess={handleCardPaymentSuccess}
-          onError={abandonOnlinePayment}
+          onError={handleOnlinePaymentError}
           onConfirmPending={handlePaymentConfirmPending}
         />
         </Suspense>
+        <button
+          type="button"
+          className="customer-btn checkout-paypal-step__change"
+          onClick={() => void changePaymentMethod()}
+        >
+          {t("checkout.changePaymentMethod")}
+        </button>
         <CheckoutLegalFooter />
         </>
       )}
@@ -2149,7 +2148,7 @@ export default function CheckoutPage() {
             fundingSource="paypal"
             payableAmount={formatCurrency(grandTotal)}
             onSuccess={handleCardPaymentSuccess}
-            onError={abandonOnlinePayment}
+            onError={handleOnlinePaymentError}
             onConfirmPending={handlePaymentConfirmPending}
           />
           </Suspense>

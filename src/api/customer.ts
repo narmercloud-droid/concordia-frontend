@@ -228,6 +228,12 @@ export const cancelUnpaidOrder = async (
   return unwrap<{ cancelled: boolean; reason?: string }>(res)
 }
 
+/** Soft decline — keep order open, notify terminal Failed-payment tab. */
+export const reportPaymentIssue = async (orderId: string) => {
+  const res = await api.post(`/api/v1/order/${orderId}/report-payment-issue`)
+  return unwrap<{ reported: boolean; reason?: string }>(res)
+}
+
 export const submitContactForm = (data: {
   name: string
   email: string
