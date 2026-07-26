@@ -266,7 +266,7 @@ export default function CheckoutPage() {
     klarna: false,
     sepa: false
   }
-  const stripePaymentChoices = new Set<PaymentChoice>(["card", "apple_pay", "google_pay"])
+  const stripePaymentChoices = new Set<PaymentChoice>(["card", "apple_pay", "google_pay", "sepa"])
   const needsStripePayment =
     stripePaymentChoices.has(paymentChoice) && paymentMethods[paymentChoice]
   const needsPayPalPayment = paymentChoice === "paypal" && paymentMethods.paypal
@@ -276,7 +276,7 @@ export default function CheckoutPage() {
     if (awaitingPaymentOrderId) return
     if (paymentMethods[paymentChoice]) return
     const fallback = (
-      ["cash", "card", "apple_pay", "google_pay", "paypal"] as PaymentChoice[]
+      ["cash", "card", "apple_pay", "google_pay", "paypal", "sepa"] as PaymentChoice[]
     ).find((method) => paymentMethods[method])
     if (fallback) setPaymentChoice(fallback)
   }, [paymentConfig, paymentMethods, paymentChoice, awaitingPaymentOrderId])

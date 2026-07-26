@@ -158,6 +158,24 @@ function PaymentMethodIcon({ method }: { method: PaymentMethodId }) {
           />
         </svg>
       )
+    case "sepa":
+      return (
+        <svg className="checkout-payment-icon checkout-payment-icon--sepa" viewBox="0 0 56 36" aria-hidden="true">
+          <rect x="2" y="6" width="52" height="24" rx="4" fill="#0f766e" />
+          <rect x="6" y="10" width="44" height="16" rx="2" fill="#ecfdf5" />
+          <text
+            x="28"
+            y="21.5"
+            textAnchor="middle"
+            fontSize="9"
+            fontWeight="700"
+            fill="#0f766e"
+            fontFamily="system-ui, sans-serif"
+          >
+            SEPA
+          </text>
+        </svg>
+      )
     default:
       return null
   }

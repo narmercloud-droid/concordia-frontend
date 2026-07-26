@@ -53,6 +53,23 @@ function StripePaymentForm({
       }
 
       const status = result.paymentIntent?.status
+      // SEPA Debit often returns "processing" until the bank confirms (webhook marks paid).
+      if (status === "processing" || status === "requires_capture") {
+        if (orderId && onConfirmPending) {
+          onConfirmPending(
+            t("checkout.sepaPaymentProcessing", {
+              defaultValue:
+                "SEPA payment submitted. Your order will be confirmed once the bank clears it."
+            })
+          )
+          return
+        }
+        if (onConfirmPending) {
+          onConfirmPending(t("checkout.paymentConfirmPending"))
+          return
+        }
+      }
+
       if (status !== "succeeded") {
         onError(t("checkout.paymentFailed"))
         return

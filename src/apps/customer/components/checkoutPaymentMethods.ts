@@ -5,7 +5,8 @@ export const CHECKOUT_PAYMENT_METHOD_ORDER: PaymentMethodId[] = [
   "paypal",
   "card",
   "apple_pay",
-  "google_pay"
+  "google_pay",
+  "sepa"
 ]
 
 export type PaymentMethodsMap = Partial<Record<PaymentMethodId, boolean>>

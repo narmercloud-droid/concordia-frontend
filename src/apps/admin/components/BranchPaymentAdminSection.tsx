@@ -64,6 +64,7 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
       cardEnabled?: boolean
       applePayEnabled?: boolean
       googlePayEnabled?: boolean
+      sepaEnabled?: boolean
       paypalEnabled?: boolean
     }) => updateBranchPaymentSettings(branchId, payload),
     onSuccess: () => {
@@ -104,8 +105,8 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
     <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #eee" }}>
       <h4>Online payments (Stripe)</h4>
       <p style={{ color: "#666", fontSize: 14 }}>
-        Each branch has its own Stripe account. Customers can pay by card, Apple Pay, and Google
-        Pay at checkout for this branch only.
+        Each branch has its own Stripe account. Customers can pay by card, Apple Pay, Google Pay,
+        and SEPA direct debit at checkout for this branch only.
       </p>
 
       {!data.stripeConfigured && (
@@ -165,6 +166,14 @@ export default function BranchPaymentAdminSection({ branchId }: Props) {
               onChange={(e) => flagsMutation.mutate({ googlePayEnabled: e.target.checked })}
             />
             Google Pay enabled
+          </label>
+          <label style={{ display: "flex", gap: 8 }}>
+            <input
+              type="checkbox"
+              checked={Boolean(data.sepaEnabled)}
+              onChange={(e) => flagsMutation.mutate({ sepaEnabled: e.target.checked })}
+            />
+            SEPA direct debit enabled
           </label>
         </div>
       )}

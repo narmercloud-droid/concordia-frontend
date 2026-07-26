@@ -47,6 +47,7 @@ export type BranchPaymentStatus = {
   cardEnabled: boolean
   applePayEnabled: boolean
   googlePayEnabled: boolean
+  sepaEnabled: boolean
   paypalEnabled: boolean
   paypalClientId: string | null
   paypalWebhookId: string | null
@@ -108,6 +109,7 @@ export const updateBranchPaymentSettings = async (
       | "cardEnabled"
       | "applePayEnabled"
       | "googlePayEnabled"
+      | "sepaEnabled"
       | "paypalEnabled"
       | "paypalClientId"
       | "paypalWebhookId"
