@@ -10,9 +10,18 @@ import { translateFulfillmentType, translateOrderStatus } from "@/utils/translat
 import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
 import OrderProgressStepper from "@/apps/customer/components/order/OrderProgressStepper"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
+import OrderNotificationsPrompt, {
+  shouldShowOrderNotificationPrompt
+} from "@/apps/customer/components/OrderNotificationsPrompt"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
+import "./OrderTrackingPage.css"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
+
+function isPickupFulfillment(fulfillmentType?: string | null) {
+  const t = (fulfillmentType ?? "").toLowerCase()
+  return t.includes("pickup") || t.includes("abhol")
+}
 
 export default function OrderTrackingPage() {
   const { t } = useTranslation()
@@ -115,6 +124,14 @@ export default function OrderTrackingPage() {
   const showConfirmation =
     justPlaced || ["pending", "accepted"].includes(order.status)
 
+  const isPickup = isPickupFulfillment(order.fulfillmentType)
+  const etaAt = isPickup
+    ? order.etaReadyAt
+    : order.etaDeliveredAt ?? order.etaReadyAt
+  const hasEta = Boolean(etaAt) || Boolean(order.estimatedPrepTime)
+  const showWaitingEta =
+    !hasEta && ["pending", "accepted", "preparing"].includes(order.status)
+
   return (
     <div className="customer-page order-tracking">
       {showConfirmation && (
@@ -143,6 +160,45 @@ export default function OrderTrackingPage() {
         </div>
       )}
 
+      {(hasEta || showWaitingEta) && (
+        <div
+          className={`order-eta-card${hasEta ? " order-eta-card--ready" : " order-eta-card--waiting"}`}
+          role="status"
+        >
+          {hasEta ? (
+            <>
+              <p className="order-eta-card__label">
+                {isPickup ? t("order.etaPickupLabel") : t("order.etaDeliveryLabel")}
+              </p>
+              {etaAt ? (
+                <p className="order-eta-card__time">{formatTime(etaAt)}</p>
+              ) : null}
+              {order.estimatedPrepTime ? (
+                <p className="order-eta-card__mins">
+                  {t("order.etaInMinutes", { min: order.estimatedPrepTime })}
+                </p>
+              ) : null}
+              {etaAt ? (
+                <p className="order-eta-card__full">{formatDateTime(etaAt)}</p>
+              ) : null}
+            </>
+          ) : (
+            <>
+              <p className="order-eta-card__label">{t("order.etaPendingLabel")}</p>
+              <p className="order-eta-card__waiting">{t("order.etaPendingLead")}</p>
+            </>
+          )}
+        </div>
+      )}
+
+      {orderId && (
+        <OrderNotificationsPrompt
+          orderId={orderId}
+          branchId={order.branchId ?? null}
+          active={shouldShowOrderNotificationPrompt(justPlaced, order.status)}
+        />
+      )}
+
       <h2 className="customer-title">{t("order.tracking")}</h2>
 
       <OrderProgressStepper status={order.status} fulfillmentType={order.fulfillmentType} />
@@ -165,14 +221,6 @@ export default function OrderTrackingPage() {
           <p>
             {t("order.scheduledFor")}: {formatDateTime(order.scheduledFor)}
           </p>
-        )}
-        {order.etaReadyAt && (
-          <p>
-            {t("order.readyAt")}: {formatDateTime(order.etaReadyAt)}
-          </p>
-        )}
-        {order.estimatedPrepTime && (
-          <p>{t("order.prepTime", { min: order.estimatedPrepTime })}</p>
         )}
         {order.deliveryAddress && order.fulfillmentType === "delivery" && (
           <p className="customer-hint">{order.deliveryAddress}</p>

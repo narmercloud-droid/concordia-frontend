@@ -234,6 +234,12 @@ export const reportPaymentIssue = async (orderId: string) => {
   return unwrap<{ reported: boolean; reason?: string }>(res)
 }
 
+/** Attach browser push subscription to an order for status notifications. */
+export const attachOrderPushSubscription = async (orderId: string, token: string) => {
+  const res = await api.post(`/api/v1/order/${orderId}/push-subscribe`, { token })
+  return unwrap<{ attached: boolean }>(res)
+}
+
 export const submitContactForm = (data: {
   name: string
   email: string

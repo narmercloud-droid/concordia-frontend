@@ -1,0 +1,51 @@
+.order-eta-card {
+  margin: 0 0 18px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgb(var(--c-green-rgb, 27 115 64) / 0.2);
+  background: linear-gradient(145deg, rgb(var(--c-green-rgb, 27 115 64) / 0.1), #fff 65%);
+  text-align: center;
+}
+
+.order-eta-card--waiting {
+  border-color: rgb(180 160 90 / 0.35);
+  background: linear-gradient(145deg, rgb(250 230 150 / 0.35), #fff 70%);
+}
+
+.order-eta-card__label {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-muted, #5c6b62);
+}
+
+.order-eta-card__time {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--c-green, #1b7340);
+}
+
+.order-eta-card__mins {
+  margin: 8px 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--c-ink, #1a1f1c);
+}
+
+.order-eta-card__full {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: var(--c-muted, #5c6b62);
+}
+
+.order-eta-card__waiting {
+  margin: 4px 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--c-ink, #1a1f1c);
+}

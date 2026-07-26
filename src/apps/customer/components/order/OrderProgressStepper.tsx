@@ -31,7 +31,7 @@ function pickupSteps(t: (key: string) => string): Step[] {
 }
 
 function activeStepIndex(status: string, fulfillmentType?: string | null): number {
-  if (["cancelled"].includes(status)) return -1
+  if (["cancelled", "rejected"].includes(status)) return -1
 
   if (fulfillmentType === "pickup") {
     if (["pending", "accepted"].includes(status)) return 0
@@ -41,9 +41,12 @@ function activeStepIndex(status: string, fulfillmentType?: string | null): numbe
     return 0
   }
 
+  // Delivery: received → preparing → on the way → delivered
   if (["pending", "accepted"].includes(status)) return 0
   if (["preparing"].includes(status)) return 1
-  if (["ready_for_pickup", "picked_up"].includes(status)) return 2
+  if (["ready_for_pickup", "out_for_delivery", "picked_up", "courier_assigned"].includes(status)) {
+    return 2
+  }
   if (["delivered", "completed"].includes(status)) return 3
   return 0
 }
@@ -52,7 +55,7 @@ export default function OrderProgressStepper({ status, fulfillmentType }: Props)
   const { t } = useTranslation()
   const steps = fulfillmentType === "pickup" ? pickupSteps(t) : deliverySteps(t)
   const active = activeStepIndex(status, fulfillmentType)
-  const cancelled = status === "cancelled"
+  const cancelled = status === "cancelled" || status === "rejected"
 
   if (cancelled) {
     return (

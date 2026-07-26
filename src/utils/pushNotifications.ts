@@ -86,6 +86,50 @@ export async function enableOfferNotifications(branchId?: string | null) {
   return !!token
 }
 
+/** Enable transactional order status notifications and attach the token to this order. */
+export async function enableOrderNotifications(
+  orderId: string,
+  branchId?: string | null
+): Promise<boolean> {
+  if (!orderId) return false
+
+  const permission =
+    typeof Notification !== "undefined" ? await Notification.requestPermission() : "denied"
+  if (permission !== "granted") return false
+
+  const token = await subscribeToPush({
+    allowOrders: true,
+    branchId,
+    syncBackend: true
+  })
+  if (!token) return false
+
+  try {
+    const { attachOrderPushSubscription } = await import("@/api/customer")
+    await attachOrderPushSubscription(orderId, token)
+  } catch {
+    return false
+  }
+
+  return true
+}
+
+export function isOrderPushDismissed(orderId: string): boolean {
+  try {
+    return localStorage.getItem(`concordia-order-push-dismissed:${orderId}`) === "1"
+  } catch {
+    return false
+  }
+}
+
+export function dismissOrderPushPrompt(orderId: string) {
+  try {
+    localStorage.setItem(`concordia-order-push-dismissed:${orderId}`, "1")
+  } catch {
+    // ignore
+  }
+}
+
 export async function unsubscribePush() {
   const reg = await navigator.serviceWorker.getRegistration()
   if (!reg) return

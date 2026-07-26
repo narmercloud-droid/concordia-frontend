@@ -512,6 +512,11 @@
     "scheduledFor": "Geplant für",
     "readyAt": "Fertig um",
     "prepTime": "Zubereitungszeit: {{min}} Min.",
+    "etaDeliveryLabel": "Voraussichtliche Lieferung",
+    "etaPickupLabel": "Abholbereit um",
+    "etaInMinutes": "in etwa {{min}} Minuten",
+    "etaPendingLabel": "Voraussichtliche Zeit",
+    "etaPendingLead": "Die Küche bestätigt Ihre Bestellung. Die voraussichtliche Zeit erscheint hier.",
     "deliveryMap": "Lieferkarte",
     "driverLive": "Fahrerstandort live",
     "driverUpdated": " — aktualisiert {{time}}",
@@ -1007,7 +1012,12 @@
     "notNow": "Später",
     "enableFailed": "Benachrichtigungen konnten nicht aktiviert werden. Bitte erlauben Sie sie in den Browser-Einstellungen.",
     "enabled": "Angebots-Benachrichtigungen sind aktiv.",
-    "deniedHint": "Benachrichtigungen sind blockiert. Bitte in den Browser-Einstellungen für diese Website erlauben."
+    "deniedHint": "Benachrichtigungen sind blockiert. Bitte in den Browser-Einstellungen für diese Website erlauben.",
+    "orderPromptAria": "Bestell-Benachrichtigungen",
+    "orderPromptTitle": "Updates zu Ihrer Bestellung erhalten",
+    "orderPromptLead": "Aktivieren Sie Browser-Benachrichtigungen, um zu erfahren, wann Ihre Bestellung angenommen, unterwegs oder fertig ist — inklusive der voraussichtlichen Zeit.",
+    "orderEnable": "Benachrichtigen",
+    "orderEnableFailed": "Bestell-Benachrichtigungen konnten nicht aktiviert werden. Bitte erlauben Sie sie in den Browser-Einstellungen."
   },
   "nativeApp": {
     "promoStrip": "Online-Rabatt auf jede Bestellung in der App",

@@ -12,8 +12,8 @@ export const registerPushSubscription = (
 ) =>
   api.post("/api/notifications/push-subscribe", {
     token,
-    allowOffers: options.allowOffers !== false,
-    allowOrders: options.allowOrders !== false,
+    ...(typeof options.allowOffers === "boolean" ? { allowOffers: options.allowOffers } : {}),
+    ...(typeof options.allowOrders === "boolean" ? { allowOrders: options.allowOrders } : {}),
     branchId: options.branchId ?? undefined
   })
 

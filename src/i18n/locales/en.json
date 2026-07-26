@@ -471,6 +471,11 @@
     "scheduledFor": "Scheduled for",
     "readyAt": "Ready at",
     "prepTime": "Prep time: {{min}} min",
+    "etaDeliveryLabel": "Estimated delivery",
+    "etaPickupLabel": "Ready for pickup",
+    "etaInMinutes": "in about {{min}} minutes",
+    "etaPendingLabel": "Estimated time",
+    "etaPendingLead": "The kitchen is confirming your order. The estimated time will appear here.",
     "deliveryMap": "Delivery map",
     "driverLive": "Driver location live",
     "driverUpdated": " — updated {{time}}",
@@ -1007,7 +1012,12 @@
     "notNow": "Not now",
     "enableFailed": "Could not enable notifications. Please allow them in your browser settings.",
     "enabled": "Offer notifications are on.",
-    "deniedHint": "Notifications are blocked. Please allow them for this site in your browser settings."
+    "deniedHint": "Notifications are blocked. Please allow them for this site in your browser settings.",
+    "orderPromptAria": "Order notifications",
+    "orderPromptTitle": "Get updates about your order",
+    "orderPromptLead": "Enable browser notifications to hear when your order is accepted, on the way, or ready — including the estimated time.",
+    "orderEnable": "Notify me",
+    "orderEnableFailed": "Could not enable order notifications. Please allow them in your browser settings."
   },
   "nativeApp": {
     "promoStrip": "App discount on every order",
