@@ -1,13 +1,13 @@
 {
-  "id": "/",
-  "name": "Pizzeria Concordia",
-  "short_name": "Concordia",
-  "description": "Pizza, Pasta & mehr — online bestellen zur Abholung oder Lieferung.",
-  "start_url": "/",
-  "scope": "/",
+  "id": "/admin",
+  "name": "Concordia Admin",
+  "short_name": "Admin",
+  "description": "Pizzeria Concordia admin panel — orders, menu, and branch settings.",
+  "start_url": "/admin",
+  "scope": "/admin",
   "display": "standalone",
-  "theme_color": "#1b7340",
-  "background_color": "#faf9f7",
+  "theme_color": "#222222",
+  "background_color": "#222222",
   "icons": [
     {
       "src": "/brand/concordia-mark-512.png?v=20260705",

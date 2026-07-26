@@ -10,6 +10,7 @@ import LoadingFallback from "@/apps/customer/components/LoadingFallback"
 import NotFoundPage from "@/apps/customer/components/NotFoundPage"
 import ComingSoonPage from "@/pages/ComingSoonPage.js"
 import RouteChunkError from "@/components/RouteChunkError.js"
+import WebAppManifestSync from "@/components/WebAppManifestSync.js"
 import { hasComingSoonBypass, isComingSoonActive } from "@/lib/comingSoon.js"
 
 function RootLayout() {
@@ -19,6 +20,7 @@ function RootLayout() {
 
   return (
     <Suspense fallback={<LoadingFallback />}>
+      <WebAppManifestSync />
       <Outlet />
     </Suspense>
   )

@@ -33,7 +33,24 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Pizzeria Concordia" />
+    <meta name="application-name" content="Pizzeria Concordia" />
     <link rel="manifest" href="/manifest.json" />
+    <script>
+      (function () {
+        var path = location.pathname || "/";
+        var isAdmin = path === "/admin" || path.indexOf("/admin/") === 0;
+        if (!isAdmin) return;
+        var manifest = document.querySelector('link[rel="manifest"]');
+        if (manifest) manifest.setAttribute("href", "/admin-manifest.json");
+        var theme = document.querySelector('meta[name="theme-color"]');
+        if (theme) theme.setAttribute("content", "#222222");
+        var appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+        if (appleTitle) appleTitle.setAttribute("content", "Concordia Admin");
+        var appName = document.querySelector('meta[name="application-name"]');
+        if (appName) appName.setAttribute("content", "Concordia Admin");
+      })();
+    </script>
     <meta name="description" content="Pizza und Pizzeria in Kempen und Straelen online bestellen: frische Pizza, Pasta, Schnitzel und mehr. Lieferung oder Abholung bei Pizzeria Concordia." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.concordiapizza.de/" />
