@@ -183,6 +183,23 @@
   color: rgb(255 255 255 / 0.92);
 }
 
+.courier-scan__reader {
+  width: 100%;
+  min-height: 280px;
+  opacity: 0;
+}
+
+.courier-scan__reader--live {
+  opacity: 1;
+}
+
+.courier-scan__reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 16px;
+}
+
 .courier-scan__video {
   width: 100%;
   height: 100%;

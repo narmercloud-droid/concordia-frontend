@@ -1,133 +1,124 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useId, useRef, useState } from "react"
+import { Html5Qrcode } from "html5-qrcode"
 
 type Props = {
   onScan: (text: string) => void
   paused?: boolean
 }
 
-type CameraState = "idle" | "requesting" | "active" | "denied" | "unsupported"
+type CameraState = "idle" | "requesting" | "active" | "denied" | "error"
 
-function readCameraSupport() {
-  if (typeof navigator === "undefined") return false
-  return Boolean(navigator.mediaDevices?.getUserMedia)
+function pickRearCamera(cameras: Array<{ id: string; label: string }>) {
+  if (!cameras.length) return null
+  const rear = cameras.find((cam) => /back|rear|environment|hint/i.test(cam.label))
+  return rear?.id ?? cameras[cameras.length - 1]?.id ?? cameras[0]?.id ?? null
 }
 
 export default function CourierQrScanner({ onScan, paused = false }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const streamRef = useRef<MediaStream | null>(null)
-  const rafRef = useRef(0)
+  const regionId = useId().replace(/:/g, "")
+  const scannerRef = useRef<Html5Qrcode | null>(null)
   const lastScanRef = useRef("")
-  const detectorRef = useRef<BarcodeDetector | null>(null)
+  const onScanRef = useRef(onScan)
+  const pausedRef = useRef(paused)
 
-  const [cameraState, setCameraState] = useState<CameraState>(() =>
-    readCameraSupport() ? "idle" : "unsupported"
-  )
+  const [cameraState, setCameraState] = useState<CameraState>("idle")
   const [cameraHint, setCameraHint] = useState<string | null>(null)
   const [manualToken, setManualToken] = useState("")
 
-  const stopCamera = useCallback(() => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    rafRef.current = 0
-    streamRef.current?.getTracks().forEach((track) => track.stop())
-    streamRef.current = null
-    if (videoRef.current) {
-      videoRef.current.srcObject = null
-    }
-  }, [])
-
-  const startDetectionLoop = useCallback(() => {
-    const detector = detectorRef.current
-    if (!detector) return
-
-    const tick = async () => {
-      if (!videoRef.current || paused) return
-      try {
-        const codes = await detector.detect(videoRef.current)
-        const raw = codes[0]?.rawValue?.trim()
-        if (raw && raw !== lastScanRef.current) {
-          lastScanRef.current = raw
-          onScan(raw)
-        }
-      } catch {
-        // ignore frame errors
-      }
-      rafRef.current = requestAnimationFrame(() => {
-        void tick()
-      })
-    }
-
-    void tick()
-  }, [onScan, paused])
-
-  const enableCamera = useCallback(async () => {
-    if (!readCameraSupport()) {
-      setCameraState("unsupported")
-      return
-    }
-
-    setCameraState("requesting")
-    setCameraHint(null)
-    stopCamera()
-
-    try {
-      detectorRef.current = null
-      if (typeof BarcodeDetector !== "undefined") {
-        try {
-          detectorRef.current = new BarcodeDetector({ formats: ["qr_code"] })
-        } catch {
-          detectorRef.current = null
-        }
-      }
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: "environment" } },
-        audio: false
-      })
-
-      streamRef.current = stream
-      const video = videoRef.current
-      if (!video) {
-        stream.getTracks().forEach((track) => track.stop())
-        setCameraState("idle")
-        return
-      }
-
-      video.srcObject = stream
-      video.setAttribute("playsinline", "true")
-      video.muted = true
-      await video.play()
-
-      setCameraState("active")
-      if (!detectorRef.current) {
-        setCameraHint("Camera on — paste the driver link below if QR auto-scan is unavailable.")
-      }
-      startDetectionLoop()
-    } catch (err) {
-      stopCamera()
-      const name = err instanceof DOMException ? err.name : ""
-      if (name === "NotAllowedError" || name === "PermissionDeniedError") {
-        setCameraState("denied")
-        setCameraHint("Camera blocked. Allow camera for this site in browser settings, then try again.")
-        return
-      }
-      setCameraState("idle")
-      setCameraHint(
-        err instanceof Error
-          ? err.message
-          : "Could not open camera — paste the driver link below."
-      )
-    }
-  }, [startDetectionLoop, stopCamera])
+  useEffect(() => {
+    onScanRef.current = onScan
+  }, [onScan])
 
   useEffect(() => {
-    if (paused || cameraState !== "active") return
-    startDetectionLoop()
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
-  }, [cameraState, paused, startDetectionLoop])
+    pausedRef.current = paused
+  }, [paused])
 
-  useEffect(() => () => stopCamera(), [stopCamera])
+  const stopScanner = useCallback(async () => {
+    const scanner = scannerRef.current
+    if (!scanner) return
+    try {
+      if (scanner.isScanning) {
+        await scanner.stop()
+      }
+      scanner.clear()
+    } catch {
+      // ignore stop errors during teardown
+    }
+    scannerRef.current = null
+  }, [])
+
+  const enableCamera = useCallback(async () => {
+    setCameraState("requesting")
+    setCameraHint(null)
+    await stopScanner()
+
+    try {
+      const scanner = new Html5Qrcode(regionId, { verbose: false })
+      scannerRef.current = scanner
+
+      let cameraConfig: string | { facingMode: string } = { facingMode: "environment" }
+      try {
+        const cameras = await Html5Qrcode.getCameras()
+        const rearId = pickRearCamera(cameras)
+        if (rearId) cameraConfig = rearId
+      } catch {
+        // Safari/iOS often blocks camera enumeration until permission is granted — use facingMode.
+        cameraConfig = { facingMode: "environment" }
+      }
+
+      await scanner.start(
+        cameraConfig,
+        {
+          fps: 10,
+          qrbox: (viewfinderWidth, viewfinderHeight) => {
+            const size = Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.72)
+            return { width: size, height: size }
+          },
+          aspectRatio: 1
+        },
+        (decodedText) => {
+          if (pausedRef.current) return
+          const raw = decodedText.trim()
+          if (!raw || raw === lastScanRef.current) return
+          lastScanRef.current = raw
+          onScanRef.current(raw)
+        },
+        () => {
+          // QR not found in frame — ignore
+        }
+      )
+
+      setCameraState("active")
+    } catch (err) {
+      await stopScanner()
+      const name = err instanceof DOMException ? err.name : ""
+      const message = err instanceof Error ? err.message : String(err)
+
+      if (name === "NotAllowedError" || name === "PermissionDeniedError" || /permission/i.test(message)) {
+        setCameraState("denied")
+        setCameraHint(
+          "Camera blocked. On iPhone: Settings → Safari → Camera → Allow. On Android: tap the lock icon in the address bar and allow Camera, then try again."
+        )
+        return
+      }
+
+      setCameraState("error")
+      setCameraHint(
+        message ||
+          "Could not open the camera. Try Safari or Chrome, or paste the driver link below."
+      )
+    }
+  }, [regionId, stopScanner])
+
+  useEffect(() => {
+    if (!paused) {
+      lastScanRef.current = ""
+    }
+  }, [paused])
+
+  useEffect(() => () => {
+    void stopScanner()
+  }, [stopScanner])
 
   const submitManual = () => {
     const value = manualToken.trim()
@@ -141,16 +132,20 @@ export default function CourierQrScanner({ onScan, paused = false }: Props) {
       <div className="courier-scan__camera">
         {cameraState !== "active" && (
           <div className="courier-scan__placeholder">
-            {cameraState === "unsupported" && (
-              <p>Camera not supported in this browser. Paste the driver link below.</p>
-            )}
             {cameraState === "denied" && (
-              <p>Camera access denied. Enable it in browser settings or paste the link below.</p>
+              <p>Camera access denied. Allow camera for this site, or paste the driver link below.</p>
+            )}
+            {cameraState === "error" && (
+              <p>Could not start the camera on this phone. Paste the driver link below if scanning fails.</p>
             )}
             {cameraState === "idle" && (
               <>
-                <p>Allow camera access to scan delivery QR codes.</p>
-                <button type="button" className="courier-btn courier-btn--primary" onClick={() => void enableCamera()}>
+                <p>Tap below and allow camera access to scan delivery QR codes.</p>
+                <button
+                  type="button"
+                  className="courier-btn courier-btn--primary"
+                  onClick={() => void enableCamera()}
+                >
                   Enable camera
                 </button>
               </>
@@ -158,14 +153,10 @@ export default function CourierQrScanner({ onScan, paused = false }: Props) {
             {cameraState === "requesting" && <p>Opening camera…</p>}
           </div>
         )}
-        <video
-          ref={videoRef}
-          className={`courier-scan__video${cameraState === "active" ? " courier-scan__video--live" : ""}`}
-          playsInline
-          muted
-          autoPlay
+        <div
+          id={regionId}
+          className={`courier-scan__reader${cameraState === "active" ? " courier-scan__reader--live" : ""}`}
         />
-        {cameraState === "active" && <div className="courier-scan__overlay" aria-hidden="true" />}
       </div>
 
       {cameraState === "active" && (
@@ -174,7 +165,7 @@ export default function CourierQrScanner({ onScan, paused = false }: Props) {
         </button>
       )}
 
-      {cameraState === "denied" && (
+      {(cameraState === "denied" || cameraState === "error") && (
         <button type="button" className="courier-btn courier-scan__retry" onClick={() => void enableCamera()}>
           Try again
         </button>
