@@ -17,10 +17,14 @@ export default function CourierQrScanner({ onScan, paused = false }: Props) {
 
     let cancelled = false
     let raf = 0
-    const detector =
-      typeof BarcodeDetector !== "undefined"
-        ? new BarcodeDetector({ formats: ["qr_code"] })
-        : null
+    let detector: BarcodeDetector | null = null
+    try {
+      if (typeof BarcodeDetector !== "undefined") {
+        detector = new BarcodeDetector({ formats: ["qr_code"] })
+      }
+    } catch {
+      detector = null
+    }
 
     const start = async () => {
       try {

@@ -1,7 +1,7 @@
 import React, { Suspense } from "react"
 import { NavLink, Outlet } from "react-router-dom"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback.js"
-import "./pages/CourierPages.css"
+import "./../pages/CourierPages.css"
 
 export default function CourierLayout() {
   return (
