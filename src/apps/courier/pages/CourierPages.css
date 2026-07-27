@@ -1,0 +1,243 @@
+.courier-page {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.courier-page__header h1 {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+}
+
+.courier-page__lead {
+  margin: 0 0 16px;
+  color: #5c6b62;
+  line-height: 1.45;
+}
+
+.courier-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.courier-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #d8e4dc;
+  border-radius: 10px;
+  background: #fff;
+  color: #1a1f1c;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.courier-btn--primary {
+  background: #1b7340;
+  border-color: #1b7340;
+  color: #fff;
+}
+
+.courier-btn--nav {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #fff;
+}
+
+.courier-btn--block {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.courier-loading,
+.courier-empty {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f5f7f6;
+  color: #5c6b62;
+}
+
+.courier-feedback {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+.courier-feedback--success {
+  background: #e8f5ec;
+  color: #145a32;
+}
+
+.courier-feedback--duplicate {
+  background: #fff8e6;
+  color: #8a6d00;
+}
+
+.courier-feedback--error {
+  background: #fdecea;
+  color: #b00020;
+}
+
+.courier-gps {
+  margin: 12px 0;
+  font-size: 0.9rem;
+  color: #5c6b62;
+}
+
+.courier-gps--on {
+  color: #2e7d32;
+}
+
+.courier-list h2 {
+  margin: 20px 0 10px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6b62;
+}
+
+.courier-card {
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e3ebe6;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgb(26 24 22 / 0.05);
+}
+
+.courier-card--done {
+  opacity: 0.75;
+}
+
+.courier-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.courier-card__status {
+  font-size: 0.85rem;
+  color: #1b7340;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.courier-card__name {
+  margin: 8px 0 4px;
+  font-weight: 600;
+}
+
+.courier-card__address {
+  margin: 0 0 12px;
+  color: #5c6b62;
+  line-height: 1.4;
+}
+
+.courier-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.courier-scan__camera {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #111;
+  aspect-ratio: 1;
+}
+
+.courier-scan__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.courier-scan__overlay {
+  position: absolute;
+  inset: 18%;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+}
+
+.courier-scan__hint {
+  margin: 12px 0 0;
+  color: #5c6b62;
+  line-height: 1.45;
+}
+
+.courier-scan__manual {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.courier-scan__manual span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.courier-scan__manual input {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #d8e4dc;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.courier-back {
+  margin: 0 0 8px;
+}
+
+.courier-back a {
+  color: #1b7340;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.courier-detail h2 {
+  margin: 18px 0 6px;
+  font-size: 0.95rem;
+  color: #5c6b62;
+}
+
+.courier-items {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.courier-status-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.courier-status-actions .courier-btn {
+  flex: 1;
+}
+
+.courier-layout__nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e3ebe6;
+}
+
+.courier-layout__nav a {
+  color: #1b7340;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.courier-layout__nav a.active {
+  text-decoration: underline;
+}

@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router-dom"
 import CourierLayout from "./layouts/CourierLayout.js"
 import LoadingFallback from "@/apps/customer/components/LoadingFallback.js"
 
+const CourierHomePage = React.lazy(() => import("./pages/CourierHomePage.js"))
 const CourierScanPage = React.lazy(() => import("./pages/CourierScanPage.js"))
 const CourierOrderPage = React.lazy(() => import("./pages/CourierOrderPage.js"))
 
@@ -14,6 +15,7 @@ export const courierRoutes: RouteObject = {
   path: "/courier",
   element: <CourierLayout />,
   children: [
+    { index: true, element: lazySection(<CourierHomePage />) },
     { path: "scan", element: lazySection(<CourierScanPage />) },
     { path: "order", element: lazySection(<CourierOrderPage />) }
   ]

@@ -1,68 +1,82 @@
-import React, { Suspense, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useCallback, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import CourierQrScanner from "../components/CourierQrScanner.js"
+import { addCourierRouteToken, parseCourierToken } from "@/lib/courierRoute.js"
+import { acceptCourierOrder } from "@/api/courierOrder.js"
+import "./CourierPages.css"
 
-type ScanResult = { text?: string } | null
-
-type QrScannerProps = {
-  delay?: number
-  onError: () => void
-  onScan: (data: ScanResult) => void
-  style?: React.CSSProperties
-}
-
-const LazyQrScanner = React.lazy(async () => {
-  const mod = await import("react-qr-scanner")
-  return { default: mod.default as React.ComponentType<QrScannerProps> }
-})
-
-function QrScannerPanel({
-  onScan,
-  onError
-}: {
-  onScan: (data: ScanResult) => void
-  onError: () => void
-}) {
-  return (
-    <LazyQrScanner delay={300} onError={onError} onScan={onScan} style={{ width: "100%" }} />
-  )
+type ScanFeedback = {
+  kind: "success" | "duplicate" | "error"
+  message: string
 }
 
 export default function CourierScanPage() {
   const navigate = useNavigate()
-  const [cameraError, setCameraError] = useState(false)
+  const [feedback, setFeedback] = useState<ScanFeedback | null>(null)
+  const [paused, setPaused] = useState(false)
+  const [busy, setBusy] = useState(false)
 
-  const handleScan = (data: ScanResult) => {
-    if (!data?.text) return
+  const handleScan = useCallback(
+    async (raw: string) => {
+      if (busy) return
+      const token = parseCourierToken(raw)
+      if (!token) {
+        setFeedback({ kind: "error", message: "Invalid QR code — no driver token found." })
+        return
+      }
 
-    let token = data.text.trim()
-    try {
-      const url = new URL(token)
-      const fromQuery = url.searchParams.get("token")
-      if (fromQuery) token = fromQuery
-    } catch {
-      // Raw token scanned — use as-is
-    }
+      const added = addCourierRouteToken(token)
+      if (!added.added && added.reason === "duplicate") {
+        setFeedback({ kind: "duplicate", message: "Order already in your route." })
+        setPaused(true)
+        window.setTimeout(() => setPaused(false), 1500)
+        return
+      }
 
-    navigate(`/courier/order?token=${encodeURIComponent(token)}`)
-  }
-
-  const handleError = () => {
-    setCameraError(true)
-  }
+      setBusy(true)
+      setPaused(true)
+      try {
+        await acceptCourierOrder(token)
+        setFeedback({
+          kind: "success",
+          message: `Order #${token.slice(0, 8).toUpperCase()} added. Scan the next slip or open your route.`
+        })
+      } catch {
+        setFeedback({
+          kind: "success",
+          message: `Order added — open it from your route to accept if needed.`
+        })
+      } finally {
+        setBusy(false)
+        window.setTimeout(() => setPaused(false), 1200)
+      }
+    },
+    [busy]
+  )
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Scan Order QR Code</h2>
-      {!cameraError && (
-        <Suspense fallback={<p>Loading camera…</p>}>
-          <QrScannerPanel onScan={handleScan} onError={handleError} />
-        </Suspense>
-      )}
-      {cameraError && (
-        <p style={{ color: "red", marginTop: 16 }}>
-          Camera unavailable — please scan using your phone&apos;s camera app.
+    <div className="courier-page">
+      <div className="courier-page__header">
+        <h1>Scan orders</h1>
+        <p className="courier-page__lead">
+          Scan each delivery slip like Lieferando — keep scanning to build your route.
         </p>
-      )}
+      </div>
+
+      <CourierQrScanner onScan={(text) => void handleScan(text)} paused={paused || busy} />
+
+      {feedback ? (
+        <p className={`courier-feedback courier-feedback--${feedback.kind}`}>{feedback.message}</p>
+      ) : null}
+
+      <div className="courier-page__actions">
+        <Link to="/courier" className="courier-btn courier-btn--primary">
+          View my route
+        </Link>
+        <button type="button" className="courier-btn" onClick={() => navigate("/courier")}>
+          Done scanning
+        </button>
+      </div>
     </div>
   )
 }
