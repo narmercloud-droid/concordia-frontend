@@ -151,12 +151,106 @@
   border-radius: 16px;
   background: #111;
   aspect-ratio: 1;
+  min-height: 280px;
+}
+
+.courier-scan__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(160deg, #1a1f1c 0%, #2d4a38 100%);
+}
+
+.courier-scan__placeholder p {
+  margin: 0;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.92);
 }
 
 .courier-scan__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+}
+
+.courier-scan__video--live {
+  opacity: 1;
+}
+
+.courier-scan__retry {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.courier-route-map-section {
+  margin: 20px 0;
+}
+
+.courier-route-map-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.courier-route-map-section__head h2 {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5c6b62;
+}
+
+.courier-route-map-section__count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1b7340;
+}
+
+.courier-map {
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e3ebe6;
+  margin-bottom: 12px;
+}
+
+.courier-map__fallback {
+  margin: 0 0 12px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #f5f7f6;
+  color: #5c6b62;
+  line-height: 1.45;
+}
+
+.courier-map-pin {
+  background: transparent;
+  border: none;
+}
+
+.courier-map-pin span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
 }
 
 .courier-scan__overlay {
@@ -166,6 +260,7 @@
   border-radius: 12px;
   box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.35);
   pointer-events: none;
+  z-index: 1;
 }
 
 .courier-scan__hint {

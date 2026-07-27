@@ -8,6 +8,8 @@ import {
   loadCourierRoute,
   removeCourierRouteToken
 } from "@/lib/courierRoute.js"
+import { buildRouteNavigationUrl, type CourierMapStop } from "@/lib/courierMaps.js"
+import CourierRouteMap from "../components/CourierRouteMap.js"
 import { useCourierRouteTracking } from "../hooks/useCourierRouteTracking.js"
 import "./CourierPages.css"
 
@@ -47,6 +49,19 @@ export default function CourierHomePage() {
     void refetch()
   }
 
+  const mapStops: CourierMapStop[] = activeOrders
+    .filter(({ order }) => order.deliveryAddress)
+    .map(({ order }) => ({
+      orderId: order.orderId,
+      label: `#${order.orderId.slice(0, 8).toUpperCase()} · ${order.customerName}`,
+      address: order.deliveryAddress ?? "",
+      lat: order.deliveryLat,
+      lng: order.deliveryLng
+    }))
+
+  const branchOrigin = activeOrders[0]?.order.branch
+  const routeNavUrl = buildRouteNavigationUrl(mapStops, branchOrigin?.address ?? branchOrigin?.name)
+
   return (
     <div className="courier-page">
       <div className="courier-page__header">
@@ -73,9 +88,42 @@ export default function CourierHomePage() {
         <p className={`courier-gps ${tracking ? "courier-gps--on" : ""}`}>
           {tracking
             ? "GPS active for all accepted orders in your route."
-            : "Waiting for GPS… allow location access."}
+            : "Waiting for GPS… allow location when prompted."}
           {geoError ? ` ${geoError}` : ""}
         </p>
+      )}
+
+      {mapStops.length > 0 && (
+        <section className="courier-route-map-section">
+          <div className="courier-route-map-section__head">
+            <h2>Route map</h2>
+            {mapStops.length > 1 && (
+              <span className="courier-route-map-section__count">{mapStops.length} stops</span>
+            )}
+          </div>
+          <CourierRouteMap
+            stops={mapStops}
+            origin={
+              branchOrigin?.lat != null && branchOrigin?.lng != null
+                ? {
+                    lat: branchOrigin.lat,
+                    lng: branchOrigin.lng,
+                    label: branchOrigin.name ?? "Restaurant"
+                  }
+                : null
+            }
+          />
+          {routeNavUrl && (
+            <a
+              href={routeNavUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="courier-btn courier-btn--nav courier-btn--block"
+            >
+              Open full route in Google Maps
+            </a>
+          )}
+        </section>
       )}
 
       {tokens.length === 0 && (
