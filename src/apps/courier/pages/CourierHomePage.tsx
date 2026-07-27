@@ -10,6 +10,7 @@ import {
 } from "@/lib/courierRoute.js"
 import { buildRouteNavigationUrl, type CourierMapStop } from "@/lib/courierMaps.js"
 import CourierRouteMap from "../components/CourierRouteMap.js"
+import CourierCompleteButton from "../components/CourierCompleteButton.js"
 import { useCourierRouteTracking } from "../hooks/useCourierRouteTracking.js"
 import "./CourierPages.css"
 
@@ -158,6 +159,9 @@ export default function CourierHomePage() {
                   >
                     Navigate
                   </a>
+                )}
+                {order.driverAccepted && (
+                  <CourierCompleteButton token={token} compact />
                 )}
               </div>
             </article>

@@ -40,6 +40,9 @@ export const markCourierPickedUp = async (token: string) =>
 export const markCourierDelivered = async (token: string) =>
   unwrap<CourierOrderView>(await api.post("/api/courier/order/delivered", { token }))
 
+export const completeCourierOrder = async (token: string) =>
+  unwrap<CourierOrderView>(await api.post("/api/courier/order/complete", { token }))
+
 export const updateCourierLocation = (payload: {
   token: string
   lat: number

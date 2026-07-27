@@ -49,6 +49,12 @@
   color: #fff;
 }
 
+.courier-btn--complete {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
 .courier-btn--block {
   width: 100%;
   margin-top: 12px;
@@ -142,7 +148,9 @@
 
 .courier-card__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
 }
 
 .courier-scan__camera {
@@ -335,4 +343,84 @@
 
 .courier-layout__nav a.active {
   text-decoration: underline;
+}
+
+.courier-page--with-bar {
+  padding-bottom: 120px;
+}
+
+.courier-steps {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.courier-steps__item {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 999px;
+  background: #eef2ef;
+  color: #5c6b62;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.courier-steps__item--done {
+  background: #e8f5ec;
+  color: #145a32;
+}
+
+.courier-action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgb(250 249 247 / 0.96);
+  border-top: 1px solid #e3ebe6;
+  box-shadow: 0 -8px 24px rgb(26 24 22 / 0.08);
+}
+
+.courier-complete__panel,
+.courier-complete__confirm {
+  display: grid;
+  gap: 8px;
+}
+
+.courier-complete__question {
+  margin: 0 0 4px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.courier-complete--compact .courier-complete__confirm {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.courier-complete-success {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #e8f5ec;
+  text-align: center;
+}
+
+.courier-complete-success__title {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #145a32;
+}
+
+.courier-complete-success__lead {
+  margin: 0 0 14px;
+  color: #2e5e40;
+  line-height: 1.45;
 }

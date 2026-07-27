@@ -1,16 +1,30 @@
 import React, { useEffect } from "react"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import {
-  resolveOrderByToken,
-  acceptCourierOrder,
-  markCourierDelivered,
-  markCourierPickedUp
-} from "@/api/courierOrder"
-import { addCourierRouteToken, removeCourierRouteToken } from "@/lib/courierRoute"
+import { resolveOrderByToken, acceptCourierOrder } from "@/api/courierOrder"
+import { addCourierRouteToken } from "@/lib/courierRoute"
 import { useCourierRouteTracking } from "../hooks/useCourierRouteTracking"
+import CourierCompleteButton from "../components/CourierCompleteButton"
 import { getApiErrorMessage } from "@/lib/apiErrors"
 import "./CourierPages.css"
+
+function deliveryStep(order: {
+  driverAccepted: boolean
+  status: string
+  courierStatus?: string | null
+}) {
+  const done = order.status === "delivered" || order.courierStatus === "delivered"
+  if (done) return 3
+  if (
+    order.courierStatus === "picked_up" ||
+    order.status === "picked_up" ||
+    order.status === "out_for_delivery"
+  ) {
+    return 2
+  }
+  if (order.driverAccepted) return 1
+  return 0
+}
 
 export default function CourierOrderPage() {
   const queryClient = useQueryClient()
@@ -18,7 +32,7 @@ export default function CourierOrderPage() {
   const [params] = useSearchParams()
   const token = params.get("token") || ""
 
-  const { data: order, isError, error, isLoading, refetch } = useQuery({
+  const { data: order, isError, error, isLoading } = useQuery({
     queryKey: ["courierOrder", token],
     queryFn: () => resolveOrderByToken(token),
     enabled: !!token,
@@ -28,23 +42,6 @@ export default function CourierOrderPage() {
   const acceptMutation = useMutation({
     mutationFn: () => acceptCourierOrder(token),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["courierOrder", token] })
-      void queryClient.invalidateQueries({ queryKey: ["courierRoute"] })
-    }
-  })
-
-  const pickedUpMutation = useMutation({
-    mutationFn: () => markCourierPickedUp(token),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["courierOrder", token] })
-      void queryClient.invalidateQueries({ queryKey: ["courierRoute"] })
-    }
-  })
-
-  const deliveredMutation = useMutation({
-    mutationFn: () => markCourierDelivered(token),
-    onSuccess: () => {
-      removeCourierRouteToken(token)
       void queryClient.invalidateQueries({ queryKey: ["courierOrder", token] })
       void queryClient.invalidateQueries({ queryKey: ["courierRoute"] })
     }
@@ -74,21 +71,29 @@ export default function CourierOrderPage() {
     )
   }
 
-  const statusLabel = order.courierStatus ?? order.status
   const isDelivered = order.status === "delivered" || order.courierStatus === "delivered"
-  const isPickedUp =
-    order.courierStatus === "picked_up" ||
-    order.status === "picked_up" ||
-    order.status === "delivered"
+  const step = deliveryStep(order)
 
   return (
-    <div className="courier-page courier-page--detail">
+    <div className="courier-page courier-page--detail courier-page--with-bar">
       <p className="courier-back">
         <Link to="/courier">← My deliveries</Link>
       </p>
 
+      <ol className="courier-steps" aria-label="Delivery progress">
+        <li className={step >= 1 ? "courier-steps__item courier-steps__item--done" : "courier-steps__item"}>
+          Accepted
+        </li>
+        <li className={step >= 2 ? "courier-steps__item courier-steps__item--done" : "courier-steps__item"}>
+          On the way
+        </li>
+        <li className={step >= 3 ? "courier-steps__item courier-steps__item--done" : "courier-steps__item"}>
+          Complete
+        </li>
+      </ol>
+
       <h1>Order #{order.orderId.slice(0, 8).toUpperCase()}</h1>
-      <p className="courier-card__status">{statusLabel}</p>
+      <p className="courier-card__status">{order.courierStatus ?? order.status}</p>
 
       <section className="courier-detail">
         <h2>Customer</h2>
@@ -139,29 +144,6 @@ export default function CourierOrderPage() {
       )}
 
       {order.driverAccepted && !isDelivered && (
-        <div className="courier-status-actions">
-          {!isPickedUp && (
-            <button
-              type="button"
-              className="courier-btn"
-              onClick={() => pickedUpMutation.mutate()}
-              disabled={pickedUpMutation.isPending}
-            >
-              {pickedUpMutation.isPending ? "Updating…" : "Picked up"}
-            </button>
-          )}
-          <button
-            type="button"
-            className="courier-btn courier-btn--primary"
-            onClick={() => deliveredMutation.mutate()}
-            disabled={deliveredMutation.isPending}
-          >
-            {deliveredMutation.isPending ? "Updating…" : "Delivered"}
-          </button>
-        </div>
-      )}
-
-      {order.driverAccepted && !isDelivered && (
         <p className={`courier-gps ${tracking ? "courier-gps--on" : ""}`}>
           {tracking ? "GPS tracking active." : "Starting GPS…"}
           {geoError ? ` ${geoError}` : ""}
@@ -169,13 +151,21 @@ export default function CourierOrderPage() {
       )}
 
       {isDelivered && (
-        <div className="courier-page__actions">
-          <Link to="/courier/scan" className="courier-btn courier-btn--primary">
+        <div className="courier-complete-success">
+          <p className="courier-complete-success__title">Delivery completed</p>
+          <p className="courier-complete-success__lead">This order is done. Scan or select the next delivery.</p>
+          <Link to="/courier/scan" className="courier-btn courier-btn--primary courier-btn--block">
             Scan next order
           </Link>
-          <button type="button" className="courier-btn" onClick={() => void refetch()}>
-            Refresh
-          </button>
+          <Link to="/courier" className="courier-btn courier-btn--block">
+            Back to route
+          </Link>
+        </div>
+      )}
+
+      {order.driverAccepted && !isDelivered && (
+        <div className="courier-action-bar">
+          <CourierCompleteButton token={token} onCompleted={() => navigate("/courier")} />
         </div>
       )}
     </div>
