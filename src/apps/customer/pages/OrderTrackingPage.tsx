@@ -10,9 +10,7 @@ import { translateFulfillmentType, translateOrderStatus } from "@/utils/translat
 import OrderReviewForm from "@/apps/customer/components/order/OrderReviewForm"
 import OrderProgressStepper from "@/apps/customer/components/order/OrderProgressStepper"
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
-import OrderNotificationsPrompt, {
-  shouldShowOrderNotificationPrompt
-} from "@/apps/customer/components/OrderNotificationsPrompt"
+import OrderTrackingStayUpdated from "@/apps/customer/components/order/OrderTrackingStayUpdated"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
 import "./OrderTrackingPage.css"
 
@@ -140,7 +138,11 @@ export default function OrderTrackingPage() {
             ✓
           </div>
           <h2 className="order-confirmation__title">{t("order.confirmationTitle")}</h2>
-          <p className="order-confirmation__lead">{t("order.confirmationLead")}</p>
+          <p className="order-confirmation__lead">
+            {order.status === "pending"
+              ? t("order.confirmationLeadPending")
+              : t("order.confirmationLeadAccepted")}
+          </p>
           <p className="order-confirmation__meta">
             {t("order.orderNumber", { id: orderId?.slice(0, 8) })}
             {order.orderTotal != null && (
@@ -191,13 +193,14 @@ export default function OrderTrackingPage() {
         </div>
       )}
 
-      {orderId && (
-        <OrderNotificationsPrompt
+      {orderId ? (
+        <OrderTrackingStayUpdated
           orderId={orderId}
           branchId={order.branchId ?? null}
-          active={shouldShowOrderNotificationPrompt(justPlaced, order.status)}
+          justPlaced={justPlaced}
+          status={order.status}
         />
-      )}
+      ) : null}
 
       <h2 className="customer-title">{t("order.tracking")}</h2>
 
