@@ -18,6 +18,24 @@
       "schedule": "0 20 * * *"
     }
   ],
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/privacy", "destination": "/datenschutz", "permanent": true },
+    { "source": "/team", "destination": "/about", "permanent": true },
+    { "source": "/loyalty-terms", "destination": "/terms", "permanent": true },
+    { "source": "/menu", "destination": "/", "permanent": true },
+    { "source": "/kempen", "destination": "/branch/concordia-kempen", "permanent": true },
+    { "source": "/kempen/", "destination": "/branch/concordia-kempen", "permanent": true },
+    { "source": "/straelen", "destination": "/branch/concordia-straelen", "permanent": true },
+    { "source": "/straelen/", "destination": "/branch/concordia-straelen", "permanent": true },
+    { "source": "/kempen/menu", "destination": "/kempen-menu.html", "permanent": true },
+    { "source": "/kempen/menu/", "destination": "/kempen-menu.html", "permanent": true },
+    { "source": "/kempen/menu.html", "destination": "/kempen-menu.html", "permanent": true },
+    { "source": "/straelen/menu", "destination": "/straelen-menu.html", "permanent": true },
+    { "source": "/straelen/menu/", "destination": "/straelen-menu.html", "permanent": true },
+    { "source": "/straelen/menu.html", "destination": "/straelen-menu.html", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/straelen-menu.html",
@@ -121,14 +139,6 @@
       "source": "/api/(.*)",
       "destination": "https://api.concordiapizza.de/api/$1"
     },
-    {
-      "source": "/straelen/menu",
-      "destination": "/straelen/menu.html"
-    },
-    {
-      "source": "/kempen/menu",
-      "destination": "/kempen/menu.html"
-    },
-    { "source": "/((?!api/|assets/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml|straelen/|kempen/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|assets/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml).*)", "destination": "/index.html" }
   ]
 }
