@@ -141,9 +141,18 @@
 }
 
 .courier-card__address {
-  margin: 0 0 12px;
+  margin: 0 0 4px;
   color: #5c6b62;
   line-height: 1.4;
+}
+
+.courier-card__notes,
+.courier-detail__notes {
+  margin: 0 0 12px;
+  color: #1a1f1c;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: pre-wrap;
 }
 
 .courier-card__actions {

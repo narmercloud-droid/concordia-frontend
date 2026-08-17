@@ -146,6 +146,9 @@ export default function CourierHomePage() {
               </div>
               <p className="courier-card__name">{order.customerName}</p>
               <p className="courier-card__address">{order.deliveryAddress}</p>
+              {order.deliveryNotes ? (
+                <p className="courier-card__notes">{order.deliveryNotes}</p>
+              ) : null}
               <div className="courier-card__actions">
                 <Link to={`/courier/order?token=${encodeURIComponent(token)}`} className="courier-btn">
                   Open

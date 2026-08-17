@@ -108,6 +108,9 @@ export default function CourierOrderPage() {
       <section className="courier-detail">
         <h2>Deliver to</h2>
         <p>{order.deliveryAddress}</p>
+        {order.deliveryNotes ? (
+          <p className="courier-detail__notes">{order.deliveryNotes}</p>
+        ) : null}
       </section>
 
       <section className="courier-detail">

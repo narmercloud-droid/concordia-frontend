@@ -473,7 +473,7 @@ export default function CustomerSettingsPage() {
                       </span>
                     )}
                     <p className="customer-hint" style={{ marginTop: 8 }}>
-                      {formatDeliveryAddress(addressToFields(address))}
+                      {formatDeliveryAddress(addressToFields(address), { includeInstructions: true })}
                     </p>
                   </div>
                   <div className="customer-btn-row">

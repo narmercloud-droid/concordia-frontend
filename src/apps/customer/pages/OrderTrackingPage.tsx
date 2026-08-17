@@ -12,6 +12,7 @@ import OrderProgressStepper from "@/apps/customer/components/order/OrderProgress
 import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import OrderTrackingStayUpdated from "@/apps/customer/components/order/OrderTrackingStayUpdated"
 import { useDocumentVisible } from "@/hooks/useDocumentVisible"
+import { toNavigationAddress } from "@/lib/deliveryAddress"
 import "./OrderTrackingPage.css"
 
 type CourierLocation = { lat: number; lng: number; updatedAt?: string }
@@ -116,7 +117,7 @@ export default function OrderTrackingPage() {
     mapLat != null && mapLng != null
       ? `https://maps.google.com/maps?q=${mapLat},${mapLng}&z=15&output=embed`
       : order.deliveryAddress
-        ? `https://maps.google.com/maps?q=${encodeURIComponent(order.deliveryAddress)}&z=15&output=embed`
+        ? `https://maps.google.com/maps?q=${encodeURIComponent(toNavigationAddress(order.deliveryAddress))}&z=15&output=embed`
         : null
 
   const showConfirmation =

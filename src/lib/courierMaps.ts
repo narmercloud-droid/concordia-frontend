@@ -1,3 +1,5 @@
+import { toNavigationAddress } from "@/lib/deliveryAddress.js"
+
 export type CourierMapStop = {
   orderId: string
   label: string
@@ -11,7 +13,9 @@ export function buildRouteNavigationUrl(
   stops: CourierMapStop[],
   originAddress?: string | null
 ) {
-  const addresses = stops.map((s) => s.address.trim()).filter(Boolean)
+  const addresses = stops
+    .map((s) => toNavigationAddress(s.address).trim())
+    .filter(Boolean)
   if (!addresses.length) return null
 
   const params = new URLSearchParams({

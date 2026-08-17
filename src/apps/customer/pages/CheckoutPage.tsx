@@ -979,7 +979,12 @@ export default function CheckoutPage() {
           allowCheckoutVouchers && hasWalletCoupons
             ? walletStack?.customerCouponIds
             : undefined,
-        notes: orderNotes.trim() || undefined,
+        notes: [
+          addressFields.floor.trim() ? `Lieferhinweis: ${addressFields.floor.trim()}` : "",
+          orderNotes.trim()
+        ]
+          .filter(Boolean)
+          .join("\n") || undefined,
         pushToken: pushToken ?? undefined,
         termsAccepted: true
       })

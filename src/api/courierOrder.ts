@@ -8,6 +8,7 @@ export type CourierOrderView = {
   customerName: string
   customerPhone?: string | null
   deliveryAddress?: string | null
+  deliveryNotes?: string | null
   deliveryLat?: number | null
   deliveryLng?: number | null
   items: Array<{ name: string; quantity: number; notes?: string | null; price?: number }>

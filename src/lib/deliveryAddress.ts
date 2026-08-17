@@ -16,18 +16,58 @@ export const EMPTY_DELIVERY_ADDRESS: DeliveryAddressFields = {
   postalCode: ""
 }
 
-export function formatDeliveryAddress(fields: DeliveryAddressFields): string {
+export function formatDeliveryAddress(
+  fields: DeliveryAddressFields,
+  options?: { includeInstructions?: boolean }
+): string {
   const streetLine = [fields.street.trim(), fields.houseNumber.trim()]
     .filter(Boolean)
     .join(" ")
-  const floor = fields.floor.trim()
   const location = [fields.postalCode.trim(), fields.city.trim()].filter(Boolean).join(" ")
-
   const parts = [streetLine]
-  if (floor) parts.push(floor)
+  if (options?.includeInstructions && fields.floor.trim()) {
+    parts.push(fields.floor.trim())
+  }
   if (location) parts.push(location)
-
   return parts.filter(Boolean).join(", ")
+}
+
+/** Street + PLZ/city only — extra Etage/Klingel notes break Google Maps routing. */
+export function toNavigationAddress(address?: string | null, postalCode?: string | null): string {
+  const raw = (address ?? "").trim()
+  if (!raw) return ""
+
+  const parts = raw
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+
+  const navigable =
+    parts.length <= 2 ? parts.join(", ") : `${parts[0]}, ${parts[parts.length - 1]}`
+
+  const plz = (postalCode ?? "").trim()
+  if (plz && !navigable.includes(plz)) {
+    return `${navigable}, ${plz}`
+  }
+  return navigable
+}
+
+export function splitDeliveryAddress(address?: string | null): {
+  streetLines: string[]
+  hints: string[]
+} {
+  const parts = (address ?? "")
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+
+  if (parts.length === 0) return { streetLines: [], hints: [] }
+  if (parts.length <= 2) return { streetLines: parts, hints: [] }
+
+  return {
+    streetLines: [parts[0], parts[parts.length - 1]],
+    hints: parts.slice(1, -1)
+  }
 }
 
 export function isDeliveryAddressComplete(fields: DeliveryAddressFields): boolean {
@@ -50,11 +90,9 @@ export function parseLegacyAddress(address: string): DeliveryAddressFields {
     ? trimmed.slice(0, postalMatch.index).replace(/,\s*$/, "").trim()
     : trimmed
 
-  const floorMatch = beforeLocation.match(/,\s*((?:\d+\.\s*)?(?:OG|Etage|Stock|Floor).*)$/i)
-  const floor = floorMatch?.[1]?.trim() ?? ""
-  const streetPart = floorMatch
-    ? beforeLocation.slice(0, floorMatch.index).trim()
-    : beforeLocation
+  const commaParts = beforeLocation.split(",").map((part) => part.trim()).filter(Boolean)
+  const streetPart = commaParts[0] ?? beforeLocation
+  const floor = commaParts.slice(1).join(", ")
 
   const houseMatch = streetPart.match(/^(.+?)\s+(\d+\s*[a-zA-Z]?)$/)
   if (houseMatch) {
