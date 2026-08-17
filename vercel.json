@@ -123,6 +123,13 @@
       ]
     },
     {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
+    {
       "source": "/.well-known/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600" },
@@ -139,6 +146,6 @@
       "source": "/api/(.*)",
       "destination": "https://api.concordiapizza.de/api/$1"
     },
-    { "source": "/((?!api/|assets/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|assets/|\\.well-known/|google[a-z0-9]+\\.html|straelen-menu\\.html|kempen-menu\\.html|robots\\.txt|sitemap\\.xml|llms\\.txt).*)", "destination": "/index.html" }
   ]
 }

@@ -39,11 +39,7 @@ export function requestCookieSettings() {
 
 export default function CookieConsent() {
   const { t } = useTranslation()
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    setVisible(readConsent() === null)
-  }, [])
+  const [visible, setVisible] = useState(() => readConsent() === null)
 
   useEffect(() => {
     const open = () => setVisible(true)

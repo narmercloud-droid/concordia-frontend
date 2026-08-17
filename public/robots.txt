@@ -11,4 +11,10 @@ Disallow: /customer/settings
 Disallow: /customer/login
 Disallow: /customer/register
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.concordiapizza.de/sitemap.xml

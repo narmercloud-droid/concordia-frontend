@@ -61,7 +61,8 @@ export default function ConcordiaLogo({
         className="concordia-logo__image"
         width={resolvedVariant === "hero" ? 360 : 240}
         height={resolvedVariant === "hero" ? 220 : 52}
-        loading={resolvedVariant === "hero" ? "eager" : "lazy"}
+        loading="eager"
+        fetchPriority={resolvedVariant === "lockup" ? "high" : undefined}
         decoding="async"
       />
     </span>

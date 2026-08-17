@@ -1,0 +1,19 @@
+# Pizzeria Concordia
+
+Pizzeria Concordia is a restaurant with two locations in North Rhine-Westphalia, Germany. Customers can order pizza, pasta, schnitzel and more online for delivery or pickup.
+
+## Locations
+
+- [Concordia Kempen](https://www.concordiapizza.de/branch/concordia-kempen): Concordienplatz 1, 47906 Kempen. Phone +49 2152 9591952. [HTML menu](https://www.concordiapizza.de/kempen-menu.html)
+- [Concordia Straelen](https://www.concordiapizza.de/branch/concordia-straelen): Venloer Straße 22, 47638 Straelen. Phone +49 2834 1748. [HTML menu](https://www.concordiapizza.de/straelen-menu.html)
+
+## Important pages
+
+- [Home](https://www.concordiapizza.de/)
+- [Offers](https://www.concordiapizza.de/offers)
+- [About](https://www.concordiapizza.de/about)
+- [Contact](https://www.concordiapizza.de/contact)
+- [FAQ](https://www.concordiapizza.de/faq)
+- [Gift voucher](https://www.concordiapizza.de/gutschein)
+- [Privacy](https://www.concordiapizza.de/datenschutz)
+- [Imprint](https://www.concordiapizza.de/impressum)

@@ -129,6 +129,7 @@
 .concordia-logo--sm .concordia-logo__image {
   width: auto;
   max-width: min(200px, 58vw);
+  height: 48px;
   max-height: 48px;
   object-fit: contain;
 }
@@ -1594,6 +1595,8 @@
     max(16px, env(safe-area-inset-left));
   background: rgba(15, 23, 42, 0.92);
   color: #f8fafc;
+  contain: layout paint;
+  pointer-events: auto;
 }
 
 .cookie-consent__inner {

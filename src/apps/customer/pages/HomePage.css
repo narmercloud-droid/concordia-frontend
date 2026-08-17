@@ -191,6 +191,7 @@
   margin-bottom: 44px;
   box-shadow: 0 16px 40px rgba(26, 24, 22, 0.08);
   border-color: rgb(var(--home-green-rgb) / 0.14);
+  min-height: 280px;
 }
 
 .home-order-hub__eyebrow {
@@ -482,6 +483,7 @@
 .home-hero__reviews--compact {
   margin-top: 10px;
   padding: 12px 14px;
+  min-height: 148px;
 }
 
 .home-hero__reviews-title {
@@ -587,6 +589,12 @@
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
+  min-height: 124px;
+}
+
+.home-hero__stack .home-review-snippet__quote {
+  min-height: 4.6em;
+  overflow: hidden;
 }
 
 .home-hero__motion {
@@ -603,10 +611,10 @@
   height: 100%;
   object-fit: cover;
   object-position: 50% 42%;
-  transform: scale(1.06);
+  transform: scale(1.08);
   filter: brightness(1.06) contrast(1.05) saturate(1.08);
   animation: home-hero-kenburns 24s ease-in-out infinite alternate;
-  will-change: transform, object-position;
+  will-change: transform;
 }
 
 .home-hero__motion--kenburns {
@@ -616,12 +624,10 @@
 
 @keyframes home-hero-kenburns {
   0% {
-    transform: scale(1.06);
-    object-position: 48% 42%;
+    transform: scale(1.06) translate3d(0, 0, 0);
   }
   100% {
-    transform: scale(1.18);
-    object-position: 52% 30%;
+    transform: scale(1.16) translate3d(1.5%, -2%, 0);
   }
 }
 
