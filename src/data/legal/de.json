@@ -53,7 +53,7 @@
     ]
   },
   "datenschutz": {
-    "updated": "Stand: 20. Juli 2026",
+    "updated": "Stand: 17. August 2026",
     "sections": [
       {
         "title": "1. Datenschutz auf einen Blick",
@@ -191,6 +191,14 @@
             "title": "Google Maps",
             "paragraphs": [
               "Zur Darstellung von Liefer- und Standortinformationen kann Google Maps eingebunden werden. Anbieter ist Google Ireland Limited. Dabei kann Ihre IP-Adresse an Google übermittelt werden. Weitere Informationen: https://policies.google.com/privacy"
+            ]
+          },
+          {
+            "title": "Google Analytics",
+            "paragraphs": [
+              "Mit Ihrer Einwilligung (Cookie-Banner „Alle akzeptieren“) nutzen wir Google Analytics 4, um die Nutzung unserer Website auszuwerten (z. B. Seitenaufrufe, Gerätetyp, ungefähre Region). Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.",
+              "Google Analytics setzt Cookies bzw. ähnliche Speichertechniken. IP-Adressen werden gekürzt (anonymize_ip). Die Messung erfolgt nur, wenn Sie der Statistik-Nutzung zugestimmt haben. Sie können die Einwilligung jederzeit über „Cookie-Einstellungen“ im Footer widerrufen.",
+              "Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Weitere Informationen: https://policies.google.com/privacy und https://business.safety.google/privacy/"
             ]
           }
         ]

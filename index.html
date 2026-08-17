@@ -110,6 +110,25 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/brand/apple-touch-icon-152.png?v=20260705" />
     <link rel="preload" as="image" href="/images/food/concordia-hero-oven-pizza.webp?v=20260622" type="image/webp" />
     <title>Pizza bestellen Kempen &amp; Straelen | Pizzeria Concordia – Online Lieferung &amp; Abholung</title>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      var analyticsGranted = false;
+      try {
+        analyticsGranted = localStorage.getItem("concordia_cookie_consent_v1") === "all";
+      } catch (e) {}
+      gtag("consent", "default", {
+        analytics_storage: analyticsGranted ? "granted" : "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        wait_for_update: 500
+      });
+      gtag("js", new Date());
+      gtag("config", "G-R933CRPDVP", { anonymize_ip: true, send_page_view: false });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R933CRPDVP"></script>
   </head>
   <body>
     <div id="root"></div>

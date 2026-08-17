@@ -35,7 +35,7 @@
     "acceptTermsRequired": "Bitte bestätigen Sie die AGB und nehmen Sie die Widerrufsbelehrung zur Kenntnis.",
     "cookie": {
       "title": "Cookies & Speicher",
-      "body": "Wir verwenden technisch notwendige Speicher (Warenkorb, Sprache, Anmeldung). Mit Ihrer Zustimmung können wir auch optionale Funktionen wie Angebots-Benachrichtigungen nutzen.",
+      "body": "Wir verwenden technisch notwendige Speicher (Warenkorb, Sprache, Anmeldung). Mit Ihrer Zustimmung nutzen wir Google Analytics, um die Website zu verbessern, und optionale Funktionen wie Angebots-Benachrichtigungen.",
       "essentialOnly": "Nur notwendige",
       "acceptAll": "Alle akzeptieren",
       "settings": "Cookie-Einstellungen"

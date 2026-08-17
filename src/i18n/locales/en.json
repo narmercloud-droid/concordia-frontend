@@ -35,7 +35,7 @@
     "acceptTermsRequired": "Please confirm the terms and cancellation policy.",
     "cookie": {
       "title": "Cookies & storage",
-      "body": "We use essential storage for your cart, language, and login. With your consent we may also enable optional features such as offer notifications.",
+      "body": "We use essential storage for your cart, language, and login. With your consent we also use Google Analytics to improve the website, plus optional features such as offer notifications.",
       "essentialOnly": "Essential only",
       "acceptAll": "Accept all",
       "settings": "Cookie settings"

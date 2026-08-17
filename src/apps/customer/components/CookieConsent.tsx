@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import {
+  applyAnalyticsConsent,
+  notifyCookieConsentChanged
+} from "@/lib/googleAnalytics"
 
 const STORAGE_KEY = "concordia_cookie_consent_v1"
 export const COOKIE_SETTINGS_EVENT = "concordia:open-cookie-settings"
@@ -51,6 +55,8 @@ export default function CookieConsent() {
 
   const accept = (value: Consent) => {
     writeConsent(value)
+    applyAnalyticsConsent(value === "all")
+    notifyCookieConsentChanged()
     setVisible(false)
   }
 

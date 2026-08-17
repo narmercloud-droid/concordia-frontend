@@ -21,12 +21,14 @@ import CheckoutLegalFooter from "@/apps/customer/components/CheckoutLegalFooter"
 import CustomerErrorBoundary from "@/apps/customer/components/CustomerErrorBoundary"
 import { WIDE_CUSTOMER_PATHS } from "@/lib/infoPages"
 import { usePageSeo } from "@/hooks/usePageSeo"
+import { useGoogleAnalytics } from "@/hooks/useGoogleAnalytics"
 import "../customer.css"
 import "../customer-mobile.css"
 
 export default function CustomerLayout() {
   const { t, i18n } = useTranslation()
   usePageSeo()
+  useGoogleAnalytics()
   const queryClient = useQueryClient()
   const location = useLocation()
   const [pushDenied, setPushDenied] = useState(false)
